@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/1026_browt/all/base/none/browt.bmd
+$anim walk pixelmon_backport:textures/pokemon/1026_browt/all/base/none/walk.bmd
+$anim idle pixelmon_backport:textures/pokemon/1026_browt/all/base/none/idle.bmd
+$scale 1.0

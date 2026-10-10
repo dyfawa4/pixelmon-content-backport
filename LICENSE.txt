@@ -1,4 +1,4 @@
-MIT License (addon code and map-control code only)
+MIT License (project code, tools, tests and documentation)
 
 Copyright (c) 2026 the contributors of Pixelmon Content Backport
 
@@ -20,6 +20,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-This license applies to the addon code and dedicated map-control code only.
+This license applies to project code, tools, tests and documentation.
 Converted Pixelmon / custom ZA assets and data retain their original authors'
 rights. Their inclusion does not grant a license to the upstream game or mod.

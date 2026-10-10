@@ -1,0 +1,5 @@
+$body pixelmon_backport:textures/reference/pokemon/493_arceus/all/legend/none/arceus.bmd
+$anim idle pixelmon_backport:textures/reference/pokemon/493_arceus/all/legend/none/idle.bmd
+$anim walk pixelmon_backport:textures/reference/pokemon/493_arceus/all/legend/none/walk.bmd
+$anim fly pixelmon_backport:textures/reference/pokemon/493_arceus/all/legend/none/fly.bmd
+$scale 3

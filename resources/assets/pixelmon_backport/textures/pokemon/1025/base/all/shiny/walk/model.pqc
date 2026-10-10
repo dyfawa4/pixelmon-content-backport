@@ -1,0 +1,3 @@
+$body pixelmon_backport:textures/pokemon/1025_pecharunt/all/base/none/inshell.bmd
+$anim walk pixelmon_backport:textures/pokemon/1025_pecharunt/all/base/none/walk.bmd
+$scale 1.0

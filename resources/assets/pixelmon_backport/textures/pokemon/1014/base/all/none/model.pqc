@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/1014_okidogi/all/base/none/okidogi.bmd
+$anim idle pixelmon_backport:textures/pokemon/1014_okidogi/all/base/none/idle.bmd
+$anim walk pixelmon_backport:textures/pokemon/1014_okidogi/all/base/none/walk.bmd
+$scale 1.0

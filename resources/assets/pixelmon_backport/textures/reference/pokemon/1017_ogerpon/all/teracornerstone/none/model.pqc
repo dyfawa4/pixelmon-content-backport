@@ -1,0 +1,3 @@
+$body pixelmon_backport:textures/reference/pokemon/1017_ogerpon/all/teracornerstone/none/1.bmd
+$anim idle pixelmon_backport:textures/reference/pokemon/1017_ogerpon/all/teracornerstone/none/idle.bmd
+$scale 15

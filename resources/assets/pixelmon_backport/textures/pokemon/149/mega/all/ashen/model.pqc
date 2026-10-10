@@ -1,0 +1,5 @@
+$body pixelmon_backport:textures/pokemon/149_dragonite/all/mega/none/model.bmd
+$anim idle pixelmon_backport:textures/pokemon/149/mega/all/ashen/idle.bmd
+$anim walk pixelmon_backport:textures/pokemon/149/mega/all/ashen/walk.bmd
+$anim fly pixelmon_backport:textures/pokemon/149/mega/all/ashen/fly.bmd
+$scale 1.0

@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/1020_gougingfire/all/base/none/gougingfire.bmd
+$anim idle pixelmon_backport:textures/pokemon/1020/base/all/shiny/idle.bmd
+$anim walk pixelmon_backport:textures/pokemon/1020/base/all/shiny/walk.bmd
+$scale 1.0

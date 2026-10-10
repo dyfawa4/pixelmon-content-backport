@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/1012_poltchageist/all/artisan/none/poltchageist.bmd
+$anim idle pixelmon_backport:textures/pokemon/1012_poltchageist/all/artisan/none/idle.bmd
+$anim walk pixelmon_backport:textures/pokemon/1012_poltchageist/all/artisan/none/walk.bmd
+$scale 1.0

@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/1023_ironcrown/all/base/none/ironcrown.bmd
+$anim idle pixelmon_backport:textures/pokemon/1023_ironcrown/all/base/none/idle.bmd
+$anim walk pixelmon_backport:textures/pokemon/1023_ironcrown/all/base/none/walk.bmd
+$scale 1.0

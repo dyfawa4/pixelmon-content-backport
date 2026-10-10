@@ -1,0 +1,5 @@
+$body pixelmon_backport:textures/pokemon/1032_gecqua/all/base/none/gecqua.bmd
+$anim walk pixelmon_backport:textures/pokemon/1032/base/all/none/walk.bmd
+$anim idle pixelmon_backport:textures/pokemon/1032/base/all/none/idle.bmd
+$anim swim pixelmon_backport:textures/pokemon/1032/base/all/none/swim.bmd
+$scale 1.0

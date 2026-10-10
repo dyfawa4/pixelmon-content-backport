@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pixelmon_backport:item/unremarkable_teacup"
+  }
+}

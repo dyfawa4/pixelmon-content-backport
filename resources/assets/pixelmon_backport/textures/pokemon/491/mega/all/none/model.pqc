@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/491/mega/all/none/model.smd
+$anim idle pixelmon_backport:textures/pokemon/491/mega/all/none/idle.smd
+$anim walk pixelmon_backport:textures/pokemon/491/mega/all/none/walk.smd
+$scale 1

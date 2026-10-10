@@ -1,0 +1,15 @@
+* text=auto
+*.java text eol=lf
+*.py text eol=lf
+*.ps1 text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+resources/** -text -whitespace
+tests/** whitespace=-blank-at-eof,cr-at-eol
+test-maps/saves/** -text
+*.png binary
+*.bmd binary
+*.glb binary
+*.matrices binary
+*.mca binary
+*.dat binary

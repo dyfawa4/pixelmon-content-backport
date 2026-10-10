@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/1013_sinistcha/all/masterpiece/none/sinistcha.bmd
+$anim idle pixelmon_backport:textures/pokemon/1013_sinistcha/all/masterpiece/none/idle.bmd
+$anim walk pixelmon_backport:textures/pokemon/1013_sinistcha/all/masterpiece/none/walk.bmd
+$scale 1.0

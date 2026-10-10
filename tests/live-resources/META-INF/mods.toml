@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+[[mods]]
+modId="backport_live_test"
+version="1"
+displayName="Backport isolated integration tests"
+[[dependencies.backport_live_test]]
+modId="pixelmon_backport"
+mandatory=true
+versionRange="[0.1.0,)"
+ordering="AFTER"
+side="SERVER"

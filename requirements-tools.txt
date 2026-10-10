@@ -1,0 +1,3 @@
+# Only needed for resource conversion/validation, not for the Java build.
+Pillow>=10,<13
+numpy>=1.26,<3

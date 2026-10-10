@@ -1,0 +1,12 @@
+.cache/
+dist/
+logs/
+__pycache__/
+*.py[cod]
+*.class
+*.jar
+*.log
+.venv/
+.idea/
+.vscode/
+*.iml

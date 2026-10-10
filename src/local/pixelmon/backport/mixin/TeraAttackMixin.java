@@ -1,0 +1,24 @@
+package local.pixelmon.backport.mixin;
+import local.pixelmon.backport.Tera;
+import com.pixelmonmod.pixelmon.battles.attacks.Attack;
+import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;
+import com.pixelmonmod.pixelmon.api.pokemon.Element;
+import com.pixelmonmod.pixelmon.api.pokemon.ability.Ability;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
+
+@Mixin(value=Attack.class,remap=false)
+public abstract class TeraAttackMixin {
+    @Redirect(method="doDamageCalc",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/ability/Ability;modifyStab(D)D"))
+    private double backport$stab(Ability ability,double nativeStab,PixelmonWrapper user,PixelmonWrapper target,double crit){return Tera.stab(user,((Attack)(Object)this).getType(),ability.modifyStab(nativeStab));}
+    @Inject(method="doDamageCalc",at=@At("RETURN"))
+    private void backport$recordDamage(PixelmonWrapper user,PixelmonWrapper target,double crit,CallbackInfoReturnable<Integer> cir){if(cir.getReturnValue()>0)Tera.damageCalculated(user,(Attack)(Object)this);}
+    @Redirect(method="getTypeEffectiveness",at=@At(value="NEW",target="com/pixelmonmod/pixelmon/api/events/battles/AttackEvent$TypeEffectiveness"))
+    private com.pixelmonmod.pixelmon.api.events.battles.AttackEvent.TypeEffectiveness backport$stellar(com.pixelmonmod.pixelmon.battles.controller.BattleController bc,PixelmonWrapper user,PixelmonWrapper target,double value){
+        if(Tera.active(user) && ((Attack)(Object)this).getType()==Element.MYSTERY)value=Tera.active(target)?2.0:1.0;
+        return new com.pixelmonmod.pixelmon.api.events.battles.AttackEvent.TypeEffectiveness(bc,user,target,value);
+    }
+    @Inject(method="modifyMoveStats",at=@At("RETURN"))
+    private void backport$power(PixelmonWrapper user,PixelmonWrapper target,Ability a,Ability b,int power,CallbackInfoReturnable<int[]> cir){int[] stats=cir.getReturnValue();stats[0]=Tera.floorPower(user,(Attack)(Object)this,stats[0]);}
+}

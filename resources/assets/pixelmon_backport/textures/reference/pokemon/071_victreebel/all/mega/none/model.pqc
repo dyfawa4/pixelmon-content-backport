@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/reference/pokemon/071_victreebel/all/mega/none/1.bmd
+$anim idle pixelmon_backport:textures/reference/pokemon/071_victreebel/all/mega/none/idle.bmd
+$anim walk pixelmon_backport:textures/reference/pokemon/071_victreebel/all/mega/none/walk.bmd
+$scale 0.1

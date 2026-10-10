@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="Code: MIT; converted upstream assets retain Pixelmon copyright"
+[[mods]]
+modId="pixelmon_backport"
+version="1.0.0"
+displayName="Pixelmon Content Backport"
+description='''New species, forms, items and Tera mechanics for Pixelmon 9.1.12 on Java 11. Release 1.0.0.'''
+[[dependencies.pixelmon_backport]]
+modId="forge"
+mandatory=true
+versionRange="[36.2.42,37)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.pixelmon_backport]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.pixelmon_backport]]
+modId="pixelmon"
+mandatory=true
+versionRange="[9.1.12,9.1.14)"
+ordering="AFTER"
+side="BOTH"

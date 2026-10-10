@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/121_starmie/all/mega/none/model.bmd
+$anim idle pixelmon_backport:textures/pokemon/121/mega/all/patrick/idle.bmd
+$anim walk pixelmon_backport:textures/pokemon/121_starmie/all/mega/none/walk.bmd
+$scale 1.0

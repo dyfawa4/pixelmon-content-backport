@@ -1,0 +1,49 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "local.pixelmon.backport.mixin",
+  "compatibilityLevel": "JAVA_11",
+  "plugin": "local.pixelmon.backport.mixin.BackportMixinPlugin",
+  "mixins": [
+    "DatapackMixin",
+    "SharpnessMixin",
+    "BulletproofMixin",
+    "TechnicalMovesMixin",
+    "MovesMixin",
+    "BlankTechnicalMoveMixin",
+    "TechnicalItemFactoryMixin",
+    "PermanentAshMixin",
+    "AshMultipleHitMixin",
+    "TeraWrapperMixin",
+    "TeraAttackMixin",
+    "TeraControllerMixin",
+    "ClearAmuletMixin",
+    "CovertCloakMixin",
+    "FormTypeMixin",
+    "ZaMegaMixin",
+    "PokeBagAccessMixin",
+    "TeraRaidDataMixin",
+    "TeraRaidParticipantMixin",
+    "TeraRaidGovernorMixin",
+    "TeraRaidCatchMixin",
+    "UmbrellaWeatherMixin",
+    "UmbrellaConsumerMixin",
+    "SignatureHazardMixin",
+    "MaxDenPlacementMixin"
+  ],
+  "client": [
+    "AnimationMatrixMixin",
+    "ModelFactoryMixin",
+    "TeraScreenMixin",
+    "TeraGimmickSelectionMixin",
+    "TeraMoveDisplayMixin",
+    "BattleInfoMoveMixin",
+    "BattleInfoTooltipMixin",
+    "DetectorDenMixin",
+    "DetectorParadoxMixin",
+    "TeraRaidLobbyMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

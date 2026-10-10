@@ -4,6 +4,12 @@
 
 **[完整玩法与获取手册](HANDBOOK.md)** · **[七张独立测试地图及使用方法](TEST_MAPS.md)** · [本次 GitHub 发布](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.0.0)
 
+## 完整源码
+
+本仓库公开完整附加模组源码、Mixin、运行资源、测试源码、资源转换工具、构建脚本与七张测试地图初始文件。**[从源码构建与运行测试](BUILDING.md)** · [Java 源码](src/local/pixelmon/backport/) · [测试源码](tests/) · [资源及模型](resources/) · [工具](tools/)。
+
+项目代码、工具、测试和文档采用 MIT；上游素材保留原作者权利，详见 [许可与素材归属](THIRD_PARTY.md)。按构建说明准备 JDK 11、Forge 客户端依赖和 Pixelmon 本体后，即可从公开目录构建功能模组和地图包。
+
 ## 下载文件
 
 | 文件 | 内容 | 用途 |

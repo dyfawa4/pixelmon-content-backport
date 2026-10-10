@@ -1,0 +1,5 @@
+$body pixelmon_backport:textures/reference/pokemon/701_hawlucha/all/mega/none/1.bmd
+$anim idle pixelmon_backport:textures/reference/pokemon/701_hawlucha/all/mega/none/idle.bmd
+$anim walk pixelmon_backport:textures/reference/pokemon/701_hawlucha/all/mega/none/walk.bmd
+$anim fly pixelmon_backport:textures/reference/pokemon/701_hawlucha/all/mega/none/fly.bmd
+$scale 25
