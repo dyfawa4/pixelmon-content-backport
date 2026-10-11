@@ -12,12 +12,14 @@ $taskSources=@('MapSupport.java','TestMaps.java','DedicatedTestMaps.java','Prepa
 if($LASTEXITCODE -ne 0){throw 'Map-control compilation failed'}
 $taskPackage=(New-Item -ItemType Directory -Force -Path (Join-Path $taskStage 'package')).FullName
 $taskMods=(New-Item -ItemType Directory -Force -Path (Join-Path $taskPackage 'mods')).FullName
-& $taskJar cf (Join-Path $taskMods 'backport-test-maps-1.16.5-1.0.0.jar') -C $taskClasses . -C (Join-Path $PSScriptRoot 'test-maps/resources') .
+& $taskJar cf (Join-Path $taskMods 'backport-test-maps-1.16.5-1.1.0.jar') -C $taskClasses . -C (Join-Path $PSScriptRoot 'test-maps/resources') .
 if($LASTEXITCODE -ne 0){throw 'Map-control packaging failed'}
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'test-maps/saves') -Destination $taskPackage -Recurse
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'TEST_MAPS.md') -Destination (Join-Path $taskPackage 'README.md')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'LICENSE.txt') -Destination $taskPackage
 $taskDist=(New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot 'dist')).FullName
-$taskOutput=Join-Path $taskDist 'Pixelmon-Backport-test-maps-1.0.0.zip'
-Compress-Archive -Path (Join-Path $taskPackage '*') -DestinationPath $taskOutput -Force
+$taskOutput=Join-Path $taskDist 'Pixelmon-Backport-test-maps-1.1.0.zip'
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+if(Test-Path -LiteralPath $taskOutput){Remove-Item -LiteralPath $taskOutput -Force}
+[System.IO.Compression.ZipFile]::CreateFromDirectory($taskPackage,$taskOutput,[System.IO.Compression.CompressionLevel]::Optimal,$false)
 Write-Output "Map package: $taskOutput"

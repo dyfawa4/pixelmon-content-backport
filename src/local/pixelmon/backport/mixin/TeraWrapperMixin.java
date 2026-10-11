@@ -17,6 +17,8 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(value=PixelmonWrapper.class,remap=false)
 public abstract class TeraWrapperMixin {
+    @Inject(method="useItem",at=@At("HEAD"),cancellable=true)
+    private void backport$medicine(CallbackInfo ci){if(local.pixelmon.backport.NpcMedicine.use(self()))ci.cancel();}
     private PixelmonWrapper self(){return (PixelmonWrapper)(Object)this;}
     @Inject(method="setHeldItem",at=@At("RETURN"))
     private void backport$weatherAfterItem(HeldItem item,CallbackInfo ci){PixelmonWrapper p=self();if(p.bc!=null && !p.bc.simulateMode)p.getBattleAbility().onWeatherChange(p,UmbrellaHooks.backport$weather(p.bc.globalStatusController,p));}
@@ -27,7 +29,7 @@ public abstract class TeraWrapperMixin {
     @Inject(method="megaEvolve",at=@At("HEAD"),cancellable=true)
     private void backport$tera(CallbackInfoReturnable<Boolean> cir){if(Tera.selected(self()))cir.setReturnValue(Tera.activate(self()));}
     @Inject(method="setAttack(Lcom/pixelmonmod/pixelmon/battles/attacks/Attack;Ljava/util/List;Z)V",at=@At("RETURN"))
-    private void backport$choice(Attack attack,List<PixelmonWrapper> targets,boolean evolving,CallbackInfo ci){if(Tera.selected(self()))self().willEvolve=true;if(Tera.selected(self()) || Tera.active(self()) || Tera.used(self().getParticipant()))self().usingZ=false;if(self().getSpecies().getDex()==1024 && (Tera.active(self()) || Tera.selected(self())) && attack.getMove().getAttackName().equals("Tera Starstorm"))self().targets=self().getTargets(attack);}
+    private void backport$choice(Attack attack,List<PixelmonWrapper> targets,boolean evolving,CallbackInfo ci){local.pixelmon.backport.NpcGimmicks.apply(self());if(Tera.selected(self()))self().willEvolve=true;if(Tera.selected(self()) || Tera.active(self()) || Tera.used(self().getParticipant()))self().usingZ=false;if(self().getSpecies().getDex()==1024 && (Tera.active(self()) || Tera.selected(self())) && attack.getMove().getAttackName().equals("Tera Starstorm"))self().targets=self().getTargets(attack);}
     @Inject(method="getTargets",at=@At("HEAD"),cancellable=true)
     private void backport$starstorm(Attack attack,CallbackInfoReturnable<ArrayList<PixelmonWrapper>> cir){
         if(attack!=null && attack.getMove().getAttackName().equals("Tera Starstorm") && self().getSpecies().getDex()==1024 && (Tera.active(self()) || Tera.selected(self()))){

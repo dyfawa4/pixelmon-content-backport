@@ -12,6 +12,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class TechnicalMovesMixin {
     @Inject(method="getMove",at=@At("RETURN"),cancellable=true)
     private static void backport$item(ItemStack stack,CallbackInfoReturnable<ITechnicalMove> ci){
+        if(stack.func_77973_b() instanceof local.pixelmon.backport.DisposableTeraDisc){ci.setReturnValue(local.pixelmon.backport.DisposableTeraDisc.move());return;}
         if(ci.getReturnValue()==null && stack.func_77973_b() instanceof TechnicalMoveItem && stack.func_77942_o()
             && ((TechnicalMoveItem)stack.func_77973_b()).type().equals("TM9")) {
             BackportTechnicalMoves move=BackportTechnicalMoves.byId(stack.func_77978_p().func_74765_d("tm"));

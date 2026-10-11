@@ -594,5 +594,8 @@
   "pixelmon.backport.tera.ui.success": "Type changed",
   "pixelmon.backport.tera.ui.rejected": "Change rejected; check your items and party",
   "pixelmon.backport.tera.ui.terapagos": "Terapagos: locked to Stellar",
-  "itemGroup.pixelmon_backport": "Pixelmon Content Backport"
+  "itemGroup.pixelmon_backport": "Pixelmon Content Backport",
+  "item.pixelmon_backport.tera_blast_disc_single_use": "Tera Blast Disc (Single Use)",
+  "pixelmon.backport.item.shift_help": "Hold Shift for uses and sources",
+  "pixelmon.backport.npc.medicine": "%s used %s on %s!"
 }

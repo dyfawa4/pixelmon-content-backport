@@ -10,5 +10,5 @@ public abstract class DetectorDenMixin {
     @Shadow public String name;
     @Shadow public String desc;
     @Inject(method="<init>(Lpixelmondetector/entities/EntityType;Lnet/minecraft/entity/Entity;Ljava/lang/String;Ljava/lang/String;)V",at=@At("RETURN"))
-    private void backport$teraLabel(@Coerce Object category,Entity entity,String label,String details,CallbackInfo ci){if(entity instanceof TeraDenEntity){TeraDenEntity den=(TeraDenEntity)entity;name=I18n.func_135052_a("entity.pixelmon_backport.tera_den");desc=den.getData().map(r->r.getSpecies().getLocalizedName()+" · "+r.getStars()+"★ · "+I18n.func_135052_a("pixelmon.backport.tera.type."+TeraItems.NAMES[den.teraType()])).orElse(I18n.func_135052_a("pixelmon.backport.tera.raid.empty"));}}
+    private void backport$teraLabel(@Coerce Object category,Entity entity,String label,String details,CallbackInfo ci){if(entity instanceof TeraDenEntity){TeraDenEntity den=(TeraDenEntity)entity;name=I18n.func_135052_a("entity.pixelmon_backport.tera_den");desc=den.getData().map(r->r.getSpecies().getLocalizedName()+" R"+r.getStars()+" · "+I18n.func_135052_a("pixelmon.backport.tera.type."+TeraItems.NAMES[den.teraType()])).orElse(I18n.func_135052_a("pixelmon.backport.tera.raid.empty"));}}
 }

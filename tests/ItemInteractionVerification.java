@@ -171,6 +171,7 @@ public final class ItemInteractionVerification {
             local.pixelmon.backport.TeraItemVerification.run(player);
             TeraRaidVerification.playerRaid(player);
             IntegrationVerification.run(player);
+            FeedbackVerification.run(player);
             Files.write(Paths.get("item-interaction-inventory.json"),new GsonBuilder().setPrettyPrinting().create().toJson(inventory).getBytes(java.nio.charset.StandardCharsets.UTF_8));
             System.out.println("BACKPORT_ITEMS_PASS native right-click cases="+calls+" held persistence cases="+equipment+" new TM learning cases="+machineCases+" selected move/party item cases="+selectedMoveCases+" catalog="+inventory.size());
         } finally {players.remove(uuid);world.func_217369_A().remove(player);}

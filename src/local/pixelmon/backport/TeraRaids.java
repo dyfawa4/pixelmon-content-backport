@@ -66,7 +66,7 @@ public final class TeraRaids {
         List<JsonObject> choices=new ArrayList<>();double sum=0;for(JsonElement row:DATA.getAsJsonArray("rewards")){JsonObject r=row.getAsJsonObject();if(stars>=r.get("min").getAsInt() && stars<=r.get("max").getAsInt()){choices.add(r);sum+=r.get("weight").getAsDouble();}}
         int rolls=stars<4?3+random.nextInt(3):stars<6?4+random.nextInt(2):5;
         for(int i=0;i<rolls;i++){double roll=random.nextDouble()*sum;for(JsonObject r:choices){roll-=r.get("weight").getAsDouble();if(roll<0){result.add(new ItemStack(rewardItem(r.get("item").getAsString())));break;}}}
-        result.add(com.pixelmonmod.pixelmon.items.TechnicalMoveItem.of(com.pixelmonmod.pixelmon.enums.TMType.TM9,com.pixelmonmod.pixelmon.enums.technicalmoves.ITechnicalMove.getMoveFor(com.pixelmonmod.pixelmon.enums.TMType.TM9,171)));
+        result.add(new ItemStack(Backport.REGISTERED.get("tera_blast_disc_single_use").get()));
         // Stellar remains renewable even when no naturally rolled boss has that type.
         if(stars>=5 && type!=18)result.add(new ItemStack(Backport.REGISTERED.get("stellar_tera_shard").get(),stars-3));
         return result;

@@ -53,7 +53,7 @@ public final class WorldContentVerification {
         net.minecraft.util.NonNullList<ItemStack> creative=net.minecraft.util.NonNullList.func_191196_a();((BackportCreativeTab)Backport.CREATIVE_TAB).func_78018_a(creative);
         require(creative.size()==Backport.REGISTERED.size()+8,"Dedicated creative tab incomplete");
         for(RegistryObject<Item> registered:Backport.REGISTERED.values())require(creative.stream().anyMatch(s->s.func_77973_b()==registered.get()),"Creative tab missing "+registered.getId());
-        require(creative.stream().filter(s->TechnicalMoveItem.getMove(s)!=null).count()==8,"Creative tab missing native NBT TMs");
+        require(creative.stream().filter(s->!(s.func_77973_b() instanceof DisposableTeraDisc) && TechnicalMoveItem.getMove(s)!=null).count()==8,"Creative tab missing native NBT TMs");
         String[] standard={"dipplin","poltchageist","sinistcha","archaludon","hydrapple","backport_gougingfire","backport_ragingbolt","backport_ironboulder","backport_ironcrown","backport_az_floette"};
         String[] legends={"ogerpon","backport_okidogi","backport_munkidori","backport_fezandipiti","backport_terapagos","backport_pecharunt"};
         int sets=0,infos=0;
@@ -120,6 +120,7 @@ public final class WorldContentVerification {
             String name=entry.getKey();Item item=entry.getValue().get();
             if(name.equals("tera_den_spawner"))continue; // Creative placement tool; naturally generated entity is the survival route.
             if(item instanceof MegaStoneItem){++acquisitionItems;continue;}
+            if(name.equals("tera_blast_disc_single_use")){require(TeraRaids.rewards(1,0,new Random(1)).stream().anyMatch(stack->stack.func_77973_b()==item),"Single-use disc source");++acquisitionItems;continue;}
             if(name.endsWith("_tera_shard")){++acquisitionItems;continue;}
             if(name.equals("tera_orb") || name.equals("eternatus_meteorite")){
                 net.minecraft.item.crafting.IRecipe<?> recipe=ServerLifecycleHooks.getCurrentServer().func_199529_aN().func_215367_a(new ResourceLocation(Content.NS,name)).orElse(null);

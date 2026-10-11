@@ -648,5 +648,8 @@
   "pixelmon.backport.tera.ui.success": "更改成功",
   "pixelmon.backport.tera.ui.rejected": "更改未成功，请检查道具和队伍状态",
   "pixelmon.backport.tera.ui.terapagos": "太乐巴戈斯固定为星晶属性",
-  "itemGroup.pixelmon_backport": "重铸内容回迁"
+  "itemGroup.pixelmon_backport": "重铸内容回迁",
+  "item.pixelmon_backport.tera_blast_disc_single_use": "一次性太晶爆发技能盘",
+  "pixelmon.backport.item.shift_help": "按住 Shift 查看用途与获取方式",
+  "pixelmon.backport.npc.medicine": "%s 对 %3$s 使用了 %2$s！"
 }

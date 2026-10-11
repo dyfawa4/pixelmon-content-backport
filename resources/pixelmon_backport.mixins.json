@@ -29,7 +29,9 @@
     "UmbrellaWeatherMixin",
     "UmbrellaConsumerMixin",
     "SignatureHazardMixin",
-    "MaxDenPlacementMixin"
+    "MaxDenPlacementMixin",
+    "DisposableDiscInteractionMixin",
+    "NpcGimmickMixin"
   ],
   "client": [
     "AnimationMatrixMixin",
