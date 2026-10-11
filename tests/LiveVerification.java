@@ -42,6 +42,7 @@ public class LiveVerification {
         try {
             NativeDataVerification.main(new String[]{System.getProperty("backport.test.oldJar")});
             WorldContentVerification.run();
+            GymCityVerification.run(event.getServer());
             TeraRaidVerification.run();
             int moveDefinitions=0,abilityDefinitions=0;
             for(JsonElement row:Content.DATA.getAsJsonArray("moves")){
@@ -99,6 +100,7 @@ public class LiveVerification {
             ItemInteractionVerification.run(event.getServer());
             TeraVerification.run();
             TestMapVerification.run(event.getServer());
+            GymMapVerification.run(event.getServer());
             AshVerification.run();
             System.out.println("BACKPORT_LIVE_PASS forms="+forms+" NBT/network palette cases="+palettes+" reminder entries="+reminders+" masks=5 added move definitions="+moveDefinitions+" all ability slots="+abilityDefinitions);
         } catch(Throwable failure){System.out.println("BACKPORT_LIVE_FAIL");failure.printStackTrace();}

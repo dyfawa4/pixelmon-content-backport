@@ -1,0 +1,37 @@
+{
+  "skins": [
+    {
+      "filename": "suit.png"
+    }
+  ],
+  "names": [
+    {
+      "name": "Mark"
+    },
+    {
+      "name": "Brandon"
+    },
+    {
+      "name": "Robert"
+    },
+    {
+      "name": "Henry"
+    }
+  ],
+  "chat": [
+    {
+      "lines": [
+        {
+          "text": "我太紧张了，希望宣誓时别说错！"
+        }
+      ]
+    },
+    {
+      "lines": [
+        {
+          "text": "今天是我一生中最幸福的日子，我迫不及待想结婚啦！"
+        }
+      ]
+    }
+  ]
+}

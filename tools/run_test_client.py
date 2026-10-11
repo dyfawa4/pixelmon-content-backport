@@ -6,12 +6,18 @@ root=pathlib.Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser();p.add_argument('--version-json',type=pathlib.Path,required=True)
 p.add_argument('--minecraft-root',type=pathlib.Path,required=True)
 p.add_argument('--pixelmon',type=pathlib.Path,required=True)
+p.add_argument('--instance-name',help='Separate private instance folder name; letters, digits and hyphens only')
+p.add_argument('--field-wheel-preview',action='store_true',help='Private field wheel UI fixture; requires a separate instance name')
 p.add_argument('--full-pack',action='store_true',help='Copy enabled pack mods/configuration into a separate QA instance')
 p.add_argument('--ui-preview',action='store_true',help='Run private Tera settings input and screenshot checks at the menu')
+p.add_argument('--gym-map',choices=['normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'],help='Open one isolated gym inspection world with the feedback client test')
 a=p.parse_args()
 a.version_json=a.version_json.resolve();a.minecraft_root=a.minecraft_root.resolve()
 build=json.loads((root/'.cache/last-build.json').read_text(encoding='utf-8-sig'))
 version=json.loads(a.version_json.read_text(encoding='utf-8-sig'));gamedir=root/('.cache/test-client-full' if a.full_pack else '.cache/test-client')
+if a.instance_name:
+    if not __import__('re').fullmatch(r'[a-z0-9-]+',a.instance_name):raise ValueError('Invalid isolated instance name')
+    gamedir=root/'.cache'/a.instance_name
 gamedir.mkdir(exist_ok=True);(gamedir/'mods').mkdir(exist_ok=True)
 old=str(a.pixelmon.resolve())
 if a.full_pack:
@@ -26,6 +32,13 @@ if a.full_pack:
 for src,name in [(old,'Pixelmon-legacy.jar'),(build['jar'],'backport-dev.jar')]:
     target=gamedir/'mods'/name
     if not target.exists() or pathlib.Path(src).stat().st_mtime>target.stat().st_mtime:shutil.copy2(src,target)
+if a.instance_name and a.gym_map and not (gamedir/'mods/backport-client-test.jar').exists():
+    shutil.copy2(root/'.cache/test-client/mods/backport-feedback-client-test.jar.disabled',gamedir/'mods/backport-feedback-client-test.jar')
+if a.field_wheel_preview:
+    if not a.instance_name:raise ValueError('Field UI QA requires a separate developer instance')
+    shutil.copy2(root/'.cache/field-ui-mod.jar',gamedir/'mods/field-ui-mod.jar')
+    source=root/'test-maps/saves/backport-qa-single';destination=gamedir/'saves/backport-qa-single'
+    if not destination.exists():shutil.copytree(source,destination)
 cp=[]
 def allowed(rules):
     result=not rules
@@ -70,13 +83,20 @@ if a.full_pack:
             if line.startswith('guiScale:'):
                 try:gui_scale=max(0,min(6,int(line.split(':',1)[1])))
                 except ValueError:pass
-(gamedir/'options.txt').write_text(f'guiScale:{gui_scale}\nlang:zh_cn\nrenderDistance:3\nmaxFps:60\nsoundCategory_master:0.0\n',encoding='utf-8')
+if not (gamedir/'options.txt').exists():
+    (gamedir/'options.txt').write_text(f'guiScale:{gui_scale}\nlang:zh_cn\nrenderDistance:{10 if a.gym_map else 3}\nmaxFps:60\nsoundCategory_master:0.0\n',encoding='utf-8')
+if a.gym_map:
+    source=root/f'test-maps/gym-saves/backport-gym-v5-{a.gym_map}'
+    if not source.exists():source=root/f'test-maps/gym-saves/backport-gym-{a.gym_map}'
+    destination=gamedir/f'saves/backport-gym-{a.gym_map}'
+    if not destination.exists():shutil.copytree(source,destination)
 world=root/'.cache/test-server/backport-test';destination=gamedir/'saves/backport-test'
 if not destination.exists():shutil.copytree(world,destination)
 args=[build['java'],'-Xms1G','-Xmx5G',f'-Djava.library.path={natives}',
       '-Dminecraft.launcher.brand=Backport-QA','-Dminecraft.launcher.version=1','-Dmixin.debug.export=true','-Dbackport.network.test=true',
       '-Dbackport.gallery.enabled='+str(not a.full_pack).lower(),
       '-Dbackport.ui.preview='+str(a.ui_preview).lower(),
+      '-Dbackport.gym.preview='+(a.gym_map or ''),
       '--add-exports=java.base/sun.security.util=ALL-UNNAMED','--add-opens=java.base/java.util.jar=ALL-UNNAMED',
       '-cp',os.pathsep.join(cp),version['mainClass'],'--username','BackportVisualTest',
       '--version','Backport-Java11-QA','--gameDir',str(gamedir),'--assetsDir',str(a.minecraft_root/'assets'),

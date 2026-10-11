@@ -22,14 +22,22 @@ public final class FeedbackClientVerification {
     @Mod.EventBusSubscriber(modid="backport_feedback_client_test",value=Dist.CLIENT)
     public static class Events {
         static boolean loading,done;static int frames;
+        static final String gym=System.getProperty("backport.gym.preview","");
         static void require(boolean b,String why){if(!b)throw new AssertionError(why);}
         @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
             if(e.phase!=TickEvent.Phase.END || done)return;Minecraft mc=Minecraft.func_71410_x();
             if(!loading && mc.field_71462_r!=null && mc.field_71462_r.getClass().getSimpleName().equals("MainMenuScreen")){
-                loading=true;mc.func_238191_a_("backport-qa-raids");return;
+                loading=true;mc.func_238191_a_(gym.isEmpty()?"backport-qa-raids":"backport-gym-"+gym);return;
             }
             if(mc.field_71441_e==null || mc.field_71439_g==null || mezz.jei.Internal.getRuntime()==null)return;
             if(++frames<150)return;
+            if(!gym.isEmpty()){
+                var server=mc.func_71401_C();if(server==null)return;
+                var world=server.func_71218_a(net.minecraft.world.World.field_234918_g_);
+                if(!GymTestMaps.data(world).ready)return;
+                if(frames<450)return;
+                System.out.println("BACKPORT_GYM_CLIENT_PASS "+gym+" ready pieces="+GymTestMaps.data(world).cursor);done=true;frames=0;return;
+            }
             try{
                 var runtime=mezz.jei.Internal.getRuntime();var manager=runtime.getRecipeManager();
                 var category=manager.getRecipeCategory(VanillaRecipeCategoryUid.INFORMATION,false);
@@ -57,7 +65,7 @@ public final class FeedbackClientVerification {
         @SubscribeEvent public static void render(TickEvent.RenderTickEvent e){
             if(!done || captured || e.phase!=TickEvent.Phase.END || ++frames<25)return;
             captured=true;Minecraft mc=Minecraft.func_71410_x();
-            try{Path p=Paths.get("../feedback-jei.png");try(NativeImage img=ScreenShotHelper.func_198052_a(mc.func_228018_at_().func_198105_m(),mc.func_228018_at_().func_198083_n(),mc.func_147110_a())){img.func_209270_a(p);}}
+            try{Path p=Paths.get(gym.isEmpty()?"../feedback-jei.png":"../gym-preview-"+gym+".png");try(NativeImage img=ScreenShotHelper.func_198052_a(mc.func_228018_at_().func_198105_m(),mc.func_228018_at_().func_198083_n(),mc.func_147110_a())){img.func_209270_a(p);}}
             catch(Exception ex){ex.printStackTrace();}
             mc.func_71400_g();
         }

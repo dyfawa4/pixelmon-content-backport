@@ -1,3 +1,4 @@
-# Only needed for resource conversion/validation, not for the Java build.
+# Third-party packages for resource conversion/validation; normal Java build uses Python's standard library.
 Pillow>=10,<13
 numpy>=1.26,<3
+nbtlib>=2,<3

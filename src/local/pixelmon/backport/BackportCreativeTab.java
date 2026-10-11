@@ -10,7 +10,8 @@ public final class BackportCreativeTab extends ItemGroup {
     public BackportCreativeTab(){super(Content.NS);}
     @Override public ItemStack func_78016_d(){return new ItemStack(Backport.REGISTERED.get("tera_orb").get());}
     @Override public void func_78018_a(NonNullList<ItemStack> items){
-        for(net.minecraftforge.fml.RegistryObject<Item> item:Backport.REGISTERED.values())items.add(new ItemStack(item.get()));
+        java.util.Set<Item> seen=java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
+        Backport.REGISTERED.forEach((name,item)->{Item canonical=Backport.item(name);if(seen.add(canonical))items.add(new ItemStack(canonical));});
         for(int id:new int[]{171,207,210,225,226,227,228,229})
             items.add(TechnicalMoveItem.of(TMType.TM9,BackportTechnicalMoves.resolve(TMType.TM9,id)));
     }

@@ -83,7 +83,7 @@ public final class DedicatedTestMaps {
                 List<ItemStack> added=new ArrayList<>();for(net.minecraftforge.fml.RegistryObject<Item> registered:Backport.REGISTERED.values())if(!(registered.get() instanceof TeraItems.Shard))added.add(new ItemStack(registered.get(),registered.get() instanceof TeraItems.Orb?1:8));
                 for(int offset=0;offset<added.size();offset+=27)TestMaps.supply(w,18,5-(offset/27)*4,"新增物品 "+(offset/27+1),added.subList(offset,Math.min(offset+27,added.size())));
                 List<ItemStack> disks=new ArrayList<>();for(int id:new int[]{171,207,210,225,226,227,228,229})disks.add(TechnicalMoveItem.of(TMType.TM9,BackportTechnicalMoves.resolve(TMType.TM9,id)));TestMaps.supply(w,-18,-6,"太晶爆发与新增光盘",disks);
-                List<ItemStack> coins=new ArrayList<>();for(int i=0;i<16;i++)coins.add(stack("pixelmon_backport:gimmighoul_coin",64));TestMaps.supply(w,-18,-10,"索财灵进化：至少 999 硬币",coins);
+                List<ItemStack> coins=new ArrayList<>();coins.add(stack("pixelmon_backport:gimmighoul_coin",16));TestMaps.supply(w,-18,-10,"索财灵进化：硬币右键使用",coins);
             }
             TestMaps.label(w,-10.5,66.2,-9.5,"培育屋：放入兼容父母／查看要求");TestMaps.label(w,11.5,66.2,7.5,"钓鱼池：使用原生鱼竿等待咬钩");
         }
@@ -119,7 +119,7 @@ public final class DedicatedTestMaps {
             team(p,new int[]{1018,132,1024,1013,1011,1019},70);Pokemon mother=StorageProxy.getParty(p).get(0),ditto=StorageProxy.getParty(p).get(1);mother.setGender(Gender.FEMALE);mother.setNature(Nature.ADAMANT);mother.setMintNature(Nature.MODEST);mother.getIVs().fillFromArray(new int[]{31,31,31,31,31,31});ditto.getIVs().fillFromArray(new int[]{31,31,31,31,31,31});mother.setHeldItem(stack("pixelmon:ever_stone",1));ditto.setHeldItem(stack("pixelmon:destiny_knot",1));
             message(p,"铝钢桥龙母体携带不变之石、固执原始性格／内敛薄荷；百变怪携带红线。双方满个体。放入培育屋并满足原生要求；应生出铝钢龙，继承固执而非薄荷。");return true;
         }
-        if(kind.equals("evolveteam")){team(p,new int[]{840,1011,1012,1012,884,999},40);StorageProxy.getParty(p).get(3).setForm("artisan");message(p,"啃果虫用蜜汁苹果、斯魔茶普通／杰作用对应茶碗、铝钢龙用复合金属；裹蜜虫学会龙之声再升级。索财灵需 999 硬币并升级。");return true;}
+        if(kind.equals("evolveteam")){team(p,new int[]{840,1011,1012,1012,884,999},40);StorageProxy.getParty(p).get(3).setForm("artisan");message(p,"啃果虫用蜜汁苹果、斯魔茶普通／杰作用对应茶碗、铝钢龙用复合金属；裹蜜虫学会龙之声再升级。索财灵放出后用 1 枚硬币右键进化。");return true;}
         if(kind.equals("starterteam")){team(p,new int[]{906,909,912,907,910,913},49);message(p,"帕底亚御三家及第二阶段；喂糖果按原生进化与升级学习流程检查。未完成的三个预览御三家仍禁用。");return true;}
         if(kind.equals("nextteam")){List<Integer> dex=new ArrayList<>();for(JsonElement patch:Content.DATA.getAsJsonArray("patches")){int id=patch.getAsJsonObject().getAsJsonObject("species").get("dex").getAsInt();if(!dex.contains(id))dex.add(id);}Collections.sort(dex);int[] group=new int[Math.min(6,dex.size())];for(int i=0;i<group.length;i++)group[i]=dex.get((batch+i)%dex.size());batch=(batch+group.length)%dex.size();team(p,group,70);message(p,"当前六只回迁个体图鉴编号："+Arrays.toString(group)+"。全部补丁种类循环轮换，可检查薄荷、药品、回忆与存取。");return true;}
         message(p,"此地图请使用自己的蓝色测试台，或 reset / end。");return true;

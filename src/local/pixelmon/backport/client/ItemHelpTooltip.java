@@ -14,6 +14,7 @@ public final class ItemHelpTooltip {
     }
     public static void append(net.minecraft.item.ItemStack stack,List<ITextComponent> lines,boolean shift){
         List<ITextComponent> details=ItemHelp.details(stack);if(details.isEmpty())return;
-        if(shift)lines.addAll(details);else lines.add(new TranslationTextComponent("pixelmon.backport.item.shift_help"));
+        if(shift)for(ITextComponent detail:details)lines.add(detail.func_230532_e_().func_240699_a_(TextFormatting.GRAY));
+        else lines.add(new TranslationTextComponent("pixelmon.backport.item.shift_help").func_240699_a_(TextFormatting.GRAY));
     }
 }

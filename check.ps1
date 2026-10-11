@@ -8,9 +8,12 @@ $taskSources=@(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'tests') -Fil
 $taskAsm=@(Get-ChildItem -LiteralPath (Join-Path $LibrariesDirectory 'org/ow2/asm') -Filter '*.jar' -Recurse | Sort-Object {[version]$_.Directory.Name} -Descending | ForEach-Object {$_.FullName})
 $taskGson=@(Get-ChildItem -LiteralPath (Join-Path $LibrariesDirectory 'com/google/code/gson') -Filter '*.jar' -Recurse | Sort-Object {[version]$_.Directory.Name} -Descending | ForEach-Object {$_.FullName})
 $taskDetector=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter 'PixelmonDetector-*.jar' | ForEach-Object {$_.FullName})
-$taskCP=(@($taskTests,$taskBuild.classes,(Join-Path $PSScriptRoot 'resources'),(Join-Path $PSScriptRoot 'tests/resources'))+$taskAsm+$taskGson+@($taskBuild.classpath)+$taskDetector) -join [IO.Path]::PathSeparator
+$taskCompass=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*ExplorersCompass*.jar' | ForEach-Object {$_.FullName})
+$taskCP=(@($taskTests,$taskBuild.classes,(Join-Path $PSScriptRoot 'resources'),(Join-Path $PSScriptRoot 'tests/resources'))+$taskAsm+$taskGson+@($taskBuild.classpath)+$taskDetector+$taskCompass) -join [IO.Path]::PathSeparator
 & $taskJavac --release 11 -proc:none -encoding UTF8 -cp $taskCP -d $taskTests @taskSources
 if($LASTEXITCODE -ne 0){throw 'Test compilation failed'}
-& $taskBuild.java -ea -cp $taskCP MixinApplicationVerification $PixelmonJar @taskDetector
+& $taskBuild.java -ea -cp $taskCP MixinApplicationVerification $PixelmonJar @taskDetector @taskCompass
 if($LASTEXITCODE -ne 0){throw 'Mixin verification failed'}
-Write-Output 'Native registry tests must run inside Forge: use live-check.ps1'
+& $taskBuild.java -ea -cp $taskCP GymLookupStaticVerification
+if($LASTEXITCODE -ne 0){throw 'Gym lookup static verification failed'}
+Write-Output 'Offline checks complete. Gameplay and natural-world acceptance are performed manually by the user.'

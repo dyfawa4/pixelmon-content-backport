@@ -1,0 +1,1430 @@
+[
+  {
+    "file": "【像素宝可梦 重铸】Pixelmon-1.16.5-9.1.13-universal.jar",
+    "sha256": "e7b3a69e9aec2820ebc3280c123e188ff3e73f9d08ac1fe88cdb29bdacabc110",
+    "gymTypes": {
+      "dragon": {
+        "structures": 52,
+        "leaders": [
+          {
+            "template": "gym_dragon_leader_b.nbt",
+            "name": "Justice",
+            "trainer": "policeman",
+            "greeting": "My Dragon-types will help me secure this victory!",
+            "firstDex": 635,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_f.nbt",
+            "name": "Zack",
+            "trainer": "steve",
+            "greeting": "Others carry Pokemon of all sorts of types. We have dragons!",
+            "firstDex": 890,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_c.nbt",
+            "name": "Damian",
+            "trainer": "steve",
+            "greeting": "Dragons are powerful beasts. Think you can beat them?",
+            "firstDex": 887,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_d.nbt",
+            "name": "Hunter",
+            "trainer": "blacksmith",
+            "greeting": "You think you can beat me? I wield the Dragon-type!",
+            "firstDex": 635,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_a.nbt",
+            "name": "Valorie",
+            "trainer": "skullgruntfemale",
+            "greeting": "My dragons are ready to fight!",
+            "firstDex": 887,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_e.nbt",
+            "name": "Drake",
+            "trainer": "galacticgruntmale",
+            "greeting": "Roll for initiative!",
+            "firstDex": 635,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:dragon_badge"
+        ],
+        "missingRewards": []
+      },
+      "electric": {
+        "structures": 51,
+        "leaders": [
+          {
+            "template": "gym_electric_leader_e.nbt",
+            "name": "Simon",
+            "trainer": "steve",
+            "greeting": "I'm the Electric-type Gym Leader. I take it you came to test your strength?",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_a.nbt",
+            "name": "Augustus",
+            "trainer": "steve",
+            "greeting": "Your Pokemon are going to experience quite the electric shock!",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_c.nbt",
+            "name": "Henry",
+            "trainer": "steve",
+            "greeting": "My Pokemon are the brightest out there!",
+            "firstDex": 939,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_d.nbt",
+            "name": "Max",
+            "trainer": "steve",
+            "greeting": "A new challenger! I'm amped up!",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_b.nbt",
+            "name": "Caleb",
+            "trainer": "steve",
+            "greeting": "Let's have an electrifying battle!",
+            "firstDex": 738,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_f.nbt",
+            "name": "Julia",
+            "trainer": "steve",
+            "greeting": "You think you can handle a large voltage?",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:bolt_badge"
+        ],
+        "missingRewards": []
+      },
+      "fairy": {
+        "structures": 53,
+        "leaders": [
+          {
+            "template": "gym_fairy_leader_c.nbt",
+            "name": "Valorie",
+            "trainer": "bugmaniac",
+            "greeting": "Fairy-type Pokemon are the best!",
+            "firstDex": 743,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_f.nbt",
+            "name": "Richard",
+            "trainer": "richboy",
+            "greeting": "Hello there. I'm a Fairy-type specialist.",
+            "firstDex": 861,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_a.nbt",
+            "name": "Gloria",
+            "trainer": "skullgruntfemale",
+            "greeting": "You think you're better than me?",
+            "firstDex": 801,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_b.nbt",
+            "name": "Lily",
+            "trainer": "lass",
+            "greeting": "Hi! I'm a great Fairy-type Gym Leader! Watch my Pokemon shine!",
+            "firstDex": 786,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_d.nbt",
+            "name": "Louis",
+            "trainer": "galacticgruntmale",
+            "greeting": "You can't get a Fairy Badge without beating me!",
+            "firstDex": 719,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_e.nbt",
+            "name": "Randal",
+            "trainer": "steve",
+            "greeting": "I'm the Fairy-type Gym Leader. One of the best Fairy-type Trainers around.",
+            "firstDex": 716,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:fairy_badge_galar"
+        ],
+        "missingRewards": []
+      },
+      "fire": {
+        "structures": 50,
+        "leaders": [
+          {
+            "template": "gym_fire_leader_d.nbt",
+            "name": "Garett",
+            "trainer": "firebreather",
+            "greeting": "I'm all fired up for a Pokemon battle!",
+            "firstDex": 324,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_e.nbt",
+            "name": "Nick",
+            "trainer": "firebreather",
+            "greeting": "Training my Pokemon is my passion.",
+            "firstDex": 38,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_c.nbt",
+            "name": "Derek",
+            "trainer": "pokemaniac",
+            "greeting": "My Fire-type Pokemon are going to burn your team to a crisp!",
+            "firstDex": 324,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_b.nbt",
+            "name": "Team Flare Grunt",
+            "trainer": "flaregruntmale",
+            "greeting": "You think you can defeat my Fire-types?",
+            "firstDex": 6,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_a.nbt",
+            "name": "Courtney",
+            "trainer": "femalemagmagrunt",
+            "greeting": "You've got some guts thinking you can fight me!",
+            "firstDex": 324,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_f.nbt",
+            "name": "Leo",
+            "trainer": "firebreather",
+            "greeting": "Fire?",
+            "firstDex": 38,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:fire_badge"
+        ],
+        "missingRewards": []
+      },
+      "ghost": {
+        "structures": 51,
+        "leaders": [
+          {
+            "template": "gym_ghost_leader_c.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "Ghost-types aren't scary, just misunderstood!",
+            "firstDex": 222,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_f.nbt",
+            "name": "Team Yell Grunt",
+            "trainer": "teamyellgruntmale",
+            "greeting": "Me and this Trainer's, I mean, my Pokemon will surely be able to defeat you if we work together!",
+            "firstDex": 478,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_a.nbt",
+            "name": "William",
+            "trainer": "pokemaniac",
+            "greeting": "I hope you put your heart and soul into this battle!",
+            "firstDex": 487,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_b.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "Think you can defeat my Ghost-type Pokemon?",
+            "firstDex": 770,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_d.nbt",
+            "name": "Cornelius",
+            "trainer": "scientist",
+            "greeting": "I'm here to investigate reports of supernatural activity!",
+            "firstDex": 864,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_e.nbt",
+            "name": "Team Yell Grunt",
+            "trainer": "teamyellgruntfemale",
+            "greeting": "Are you scared of ghosts?",
+            "firstDex": 770,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:ghost_badge"
+        ],
+        "missingRewards": []
+      },
+      "grass": {
+        "structures": 51,
+        "leaders": [
+          {
+            "template": "gym_grass_leader_d.nbt",
+            "name": "Colton",
+            "trainer": "bugcatcher",
+            "greeting": "Through much patience have I trained my team... Let's battle!",
+            "firstDex": 346,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_a.nbt",
+            "name": "Abel",
+            "trainer": "rancher",
+            "greeting": "Nothin' like a Pokémon battle after a long day workin' th' ranch.",
+            "firstDex": 598,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_b.nbt",
+            "name": "Robert",
+            "trainer": "gardener",
+            "greeting": "Time to trim back the challangers!",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_c.nbt",
+            "name": "Robert",
+            "trainer": "gardener",
+            "greeting": "Time to trim back the weeds! But with Grass there are no weeds!",
+            "firstDex": 598,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_f.nbt",
+            "name": "Agatha",
+            "trainer": "bugmaniac",
+            "greeting": "I can't lose I have the power of God and Anime on my side!",
+            "firstDex": 773,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_e.nbt",
+            "name": "Sammy",
+            "trainer": "bugcatcher",
+            "greeting": "I love Grass! Have you collected any yet?",
+            "firstDex": 812,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:grass_badge"
+        ],
+        "missingRewards": []
+      },
+      "ground": {
+        "structures": 49,
+        "leaders": [
+          {
+            "template": "gym_ground_leader_c.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "You better be strong, or my Pokemon are going to crush you into dust!",
+            "firstDex": 844,
+            "badges": [
+              "pixelmon:jimen_badge"
+            ]
+          },
+          {
+            "template": "gym_ground_leader_a.nbt",
+            "name": "Steve-Blue",
+            "trainer": "steve",
+            "greeting": "Congratulations on making it this far, but this is where I'll be sending you back down the Mountain!",
+            "firstDex": 450,
+            "badges": [
+              "pixelmon:jimen_badge"
+            ]
+          },
+          {
+            "template": "gym_ground_leader_c1.nbt",
+            "name": "0",
+            "trainer": "steve",
+            "greeting": "",
+            "firstDex": 844,
+            "badges": []
+          },
+          {
+            "template": "gym_ground_leader_b1.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "",
+            "firstDex": 450,
+            "badges": [
+              "pixelmon:mine_badge"
+            ]
+          },
+          {
+            "template": "gym_ground_leader_a1.nbt",
+            "name": "Steve-Blue",
+            "trainer": "steve",
+            "greeting": "",
+            "firstDex": 450,
+            "badges": []
+          },
+          {
+            "template": "gym_ground_leader_b.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "Sometimes you need Pokemon with Thick skin to last in a tough battle!",
+            "firstDex": 450,
+            "badges": [
+              "pixelmon:jimen_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:jimen_badge",
+          "pixelmon:mine_badge"
+        ],
+        "missingRewards": [
+          "gym_ground_leader_c1.nbt",
+          "gym_ground_leader_a1.nbt"
+        ]
+      },
+      "ice": {
+        "structures": 52,
+        "leaders": [
+          {
+            "template": "gym_ice_leader_d.nbt",
+            "name": "Eric",
+            "trainer": "richboy",
+            "greeting": "Hello there. I like to use Ice-type Pokemon.",
+            "firstDex": 584,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_c.nbt",
+            "name": "Jack",
+            "trainer": "plasmagruntmale",
+            "greeting": "I'm the Gym Leader here. Defeat me and I'll give you a Badge.",
+            "firstDex": 473,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_e.nbt",
+            "name": "Winter",
+            "trainer": "preschoolergirl",
+            "greeting": "Why did I think it would be a good idea to build a Gym here? It's freezing cold!",
+            "firstDex": 144,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_f.nbt",
+            "name": "Crystal",
+            "trainer": "scientistwoman",
+            "greeting": "My analysis tells me that my team of Ice-types is unstoppable!",
+            "firstDex": 38,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_b.nbt",
+            "name": "Nora",
+            "trainer": "lass",
+            "greeting": "I'm going to freeze your Pokemon solid!",
+            "firstDex": 555,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_a.nbt",
+            "name": "Nickolas",
+            "trainer": "steve",
+            "greeting": "I built my Gym here because my Pokemon like the cold environment.",
+            "firstDex": 221,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:ice_badge"
+        ],
+        "missingRewards": []
+      },
+      "steel": {
+        "structures": 75,
+        "leaders": [
+          {
+            "template": "gym_steel_leader_e.nbt",
+            "name": "Gerold",
+            "trainer": "steve",
+            "greeting": "They don't call me a Gym Leader for nothing! I'm the real deal!",
+            "firstDex": 395,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_a.nbt",
+            "name": "Aaron",
+            "trainer": "steve",
+            "greeting": "I'm the Steel-type Gym Leader! Prepare for battle!",
+            "firstDex": 379,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_c.nbt",
+            "name": "Payton",
+            "trainer": "steve",
+            "greeting": "You'll never break through my iron-clad defenses!",
+            "firstDex": 205,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_d.nbt",
+            "name": "Tim",
+            "trainer": "steve",
+            "greeting": "Ah, a challenger! I've been itching for a battle all day!",
+            "firstDex": 413,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_b.nbt",
+            "name": "Nick",
+            "trainer": "blacksmith",
+            "greeting": "Steel is the best type there is, and I'll prove it! Go, Orthworm!",
+            "firstDex": 968,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_f.nbt",
+            "name": "Silver",
+            "trainer": "steve",
+            "greeting": "Hello. I'm the owner of this place.",
+            "firstDex": 809,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:mineral_badge"
+        ],
+        "missingRewards": []
+      },
+      "water": {
+        "structures": 82,
+        "leaders": [
+          {
+            "template": "gym_water_leader_d.nbt",
+            "name": "Roger",
+            "trainer": "pirate",
+            "greeting": "Welcome to the Water Gym! I'll give you a battle as a greeting!",
+            "firstDex": 279,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_a.nbt",
+            "name": "Fisher",
+            "trainer": "pirate",
+            "greeting": "You made it up here? Guess it's time for us to battle!",
+            "firstDex": 964,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_f.nbt",
+            "name": "Ariel",
+            "trainer": "swimmer",
+            "greeting": "I'm the Water-type Gym Leader! Beating me won't be easy!",
+            "firstDex": 186,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_b.nbt",
+            "name": "Dave",
+            "trainer": "richboy",
+            "greeting": "A floating town is a fantastic place to live, is it not?",
+            "firstDex": 186,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_c.nbt",
+            "name": "Earl",
+            "trainer": "scientistwoman",
+            "greeting": "My research tells me that Water is the strongest type! With that in mind, I must be unbeatable!",
+            "firstDex": 964,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_e.nbt",
+            "name": "Merlin",
+            "trainer": "fisherman",
+            "greeting": "If you thought your last opponent was tough, remember that there are always bigger fish in the sea!",
+            "firstDex": 752,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:water_badge"
+        ],
+        "missingRewards": []
+      }
+    },
+    "registeredBiomeGymTypes": [
+      "dragon",
+      "electric",
+      "fairy",
+      "fire",
+      "ghost",
+      "grass",
+      "ground",
+      "ice",
+      "steel",
+      "water"
+    ],
+    "separateTeamStructures": [
+      "data/pixelmon/structures/teams/plasma/plasma_ship_rear_top.nbt",
+      "data/pixelmon/structures/teams/plasma/plasma_ship_rear_bottom.nbt",
+      "data/pixelmon/structures/teams/plasma/plasma_ship_front_top.nbt",
+      "data/pixelmon/structures/teams/plasma/plasma_ship_front_bottom.nbt"
+    ]
+  },
+  {
+    "file": "[阿宇定制ZA]太晶修复Pixelmon-9.13-1.9.jar",
+    "sha256": "2b92a485d56292882b5bf9c0c6be8667cc0411737a0f03c28ba551f65f5f517b",
+    "gymTypes": {
+      "dragon": {
+        "structures": 52,
+        "leaders": [
+          {
+            "template": "gym_dragon_leader_a.nbt",
+            "name": "Valorie",
+            "trainer": "skullgruntfemale",
+            "greeting": "My dragons are ready to fight!",
+            "firstDex": 887,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_b.nbt",
+            "name": "Justice",
+            "trainer": "policeman",
+            "greeting": "My Dragon-types will help me secure this victory!",
+            "firstDex": 635,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_c.nbt",
+            "name": "Damian",
+            "trainer": "steve",
+            "greeting": "Dragons are powerful beasts. Think you can beat them?",
+            "firstDex": 887,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_d.nbt",
+            "name": "Hunter",
+            "trainer": "blacksmith",
+            "greeting": "You think you can beat me? I wield the Dragon-type!",
+            "firstDex": 635,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_e.nbt",
+            "name": "Drake",
+            "trainer": "galacticgruntmale",
+            "greeting": "Roll for initiative!",
+            "firstDex": 635,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          },
+          {
+            "template": "gym_dragon_leader_f.nbt",
+            "name": "Zack",
+            "trainer": "steve",
+            "greeting": "Others carry Pokemon of all sorts of types. We have dragons!",
+            "firstDex": 890,
+            "badges": [
+              "pixelmon:dragon_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:dragon_badge"
+        ],
+        "missingRewards": []
+      },
+      "electric": {
+        "structures": 51,
+        "leaders": [
+          {
+            "template": "gym_electric_leader_a.nbt",
+            "name": "Augustus",
+            "trainer": "steve",
+            "greeting": "Your Pokemon are going to experience quite the electric shock!",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_b.nbt",
+            "name": "Caleb",
+            "trainer": "steve",
+            "greeting": "Let's have an electrifying battle!",
+            "firstDex": 738,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_c.nbt",
+            "name": "Henry",
+            "trainer": "steve",
+            "greeting": "My Pokemon are the brightest out there!",
+            "firstDex": 939,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_d.nbt",
+            "name": "Max",
+            "trainer": "steve",
+            "greeting": "A new challenger! I'm amped up!",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_e.nbt",
+            "name": "Simon",
+            "trainer": "steve",
+            "greeting": "I'm the Electric-type Gym Leader. I take it you came to test your strength?",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          },
+          {
+            "template": "gym_electric_leader_f.nbt",
+            "name": "Julia",
+            "trainer": "steve",
+            "greeting": "You think you can handle a large voltage?",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:bolt_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:bolt_badge"
+        ],
+        "missingRewards": []
+      },
+      "fairy": {
+        "structures": 53,
+        "leaders": [
+          {
+            "template": "gym_fairy_leader_a.nbt",
+            "name": "Gloria",
+            "trainer": "skullgruntfemale",
+            "greeting": "You think you're better than me?",
+            "firstDex": 801,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_b.nbt",
+            "name": "Lily",
+            "trainer": "lass",
+            "greeting": "Hi! I'm a great Fairy-type Gym Leader! Watch my Pokemon shine!",
+            "firstDex": 786,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_c.nbt",
+            "name": "Valorie",
+            "trainer": "bugmaniac",
+            "greeting": "Fairy-type Pokemon are the best!",
+            "firstDex": 743,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_d.nbt",
+            "name": "Louis",
+            "trainer": "galacticgruntmale",
+            "greeting": "You can't get a Fairy Badge without beating me!",
+            "firstDex": 719,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_e.nbt",
+            "name": "Randal",
+            "trainer": "steve",
+            "greeting": "I'm the Fairy-type Gym Leader. One of the best Fairy-type Trainers around.",
+            "firstDex": 716,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          },
+          {
+            "template": "gym_fairy_leader_f.nbt",
+            "name": "Richard",
+            "trainer": "richboy",
+            "greeting": "Hello there. I'm a Fairy-type specialist.",
+            "firstDex": 861,
+            "badges": [
+              "pixelmon:fairy_badge_galar"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:fairy_badge_galar"
+        ],
+        "missingRewards": []
+      },
+      "fire": {
+        "structures": 50,
+        "leaders": [
+          {
+            "template": "gym_fire_leader_a.nbt",
+            "name": "Courtney",
+            "trainer": "femalemagmagrunt",
+            "greeting": "You've got some guts thinking you can fight me!",
+            "firstDex": 324,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_b.nbt",
+            "name": "Team Flare Grunt",
+            "trainer": "flaregruntmale",
+            "greeting": "You think you can defeat my Fire-types?",
+            "firstDex": 6,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_c.nbt",
+            "name": "Derek",
+            "trainer": "pokemaniac",
+            "greeting": "My Fire-type Pokemon are going to burn your team to a crisp!",
+            "firstDex": 324,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_d.nbt",
+            "name": "Garett",
+            "trainer": "firebreather",
+            "greeting": "I'm all fired up for a Pokemon battle!",
+            "firstDex": 324,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_e.nbt",
+            "name": "Nick",
+            "trainer": "firebreather",
+            "greeting": "Training my Pokemon is my passion.",
+            "firstDex": 38,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          },
+          {
+            "template": "gym_fire_leader_f.nbt",
+            "name": "Leo",
+            "trainer": "firebreather",
+            "greeting": "Fire?",
+            "firstDex": 38,
+            "badges": [
+              "pixelmon:fire_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:fire_badge"
+        ],
+        "missingRewards": []
+      },
+      "ghost": {
+        "structures": 51,
+        "leaders": [
+          {
+            "template": "gym_ghost_leader_a.nbt",
+            "name": "William",
+            "trainer": "pokemaniac",
+            "greeting": "I hope you put your heart and soul into this battle!",
+            "firstDex": 487,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_b.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "Think you can defeat my Ghost-type Pokemon?",
+            "firstDex": 770,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_c.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "Ghost-types aren't scary, just misunderstood!",
+            "firstDex": 222,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_d.nbt",
+            "name": "Cornelius",
+            "trainer": "scientist",
+            "greeting": "I'm here to investigate reports of supernatural activity!",
+            "firstDex": 864,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_e.nbt",
+            "name": "Team Yell Grunt",
+            "trainer": "teamyellgruntfemale",
+            "greeting": "Are you scared of ghosts?",
+            "firstDex": 770,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          },
+          {
+            "template": "gym_ghost_leader_f.nbt",
+            "name": "Team Yell Grunt",
+            "trainer": "teamyellgruntmale",
+            "greeting": "Me and this Trainer's, I mean, my Pokemon will surely be able to defeat you if we work together!",
+            "firstDex": 478,
+            "badges": [
+              "pixelmon:ghost_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:ghost_badge"
+        ],
+        "missingRewards": []
+      },
+      "grass": {
+        "structures": 51,
+        "leaders": [
+          {
+            "template": "gym_grass_leader_a.nbt",
+            "name": "Abel",
+            "trainer": "rancher",
+            "greeting": "Nothin' like a Pokémon battle after a long day workin' th' ranch.",
+            "firstDex": 598,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_b.nbt",
+            "name": "Robert",
+            "trainer": "gardener",
+            "greeting": "Time to trim back the challangers!",
+            "firstDex": 479,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_c.nbt",
+            "name": "Robert",
+            "trainer": "gardener",
+            "greeting": "Time to trim back the weeds! But with Grass there are no weeds!",
+            "firstDex": 598,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_d.nbt",
+            "name": "Colton",
+            "trainer": "bugcatcher",
+            "greeting": "Through much patience have I trained my team... Let's battle!",
+            "firstDex": 346,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_e.nbt",
+            "name": "Sammy",
+            "trainer": "bugcatcher",
+            "greeting": "I love Grass! Have you collected any yet?",
+            "firstDex": 812,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          },
+          {
+            "template": "gym_grass_leader_f.nbt",
+            "name": "Agatha",
+            "trainer": "bugmaniac",
+            "greeting": "I can't lose I have the power of God and Anime on my side!",
+            "firstDex": 773,
+            "badges": [
+              "pixelmon:grass_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:grass_badge"
+        ],
+        "missingRewards": []
+      },
+      "ground": {
+        "structures": 49,
+        "leaders": [
+          {
+            "template": "gym_ground_leader_a.nbt",
+            "name": "Steve-Blue",
+            "trainer": "steve",
+            "greeting": "Congratulations on making it this far, but this is where I'll be sending you back down the Mountain!",
+            "firstDex": 450,
+            "badges": [
+              "pixelmon:jimen_badge"
+            ]
+          },
+          {
+            "template": "gym_ground_leader_a1.nbt",
+            "name": "Steve-Blue",
+            "trainer": "steve",
+            "greeting": "",
+            "firstDex": 450,
+            "badges": []
+          },
+          {
+            "template": "gym_ground_leader_b.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "Sometimes you need Pokemon with Thick skin to last in a tough battle!",
+            "firstDex": 450,
+            "badges": [
+              "pixelmon:jimen_badge"
+            ]
+          },
+          {
+            "template": "gym_ground_leader_b1.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "",
+            "firstDex": 450,
+            "badges": [
+              "pixelmon:mine_badge"
+            ]
+          },
+          {
+            "template": "gym_ground_leader_c.nbt",
+            "name": "Steve",
+            "trainer": "steve",
+            "greeting": "You better be strong, or my Pokemon are going to crush you into dust!",
+            "firstDex": 844,
+            "badges": [
+              "pixelmon:jimen_badge"
+            ]
+          },
+          {
+            "template": "gym_ground_leader_c1.nbt",
+            "name": "0",
+            "trainer": "steve",
+            "greeting": "",
+            "firstDex": 844,
+            "badges": []
+          }
+        ],
+        "badges": [
+          "pixelmon:jimen_badge",
+          "pixelmon:mine_badge"
+        ],
+        "missingRewards": [
+          "gym_ground_leader_a1.nbt",
+          "gym_ground_leader_c1.nbt"
+        ]
+      },
+      "ice": {
+        "structures": 52,
+        "leaders": [
+          {
+            "template": "gym_ice_leader_a.nbt",
+            "name": "Nickolas",
+            "trainer": "steve",
+            "greeting": "I built my Gym here because my Pokemon like the cold environment.",
+            "firstDex": 221,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_b.nbt",
+            "name": "Nora",
+            "trainer": "lass",
+            "greeting": "I'm going to freeze your Pokemon solid!",
+            "firstDex": 555,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_c.nbt",
+            "name": "Jack",
+            "trainer": "plasmagruntmale",
+            "greeting": "I'm the Gym Leader here. Defeat me and I'll give you a Badge.",
+            "firstDex": 473,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_d.nbt",
+            "name": "Eric",
+            "trainer": "richboy",
+            "greeting": "Hello there. I like to use Ice-type Pokemon.",
+            "firstDex": 584,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_e.nbt",
+            "name": "Winter",
+            "trainer": "preschoolergirl",
+            "greeting": "Why did I think it would be a good idea to build a Gym here? It's freezing cold!",
+            "firstDex": 144,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          },
+          {
+            "template": "gym_ice_leader_f.nbt",
+            "name": "Crystal",
+            "trainer": "scientistwoman",
+            "greeting": "My analysis tells me that my team of Ice-types is unstoppable!",
+            "firstDex": 38,
+            "badges": [
+              "pixelmon:ice_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:ice_badge"
+        ],
+        "missingRewards": []
+      },
+      "steel": {
+        "structures": 75,
+        "leaders": [
+          {
+            "template": "gym_steel_leader_a.nbt",
+            "name": "Aaron",
+            "trainer": "steve",
+            "greeting": "I'm the Steel-type Gym Leader! Prepare for battle!",
+            "firstDex": 379,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_b.nbt",
+            "name": "Nick",
+            "trainer": "blacksmith",
+            "greeting": "Steel is the best type there is, and I'll prove it! Go, Orthworm!",
+            "firstDex": 968,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_c.nbt",
+            "name": "Payton",
+            "trainer": "steve",
+            "greeting": "You'll never break through my iron-clad defenses!",
+            "firstDex": 205,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_d.nbt",
+            "name": "Tim",
+            "trainer": "steve",
+            "greeting": "Ah, a challenger! I've been itching for a battle all day!",
+            "firstDex": 413,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_e.nbt",
+            "name": "Gerold",
+            "trainer": "steve",
+            "greeting": "They don't call me a Gym Leader for nothing! I'm the real deal!",
+            "firstDex": 395,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          },
+          {
+            "template": "gym_steel_leader_f.nbt",
+            "name": "Silver",
+            "trainer": "steve",
+            "greeting": "Hello. I'm the owner of this place.",
+            "firstDex": 809,
+            "badges": [
+              "pixelmon:mineral_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:mineral_badge"
+        ],
+        "missingRewards": []
+      },
+      "water": {
+        "structures": 82,
+        "leaders": [
+          {
+            "template": "gym_water_leader_a.nbt",
+            "name": "Fisher",
+            "trainer": "pirate",
+            "greeting": "You made it up here? Guess it's time for us to battle!",
+            "firstDex": 964,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_b.nbt",
+            "name": "Dave",
+            "trainer": "richboy",
+            "greeting": "A floating town is a fantastic place to live, is it not?",
+            "firstDex": 186,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_c.nbt",
+            "name": "Earl",
+            "trainer": "scientistwoman",
+            "greeting": "My research tells me that Water is the strongest type! With that in mind, I must be unbeatable!",
+            "firstDex": 964,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_d.nbt",
+            "name": "Roger",
+            "trainer": "pirate",
+            "greeting": "Welcome to the Water Gym! I'll give you a battle as a greeting!",
+            "firstDex": 279,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_e.nbt",
+            "name": "Merlin",
+            "trainer": "fisherman",
+            "greeting": "If you thought your last opponent was tough, remember that there are always bigger fish in the sea!",
+            "firstDex": 752,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          },
+          {
+            "template": "gym_water_leader_f.nbt",
+            "name": "Ariel",
+            "trainer": "swimmer",
+            "greeting": "I'm the Water-type Gym Leader! Beating me won't be easy!",
+            "firstDex": 186,
+            "badges": [
+              "pixelmon:water_badge"
+            ]
+          }
+        ],
+        "badges": [
+          "pixelmon:water_badge"
+        ],
+        "missingRewards": []
+      }
+    },
+    "registeredBiomeGymTypes": [
+      "dragon",
+      "electric",
+      "fairy",
+      "fire",
+      "ghost",
+      "grass",
+      "ground",
+      "ice",
+      "steel",
+      "water"
+    ],
+    "separateTeamStructures": [
+      "data/pixelmon/structures/teams/plasma/plasma_ship_front_bottom.nbt",
+      "data/pixelmon/structures/teams/plasma/plasma_ship_front_top.nbt",
+      "data/pixelmon/structures/teams/plasma/plasma_ship_rear_bottom.nbt",
+      "data/pixelmon/structures/teams/plasma/plasma_ship_rear_top.nbt"
+    ]
+  }
+]

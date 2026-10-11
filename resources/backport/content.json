@@ -1340,11 +1340,9 @@
           {
             "name": "",
             "megaItems": [
-              "pixelmon_backport:dragoninite",
-              "pixelmon_backport:dragonitite"
+              "pixelmon_backport:dragoninite"
             ],
             "megas": [
-              "mega",
               "mega"
             ],
             "evolutions": [],
@@ -21807,11 +21805,6 @@
     },
     {
       "name": "dragalgite",
-      "kind": "mega",
-      "form": "mega"
-    },
-    {
-      "name": "dragonitite",
       "kind": "mega",
       "form": "mega"
     },

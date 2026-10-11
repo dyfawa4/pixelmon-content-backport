@@ -10,7 +10,7 @@ public final class BackportMixinPlugin implements IMixinConfigPlugin {
     private static final String WEATHER="com/pixelmonmod/pixelmon/battles/status/Weather";
     private static final String HOOK="local/pixelmon/backport/UmbrellaHooks";
     public void onLoad(String p){} public String getRefMapperConfig(){return null;}
-    public boolean shouldApplyMixin(String t,String m){if(t.startsWith("pixelmondetector."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;return true;}
+    public boolean shouldApplyMixin(String t,String m){if(t.startsWith("pixelmondetector.") || t.startsWith("com.chaosthedude.explorerscompass."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;return true;}
     public void acceptTargets(Set<String> mine,Set<String> other){}
     public List<String> getMixins(){return null;}
     public void preApply(String t,ClassNode c,String m,IMixinInfo i){}

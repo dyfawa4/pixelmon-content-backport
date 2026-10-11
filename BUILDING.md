@@ -1,6 +1,6 @@
 # 从完整源码构建
 
-仓库包含正式版 1.1.0 的全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及七张已发布测试地图的初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
+1.2.0 本地验收源码包含全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及九张功能地图、十八张城市地图和徽章展示的初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
 
 ## 环境与外部依赖
 
@@ -8,7 +8,7 @@
 - 已安装 Minecraft 1.16.5 / Forge **36.2.42** 的客户端依赖目录 `libraries`。构建直接使用旧版引擎的 SRG 类名；需要安装时生成的 `forge-1.16.5-36.2.42-client.jar` 和相应 Minecraft/Forge 依赖，单独的 Forge universal JAR 不够。
 - 自行取得 Pixelmon 1.16.5 9.1.12 / 9.1.13 本体。已验证文件名为 9.1.13、内部版本为 9.1.12 的版本。本体、Minecraft、Forge 与定制 ZA 完整 JAR 不随本仓库发布。
 - JEI 1.16.5 **7.x** 的 JAR 用作编译 API；运行时可选。不在本体旁时传 `-JeiJar` 指定。
-- Python **3.11 或以上**用于工具和隔离测试。Java 构建与地图打包不需要 Python。
+- Python **3.11 或以上**用于工具、编译 API 预处理和隔离测试。普通构建不依赖额外 Python 库；重新生成 NBT 素材时使用 `requirements-tools.txt`。
 
 将下列路径替换为自己的安装位置，不能照搬示例。所有构建产物写入本仓库的 `.cache/` 和 `dist/`。
 
@@ -24,7 +24,7 @@ cd pixelmon-content-backport
 
 脚本查找 Forge client JAR；存在多份时，加 `-ForgeClientJar '完整路径\forge-1.16.5-36.2.42-client.jar'` 指定。若 PowerShell 执行策略阻止脚本，可在此次调用中使用 `powershell -ExecutionPolicy Bypass -File .\build.ps1 ...`，无需更改系统策略。
 
-产物是 `dist/pixelmon-content-backport-1.16.5-1.1.0.jar`。脚本用 `javac --release 11` 编译全部 `src/**/*.java`，再原样打包 `resources/`。资源文件保持原始字节。JAR 时间戳与压缩封装可能造成文件 SHA-256 不同，应对比内部 class / 资源内容；这不代表 Java 版本或功能不同。
+产物是 `dist/pixelmon-content-backport-1.16.5-1.2.0.jar`。脚本用 `javac --release 11` 编译全部 `src/**/*.java`，再原样打包 `resources/`。资源文件保持原始字节。JAR 时间戳与压缩封装可能造成文件 SHA-256 不同，应对比内部 class / 资源内容；这不代表 Java 版本或功能不同。
 
 ## 源码与目录
 
@@ -35,7 +35,8 @@ cd pixelmon-content-backport
 | `resources/` | 模组元数据、Mixin 配置、语言、数据、模型、贴图和动画 |
 | `tests/` | 全部自动验收、隔离客户端、测试地图控制和准备工具的 Java 源码 |
 | `tools/` | 上游比较、资源转换、结构校验及隔离测试启动工具 |
-| `test-maps/saves/` | 七张发布地图的初始存档，仅作开发测试夹具 |
+| `test-maps/saves/` | 九张功能地图的干净初始文件 |
+| `test-maps/gym-saves/` | 十八张完整城市及徽章展示世界的干净初始文件 |
 | `test-maps/resources/` | 地图控制模组的元数据 |
 | `docs/history/` | 初期开发记录；不是当前版本的验收结论 |
 
@@ -76,7 +77,7 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 
 `download_upstream.py` 从 Modrinth 获取官方 9.4.1，下载到 `.cache/` 并核验 SHA-512；它不是日常构建步骤。`extend_tera_raids.py` 默认读取该缓存。`inspect_classes.py` 需要自行在 `.cache/cfr.jar` 放置 CFR，仅供本地研究；反编译产物留在忽略的 `.cache/`，不属于仓库源码。
 
-## 地图配套模组与七张地图打包
+## 地图配套模组与全部地图打包
 
 先运行 `build.ps1`，再运行：
 
@@ -84,7 +85,7 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 .\build-test-maps.ps1
 ```
 
-此脚本编译 `tests/MapSupport.java`、`TestMaps.java`、`DedicatedTestMaps.java` 和 `PrepareTestMaps.java`，打包地图控制模组，再合并 `test-maps/saves/`、地图指南与许可说明，生成 `dist/Pixelmon-Backport-test-maps-1.1.0.zip`。地图控制模组按世界名称识别测试地图，正式功能模组不包含自动 QA 代码。实际使用步骤见 [TEST_MAPS.md](TEST_MAPS.md)。
+此脚本编译 `tests/MapSupport.java` 和八个地图辅助源码，打包地图控制模组，生成九张功能地图包 `dist/Pixelmon-Backport-test-maps-1.2.0.zip` 和十九张城市/徽章地图包 `dist/Pixelmon-Backport-gym-test-maps-1.2.0.zip`。两包使用同一份地图控制模组，只安装一份。控制模组按世界名称识别测试地图，正式功能模组不包含自动 QA 或自动退出代码。实际使用步骤见 [TEST_MAPS.md](TEST_MAPS.md)。
 
 如需从自己的新建超平坦空白世界生成地图，`PrepareTestMaps` 接收两个位置参数：原始世界文件夹、输出 saves 文件夹。它复制世界并写入七个测试世界名称；进入地图后由控制模组准备设施。请使用空白世界，勿使用个人存档作模板。
 
@@ -104,6 +105,9 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 
 客户端测试入口是 `tools/run_test_client.py --version-json ... --minecraft-root ... --pixelmon ...`，需要先准备 `.cache/test-client/mods/backport-client-test.jar`（用全部测试 class 和 `tests/client-resources/` 打包），以及隔离服生成的 `backport-test` 世界。它只使用测试用户名和占位 token `0`；源代码不含任何登录账号。`--full-pack` 复制启用的模组和配置到独立测试实例，用于整合包兼容验收。
 
-功能包和校验文件打包：完成两次构建后运行 `python tools/package_release.py --version 1.1.0`。
+功能包和校验文件打包：完成两次构建后运行 `python tools/package_release.py --version 1.2.0`。
 
 `FeedbackClientVerification` 是独立的测试客户端入口，使用 `tests/feedback-client-resources/` 的元数据打包，配合 JEI 与正式地图配套模组打开隔离地图并逐项查询信息页。测试结束截图后主动正常关闭客户端；不要安装到日常游戏中。
+
+
+1.2.0 另有离线资源检查：`tools/verify_gym_city_assets.py --pixelmon <本体.jar>`、`tools/verify_city_structure.py`、`tools/verify_gym_rewards.py`、`tools/verify_npc_dialogue.py --pixelmon <本体.jar>` 和 `tools/verify_release_package.py`。`check.ps1` 会对本体同目录的 Explorer’s Compass 做可选兼容检查。当前工作分工不运行自动游戏验收，旧 `live-check.ps1` 仅保留为开发工具。

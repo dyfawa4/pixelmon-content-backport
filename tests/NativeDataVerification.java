@@ -56,10 +56,13 @@ public final class NativeDataVerification {
                 for(int i=0;i<actual.getAsJsonArray("forms").size();i++){
                     JsonObject a=actual.getAsJsonArray("forms").get(i).getAsJsonObject(),o=original.getAsJsonArray("forms").get(i).getAsJsonObject();
                     if(!a.has("moves"))continue;
-                    if(!o.has("moves")){JsonObject m=a.getAsJsonObject("moves");if(m.toString().equals("{\"tmMoves9\":[\"Tera Blast\"],\"levelUpMoves\":[{\"level\":50,\"attacks\":[\"Tera Blast\"]}]}"))a.remove("moves");continue;}
-                    JsonObject m=a.getAsJsonObject("moves"),om=o.getAsJsonObject("moves");
+                    JsonObject inherited=original.getAsJsonArray("forms").get(0).getAsJsonObject();
+                    if(o.has("defaultBaseForm") && !o.get("defaultBaseForm").getAsString().isEmpty())for(JsonElement candidate:original.getAsJsonArray("forms"))
+                        if(o.get("defaultBaseForm").equals(candidate.getAsJsonObject().get("name")))inherited=candidate.getAsJsonObject();
+                    JsonObject m=a.getAsJsonObject("moves"),om=o.has("moves")?o.getAsJsonObject("moves"):inherited.has("moves")?inherited.getAsJsonObject("moves"):new JsonObject();
                     if(m.has("tmMoves9") && (!om.has("tmMoves9") || !om.getAsJsonArray("tmMoves9").contains(new JsonPrimitive("Tera Blast")))){m.getAsJsonArray("tmMoves9").remove(new JsonPrimitive("Tera Blast"));if(!om.has("tmMoves9") && m.getAsJsonArray("tmMoves9").size()==0)m.remove("tmMoves9");}
                     if(m.has("levelUpMoves")){JsonArray levels=m.getAsJsonArray("levelUpMoves");for(int j=levels.size()-1;j>=0;j--){JsonObject level=levels.get(j).getAsJsonObject();if(level.get("level").getAsInt()!=50)continue;boolean originalBlast=false;if(om.has("levelUpMoves"))for(JsonElement old:om.getAsJsonArray("levelUpMoves"))if(old.getAsJsonObject().get("level").getAsInt()==50 && old.getAsJsonObject().getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")))originalBlast=true;if(!originalBlast)level.getAsJsonArray("attacks").remove(new JsonPrimitive("Tera Blast"));if(level.getAsJsonArray("attacks").size()==0)levels.remove(j);}}
+                    if(!o.has("moves") && m.equals(om))a.remove("moves");
                 }
                 if(!actual.equals(original))throw new AssertionError("Changed legacy entry outside Tera Blast rule "+dex);
                 ++unchanged;

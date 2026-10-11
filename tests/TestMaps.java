@@ -70,9 +70,9 @@ public final class TestMaps {
         station(w,-9,4,"重置队伍、道具与充能","reset");station(w,9,4,"结束当前对战","end");
         List<ItemStack> orb=new ArrayList<>();orb.add(new ItemStack(Backport.REGISTERED.get("tera_orb").get()));orb.add(new ItemStack(PixelmonItems.red_poke_bag));
         for(String type:TeraItems.NAMES)orb.add(new ItemStack(Backport.REGISTERED.get(type+"_tera_shard").get(),64));supply(w,-12,7,"太晶珠／背包／各属性碎片",orb);
-        List<ItemStack> held=new ArrayList<>();for(String name:new String[]{"clear_amulet","covert_cloak","fairy_feather","utility_umbrella","eternatus_meteorite","metal_alloy","unremarkable_teacup","masterpiece_teacup","dragoninite","raichunite_x","raichunite_y","teal_mask","wellspring_mask","hearthflame_mask","cornerstone_mask"})held.add(new ItemStack(Backport.REGISTERED.get(name).get()));
+        List<ItemStack> held=new ArrayList<>();for(String name:new String[]{"clear_amulet","covert_cloak","fairy_feather","utility_umbrella","eternatus_meteorite","metal_alloy","unremarkable_teacup","masterpiece_teacup","dragoninite","raichunite_x","raichunite_y","teal_mask","wellspring_mask","hearthflame_mask","cornerstone_mask"})held.add(new ItemStack(Backport.item(name)));
         held.add(new ItemStack(item("minecraft:shears")));held.add(new ItemStack(item("pixelmon:ability_capsule"),8));held.add(new ItemStack(item("pixelmon:ability_patch"),8));supply(w,12,7,"换形、特性、Mega 与携带道具",held);
-        List<ItemStack> mega=new ArrayList<>();for(net.minecraftforge.fml.RegistryObject<Item> registered:Backport.REGISTERED.values())if(registered.get() instanceof MegaStoneItem)mega.add(new ItemStack(registered.get()));
+        List<ItemStack> mega=new ArrayList<>();Set<Item> megaSeen=Collections.newSetFromMap(new IdentityHashMap<>());for(String name:Backport.REGISTERED.keySet()){Item registered=Backport.item(name);if(registered instanceof MegaStoneItem && megaSeen.add(registered))mega.add(new ItemStack(registered));}
         supply(w,12,3,"新增 Mega 石 1",mega.subList(0,Math.min(27,mega.size())));if(mega.size()>27)supply(w,12,0,"新增 Mega 石 2",mega.subList(27,mega.size()));
         NPCRelearner learner=new NPCRelearner(w);npc(w,learner,-6,-7,"技能回忆师");
         NPCNurseJoy nurse=new NPCNurseJoy(w);npc(w,nurse,6,-7,"治疗护士");
@@ -161,7 +161,7 @@ public final class TestMaps {
             if(kind.equals("za")){
                 String[] stones={"raichunite_x","dragoninite","starminite","greninjite","zygardite","darkranite"};
                 StorageProxy.getParty(p).get(4).setForm("complete");
-                for(int i=0;i<stones.length;i++)StorageProxy.getParty(p).get(i).setHeldItem(new ItemStack(Backport.REGISTERED.get(stones[i]).get()));
+                for(int i=0;i<stones.length;i++)StorageProxy.getParty(p).get(i).setHeldItem(new ItemStack(Backport.item(stones[i])));
                 p.func_146105_b(new StringTextComponent("ZA 队伍已配好对应 Mega 石；基格尔德为完整形态。"),false);
             }
             return;
@@ -174,7 +174,7 @@ public final class TestMaps {
         if(kind.equals("ash")){user.setForm("battle_bond");moves(enemy,"Splash");enemy.setHealth(1);}
         if(za.containsKey(kind)){
             if(kind.equals("zygarde")){user.setForm("complete");moves(user,"Core Enforcer","Thousand Arrows","Dragon Pulse","Protect");}
-            user.setHeldItem(new ItemStack(Backport.REGISTERED.get(stones.get(kind)).get()));
+            user.setHeldItem(new ItemStack(Backport.item(stones.get(kind))));
         }
         if(kind.equals("mega") || kind.equals("double") || kind.equals("z"))user.setHeldItem(new ItemStack(item(kind.equals("z")?"pixelmon:firium_z":"pixelmon:charizardite_x")));
         if(kind.equals("stellar"))Tera.changeType(user,Element.MYSTERY);else Tera.changeType(user,Element.WATER);

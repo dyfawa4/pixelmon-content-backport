@@ -31,7 +31,17 @@
     "SignatureHazardMixin",
     "MaxDenPlacementMixin",
     "DisposableDiscInteractionMixin",
-    "NpcGimmickMixin"
+    "NpcGimmickMixin",
+    "GymCityStartMixin",
+    "CompassGymSearchMixin",
+    "CompassGymDimensionsMixin",
+    "ChalicePersistenceMixin",
+    "ArceusEventSafetyMixin",
+    "FieldMegaPokemonMixin",
+    "FieldMegaEntityMixin",
+    "FieldMegaBattleMixin",
+    "DragonStoneStackMixin",
+    "NpcTacticalMixin"
   ],
   "client": [
     "AnimationMatrixMixin",
@@ -43,7 +53,10 @@
     "BattleInfoTooltipMixin",
     "DetectorDenMixin",
     "DetectorParadoxMixin",
-    "TeraRaidLobbyMixin"
+    "TeraRaidLobbyMixin",
+    "ZygardeScreenSafetyMixin",
+    "ChaliceRenderSafetyMixin",
+    "FieldSkillScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

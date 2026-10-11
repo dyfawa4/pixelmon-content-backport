@@ -20,7 +20,7 @@ import java.util.*;
 public final class ReferenceItems {
     private ReferenceItems(){}
     public static Item create(String name,String kind,String form){
-        if(kind.equals("mega"))return new MegaStoneItem(form);
+        if(kind.equals("mega"))return Backport.isDragonStone(name)?new Backport.LegacyDragoninite(form):new MegaStoneItem(form);
         switch(name){
             case "tera_orb":return new TeraItems.Orb();
             case "clear_amulet":return new Amulet();

@@ -37,11 +37,15 @@ public final class TeraItems {
     public static boolean hasAnyOrb(PlayerEntity p){try(PokeInventory inventory=new PokeInventory(p)){for(ItemStack s:inventory.stacks)if(!s.func_190926_b() && s.func_77973_b() instanceof Orb)return true;return false;}}
     public static class Orb extends PixelmonItem {
         public Orb(){super(new Item.Properties().func_200917_a(1).func_200916_a(ItemGroup.field_78026_f));}
+        @Override public boolean func_77636_d(ItemStack stack){return charged(stack);}
         @Override public ActionResult<ItemStack> func_77659_a(World world,PlayerEntity player,Hand hand){
             if(world.field_72995_K)TeraNetwork.CHANNEL.sendToServer(new TeraNetwork.Request(-1,new UUID(0,0),2,-1));
             return ActionResult.func_226249_b_(player.func_184586_b(hand));
         }
-        @Override public void func_77624_a(ItemStack s,World world,List<ITextComponent> lines,ITooltipFlag flag){lines.add(new TranslationTextComponent(charged(s)?"pixelmon.backport.tera.orb.charged":"pixelmon.backport.tera.orb.spent"));lines.add(new TranslationTextComponent("pixelmon.backport.tera.orb.help"));}
+        @Override public void func_77624_a(ItemStack s,World world,List<ITextComponent> lines,ITooltipFlag flag){
+            for(String key:new String[]{charged(s)?"pixelmon.backport.tera.orb.charged":"pixelmon.backport.tera.orb.spent","pixelmon.backport.tera.orb.help","pixelmon.backport.tera.orb.edit"})
+                lines.add(new TranslationTextComponent(key).func_240699_a_(TextFormatting.GRAY));
+        }
     }
     public static class Shard extends PixelmonItem {
         private final int type;
@@ -50,7 +54,7 @@ public final class TeraItems {
             if(!(owner instanceof ServerPlayerEntity) || !(entity instanceof PixelmonEntity))return ActionResultType.PASS;
             return change((ServerPlayerEntity)owner,((PixelmonEntity)entity).getPokemon(),type)?ActionResultType.SUCCESS:ActionResultType.PASS;
         }
-        @Override public void func_77624_a(ItemStack s,World world,List<ITextComponent> lines,ITooltipFlag flag){lines.add(new TranslationTextComponent("pixelmon.backport.tera.shard.help"));}
+        @Override public void func_77624_a(ItemStack s,World world,List<ITextComponent> lines,ITooltipFlag flag){lines.add(new TranslationTextComponent("pixelmon.backport.tera.shard.help").func_240699_a_(TextFormatting.GRAY));}
     }
     public static class Charging {
         @SubscribeEvent public void healer(HealerEvent.Post event){

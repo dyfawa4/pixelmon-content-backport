@@ -14,6 +14,7 @@ public final class Content {
     public static final JsonObject DATA = read("backport/content.json");
     public static final JsonObject MODERN_MOVES=read("backport/modern-moves.json");
     public static final JsonObject TERA_LEARNING=read("backport/tera_learning.json");
+    public static final JsonObject RIDING=read("backport/riding.json");
     private Content() {}
     public static JsonObject read(String path) {
         try (InputStream stream = Content.class.getClassLoader().getResourceAsStream(path)) {
@@ -73,12 +74,36 @@ public final class Content {
             }
             PermanentAsh.addForm(data);
             for(JsonElement value:data.values()){
+                JsonObject species=value.getAsJsonObject();String dex=species.get("dex").getAsString();
+                if("149".equals(dex))for(String alias:new String[]{"dragoninite","dragonitite"})if(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation("pixelmon:"+alias)) instanceof com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem){
+                    JsonObject base=species.getAsJsonArray("forms").get(0).getAsJsonObject();
+                    JsonObject canonical=new JsonObject();JsonArray items=new JsonArray(),forms=new JsonArray();items.add("pixelmon:"+alias);forms.add("mega");canonical.add("megaItems",items);canonical.add("megas",forms);mergeMegaPairs(base,canonical);
+                }
+                if(!RIDING.has(dex))continue;
+                for(JsonElement form:species.getAsJsonArray("forms")){
+                    JsonObject f=form.getAsJsonObject(),settings=RIDING.getAsJsonObject(dex).getAsJsonObject(f.get("name").getAsString());
+                    if(settings!=null)f.add("movement",copy(settings));
+                }
+            }
+            for(JsonElement value:data.values()){
                 JsonObject species=value.getAsJsonObject();String dex=species.get("dex").getAsString();if(!TERA_LEARNING.has(dex))continue;
                 JsonArray source=TERA_LEARNING.getAsJsonArray(dex);
                 for(JsonElement valueForm:species.getAsJsonArray("forms")){
                     JsonObject form=valueForm.getAsJsonObject();String name=form.get("name").getAsString();
                     boolean base=name.isEmpty() || name.equals("base");if(!source.contains(new JsonPrimitive(name)) && !(base && source.contains(new JsonPrimitive("base"))))continue;
-                    JsonObject moves=form.has("moves")?form.getAsJsonObject("moves"):new JsonObject();form.add("moves",moves);
+                    // A missing move object inherits the base form in the native loader.
+                    // Materialize that inheritance before adding a move; otherwise regional
+                    // variants would lose their entire native learnset and retain only Tera Blast.
+                    JsonObject moves;
+                    if(form.has("moves"))moves=form.getAsJsonObject("moves");
+                    else{
+                        JsonObject baseForm=species.getAsJsonArray("forms").get(0).getAsJsonObject();
+                        String baseName=form.has("defaultBaseForm")?form.get("defaultBaseForm").getAsString():"";
+                        if(!baseName.isEmpty())for(JsonElement candidate:species.getAsJsonArray("forms"))
+                            if(baseName.equals(candidate.getAsJsonObject().get("name").getAsString()))baseForm=candidate.getAsJsonObject();
+                        moves=baseForm.has("moves")?copy(baseForm.get("moves")).getAsJsonObject():new JsonObject();
+                        form.add("moves",moves);
+                    }
                     JsonArray machines=moves.has("tmMoves9")?moves.getAsJsonArray("tmMoves9"):new JsonArray();moves.add("tmMoves9",machines);if(!machines.contains(new JsonPrimitive("Tera Blast")))machines.add("Tera Blast");
                     JsonArray levels=moves.has("levelUpMoves")?moves.getAsJsonArray("levelUpMoves"):new JsonArray();moves.add("levelUpMoves",levels);
                     boolean learned=false;for(JsonElement level:levels)if(level.getAsJsonObject().getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")))learned=true;

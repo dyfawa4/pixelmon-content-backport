@@ -50,12 +50,12 @@ public final class FeedbackVerification {
             require(p.getMoveset().hasAttack(DisposableTeraDisc.move().getAttack()) && permanent.func_190916_E()==1,"Native reusable TM altered");
             p.setEggCycles(10);require(!DisposableTeraDisc.compatible(p),"Egg accepts disc");p.setEggCycles(-1);
             for(int stars=1;stars<=6;stars++)require(TeraRaids.rewards(stars,0,new Random(1)).stream().anyMatch(s->s.func_77973_b() instanceof DisposableTeraDisc),"Guaranteed new disc R"+stars);
-            npc(player);nativeTrainer(player);
+            npc(player);nativeTrainer(player);NpcDecisionVerification.run(player);
             System.out.println("BACKPORT_FEEDBACK_PASS catalogue, one-use/permanent TM, cancellation/payment, R1-R6 rewards, NPC four mechanics/medicine/persistence");
         }finally{LearnMoveController.clearLearnMoves(player);party.set(0,previous);player.func_184611_a(Hand.MAIN_HAND,hand);}
     }
     static void nativeTrainer(ServerPlayerEntity player){
-        NPCTrainer npc=new NPCTrainer(player.field_70170_p);npc.isGymLeader=true;
+        NPCTrainer npc=new NPCTrainer(player.field_70170_p);npc.isGymLeader=true;npc.setBossTier(BossTierRegistry.getBossTierOrNotBoss("equal"));
         npc.setBossTier(BossTierRegistry.getBossTierOrNotBoss("equal"));
         npc.getPersistentData().func_74757_a("BackportNpcRoster",true);
         Pokemon original=mon(3,"Energy Ball");int level=original.getPokemonLevel();npc.getPokemonStorage().set(0,original);
@@ -76,11 +76,15 @@ public final class FeedbackVerification {
         }finally{if(b!=null && !b.battleEnded)b.endBattleWithoutXP();npc.func_70106_y();}
     }
     static BattleController battle(ServerPlayerEntity player,Pokemon own,Pokemon enemy){
-        NPCTrainer npc=new NPCTrainer(player.field_70170_p);npc.isGymLeader=true;
+        NPCTrainer npc=new NPCTrainer(player.field_70170_p);npc.isGymLeader=true;npc.setBossTier(BossTierRegistry.getBossTierOrNotBoss("equal"));
         npc.getPersistentData().func_74757_a("BackportNpcRoster",true);
+        // NPC construction supplies a random party. This fixture models a single
+        // specified Pokemon; unrelated reserves make its recovery decisions random.
+        for(int slot=0;slot<6;slot++)npc.getPokemonStorage().set(slot,null);
         own.getPersistentData().func_74757_a(NpcGimmicks.PROFILE,true);npc.getPokemonStorage().set(0,own);
         TrainerParticipant ours=new TrainerParticipant(npc,1);
-        BattleController b=new BattleController(new BattleParticipant[]{ours},new BattleParticipant[]{new WildPixelmonParticipant(enemy)},new BattleRules());b.sendMessages=false;NpcGimmicks.prepare(ours);b.modifyStats();return b;
+        BattleController b=new BattleController(new BattleParticipant[]{ours},new BattleParticipant[]{new WildPixelmonParticipant(enemy)},new BattleRules());b.sendMessages=false;NpcGimmicks.prepare(ours);
+        ours.setBattleAI(npc.getBattleAIMode().createAI(ours));b.modifyStats();return b;
     }
     static void select(PixelmonWrapper p,Attack attack,NpcGimmicks.Choice expected){
 
@@ -114,7 +118,7 @@ public final class FeedbackVerification {
         trainer.allPokemon=Arrays.copyOf(trainer.allPokemon,2);trainer.allPokemon[1]=new PixelmonWrapper(trainer,reserve,1);trainer.allPokemon[1].bc=b;trainer.allPokemon[1].setHealth(0);
         b.battleTurn=4;p.setHealth(p.getMaxHealth());require(NpcMedicine.plan(p),"No revive decision");p.useItem();require(trainer.allPokemon[1].isAlive(),"Native revive failed");
         trainer.allPokemon[1].setHealth(0);b.battleTurn=5;require(!NpcMedicine.plan(p),"Infinite revives");
-        NPCTrainer npc=new NPCTrainer(player.field_70170_p);npc.isGymLeader=true;npc.getPokemonStorage().set(0,mon(3,"Energy Ball"));
+        NPCTrainer npc=new NPCTrainer(player.field_70170_p);npc.isGymLeader=true;npc.setBossTier(BossTierRegistry.getBossTierOrNotBoss("equal"));npc.getPokemonStorage().set(0,mon(3,"Energy Ball"));
         // Choose a deterministic eligible ace roll, then persist through the actual NPC NBT methods.
         for(long value=1;value<30;value++){npc.func_184221_a(new UUID(0,value));if(new Random(value).nextInt(3)!=0)break;}
         TrainerParticipant tp=new TrainerParticipant(npc,1);NpcGimmicks.augment(tp);

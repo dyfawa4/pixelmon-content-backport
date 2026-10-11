@@ -28,12 +28,13 @@ public final class Backport {
     static {
         for (String name : new String[]{"dragoninite","starminite","chandelurite","darkranite","raichunite_x","raichunite_y"}) {
             String form=name.equals("raichunite_x")?"megax":name.equals("raichunite_y")?"megay":"mega";
-            REGISTERED.put(name,ITEMS.register(name,()->new MegaStoneItem(form)));
+            REGISTERED.put(name,ITEMS.register(name,()->name.equals("dragoninite")?new LegacyDragoninite(form):new MegaStoneItem(form)));
         }
         for (String name : new String[]{"metal_alloy","unremarkable_teacup","masterpiece_teacup"}) REGISTERED.put(name,ITEMS.register(name,()->new com.pixelmonmod.pixelmon.items.PixelmonItem(new Item.Properties())));
         for (String form : new String[]{"teal","wellspring","hearthflame","cornerstone"}) REGISTERED.put(form+"_mask",ITEMS.register(form+"_mask",()->new Mask(form)));
         for(JsonElement value:Content.DATA.getAsJsonArray("referenceItems")){
             JsonObject entry=value.getAsJsonObject();String name=entry.get("name").getAsString();
+            if(name.equals("dragonitite"))continue;
             if(REGISTERED.containsKey(name))continue;
             String kind=entry.get("kind").getAsString(),form=entry.get("form").isJsonNull()?"":entry.get("form").getAsString();
             REGISTERED.put(name,ITEMS.register(name,()->ReferenceItems.create(name,kind,form)));
@@ -41,19 +42,48 @@ public final class Backport {
         for(int i=0;i<TeraItems.NAMES.length;i++){final int index=i;String name=TeraItems.NAMES[i]+"_tera_shard";REGISTERED.put(name,ITEMS.register(name,()->new TeraItems.Shard(index)));}
         REGISTERED.put("tera_den_spawner",ITEMS.register("tera_den_spawner",TeraDenItem::new));
         REGISTERED.put("tera_blast_disc_single_use",ITEMS.register("tera_blast_disc_single_use",DisposableTeraDisc::new));
+        for(Map.Entry<String,JsonElement> definition:GymCities.DATA.getAsJsonObject("newThemes").entrySet()){
+            String name=definition.getKey()+"_gym_badge";
+            REGISTERED.put(name,ITEMS.register(name,()->new com.pixelmonmod.pixelmon.items.PixelmonItem(new Item.Properties())));
+        }
+    }
+    public static Item item(String name){
+        if(isDragonStone(name)){
+            for(String alias:new String[]{"dragoninite","dragonitite"}){
+                Item nativeStone=ForgeRegistries.ITEMS.getValue(new net.minecraft.util.ResourceLocation("pixelmon",alias));
+                if(nativeStone instanceof MegaStoneItem)return nativeStone;
+            }
+            return REGISTERED.get("dragoninite").get();
+        }
+        return REGISTERED.get(name).get();
+    }
+    public static boolean isDragonStone(String name){return "dragoninite".equals(name) || "dragonitite".equals(name);}
+    public static class LegacyDragoninite extends MegaStoneItem {
+        public LegacyDragoninite(String form){super(form);}
+        @Override public void func_150895_a(net.minecraft.item.ItemGroup group,net.minecraft.util.NonNullList<net.minecraft.item.ItemStack> stacks){if(item("dragoninite")==this)super.func_150895_a(group,stacks);}
     }
     public Backport() {
         net.minecraftforge.common.crafting.CraftingHelper.register(MasterBallIngredient.ID,MasterBallIngredient.SERIALIZER);
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        GymLocator.ALIASES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new GymLocator());
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.event.entity.EntityAttributeCreationEvent event)->event.put(TERA_DEN.get(),net.minecraft.entity.LivingEntity.func_233639_cI_().func_233813_a_()));
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new TeraRaids.Events());
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new GymCities.Events());
         Pixelmon.EVENT_BUS.register(new TeraRaids.Events());
         BackportEffects.register();
         TeraNetwork.register();
+        FieldMega.register();
         Pixelmon.EVENT_BUS.register(new TeraItems.Charging());
+        LegendAdvancements achievements=new LegendAdvancements();
+        Pixelmon.EVENT_BUS.register(achievements);net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(achievements);
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event)->event.enqueueWork(()->{
-            for(RegistryObject<Item> entry:REGISTERED.values())if(entry.get() instanceof MegaStoneItem && !com.pixelmonmod.pixelmon.api.registries.PixelmonItems.megaStones.contains(entry.get()))com.pixelmonmod.pixelmon.api.registries.PixelmonItems.megaStones.add(entry.get());
+            GymCities.registerGeneration();
+            for(Map.Entry<String,RegistryObject<Item>> entry:REGISTERED.entrySet()){
+                Item stone=item(entry.getKey());
+                if(stone instanceof MegaStoneItem && !com.pixelmonmod.pixelmon.api.registries.PixelmonItems.megaStones.contains(stone))com.pixelmonmod.pixelmon.api.registries.PixelmonItems.megaStones.add((MegaStoneItem)stone);
+            }
         }));
         Pixelmon.EVENT_BUS.register(this);
     }

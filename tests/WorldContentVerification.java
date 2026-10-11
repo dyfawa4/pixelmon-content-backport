@@ -52,7 +52,7 @@ public final class WorldContentVerification {
     public static void run()throws Exception{
         net.minecraft.util.NonNullList<ItemStack> creative=net.minecraft.util.NonNullList.func_191196_a();((BackportCreativeTab)Backport.CREATIVE_TAB).func_78018_a(creative);
         require(creative.size()==Backport.REGISTERED.size()+8,"Dedicated creative tab incomplete");
-        for(RegistryObject<Item> registered:Backport.REGISTERED.values())require(creative.stream().anyMatch(s->s.func_77973_b()==registered.get()),"Creative tab missing "+registered.getId());
+        for(RegistryObject<Item> registered:Backport.REGISTERED.values())require(creative.stream().anyMatch(s->s.func_77973_b()==Backport.item(registered.getId().func_110623_a())),"Creative tab missing "+registered.getId());
         require(creative.stream().filter(s->!(s.func_77973_b() instanceof DisposableTeraDisc) && TechnicalMoveItem.getMove(s)!=null).count()==8,"Creative tab missing native NBT TMs");
         String[] standard={"dipplin","poltchageist","sinistcha","archaludon","hydrapple","backport_gougingfire","backport_ragingbolt","backport_ironboulder","backport_ironcrown","backport_az_floette"};
         String[] legends={"ogerpon","backport_okidogi","backport_munkidori","backport_fezandipiti","backport_terapagos","backport_pecharunt"};
@@ -88,7 +88,7 @@ public final class WorldContentVerification {
         for(BossTier tier:BossTierRegistry.getBossTiers())if(tier.canRandomlySpawn() && tier.isMega() && firstChance.getDouble(tier)>0 && repeatChance.getDouble(tier)>0)renewable=true;
         require(renewable,"No native Mega boss tier permits repeated stones; second X/Y stone would be unobtainable");
         for(RegistryObject<Item> item:Backport.REGISTERED.values())if(item.get() instanceof MegaStoneItem){
-            require(PixelmonItems.megaStones.contains(item.get()),"Mega stone missing boss drop pool "+item.getId());
+            require(PixelmonItems.megaStones.contains(Backport.item(item.getId().func_110623_a())),"Mega stone missing boss drop pool "+item.getId());
             boolean compatible=false,spawnable=false;
             for(JsonElement patch:Content.DATA.getAsJsonArray("patches")){
                 Species s=PixelmonSpecies.fromNationalDex(patch.getAsJsonObject().getAsJsonObject("species").get("dex").getAsInt());
@@ -122,6 +122,7 @@ public final class WorldContentVerification {
             if(item instanceof MegaStoneItem){++acquisitionItems;continue;}
             if(name.equals("tera_blast_disc_single_use")){require(TeraRaids.rewards(1,0,new Random(1)).stream().anyMatch(stack->stack.func_77973_b()==item),"Single-use disc source");++acquisitionItems;continue;}
             if(name.endsWith("_tera_shard")){++acquisitionItems;continue;}
+            if(name.endsWith("_gym_badge")){GymCityVerification.badgeSource(name.substring(0,name.length()-10));++acquisitionItems;continue;}
             if(name.equals("tera_orb") || name.equals("eternatus_meteorite")){
                 net.minecraft.item.crafting.IRecipe<?> recipe=ServerLifecycleHooks.getCurrentServer().func_199529_aN().func_215367_a(new ResourceLocation(Content.NS,name)).orElse(null);
                 require(recipe!=null && recipe.func_77571_b().func_77973_b()==item,"Recipe not loaded "+name);
