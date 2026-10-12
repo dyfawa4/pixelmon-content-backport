@@ -3,7 +3,7 @@
   "fallback": "pixelmon_backport:gyms/dark/clutter",
   "elements": [
     {
-      "weight": 3,
+      "weight": 6,
       "element": {
         "location": "pixelmon_backport:gyms/dark/gym_dark_house_a",
         "processors": "minecraft:empty",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "weight": 4,
+      "weight": 8,
       "element": {
         "location": "pixelmon_backport:gyms/dark/gym_dark_house_b",
         "processors": "minecraft:empty",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 8,
+      "weight": 16,
       "element": {
         "location": "pixelmon_backport:gyms/dark/gym_dark_house_c",
         "processors": "minecraft:empty",
@@ -30,7 +30,7 @@
       }
     },
     {
-      "weight": 5,
+      "weight": 10,
       "element": {
         "location": "pixelmon_backport:gyms/dark/gym_dark_house_d",
         "processors": "minecraft:empty",

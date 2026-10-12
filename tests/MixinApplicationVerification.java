@@ -39,8 +39,21 @@ public final class MixinApplicationVerification {
             weatherTargets.add("com.pixelmonmod.pixelmon.client.render.tileEntities.RenderTileEntityArcChalice");
             weatherTargets.add("com.pixelmonmod.pixelmon.blocks.tileentity.ArcChaliceTileEntity");
             weatherTargets.add("com.pixelmonmod.pixelmon.api.events.legendary.ArceusEvent");
+            weatherTargets.add("com.pixelmonmod.pixelmon.world.listener.DrownedWorldListener");
+            weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.logic.DuskBall");
             weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.Pokemon");weatherTargets.add("com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity");
+            weatherTargets.add("com.pixelmonmod.pixelmon.entities.pixelmon.helpers.EvolutionQuery");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.moveskills.MoveSkillSelectScreen");
+            weatherTargets.add("com.pixelmonmod.pixelmon.client.DefaultServerList");
+            weatherTargets.add("com.pixelmonmod.pixelmon.entities.pixelmon.interactions.InteractionRainbowWing");
+            weatherTargets.add("com.pixelmonmod.pixelmon.PixelmonEventHandler");
+            weatherTargets.add("com.pixelmonmod.pixelmon.entities.pixelmon.interactions.InteractionZombie");
+            weatherTargets.add("com.pixelmonmod.pixelmon.command.impl.CheckSpawnsCommand");
+            weatherTargets.add("com.pixelmonmod.pixelmon.command.impl.EndBattleCommand");
+            weatherTargets.add("com.pixelmonmod.pixelmon.api.advancements.triggers.SpecTrigger");
+            weatherTargets.add("com.pixelmonmod.pixelmon.api.advancements.triggers.SpecTrigger$Instance");
+            weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.ai.AdvancedAI");
+            weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.override.multiplayer.CustomServerList");
             for(String name:weatherTargets)verify(transformer,jar,name);
             for(String name:new String[]{"com.pixelmonmod.api.loader.DatapackLoader$Impl","com.pixelmonmod.pixelmon.client.models.smd.SmdAnimation","com.pixelmonmod.pixelmon.api.pokemon.species.palette.locator.ModelLocator","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Sharpness","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Bulletproof","com.pixelmonmod.pixelmon.items.TechnicalMoveItem","com.pixelmonmod.pixelmon.api.pokemon.species.moves.Moves","com.pixelmonmod.pixelmon.items.heldItems.BlankTechnicalMachineItem","com.pixelmonmod.pixelmon.api.registries.PixelmonItems","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond","com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.attackModifiers.MultipleHit","com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper","com.pixelmonmod.pixelmon.battles.attacks.Attack","com.pixelmonmod.pixelmon.battles.controller.BattleController","com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats","com.pixelmonmod.pixelmon.api.registries.PixelmonForms","com.pixelmonmod.pixelmon.client.gui.battles.BattleScreen"}) {
                 verify(transformer,jar,name);

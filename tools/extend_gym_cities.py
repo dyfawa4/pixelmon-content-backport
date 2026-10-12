@@ -20,6 +20,7 @@ THEMES = {
     'rock': dict(source='ground', anchor='ground', city='磐岚城', badge='磐岚徽章', icon='boulder_badge', color='brown', accent='orange', trim='cut_sandstone', feature='石砌商街与阶梯岩塔', roster=[76,141,142,248,306,346,348,464,526,567,697,774]),
 }
 NATIVE_BADGES = dict(electric='bolt_badge', fire='fire_badge', ice='ice_badge', dragon='dragon_badge', ground='jimen_badge', steel='mineral_badge', ghost='ghost_badge', fairy='fairy_badge_galar', grass='grass_badge', water='water_badge')
+MEGA_ANCHORS=dict(electric=181,fire=6,ice=362,dragon=373,ground=445,steel=376,ghost=94,fairy=282,grass=3,water=9,poison=94,dark=229,fighting=448,flying=18,normal=115,bug=212,psychic=65,rock=142)
 BIOMES = dict(normal=['plains','sunflower_plains'],fighting=['mountains','wooded_mountains'],poison=['swamp','swamp_hills'],flying=['gravelly_mountains','modified_gravelly_mountains'],psychic=['desert','desert_hills'],bug=['jungle','jungle_hills','bamboo_jungle','bamboo_jungle_hills'],rock=['mountain_edge','stone_shore','desert_lakes'],dark=['dark_forest','dark_forest_hills'])
 for theme,definition in THEMES.items():definition['biomes']=['minecraft:'+b for b in BIOMES[theme]]
 
@@ -51,12 +52,19 @@ def strings(tag, old, new):
     return tag
 
 def mark_npcs(data, theme, fresh=False, role=''):
+    from embedded_npc_zh_cn import translate
+    translate(data)
     for entry in data.get('entities', []):
         entity = entry.get('nbt', {})
         if str(entity.get('id', '')) != 'pixelmon:npc_trainer':continue
         persistent = entity.setdefault('ForgeData', nbtlib.Compound())
         persistent['BackportGymType'] = nbtlib.String(theme)
         persistent['BackportGymRole'] = nbtlib.String(role)
+        entity['GymLeader']=nbtlib.Byte(role=='leader')
+        if role!='leader':
+            winnings=entity.get('WinningsTag',{})
+            for key in list(winnings):
+                if str(winnings[key].get('id','')).endswith('_badge'):del winnings[key]
         if not fresh and role == 'leader' and not entity.get('WinningsTag'):
             entity['WinningsTag'] = nbtlib.Compound({'item0': nbtlib.Compound({'id': nbtlib.String('pixelmon:' + NATIVE_BADGES[theme]), 'Count': nbtlib.Byte(1)})})
         if not fresh and role=='leader' and theme=='ground':
@@ -225,7 +233,7 @@ def main():
                         location=entry['element'].get('location','')
                         if not location and target.name in ['street.json','house.json']:entry['weight']=0
                         elif '_farm_' in location or '_berry_' in location:entry['weight']=1
-                        elif '_road_c' in location or '_road_d' in location:entry['weight']*=3 if theme in ['normal','fighting','rock'] else 2
+                        elif '_house_' in location:entry['weight']*=3 if theme in ['normal','fighting','rock'] else 2
                         elif '_tree_' in location:entry['weight']=min(entry['weight'],4)
                     # Authored streets have their own supported themed trees.
                     # Native feature elements can legitimately decline placement.
@@ -247,12 +255,13 @@ def main():
         for anchor in sorted({d['anchor'] for d in THEMES.values()}):
             obsolete=RES/f'data/pixelmon/worldgen/template_pool/gyms/{anchor}/start_pool.json'
             if obsolete.exists():obsolete.unlink()
-    for definition in THEMES.values():definition['architectureRevision']=5
-    write_json(RES/'backport/gym_cities.json',dict(nativeSignatures=signatures,nativeBadges=NATIVE_BADGES,newThemes=THEMES))
+    for definition in THEMES.values():definition['architectureRevision']=6
+    write_json(RES/'backport/gym_cities.json',dict(nativeSignatures=signatures,nativeBadges=NATIVE_BADGES,newThemes=THEMES,megaAnchors=MEGA_ANCHORS))
     write_json(RES/'backport/gym_templates.json',dict(templates=sorted(templates)))
     help_path=RES/'backport/item_help.json';help_data=json.loads(help_path.read_text(encoding='utf-8'))
     for theme, definition in THEMES.items():
-        help_data[f'pixelmon_backport:{theme}_gym_badge']=[f'用途：{definition["city"]}道馆的挑战纪念徽章，可收藏或展示。',f'获取：击败{definition["city"]}馆主，作为道馆胜利奖励获得。']
+        from extend_version13 import LOCATIONS
+        help_data[f'pixelmon_backport:{theme}_gym_badge']=[f'用途：{definition["city"]}道馆的挑战纪念徽章，可收藏或展示。',f'获取：击败{definition["city"]}馆主，作为道馆胜利奖励获得。',f'道馆地点：{LOCATIONS[theme]}。需探索启用结构生成的未生成区域。']
     write_json(help_path,help_data)
     for language in ['zh_cn','en_us']:
         path=RES/f'assets/pixelmon_backport/lang/{language}.json';data=json.loads(path.read_text(encoding='utf-8'))

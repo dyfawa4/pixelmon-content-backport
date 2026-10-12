@@ -1,0 +1,61 @@
+{
+  "scope": "offline template, native form catalogue and runtime wiring checks; no battle or win-rate simulation",
+  "leaders_by_theme": {
+    "bug": 6,
+    "dark": 6,
+    "dragon": 6,
+    "electric": 6,
+    "fairy": 6,
+    "fighting": 6,
+    "fire": 6,
+    "flying": 6,
+    "ghost": 6,
+    "grass": 6,
+    "ground": 6,
+    "ice": 6,
+    "normal": 6,
+    "poison": 6,
+    "psychic": 6,
+    "rock": 6,
+    "steel": 6,
+    "water": 6
+  },
+  "leaders": 108,
+  "other_gym_trainers": 270,
+  "theme_mega_anchors": {
+    "electric": 181,
+    "fire": 6,
+    "ice": 362,
+    "dragon": 373,
+    "ground": 445,
+    "steel": 376,
+    "ghost": 94,
+    "fairy": 282,
+    "grass": 3,
+    "water": 9,
+    "poison": 94,
+    "dark": 229,
+    "fighting": 448,
+    "flying": 18,
+    "normal": 115,
+    "bug": 212,
+    "psychic": 65,
+    "rock": 142
+  },
+  "native_switching_preserved": true,
+  "legendary_ace_probability_gate_removed": true,
+  "leader_training": {
+    "common_preparation_and_restore_snapshot": true,
+    "native_iv_max": 31,
+    "native_ev_per_stat_max": 252,
+    "native_ev_total_max": 510,
+    "native_mint_and_form_abilities": true,
+    "configured_max_level_default": 100,
+    "extra_level_or_stat_multiplier": false
+  },
+  "limits": [
+    "Equipment and resource eligibility are checked through native APIs at runtime.",
+    "Every mechanism is an available legal option; mutually exclusive mechanisms cannot all be forced in one battle.",
+    "Actual difficulty, timings and combat interactions remain manual acceptance."
+  ]
+}

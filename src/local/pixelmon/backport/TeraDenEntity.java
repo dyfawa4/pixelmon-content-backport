@@ -22,6 +22,24 @@ public final class TeraDenEntity extends DenEntity {
     public TeraDenEntity(EntityType<DenEntity> type,World world){super(type,world);setDefaults();setSize(1.4f,2.1f);field_70158_ak=true;setBaseHidden(true);func_189654_d(true);getPersistentData().func_74768_a("BackportDenKind",1);}
     @Override public void func_213352_e(Vector3d travel){func_213317_d(Vector3d.field_186680_a);}
     public TeraDenEntity(World world){this(Backport.TERA_DEN.get(),world);}
+    @Override public boolean isBaseHidden(){return true;}
+    @Override public boolean func_70097_a(net.minecraft.util.DamageSource source,float amount){
+        if(source.func_76364_f() instanceof PlayerEntity){
+            PlayerEntity player=(PlayerEntity)source.func_76364_f();
+            net.minecraft.item.Item tool=player.func_184614_ca().func_77973_b();
+            if(tool==com.pixelmonmod.pixelmon.api.registries.PixelmonItems.den_spawner)return false;
+            if(tool instanceof TeraDenItem){
+                if(!player.func_184812_l_() || com.pixelmonmod.pixelmon.Pixelmon.EVENT_BUS.post(new com.pixelmonmod.pixelmon.api.events.raids.DenEvent.Interact(this,player,false)))return false;
+                if(!field_70170_p.field_72995_K){
+                    if(com.pixelmonmod.pixelmon.items.SpawnDenItem.isOPOnly && !com.pixelmonmod.pixelmon.api.util.helpers.PlayerHelper.hasPermission((net.minecraft.entity.player.ServerPlayerEntity)player,"pixelmon.denspawner.use"))return false;
+                    field_70170_p.func_184133_a(null,func_233580_cy_(),net.minecraft.util.SoundEvents.field_187835_fT,net.minecraft.util.SoundCategory.BLOCKS,1f,.5f);
+                    func_241204_bJ_();
+                }
+                return true;
+            }
+        }
+        return super.func_70097_a(source,amount);
+    }
     @Override protected void func_70088_a(){super.func_70088_a();field_70180_af.func_187214_a(TYPE,0);field_70180_af.func_187214_a(PALETTE,"none");}
     public int teraType(){return field_70180_af.func_187225_a(TYPE);}
     public String palette(){return field_70180_af.func_187225_a(PALETTE);}
@@ -38,7 +56,7 @@ public final class TeraDenEntity extends DenEntity {
         setData(new RaidData(func_145782_y(),stars,p.getSpecies(),p.getForm()));
     }
     @Override public void func_213281_b(CompoundNBT nbt){super.func_213281_b(nbt);nbt.func_74768_a("BackportTeraType",teraType());nbt.func_74778_a("BackportTeraPalette",palette());nbt.func_74768_a("BackportTeraDay",refreshed);if(getData().isPresent()){RaidData data=getServerData();CompoundNBT raid=new CompoundNBT();raid.func_74768_a("Species",data.getSpecies().getDex());raid.func_74778_a("Form",data.getForm().getName());raid.func_74768_a("Stars",data.getStars());nbt.func_218657_a("BackportTeraRaid",raid);}}
-    @Override public void func_70037_a(CompoundNBT nbt){super.func_70037_a(nbt);type(Math.max(0,Math.min(18,nbt.func_74762_e("BackportTeraType"))));refreshed=nbt.func_74762_e("BackportTeraDay");String palette=nbt.func_74779_i("BackportTeraPalette");field_70180_af.func_187227_b(PALETTE,palette.isEmpty()?"none":palette);if(nbt.func_74764_b("BackportTeraRaid")){CompoundNBT saved=nbt.func_74775_l("BackportTeraRaid");com.pixelmonmod.pixelmon.api.pokemon.species.Species species=PixelmonSpecies.fromNationalDex(saved.func_74762_e("Species"));setData(new RaidData(func_145782_y(),Math.max(1,Math.min(6,saved.func_74762_e("Stars"))),species,species.getForm(saved.func_74779_i("Form"))));}}
+    @Override public void func_70037_a(CompoundNBT nbt){super.func_70037_a(nbt);setBaseHidden(true);getPersistentData().func_74768_a("BackportDenKind",1);type(Math.max(0,Math.min(18,nbt.func_74762_e("BackportTeraType"))));refreshed=nbt.func_74762_e("BackportTeraDay");String palette=nbt.func_74779_i("BackportTeraPalette");field_70180_af.func_187227_b(PALETTE,palette.isEmpty()?"none":palette);if(nbt.func_74764_b("BackportTeraRaid")){CompoundNBT saved=nbt.func_74775_l("BackportTeraRaid");com.pixelmonmod.pixelmon.api.pokemon.species.Species species=PixelmonSpecies.fromNationalDex(saved.func_74762_e("Species"));setData(new RaidData(func_145782_y(),Math.max(1,Math.min(6,saved.func_74762_e("Stars"))),species,species.getForm(saved.func_74779_i("Form"))));}}
     @Override public ActionResultType func_184199_a(PlayerEntity player,Vector3d hit,Hand hand){
         if(!field_70170_p.field_72995_K && hand==Hand.MAIN_HAND)player.func_146105_b(new TranslationTextComponent("pixelmon.backport.tera.raid.instructions"),false);
         if(!getData().isPresent()){if(!field_70170_p.field_72995_K)player.func_146105_b(new TranslationTextComponent("pixelmon.backport.tera.raid.empty"),true);return ActionResultType.SUCCESS;}

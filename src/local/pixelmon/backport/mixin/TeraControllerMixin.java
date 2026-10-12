@@ -22,5 +22,5 @@ public abstract class TeraControllerMixin {
     @Inject(method="addSpectator",at=@At("RETURN"))
     private void backport$spectator(com.pixelmonmod.pixelmon.battles.controller.participants.Spectator spectator,CallbackInfo ci){TeraNetwork.sync((BattleController)(Object)this,false);}
     @Inject(method="endBattle(Lcom/pixelmonmod/pixelmon/api/battles/BattleEndCause;Ljava/util/HashMap;)Ljava/util/HashMap;",at=@At("RETURN"))
-    private void backport$cleanup(BattleEndCause cause,HashMap<BattleParticipant,BattleResults> result,CallbackInfoReturnable<HashMap<BattleParticipant,BattleResults>> cir){Tera.end((BattleController)(Object)this);}
+    private void backport$cleanup(BattleEndCause cause,HashMap<BattleParticipant,BattleResults> result,CallbackInfoReturnable<HashMap<BattleParticipant,BattleResults>> cir){Tera.end((BattleController)(Object)this);local.pixelmon.backport.GymChallenge.end((BattleController)(Object)this);}
 }

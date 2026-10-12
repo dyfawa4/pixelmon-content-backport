@@ -1,0 +1,919 @@
+{
+  "scope": "Ten native city libraries; original architecture retained. Native nurse radius is eight blocks. New eight city geometry is verified separately.",
+  "cities": {
+    "electric": [
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_pokemart.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_blacksmith.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_daycare.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_a.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_e.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 1,
+        "healers": 4,
+        "nearest_healer_distances": [
+          3.317
+        ],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_tcg_shop.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_b.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_d.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_c.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      }
+    ],
+    "fire": [
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_blacksmith.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_daycare.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 1,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_b.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_e.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_church.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_d.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_a.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_tcg_shop.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 1,
+        "healers": 2,
+        "nearest_healer_distances": [
+          2.236
+        ],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_c.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_pokemart.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      }
+    ],
+    "ice": [
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_e.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_a.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_c.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_d.nbt",
+        "complete_beds": 6,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_b.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_tcg_shop.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_blacksmith.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 1,
+        "healers": 2,
+        "nearest_healer_distances": [
+          3.0
+        ],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_pokemart.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_daycare.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 2,
+        "nearest_healer_distances": [],
+        "failures": []
+      }
+    ],
+    "dragon": [
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_pokemart.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_a.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_e.nbt",
+        "complete_beds": 4,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_b.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_d.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_tcg_shop.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_blacksmith.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 1,
+        "healers": 2,
+        "nearest_healer_distances": [
+          2.236
+        ],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_daycare.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_c.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      }
+    ],
+    "ground": [
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 2,
+        "healers": 4,
+        "nearest_healer_distances": [
+          3.162,
+          3.162
+        ],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_tcg_shop.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_pokemart.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_b.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_a.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_blacksmith.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_daycare.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 1,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_e.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_d.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_c.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      }
+    ],
+    "steel": [
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_pokemart.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_daycare.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_b.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_h.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_d.nbt",
+        "complete_beds": 4,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_tcg_shop.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_e.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_g.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_a.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_c.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_i.nbt",
+        "complete_beds": 6,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_f.nbt",
+        "complete_beds": 4,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_pokecenter.nbt",
+        "complete_beds": 13,
+        "nurses": 1,
+        "healers": 2,
+        "nearest_healer_distances": [
+          2.449
+        ],
+        "failures": []
+      }
+    ],
+    "ghost": [
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_tcg_shop.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_house_b.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_house_d.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_house_c.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_house_a.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_daycare.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 1,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_pokemart.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_blacksmith.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 1,
+        "healers": 2,
+        "nearest_healer_distances": [
+          3.317
+        ],
+        "failures": []
+      }
+    ],
+    "fairy": [
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 1,
+        "healers": 2,
+        "nearest_healer_distances": [
+          1.732
+        ],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_tcg_shop.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_pokemart.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_blacksmith.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_daycare.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_d.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_b.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_c.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_a.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_e.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      }
+    ],
+    "grass": [
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_c.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_tcg_shop.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_d.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_a.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_b.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_blacksmith.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_pokemart.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_daycare.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 1,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_e.nbt",
+        "complete_beds": 1,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 1,
+        "healers": 2,
+        "nearest_healer_distances": [
+          1.732
+        ],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      }
+    ],
+    "water": [
+      {
+        "template": "data/pixelmon/structures/gyms/water/gym_water_church.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/water/gym_water_pokecenter.nbt",
+        "complete_beds": 0,
+        "nurses": 2,
+        "healers": 3,
+        "nearest_healer_distances": [
+          1.414,
+          3.317
+        ],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/water/gym_water_blacksmith.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/water/gym_water_house_d.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/water/gym_water_house_c.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/water/gym_water_house_a.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/water/gym_water_house_b.nbt",
+        "complete_beds": 2,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      },
+      {
+        "template": "data/pixelmon/structures/gyms/water/gym_water_pokemart.nbt",
+        "complete_beds": 0,
+        "nurses": 0,
+        "healers": 0,
+        "nearest_healer_distances": [],
+        "failures": []
+      }
+    ]
+  }
+}

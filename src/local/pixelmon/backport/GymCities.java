@@ -55,9 +55,18 @@ public final class GymCities {
         }
         return npc.isGymLeader?first.getForm().getTypes().get(0):null;
     }
+    public static boolean isLeader(NPCTrainer npc){
+        if(theme(npc)==null)return false;
+        String role=npc.getPersistentData().func_74779_i("BackportGymRole");
+        return role.isEmpty()?npc.isGymLeader:role.equals("leader");
+    }
     public static void initialize(NPCTrainer npc){
         CompoundNBT data=npc.getPersistentData();
         Element theme=theme(npc);
+        if(theme!=null && !isLeader(npc)){
+            net.minecraft.item.ItemStack[] rewards=Arrays.stream(npc.getWinnings()).filter(s->s==null || !(s.func_77973_b() instanceof com.pixelmonmod.pixelmon.items.BadgeItem)).toArray(net.minecraft.item.ItemStack[]::new);
+            if(rewards.length!=npc.getWinnings().length)npc.updateDrops(rewards);
+        }
         if(theme==Element.GROUND && "leader".equals(data.func_74779_i("BackportGymRole"))){
             net.minecraft.item.ItemStack[] rewards=npc.getWinnings().clone();boolean changed=false;
             for(int i=0;i<rewards.length;i++)if(rewards[i]!=null && !rewards[i].func_190926_b() && new net.minecraft.util.ResourceLocation("pixelmon","mine_badge").equals(rewards[i].func_77973_b().getRegistryName())){

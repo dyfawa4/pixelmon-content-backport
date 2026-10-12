@@ -44,7 +44,7 @@ public final class Backport {
         REGISTERED.put("tera_blast_disc_single_use",ITEMS.register("tera_blast_disc_single_use",DisposableTeraDisc::new));
         for(Map.Entry<String,JsonElement> definition:GymCities.DATA.getAsJsonObject("newThemes").entrySet()){
             String name=definition.getKey()+"_gym_badge";
-            REGISTERED.put(name,ITEMS.register(name,()->new com.pixelmonmod.pixelmon.items.PixelmonItem(new Item.Properties())));
+            REGISTERED.put(name,ITEMS.register(name,com.pixelmonmod.pixelmon.items.BadgeItem::new));
         }
     }
     public static Item item(String name){
@@ -75,6 +75,9 @@ public final class Backport {
         BackportEffects.register();
         TeraNetwork.register();
         FieldMega.register();
+        Pixelmon.EVENT_BUS.register(new CapPikachu());
+        Pixelmon.EVENT_BUS.register(new GymChallenge());
+        Pixelmon.EVENT_BUS.register(new AppearanceAdvancements());
         Pixelmon.EVENT_BUS.register(new TeraItems.Charging());
         LegendAdvancements achievements=new LegendAdvancements();
         Pixelmon.EVENT_BUS.register(achievements);net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(achievements);

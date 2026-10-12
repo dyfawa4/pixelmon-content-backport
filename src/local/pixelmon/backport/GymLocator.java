@@ -64,7 +64,7 @@ public final class GymLocator {
         return requested instanceof TypedGym && !matches(start,((TypedGym)requested).type)?null:start;
     }
     @SubscribeEvent public void commands(RegisterCommandsEvent event){
-        var command=Commands.func_197057_a("locategym").requires(source->source.func_197034_c(2));
+        var command=Commands.func_197057_a("locategym");
         for(int i=0;i<GymThemePaths.TYPES.length;i++){
             final String type=GymThemePaths.TYPES[i];
             for(String spelling:new String[]{type,GymThemePaths.CHINESE[i]})command.then(Commands.func_197057_a(spelling)

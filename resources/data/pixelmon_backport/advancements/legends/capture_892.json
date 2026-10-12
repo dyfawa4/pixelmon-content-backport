@@ -8,12 +8,12 @@
       "text": "招招致命"
     },
     "description": {
-      "text": "成功捕捉武道熊师。"
+      "text": "让自己拥有的熊徒弟按原生卷轴进化流程，实际进化为武道熊师一击流，或成功捕捉这一形态。两种流派分别记录；生成或获赠成品不会补发。"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false
+    "hidden": true
   },
   "criteria": {
     "earned": {

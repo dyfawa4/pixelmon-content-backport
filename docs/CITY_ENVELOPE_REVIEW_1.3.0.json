@@ -1,0 +1,40 @@
+{
+  "scope": "whole authored enclosed-building roof projection; native bed roof columns; final main gym entrance alignment and fixture chain limits",
+  "authored_enclosed_roofs": 90,
+  "roof_columns": 18093,
+  "native_sheltered_beds": 116,
+  "added_fixture_positions": 4557,
+  "native_room_templates": 109,
+  "native_enclosed_roof_columns": 2313,
+  "main_gate_axis_offsets": {
+    "poison": [
+      0.5
+    ],
+    "dark": [
+      0.0
+    ],
+    "fighting": [
+      0.0
+    ],
+    "flying": [
+      0.0
+    ],
+    "normal": [
+      0.5
+    ],
+    "bug": [
+      0.0
+    ],
+    "psychic": [
+      0.0
+    ],
+    "rock": [
+      0.0
+    ]
+  },
+  "limits": [
+    "Intentional open gym courts retain open sky.",
+    "Half-block maximum gate offset follows the two-door width on an odd-width facade.",
+    "Aesthetic quality and assembled-world roof/door appearance require manual acceptance."
+  ]
+}

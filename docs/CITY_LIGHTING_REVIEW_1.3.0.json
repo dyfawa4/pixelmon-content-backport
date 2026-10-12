@@ -1,0 +1,2938 @@
+{
+  "revision": 9,
+  "scope": "All eighteen city libraries, night block-light only, no skylight credit",
+  "target_minimum_block_light": 8,
+  "cities": {
+    "electric": [
+      {
+        "category": "pokemart",
+        "walking_cells": 333,
+        "minimum_night_block_light": 8,
+        "added_lamps": 31,
+        "styles": {
+          "inlay_ceiling": 17,
+          "inlay_clad_attic_panel": 11,
+          "inlay_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_pokemart.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 145,
+        "minimum_night_block_light": 8,
+        "added_lamps": 12,
+        "styles": {
+          "inlay_ceiling": 8,
+          "inlay_clad_attic_panel": 3,
+          "inlay_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_blacksmith.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 201,
+        "minimum_night_block_light": 8,
+        "added_lamps": 11,
+        "styles": {
+          "inlay_ceiling": 3,
+          "inlay_clad_attic_panel": 6,
+          "inlay_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 65,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "inlay_ceiling": 5,
+          "inlay_clad_attic_panel": 1,
+          "inlay_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_a.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 1787,
+        "minimum_night_block_light": 8,
+        "added_lamps": 89,
+        "styles": {
+          "inlay_covered_inlay": 75,
+          "inlay_clad_attic_panel": 6,
+          "inlay_ceiling": 8
+        },
+        "portals": [
+          {
+            "position": [
+              39,
+              3,
+              23
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 178,
+        "minimum_night_block_light": 8,
+        "added_lamps": 15,
+        "styles": {
+          "inlay_ceiling": 9,
+          "inlay_covered_inlay": 4,
+          "inlay_clad_attic_panel": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_e.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 285,
+        "minimum_night_block_light": 8,
+        "added_lamps": 28,
+        "styles": {
+          "inlay_ceiling": 21,
+          "inlay_covered_inlay": 2,
+          "inlay_clad_attic_panel": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_pokecenter.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 20,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "inlay_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_tcg_shop.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 46,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "inlay_clad_attic_panel": 3,
+          "inlay_ceiling": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 169,
+        "minimum_night_block_light": 8,
+        "added_lamps": 16,
+        "styles": {
+          "inlay_ceiling": 11,
+          "inlay_clad_attic_panel": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_d.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 638,
+        "minimum_night_block_light": 8,
+        "added_lamps": 41,
+        "styles": {
+          "inlay_ceiling": 23,
+          "inlay_covered_inlay": 12,
+          "inlay_clad_attic_panel": 6
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_church.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 61,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "inlay_clad_attic_panel": 3,
+          "inlay_covered_inlay": 1,
+          "inlay_ceiling": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/electric/gym_electric_house_c.nbt"
+      }
+    ],
+    "fire": [
+      {
+        "category": "blacksmith",
+        "walking_cells": 51,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "timber_clad_attic_panel": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_blacksmith.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 154,
+        "minimum_night_block_light": 8,
+        "added_lamps": 19,
+        "styles": {
+          "timber_covered_inlay": 2,
+          "timber_clad_attic_panel": 12,
+          "timber_ceiling": 3,
+          "timber_bracket": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_daycare.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 1640,
+        "minimum_night_block_light": 8,
+        "added_lamps": 75,
+        "styles": {
+          "timber_covered_inlay": 32,
+          "timber_bracket": 9,
+          "timber_ceiling": 9,
+          "timber_clad_attic_panel": 25
+        },
+        "portals": [
+          {
+            "position": [
+              40,
+              4,
+              22
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 34,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "timber_ceiling": 2,
+          "timber_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 157,
+        "minimum_night_block_light": 8,
+        "added_lamps": 12,
+        "styles": {
+          "timber_ceiling": 8,
+          "timber_clad_attic_panel": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_e.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 676,
+        "minimum_night_block_light": 8,
+        "added_lamps": 41,
+        "styles": {
+          "timber_clad_attic_panel": 12,
+          "timber_covered_inlay": 6,
+          "timber_ceiling": 16,
+          "timber_bracket": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_church.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 219,
+        "minimum_night_block_light": 8,
+        "added_lamps": 17,
+        "styles": {
+          "timber_ceiling": 13,
+          "timber_clad_attic_panel": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 67,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "timber_bracket": 1,
+          "timber_clad_attic_panel": 4,
+          "timber_ceiling": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_a.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 20,
+        "minimum_night_block_light": 10,
+        "added_lamps": 4,
+        "styles": {
+          "timber_clad_attic_panel": 3,
+          "timber_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_tcg_shop.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 274,
+        "minimum_night_block_light": 8,
+        "added_lamps": 13,
+        "styles": {
+          "timber_ceiling": 10,
+          "timber_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_pokecenter.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 155,
+        "minimum_night_block_light": 8,
+        "added_lamps": 13,
+        "styles": {
+          "timber_ceiling": 4,
+          "timber_clad_attic_panel": 7,
+          "timber_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_house_c.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 346,
+        "minimum_night_block_light": 8,
+        "added_lamps": 25,
+        "styles": {
+          "timber_ceiling": 19,
+          "timber_clad_attic_panel": 3,
+          "timber_bracket": 2,
+          "timber_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fire/gym_fire_pokemart.nbt"
+      }
+    ],
+    "ice": [
+      {
+        "category": "house",
+        "walking_cells": 166,
+        "minimum_night_block_light": 8,
+        "added_lamps": 19,
+        "styles": {
+          "inlay_clad_attic_panel": 12,
+          "inlay_covered_inlay": 5,
+          "inlay_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_e.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 67,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "inlay_clad_attic_panel": 1,
+          "inlay_ceiling": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 68,
+        "minimum_night_block_light": 8,
+        "added_lamps": 11,
+        "styles": {
+          "inlay_covered_inlay": 4,
+          "inlay_clad_attic_panel": 2,
+          "inlay_ceiling": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_c.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 2168,
+        "minimum_night_block_light": 8,
+        "added_lamps": 170,
+        "styles": {
+          "inlay_covered_inlay": 102,
+          "inlay_ceiling": 31,
+          "inlay_clad_attic_panel": 37
+        },
+        "portals": [
+          {
+            "position": [
+              40,
+              2,
+              23
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 213,
+        "minimum_night_block_light": 8,
+        "added_lamps": 18,
+        "styles": {
+          "inlay_clad_attic_panel": 6,
+          "inlay_covered_inlay": 4,
+          "inlay_ceiling": 8
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 84,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "inlay_covered_inlay": 3,
+          "inlay_clad_attic_panel": 4,
+          "inlay_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_house_b.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 20,
+        "minimum_night_block_light": 9,
+        "added_lamps": 3,
+        "styles": {
+          "inlay_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_tcg_shop.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 242,
+        "minimum_night_block_light": 8,
+        "added_lamps": 25,
+        "styles": {
+          "inlay_clad_attic_panel": 13,
+          "inlay_covered_inlay": 4,
+          "inlay_ceiling": 8
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_blacksmith.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 470,
+        "minimum_night_block_light": 8,
+        "added_lamps": 43,
+        "styles": {
+          "inlay_ceiling": 12,
+          "inlay_covered_inlay": 12,
+          "inlay_corner_sconce": 1,
+          "inlay_clad_attic_panel": 18
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_pokecenter.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 554,
+        "minimum_night_block_light": 8,
+        "added_lamps": 84,
+        "styles": {
+          "inlay_covered_inlay": 19,
+          "inlay_ceiling": 31,
+          "inlay_clad_attic_panel": 29,
+          "inlay_corner_sconce": 4,
+          "recessed_sconce": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_church.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 313,
+        "minimum_night_block_light": 8,
+        "added_lamps": 37,
+        "styles": {
+          "inlay_clad_attic_panel": 12,
+          "inlay_ceiling": 18,
+          "inlay_covered_inlay": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_pokemart.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 292,
+        "minimum_night_block_light": 8,
+        "added_lamps": 20,
+        "styles": {
+          "inlay_ceiling": 9,
+          "inlay_clad_attic_panel": 7,
+          "inlay_covered_inlay": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ice/gym_ice_daycare.nbt"
+      }
+    ],
+    "dragon": [
+      {
+        "category": "pokemart",
+        "walking_cells": 348,
+        "minimum_night_block_light": 8,
+        "added_lamps": 27,
+        "styles": {
+          "timber_clad_attic_panel": 17,
+          "timber_covered_inlay": 2,
+          "timber_ceiling": 4,
+          "timber_corner_sconce": 1,
+          "timber_bracket": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_pokemart.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 78,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "timber_bracket": 1,
+          "timber_ceiling": 6
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 272,
+        "minimum_night_block_light": 8,
+        "added_lamps": 24,
+        "styles": {
+          "timber_ceiling": 16,
+          "timber_clad_attic_panel": 5,
+          "timber_bracket": 2,
+          "timber_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_e.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 73,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "timber_covered_inlay": 1,
+          "timber_ceiling": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 298,
+        "minimum_night_block_light": 8,
+        "added_lamps": 24,
+        "styles": {
+          "timber_ceiling": 7,
+          "timber_covered_inlay": 9,
+          "timber_bracket": 1,
+          "timber_clad_attic_panel": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_d.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 20,
+        "minimum_night_block_light": 9,
+        "added_lamps": 3,
+        "styles": {
+          "timber_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_tcg_shop.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 208,
+        "minimum_night_block_light": 8,
+        "added_lamps": 20,
+        "styles": {
+          "timber_covered_inlay": 1,
+          "timber_ceiling": 12,
+          "timber_clad_attic_panel": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_blacksmith.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 223,
+        "minimum_night_block_light": 8,
+        "added_lamps": 25,
+        "styles": {
+          "timber_covered_inlay": 10,
+          "timber_clad_attic_panel": 10,
+          "timber_ceiling": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_pokecenter.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 345,
+        "minimum_night_block_light": 8,
+        "added_lamps": 28,
+        "styles": {
+          "timber_ceiling": 19,
+          "timber_clad_attic_panel": 7,
+          "timber_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_daycare.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 770,
+        "minimum_night_block_light": 8,
+        "added_lamps": 58,
+        "styles": {
+          "timber_clad_attic_panel": 13,
+          "timber_ceiling": 29,
+          "timber_covered_inlay": 13,
+          "timber_bracket": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_church.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 2279,
+        "minimum_night_block_light": 8,
+        "added_lamps": 151,
+        "styles": {
+          "timber_covered_inlay": 81,
+          "timber_clad_attic_panel": 22,
+          "timber_ceiling": 21,
+          "timber_bracket": 23,
+          "recessed_sconce": 4
+        },
+        "portals": [
+          {
+            "position": [
+              40,
+              4,
+              23
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 63,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "timber_ceiling": 6,
+          "timber_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/dragon/gym_dragon_house_c.nbt"
+      }
+    ],
+    "ground": [
+      {
+        "category": "pokecenter",
+        "walking_cells": 462,
+        "minimum_night_block_light": 8,
+        "added_lamps": 17,
+        "styles": {
+          "gallery_clad_attic_panel": 8,
+          "gallery_bracket": 3,
+          "gallery_covered_inlay": 3,
+          "gallery_ceiling": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_pokecenter.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 21,
+        "minimum_night_block_light": 9,
+        "added_lamps": 3,
+        "styles": {
+          "gallery_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_tcg_shop.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 1715,
+        "minimum_night_block_light": 8,
+        "added_lamps": 141,
+        "styles": {
+          "gallery_bracket": 15,
+          "gallery_covered_inlay": 71,
+          "gallery_clad_attic_panel": 21,
+          "gallery_ceiling": 34
+        },
+        "portals": [
+          {
+            "position": [
+              36,
+              2,
+              31
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 352,
+        "minimum_night_block_light": 8,
+        "added_lamps": 16,
+        "styles": {
+          "gallery_ceiling": 11,
+          "gallery_covered_inlay": 1,
+          "gallery_clad_attic_panel": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_pokemart.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 65,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "gallery_clad_attic_panel": 4,
+          "gallery_bracket": 1,
+          "gallery_covered_inlay": 2,
+          "gallery_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 55,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "gallery_ceiling": 1,
+          "gallery_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_a.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 175,
+        "minimum_night_block_light": 8,
+        "added_lamps": 10,
+        "styles": {
+          "gallery_bracket": 1,
+          "gallery_clad_attic_panel": 7,
+          "gallery_ceiling": 1,
+          "gallery_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_blacksmith.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 287,
+        "minimum_night_block_light": 8,
+        "added_lamps": 10,
+        "styles": {
+          "gallery_clad_attic_panel": 4,
+          "gallery_ceiling": 4,
+          "gallery_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 132,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "gallery_clad_attic_panel": 4,
+          "gallery_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_e.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 188,
+        "minimum_night_block_light": 8,
+        "added_lamps": 10,
+        "styles": {
+          "gallery_clad_attic_panel": 8,
+          "gallery_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_church.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 103,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "gallery_covered_inlay": 5,
+          "gallery_clad_attic_panel": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 62,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "gallery_clad_attic_panel": 2,
+          "gallery_ceiling": 2,
+          "gallery_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ground/gym_ground_house_c.nbt"
+      }
+    ],
+    "steel": [
+      {
+        "category": "pokemart",
+        "walking_cells": 163,
+        "minimum_night_block_light": 8,
+        "added_lamps": 12,
+        "styles": {
+          "panel_ceiling": 9,
+          "panel_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_pokemart.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 173,
+        "minimum_night_block_light": 8,
+        "added_lamps": 17,
+        "styles": {
+          "panel_ceiling": 10,
+          "panel_covered_inlay": 4,
+          "panel_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 87,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "panel_ceiling": 4,
+          "panel_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 157,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "panel_covered_inlay": 3,
+          "panel_ceiling": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_h.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 142,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "panel_covered_inlay": 1,
+          "panel_ceiling": 5,
+          "panel_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_d.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 240,
+        "minimum_night_block_light": 8,
+        "added_lamps": 16,
+        "styles": {
+          "panel_ceiling": 10,
+          "panel_covered_inlay": 5,
+          "panel_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_tcg_shop.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 234,
+        "minimum_night_block_light": 8,
+        "added_lamps": 19,
+        "styles": {
+          "panel_ceiling": 13,
+          "panel_clad_attic_panel": 3,
+          "panel_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_e.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 2494,
+        "minimum_night_block_light": 8,
+        "added_lamps": 179,
+        "styles": {
+          "panel_ceiling": 23,
+          "panel_clad_attic_panel": 47,
+          "panel_covered_inlay": 105,
+          "panel_corner_sconce": 3,
+          "recessed_sconce": 1
+        },
+        "portals": [
+          {
+            "position": [
+              31,
+              3,
+              40
+            ],
+            "facing": "east",
+            "width": 2
+          },
+          {
+            "position": [
+              39,
+              3,
+              27
+            ],
+            "facing": "north",
+            "width": 1
+          },
+          {
+            "position": [
+              37,
+              3,
+              4
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 232,
+        "minimum_night_block_light": 8,
+        "added_lamps": 20,
+        "styles": {
+          "panel_covered_inlay": 3,
+          "panel_clad_attic_panel": 5,
+          "panel_ceiling": 12
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_g.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 117,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "panel_clad_attic_panel": 4,
+          "panel_covered_inlay": 1,
+          "panel_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 94,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "panel_ceiling": 4,
+          "panel_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 135,
+        "minimum_night_block_light": 8,
+        "added_lamps": 10,
+        "styles": {
+          "panel_ceiling": 8,
+          "panel_clad_attic_panel": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_i.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 403,
+        "minimum_night_block_light": 8,
+        "added_lamps": 26,
+        "styles": {
+          "panel_covered_inlay": 19,
+          "panel_clad_attic_panel": 3,
+          "panel_ceiling": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_church.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 165,
+        "minimum_night_block_light": 8,
+        "added_lamps": 17,
+        "styles": {
+          "panel_clad_attic_panel": 4,
+          "panel_ceiling": 9,
+          "panel_covered_inlay": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_house_f.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 833,
+        "minimum_night_block_light": 8,
+        "added_lamps": 56,
+        "styles": {
+          "panel_ceiling": 33,
+          "panel_clad_attic_panel": 18,
+          "panel_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/steel/gym_steel_pokecenter.nbt"
+      }
+    ],
+    "ghost": [
+      {
+        "category": "tcg_shop",
+        "walking_cells": 20,
+        "minimum_night_block_light": 9,
+        "added_lamps": 4,
+        "styles": {
+          "gallery_clad_attic_panel": 3,
+          "gallery_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_tcg_shop.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 56,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "gallery_clad_attic_panel": 3,
+          "gallery_covered_inlay": 3,
+          "gallery_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 291,
+        "minimum_night_block_light": 8,
+        "added_lamps": 22,
+        "styles": {
+          "gallery_clad_attic_panel": 6,
+          "gallery_ceiling": 11,
+          "gallery_bracket": 2,
+          "gallery_covered_inlay": 2,
+          "recessed_sconce": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 277,
+        "minimum_night_block_light": 8,
+        "added_lamps": 31,
+        "styles": {
+          "gallery_clad_attic_panel": 19,
+          "gallery_ceiling": 12
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_house_c.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 3172,
+        "minimum_night_block_light": 8,
+        "added_lamps": 295,
+        "styles": {
+          "gallery_covered_inlay": 68,
+          "gallery_bracket": 59,
+          "gallery_ceiling": 103,
+          "gallery_clad_attic_panel": 63,
+          "recessed_sconce": 2
+        },
+        "portals": [
+          {
+            "position": [
+              40,
+              1,
+              35
+            ],
+            "facing": "east",
+            "width": 1
+          },
+          {
+            "position": [
+              39,
+              10,
+              40
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 43,
+        "minimum_night_block_light": 8,
+        "added_lamps": 4,
+        "styles": {
+          "gallery_covered_inlay": 1,
+          "gallery_clad_attic_panel": 2,
+          "gallery_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_house_a.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 451,
+        "minimum_night_block_light": 8,
+        "added_lamps": 35,
+        "styles": {
+          "gallery_ceiling": 19,
+          "gallery_clad_attic_panel": 15,
+          "gallery_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_daycare.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 197,
+        "minimum_night_block_light": 8,
+        "added_lamps": 24,
+        "styles": {
+          "gallery_bracket": 1,
+          "gallery_clad_attic_panel": 13,
+          "gallery_ceiling": 9,
+          "gallery_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_pokemart.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 138,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "gallery_ceiling": 9
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 1052,
+        "minimum_night_block_light": 8,
+        "added_lamps": 91,
+        "styles": {
+          "gallery_ceiling": 16,
+          "gallery_covered_inlay": 24,
+          "gallery_bracket": 6,
+          "gallery_clad_attic_panel": 39,
+          "recessed_sconce": 6
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_church.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 228,
+        "minimum_night_block_light": 8,
+        "added_lamps": 18,
+        "styles": {
+          "gallery_ceiling": 9,
+          "gallery_covered_inlay": 4,
+          "gallery_bracket": 2,
+          "gallery_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/ghost/gym_ghost_pokecenter.nbt"
+      }
+    ],
+    "fairy": [
+      {
+        "category": "pokecenter",
+        "walking_cells": 138,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "rod_bracket": 1,
+          "rod_ceiling": 1,
+          "recessed_sconce": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_pokecenter.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 20,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "rod_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_tcg_shop.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 107,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "rod_clad_attic_panel": 4,
+          "rod_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_pokemart.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 2234,
+        "minimum_night_block_light": 8,
+        "added_lamps": 159,
+        "styles": {
+          "rod_ceiling": 43,
+          "rod_clad_attic_panel": 26,
+          "rod_bracket": 42,
+          "rod_covered_inlay": 36,
+          "rod_corner_sconce": 7,
+          "recessed_sconce": 5
+        },
+        "portals": [
+          {
+            "position": [
+              36,
+              5,
+              23
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 114,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "rod_covered_inlay": 1,
+          "rod_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 101,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "rod_ceiling": 2,
+          "rod_clad_attic_panel": 2,
+          "rod_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 158,
+        "minimum_night_block_light": 9,
+        "added_lamps": 1,
+        "styles": {
+          "rod_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 52,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "rod_ceiling": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 63,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "rod_covered_inlay": 1,
+          "rod_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 41,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "rod_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 75,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "rod_covered_inlay": 2,
+          "rod_ceiling": 1,
+          "rod_clad_attic_panel": 3,
+          "recessed_sconce": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 33,
+        "minimum_night_block_light": 8,
+        "added_lamps": 0,
+        "styles": {},
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/fairy/gym_fairy_house_e.nbt"
+      }
+    ],
+    "grass": [
+      {
+        "category": "house",
+        "walking_cells": 65,
+        "minimum_night_block_light": 9,
+        "added_lamps": 2,
+        "styles": {
+          "garden_covered_inlay": 1,
+          "garden_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_c.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 20,
+        "minimum_night_block_light": 9,
+        "added_lamps": 3,
+        "styles": {
+          "garden_clad_attic_panel": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_tcg_shop.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 136,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "garden_clad_attic_panel": 4,
+          "garden_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_d.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 1284,
+        "minimum_night_block_light": 8,
+        "added_lamps": 71,
+        "styles": {
+          "garden_covered_inlay": 44,
+          "garden_ceiling": 5,
+          "garden_bracket": 2,
+          "garden_corner_sconce": 10,
+          "garden_clad_attic_panel": 3,
+          "recessed_sconce": 7
+        },
+        "portals": [
+          {
+            "position": [
+              2,
+              1,
+              3
+            ],
+            "facing": "west",
+            "width": 1
+          },
+          {
+            "position": [
+              36,
+              2,
+              2
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 63,
+        "minimum_night_block_light": 8,
+        "added_lamps": 4,
+        "styles": {
+          "garden_ceiling": 1,
+          "garden_covered_inlay": 2,
+          "garden_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 81,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "garden_clad_attic_panel": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_b.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 117,
+        "minimum_night_block_light": 8,
+        "added_lamps": 0,
+        "styles": {},
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_blacksmith.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 363,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "garden_ceiling": 4,
+          "garden_clad_attic_panel": 2,
+          "garden_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_pokemart.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 143,
+        "minimum_night_block_light": 8,
+        "added_lamps": 10,
+        "styles": {
+          "garden_clad_attic_panel": 6,
+          "garden_covered_inlay": 3,
+          "garden_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 85,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "garden_ceiling": 3,
+          "garden_covered_inlay": 3,
+          "garden_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_house_e.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 426,
+        "minimum_night_block_light": 8,
+        "added_lamps": 17,
+        "styles": {
+          "garden_ceiling": 8,
+          "garden_covered_inlay": 8,
+          "garden_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_pokecenter.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 527,
+        "minimum_night_block_light": 8,
+        "added_lamps": 53,
+        "styles": {
+          "garden_clad_attic_panel": 30,
+          "garden_ceiling": 14,
+          "garden_bracket": 1,
+          "garden_covered_inlay": 6,
+          "recessed_sconce": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/grass/gym_grass_church.nbt"
+      }
+    ],
+    "water": [
+      {
+        "category": "church",
+        "walking_cells": 779,
+        "minimum_night_block_light": 8,
+        "added_lamps": 54,
+        "styles": {
+          "inlay_covered_inlay": 10,
+          "inlay_ceiling": 32,
+          "inlay_clad_attic_panel": 12
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/water/gym_water_church.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 1124,
+        "minimum_night_block_light": 8,
+        "added_lamps": 64,
+        "styles": {
+          "inlay_clad_attic_panel": 18,
+          "inlay_covered_inlay": 5,
+          "inlay_ceiling": 41
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/water/gym_water_pokecenter.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 433,
+        "minimum_night_block_light": 8,
+        "added_lamps": 36,
+        "styles": {
+          "inlay_ceiling": 18,
+          "inlay_clad_attic_panel": 14,
+          "inlay_covered_inlay": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/water/gym_water_blacksmith.nbt"
+      },
+      {
+        "category": "gym",
+        "walking_cells": 1616,
+        "minimum_night_block_light": 8,
+        "added_lamps": 105,
+        "styles": {
+          "inlay_covered_inlay": 50,
+          "inlay_ceiling": 49,
+          "inlay_clad_attic_panel": 6
+        },
+        "portals": [
+          {
+            "position": [
+              4,
+              21,
+              18
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon/structures/gyms/water/gym_water.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 475,
+        "minimum_night_block_light": 8,
+        "added_lamps": 28,
+        "styles": {
+          "inlay_ceiling": 22,
+          "inlay_clad_attic_panel": 6
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/water/gym_water_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 428,
+        "minimum_night_block_light": 8,
+        "added_lamps": 27,
+        "styles": {
+          "inlay_ceiling": 17,
+          "inlay_clad_attic_panel": 9,
+          "recessed_sconce": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/water/gym_water_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 443,
+        "minimum_night_block_light": 8,
+        "added_lamps": 27,
+        "styles": {
+          "inlay_ceiling": 17,
+          "inlay_clad_attic_panel": 7,
+          "inlay_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/water/gym_water_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 444,
+        "minimum_night_block_light": 8,
+        "added_lamps": 27,
+        "styles": {
+          "inlay_ceiling": 17,
+          "inlay_clad_attic_panel": 8,
+          "inlay_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/water/gym_water_house_b.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 929,
+        "minimum_night_block_light": 8,
+        "added_lamps": 61,
+        "styles": {
+          "inlay_ceiling": 38,
+          "inlay_covered_inlay": 13,
+          "inlay_clad_attic_panel": 9,
+          "recessed_sconce": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon/structures/gyms/water/gym_water_pokemart.nbt"
+      }
+    ],
+    "poison": [
+      {
+        "category": "gym",
+        "walking_cells": 848,
+        "minimum_night_block_light": 8,
+        "added_lamps": 20,
+        "styles": {
+          "panel_covered_inlay": 19,
+          "panel_corner_sconce": 1
+        },
+        "portals": [
+          {
+            "position": [
+              41,
+              1,
+              24
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 525,
+        "minimum_night_block_light": 8,
+        "added_lamps": 16,
+        "styles": {
+          "panel_covered_inlay": 16
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 115,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "panel_ceiling": 3,
+          "panel_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 62,
+        "minimum_night_block_light": 9,
+        "added_lamps": 2,
+        "styles": {
+          "panel_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 62,
+        "minimum_night_block_light": 9,
+        "added_lamps": 2,
+        "styles": {
+          "panel_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 93,
+        "minimum_night_block_light": 8,
+        "added_lamps": 4,
+        "styles": {
+          "panel_covered_inlay": 3,
+          "panel_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 93,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "panel_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 173,
+        "minimum_night_block_light": 8,
+        "added_lamps": 12,
+        "styles": {
+          "panel_ceiling": 12
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_e.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 251,
+        "minimum_night_block_light": 8,
+        "added_lamps": 19,
+        "styles": {
+          "panel_ceiling": 19
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_f.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 171,
+        "minimum_night_block_light": 8,
+        "added_lamps": 11,
+        "styles": {
+          "panel_ceiling": 11
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_g.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 113,
+        "minimum_night_block_light": 8,
+        "added_lamps": 4,
+        "styles": {
+          "panel_covered_inlay": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_h.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 117,
+        "minimum_night_block_light": 8,
+        "added_lamps": 4,
+        "styles": {
+          "panel_covered_inlay": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_house_i.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 500,
+        "minimum_night_block_light": 8,
+        "added_lamps": 19,
+        "styles": {
+          "panel_covered_inlay": 19
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_pokecenter.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 116,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "panel_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_pokemart.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 398,
+        "minimum_night_block_light": 8,
+        "added_lamps": 13,
+        "styles": {
+          "panel_covered_inlay": 13
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/poison/gym_poison_tcg_shop.nbt"
+      }
+    ],
+    "dark": [
+      {
+        "category": "gym",
+        "walking_cells": 3084,
+        "minimum_night_block_light": 8,
+        "added_lamps": 114,
+        "styles": {
+          "gallery_covered_inlay": 77,
+          "gallery_bracket": 9,
+          "gallery_clad_attic_panel": 21,
+          "gallery_ceiling": 7
+        },
+        "portals": [
+          {
+            "position": [
+              43,
+              1,
+              23
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 165,
+        "minimum_night_block_light": 8,
+        "added_lamps": 11,
+        "styles": {
+          "gallery_ceiling": 3,
+          "gallery_covered_inlay": 8
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 963,
+        "minimum_night_block_light": 8,
+        "added_lamps": 31,
+        "styles": {
+          "gallery_bracket": 6,
+          "gallery_covered_inlay": 25
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 144,
+        "minimum_night_block_light": 8,
+        "added_lamps": 13,
+        "styles": {
+          "gallery_ceiling": 2,
+          "gallery_bracket": 6,
+          "gallery_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 37,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "gallery_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 68,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "gallery_ceiling": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 357,
+        "minimum_night_block_light": 8,
+        "added_lamps": 17,
+        "styles": {
+          "gallery_ceiling": 17
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 219,
+        "minimum_night_block_light": 8,
+        "added_lamps": 12,
+        "styles": {
+          "gallery_bracket": 7,
+          "gallery_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_house_d.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 363,
+        "minimum_night_block_light": 8,
+        "added_lamps": 17,
+        "styles": {
+          "gallery_bracket": 10,
+          "gallery_covered_inlay": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_pokecenter.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 215,
+        "minimum_night_block_light": 8,
+        "added_lamps": 11,
+        "styles": {
+          "gallery_bracket": 6,
+          "gallery_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_pokemart.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 23,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "gallery_bracket": 2,
+          "gallery_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/dark/gym_dark_tcg_shop.nbt"
+      }
+    ],
+    "fighting": [
+      {
+        "category": "gym",
+        "walking_cells": 1614,
+        "minimum_night_block_light": 8,
+        "added_lamps": 59,
+        "styles": {
+          "timber_ceiling": 7,
+          "timber_bracket": 15,
+          "timber_covered_inlay": 33,
+          "timber_clad_attic_panel": 4
+        },
+        "portals": [
+          {
+            "position": [
+              38,
+              1,
+              23
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 205,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "timber_bracket": 4,
+          "timber_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 526,
+        "minimum_night_block_light": 8,
+        "added_lamps": 19,
+        "styles": {
+          "timber_bracket": 5,
+          "timber_covered_inlay": 13,
+          "timber_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 178,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "timber_bracket": 3,
+          "timber_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 44,
+        "minimum_night_block_light": 9,
+        "added_lamps": 2,
+        "styles": {
+          "timber_bracket": 1,
+          "timber_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 52,
+        "minimum_night_block_light": 8,
+        "added_lamps": 4,
+        "styles": {
+          "timber_bracket": 3,
+          "timber_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 52,
+        "minimum_night_block_light": 9,
+        "added_lamps": 2,
+        "styles": {
+          "timber_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 164,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "timber_bracket": 3,
+          "timber_covered_inlay": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 137,
+        "minimum_night_block_light": 8,
+        "added_lamps": 4,
+        "styles": {
+          "timber_bracket": 1,
+          "timber_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_house_e.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 373,
+        "minimum_night_block_light": 8,
+        "added_lamps": 14,
+        "styles": {
+          "timber_bracket": 7,
+          "timber_covered_inlay": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_pokecenter.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 247,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "timber_covered_inlay": 7,
+          "timber_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_pokemart.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 14,
+        "minimum_night_block_light": 9,
+        "added_lamps": 1,
+        "styles": {
+          "timber_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/fighting/gym_fighting_tcg_shop.nbt"
+      }
+    ],
+    "flying": [
+      {
+        "category": "gym",
+        "walking_cells": 1868,
+        "minimum_night_block_light": 8,
+        "added_lamps": 76,
+        "styles": {
+          "rod_covered_inlay": 62,
+          "rod_bracket": 14
+        },
+        "portals": [
+          {
+            "position": [
+              40,
+              1,
+              23
+            ],
+            "facing": "east",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 163,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "rod_bracket": 6,
+          "rod_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 568,
+        "minimum_night_block_light": 8,
+        "added_lamps": 28,
+        "styles": {
+          "rod_bracket": 19,
+          "rod_covered_inlay": 9
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 172,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "rod_bracket": 5,
+          "rod_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 42,
+        "minimum_night_block_light": 8,
+        "added_lamps": 1,
+        "styles": {
+          "rod_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 39,
+        "minimum_night_block_light": 8,
+        "added_lamps": 1,
+        "styles": {
+          "rod_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 32,
+        "minimum_night_block_light": 8,
+        "added_lamps": 0,
+        "styles": {},
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 118,
+        "minimum_night_block_light": 9,
+        "added_lamps": 7,
+        "styles": {
+          "rod_bracket": 4,
+          "rod_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 123,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "rod_bracket": 4,
+          "rod_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_house_e.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 313,
+        "minimum_night_block_light": 8,
+        "added_lamps": 23,
+        "styles": {
+          "rod_bracket": 18,
+          "rod_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_pokecenter.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 190,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "rod_covered_inlay": 4,
+          "rod_bracket": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_pokemart.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 9,
+        "minimum_night_block_light": 9,
+        "added_lamps": 1,
+        "styles": {
+          "rod_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/flying/gym_flying_tcg_shop.nbt"
+      }
+    ],
+    "normal": [
+      {
+        "category": "gym",
+        "walking_cells": 2238,
+        "minimum_night_block_light": 8,
+        "added_lamps": 87,
+        "styles": {
+          "timber_bracket": 24,
+          "timber_covered_inlay": 45,
+          "timber_clad_attic_panel": 13,
+          "timber_ceiling": 5
+        },
+        "portals": [
+          {
+            "position": [
+              2,
+              1,
+              20
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 115,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "timber_bracket": 4,
+          "timber_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 572,
+        "minimum_night_block_light": 8,
+        "added_lamps": 22,
+        "styles": {
+          "timber_bracket": 6,
+          "timber_covered_inlay": 16
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 206,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "timber_bracket": 6,
+          "timber_covered_inlay": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 60,
+        "minimum_night_block_light": 9,
+        "added_lamps": 2,
+        "styles": {
+          "timber_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 68,
+        "minimum_night_block_light": 9,
+        "added_lamps": 4,
+        "styles": {
+          "timber_ceiling": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 68,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "timber_ceiling": 3
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 192,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "timber_bracket": 4,
+          "timber_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 131,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "timber_ceiling": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_house_e.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 404,
+        "minimum_night_block_light": 8,
+        "added_lamps": 15,
+        "styles": {
+          "timber_bracket": 8,
+          "timber_covered_inlay": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_pokecenter.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 283,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "timber_bracket": 2,
+          "timber_covered_inlay": 6
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_pokemart.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 23,
+        "minimum_night_block_light": 8,
+        "added_lamps": 0,
+        "styles": {},
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/normal/gym_normal_tcg_shop.nbt"
+      }
+    ],
+    "bug": [
+      {
+        "category": "gym",
+        "walking_cells": 665,
+        "minimum_night_block_light": 8,
+        "added_lamps": 18,
+        "styles": {
+          "garden_covered_inlay": 15,
+          "garden_ceiling": 3
+        },
+        "portals": [
+          {
+            "position": [
+              36,
+              1,
+              23
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 179,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "garden_covered_inlay": 6
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 442,
+        "minimum_night_block_light": 8,
+        "added_lamps": 15,
+        "styles": {
+          "garden_covered_inlay": 15
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 154,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "garden_covered_inlay": 6
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 42,
+        "minimum_night_block_light": 8,
+        "added_lamps": 1,
+        "styles": {
+          "garden_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 46,
+        "minimum_night_block_light": 8,
+        "added_lamps": 1,
+        "styles": {
+          "garden_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 46,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "garden_ceiling": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 142,
+        "minimum_night_block_light": 8,
+        "added_lamps": 4,
+        "styles": {
+          "garden_covered_inlay": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 128,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "garden_ceiling": 8
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_house_e.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 312,
+        "minimum_night_block_light": 8,
+        "added_lamps": 9,
+        "styles": {
+          "garden_covered_inlay": 9
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_pokecenter.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 213,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "garden_covered_inlay": 8
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_pokemart.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 20,
+        "minimum_night_block_light": 9,
+        "added_lamps": 0,
+        "styles": {},
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/bug/gym_bug_tcg_shop.nbt"
+      }
+    ],
+    "psychic": [
+      {
+        "category": "gym",
+        "walking_cells": 840,
+        "minimum_night_block_light": 8,
+        "added_lamps": 33,
+        "styles": {
+          "rod_covered_inlay": 24,
+          "rod_bracket": 4,
+          "rod_ceiling": 4,
+          "rod_clad_attic_panel": 1
+        },
+        "portals": [
+          {
+            "position": [
+              40,
+              1,
+              23
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 235,
+        "minimum_night_block_light": 8,
+        "added_lamps": 11,
+        "styles": {
+          "rod_bracket": 6,
+          "rod_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 670,
+        "minimum_night_block_light": 8,
+        "added_lamps": 25,
+        "styles": {
+          "rod_bracket": 13,
+          "rod_covered_inlay": 12
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 235,
+        "minimum_night_block_light": 8,
+        "added_lamps": 11,
+        "styles": {
+          "rod_bracket": 6,
+          "rod_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 76,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "rod_bracket": 4,
+          "rod_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 76,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "rod_bracket": 1,
+          "rod_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 76,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "rod_bracket": 5,
+          "rod_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 165,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "rod_bracket": 5,
+          "rod_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 217,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "rod_bracket": 4,
+          "rod_covered_inlay": 4
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_house_e.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 339,
+        "minimum_night_block_light": 8,
+        "added_lamps": 16,
+        "styles": {
+          "rod_bracket": 9,
+          "rod_covered_inlay": 7
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_pokecenter.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 265,
+        "minimum_night_block_light": 8,
+        "added_lamps": 12,
+        "styles": {
+          "rod_bracket": 7,
+          "rod_covered_inlay": 5
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_pokemart.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 22,
+        "minimum_night_block_light": 10,
+        "added_lamps": 3,
+        "styles": {
+          "rod_bracket": 1,
+          "rod_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/psychic/gym_psychic_tcg_shop.nbt"
+      }
+    ],
+    "rock": [
+      {
+        "category": "gym",
+        "walking_cells": 1643,
+        "minimum_night_block_light": 8,
+        "added_lamps": 73,
+        "styles": {
+          "gallery_ceiling": 25,
+          "gallery_covered_inlay": 28,
+          "gallery_bracket": 12,
+          "gallery_clad_attic_panel": 8
+        },
+        "portals": [
+          {
+            "position": [
+              40,
+              1,
+              21
+            ],
+            "facing": "west",
+            "width": 1
+          }
+        ],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock.nbt"
+      },
+      {
+        "category": "blacksmith",
+        "walking_cells": 310,
+        "minimum_night_block_light": 8,
+        "added_lamps": 12,
+        "styles": {
+          "gallery_covered_inlay": 6,
+          "gallery_bracket": 6
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_blacksmith.nbt"
+      },
+      {
+        "category": "church",
+        "walking_cells": 620,
+        "minimum_night_block_light": 8,
+        "added_lamps": 24,
+        "styles": {
+          "gallery_bracket": 10,
+          "gallery_covered_inlay": 13,
+          "gallery_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_church.nbt"
+      },
+      {
+        "category": "daycare",
+        "walking_cells": 232,
+        "minimum_night_block_light": 8,
+        "added_lamps": 8,
+        "styles": {
+          "gallery_covered_inlay": 4,
+          "gallery_bracket": 1,
+          "gallery_ceiling": 2,
+          "gallery_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_daycare.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 68,
+        "minimum_night_block_light": 8,
+        "added_lamps": 2,
+        "styles": {
+          "gallery_clad_attic_panel": 1,
+          "gallery_ceiling": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_house_a.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 91,
+        "minimum_night_block_light": 8,
+        "added_lamps": 5,
+        "styles": {
+          "gallery_ceiling": 1,
+          "gallery_clad_attic_panel": 1,
+          "gallery_bracket": 1,
+          "gallery_covered_inlay": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_house_b.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 93,
+        "minimum_night_block_light": 8,
+        "added_lamps": 3,
+        "styles": {
+          "gallery_bracket": 2,
+          "gallery_covered_inlay": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_house_c.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 159,
+        "minimum_night_block_light": 8,
+        "added_lamps": 6,
+        "styles": {
+          "gallery_bracket": 1,
+          "gallery_covered_inlay": 3,
+          "gallery_clad_attic_panel": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_house_d.nbt"
+      },
+      {
+        "category": "house",
+        "walking_cells": 139,
+        "minimum_night_block_light": 8,
+        "added_lamps": 7,
+        "styles": {
+          "gallery_bracket": 5,
+          "gallery_covered_inlay": 1,
+          "gallery_clad_attic_panel": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_house_e.nbt"
+      },
+      {
+        "category": "pokecenter",
+        "walking_cells": 407,
+        "minimum_night_block_light": 8,
+        "added_lamps": 17,
+        "styles": {
+          "gallery_bracket": 9,
+          "gallery_covered_inlay": 6,
+          "gallery_clad_attic_panel": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_pokecenter.nbt"
+      },
+      {
+        "category": "pokemart",
+        "walking_cells": 299,
+        "minimum_night_block_light": 8,
+        "added_lamps": 14,
+        "styles": {
+          "gallery_bracket": 6,
+          "gallery_ceiling": 1,
+          "gallery_covered_inlay": 5,
+          "gallery_clad_attic_panel": 2
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_pokemart.nbt"
+      },
+      {
+        "category": "tcg_shop",
+        "walking_cells": 29,
+        "minimum_night_block_light": 8,
+        "added_lamps": 1,
+        "styles": {
+          "gallery_bracket": 1
+        },
+        "portals": [],
+        "template": "data/pixelmon_backport/structures/gyms/rock/gym_rock_tcg_shop.nbt"
+      }
+    ]
+  }
+}

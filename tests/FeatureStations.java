@@ -8,6 +8,8 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import com.pixelmonmod.pixelmon.enums.EnumPlate;
 import com.pixelmonmod.pixelmon.enums.EnumMegaItem;
 import com.pixelmonmod.pixelmon.items.ZygardeCubeItem;
+import com.pixelmonmod.pixelmon.items.ScrollItem;
+import com.pixelmonmod.pixelmon.blocks.ScrollBlock;
 import com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.PowerConstruct;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.item.ArmorStandEntity;
@@ -24,7 +26,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 /** Manual interaction stations; commands are restricted to the feature worlds. */
 @Mod.EventBusSubscriber(modid="backport_client_test")
 public final class FeatureStations {
-    static final JsonObject CHINESE=local.pixelmon.backport.Content.read("assets/pixelmon/lang/zh_cn.json");
+    static final JsonObject CHINESE=local.pixelmon.backport.Content.read("backport/species_names_zh.json");
     static final JsonObject ADDED_CHINESE=local.pixelmon.backport.Content.read("assets/pixelmon_backport/lang/zh_cn.json");
     static final String[] GROUPS={"legacy","gen4","gen5","gen6","gen7","gen8","gen9","ultra","paradox"};
     static final String[] LABELS={"前三世代","神奥","合众","卡洛斯","阿罗拉","伽勒尔/洗翠","帕底亚","究极异兽","悖谬种"};
@@ -57,15 +59,18 @@ public final class FeatureStations {
         spawnDex(p,dex);return 1;
     }
     static void spawnDex(ServerPlayerEntity p,int dex){
+        spawnForm(p,dex,null);
+    }
+    static void spawnForm(ServerPlayerEntity p,int dex,String form){
         var data=p.getPersistentData();
         if(data.func_186855_b("BackportCaptureFixtureUUID")){
             var old=p.func_71121_q().func_217461_a(data.func_186857_a("BackportCaptureFixtureUUID"));
             if(old instanceof PixelmonEntity && ((PixelmonEntity)old).getPokemon().getOwnerPlayerUUID()==null
                 && old.getPersistentData().func_74767_n("BackportCaptureFixture"))old.func_70106_y();
         }
-        Pokemon pokemon=FeatureTestMaps.mon(dex);PixelmonEntity entity=pokemon.getOrCreatePixelmon(p.field_70170_p,4,65,0);
+        Pokemon pokemon=FeatureTestMaps.mon(dex);if(form!=null)pokemon.setForm(form);PixelmonEntity entity=pokemon.getOrCreatePixelmon(p.field_70170_p,4,65,0);
         entity.getPersistentData().func_74757_a("BackportCaptureFixture",true);p.field_70170_p.func_217376_c(entity);data.func_186854_a("BackportCaptureFixtureUUID",entity.func_110124_au());
-        FeatureTestMaps.tell(p,"已在中央生成 "+chinese(dex)+" (#"+dex+")。请实际捕捉测试成就。");
+        FeatureTestMaps.tell(p,"已在中央生成 "+(form==null?"":"伽勒尔 ")+chinese(dex)+" (#"+dex+")。请实际捕捉测试成就。");
     }
     static void label(ServerWorld w,double x,double y,double z,String text){
         ArmorStandEntity sign=new ArmorStandEntity(w,x,y,z);sign.func_200203_b(new StringTextComponent(text));sign.func_174805_g(true);sign.func_82142_c(true);sign.func_189654_d(true);sign.func_184211_a("backport_feature_station");w.func_217376_c(sign);
@@ -93,7 +98,43 @@ public final class FeatureStations {
         }
         station(w,20,20,"右键：准备场外 Mega（J，可改键）","blue");
         station(w,16,20,"右键：无极巨化成就测试","magenta");
-        p.getPersistentData().func_74768_a("BackportFeatureLayoutVersion",4);
+        if(!FeatureTestMaps.riding(p)){
+            station(w,12,20,"右键：原始回归与剑盾之王","orange");
+            station(w,8,20,"右键：轮换特殊形态转换用品","pink");
+            station(w,4,20,"右键：熊徒弟与两种卷轴","brown");
+            station(w,0,20,"右键：轮换伽勒尔三鸟捕捉","light_blue");
+        }
+        p.getPersistentData().func_74768_a("BackportFeatureLayoutVersion",5);
+    }
+    static void replace(ServerPlayerEntity p,int slot,Pokemon pokemon){
+        var party=StorageProxy.getParty(p);Pokemon old=party.get(slot);
+        if(old!=null)old.getPixelmonEntity().ifPresent(e->e.retrieve("ManualFormFixture"));
+        party.set(slot,pokemon);
+    }
+    static void specialField(ServerPlayerEntity p){
+        int[] dex={382,383,888,889};String[] items={"blue_orb","red_orb","rusted_sword","rusted_shield"};
+        for(int i=0;i<dex.length;i++){Pokemon mon=FeatureTestMaps.mon(dex[i]);mon.setHeldItem(DedicatedTestMaps.stack("pixelmon:"+items[i],1));replace(p,i,mon);}
+        FeatureTestMaps.tell(p,"前四格替换为盖欧卡、固拉多、苍响、藏玛然特，携带对应宝珠/剑/盾。请手动放出，按J完成变化后查看成就；检查换掉道具、收回、进入对战和读档时还原。生成不会授予成就。");
+    }
+    static void forms(ServerPlayerEntity p){
+        int[] dex={492,483,484,487,641,642,645,905,720};
+        String[] items={"gracidea","adamant_crystal","lustrous_globe","griseous_core","reveal_glass","reveal_glass","reveal_glass","reveal_glass","prison_bottle"};
+        int index=Math.floorMod(p.getPersistentData().func_74762_e("BackportFormFixtureIndex"),dex.length);
+        replace(p,0,FeatureTestMaps.mon(dex[index]));p.func_184611_a(Hand.MAIN_HAND,DedicatedTestMaps.stack("pixelmon:"+items[index],1));
+        p.getPersistentData().func_74768_a("BackportFormFixtureIndex",index+1);
+        if(dex[index]==492)TestMaps.cmd(p,"time set day");
+        FeatureTestMaps.tell(p,"第一格已替换为 "+chinese(dex[index])+"，主手为对应原生转换道具。请放出后实际使用道具、等待动画，再检查成就及还原后保留。再次右键轮换；生成本身不授予成就。");
+    }
+    static void urshifu(ServerPlayerEntity p){
+        replace(p,0,FeatureTestMaps.mon(891));replace(p,1,FeatureTestMaps.mon(891));
+        List<ItemStack> scrolls=new ArrayList<>();
+        for(var type:ScrollBlock.Type.values())scrolls.add(ScrollItem.makeScroll(type,false,type.getDefaultResource()));
+        TestMaps.supply(p.func_71121_q(),-20,20,"熊徒弟进化：水之卷轴 / 恶之卷轴",scrolls);
+        FeatureTestMaps.tell(p,"前两格已替换为熊徒弟，西侧木桶有两种原生卷轴。请分别摆放并通过原生交互进化，不要同时在8格内摆两种卷轴。检查一击流“招招致命”和连击流“流水连击”，生成不授予成就。");
+    }
+    static void galar(ServerPlayerEntity p){
+        int index=Math.floorMod(p.getPersistentData().func_74762_e("BackportGalarFixtureIndex"),3);
+        spawnForm(p,144+index,"galarian");p.getPersistentData().func_74768_a("BackportGalarFixtureIndex",index+1);
     }
     static void mega(ServerPlayerEntity p){
         var party=StorageProxy.getParty(p);party.unlockMega(false);party.setMegaItem(EnumMegaItem.BraceletORAS,false);
@@ -123,6 +164,7 @@ public final class FeatureStations {
         if(x==20 && z==20)return "mega";
         if(x==16 && z==20)return "eternamax";
         if(riding)return z==-12 && x==-20?"riding":z==-12 && x==20?"end":null;
+        if(z==20)return x==12?"special_field":x==8?"forms":x==4?"urshifu":x==0?"galar":null;
         if(z==-12)for(int i=0;i<GROUPS.length;i++)if(x==-20+i*5)return "menu:"+GROUPS[i];
         if(z==-4){if(x==20)return "end";for(int i=0;i<FUSIONS.length;i++)if(x==-20+i*4)return "fusion:"+i;}
         return x==20 && z==4?"zygarde":x==20 && z==12?"flute":null;

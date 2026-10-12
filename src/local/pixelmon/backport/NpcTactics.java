@@ -19,6 +19,11 @@ public final class NpcTactics {
         for(MoveChoice choice:choices){
             if(!choice.isAttack() || choice.tier<=0 || choice.result!=null && choice.result.result==com.pixelmonmod.pixelmon.battles.controller.log.AttackResult.failed)continue;
             String name=choice.attack.getMove().getAttackName();
+            // Native TacticalAI leaves a doomed KO at tier 3 with zero weight.
+            // Such a move otherwise outranks every viable tier-2 switch.
+            if(choice.isOffensiveMove() && choice.tier>=3 && incoming>=own.getHealth() && !finishFirst(own,choice,threats)){
+                choice.lowerTier(1);choice.weight=Math.min(choice.weight,5);
+            }
             if(SETUP.contains(name)){
                 boolean movesFirst=!MoveChoice.canOutspeed(threats,own,choice.createList());
                 boolean payoff=choices.stream().anyMatch(c->c.isOffensiveMove() && c.tier>=2 && c.weight>0);

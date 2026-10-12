@@ -87,7 +87,7 @@
     "494": {
       "id": "capture_494",
       "category": "gen5",
-      "title": "与比克提尼相遇",
+      "title": "满天星斗",
       "species": "Victini"
     },
     "638": {
@@ -669,6 +669,160 @@
       "form": "eternamax",
       "id": "form_890_eternamax",
       "title": "无极之巅"
+    },
+    {
+      "dex": 383,
+      "form": "primal",
+      "id": "form_383_primal",
+      "title": "大地初醒"
+    },
+    {
+      "dex": 382,
+      "form": "primal",
+      "id": "form_382_primal",
+      "title": "沧海溯源"
+    },
+    {
+      "dex": 492,
+      "form": "sky",
+      "id": "form_492_sky",
+      "title": "桃红柳绿",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 483,
+      "form": "origin",
+      "id": "form_483_origin",
+      "title": "时间溯源",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 484,
+      "form": "origin",
+      "id": "form_484_origin",
+      "title": "空间溯源",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 487,
+      "form": "origin",
+      "id": "form_487_origin",
+      "title": "反转溯源",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 641,
+      "form": "therian",
+      "id": "form_641_therian",
+      "title": "龙卷之灵",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 642,
+      "form": "therian",
+      "id": "form_642_therian",
+      "title": "雷电之灵",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 645,
+      "form": "therian",
+      "id": "form_645_therian",
+      "title": "土地之灵",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 905,
+      "form": "therian",
+      "id": "form_905_therian",
+      "title": "眷恋之灵",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 720,
+      "form": "unbound",
+      "id": "form_720_unbound",
+      "title": "解放之环",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 888,
+      "form": "crowned",
+      "id": "form_888_crowned",
+      "title": "剑之王",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 889,
+      "form": "crowned",
+      "id": "form_889_crowned",
+      "title": "盾之王",
+      "category": "forms",
+      "source": "form-change"
     }
-  ]
+  ],
+  "capturesByForm": {
+    "718": {
+      "ten_percent": {
+        "id": "capture_718_ten_percent",
+        "category": "gen6",
+        "title": "十方初聚",
+        "form": "ten_percent"
+      },
+      "fifty_percent": {
+        "id": "capture_718",
+        "category": "gen6",
+        "title": "浑然一体",
+        "form": "fifty_percent"
+      }
+    },
+    "892": {
+      "singlestrike": {
+        "id": "capture_892",
+        "category": "gen8",
+        "title": "招招致命",
+        "form": "singlestrike"
+      },
+      "rapidstrike": {
+        "id": "capture_892_rapidstrike",
+        "category": "gen8",
+        "title": "流水连击",
+        "form": "rapidstrike"
+      }
+    },
+    "144": {
+      "galarian": {
+        "id": "capture_144_galarian",
+        "category": "gen8",
+        "title": "冰羽心眼",
+        "form": "galarian"
+      }
+    },
+    "145": {
+      "galarian": {
+        "id": "capture_145_galarian",
+        "category": "gen8",
+        "title": "雷足疾驰",
+        "form": "galarian"
+      }
+    },
+    "146": {
+      "galarian": {
+        "id": "capture_146_galarian",
+        "category": "gen8",
+        "title": "烈焰黑翼",
+        "form": "galarian"
+      }
+    }
+  }
 }

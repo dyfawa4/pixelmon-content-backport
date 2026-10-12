@@ -5,7 +5,7 @@
       "nbt": "{ndex:494s,palette:\"none\",form:\"\",gender:0b}"
     },
     "title": {
-      "text": "与比克提尼相遇"
+      "text": "满天星斗"
     },
     "description": {
       "text": "成功捕捉比克提尼。"
@@ -13,7 +13,7 @@
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false
+    "hidden": true
   },
   "criteria": {
     "earned": {

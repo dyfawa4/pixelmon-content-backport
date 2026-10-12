@@ -58,7 +58,7 @@ public final class GymTestMaps {
             JigsawManager.func_242837_a(w.func_241828_r(),new VillageConfig(()->pool,60),(a,b,c,d,e,f)->new GymVillagePiece(a,b,c,d,e,f,true),
                 w.func_72863_F().func_201711_g(),w.func_184163_y(),pos,pieces,new Random(seed),true,true);
             if(pieces.size()>best.size())best=pieces;
-            int houses=(int)pieces.stream().filter(p->p.toString().contains("_house_")).count();
+            int houses=(int)pieces.stream().filter(p->p.toString().matches(".*"+ns+":gyms/"+type+"/gym_"+type+"_house_[^/\\]]+\\].*")).count();
             boolean withinPreview=pieces.stream().allMatch(p->{MutableBoundingBox b=p.func_74874_b();return b.field_78897_a>=-256 && b.field_78893_d<=256 && b.field_78896_c>=-256 && b.field_78892_f<=256;});
             if(pieces.size()>=40 && (!authored || houses>=8 && withinPreview) && pieces.stream().anyMatch(p->p.toString().contains("/gym_"+type+"]"))
                 && pieces.stream().anyMatch(p->p.toString().contains("_pokecenter]")) && pieces.stream().anyMatch(p->p.toString().contains("_pokemart]"))){
@@ -70,7 +70,8 @@ public final class GymTestMaps {
             }
             // Compare several complete layouts, rather than accepting the first
             // small city. The deterministic plan is reused by navigation.
-            if(authored && seed>=12 && !complete.isEmpty())return complete;
+            int desiredHouses=Arrays.asList("normal","fighting","rock").contains(type)?12:10;
+            if(authored && seed>=24 && houses>=desiredHouses && !complete.isEmpty())return complete;
         }
         if(!complete.isEmpty())return complete;
         throw new IllegalStateException("No complete city assembled "+type+" pieces="+best.size());

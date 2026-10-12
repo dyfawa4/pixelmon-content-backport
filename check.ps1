@@ -16,4 +16,16 @@ if($LASTEXITCODE -ne 0){throw 'Test compilation failed'}
 if($LASTEXITCODE -ne 0){throw 'Mixin verification failed'}
 & $taskBuild.java -ea -cp $taskCP GymLookupStaticVerification
 if($LASTEXITCODE -ne 0){throw 'Gym lookup static verification failed'}
+& $taskBuild.java -ea -cp $taskCP Version13StaticVerification
+if($LASTEXITCODE -ne 0){throw 'Version 1.3 static verification failed'}
+& $taskBuild.java -ea -cp $taskCP GymItemAllowanceVerification
+if($LASTEXITCODE -ne 0){throw 'Gym budget verification failed'}
 Write-Output 'Offline checks complete. Gameplay and natural-world acceptance are performed manually by the user.'
+& $taskBuild.java -ea -cp $taskCP UtilityCommandPolicyVerification
+if($LASTEXITCODE -ne 0){throw 'Utility command target boundaries failed'}
+& $taskBuild.java -ea -cp $taskCP EeveeFamilyVerification
+if($LASTEXITCODE -ne 0){throw 'Eevee family criteria verification failed'}
+& $taskBuild.java -ea -cp $taskCP NpcSwitchPolicyVerification
+if($LASTEXITCODE -ne 0){throw 'NPC switch policy verification failed'}
+& $taskBuild.java -ea -cp $taskCP GymTrainingVerification
+if($LASTEXITCODE -ne 0){throw 'Gym training verification failed'}

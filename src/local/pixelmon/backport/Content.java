@@ -73,6 +73,7 @@ public final class Content {
                 data.put(existing.getKey(), mergeSpecies(original, incoming));
             }
             PermanentAsh.addForm(data);
+            CapPikachu.addForm(data);
             for(JsonElement value:data.values()){
                 JsonObject species=value.getAsJsonObject();String dex=species.get("dex").getAsString();
                 if("149".equals(dex))for(String alias:new String[]{"dragoninite","dragonitite"})if(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation("pixelmon:"+alias)) instanceof com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem){

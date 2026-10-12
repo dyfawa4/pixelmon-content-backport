@@ -1,6 +1,6 @@
 # 从完整源码构建
 
-1.2.0 本地验收源码包含全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及九张功能地图、十八张城市地图和徽章展示的初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
+1.3.0 本地验收源码包含全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及九张功能地图、十八张城市地图和徽章展示的初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
 
 ## 环境与外部依赖
 
@@ -24,7 +24,7 @@ cd pixelmon-content-backport
 
 脚本查找 Forge client JAR；存在多份时，加 `-ForgeClientJar '完整路径\forge-1.16.5-36.2.42-client.jar'` 指定。若 PowerShell 执行策略阻止脚本，可在此次调用中使用 `powershell -ExecutionPolicy Bypass -File .\build.ps1 ...`，无需更改系统策略。
 
-产物是 `dist/pixelmon-content-backport-1.16.5-1.2.0.jar`。脚本用 `javac --release 11` 编译全部 `src/**/*.java`，再原样打包 `resources/`。资源文件保持原始字节。JAR 时间戳与压缩封装可能造成文件 SHA-256 不同，应对比内部 class / 资源内容；这不代表 Java 版本或功能不同。
+产物是 `dist/pixelmon-content-backport-1.16.5-1.3.0.jar`。脚本用 `javac --release 11` 编译全部 `src/**/*.java`，再原样打包 `resources/`。资源文件保持原始字节。JAR 时间戳与压缩封装可能造成文件 SHA-256 不同，应对比内部 class / 资源内容；这不代表 Java 版本或功能不同。
 
 ## 源码与目录
 
@@ -85,7 +85,7 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 .\build-test-maps.ps1
 ```
 
-此脚本编译 `tests/MapSupport.java` 和八个地图辅助源码，打包地图控制模组，生成九张功能地图包 `dist/Pixelmon-Backport-test-maps-1.2.0.zip` 和十九张城市/徽章地图包 `dist/Pixelmon-Backport-gym-test-maps-1.2.0.zip`。两包使用同一份地图控制模组，只安装一份。控制模组按世界名称识别测试地图，正式功能模组不包含自动 QA 或自动退出代码。实际使用步骤见 [TEST_MAPS.md](TEST_MAPS.md)。
+此脚本编译 `tests/MapSupport.java` 和八个地图辅助源码，打包地图控制模组，生成九张功能地图包 `dist/Pixelmon-Backport-test-maps-1.3.0.zip` 和十九张城市/徽章地图包 `dist/Pixelmon-Backport-gym-test-maps-1.3.0.zip`。两包使用同一份地图控制模组，只安装一份。控制模组按世界名称识别测试地图，正式功能模组不包含自动 QA 或自动退出代码。实际使用步骤见 [TEST_MAPS.md](TEST_MAPS.md)。
 
 如需从自己的新建超平坦空白世界生成地图，`PrepareTestMaps` 接收两个位置参数：原始世界文件夹、输出 saves 文件夹。它复制世界并写入七个测试世界名称；进入地图后由控制模组准备设施。请使用空白世界，勿使用个人存档作模板。
 
@@ -105,9 +105,26 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 
 客户端测试入口是 `tools/run_test_client.py --version-json ... --minecraft-root ... --pixelmon ...`，需要先准备 `.cache/test-client/mods/backport-client-test.jar`（用全部测试 class 和 `tests/client-resources/` 打包），以及隔离服生成的 `backport-test` 世界。它只使用测试用户名和占位 token `0`；源代码不含任何登录账号。`--full-pack` 复制启用的模组和配置到独立测试实例，用于整合包兼容验收。
 
-功能包和校验文件打包：完成两次构建后运行 `python tools/package_release.py --version 1.2.0`。
+功能包和校验文件打包：完成两次构建后运行 `python tools/package_release.py --version 1.3.0`。
 
 `FeedbackClientVerification` 是独立的测试客户端入口，使用 `tests/feedback-client-resources/` 的元数据打包，配合 JEI 与正式地图配套模组打开隔离地图并逐项查询信息页。测试结束截图后主动正常关闭客户端；不要安装到日常游戏中。
 
 
-1.2.0 另有离线资源检查：`tools/verify_gym_city_assets.py --pixelmon <本体.jar>`、`tools/verify_city_structure.py`、`tools/verify_gym_rewards.py`、`tools/verify_npc_dialogue.py --pixelmon <本体.jar>` 和 `tools/verify_release_package.py`。`check.ps1` 会对本体同目录的 Explorer’s Compass 做可选兼容检查。当前工作分工不运行自动游戏验收，旧 `live-check.ps1` 仅保留为开发工具。
+1.3.0 另有离线资源检查：`tools/verify_gym_city_assets.py --pixelmon <本体.jar>`、`tools/verify_city_structure.py`、`tools/verify_gym_rewards.py`、`tools/verify_npc_dialogue.py --pixelmon <本体.jar>` 和 `tools/verify_release_package.py`。`check.ps1` 会对本体同目录的 Explorer’s Compass 做可选兼容检查。当前工作分工不运行自动游戏验收，旧 `live-check.ps1` 仅保留为开发工具。
+
+
+## 1.3.0 资源生成与手动验收实例
+
+原生语言及形态生成分别使用 `tools/extend_version13.py --pixelmon <本体.jar>` 和 `tools/extend_form_advancements.py --pixelmon <本体.jar>`；执行 `python tools/hide_legend_advancements.py` 统一全部旧、新传说节点的隐藏标记。PixelTweaks 全量汉化工具为 `tools/translate_pixeltweaks.py`。原十城室内库核对使用 `tools/review_native_city_interiors.py --pixelmon <本体.jar>`。生成资料需先准备对应工具的输入目录和本体，不要通过重新运行旧基础生成器覆盖扩展目录。
+
+自动开发客户端不属于本轮验收。需要手动验收时，用 `tools/run_test_client.py --manual --full-pack --instance-name <独立名称> --map-helper <本轮地图配套JAR> --version-json <整合包版本JSON> --minecraft-root <minecraft目录> --pixelmon <本体JAR>` 打开正常主菜单。此模式仅复制初始地图与当前最小手动配套模组，关闭网络自动测试、画廊和自动界面预览，不复用旧验收客户端、账号或原存档。先构建地图包，从 ZIP 的 `mods/` 提取当前 1.3.0 配套 JAR，不能使用旧 1.2.0 配套模组。
+
+城市包只封装 `test-maps/gym-saves-v9/` 下十九个初始世界。源码保留旧 `test-maps/gym-saves/` 的历史初始文件，不把两套城市混入同一地图 ZIP。以上构建和封装均不启动游戏；地图的组装在用户手动进入对应世界后完成。
+
+
+当前建筑 v9：先按基础工具生成 v6 基础几何，再运行 `tools/upgrade_city_lighting.py --pixelmon <本体.jar>` 处理十八城照明和入口；已生成的 v9 资源用 `tools/verify_city_lighting.py --pixelmon <本体.jar>` 复核夜间估算、入口宽度和原十城非文本实体/设施/拼装 NBT 保留。`tools/verify_gym_layouts.py --pixelmon <本体.jar>` 检查重复门、馆主主位、主轴净空、毒馆库存设备布局以及移位馆主/重加旧门/英文内嵌对话负例。当前城市包只封装 `test-maps/gym-saves-v9/`。历史初始文件保留在源码中。
+
+
+`check.ps1` 另执行纯 JVM 的 `GymItemAllowanceVerification` 和原生选道具事件/等待状态提交边界检查，不创建玩家或游戏对战。`docs/ACCEPTANCE_1.3.0.md` 是逐项代码验收表。道馆属性风险工具为 `tools/audit_gym_type_risks.py --pixelmon <本体.jar>`，读取同版本本体属性表导出 `docs/GYM_TYPE_CHART_1.3.0.json`；它只分析序列化队伍/候选资源，不模拟胜率。
+
+当前资源还须通过 `tools/verify_city_envelopes.py` 核对封闭屋面、原生床上遮盖及入口轴线；`tools/audit_gym_leader_ai.py --pixelmon <本体.jar>` 核对十八城馆主身份与训练入口。`check.ps1` 包含普通玩家命令边界、伊布九种 AND 条件、原生换人/用药收益及 497 组养成/觉醒力量边界检查，均不初始化游戏对战。

@@ -1,14 +1,15 @@
 """Check review artifacts, direct saves layout, Java version and source coverage."""
-import hashlib, io, json, pathlib, struct, zipfile
+import argparse, hashlib, io, json, pathlib, struct, zipfile
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 DIST=ROOT/'dist'
-VERSION='1.2.0'
+parser=argparse.ArgumentParser();parser.add_argument('--version',default='1.3.0');VERSION=parser.parse_args().version
 
 def jar(data, helper=False):
     with zipfile.ZipFile(io.BytesIO(data)) as archive:
         assert archive.testzip() is None
         assert json.loads(archive.read('pack.mcmeta'))['pack']['pack_format']==6
+        assert f'version="{VERSION}"' in archive.read('META-INF/mods.toml').decode().replace(' ','')
         classes=[name for name in archive.namelist() if name.endswith('.class')]
         assert classes
         for name in classes:
@@ -24,6 +25,7 @@ def main():
     with zipfile.ZipFile(production) as archive:
         nodes=[name for name in archive.namelist() if name.startswith('data/pixelmon_backport/advancements/legends/') and name.endswith('.json')]
         assert [name for name in nodes if json.loads(archive.read(name))['display']['frame']=='challenge']==['data/pixelmon_backport/advancements/legends/capture_493.json']
+        if VERSION=='1.3.0':assert all(json.loads(archive.read(name))['display']['hidden'] for name in nodes)
     for suffix,count in [('test-maps',9),('gym-test-maps',19)]:
         with zipfile.ZipFile(DIST/f'Pixelmon-Backport-{suffix}-{VERSION}.zip') as archive:
             assert archive.testzip() is None
@@ -37,7 +39,7 @@ def main():
     with zipfile.ZipFile(DIST/f'Pixelmon-Backport-{VERSION}.zip') as archive:
         assert archive.testzip() is None
         assert archive.read('mods/'+production.name)==production.read_bytes()
-        assert 'docs/VALIDATION_1.2.0.md' in archive.namelist()
+        assert f'docs/VALIDATION_{VERSION}.md' in archive.namelist()
     with zipfile.ZipFile(DIST/f'Pixelmon-Backport-source-{VERSION}.zip') as archive:
         assert archive.testzip() is None
         names=set(archive.namelist())
@@ -46,7 +48,8 @@ def main():
             for path in (ROOT/folder).rglob('*'):
                 if path.is_file() and not any(part=='__pycache__' for part in path.parts) and path.suffix not in ['.pyc','.class','.jar','.log']:
                     assert path.relative_to(ROOT).as_posix() in names,path
-        assert sum(name.endswith('/level.dat') for name in names)==28
+        expected=sum(1 for path in (ROOT/'test-maps').rglob('level.dat'))
+        assert sum(name.endswith('/level.dat') for name in names)==expected
     for line in (DIST/f'SHA256SUMS-{VERSION}.txt').read_text().splitlines():
         digest,name=line.split('  ',1)
         assert hashlib.sha256((DIST/name).read_bytes()).hexdigest()==digest,name

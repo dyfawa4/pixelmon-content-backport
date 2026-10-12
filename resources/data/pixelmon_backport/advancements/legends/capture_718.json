@@ -8,12 +8,12 @@
       "text": "浑然一体"
     },
     "description": {
-      "text": "成功捕捉基格尔德。"
+      "text": "成功捕捉，或通过原生重组装置实际完成组装，或使用多面体让群聚变形个体实际切换为基格尔德 50% 形态。两个形态分别记录；仅获得细胞、核心或查看形态不会完成。"
     },
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
-    "hidden": false
+    "hidden": true
   },
   "criteria": {
     "earned": {

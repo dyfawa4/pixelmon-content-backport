@@ -13,7 +13,7 @@ def main():
         world = copy.deepcopy(base)
         data = world['Data']
         data.pop('Player', None)
-        revision='细节修复 ' if theme in NEW_TYPES else ''
+        revision='建筑与馆主 v9 '
         data['LevelName'] = nbtlib.String(f'回迁道馆 {revision}{index:02d} {label}属性 [{theme}]')
         data['GameType'] = nbtlib.Int(1)
         data['allowCommands'] = nbtlib.Byte(1)
@@ -32,12 +32,12 @@ def main():
         generator.clear();generator.update({'type':nbtlib.String('minecraft:flat'),'settings':settings})
         rules=data.setdefault('GameRules',nbtlib.Compound())
         for key,value in [('doDaylightCycle','false'),('doWeatherCycle','false'),('doFireTick','false'),('randomTickSpeed','0'),('doMobSpawning','false')]:rules[key]=nbtlib.String(value)
-        folder=f'backport-gym-v5-{theme}' if theme in NEW_TYPES else f'backport-gym-{theme}'
-        target=ROOT/f'test-maps/gym-saves/{folder}/level.dat'
+        folder=f'backport-gym-v9-{theme}'
+        target=ROOT/f'test-maps/gym-saves-v9/{folder}/level.dat'
         target.parent.mkdir(parents=True,exist_ok=True);world.save(target,gzipped=True)
     data['LevelName']=nbtlib.String('回迁徽章 18 属性徽章展示')
     for key,value in [('SpawnX',0),('SpawnY',65),('SpawnZ',0)]:data[key]=nbtlib.Int(value)
-    target=ROOT/'test-maps/gym-saves/backport-gym-badges/level.dat'
+    target=ROOT/'test-maps/gym-saves-v9/backport-gym-v9-badges/level.dat'
     target.parent.mkdir(parents=True,exist_ok=True);world.save(target,gzipped=True)
     for suffix,title in [('riding','回迁专项 08 新宝可梦骑乘测试'),('achievements','回迁专项 09 传说成就与合体测试')]:
         data['LevelName']=nbtlib.String(title)

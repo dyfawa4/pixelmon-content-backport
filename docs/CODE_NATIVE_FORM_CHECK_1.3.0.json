@@ -1,0 +1,152 @@
+{
+  "scope": "Independent native species/form/avatar resource checks; no game scenarios executed",
+  "checked_native_forms": [
+    {
+      "dex": 890,
+      "form": "eternamax",
+      "native_sprites": [
+        "pixelmon:pokemon/890_eternatus/all/eternamax/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 383,
+      "form": "primal",
+      "native_sprites": [
+        "pixelmon:pokemon/383_groudon/all/primal/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 382,
+      "form": "primal",
+      "native_sprites": [
+        "pixelmon:pokemon/382_kyogre/all/primal/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 492,
+      "form": "sky",
+      "native_sprites": [
+        "pixelmon:pokemon/492_shaymin/all/sky/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 483,
+      "form": "origin",
+      "native_sprites": [
+        "pixelmon:pokemon/483_dialga/all/origin/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 484,
+      "form": "origin",
+      "native_sprites": [
+        "pixelmon:pokemon/484_palkia/all/origin/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 487,
+      "form": "origin",
+      "native_sprites": [
+        "pixelmon:pokemon/487_giratina/all/origin/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 641,
+      "form": "therian",
+      "native_sprites": [
+        "pixelmon:pokemon/641_tornadus/all/therian/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 642,
+      "form": "therian",
+      "native_sprites": [
+        "pixelmon:pokemon/642_thundurus/all/therian/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 645,
+      "form": "therian",
+      "native_sprites": [
+        "pixelmon:pokemon/645_landorus/all/therian/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 905,
+      "form": "therian",
+      "native_sprites": [
+        "pixelmon:pokemon/905_enamorus/all/therian/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 720,
+      "form": "unbound",
+      "native_sprites": [
+        "pixelmon:pokemon/720_hoopa/all/unbound/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 888,
+      "form": "crowned",
+      "native_sprites": [
+        "pixelmon:pokemon/888_zacian/all/crowned/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 889,
+      "form": "crowned",
+      "native_sprites": [
+        "pixelmon:pokemon/889_zamazenta/all/crowned/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 718,
+      "form": "ten_percent",
+      "native_sprites": [
+        "pixelmon:pokemon/718_zygarde/all/ten_percent/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 718,
+      "form": "fifty_percent",
+      "native_sprites": [
+        "pixelmon:pokemon/718_zygarde/all/fifty_percent/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 892,
+      "form": "singlestrike",
+      "native_sprites": [
+        "pixelmon:pokemon/892_urshifu/all/singlestrike/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 892,
+      "form": "rapidstrike",
+      "native_sprites": [
+        "pixelmon:pokemon/892_urshifu/all/rapidstrike/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 144,
+      "form": "galarian",
+      "native_sprites": [
+        "pixelmon:pokemon/144_articuno/all/galarian/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 145,
+      "form": "galarian",
+      "native_sprites": [
+        "pixelmon:pokemon/145_zapdos/all/galarian/none/sprite.png"
+      ]
+    },
+    {
+      "dex": 146,
+      "form": "galarian",
+      "native_sprites": [
+        "pixelmon:pokemon/146_moltres/all/galarian/none/sprite.png"
+      ]
+    }
+  ]
+}

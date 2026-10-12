@@ -37,7 +37,7 @@ def sprite_icon(species,dex,assets,form_name=None):
 def write(path,data):
  path.parent.mkdir(parents=True,exist_ok=True);path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 def advancement(title,description,icon,parent=None,challenge=False):
- obj={'display':{'icon':icon,'title':{'text':title},'description':{'text':description},'frame':'challenge' if challenge else 'task','show_toast':True,'announce_to_chat':True,'hidden':False},'criteria':{'earned':{'trigger':'minecraft:impossible'}}}
+ obj={'display':{'icon':icon,'title':{'text':title},'description':{'text':description},'frame':'challenge' if challenge else 'task','show_toast':True,'announce_to_chat':True,'hidden':True},'criteria':{'earned':{'trigger':'minecraft:impossible'}}}
  if parent:obj['parent']='pixelmon_backport:legends/'+parent
  else:obj['display']['background']='minecraft:textures/block/obsidian.png'
  return obj
@@ -91,6 +91,6 @@ def main():
  write(target/'form_890_eternamax.json',obj)
  catalog['transformations']=[{'dex':890,'form':'eternamax','id':'form_890_eternamax','title':'无极之巅'}]
  write(ROOT/'resources/backport/advancements.json',catalog)
- write(ROOT/'docs/ADVANCEMENT_CATALOGUE_1.2.0.json',catalog)
+ write(ROOT/'docs/ADVANCEMENT_CATALOGUE_1.3.0.json',catalog)
  print(f'Generated {len(catalog["captures"])} capture and {len(FUSIONS)} fusion achievements; quest names matched: {sum(int(d) in names for d in catalog["captures"])}.')
 if __name__=='__main__':main()

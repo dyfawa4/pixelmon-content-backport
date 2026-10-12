@@ -1,0 +1,5837 @@
+{
+  "machines": [
+    {
+      "prefix": "tm_gen1",
+      "id": 1,
+      "attack": "Mega Punch",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 2,
+      "attack": "Razor Wind",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 3,
+      "attack": "Swords Dance",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 4,
+      "attack": "Whirlwind",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 5,
+      "attack": "Mega Kick",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 6,
+      "attack": "Toxic",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 7,
+      "attack": "Horn Drill",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 8,
+      "attack": "Body Slam",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 9,
+      "attack": "Take Down",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 10,
+      "attack": "Double-Edge",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 11,
+      "attack": "Bubble Beam",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 12,
+      "attack": "Water Gun",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 13,
+      "attack": "Ice Beam",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 14,
+      "attack": "Blizzard",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 15,
+      "attack": "Hyper Beam",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 16,
+      "attack": "Pay Day",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 17,
+      "attack": "Submission",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 18,
+      "attack": "Counter",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 19,
+      "attack": "Seismic Toss",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 20,
+      "attack": "Rage",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 21,
+      "attack": "Mega Drain",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 22,
+      "attack": "Solar Beam",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 23,
+      "attack": "Dragon Rage",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 24,
+      "attack": "Thunderbolt",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 25,
+      "attack": "Thunder",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 26,
+      "attack": "Earthquake",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 27,
+      "attack": "Fissure",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 28,
+      "attack": "Dig",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 29,
+      "attack": "Psychic",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 30,
+      "attack": "Teleport",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 31,
+      "attack": "Mimic",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 32,
+      "attack": "Double Team",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 33,
+      "attack": "Reflect",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 34,
+      "attack": "Bide",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 35,
+      "attack": "Metronome",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 36,
+      "attack": "Self-Destruct",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 37,
+      "attack": "Egg Bomb",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 38,
+      "attack": "Fire Blast",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 39,
+      "attack": "Swift",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 40,
+      "attack": "Skull Bash",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 41,
+      "attack": "Soft-Boiled",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 42,
+      "attack": "Dream Eater",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 43,
+      "attack": "Sky Attack",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 44,
+      "attack": "Rest",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 45,
+      "attack": "Thunder Wave",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 46,
+      "attack": "Psywave",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 47,
+      "attack": "Explosion",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 48,
+      "attack": "Rock Slide",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 49,
+      "attack": "Tri Attack",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen1",
+      "id": 50,
+      "attack": "Substitute",
+      "generation": 1
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 1,
+      "attack": "Dynamic Punch",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 2,
+      "attack": "Headbutt",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 3,
+      "attack": "Curse",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 4,
+      "attack": "Rollout",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 5,
+      "attack": "Roar",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 6,
+      "attack": "Toxic",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 7,
+      "attack": "Zap Cannon",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 8,
+      "attack": "Rock Smash",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 9,
+      "attack": "Psych Up",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 10,
+      "attack": "Hidden Power",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 11,
+      "attack": "Sunny Day",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 12,
+      "attack": "Sweet Scent",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 13,
+      "attack": "Snore",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 14,
+      "attack": "Blizzard",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 15,
+      "attack": "Hyper Beam",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 16,
+      "attack": "Icy Wind",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 17,
+      "attack": "Protect",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 18,
+      "attack": "Rain Dance",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 19,
+      "attack": "Giga Drain",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 20,
+      "attack": "Endure",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 21,
+      "attack": "Frustration",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 22,
+      "attack": "Solar Beam",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 23,
+      "attack": "Iron Tail",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 24,
+      "attack": "Dragon Breath",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 25,
+      "attack": "Thunder",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 26,
+      "attack": "Earthquake",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 27,
+      "attack": "Return",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 28,
+      "attack": "Dig",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 29,
+      "attack": "Psychic",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 30,
+      "attack": "Shadow Ball",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 31,
+      "attack": "Mud-Slap",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 32,
+      "attack": "Double Team",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 33,
+      "attack": "Ice Punch",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 34,
+      "attack": "Swagger",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 35,
+      "attack": "Sleep Talk",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 36,
+      "attack": "Sludge Bomb",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 37,
+      "attack": "Sandstorm",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 38,
+      "attack": "Fire Blast",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 39,
+      "attack": "Swift",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 40,
+      "attack": "Defense Curl",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 41,
+      "attack": "Thunder Punch",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 42,
+      "attack": "Dream Eater",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 43,
+      "attack": "Detect",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 44,
+      "attack": "Rest",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 45,
+      "attack": "Attract",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 46,
+      "attack": "Thief",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 47,
+      "attack": "Steel Wing",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 48,
+      "attack": "Fire Punch",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 49,
+      "attack": "Fury Cutter",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen2",
+      "id": 50,
+      "attack": "Nightmare",
+      "generation": 2
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 1,
+      "attack": "Focus Punch",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 2,
+      "attack": "Dragon Claw",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 3,
+      "attack": "Water Pulse",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 4,
+      "attack": "Calm Mind",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 5,
+      "attack": "Roar",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 6,
+      "attack": "Toxic",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 7,
+      "attack": "Hail",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 8,
+      "attack": "Bulk Up",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 9,
+      "attack": "Bullet Seed",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 10,
+      "attack": "Hidden Power",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 11,
+      "attack": "Sunny Day",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 12,
+      "attack": "Taunt",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 13,
+      "attack": "Ice Beam",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 14,
+      "attack": "Blizzard",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 15,
+      "attack": "Hyper Beam",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 16,
+      "attack": "Light Screen",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 17,
+      "attack": "Protect",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 18,
+      "attack": "Rain Dance",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 19,
+      "attack": "Giga Drain",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 20,
+      "attack": "Safeguard",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 21,
+      "attack": "Frustration",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 22,
+      "attack": "Solar Beam",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 23,
+      "attack": "Iron Tail",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 24,
+      "attack": "Thunderbolt",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 25,
+      "attack": "Thunder",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 26,
+      "attack": "Earthquake",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 27,
+      "attack": "Return",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 28,
+      "attack": "Dig",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 29,
+      "attack": "Psychic",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 30,
+      "attack": "Shadow Ball",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 31,
+      "attack": "Brick Break",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 32,
+      "attack": "Double Team",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 33,
+      "attack": "Reflect",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 34,
+      "attack": "Shock Wave",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 35,
+      "attack": "Flamethrower",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 36,
+      "attack": "Sludge Bomb",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 37,
+      "attack": "Sandstorm",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 38,
+      "attack": "Fire Blast",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 39,
+      "attack": "Rock Tomb",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 40,
+      "attack": "Aerial Ace",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 41,
+      "attack": "Torment",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 42,
+      "attack": "Facade",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 43,
+      "attack": "Secret Power",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 44,
+      "attack": "Rest",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 45,
+      "attack": "Attract",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 46,
+      "attack": "Thief",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 47,
+      "attack": "Steel Wing",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 48,
+      "attack": "Skill Swap",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 49,
+      "attack": "Snatch",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen3",
+      "id": 50,
+      "attack": "Overheat",
+      "generation": 3
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 1,
+      "attack": "Focus Punch",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 2,
+      "attack": "Dragon Claw",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 3,
+      "attack": "Water Pulse",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 4,
+      "attack": "Calm Mind",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 5,
+      "attack": "Roar",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 6,
+      "attack": "Toxic",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 7,
+      "attack": "Hail",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 8,
+      "attack": "Bulk Up",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 9,
+      "attack": "Bullet Seed",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 10,
+      "attack": "Hidden Power",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 11,
+      "attack": "Sunny Day",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 12,
+      "attack": "Taunt",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 13,
+      "attack": "Ice Beam",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 14,
+      "attack": "Blizzard",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 15,
+      "attack": "Hyper Beam",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 16,
+      "attack": "Light Screen",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 17,
+      "attack": "Protect",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 18,
+      "attack": "Rain Dance",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 19,
+      "attack": "Giga Drain",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 20,
+      "attack": "Safeguard",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 21,
+      "attack": "Frustration",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 22,
+      "attack": "Solar Beam",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 23,
+      "attack": "Iron Tail",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 24,
+      "attack": "Thunderbolt",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 25,
+      "attack": "Thunder",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 26,
+      "attack": "Earthquake",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 27,
+      "attack": "Return",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 28,
+      "attack": "Dig",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 29,
+      "attack": "Psychic",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 30,
+      "attack": "Shadow Ball",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 31,
+      "attack": "Brick Break",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 32,
+      "attack": "Double Team",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 33,
+      "attack": "Reflect",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 34,
+      "attack": "Shock Wave",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 35,
+      "attack": "Flamethrower",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 36,
+      "attack": "Sludge Bomb",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 37,
+      "attack": "Sandstorm",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 38,
+      "attack": "Fire Blast",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 39,
+      "attack": "Rock Tomb",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 40,
+      "attack": "Aerial Ace",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 41,
+      "attack": "Torment",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 42,
+      "attack": "Facade",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 43,
+      "attack": "Secret Power",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 44,
+      "attack": "Rest",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 45,
+      "attack": "Attract",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 46,
+      "attack": "Thief",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 47,
+      "attack": "Steel Wing",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 48,
+      "attack": "Skill Swap",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 49,
+      "attack": "Snatch",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 50,
+      "attack": "Overheat",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 51,
+      "attack": "Roost",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 52,
+      "attack": "Focus Blast",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 53,
+      "attack": "Energy Ball",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 54,
+      "attack": "False Swipe",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 55,
+      "attack": "Brine",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 56,
+      "attack": "Fling",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 57,
+      "attack": "Charge Beam",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 58,
+      "attack": "Endure",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 59,
+      "attack": "Dragon Pulse",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 60,
+      "attack": "Drain Punch",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 61,
+      "attack": "Will-O-Wisp",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 62,
+      "attack": "Silver Wind",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 63,
+      "attack": "Embargo",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 64,
+      "attack": "Explosion",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 65,
+      "attack": "Shadow Claw",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 66,
+      "attack": "Payback",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 67,
+      "attack": "Recycle",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 68,
+      "attack": "Giga Impact",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 69,
+      "attack": "Rock Polish",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 70,
+      "attack": "Flash",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 71,
+      "attack": "Stone Edge",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 72,
+      "attack": "Avalanche",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 73,
+      "attack": "Thunder Wave",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 74,
+      "attack": "Gyro Ball",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 75,
+      "attack": "Swords Dance",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 76,
+      "attack": "Stealth Rock",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 77,
+      "attack": "Psych Up",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 78,
+      "attack": "Captivate",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 79,
+      "attack": "Dark Pulse",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 80,
+      "attack": "Rock Slide",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 81,
+      "attack": "X-Scissor",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 82,
+      "attack": "Sleep Talk",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 83,
+      "attack": "Natural Gift",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 84,
+      "attack": "Poison Jab",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 85,
+      "attack": "Dream Eater",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 86,
+      "attack": "Grass Knot",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 87,
+      "attack": "Swagger",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 88,
+      "attack": "Pluck",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 89,
+      "attack": "U-turn",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 90,
+      "attack": "Substitute",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 91,
+      "attack": "Flash Cannon",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen4",
+      "id": 92,
+      "attack": "Trick Room",
+      "generation": 4
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 1,
+      "attack": "Hone Claws",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 2,
+      "attack": "Dragon Claw",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 3,
+      "attack": "Psyshock",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 4,
+      "attack": "Calm Mind",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 5,
+      "attack": "Roar",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 6,
+      "attack": "Toxic",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 7,
+      "attack": "Hail",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 8,
+      "attack": "Bulk Up",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 9,
+      "attack": "Venoshock",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 10,
+      "attack": "Hidden Power",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 11,
+      "attack": "Sunny Day",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 12,
+      "attack": "Taunt",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 13,
+      "attack": "Ice Beam",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 14,
+      "attack": "Blizzard",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 15,
+      "attack": "Hyper Beam",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 16,
+      "attack": "Light Screen",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 17,
+      "attack": "Protect",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 18,
+      "attack": "Rain Dance",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 19,
+      "attack": "Telekinesis",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 20,
+      "attack": "Safeguard",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 21,
+      "attack": "Frustration",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 22,
+      "attack": "Solar Beam",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 23,
+      "attack": "Smack Down",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 24,
+      "attack": "Thunderbolt",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 25,
+      "attack": "Thunder",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 26,
+      "attack": "Earthquake",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 27,
+      "attack": "Return",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 28,
+      "attack": "Dig",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 29,
+      "attack": "Psychic",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 30,
+      "attack": "Shadow Ball",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 31,
+      "attack": "Brick Break",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 32,
+      "attack": "Double Team",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 33,
+      "attack": "Reflect",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 34,
+      "attack": "Sludge Wave",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 35,
+      "attack": "Flamethrower",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 36,
+      "attack": "Sludge Bomb",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 37,
+      "attack": "Sandstorm",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 38,
+      "attack": "Fire Blast",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 39,
+      "attack": "Rock Tomb",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 40,
+      "attack": "Aerial Ace",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 41,
+      "attack": "Torment",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 42,
+      "attack": "Facade",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 43,
+      "attack": "Flame Charge",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 44,
+      "attack": "Rest",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 45,
+      "attack": "Attract",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 46,
+      "attack": "Thief",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 47,
+      "attack": "Low Sweep",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 48,
+      "attack": "Round",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 49,
+      "attack": "Echoed Voice",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 50,
+      "attack": "Overheat",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 51,
+      "attack": "Ally Switch",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 52,
+      "attack": "Focus Blast",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 53,
+      "attack": "Energy Ball",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 54,
+      "attack": "False Swipe",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 55,
+      "attack": "Scald",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 56,
+      "attack": "Fling",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 57,
+      "attack": "Charge Beam",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 58,
+      "attack": "Sky Drop",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 59,
+      "attack": "Incinerate",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 60,
+      "attack": "Quash",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 61,
+      "attack": "Will-O-Wisp",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 62,
+      "attack": "Acrobatics",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 63,
+      "attack": "Embargo",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 64,
+      "attack": "Explosion",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 65,
+      "attack": "Shadow Claw",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 66,
+      "attack": "Payback",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 67,
+      "attack": "Retaliate",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 68,
+      "attack": "Giga Impact",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 69,
+      "attack": "Rock Polish",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 70,
+      "attack": "Flash",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 71,
+      "attack": "Stone Edge",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 72,
+      "attack": "Volt Switch",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 73,
+      "attack": "Thunder Wave",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 74,
+      "attack": "Gyro Ball",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 75,
+      "attack": "Swords Dance",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 76,
+      "attack": "Struggle Bug",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 77,
+      "attack": "Psych Up",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 78,
+      "attack": "Bulldoze",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 79,
+      "attack": "Frost Breath",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 80,
+      "attack": "Rock Slide",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 81,
+      "attack": "X-Scissor",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 82,
+      "attack": "Dragon Tail",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 83,
+      "attack": "Work Up",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 84,
+      "attack": "Poison Jab",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 85,
+      "attack": "Dream Eater",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 86,
+      "attack": "Grass Knot",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 87,
+      "attack": "Swagger",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 88,
+      "attack": "Pluck",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 89,
+      "attack": "U-turn",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 90,
+      "attack": "Substitute",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 91,
+      "attack": "Flash Cannon",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 92,
+      "attack": "Trick Room",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 93,
+      "attack": "Wild Charge",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 94,
+      "attack": "Rock Smash",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen5",
+      "id": 95,
+      "attack": "Snarl",
+      "generation": 5
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 1,
+      "attack": "Hone Claws",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 2,
+      "attack": "Dragon Claw",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 3,
+      "attack": "Psyshock",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 4,
+      "attack": "Calm Mind",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 5,
+      "attack": "Roar",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 6,
+      "attack": "Toxic",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 7,
+      "attack": "Hail",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 8,
+      "attack": "Bulk Up",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 9,
+      "attack": "Venoshock",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 10,
+      "attack": "Hidden Power",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 11,
+      "attack": "Sunny Day",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 12,
+      "attack": "Taunt",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 13,
+      "attack": "Ice Beam",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 14,
+      "attack": "Blizzard",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 15,
+      "attack": "Hyper Beam",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 16,
+      "attack": "Light Screen",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 17,
+      "attack": "Protect",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 18,
+      "attack": "Rain Dance",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 19,
+      "attack": "Roost",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 20,
+      "attack": "Safeguard",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 21,
+      "attack": "Frustration",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 22,
+      "attack": "Solar Beam",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 23,
+      "attack": "Smack Down",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 24,
+      "attack": "Thunderbolt",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 25,
+      "attack": "Thunder",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 26,
+      "attack": "Earthquake",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 27,
+      "attack": "Return",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 28,
+      "attack": "Dig",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 29,
+      "attack": "Psychic",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 30,
+      "attack": "Shadow Ball",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 31,
+      "attack": "Brick Break",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 32,
+      "attack": "Double Team",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 33,
+      "attack": "Reflect",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 34,
+      "attack": "Sludge Wave",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 35,
+      "attack": "Flamethrower",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 36,
+      "attack": "Sludge Bomb",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 37,
+      "attack": "Sandstorm",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 38,
+      "attack": "Fire Blast",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 39,
+      "attack": "Rock Tomb",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 40,
+      "attack": "Aerial Ace",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 41,
+      "attack": "Torment",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 42,
+      "attack": "Facade",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 43,
+      "attack": "Flame Charge",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 44,
+      "attack": "Rest",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 45,
+      "attack": "Attract",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 46,
+      "attack": "Thief",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 47,
+      "attack": "Low Sweep",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 48,
+      "attack": "Round",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 49,
+      "attack": "Echoed Voice",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 50,
+      "attack": "Overheat",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 51,
+      "attack": "Steel Wing",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 52,
+      "attack": "Focus Blast",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 53,
+      "attack": "Energy Ball",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 54,
+      "attack": "False Swipe",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 55,
+      "attack": "Scald",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 56,
+      "attack": "Fling",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 57,
+      "attack": "Charge Beam",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 58,
+      "attack": "Sky Drop",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 59,
+      "attack": "Incinerate",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 60,
+      "attack": "Quash",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 61,
+      "attack": "Will-O-Wisp",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 62,
+      "attack": "Acrobatics",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 63,
+      "attack": "Embargo",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 64,
+      "attack": "Explosion",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 65,
+      "attack": "Shadow Claw",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 66,
+      "attack": "Payback",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 67,
+      "attack": "Retaliate",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 68,
+      "attack": "Giga Impact",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 69,
+      "attack": "Rock Polish",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 70,
+      "attack": "Flash",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 71,
+      "attack": "Stone Edge",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 72,
+      "attack": "Volt Switch",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 73,
+      "attack": "Thunder Wave",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 74,
+      "attack": "Gyro Ball",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 75,
+      "attack": "Swords Dance",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 76,
+      "attack": "Struggle Bug",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 77,
+      "attack": "Psych Up",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 78,
+      "attack": "Bulldoze",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 79,
+      "attack": "Frost Breath",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 80,
+      "attack": "Rock Slide",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 81,
+      "attack": "X-Scissor",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 82,
+      "attack": "Dragon Tail",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 83,
+      "attack": "Infestation",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 84,
+      "attack": "Poison Jab",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 85,
+      "attack": "Dream Eater",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 86,
+      "attack": "Grass Knot",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 87,
+      "attack": "Swagger",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 88,
+      "attack": "Sleep Talk",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 89,
+      "attack": "U-turn",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 90,
+      "attack": "Substitute",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 91,
+      "attack": "Flash Cannon",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 92,
+      "attack": "Trick Room",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 93,
+      "attack": "Wild Charge",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 94,
+      "attack": "Rock Smash",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 95,
+      "attack": "Snarl",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 96,
+      "attack": "Nature Power",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 97,
+      "attack": "Dark Pulse",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 98,
+      "attack": "Power-Up Punch",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 99,
+      "attack": "Dazzling Gleam",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 100,
+      "attack": "Confide",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen6",
+      "id": 101,
+      "attack": "Secret Power",
+      "generation": 6
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 1,
+      "attack": "Work Up",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 2,
+      "attack": "Dragon Claw",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 3,
+      "attack": "Psyshock",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 4,
+      "attack": "Calm Mind",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 5,
+      "attack": "Roar",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 6,
+      "attack": "Toxic",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 7,
+      "attack": "Hail",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 8,
+      "attack": "Bulk Up",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 9,
+      "attack": "Venoshock",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 10,
+      "attack": "Hidden Power",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 11,
+      "attack": "Sunny Day",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 12,
+      "attack": "Taunt",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 13,
+      "attack": "Ice Beam",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 14,
+      "attack": "Blizzard",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 15,
+      "attack": "Hyper Beam",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 16,
+      "attack": "Light Screen",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 17,
+      "attack": "Protect",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 18,
+      "attack": "Rain Dance",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 19,
+      "attack": "Roost",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 20,
+      "attack": "Safeguard",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 21,
+      "attack": "Frustration",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 22,
+      "attack": "Solar Beam",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 23,
+      "attack": "Smack Down",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 24,
+      "attack": "Thunderbolt",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 25,
+      "attack": "Thunder",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 26,
+      "attack": "Earthquake",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 27,
+      "attack": "Return",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 28,
+      "attack": "Leech Life",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 29,
+      "attack": "Psychic",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 30,
+      "attack": "Shadow Ball",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 31,
+      "attack": "Brick Break",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 32,
+      "attack": "Double Team",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 33,
+      "attack": "Reflect",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 34,
+      "attack": "Sludge Wave",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 35,
+      "attack": "Flamethrower",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 36,
+      "attack": "Sludge Bomb",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 37,
+      "attack": "Sandstorm",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 38,
+      "attack": "Fire Blast",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 39,
+      "attack": "Rock Tomb",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 40,
+      "attack": "Aerial Ace",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 41,
+      "attack": "Torment",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 42,
+      "attack": "Facade",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 43,
+      "attack": "Flame Charge",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 44,
+      "attack": "Rest",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 45,
+      "attack": "Attract",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 46,
+      "attack": "Thief",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 47,
+      "attack": "Low Sweep",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 48,
+      "attack": "Round",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 49,
+      "attack": "Echoed Voice",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 50,
+      "attack": "Overheat",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 51,
+      "attack": "Steel Wing",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 52,
+      "attack": "Focus Blast",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 53,
+      "attack": "Energy Ball",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 54,
+      "attack": "False Swipe",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 55,
+      "attack": "Scald",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 56,
+      "attack": "Fling",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 57,
+      "attack": "Charge Beam",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 58,
+      "attack": "Sky Drop",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 59,
+      "attack": "Brutal Swing",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 60,
+      "attack": "Quash",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 61,
+      "attack": "Will-O-Wisp",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 62,
+      "attack": "Acrobatics",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 63,
+      "attack": "Embargo",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 64,
+      "attack": "Explosion",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 65,
+      "attack": "Shadow Claw",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 66,
+      "attack": "Payback",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 67,
+      "attack": "Smart Strike",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 68,
+      "attack": "Giga Impact",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 69,
+      "attack": "Rock Polish",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 70,
+      "attack": "Aurora Veil",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 71,
+      "attack": "Stone Edge",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 72,
+      "attack": "Volt Switch",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 73,
+      "attack": "Thunder Wave",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 74,
+      "attack": "Gyro Ball",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 75,
+      "attack": "Swords Dance",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 76,
+      "attack": "Fly",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 77,
+      "attack": "Psych Up",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 78,
+      "attack": "Bulldoze",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 79,
+      "attack": "Frost Breath",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 80,
+      "attack": "Rock Slide",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 81,
+      "attack": "X-Scissor",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 82,
+      "attack": "Dragon Tail",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 83,
+      "attack": "Infestation",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 84,
+      "attack": "Poison Jab",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 85,
+      "attack": "Dream Eater",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 86,
+      "attack": "Grass Knot",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 87,
+      "attack": "Swagger",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 88,
+      "attack": "Sleep Talk",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 89,
+      "attack": "U-turn",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 90,
+      "attack": "Substitute",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 91,
+      "attack": "Flash Cannon",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 92,
+      "attack": "Trick Room",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 93,
+      "attack": "Wild Charge",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 94,
+      "attack": "Surf",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 95,
+      "attack": "Snarl",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 96,
+      "attack": "Nature Power",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 97,
+      "attack": "Dark Pulse",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 98,
+      "attack": "Waterfall",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 99,
+      "attack": "Dazzling Gleam",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen7",
+      "id": 100,
+      "attack": "Confide",
+      "generation": 7
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 0,
+      "attack": "Mega Punch",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 1,
+      "attack": "Mega Kick",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 2,
+      "attack": "Pay Day",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 3,
+      "attack": "Fire Punch",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 4,
+      "attack": "Ice Punch",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 5,
+      "attack": "Thunder Punch",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 6,
+      "attack": "Fly",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 7,
+      "attack": "Pin Missile",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 8,
+      "attack": "Hyper Beam",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 9,
+      "attack": "Giga Impact",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 10,
+      "attack": "Magical Leaf",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 11,
+      "attack": "Solar Beam",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 12,
+      "attack": "Solar Blade",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 13,
+      "attack": "Fire Spin",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 14,
+      "attack": "Thunder Wave",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 15,
+      "attack": "Dig",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 16,
+      "attack": "Screech",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 17,
+      "attack": "Light Screen",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 18,
+      "attack": "Reflect",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 19,
+      "attack": "Safeguard",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 20,
+      "attack": "Self-Destruct",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 21,
+      "attack": "Rest",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 22,
+      "attack": "Rock Slide",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 23,
+      "attack": "Thief",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 24,
+      "attack": "Snore",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 25,
+      "attack": "Protect",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 26,
+      "attack": "Scary Face",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 27,
+      "attack": "Icy Wind",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 28,
+      "attack": "Giga Drain",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 29,
+      "attack": "Charm",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 30,
+      "attack": "Steel Wing",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 31,
+      "attack": "Attract",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 32,
+      "attack": "Sandstorm",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 33,
+      "attack": "Rain Dance",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 34,
+      "attack": "Sunny Day",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 35,
+      "attack": "Hail",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 36,
+      "attack": "Whirlpool",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 37,
+      "attack": "Beat Up",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 38,
+      "attack": "Will-O-Wisp",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 39,
+      "attack": "Facade",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 40,
+      "attack": "Swift",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 41,
+      "attack": "Helping Hand",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 42,
+      "attack": "Revenge",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 43,
+      "attack": "Brick Break",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 44,
+      "attack": "Imprison",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 45,
+      "attack": "Dive",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 46,
+      "attack": "Weather Ball",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 47,
+      "attack": "Fake Tears",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 48,
+      "attack": "Rock Tomb",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 49,
+      "attack": "Sand Tomb",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 50,
+      "attack": "Bullet Seed",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 51,
+      "attack": "Icicle Spear",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 52,
+      "attack": "Bounce",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 53,
+      "attack": "Mud Shot",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 54,
+      "attack": "Rock Blast",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 55,
+      "attack": "Brine",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 56,
+      "attack": "U-turn",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 57,
+      "attack": "Payback",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 58,
+      "attack": "Assurance",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 59,
+      "attack": "Fling",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 60,
+      "attack": "Power Swap",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 61,
+      "attack": "Guard Swap",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 62,
+      "attack": "Speed Swap",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 63,
+      "attack": "Drain Punch",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 64,
+      "attack": "Avalanche",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 65,
+      "attack": "Shadow Claw",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 66,
+      "attack": "Thunder Fang",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 67,
+      "attack": "Ice Fang",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 68,
+      "attack": "Fire Fang",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 69,
+      "attack": "Psycho Cut",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 70,
+      "attack": "Trick Room",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 71,
+      "attack": "Wonder Room",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 72,
+      "attack": "Magic Room",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 73,
+      "attack": "Cross Poison",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 74,
+      "attack": "Venoshock",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 75,
+      "attack": "Low Sweep",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 76,
+      "attack": "Round",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 77,
+      "attack": "Hex",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 78,
+      "attack": "Acrobatics",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 79,
+      "attack": "Retaliate",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 80,
+      "attack": "Volt Switch",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 81,
+      "attack": "Bulldoze",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 82,
+      "attack": "Electroweb",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 83,
+      "attack": "Razor Shell",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 84,
+      "attack": "Tail Slap",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 85,
+      "attack": "Snarl",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 86,
+      "attack": "Phantom Force",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 87,
+      "attack": "Draining Kiss",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 88,
+      "attack": "Grassy Terrain",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 89,
+      "attack": "Misty Terrain",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 90,
+      "attack": "Electric Terrain",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 91,
+      "attack": "Psychic Terrain",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 92,
+      "attack": "Mystical Fire",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 93,
+      "attack": "Eerie Impulse",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 94,
+      "attack": "False Swipe",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 95,
+      "attack": "Air Slash",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 96,
+      "attack": "Smart Strike",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 97,
+      "attack": "Brutal Swing",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 98,
+      "attack": "Stomping Tantrum",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen8",
+      "id": 99,
+      "attack": "Breaking Swipe",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 0,
+      "attack": "Swords Dance",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 1,
+      "attack": "Body Slam",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 2,
+      "attack": "Flamethrower",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 3,
+      "attack": "Hydro Pump",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 4,
+      "attack": "Surf",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 5,
+      "attack": "Ice Beam",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 6,
+      "attack": "Blizzard",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 7,
+      "attack": "Low Kick",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 8,
+      "attack": "Thunderbolt",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 9,
+      "attack": "Thunder",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 10,
+      "attack": "Earthquake",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 11,
+      "attack": "Psychic",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 12,
+      "attack": "Agility",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 13,
+      "attack": "Focus Energy",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 14,
+      "attack": "Metronome",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 15,
+      "attack": "Fire Blast",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 16,
+      "attack": "Waterfall",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 17,
+      "attack": "Amnesia",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 18,
+      "attack": "Leech Life",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 19,
+      "attack": "Tri Attack",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 20,
+      "attack": "Substitute",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 21,
+      "attack": "Reversal",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 22,
+      "attack": "Sludge Bomb",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 23,
+      "attack": "Spikes",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 24,
+      "attack": "Outrage",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 25,
+      "attack": "Psyshock",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 26,
+      "attack": "Endure",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 27,
+      "attack": "Sleep Talk",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 28,
+      "attack": "Megahorn",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 29,
+      "attack": "Baton Pass",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 30,
+      "attack": "Encore",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 31,
+      "attack": "Iron Tail",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 32,
+      "attack": "Crunch",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 33,
+      "attack": "Shadow Ball",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 34,
+      "attack": "Future Sight",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 35,
+      "attack": "Uproar",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 36,
+      "attack": "Heat Wave",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 37,
+      "attack": "Taunt",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 38,
+      "attack": "Trick",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 39,
+      "attack": "Superpower",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 40,
+      "attack": "Skill Swap",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 41,
+      "attack": "Blaze Kick",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 42,
+      "attack": "Hyper Voice",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 43,
+      "attack": "Overheat",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 44,
+      "attack": "Cosmic Power",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 45,
+      "attack": "Muddy Water",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 46,
+      "attack": "Iron Defense",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 47,
+      "attack": "Dragon Claw",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 48,
+      "attack": "Bulk Up",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 49,
+      "attack": "Calm Mind",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 50,
+      "attack": "Leaf Blade",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 51,
+      "attack": "Dragon Dance",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 52,
+      "attack": "Gyro Ball",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 53,
+      "attack": "Close Combat",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 54,
+      "attack": "Toxic Spikes",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 55,
+      "attack": "Flare Blitz",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 56,
+      "attack": "Aura Sphere",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 57,
+      "attack": "Poison Jab",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 58,
+      "attack": "Dark Pulse",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 59,
+      "attack": "Seed Bomb",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 60,
+      "attack": "X-Scissor",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 61,
+      "attack": "Bug Buzz",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 62,
+      "attack": "Dragon Pulse",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 63,
+      "attack": "Power Gem",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 64,
+      "attack": "Focus Blast",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 65,
+      "attack": "Energy Ball",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 66,
+      "attack": "Brave Bird",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 67,
+      "attack": "Earth Power",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 68,
+      "attack": "Nasty Plot",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 69,
+      "attack": "Zen Headbutt",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 70,
+      "attack": "Flash Cannon",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 71,
+      "attack": "Leaf Storm",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 72,
+      "attack": "Power Whip",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 73,
+      "attack": "Gunk Shot",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 74,
+      "attack": "Iron Head",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 75,
+      "attack": "Stone Edge",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 76,
+      "attack": "Stealth Rock",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 77,
+      "attack": "Grass Knot",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 78,
+      "attack": "Sludge Wave",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 79,
+      "attack": "Heavy Slam",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 80,
+      "attack": "Electro Ball",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 81,
+      "attack": "Foul Play",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 82,
+      "attack": "Stored Power",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 83,
+      "attack": "Ally Switch",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 84,
+      "attack": "Scald",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 85,
+      "attack": "Work Up",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 86,
+      "attack": "Wild Charge",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 87,
+      "attack": "Drill Run",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 88,
+      "attack": "Heat Crash",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 89,
+      "attack": "Hurricane",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 90,
+      "attack": "Play Rough",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 91,
+      "attack": "Venom Drench",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 92,
+      "attack": "Dazzling Gleam",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 93,
+      "attack": "Darkest Lariat",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 94,
+      "attack": "High Horsepower",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 95,
+      "attack": "Throat Chop",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 96,
+      "attack": "Pollen Puff",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 97,
+      "attack": "Psychic Fangs",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 98,
+      "attack": "Liquidation",
+      "generation": 8
+    },
+    {
+      "prefix": "tr_gen8",
+      "id": 99,
+      "attack": "Body Press",
+      "generation": 8
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 1,
+      "attack": "Take Down",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 2,
+      "attack": "Charm",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 3,
+      "attack": "Fake Tears",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 4,
+      "attack": "Agility",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 5,
+      "attack": "Mud-Slap",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 6,
+      "attack": "Scary Face",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 7,
+      "attack": "Protect",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 8,
+      "attack": "Fire Fang",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 9,
+      "attack": "Thunder Fang",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 10,
+      "attack": "Ice Fang",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 11,
+      "attack": "Water Pulse",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 12,
+      "attack": "Low Kick",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 13,
+      "attack": "Acid Spray",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 14,
+      "attack": "Acrobatics",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 15,
+      "attack": "Struggle Bug",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 16,
+      "attack": "Psybeam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 17,
+      "attack": "Confuse Ray",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 18,
+      "attack": "Thief",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 19,
+      "attack": "Disarming Voice",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 20,
+      "attack": "Trailblaze",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 21,
+      "attack": "Pounce",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 22,
+      "attack": "Chilling Water",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 23,
+      "attack": "Charge Beam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 24,
+      "attack": "Fire Spin",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 25,
+      "attack": "Facade",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 26,
+      "attack": "Poison Tail",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 27,
+      "attack": "Aerial Ace",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 28,
+      "attack": "Bulldoze",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 29,
+      "attack": "Hex",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 30,
+      "attack": "Snarl",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 31,
+      "attack": "Metal Claw",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 32,
+      "attack": "Swift",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 33,
+      "attack": "Magical Leaf",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 34,
+      "attack": "Icy Wind",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 35,
+      "attack": "Mud Shot",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 36,
+      "attack": "Rock Tomb",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 37,
+      "attack": "Draining Kiss",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 38,
+      "attack": "Flame Charge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 39,
+      "attack": "Low Sweep",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 40,
+      "attack": "Air Cutter",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 41,
+      "attack": "Stored Power",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 42,
+      "attack": "Night Shade",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 43,
+      "attack": "Fling",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 44,
+      "attack": "Dragon Tail",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 45,
+      "attack": "Venoshock",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 46,
+      "attack": "Avalanche",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 47,
+      "attack": "Endure",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 48,
+      "attack": "Volt Switch",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 49,
+      "attack": "Sunny Day",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 50,
+      "attack": "Rain Dance",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 51,
+      "attack": "Sandstorm",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 52,
+      "attack": "Snowscape",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 53,
+      "attack": "Smart Strike",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 54,
+      "attack": "Psyshock",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 55,
+      "attack": "Dig",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 56,
+      "attack": "Bullet Seed",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 57,
+      "attack": "False Swipe",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 58,
+      "attack": "Brick Break",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 59,
+      "attack": "Zen Headbutt",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 60,
+      "attack": "U-Turn",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 61,
+      "attack": "Shadow Claw",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 62,
+      "attack": "Foul Play",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 63,
+      "attack": "Psychic Fangs",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 64,
+      "attack": "Bulk Up",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 65,
+      "attack": "Air Slash",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 66,
+      "attack": "Body Slam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 67,
+      "attack": "Fire Punch",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 68,
+      "attack": "Thunder Punch",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 69,
+      "attack": "Ice Punch",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 70,
+      "attack": "Sleep Talk",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 71,
+      "attack": "Seed Bomb",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 72,
+      "attack": "Electro Ball",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 73,
+      "attack": "Drain Punch",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 74,
+      "attack": "Reflect",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 75,
+      "attack": "Light Screen",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 76,
+      "attack": "Rock Blast",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 77,
+      "attack": "Waterfall",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 78,
+      "attack": "Dragon Claw",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 79,
+      "attack": "Dazzling Gleam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 80,
+      "attack": "Metronome",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 81,
+      "attack": "Grass Knot",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 82,
+      "attack": "Thunder Wave",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 83,
+      "attack": "Poison Jab",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 84,
+      "attack": "Stomping Tantrum",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 85,
+      "attack": "Rest",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 86,
+      "attack": "Rock Slide",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 87,
+      "attack": "Taunt",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 88,
+      "attack": "Swords Dance",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 89,
+      "attack": "Body Press",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 90,
+      "attack": "Spikes",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 91,
+      "attack": "Toxic Spikes",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 92,
+      "attack": "Imprison",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 93,
+      "attack": "Flash Cannon",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 94,
+      "attack": "Dark Pulse",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 95,
+      "attack": "Leech Life",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 96,
+      "attack": "Eerie Impulse",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 97,
+      "attack": "Fly",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 98,
+      "attack": "Skill Swap",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 99,
+      "attack": "Iron Head",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 100,
+      "attack": "Dragon Dance",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 101,
+      "attack": "Power Gem",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 102,
+      "attack": "Gunk Shot",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 103,
+      "attack": "Substitute",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 104,
+      "attack": "Iron Defense",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 105,
+      "attack": "X-Scissor",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 106,
+      "attack": "Drill Run",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 107,
+      "attack": "Will-O-Wisp",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 108,
+      "attack": "Crunch",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 109,
+      "attack": "Trick",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 110,
+      "attack": "Liquidation",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 111,
+      "attack": "Giga Drain",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 112,
+      "attack": "Aura Sphere",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 113,
+      "attack": "Tailwind",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 114,
+      "attack": "Shadow Ball",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 115,
+      "attack": "Dragon Pulse",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 116,
+      "attack": "Stealth Rock",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 117,
+      "attack": "Hyper Voice",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 118,
+      "attack": "Heat Wave",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 119,
+      "attack": "Energy Ball",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 120,
+      "attack": "Psychic",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 121,
+      "attack": "Heavy Slam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 122,
+      "attack": "Encore",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 123,
+      "attack": "Surf",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 124,
+      "attack": "Ice Spinner",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 125,
+      "attack": "Flamethrower",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 126,
+      "attack": "Thunderbolt",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 127,
+      "attack": "Play Rough",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 128,
+      "attack": "Amnesia",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 129,
+      "attack": "Calm Mind",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 130,
+      "attack": "Helping Hand",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 131,
+      "attack": "Pollen Puff",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 132,
+      "attack": "Baton Pass",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 133,
+      "attack": "Earth Power",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 134,
+      "attack": "Reversal",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 135,
+      "attack": "Ice Beam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 136,
+      "attack": "Electric Terrain",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 137,
+      "attack": "Grassy Terrain",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 138,
+      "attack": "Psychic Terrain",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 139,
+      "attack": "Misty Terrain",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 140,
+      "attack": "Nasty Plot",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 141,
+      "attack": "Fire Blast",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 142,
+      "attack": "Hydro Pump",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 143,
+      "attack": "Blizzard",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 144,
+      "attack": "Fire Pledge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 145,
+      "attack": "Water Pledge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 146,
+      "attack": "Grass Pledge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 147,
+      "attack": "Wild Charge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 148,
+      "attack": "Sludge Bomb",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 149,
+      "attack": "Earthquake",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 150,
+      "attack": "Stone Edge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 151,
+      "attack": "Phantom Force",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 152,
+      "attack": "Giga Impact",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 153,
+      "attack": "Blast Burn",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 154,
+      "attack": "Hydro Cannon",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 155,
+      "attack": "Frenzy Plant",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 156,
+      "attack": "Outrage",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 157,
+      "attack": "Overheat",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 158,
+      "attack": "Focus Blast",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 159,
+      "attack": "Leaf Storm",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 160,
+      "attack": "Hurricane",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 161,
+      "attack": "Trick Room",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 162,
+      "attack": "Bug Buzz",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 163,
+      "attack": "Hyper Beam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 164,
+      "attack": "Brave Bird",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 165,
+      "attack": "Flare Blitz",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 166,
+      "attack": "Thunder",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 167,
+      "attack": "Close Combat",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 168,
+      "attack": "Solar Beam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 169,
+      "attack": "Draco Meteor",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 170,
+      "attack": "Steel Beam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 171,
+      "attack": "Tera Blast",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 172,
+      "attack": "Roar",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 173,
+      "attack": "Charge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 174,
+      "attack": "Haze",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 175,
+      "attack": "Toxic",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 176,
+      "attack": "Sand Tomb",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 177,
+      "attack": "Spite",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 178,
+      "attack": "Gravity",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 179,
+      "attack": "Smack Down",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 180,
+      "attack": "Gyro Ball",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 181,
+      "attack": "Knock Off",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 182,
+      "attack": "Bug Bite",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 183,
+      "attack": "Super Fang",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 184,
+      "attack": "Vacuum Wave",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 185,
+      "attack": "Lunge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 186,
+      "attack": "High Horsepower",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 187,
+      "attack": "Icicle Spear",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 188,
+      "attack": "Scald",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 189,
+      "attack": "Heat Crash",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 190,
+      "attack": "Solar Blade",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 191,
+      "attack": "Uproar",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 192,
+      "attack": "Focus Punch",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 193,
+      "attack": "Weather Ball",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 194,
+      "attack": "Grassy Glide",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 195,
+      "attack": "Burning Jealousy",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 196,
+      "attack": "Flip Turn",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 197,
+      "attack": "Dual Wingbeat",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 198,
+      "attack": "Poltergeist",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 199,
+      "attack": "Lash Out",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 200,
+      "attack": "Scale Shot",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 201,
+      "attack": "Misty Explosion",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 202,
+      "attack": "Pain Split",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 203,
+      "attack": "Psych Up",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 204,
+      "attack": "Double-Edge",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 205,
+      "attack": "Endeavor",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 206,
+      "attack": "Petal Blizzard",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 208,
+      "attack": "Whirlpool",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 209,
+      "attack": "Muddy Water",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 211,
+      "attack": "Electroweb",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 212,
+      "attack": "Triple Axel",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 213,
+      "attack": "Coaching",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 214,
+      "attack": "Sludge Wave",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 215,
+      "attack": "Scorching Sands",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 216,
+      "attack": "Feather Dance",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 217,
+      "attack": "Future Sight",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 218,
+      "attack": "Expanding Force",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 219,
+      "attack": "Skitter Smack",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 220,
+      "attack": "Meteor Beam",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 221,
+      "attack": "Throat Chop",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 222,
+      "attack": "Breaking Swipe",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 223,
+      "attack": "Metal Sound",
+      "generation": 9
+    },
+    {
+      "prefix": "tm_gen9",
+      "id": 224,
+      "attack": "Curse",
+      "generation": 9
+    }
+  ],
+  "structures": [
+    "uno_shrine",
+    "dos_shrine",
+    "tres_shrine",
+    "ilex_shrine",
+    "land_chalice",
+    "water_chalice",
+    "spear_pillar",
+    "plasma_ship",
+    "boats",
+    "graveyard",
+    "badlands_den",
+    "beach_den",
+    "desert_den",
+    "end_den",
+    "forest_den",
+    "ice_den",
+    "jungle_den",
+    "mountain_den",
+    "mushroom_den",
+    "nether_den",
+    "plains_den",
+    "snow_den",
+    "taiga_den",
+    "water_den",
+    "swamp_den",
+    "ultra_deep_sea_den",
+    "ultra_desert_den",
+    "ultra_forest_den",
+    "ultra_jungle_den",
+    "ultra_plant_den",
+    "grotto_badlands",
+    "grotto_dark_forest",
+    "grotto_desert",
+    "grotto_end",
+    "grotto_forest",
+    "grotto_hills",
+    "grotto_icy",
+    "grotto_jungle",
+    "grotto_mushroom",
+    "grotto_nether",
+    "grotto_oceans",
+    "grotto_plains",
+    "grotto_savanna",
+    "grotto_swamp",
+    "grotto_taiga",
+    "grotto_ultra_desert",
+    "grotto_ultra_deep_sea",
+    "grotto_ultra_forest",
+    "grotto_ultra_jungle",
+    "grotto_ultra_plant",
+    "haunted_tower",
+    "badlands_way_point",
+    "desert_way_point",
+    "forest_way_point",
+    "ice_way_point",
+    "jungle_way_point",
+    "mountain_way_point",
+    "mushroom_way_point",
+    "plains_way_point",
+    "savanna_way_point",
+    "swamp_way_point",
+    "tower_water",
+    "tower_darkness",
+    "ultra_desert_deco",
+    "ultra_jungle_deco",
+    "ultra_crater_den",
+    "pumpkin_house",
+    "gyms",
+    "moving",
+    "advanced_moving",
+    "crater_geyser"
+  ]
+}

@@ -3,7 +3,7 @@ import argparse, hashlib, pathlib, shutil, zipfile, subprocess
 
 root = pathlib.Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
-parser.add_argument('--version', default='1.2.0')
+parser.add_argument('--version', default='1.3.0')
 args = parser.parse_args()
 version = args.version
 dist = root / 'dist'
@@ -15,7 +15,7 @@ if not addon.is_file() or not maps.is_file() or not gyms.is_file():
 package = dist / f'Pixelmon-Backport-{version}.zip'
 with zipfile.ZipFile(package, 'w', zipfile.ZIP_DEFLATED, compresslevel=6) as archive:
     archive.write(addon, f'mods/{addon.name}')
-    for name in ['README.md', 'HANDBOOK.md', 'TEST_MAPS.md', 'GYM_TEST_MAPS.md', 'GYM_GENERATION.md', 'FEATURE_TEST_MAPS.md', 'BUILDING.md', 'docs/RELEASE_1.2.0.md', 'docs/VALIDATION_1.2.0.md', 'LICENSE.txt', 'THIRD_PARTY.md']:
+    for name in ['README.md', 'HANDBOOK.md', 'TEST_MAPS.md', 'GYM_TEST_MAPS.md', 'GYM_GENERATION.md', 'FEATURE_TEST_MAPS.md', 'BUILDING.md', f'docs/RELEASE_{version}.md', f'docs/VALIDATION_{version}.md', 'LICENSE.txt', 'THIRD_PARTY.md']:
         archive.write(root / name, name)
 handbook = dist / f'Pixelmon-Backport-Handbook-{version}.md'
 shutil.copy2(root / 'HANDBOOK.md', handbook)

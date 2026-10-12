@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 4,
+      "weight": 2,
       "element": {
         "location": "pixelmon_backport:gyms/psychic/gym_psychic_road_c",
         "processors": "minecraft:empty",
@@ -30,7 +30,7 @@
       }
     },
     {
-      "weight": 2,
+      "weight": 1,
       "element": {
         "location": "pixelmon_backport:gyms/psychic/gym_psychic_road_d",
         "processors": "minecraft:empty",

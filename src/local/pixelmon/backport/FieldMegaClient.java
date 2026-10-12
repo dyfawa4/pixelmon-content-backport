@@ -13,11 +13,26 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import org.lwjgl.glfw.GLFW;
 @Mod.EventBusSubscriber(modid=Content.NS,value=Dist.CLIENT)
 public final class FieldMegaClient {
+    private static java.util.UUID boundTarget;
+    public static void bind(java.util.UUID target){boundTarget=target;}
     public static final KeyBinding KEY=new KeyBinding("key.pixelmon_backport.field_mega",KeyConflictContext.IN_GAME,InputMappings.Type.KEYSYM,GLFW.GLFW_KEY_J,"key.categories.pixelmon_backport");
     @SubscribeEvent public static void tick(TickEvent.ClientTickEvent event){if(event.phase!=TickEvent.Phase.END)return;
-        Minecraft mc=Minecraft.func_71410_x();while(KEY.func_151468_f()){
+        Minecraft mc=Minecraft.func_71410_x();
+        PokemonTarget.update();
+        while(KEY.func_151468_f()){
             if(mc.field_71439_g==null || mc.field_71462_r!=null || ClientStorageManager.party==null)continue;
             mc.func_147108_a(new FieldMegaScreen(ClientStorageManager.party.getSelectedSlot()));
+        }
+    }
+    private static final class PokemonTarget {
+        static void update(){
+            var party=ClientStorageManager.party;
+            var selected=party==null?null:party.getSelectedPokemon();
+            java.util.UUID current=selected==null?null:selected.getUUID();
+            if(!java.util.Objects.equals(current,boundTarget)){
+                com.pixelmonmod.pixelmon.client.gui.PixelmonOverlayScreen.selectedMoveSkill=null;
+                bind(current);
+            }
         }
     }
     @SubscribeEvent public static void wheel(net.minecraftforge.client.event.GuiOpenEvent event){

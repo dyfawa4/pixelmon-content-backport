@@ -17,6 +17,10 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(value=PixelmonWrapper.class,remap=false)
 public abstract class TeraWrapperMixin {
+    @Redirect(method="useItem",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/items/PixelmonItem;useFromBag(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;Lnet/minecraft/item/ItemStack;I)Z"))
+    private boolean backport$successfulItem(com.pixelmonmod.pixelmon.items.PixelmonItem item,PixelmonWrapper user,PixelmonWrapper target,net.minecraft.item.ItemStack stack,int info){
+        boolean used=item.useFromBag(user,target,stack,info);if(used)local.pixelmon.backport.GymChallenge.committed(user,stack);return used;
+    }
     @Inject(method="useItem",at=@At("HEAD"),cancellable=true)
     private void backport$medicine(CallbackInfo ci){if(local.pixelmon.backport.NpcMedicine.use(self()))ci.cancel();}
     private PixelmonWrapper self(){return (PixelmonWrapper)(Object)this;}

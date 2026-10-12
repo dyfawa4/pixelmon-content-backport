@@ -9,7 +9,9 @@ def main():
    data=read_nbt(path.read_bytes())
    for entry in data.get('entities',[]):
     entity=entry.get('nbt',{});marker=entity.get('ForgeData',{})
-    if str(marker.get('BackportGymRole',''))!='leader':continue
+    if str(marker.get('BackportGymRole',''))!='leader':
+     assert not any(str(item.get('id','')).endswith('_badge') for item in entity.get('WinningsTag',{}).values()),(path,'non-leader awards badge')
+     continue
     theme=str(marker['BackportGymType']);fresh=bool(marker.get('BackportGymNew',0))
     # Some native leaders are identified by template role, rather than this
     # flag. Their native loseBattle reward path does not require the flag.

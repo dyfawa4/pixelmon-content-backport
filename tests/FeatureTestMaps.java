@@ -38,12 +38,16 @@ public final class FeatureTestMaps {
             }
             p.getPersistentData().func_74757_a("BackportFeatureReady",true);
         }
-        if(p.getPersistentData().func_74762_e("BackportFeatureLayoutVersion")<4)FeatureStations.setup(p);
+        if(p.getPersistentData().func_74762_e("BackportFeatureLayoutVersion")<5)FeatureStations.setup(p);
     }
     static int action(ServerPlayerEntity p,String action){
         if(!isMap(p))return 0;
         if(action.equals("mega")){FeatureStations.mega(p);return 1;}
         if(action.equals("eternamax")){FeatureStations.eternamax(p);return 1;}
+        if(action.equals("special_field")){FeatureStations.specialField(p);return 1;}
+        if(action.equals("forms")){FeatureStations.forms(p);return 1;}
+        if(action.equals("urshifu")){FeatureStations.urshifu(p);return 1;}
+        if(action.equals("galar")){FeatureStations.galar(p);return 1;}
         if(action.equals("riding")){
             var party=StorageProxy.getParty(p);int[] dexes={1020,1021,1022,1023,967,901};
             for(int i=0;i<6;i++)party.set(i,mon(dexes[i]));p.func_184611_a(Hand.MAIN_HAND,ItemStack.field_190927_a);

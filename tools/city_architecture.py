@@ -24,6 +24,7 @@ class Builder:
  def __init__(self,data,theme):
   self.data=data;self.theme=theme;self.w,self.oldh,self.d=map(int,data['size']);self.blocks={};self.palette=[];self.ids={};self.supports=set()
   self.floor,self.wall,self.roof,self.glass,self.light=PALETTES[theme]
+  self.interior=None;self.wall_columns=set();self.nurse_positions=[]
  def state(self,name,props=None):
   if ':' not in name:name='minecraft:'+name
   key=(name,tuple(sorted((props or {}).items())))
@@ -35,6 +36,10 @@ class Builder:
  def put(self,x,y,z,name,props=None,nbt=None):
   x,y,z=int(x),int(y),int(z)
   if not (0<=x<self.w and y>=0 and 0<=z<self.d):return
+  if getattr(self,'decorating_room',False) and 1<=y<=3 and self.interior is not None and (x,z) not in self.interior:return
+  # Room fixtures cannot replace a facade or sit on an exterior terrace.
+  fixture=any(s in name for s in ['_bed','bookshelf','crafting_table','cauldron','lectern','potted_','furnace','barrel',':chest',':trapped_chest','_chest','healer','vending_machine','trade_machine','_pc'])
+  if fixture and self.interior is not None and (x,z) not in self.interior:return
   b=n.Compound({'pos':n.List[n.Int]([x,y,z]),'state':n.Int(self.state(name,props))})
   if nbt is not None:b['nbt']=copy.deepcopy(nbt)
   self.blocks[x,y,z]=b
@@ -60,6 +65,9 @@ class Builder:
     if q<=r*r and (fill or q>=(r-1.4)**2):self.put(x,y,z,name)
  def shell(self,x0,z0,x1,z1,y,height,wall=None,roof=None):
   wall=wall or self.wall;roof=roof or self.roof
+  self.interior={(x,z) for x in range(x0+1,x1) for z in range(z0+1,z1)}
+  self.wall_columns.update((x,z) for x in range(x0,x1+1) for z in [z0,z1])
+  self.wall_columns.update((x,z) for z in range(z0,z1+1) for x in [x0,x1])
   self.box(x0,y,z0,x1,y,z1,self.floor)
   for h in range(1,height+1):
    for x in range(x0,x1+1):
@@ -100,7 +108,8 @@ class Builder:
   self.data['blocks']=n.List[n.Compound](self.blocks[k] for k in sorted(self.blocks,key=lambda p:(p[1],p[0],p[2])))
   height=max((p[1] for p in self.blocks),default=0)+1
   self.data['size']=n.List[n.Int]([self.w,max(height,4),self.d])
-  self.data['BackportArchitecture']=n.String('original-city-v5:'+self.theme)
+  self.data['BackportArchitecture']=n.String('original-city-v6:'+self.theme)
+  if self.interior is not None:self.data['BackportInterior']=n.IntArray([v for p in sorted(self.interior) for v in p])
   return self.data
 
 def kind(filename,theme):
@@ -111,7 +120,8 @@ def kind(filename,theme):
  if stem.startswith('road') or stem=='connector':return 'road'
  if 'tree_' in stem:return 'tree'
  if stem.startswith('tc_'):return 'plaza'
- if 'house' in stem:return 'house'
+ # A lighthouse shaft/cap is not a residential room template.
+ if re.search(r'(^|_)house(?:_|$)',stem):return 'house'
  if stem in ['pokecenter','pokemart','daycare','blacksmith','church','tcg_shop']:return stem
  if 'farm' in stem or 'berry' in stem:return 'garden'
  return 'street_art'
@@ -143,6 +153,12 @@ def connect_neighbors(b):
    props['waterlogged']=props.get('waterlogged','false');old['state']=n.Int(b.state(s,props))
   elif s.endswith('_leaves'):
    props.update(persistent='true',distance='1');old['state']=n.Int(b.state(s,props))
+
+def empty_lab_fixture(name,tag):
+ """Only redundant, completely unused copies; real stock/loot and machine history stay."""
+ if name not in ['minecraft:barrel','minecraft:blast_furnace']:return False
+ if set(tag)-{'id','Items','BurnTime','CookTime','CookTimeTotal','RecipesUsed'}:return False
+ return not tag.get('Items') and not tag.get('RecipesUsed') and all(int(tag.get(k,0))==0 for k in ['BurnTime','CookTime','CookTimeTotal'])
 
 def retain(b,data,joints,ground,category):
  """Put native services in usable rooms; re-site challenge connectors on accessible routes."""
@@ -180,6 +196,7 @@ def retain(b,data,joints,ground,category):
   for x in [max(3,b.w//3),min(b.w-4,2*b.w//3)]:points.append((x,z))
  reserved={(int(j['pos'][0]),int(j['pos'][2])) for j in pending}
  def free(p):
+  if b.interior is not None and p not in b.interior:return False
   if p in reserved or p in b.supports or p in b.entrance_aisles:return False
   if all(q in b.supports for q in [(p[0]-1,p[1]),(p[0]+1,p[1]),(p[0],p[1]-1),(p[0],p[1]+1)]):return False
   return all((p[0],ground+h,p[1]) not in b.blocks or str(b.palette[int(b.blocks[p[0],ground+h,p[1]]['state'])]['Name'])=='minecraft:air' for h in [1,2])
@@ -187,26 +204,43 @@ def retain(b,data,joints,ground,category):
  if len(points)<len(npcs):
   points=list(dict.fromkeys(points+[(x,z) for z in range(1,b.d-1) for x in range(1,b.w-1) if free((x,z))]))
  if len(points)<len(npcs):raise ValueError(('NPC room too small',b.theme,category,len(npcs),b.w,b.d))
- for i,j in enumerate(sorted(npcs,key=lambda j:str(j['nbt'].get('target',''))=='pixelmon:gym_leader')):
-  x,z=points[i] if points else (b.w//2,b.d//2)
-  if str(j['nbt'].get('target',''))=='pixelmon:gym_leader':
-   desired=(b.w//2,max(3,b.d-7))
-   if free(desired):x,z=desired
+ for j in sorted(npcs,key=lambda j:str(j['nbt'].get('target',''))!='pixelmon:gym_leader'):
+  leader=str(j['nbt'].get('target',''))=='pixelmon:gym_leader' and category=='gym'
+  if leader:
+   x,z=b.leader_position
+   if not free((x,z)):raise ValueError(('Leader stage obstructed',b.theme,x,z))
+  else:
+   available=[p for p in points if free(p) and p not in getattr(b,'leader_reserved',set())|getattr(b,'leader_aisles',set())]
+   if not available:raise ValueError(('No side position for gym trainer',b.theme,category))
+   x,z=available[0]
   reserved.add((x,z))
+  if 'nurse' in str(j['nbt'].get('pool','')):b.nurse_positions.append((x,z))
   tag=copy.deepcopy(j['nbt']);tag['final_state']=n.String('minecraft:'+b.floor)
-  b.put(x,ground,z,'jigsaw',{'orientation':'up_north'},tag)
+  b.put(x,ground,z,'jigsaw',{'orientation':'up_'+b.front_direction if leader else 'up_north'},tag)
   # Route to the spawn later using the actual free floor; never cut through a
   # building or landmark just to draw a straight line to the template center.
   pending.append(copy.deepcopy(b.blocks[x,ground,z]))
  # Native tile data includes PCs/healers, shop storage, beds and real loot.
  services=[]
+ laboratory=category=='gym' and b.theme=='poison'
+ empty_counts=collections.Counter()
  for old in data['blocks']:
   state=data['palette'][int(old['state'])];name=str(state['Name'])
   if name=='minecraft:jigsaw':continue
   tag=old.get('nbt',{})
   functional=name.startswith('pixelmon:') and (name.endswith(('_pc','_chest')) or any(word in name for word in ['healer','trade_machine','fossil_cleaner','fossil_machine','anvil','vending_machine']))
   inventory=bool(tag.get('Items',[])) or 'LootTable' in tag or name in ['minecraft:chest','minecraft:trapped_chest','minecraft:barrel','minecraft:furnace','minecraft:blast_furnace','minecraft:smoker','minecraft:brewing_stand']
-  if functional or inventory:services.append(old)
+  if functional or inventory:
+   if laboratory and empty_lab_fixture(name,tag):
+    empty_counts[name]+=1
+    if empty_counts[name]>(6 if name=='minecraft:barrel' else 2):continue
+   services.append(old)
+ if laboratory:
+  # Retain every stocked/loot container, but organize storage as two-high racks.
+  barrels=[old for old in services if str(data['palette'][int(old['state'])]['Name'])=='minecraft:barrel']
+  services=[old for old in services if old not in barrels]
+  for index,old in enumerate(barrels):
+   old=copy.deepcopy(old);old['pos']=n.List[n.Int]([index//2*3,index%2,0]);services.append(old)
  # Pack connected appliances as complete clusters: splitting top/bottom PCs or
  # trade-machine arms would leave a visually present but unusable service.
  remaining={tuple(map(int,old['pos'])):old for old in services};groups=[]
@@ -223,10 +257,12 @@ def retain(b,data,joints,ground,category):
     other=data['palette'][int(remaining[p]['state'])];othername=str(other['Name'])
     connected_machine=machine.startswith('pixelmon:') and othername.startswith('pixelmon:') and not machine.endswith('_chest') and not othername.endswith('_chest')
     double_chest=machine==othername=='minecraft:chest' and str(state.get('Properties',{}).get('type','single'))!='single' and str(other.get('Properties',{}).get('type','single'))!='single'
-    if connected_machine or double_chest:todo.append(p)
+    barrel_rack=laboratory and machine==othername=='minecraft:barrel' and p[0]==x and p[2]==z
+    if connected_machine or double_chest or barrel_rack:todo.append(p)
   groups.append(group)
  occupied={(int(j['pos'][0]),int(j['pos'][2])) for j in pending}
- for i,group in enumerate(sorted(groups,key=lambda a:-len(a))):
+ covered_nurses=set()
+ for i,group in enumerate(sorted(groups,key=lambda a:(not any('healer' in str(data['palette'][int(old['state'])]['Name']) for old in a),-len(a)))):
   positions=[tuple(map(int,old['pos'])) for old in group]
   xmin,ymin,zmin=map(min,zip(*positions));xmax,ymax,zmax=map(max,zip(*positions))
   width=xmax-xmin+1;depth=zmax-zmin+1
@@ -239,15 +275,25 @@ def retain(b,data,joints,ground,category):
   for ox in range(2,b.w-1-width):
    for oz in range(2,b.d-1-depth):
     cells={(x,z) for x in range(ox,ox+width) for z in range(oz,oz+depth)}
-    if cells & (occupied|b.supports|b.entrance_aisles):continue
+    if laboratory and any(abs(x-b.w//2)<=8 and abs(z-b.d//2)<=11 for x,z in cells):continue
+    if b.interior is not None and not cells<=b.interior:continue
+    if cells & (occupied|b.supports|b.entrance_aisles|getattr(b,'leader_reserved',set())|getattr(b,'leader_aisles',set())):continue
     # Appliances belong on clear room floors. Never make room for a machine by
     # chopping a facade, greenhouse shell, tree trunk or structural column.
     if any((x,ground+y,z) in b.blocks and str(b.palette[int(b.blocks[x,ground+y,z]['state'])]['Name']) not in ['minecraft:air'] for x,z in cells for y in [1,2]):continue
     neighbors={(x+dx,z+dz) for x,z in cells for dx,dz in [(-1,0),(1,0),(0,-1),(0,1)]}-cells
     if not any(p not in occupied|b.supports and 0<p[0]<b.w-1 and 0<p[1]<b.d-1 for p in neighbors):continue
-    candidates.append((min(ox,b.w-ox-width)+min(oz,b.d-oz-depth),ox,oz,cells))
+    healers=[(ox+x-xmin,oz+z-zmin) for old,(x,y,z) in zip(group,positions) if 'healer' in str(data['palette'][int(old['state'])]['Name'])]
+    needed_nurses=[p for p in b.nurse_positions if p not in covered_nurses] or b.nurse_positions
+    nurse_distance=min(((hx-nx)**2+(hz-nz)**2 for hx,hz in healers for nx,nz in needed_nurses),default=0)
+    # The real nurse searches within eight blocks; target at most four.
+    if healers and b.nurse_positions and nurse_distance>16:continue
+    rank=nurse_distance if healers and b.nurse_positions else min(ox,b.w-ox-width)+min(oz,b.d-oz-depth)
+    candidates.append((rank,ox,oz,cells))
   if not candidates:raise ValueError(('Service room too small',b.theme,category,len(services),b.w,b.d,width,depth))
   _,ox,oz,cells=min(candidates,key=lambda q:q[:3]);occupied.update(cells)
+  placed_healers=[(ox+x-xmin,oz+z-zmin) for old,(x,y,z) in zip(group,positions) if 'healer' in str(data['palette'][int(old['state'])]['Name'])]
+  covered_nurses.update((nx,nz) for nx,nz in b.nurse_positions if any((hx-nx)**2+(hz-nz)**2<=16 for hx,hz in placed_healers))
   # Independent containers must not pack into a solid grid with inaccessible
   # barrels in the middle. Leave a one-block interaction aisle around fixtures.
   occupied.update((x+dx,z+dz) for x,z in cells for dx in [-1,0,1] for dz in [-1,0,1])
@@ -256,12 +302,21 @@ def retain(b,data,joints,ground,category):
    b.put(x,ground,z,b.floor)
   for old,(x,y,z) in zip(group,positions):
    state=data['palette'][int(old['state'])];name=str(state['Name']);props={k:str(v) for k,v in state.get('Properties',{}).items()}
-   b.put(ox+x-xmin,ground+1+y-ymin,oz+z-zmin,name,props,old.get('nbt'))
+   px,pz=ox+x-xmin,oz+z-zmin
+   if width==depth==1 and 'facing' in props and props['facing'] in ['north','south','west','east'] and not (name=='minecraft:chest' and props.get('type','single')!='single'):
+    # Face the open interaction aisle, rather than reusing the old wall direction.
+    directions={'north':(0,-1),'south':(0,1),'west':(-1,0),'east':(1,0)}
+    choices=[direction for direction,(dx,dz) in directions.items() if (px+dx,pz+dz) not in cells|b.supports and (b.interior is None or (px+dx,pz+dz) in b.interior) and all((px+dx,ground+h,pz+dz) not in b.blocks or str(b.palette[int(b.blocks[px+dx,ground+h,pz+dz]['state'])]['Name'])=='minecraft:air' for h in [1,2])]
+    if choices:props['facing']=min(choices,key=lambda direction:abs(px+directions[direction][0]-b.w//2)+abs(pz+directions[direction][1]-b.d//2))
+   b.put(px,ground+1+y-ymin,pz,name,props,old.get('nbt'))
  for i,e in enumerate(data.get('entities',[])):
   # Service/trainer/statue positions follow the new floor; remove wall art and carts
   # which reference the old building's absent walls and rails.
   if not str(e['nbt'].get('id','')).startswith('pixelmon:'):continue
-  x=min(b.w-3,max(2,b.w//2+(i%3-1)*3));z=min(b.d-3,4+(i//3)*3)
+  candidates=[(x,z) for z in range(b.d) for x in range(b.w) if free((x,z)) and (x,z) not in occupied|getattr(b,'leader_reserved',set())|getattr(b,'leader_aisles',set())]
+  if not candidates:raise ValueError(('No clear room for retained entity',b.theme,category,e['nbt'].get('id')))
+  target=(b.w//2-11,b.d//2) if laboratory else (b.w//2,b.d//2)
+  x,z=min(candidates,key=lambda p:abs(p[0]-target[0])+abs(p[1]-target[1]));reserved.add((x,z));occupied.add((x,z))
   e['pos']=n.List[n.Double]([x+.5,ground+1.,z+.5]);e['blockPos']=n.List[n.Int]([x,ground+1,z]);e['nbt']['Pos']=copy.deepcopy(e['pos'])
  data['entities']=n.List[n.Compound](e for e in data.get('entities',[]) if str(e['nbt'].get('id','')).startswith('pixelmon:'))
  # Later clear entrance paths may cross earlier connector tiles. Restore every
@@ -272,6 +327,11 @@ def retain(b,data,joints,ground,category):
 def gym(b,g):
  """Eight original silhouettes surrounding distinct routes and a clear arena."""
  w,d=b.w,b.d;cx,cz=w//2,d//2;r=min(w,d)//2-5;t=b.theme
+ b.interior={(x,z) for x in range(2,w-2) for z in range(2,d-2)}
+ if t in ['poison','bug','psychic']:
+  radius=r if t!='psychic' else r-1
+  b.interior={(x,z) for x in range(w) for z in range(d) if (x-cx)**2+(z-cz)**2<(radius-1.5)**2}
+  b.wall_columns.update((x,z) for x in range(w) for z in range(d) if (radius-1.5)**2<=(x-cx)**2+(z-cz)**2<=radius**2)
  b.box(0,g,0,w-1,g,d-1,b.floor)
  # An open central battle court and perimeter challenge promenade.
  for z in range(3,d-3):
@@ -340,7 +400,9 @@ def gym(b,g):
   for dx in range(-10,11):
    for dy in range(-10,11):
     if 80<=dx*dx+dy*dy<=104:b.put(cx+dx,g+25+dy,cz,b.roof)
-  for x in [cx-10,cx+10]:b.pillar(x,cz,g,25)
+  for x in [cx-10,cx+10]:
+   for z in [cz-5,cz+5]:b.pillar(x,z,g,25)
+   b.box(x,g+25,cz-5,x,g+25,cz+5,b.roof)
   for x,z in [(cx-5,cz-5),(cx+5,cz+5)]:b.put(x,g+1,z,'end_rod')
  elif t=='rock':
   # A finished fossil museum around an open arena, with supported galleries.
@@ -348,7 +410,8 @@ def gym(b,g):
   b.box(8,g+12,8,w-9,g+12,d-9,'air')
   for x in [4,w-5]:
    b.box(x,g+6,4,x+3 if x==4 else x,g+6,d-5,'cut_sandstone')
-   for z in range(4,d-4,6):b.pillar(x,z,g,10)
+   for z in range(4,d-4,6):
+    if abs(z-cz)>2:b.pillar(x,z,g,10)
   for z in [4,d-5]:b.box(4,g+6,z,w-5,g+6,z+2,'cut_sandstone')
   b.trim(2,2,w-3,d-3,g,11)
   for z in [5,d-6]:b.arch(cx,z,g+1,7,7)
@@ -422,28 +485,52 @@ def gym_interior(b,g):
     b.put(x,g+1,z,'polished_andesite');b.box(x,g+2,z,x,g+3,z,'bone_block');b.box(x-1,g+4,z,x+1,g+4,z,'bone_block');b.put(x+1,g+1,z,'gold_ore')
    else:
     b.box(x,g+1,z,x,g+3,z,'chiseled_polished_blackstone');b.put(x,g+4,z,'soul_lantern');b.put(x+1,g+1,z,'potted_wither_rose')
- # Wall-mounted scoreboards / scrolls / exhibits, supported by authored stands.
- if t in ['normal','fighting']:
-  z=d-11 if t=='fighting' else d-6
-  b.box(cx-3,g+1,z,cx-3,g+6,z,b.wall);b.box(cx+3,g+1,z,cx+3,g+6,z,b.wall)
-  b.box(cx-3,g+4,z,cx+3,g+6,z,'white_terracotta' if t=='fighting' else 'black_concrete')
-  b.put(cx,g+5,z,'red_concrete');b.put(cx-2,g+5,z,'gold_block');b.put(cx+2,g+5,z,'gold_block')
- elif t=='flying':
-  # Wind direction pattern and a supported observation desk beyond the court.
-  for step in range(5):
-   b.put(cx-step,g,cz-13+step,'light_blue_concrete');b.put(cx+step,g,cz-13+step,'light_blue_concrete')
-  b.box(cx-3,g+1,d-8,cx+3,g+1,d-8,'smooth_quartz');b.put(cx,g+2,d-8,'lectern',{'facing':'north','has_book':'false','powered':'false'})
- if t not in ['normal','fighting']:
-  # An occupied rear gallery gives each arena a recognizable challenge end.
-  z=d-7
-  panels={'poison':'lime_stained_glass','flying':'light_blue_stained_glass','bug':'honeycomb_block','psychic':'purple_stained_glass','rock':'chiseled_sandstone','dark':'purple_stained_glass'}
-  for x in [cx-5,cx+5]:
-   b.box(x,g+1,z,x,g+5,z,b.wall);b.put(x,g+6,z,b.light)
-  b.box(cx-5,g+5,z,cx+5,g+5,z,b.roof)
-  b.box(cx-4,g+2,z,cx+4,g+4,z,panels[t]);b.put(cx,g+3,z,'gold_block')
-  for x in [cx-3,cx+3]:
-   b.put(x,g+1,z-1,'lectern' if t in ['psychic','flying'] else 'bookshelf' if t=='normal' else b.wall)
-   b.put(x,g+2,z-1,'potted_fern' if t=='bug' else 'potted_wither_rose' if t=='dark' else 'potted_white_tulip' if t=='flying' else 'potted_allium' if t=='psychic' else 'potted_cactus' if t=='rock' else 'potted_bamboo')
+ if t=='poison':
+  for side in [-1,1]:
+   x=cx+side*11
+   for z in [cz-6,cz+6]:
+    b.box(x-1,g+1,z,x+1,g+1,z,'smooth_quartz')
+    b.put(x,g+2,z,'brewing_stand',{'has_bottle_0':'false','has_bottle_1':'false','has_bottle_2':'false'})
+    b.put(x-side,g+2,z,'potted_bamboo')
+ leader_stage(b,g,color)
+
+def leader_stage(b,g,color):
+ """Reserve the challenge end before trainers, services and retained entities are placed."""
+ cx,cz=b.w//2,b.d//2
+ fx,fz={'east':(1,0),'west':(-1,0),'north':(0,-1),'south':(0,1)}[b.front_direction]
+ sx,sz=-fz,fx
+ candidates=[]
+ for depth in sorted(range(8,14),key=lambda d:abs(d-10)):
+  x,z=cx-fx*depth,cz-fz*depth
+  pad={(x+dx,z+dz) for dx in [-1,0,1] for dz in [-1,0,1]}
+  back={(x-fx*3+sx*side,z-fz*3+sz*side) for side in range(-2,3)}
+  if pad<=b.interior and not (pad|back)&b.supports:
+   candidates.append((x,z,pad,back));break
+ if not candidates:raise ValueError(('No clear axial leader stage',b.theme))
+ x,z,pad,back=candidates[0];b.leader_position=(x,z)
+ b.leader_reserved={(x+dx,z+dz) for dx in range(-3,4) for dz in range(-3,4)}|back
+ b.leader_aisles=set()
+ front_distance=(b.w-1-cx if fx>0 else cx) if fx else (b.d-1-cz if fz>0 else cz)
+ for step in range(-front_distance,abs(x-cx)+abs(z-cz)+1):
+  xx,zz=cx-fx*step,cz-fz*step
+  for side in [-1,0,1]:
+   at=xx+sx*side,zz+sz*side;b.leader_aisles.add(at)
+   if at in b.interior and at not in b.wall_columns:
+    if at in b.supports:raise ValueError(('Column crosses leader approach',b.theme,at))
+    b.box(at[0],g+1,at[1],at[0],g+3,at[1],'air')
+ for xx,zz in pad:
+  b.put(xx,g,zz,color+'_concrete' if (xx,zz)!=(x,z) else 'gold_block')
+  b.box(xx,g+1,zz,xx,g+3,zz,'air')
+ panel={'poison':'purple_concrete','fighting':'white_terracotta','normal':'black_concrete','flying':'light_blue_stained_glass','bug':'honeycomb_block','psychic':'magenta_stained_glass','rock':'chiseled_sandstone','dark':'purple_stained_glass'}[b.theme]
+ for side in range(-2,3):
+  bx,bz=x-fx*3+sx*side,z-fz*3+sz*side
+  for height in range(1,5):b.put(bx,g+height,bz,b.wall if abs(side)==2 else panel)
+  b.put(bx,g+5,bz,b.roof)
+  if abs(side)==2:b.put(bx,g+6,bz,b.light)
+ b.put(x-fx*3,g+3,z-fz*3,'gold_block')
+ b.data['BackportLeaderStage']=n.IntArray([x,g,z])
+ b.data['BackportLeaderFront']=n.String(b.front_direction)
+ b.data['BackportLeaderReserved']=n.IntArray([v for p in sorted(b.leader_reserved|b.leader_aisles) for v in p])
 
 def road_landscaping(b,g,joints):
  """Wide native road footprints become boulevards with usable pocket gardens."""
@@ -454,24 +541,30 @@ def road_landscaping(b,g,joints):
   if not walk_socket(j.get('nbt',{})):continue
   for xx in range(min(x,cx),max(x,cx)+1):protected.update((xx,z+dz) for dz in [-1,0,1])
   for zz in range(min(z,cz),max(z,cz)+1):protected.update((cx+dx,zz) for dx in [-1,0,1])
- for x in range(2,b.w-2,5):
-  for z in range(2,b.d-2,6):
-   cells={(xx,zz) for xx in range(x-1,x+2) for zz in range(z-1,z+2)}
+ garden_count=0
+ for x in range(3,b.w-3,10):
+  for z in range(3,b.d-3,12):
+   cells={(xx,zz) for xx in range(x-2,x+3) for zz in range(z-2,z+3)}
    if cells & protected:continue
    protected.update(cells)
-   b.box(x-1,g,z-1,x+1,g,z+1,'grass_block' if b.theme not in ['rock','dark'] else b.wall)
-   if b.theme=='fighting':
-    b.box(x,g+1,z,x,g+2,z,'stripped_oak_log');b.put(x,g+3,z,'red_wool');b.put(x+1,g+1,z,'potted_oak_sapling')
-   elif b.theme=='flying':
-    b.put(x,g+1,z,'quartz_pillar');b.put(x,g+2,z,'sea_lantern');b.put(x-1,g+1,z,'potted_white_tulip');b.put(x+1,g+1,z,'potted_white_tulip')
-   else:
-    b.box(x,g+1,z,x,g+2,z,b.wall);b.put(x,g+3,z,b.light);b.put(x+1,g+1,z,'potted_fern' if b.theme in ['bug','poison'] else 'potted_allium' if b.theme=='psychic' else 'potted_cactus' if b.theme=='rock' else 'potted_poppy')
+   garden_count+=1
+   b.box(x-2,g,z-2,x+2,g,z+2,'grass_block' if b.theme not in ['rock','dark'] else b.wall)
+   for xx in range(x-2,x+3):b.put(xx,g,z-2,b.roof);b.put(xx,g,z+2,b.roof)
+   for zz in range(z-2,z+3):b.put(x-2,g,zz,b.roof);b.put(x+2,g,zz,b.roof)
+   wood='jungle' if b.theme=='bug' else 'dark_oak' if b.theme=='fighting' else 'crimson' if b.theme=='dark' else 'oak'
+   for xx in range(x-1,x+2):b.put(xx,g+1,z+1,wood+'_stairs',{'facing':'south','half':'bottom','shape':'straight','waterlogged':'false'})
+   plant='potted_fern' if b.theme in ['bug','poison'] else 'potted_allium' if b.theme=='psychic' else 'potted_cactus' if b.theme=='rock' else 'potted_poppy'
+   b.put(x-1,g+1,z-1,plant);b.put(x+1,g+1,z-1,plant)
+   # Lighting belongs at a garden edge; no forest of posts on a large slab.
+   if garden_count%3==1:
+    b.put(x+2,g,z-2,b.floor)
+    b.box(x+2,g+1,z-2,x+2,g+2,z-2,b.wall);b.put(x+2,g+3,z-2,b.light)
 
 def prepare_doorways(b,g,category,joints):
  """Plan a real entrance before putting appliances or trainers in the room."""
  b.planned_doors={};b.entrance_aisles=set()
  b.joint_columns={(int(j['pos'][0]),int(j['pos'][2])) for j in joints}
- if category not in ['house','pokecenter','pokemart','daycare','blacksmith','church','tcg_shop']:return
+ if category not in ['gym','house','pokecenter','pokemart','daycare','blacksmith','church','tcg_shop']:return
  def name(x,y,z):
   old=b.blocks.get((x,y,z));return str(b.palette[int(old['state'])]['Name']) if old else 'minecraft:air'
  choices={}
@@ -485,6 +578,8 @@ def prepare_doorways(b,g,category,joints):
     x,z=sx+dx*step+dz*offset,sz+dz*step+dx*offset
     if not (2<=x<b.w-2 and 2<=z<b.d-2):
      if not (1<=x<b.w-1 and 1<=z<b.d-1):continue
+    if (x,z) not in b.wall_columns:continue
+    if b.interior is not None and ((x+dx*2,z+dz*2) not in b.interior or (x-dx,z-dz) in b.interior):continue
     if name(x,g+4,z)=='minecraft:air' or all(name(x,g+y,z)=='minecraft:air' for y in [1,2]):continue
     footprint={(x+dx*i,z+dz*i) for i in range(-2,3)}|{(x+dz,z+dx),(x-dz,z-dx)}
     footprint={(xx,zz) for xx,zz in footprint if 0<=xx<b.w and 0<=zz<b.d}
@@ -607,6 +702,7 @@ def finish_doorways(b,g,category):
 def building(b,g,category,variant):
  w,d=b.w,b.d;cx,cz=w//2,d//2;t=b.theme
  large=category!='house';height=(7 if large else 5)+(variant%3)*2
+ b.roof_base=g+height
  b.box(0,g,0,w-1,g,d-1,b.floor)
  if t=='poison':
   # Offset clean-room laboratories and glass reactor conservatories.
@@ -622,7 +718,7 @@ def building(b,g,category,variant):
   for h in range(3):b.box(h,g+height+1+h,1+h,w-1-h,g+height+1+h,d-2-h,b.roof)
   for x in [1,w-2]:b.box(x,g,2,x,g+height,d-3,b.wall)
   b.arch(cx,0,g+1,max(2,w//4),4)
-  if variant%2:b.box(3,g+height+1,3,w-4,g+height+4,d//2,'air');b.circle(cx,5,2,g,'red_concrete')
+  if variant%2:b.circle(cx,5,2,g,'red_concrete')
  elif t=='flying':
   # White terrace villas, projecting glass balconies and light column arcades.
   b.shell(2,2,w-3,d-3,g,height)
@@ -637,10 +733,23 @@ def building(b,g,category,variant):
    if variant%3:b.box(h,g+height+1+h,0,w-1-h,g+height+1+h,d-1,b.roof)
   if variant%3==0: b.box(1,g+height+2,1,w-2,g+height+2,d-2,'oak_fence')
  elif t=='bug':
-  # Round timber pods and transparent conservatory homes, with living foliage.
-  r=max(2,min(w,d)//2-2)
-  for h in range(1,height+1):b.circle(cx,cz,r,g+h,b.glass if h%3 else b.wall)
-  b.dome(cx,cz,r,g+height)
+  # An elliptical pod uses the full native lot instead of stranding fixtures
+  # outside a small circle in a long rectangular footprint.
+  rx=max(2,w/2-1.25);rz=max(2,d/2-1.25);r=int(min(rx,rz))
+  b.interior={(x,z) for x in range(w) for z in range(d) if ((x-cx)/max(1,rx-.85))**2+((z-cz)/max(1,rz-.85))**2<1}
+  # Dilate the discrete room footprint; a continuous ellipse equation alone
+  # leaves one-block gaps where the inner and outer curves round differently.
+  rim={(x+dx,z+dz) for x,z in b.interior for dx in [-1,0,1] for dz in [-1,0,1] if 0<=x+dx<w and 0<=z+dz<d}-b.interior
+  b.wall_columns.update(rim)
+  for h in range(1,height+1):
+   for x,z in rim:b.put(x,g+h,z,b.glass if h%3 else b.wall)
+  for h in range(r+1):
+   scale=math.sqrt(max(0,1-(h/max(1,r))**2));rrx=max(0,round(rx*scale));rrz=max(0,round(rz*scale))
+   for x in range(cx-rrx,cx+rrx+1):
+    for z in range(cz-rrz,cz+rrz+1):
+     q=((x-cx)/max(1,rrx))**2+((z-cz)/max(1,rrz))**2
+     inner=((x-cx)/max(.5,rrx-1.5))**2+((z-cz)/max(.5,rrz-1.5))**2
+     if q<=1 and (inner>=1 or h>=r-1):b.put(x,g+height+h,z,b.wall if h%3==0 else b.glass)
   if variant%2:
    b.circle(cx,cz,r,g+height+1,'honeycomb_block')
    for x in [cx-r,cx+r]:b.put(x,g+height+2,cz,'yellow_wool')
@@ -670,18 +779,83 @@ def building(b,g,category,variant):
   b.shell(1,1,w-2,d-2,g,height,'polished_blackstone_bricks','crimson_planks')
   for h in range(max(3,w//3)):b.box(h,g+height+1+h,0,w-1-h,g+height+1+h,d-1,'blackstone')
   if variant%2:b.pillar(2,d-3,g,height+6)
- # Interior: lit usable floor, service room, seating, route to each native entrance.
- for x,z in [(2,2),(w-3,d-3)]:b.put(x,g+1,z,b.light)
- if w>=9 and d>=9:
-  b.put(3,g+1,d-3,'crafting_table');b.put(4,g+1,d-3,'bookshelf')
-  if category=='house':
-   b.put(2,g+1,3,'white_bed',{'facing':'south','part':'foot','occupied':'false'});b.put(2,g+1,4,'white_bed',{'facing':'south','part':'head','occupied':'false'})
-  if variant%3==0 or category in ['church','blacksmith','pokecenter','pokemart']:b.reward(w-3,g+1,d-3,'ultra' if category=='church' else 'poke',category=='church')
+ # Furnish only after actual entrance, NPC and service positions are known.
+ # Rectangular corner coordinates are not room coordinates in a greenhouse.
  if category in ['pokecenter','pokemart']:
   block='red_concrete' if category=='pokecenter' else 'blue_concrete'
   sign_z=max(1,cz-max(2,min(w,d)//2-2)) if t=='bug' else 0
   b.box(cx-2,g+height+3,sign_z,cx+2,g+height+3,sign_z,block)
   b.box(cx,g+height+1,sign_z,cx,g+height+5,sign_z,block)
+
+def furnish_rooms(b,g,category):
+ """Place complete furniture on clear indoor footprints after real services."""
+ if category not in ['house','pokecenter','pokemart','daycare','blacksmith','church','tcg_shop'] or not b.interior:return
+ reserved=set(b.service_aisles)|b.supports|b.entrance_aisles
+ middle=(sum(p[0] for p in b.interior)/len(b.interior),sum(p[1] for p in b.interior)/len(b.interior))
+ entry=next(iter(b.planned_doors.values()),(0,1));ex,ez=entry;sx,sz=ez,-ex
+ span=max(1,min(b.w,b.d)//4)
+ def zone(side,depth):return (middle[0]+span*(sx*side+ex*depth),middle[1]+span*(sz*side+ez*depth))
+ def clear(p):
+  return p in b.interior and p not in reserved and all((p[0],g+h,p[1]) not in b.blocks or str(b.palette[int(b.blocks[p[0],g+h,p[1]]['state'])]['Name'])=='minecraft:air' for h in [1,2,3])
+ def place(parts,near=None,preferred=None,turns=range(4)):
+  candidates=[]
+  for x,z in sorted(b.interior):
+   for turn in turns:
+    rotated=[]
+    for dx,dy,dz,s,props in parts:
+     props=dict(props) if props else None
+     for i in range(turn):
+      dx,dz=-dz,dx
+      if props and props.get('facing') in ['north','east','south','west']:
+       props['facing']={'north':'east','east':'south','south':'west','west':'north'}[props['facing']]
+     rotated.append((dx,dy,dz,s,props))
+    cells={(x+dx,z+dz) for dx,dy,dz,s,props in rotated}
+    if not all(clear(p) for p in cells):continue
+    neighbors={(xx+dx,zz+dz) for xx,zz in cells for dx,dz in [(1,0),(-1,0),(0,1),(0,-1)]}-cells
+    if not any(clear(p) for p in neighbors):continue
+    edge=min(abs(x-wx)+abs(z-wz) for wx,wz in b.wall_columns) if b.wall_columns else 0
+    distance=abs(x-near[0])+abs(z-near[1]) if near else 0
+    if near and distance>4:continue
+    preference=abs(x-preferred[0])+abs(z-preferred[1]) if preferred else 0
+    candidates.append((distance,preference,edge,x,z,turn,cells,rotated))
+  if not candidates:return False
+  _,_,_,x,z,turn,cells,rotated=min(candidates,key=lambda c:c[:6])
+  for dx,dy,dz,s,props in rotated:b.put(x+dx,g+dy,z+dz,s,props)
+  reserved.update(cells)
+  # Keep an interaction/seating aisle available for later furniture clusters.
+  reserved.update((xx+dx,zz+dz) for xx,zz in cells for dx,dz in [(1,0),(-1,0),(0,1),(0,-1)])
+  return True
+ wood={'bug':'jungle','dark':'crimson','fighting':'dark_oak','flying':'birch'}.get(b.theme,'oak')
+ stair={'facing':'south','half':'bottom','shape':'straight','waterlogged':'false'}
+ plant={'bug':'potted_fern','dark':'potted_wither_rose','psychic':'potted_allium','rock':'potted_cactus','poison':'potted_bamboo'}.get(b.theme,'potted_white_tulip')
+ if category=='house':
+  bed=[(0,1,0,'white_bed',{'facing':'south','part':'foot','occupied':'false'}),(0,1,1,'white_bed',{'facing':'south','part':'head','occupied':'false'})]
+  if not place(bed,preferred=zone(-1,1)):raise ValueError(('No complete indoor bed footprint',b.theme,b.w,b.d))
+ if category=='pokecenter':
+  # A low reception desk beside the nurse, plus several waiting seats.
+  for nurse in b.nurse_positions:
+   preferred=(nurse[0]-ex*2,nurse[1]-ez*2)
+   counter=[(i,1,0,wood+'_slab',{'type':'bottom','waterlogged':'false'}) for i in range(3)]
+   place(counter,nurse,preferred,turns=[0,2] if ez else [1,3])
+   for x,z in b.interior:
+    if abs(x-nurse[0])<=3 and abs(z-nurse[1])<=3 and str(b.palette[int(b.blocks[x,g,z]['state'])]['Name'])!='minecraft:jigsaw':b.put(x,g,z,'white_concrete')
+  # Two coherent rows flank the approach aisle instead of scattered seats.
+  for side in [-1,1]:
+   waiting=zone(side,-1)
+   row=[(i,1,0,wood+'_stairs',stair) for i in range(3)]
+   if not place(row,preferred=waiting,turns=[0,2] if ez else [1,3]):place(row[:2],preferred=waiting)
+   for x,z in b.interior:
+    if abs(x-waiting[0])<=2 and abs(z-waiting[1])<=2 and str(b.palette[int(b.blocks[x,g,z]['state'])]['Name'])!='minecraft:jigsaw':b.put(x,g,z,'light_gray_concrete')
+ else:
+  # Compact sitting group: chairs flank a low table in one complete footprint.
+  group=[(0,1,0,wood+'_stairs',stair),(1,1,0,wood+'_slab',{'type':'bottom','waterlogged':'false'}),(2,1,0,wood+'_stairs',stair)]
+  if not place(group,preferred=zone(1,-1)):place([(0,1,0,wood+'_stairs',stair)],preferred=zone(1,-1))
+ reading=[(0,1,0,'bookshelf',None),(0,2,0,plant,None),(1,1,0,'lectern',{'facing':'south','has_book':'false','powered':'false'})]
+ if not place(reading,preferred=zone(1,1)):place(reading[:2],preferred=zone(1,1))
+ if category in ['house','blacksmith']:place([(0,1,0,'crafting_table',None)],preferred=zone(-1,-1))
+ # Every service building has an indoor light on a supported reading stand.
+ place([(0,1,0,wood+'_planks',None),(0,2,0,b.light,None)],preferred=zone(1,1))
+ b.data['BackportFurnitureCells']=n.Int(len(reserved-set(b.service_aisles)-b.supports-b.entrance_aisles))
 
 def outdoors(b,g,category,variant,joints):
  cx,cz=b.w//2,b.d//2;t=b.theme
@@ -706,7 +880,7 @@ def outdoors(b,g,category,variant,joints):
     if x%6==0 and z%6==0:b.put(x,g,z,b.roof)
   road_landscaping(b,g,joints)
   return
- b.box(0,g,0,b.w-1,g,b.d-1,b.floor if category=='plaza' else 'grass_block')
+ b.box(0,g,0,b.w-1,g,b.d-1,b.floor if category in ['plaza','street_art'] else 'grass_block')
  if category=='plaza':
   for j in joints:
    x,y,z=map(int,j['pos']);b.line(x,z,cx,cz,g,b.floor,5)
@@ -763,12 +937,22 @@ def rebuild(data,theme,filename):
  # replacement lots above roads; use one authored ground plane for new pieces.
  ground=0
  variant=int(hashlib.sha256(filename.encode()).hexdigest()[:6],16)
- if category=='gym':gym(b,ground)
+ if category=='gym':
+  approaches=[]
+  for joint in joints:
+   orientation=str(original['palette'][int(joint['state'])].get('Properties',{}).get('orientation','')).split('_')[0]
+   if orientation in ['east','west','north','south'] and walk_socket(joint.get('nbt',{})):approaches.append((tuple(map(int,joint['pos'])),orientation))
+  if not approaches:raise ValueError(('Gym lacks authored horizontal street approach',theme))
+  b.front_direction=min(approaches)[1]
+  gym(b,ground)
  elif category in ['road','plaza','garden','street_art','tree']:outdoors(b,ground,category,variant,joints)
  else:building(b,ground,category,variant)
+ b.decorating_room=category in ['house','pokecenter','pokemart','daycare','blacksmith','church','tcg_shop']
  themed_details(b,ground,category,variant)
+ b.decorating_room=False
  prepare_doorways(b,ground,category,joints)
  retain(b,original,joints,ground,category)
+ furnish_rooms(b,ground,category)
  # Service placement can occupy a decorative reward corner. Add guaranteed
  # exploration rewards only after all fixtures, on free supported floor tiles.
  needed=2 if category=='gym' else 1 if category in ['plaza','pokecenter','pokemart','church','blacksmith'] else 0
@@ -777,12 +961,24 @@ def rebuild(data,theme,filename):
  for x,z in candidates:
   if existing>=needed:break
   floor=b.blocks.get((x,ground,z));air=b.blocks.get((x,ground+1,z))
-  if (x,z) not in b.service_aisles|b.supports|b.entrance_aisles and floor and (air is None or str(b.palette[int(air['state'])]['Name'])=='minecraft:air'):
+  if (b.interior is None or (x,z) in b.interior) and (x,z) not in b.service_aisles|b.supports|b.entrance_aisles and floor and (air is None or str(b.palette[int(air['state'])]['Name'])=='minecraft:air'):
    b.reward(x,ground+1,z,'ultra' if category=='gym' else 'poke',existing>0);existing+=1
  # Restore the modified/repositioned service entities into the generated template.
  data['entities']=original.get('entities',n.List[n.Compound]())
  ensure_service_routes(b,ground)
  finish_doorways(b,ground,category)
+ if category in ['house','pokecenter','pokemart','daycare','blacksmith','church','tcg_shop'] and b.interior:
+  # Verify the whole indoor footprint independently of furniture and walkability.
+  # Low furniture/beams cannot masquerade as the final enclosing roof.
+  roof_base=b.roof_base
+  if theme=='bug':
+   # One connected glass ceiling closes the discrete dome's inner edge gaps;
+   # isolated patch squares otherwise float below its curved shell.
+   for x,z in b.interior:b.put(x,roof_base,z,b.glass)
+  roof_columns={(xx,zz) for (xx,yy,zz),block in b.blocks.items() if yy>=roof_base and str(b.palette[int(block['state'])]['Name']) not in ['minecraft:air','minecraft:structure_void'] and not any(token in str(b.palette[int(block['state'])]['Name']) for token in ['lantern','torch','chain','end_rod','_fence','_pane','leaves'])}
+  for x,z in b.interior-roof_columns:b.put(x,roof_base+1,z,b.glass if theme=='bug' else b.roof)
+  data['BackportRoofBase']=n.Int(roof_base)
+  data['BackportRoofFootprint']=n.IntArray([v for p in sorted(b.interior) for v in p])
  return b.finish()
 
 def themed_details(b,g,category,variant):
@@ -830,6 +1026,7 @@ def themed_details(b,g,category,variant):
    # Living timber supports, hanging foliage and honeycomb work benches.
    for x in [1,w-2]:
     for z in range(2,d-2,5):
+     if (x,z) not in b.interior:continue
      b.box(x,g+1,z,x,g+3,z,'jungle_log');b.supports.add((x,z));b.put(x,g+4,z,'jungle_leaves',{'persistent':'true','distance':'1'})
    for x in range(3,w-3,5):
     b.put(x,g+1,d-3,'honeycomb_block');b.put(x,g+2,d-3,'potted_fern')
@@ -880,6 +1077,7 @@ def ensure_service_routes(b,g):
    if not ori.startswith(('up_','down_')) and b.category not in ['tree','garden','street_art'] and walk_socket(tag) and str(tag.get('final_state'))=='minecraft:air' or str(tag.get('pool','')).startswith(('pixelmon:npc/','pixelmon_backport:npc/','minecraft:village/')):
     targets.append((p[0],p[2]))
  protected.update(b.supports)
+ protected.update(b.wall_columns-b.entrance_aisles)
  def clear(x,z):
   for y in [g+1,g+2]:
    old=b.blocks.get((x,y,z))
@@ -890,7 +1088,7 @@ def ensure_service_routes(b,g):
  if b.category in ['gym','house','pokecenter','pokemart','daycare','blacksmith','church','tcg_shop']:
   # Incoming sockets can have an empty child pool. They still need an entrance
   # into the room; merely connecting NPCs inside a sealed shell is insufficient.
-  room=[(x,z) for x in range(2,b.w-2) for z in range(2,b.d-2) if (x,z) not in protected and clear(x,z)]
+  room=[(x,z) for x in range(2,b.w-2) for z in range(2,b.d-2) if (b.interior is None or (x,z) in b.interior) and (x,z) not in protected and clear(x,z)]
   if not room:raise ValueError(('No interior circulation space',b.theme,b.category))
   # Connect the actual room first. Doing appliances first cuts separate holes
   # through the facade right in front of PCs and vending machines.

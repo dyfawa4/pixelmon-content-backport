@@ -1,0 +1,164 @@
+{
+  "scope": "fourth-round final-resource and negative-fixture checks; assembled appearance remains manual",
+  "new_main_gyms": {
+    "poison": {
+      "single_main_door": [
+        41,
+        1,
+        24
+      ],
+      "leader_stage": [
+        13,
+        0,
+        24
+      ],
+      "leader_faces_entrance": "east",
+      "central_approach_clear": true
+    },
+    "dark": {
+      "single_main_door": [
+        43,
+        1,
+        23
+      ],
+      "leader_stage": [
+        13,
+        0,
+        23
+      ],
+      "leader_faces_entrance": "east",
+      "central_approach_clear": true
+    },
+    "fighting": {
+      "single_main_door": [
+        38,
+        1,
+        23
+      ],
+      "leader_stage": [
+        13,
+        0,
+        23
+      ],
+      "leader_faces_entrance": "east",
+      "central_approach_clear": true
+    },
+    "flying": {
+      "single_main_door": [
+        40,
+        1,
+        23
+      ],
+      "leader_stage": [
+        13,
+        0,
+        23
+      ],
+      "leader_faces_entrance": "east",
+      "central_approach_clear": true
+    },
+    "normal": {
+      "single_main_door": [
+        2,
+        1,
+        20
+      ],
+      "leader_stage": [
+        31,
+        0,
+        20
+      ],
+      "leader_faces_entrance": "west",
+      "central_approach_clear": true
+    },
+    "bug": {
+      "single_main_door": [
+        36,
+        1,
+        23
+      ],
+      "leader_stage": [
+        11,
+        0,
+        23
+      ],
+      "leader_faces_entrance": "east",
+      "central_approach_clear": true
+    },
+    "psychic": {
+      "single_main_door": [
+        40,
+        1,
+        23
+      ],
+      "leader_stage": [
+        13,
+        0,
+        23
+      ],
+      "leader_faces_entrance": "east",
+      "central_approach_clear": true
+    },
+    "rock": {
+      "single_main_door": [
+        40,
+        1,
+        21
+      ],
+      "leader_stage": [
+        11,
+        0,
+        21
+      ],
+      "leader_faces_entrance": "east",
+      "central_approach_clear": true
+    }
+  },
+  "native_main_gyms": {
+    "electric": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "fire": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "ice": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "dragon": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "ground": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "steel": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "ghost": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "fairy": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "grass": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    },
+    "water": {
+      "leader_socket_positions_preserved": true,
+      "existing_door_crossings_preserved": true
+    }
+  },
+  "negative_fixtures": [
+    "leader moved into corner despite unchanged stage metadata",
+    "old entrance reintroduced beside new door",
+    "English embedded Barley dialogue despite stock localization"
+  ]
+}

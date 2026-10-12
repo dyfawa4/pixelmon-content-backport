@@ -4,11 +4,25 @@
 
 这是一个独立的附加模组：在保留旧版重铸本体与整合包的基础上，加入新种类、ZA Mega 形态、携带道具、进化物品和中文资料，并提供太晶战斗、独立太晶巢穴及对应获取渠道。适合希望继续使用 1.16.5，同时体验更多新内容的玩家。
 
-`1.2.0` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
+`1.3.0 正式版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
 
-**[下载 1.2.0](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.2.0)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
+**[最新版本：下载 1.3.0](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.3.0)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
 
 ---
+
+## 1.3.0 更新
+
+1.3.0 改进道馆对战、城市内饰、成就与常用指令。本次发布采用玩家已确认的 v9 建筑；旧存档保留，新建筑在新生成区域或独立 v9 地图中体验。
+
+- 溺水世界仅允许黑暗球，使用原生夜晚 3 倍规则；修正 960 个原生 TM/TR 名称与实际招式的对应。
+- 补齐十八种徽章用途/获取/群系说明，指南针建筑及 PixelTweaks 额外说明汉化。
+- 补充原始回归、天空/起源/灵兽/解放/剑盾之王成就；基格尔德 10%/50%、武道熊师两种流派分别记录；新增伽勒尔三鸟捕捉成就。
+- “传说续章”完成后才显示成就；场外菜单支持原始回归与剑盾之王，缺少 Mega 石明确提示。
+- 城市 v9 按主题调整照明、协调单一主入口、馆主独立主位并补齐封闭建筑屋顶；原十城保留原生设施与拼装数据。
+- 修复装扮转换与相关成就、伊布大家族条件；普通玩家可使用查询刷新、结束自身对战和道馆定位命令。
+- 十八类真实馆主统一高级决策、合法满配养成、合理配招和特殊机制；每场背包道具最多 3 次，其中复活类最多 1 次，超额选择不消耗道具或回合。
+
+发布提供 `Pixelmon-Backport-1.3.0.zip`、两份 1.3.0 地图包、手册、源码及校验文件。操作与验收边界见 [手册](HANDBOOK.md)、[1.3.0 修改记录](docs/RELEASE_1.3.0.md)、[静态检查记录](docs/VALIDATION_1.3.0.md)。
 
 ## 可以体验什么
 
@@ -27,21 +41,23 @@
 
 各物品的适用条件、配方、掉落和操作步骤，见 [完整玩法与获取手册](HANDBOOK.md)。
 
-## 下载与安装
+## 已发布 1.3.0 下载与安装
 
 | 下载 | 用途 |
 | :--- | :--- |
-| `Pixelmon-Backport-1.2.0.zip` | 功能包：模组 JAR、完整手册与安装说明 |
-| `Pixelmon-Backport-test-maps-1.2.0.zip` | 原七张功能地图，加骑乘、捕捉成就与合体两张独立地图 |
-| `Pixelmon-Backport-gym-test-maps-1.2.0.zip` | 十八张完整城市地图，加全部徽章展示世界 |
-| `Pixelmon-Backport-source-1.2.0.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
-| `Pixelmon-Backport-Handbook-1.2.0.md` | 单独阅读或分享完整玩法说明 |
+| `pixelmon-content-backport-1.16.5-1.3.0.jar` | 单独安装补丁 |
+| `Pixelmon-Backport-1.3.0.zip` | 功能包：模组 JAR、完整手册与安装说明 |
+| `Pixelmon-Backport-test-maps-1.3.0.zip` | 原七张功能地图，加骑乘、捕捉成就与合体两张独立地图 |
+| `Pixelmon-Backport-gym-test-maps-1.3.0.zip` | 十八张完整城市地图，加全部徽章展示世界 |
+| `Pixelmon-Backport-source-1.3.0.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
+| `Pixelmon-Backport-Handbook-1.3.0.md` | 单独阅读或分享完整玩法说明 |
+| `SHA256SUMS-1.3.0.txt` | 校验全部六份发布文件 |
 
-上述文件可从 [1.2.0 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.2.0) 下载，也可由构建脚本生成到 `dist/`。
+上述文件可从 [1.3.0 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.3.0) 下载，也可由构建脚本生成到 `dist/`。
 
 1. 准备 Minecraft **1.16.5**、Forge **36.2.42**、**Java 11** 和旧版 Pixelmon 重铸本体。已验证文件名为 9.1.13、内部版本为 9.1.12 的本体。
 2. 关闭游戏与服务器，备份存档；升级时移除旧版回迁功能模组，只保留一份。
-3. 解压功能包，将 `mods/pixelmon-content-backport-1.16.5-1.2.0.jar` 放入实际游戏实例的 `mods` 目录，然后启动游戏。多人游戏中，服务器和所有客户端使用相同版本。
+3. 解压功能包，将 `mods/pixelmon-content-backport-1.16.5-1.3.0.jar` 放入实际游戏实例的 `mods` 目录，然后启动游戏。多人游戏中，服务器和所有客户端使用相同版本。
 4. 如需道具查询，安装 JEI **1.16.5 / 7.x**；如需测试地图，按 [地图指南](TEST_MAPS.md) 安装独立地图包。
 
 功能包不附带 Pixelmon 本体；测试地图单独下载。地图 ZIP 顶层直接是 `mods/` 与 `saves/`，将 `saves` 下选定的世界文件夹复制到实例中，避免再套一层目录。

@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/pokemon/025_ash_cap/none.bmd
+$anim idle pixelmon_backport:textures/pokemon/025_ash_cap/idle.bmd
+$anim walk pixelmon_backport:textures/pokemon/025_ash_cap/walk.bmd
+$scale 0.4

@@ -5,6 +5,8 @@ import java.util.function.Supplier;
 import com.pixelmonmod.pixelmon.Pixelmon;
 import com.pixelmonmod.pixelmon.api.config.PixelmonConfigProxy;
 import com.pixelmonmod.pixelmon.api.events.MegaEvolutionEvent;
+import com.pixelmonmod.pixelmon.api.events.pokemon.ItemFormChangeEvent;
+import com.pixelmonmod.pixelmon.api.registries.PixelmonItems;
 import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
 import com.pixelmonmod.pixelmon.api.pokemon.species.Stats;
 import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
@@ -35,9 +37,25 @@ public final class FieldMega {
         Events events=new Events();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(events);Pixelmon.EVENT_BUS.register(events);
     }
     public static Stats target(Pokemon p){
-        if(p==null || p.isEgg() || p.getForm().getName().startsWith("mega") || !(p.getHeldItemAsItemHeld() instanceof MegaStoneItem))return null;
+        return p==null?null:target(p,p.getForm());
+    }
+    public static boolean primalSpecies(Pokemon p){return p!=null && (p.getSpecies().getDex()==382 || p.getSpecies().getDex()==383);}
+    public static boolean crownedSpecies(Pokemon p){return p!=null && (p.getSpecies().getDex()==888 || p.getSpecies().getDex()==889);}
+    private static boolean specialSpecies(Pokemon p){return primalSpecies(p)||crownedSpecies(p);}
+    public static boolean transformed(Pokemon p){return p!=null && (p.getForm().getName().startsWith("mega") || primalSpecies(p) && p.getForm().isForm("primal") || crownedSpecies(p) && p.getForm().isForm("crowned"));}
+    private static Stats target(Pokemon p,Stats base){
+        if(p.isEgg() || base==null)return null;
+        if(primalSpecies(p)){
+            if(base.isForm("primal"))return null;
+            return p.getHeldItem().func_77973_b()==(p.getSpecies().getDex()==382?PixelmonItems.blue_orb:PixelmonItems.red_orb)?p.getSpecies().getForm("primal"):null;
+        }
+        if(crownedSpecies(p)){
+            if(base.isForm("crowned"))return null;
+            return p.getHeldItem().func_77973_b()==(p.getSpecies().getDex()==888?PixelmonItems.rusted_sword:PixelmonItems.rusted_shield)?p.getSpecies().getForm("crowned"):null;
+        }
+        if(base.getName().startsWith("mega") || !(p.getHeldItemAsItemHeld() instanceof MegaStoneItem))return null;
         // A form name alone is insufficient: each base form declares its compatible stones.
-        return p.getForm().getMegaForm(p.getHeldItem().func_77973_b()).filter(f->f!=null).orElse(null);
+        return base.getMegaForm(p.getHeldItem().func_77973_b()).filter(f->f!=null).orElse(null);
     }
     public static boolean active(Pokemon p){return p.getPersistentData().func_74764_b(MARKER);}
     private static boolean querying(Pokemon p){synchronized(EvolutionQueryList.queryList){return EvolutionQueryList.queryList.stream().anyMatch(q->q.pokemonUUID.equals(p.getUUID()));}}
@@ -52,13 +70,19 @@ public final class FieldMega {
         if(entity==null || !entity.func_70089_S() || entity.field_70170_p!=player.field_70170_p || entity.getOwner()!=player || entity.func_70068_e(player)>1024)return "sendout";
         if(active(p)){restore(p);return "reverted";}
         if(entity.battleController!=null || querying(p))return "busy";
-        if(!party.getMegaItem().canMega())return "bracelet";
-        Stats form=target(p);if(form==null)return "stone";
-        if(Pixelmon.EVENT_BUS.post(new MegaEvolutionEvent.MoveSkill(player,p,p.getHeldItem())))return "canceled";
+        if(transformed(p))return "already";
+        Stats form=target(p);
+        if(form==null){
+            if(primalSpecies(p))return p.getSpecies().getDex()==382?"blue_orb":"red_orb";
+            if(crownedSpecies(p))return p.getSpecies().getDex()==888?"rusted_sword":"rusted_shield";
+            return p.getHeldItemAsItemHeld() instanceof MegaStoneItem?"stone":"no_stone";
+        }
+        if(!specialSpecies(p) && !party.getMegaItem().canMega())return "bracelet";
+        if(specialSpecies(p)?Pixelmon.EVENT_BUS.post(new ItemFormChangeEvent(player,p.getHeldItem(),entity,null)):Pixelmon.EVENT_BUS.post(new MegaEvolutionEvent.MoveSkill(player,p,p.getHeldItem())))return "canceled";
         CompoundNBT state=new CompoundNBT();state.func_74778_a("Form",p.getForm().getName());state.func_74778_a("Target",form.getName());state.func_74768_a("Slot",p.getAbilitySlot());state.func_74757_a("Hidden",p.hasHiddenAbility());state.func_74778_a("Ability",p.getAbilityName());
         p.getPersistentData().func_218657_a(MARKER,state);ACTIVE.add(p);
         new EvolutionQuery(entity,form);
-        return "started";
+        return primalSpecies(p)?"primal_started":crownedSpecies(p)?"crowned_started":"started";
     }
     public static void restore(Pokemon p){
         if(!active(p))return;
@@ -101,14 +125,15 @@ public final class FieldMega {
             // A base hidden/second slot may not exist in the Mega form. Select its
             // actual ability; the base slot and hidden flag remain in our marker.
             for(var ability:p.getForm().getAbilities().getAbilities())if(ability!=null){p.setAbilitySlot(-1);p.setHA(false);p.setAbility(ability);break;}
+            if(primalSpecies(p))LegendAdvancements.fieldPrimal(p);
         }
         @SubscribeEvent public void tick(TickEvent.ServerTickEvent event){if(event.phase!=TickEvent.Phase.END)return;
             for(Pokemon p:new ArrayList<>(ACTIVE)){
                 PixelmonEntity e=p.getPixelmonEntity().orElse(null);ServerPlayerEntity owner=p.getOwnerPlayer();
                 if(!active(p)){ACTIVE.remove(p);continue;}
                 CompoundNBT state=p.getPersistentData().func_74775_l(MARKER);Stats base=p.getSpecies().getForm(state.func_74779_i("Form"));
-                boolean stone=p.getHeldItemAsItemHeld() instanceof MegaStoneItem && base!=null && base.getMegaForm(p.getHeldItem().func_77973_b()).map(f->f.getName().equals(state.func_74779_i("Target"))).orElse(false);
-                if(e==null || !e.func_70089_S() || owner==null || e.getOwner()!=owner || e.field_70170_p!=owner.field_70170_p || p.getHealth()<=0 || !stone || !StorageProxy.getParty(owner).getMegaItem().canMega() || (!p.getForm().getName().startsWith("mega") && !querying(p)))restore(p);
+                Stats compatible=target(p,base);boolean stone=compatible!=null && compatible.getName().equals(state.func_74779_i("Target"));
+                if(e==null || !e.func_70089_S() || owner==null || e.getOwner()!=owner || e.field_70170_p!=owner.field_70170_p || p.getHealth()<=0 || !stone || !specialSpecies(p) && !StorageProxy.getParty(owner).getMegaItem().canMega() || (!p.getForm().getName().equals(state.func_74779_i("Target")) && !querying(p)))restore(p);
             }
         }
         @SubscribeEvent public void logout(PlayerEvent.PlayerLoggedOutEvent event){if(event.getPlayer() instanceof ServerPlayerEntity)for(Pokemon p:StorageProxy.getParty((ServerPlayerEntity)event.getPlayer()).getAll())if(p!=null)restore(p);}

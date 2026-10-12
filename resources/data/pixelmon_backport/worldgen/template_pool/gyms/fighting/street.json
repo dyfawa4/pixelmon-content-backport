@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 6,
+      "weight": 2,
       "element": {
         "location": "pixelmon_backport:gyms/fighting/gym_fighting_road_c",
         "processors": "minecraft:empty",
@@ -30,7 +30,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 1,
       "element": {
         "location": "pixelmon_backport:gyms/fighting/gym_fighting_road_d",
         "processors": "minecraft:empty",

@@ -1,6 +1,18 @@
 """Offline validation of Chinese NPC resources and untouched gameplay fields."""
 import argparse,json,pathlib,re,zipfile
 from npc_zh_cn import leaves
+from extend_gym_cities import read_nbt
+
+def audit_embedded(data,path):
+ count=0
+ for row in data.get('entities',[]):
+  e=row.get('nbt',{})
+  if str(e.get('id',''))!='pixelmon:npc_chatting':continue
+  for key,value in e.items():
+   if key=='Name' or re.fullmatch(r'chat\d+',key):
+    assert not re.search('[A-Za-z]',str(value)),(path,'embedded English NPC text',key,str(value))
+  count+=1
+ return count
 
 def skeleton(v):
  if isinstance(v,str):return '<text>'
@@ -27,6 +39,11 @@ def main():
   pip=json.loads((root/'resources/data/pixelmon/npcs/villagers/littleboy_zh_cn.json').read_text(encoding='utf8'))
   assert '捕捉高手' in pip['chat'][2]['lines'][0]['text']
  assert overlay==162 and available==178,(overlay,available)
+ embedded=0
+ for ns in ['pixelmon','pixelmon_backport']:
+  for path in (root/f'resources/data/{ns}/structures/gyms').rglob('*.nbt'):embedded+=audit_embedded(read_nbt(path.read_bytes()),str(path))
+ assert embedded>=31,('Missing serialized NPC coverage',embedded)
  print(f'PASS Chinese NPC dialogue: {overlay} overlays / {lines} lines; all {available} stock NPC definitions have zh_cn; unchanged gameplay and chat indices; Pip regression')
+ print(f'PASS {embedded} serialized custom chatting NPCs: Chinese names and chat fields; includes template-only Barley/daycare text.')
 
 if __name__=='__main__':main()

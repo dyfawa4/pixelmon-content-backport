@@ -3,7 +3,7 @@
   "fallback": "pixelmon_backport:gyms/poison/filler",
   "elements": [
     {
-      "weight": 5,
+      "weight": 10,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_a",
         "processors": "minecraft:empty",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "weight": 5,
+      "weight": 10,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_b",
         "processors": "minecraft:empty",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 5,
+      "weight": 10,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_c",
         "processors": "minecraft:empty",
@@ -30,7 +30,7 @@
       }
     },
     {
-      "weight": 5,
+      "weight": 10,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_d",
         "processors": "minecraft:empty",
@@ -39,7 +39,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 6,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_e",
         "processors": "minecraft:empty",
@@ -48,7 +48,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 6,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_f",
         "processors": "minecraft:empty",
@@ -57,7 +57,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 6,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_g",
         "processors": "minecraft:empty",
@@ -66,7 +66,7 @@
       }
     },
     {
-      "weight": 3,
+      "weight": 6,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_h",
         "processors": "minecraft:empty",
@@ -75,7 +75,7 @@
       }
     },
     {
-      "weight": 7,
+      "weight": 14,
       "element": {
         "location": "pixelmon_backport:gyms/poison/gym_poison_house_i",
         "processors": "minecraft:empty",

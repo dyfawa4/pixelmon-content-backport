@@ -10,5 +10,5 @@ public abstract class FieldMegaPokemonMixin {
     @Inject(method="writeToNBT",at=@At("RETURN"))
     private void backport$saveField(CompoundNBT nbt,CallbackInfoReturnable<CompoundNBT> ci){FieldMega.saved((Pokemon)(Object)this,ci.getReturnValue());}
     @Inject(method="readFromNBT",at=@At("RETURN"))
-    private void backport$loadField(CompoundNBT nbt,CallbackInfo ci){FieldMega.restore((Pokemon)(Object)this);}
+    private void backport$loadField(CompoundNBT nbt,CallbackInfo ci){FieldMega.restore((Pokemon)(Object)this);local.pixelmon.backport.CapPikachu.sync((Pokemon)(Object)this);}
 }

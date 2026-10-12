@@ -39,7 +39,7 @@ $taskSources=@(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'src') -Filte
 & $taskJavac --release 11 -proc:none -encoding UTF-8 -cp $taskClasspath -d $taskClasses @taskSources
 if($LASTEXITCODE -ne 0){throw 'Java 11 compilation failed'}
 $taskDist=(New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot 'dist')).FullName
-$taskOutput=Join-Path $taskDist 'pixelmon-content-backport-1.16.5-1.2.0.jar'
+$taskOutput=Join-Path $taskDist 'pixelmon-content-backport-1.16.5-1.3.0.jar'
 & $taskJar cfm $taskOutput (Join-Path $PSScriptRoot 'resources/META-INF/MANIFEST.MF') -C $taskClasses . -C (Join-Path $PSScriptRoot 'resources') .
 if($LASTEXITCODE -ne 0){throw 'Packaging failed'}
 Set-Content -LiteralPath (Join-Path $taskCache 'last-build.json') -Encoding UTF8 -Value (@{classes=$taskClasses;classpath=$taskClasspath;java=$taskJava;jar=$taskOutput}|ConvertTo-Json)

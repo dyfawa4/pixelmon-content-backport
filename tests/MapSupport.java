@@ -26,7 +26,7 @@ public final class MapSupport {
                 gym.then(Commands.func_197057_a("gym").then(Commands.func_197057_a(action).executes(ctx->GymTestMaps.action(ctx.getSource().func_197035_h(),action))));
             e.getDispatcher().register(gym);
             LiteralArgumentBuilder<CommandSource> feature=Commands.func_197057_a("backportqa");
-            for(String action:new String[]{"riding","capture_next","fusion_next","zygarde","flute","menu","mega","eternamax","end"})
+            for(String action:new String[]{"riding","capture_next","fusion_next","zygarde","flute","menu","mega","eternamax","special_field","forms","urshifu","galar","end"})
                 feature.then(Commands.func_197057_a("feature").then(Commands.func_197057_a(action).executes(ctx->FeatureTestMaps.action(ctx.getSource().func_197035_h(),action))));
             e.getDispatcher().register(feature);
             e.getDispatcher().register(Commands.func_197057_a("backportqa").then(Commands.func_197057_a("feature").then(Commands.func_197057_a("spawn").then(Commands.func_197056_a("pokemon",StringArgumentType.greedyString()).executes(ctx->FeatureStations.spawn(ctx.getSource().func_197035_h(),StringArgumentType.getString(ctx,"pokemon")))))));

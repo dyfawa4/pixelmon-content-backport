@@ -41,7 +41,20 @@
     "FieldMegaEntityMixin",
     "FieldMegaBattleMixin",
     "DragonStoneStackMixin",
-    "NpcTacticalMixin"
+    "NpcTacticalMixin",
+    "NpcAdvancedMixin",
+    "DrownedCaptureMixin",
+    "DrownedDuskBonusMixin",
+    "PrimalAdvancementMixin",
+    "FormAdvancementMixin",
+    "EvolutionAdvancementMixin",
+    "RainbowWingAdvancementMixin",
+    "SpikyPichuAdvancementMixin",
+    "ZombieInteractionMixin",
+    "CheckSpawnsPermissionMixin",
+    "EndBattlePermissionMixin",
+    "SpecCriterionFactoryMixin",
+    "SpecCriterionSpeciesMixin"
   ],
   "client": [
     "AnimationMatrixMixin",
@@ -56,7 +69,9 @@
     "TeraRaidLobbyMixin",
     "ZygardeScreenSafetyMixin",
     "ChaliceRenderSafetyMixin",
-    "FieldSkillScreenMixin"
+    "FieldSkillScreenMixin",
+    "DefaultServerListMixin",
+    "PromotedServersMixin"
   ],
   "injectors": {
     "defaultRequire": 1

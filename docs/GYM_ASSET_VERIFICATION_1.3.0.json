@@ -1,0 +1,110 @@
+{
+  "cities": {
+    "poison": {
+      "source_connector_reference": "steel",
+      "pieces": 75,
+      "native_service_entities": 40,
+      "native_reward_blocks": 13,
+      "connected_entrances_and_spawns": 162,
+      "reachable_appliances": 272,
+      "checked_pane_and_bar_blocks": 0,
+      "unobstructed_functional_doors": 15,
+      "unsupported_components": 0,
+      "missing_pane_connections": 0,
+      "architecture_revision": 9
+    },
+    "dark": {
+      "source_connector_reference": "ghost",
+      "pieces": 51,
+      "native_service_entities": 29,
+      "native_reward_blocks": 11,
+      "connected_entrances_and_spawns": 129,
+      "reachable_appliances": 124,
+      "checked_pane_and_bar_blocks": 0,
+      "unobstructed_functional_doors": 11,
+      "unsupported_components": 0,
+      "missing_pane_connections": 0,
+      "architecture_revision": 9
+    },
+    "fighting": {
+      "source_connector_reference": "fire",
+      "pieces": 50,
+      "native_service_entities": 27,
+      "native_reward_blocks": 8,
+      "connected_entrances_and_spawns": 125,
+      "reachable_appliances": 101,
+      "checked_pane_and_bar_blocks": 0,
+      "unobstructed_functional_doors": 12,
+      "unsupported_components": 0,
+      "missing_pane_connections": 0,
+      "architecture_revision": 9
+    },
+    "flying": {
+      "source_connector_reference": "dragon",
+      "pieces": 52,
+      "native_service_entities": 30,
+      "native_reward_blocks": 8,
+      "connected_entrances_and_spawns": 142,
+      "reachable_appliances": 60,
+      "checked_pane_and_bar_blocks": 412,
+      "unobstructed_functional_doors": 14,
+      "unsupported_components": 0,
+      "missing_pane_connections": 0,
+      "architecture_revision": 9
+    },
+    "normal": {
+      "source_connector_reference": "grass",
+      "pieces": 51,
+      "native_service_entities": 27,
+      "native_reward_blocks": 7,
+      "connected_entrances_and_spawns": 147,
+      "reachable_appliances": 91,
+      "checked_pane_and_bar_blocks": 0,
+      "unobstructed_functional_doors": 12,
+      "unsupported_components": 0,
+      "missing_pane_connections": 0,
+      "architecture_revision": 9
+    },
+    "bug": {
+      "source_connector_reference": "fairy",
+      "pieces": 53,
+      "native_service_entities": 36,
+      "native_reward_blocks": 13,
+      "connected_entrances_and_spawns": 166,
+      "reachable_appliances": 55,
+      "checked_pane_and_bar_blocks": 0,
+      "unobstructed_functional_doors": 12,
+      "unsupported_components": 0,
+      "missing_pane_connections": 0,
+      "architecture_revision": 9
+    },
+    "psychic": {
+      "source_connector_reference": "electric",
+      "pieces": 51,
+      "native_service_entities": 27,
+      "native_reward_blocks": 8,
+      "connected_entrances_and_spawns": 148,
+      "reachable_appliances": 47,
+      "checked_pane_and_bar_blocks": 0,
+      "unobstructed_functional_doors": 12,
+      "unsupported_components": 0,
+      "missing_pane_connections": 0,
+      "architecture_revision": 9
+    },
+    "rock": {
+      "source_connector_reference": "ground",
+      "pieces": 49,
+      "native_service_entities": 27,
+      "native_reward_blocks": 8,
+      "connected_entrances_and_spawns": 131,
+      "reachable_appliances": 114,
+      "checked_pane_and_bar_blocks": 0,
+      "unobstructed_functional_doors": 12,
+      "unsupported_components": 0,
+      "missing_pane_connections": 0,
+      "architecture_revision": 9
+    }
+  },
+  "distinct_original_main_gyms": 8,
+  "total_pieces": 432
+}

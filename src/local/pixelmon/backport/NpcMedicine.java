@@ -28,9 +28,11 @@ public final class NpcMedicine {
         if(NpcTactics.finishFirst(p,choice,threats))return false;
         double incoming=NpcTactics.incoming(p,threats);
         PixelmonWrapper target=null;ItemStack medicine=null;
-        if(bag.heals>0 && p.getHealthPercent()<=30 && p.getHealthDeficit()>=50
-            && !(choice!=null && NpcMoves.recovery(choice.attack)) && Math.min(p.getMaxHealth(),p.getHealth()+120)>incoming){
-            target=p;medicine=new ItemStack(PixelmonItems.hyper_potion);
+        boolean status=p.getStatuses().stream().anyMatch(s->Arrays.asList("Sleep","Freeze","Paralysis","Burn","Poison","PoisonBad").contains(s.type.toString()));
+        boolean canActFirst=choice!=null && !MoveChoice.canOutspeed(threats,p,choice.createList());
+        if(bag.heals>0 && (p.getHealthPercent()<=35 && p.getHealthDeficit()>=50 || status && p.getHealthPercent()<=80)
+            && !(choice!=null && NpcMoves.recovery(choice.attack)) && NpcSwitchPolicy.healingBuysAction(p.getMaxHealth(),incoming,canActFirst)){
+            target=p;medicine=new ItemStack(PixelmonItems.full_restore);
         }else if(bag.revives>0 && p.getHealthPercent()>55 && incoming<p.getHealth()*.65){
             double best=-1;
             for(PixelmonWrapper member:p.getParticipant().allPokemon)if(!member.isAlive() && !member.onBattlefield){

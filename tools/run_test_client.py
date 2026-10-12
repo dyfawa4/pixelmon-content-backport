@@ -7,11 +7,16 @@ p=argparse.ArgumentParser();p.add_argument('--version-json',type=pathlib.Path,re
 p.add_argument('--minecraft-root',type=pathlib.Path,required=True)
 p.add_argument('--pixelmon',type=pathlib.Path,required=True)
 p.add_argument('--instance-name',help='Separate private instance folder name; letters, digits and hyphens only')
+p.add_argument('--manual',action='store_true',help='Launch a separate normal menu for manual acceptance, with current helper and initial maps; no automatic QA')
+p.add_argument('--map-helper',type=pathlib.Path,help='Current compiled manual map helper JAR')
+p.add_argument('--memory-gb',type=int,choices=range(2,17),default=5,help='Maximum Java heap in GiB')
 p.add_argument('--field-wheel-preview',action='store_true',help='Private field wheel UI fixture; requires a separate instance name')
 p.add_argument('--full-pack',action='store_true',help='Copy enabled pack mods/configuration into a separate QA instance')
 p.add_argument('--ui-preview',action='store_true',help='Run private Tera settings input and screenshot checks at the menu')
 p.add_argument('--gym-map',choices=['normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'],help='Open one isolated gym inspection world with the feedback client test')
 a=p.parse_args()
+if a.manual and (not a.instance_name or not a.map_helper or a.ui_preview or a.field_wheel_preview or a.gym_map):
+    p.error('--manual requires --instance-name and --map-helper, and cannot use automatic preview modes')
 a.version_json=a.version_json.resolve();a.minecraft_root=a.minecraft_root.resolve()
 build=json.loads((root/'.cache/last-build.json').read_text(encoding='utf-8-sig'))
 version=json.loads(a.version_json.read_text(encoding='utf-8-sig'));gamedir=root/('.cache/test-client-full' if a.full_pack else '.cache/test-client')
@@ -19,16 +24,23 @@ if a.instance_name:
     if not __import__('re').fullmatch(r'[a-z0-9-]+',a.instance_name):raise ValueError('Invalid isolated instance name')
     gamedir=root/'.cache'/a.instance_name
 gamedir.mkdir(exist_ok=True);(gamedir/'mods').mkdir(exist_ok=True)
+(gamedir/'local').mkdir(exist_ok=True)
 old=str(a.pixelmon.resolve())
 if a.full_pack:
     # Original saves, accounts, options and logs are never copied or modified.
     for source in (a.version_json.parent/'mods').glob('*.jar'):
-        if source.resolve()==pathlib.Path(old).resolve() or source.name.startswith('pixelmon-content-backport-'):continue
+        if source.resolve()==pathlib.Path(old).resolve() or source.name.startswith(('pixelmon-content-backport-','backport-test-maps-','backport-client-test','backport-feedback-','backport-field-')):continue
         shutil.copy2(source,gamedir/'mods'/source.name)
-    for name in ['config','defaultconfigs','kubejs','scripts']:
+    for name in ['config','defaultconfigs','kubejs','scripts','shaderpacks']:
         source=a.version_json.parent/name
         if source.is_dir():shutil.copytree(source,gamedir/name,dirs_exist_ok=True)
-    shutil.copy2(root/'.cache/test-client/mods/backport-client-test.jar',gamedir/'mods/backport-client-test.jar')
+    if not a.manual:shutil.copy2(root/'.cache/test-client/mods/backport-client-test.jar',gamedir/'mods/backport-client-test.jar')
+if a.manual:
+    shutil.copy2(a.map_helper,gamedir/'mods'/a.map_helper.name)
+    for folder in ['saves','gym-saves-v9']:
+        for source in (root/'test-maps'/folder).iterdir():
+            destination=gamedir/'saves'/source.name
+            if source.is_dir() and not destination.exists():shutil.copytree(source,destination)
 for src,name in [(old,'Pixelmon-legacy.jar'),(build['jar'],'backport-dev.jar')]:
     target=gamedir/'mods'/name
     if not target.exists() or pathlib.Path(src).stat().st_mtime>target.stat().st_mtime:shutil.copy2(src,target)
@@ -86,15 +98,14 @@ if a.full_pack:
 if not (gamedir/'options.txt').exists():
     (gamedir/'options.txt').write_text(f'guiScale:{gui_scale}\nlang:zh_cn\nrenderDistance:{10 if a.gym_map else 3}\nmaxFps:60\nsoundCategory_master:0.0\n',encoding='utf-8')
 if a.gym_map:
-    source=root/f'test-maps/gym-saves/backport-gym-v5-{a.gym_map}'
-    if not source.exists():source=root/f'test-maps/gym-saves/backport-gym-{a.gym_map}'
-    destination=gamedir/f'saves/backport-gym-{a.gym_map}'
+    source=root/f'test-maps/gym-saves-v9/backport-gym-v9-{a.gym_map}'
+    destination=gamedir/f'saves/backport-gym-v9-{a.gym_map}'
     if not destination.exists():shutil.copytree(source,destination)
 world=root/'.cache/test-server/backport-test';destination=gamedir/'saves/backport-test'
-if not destination.exists():shutil.copytree(world,destination)
-args=[build['java'],'-Xms1G','-Xmx5G',f'-Djava.library.path={natives}',
-      '-Dminecraft.launcher.brand=Backport-QA','-Dminecraft.launcher.version=1','-Dmixin.debug.export=true','-Dbackport.network.test=true',
-      '-Dbackport.gallery.enabled='+str(not a.full_pack).lower(),
+if not a.manual and not destination.exists():shutil.copytree(world,destination)
+args=[build['java'],'-Xms1G',f'-Xmx{a.memory_gb}G',f'-Djava.library.path={natives}',
+      '-Dminecraft.launcher.brand=Backport-Manual' if a.manual else '-Dminecraft.launcher.brand=Backport-QA','-Dminecraft.launcher.version=1','-Dmixin.debug.export=true','-Dbackport.network.test='+str(not a.manual).lower(),
+      '-Dbackport.gallery.enabled='+str(not a.manual and not a.full_pack).lower(),
       '-Dbackport.ui.preview='+str(a.ui_preview).lower(),
       '-Dbackport.gym.preview='+(a.gym_map or ''),
       '--add-exports=java.base/sun.security.util=ALL-UNNAMED','--add-opens=java.base/java.util.jar=ALL-UNNAMED',
@@ -104,8 +115,8 @@ args=[build['java'],'-Xms1G','-Xmx5G',f'-Djava.library.path={natives}',
       '--accessToken','0','--userType','legacy','--versionType','release','--width','1280','--height','800',
       '--launchTarget','fmlclient','--fml.forgeVersion','36.2.42','--fml.mcVersion','1.16.5',
       '--fml.forgeGroup','net.minecraftforge','--fml.mcpVersion','20210115.111550']
-log=root/('.cache/client-full-launch.log' if a.full_pack else '.cache/client-launch.log')
+log=gamedir/'manual-launch.log' if a.manual else root/('.cache/client-full-launch.log' if a.full_pack else '.cache/client-launch.log')
 with log.open('w',encoding='utf-8') as out:
     process=subprocess.Popen(args,cwd=gamedir,stdout=out,stderr=subprocess.STDOUT,creationflags=subprocess.CREATE_NO_WINDOW)
-(root/'.cache/client-process.json').write_text(json.dumps({'pid':process.pid,'gameDir':str(gamedir)}),encoding='utf-8')
+(gamedir/'manual-process.json' if a.manual else root/'.cache/client-process.json').write_text(json.dumps({'pid':process.pid,'gameDir':str(gamedir)}),encoding='utf-8')
 print(f'Isolated Java 11 client started: PID {process.pid}')
