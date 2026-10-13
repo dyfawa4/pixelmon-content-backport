@@ -68,6 +68,8 @@ public final class Backport {
         ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         GymLocator.ALIASES.register(FMLJavaModLoadingContext.get().getModEventBus());
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new GymLocator());
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new BattleMotion());
+        AcquisitionQueue acquisitions=new AcquisitionQueue();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(acquisitions);Pixelmon.EVENT_BUS.register(acquisitions);
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.event.entity.EntityAttributeCreationEvent event)->event.put(TERA_DEN.get(),net.minecraft.entity.LivingEntity.func_233639_cI_().func_233813_a_()));
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new TeraRaids.Events());
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new GymCities.Events());
@@ -76,6 +78,9 @@ public final class Backport {
         TeraNetwork.register();
         FieldMega.register();
         Pixelmon.EVENT_BUS.register(new CapPikachu());
+        Pixelmon.EVENT_BUS.register(new CapSpawns());
+        Pixelmon.EVENT_BUS.register(new BurstRaidCapture());
+        Pixelmon.EVENT_BUS.register(new BurstCapture());
         Pixelmon.EVENT_BUS.register(new GymChallenge());
         Pixelmon.EVENT_BUS.register(new AppearanceAdvancements());
         Pixelmon.EVENT_BUS.register(new TeraItems.Charging());

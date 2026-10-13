@@ -24,6 +24,7 @@ public final class Content {
     }
     public static void apply(String context, String type, Map<ResourceLocation, JsonElement> data) {
         if (!"pixelmon".equals(context)) return;
+        if("npcs".equals(type))NpcLocalization.merge(data);
         if(DATA.has("referenceExtras"))for(Map.Entry<ResourceLocation,JsonElement> entry:data.entrySet()){
             String key=type+"/"+entry.getKey().func_110623_a();JsonObject extras=DATA.getAsJsonObject("referenceExtras");
             if(!extras.has(key))continue;
@@ -74,6 +75,8 @@ public final class Content {
             }
             PermanentAsh.addForm(data);
             CapPikachu.addForm(data);
+            CapSpecies.add(data);
+            for(JsonElement value:data.values())LegendaryEvolutionData.normalize(value.getAsJsonObject());
             for(JsonElement value:data.values()){
                 JsonObject species=value.getAsJsonObject();String dex=species.get("dex").getAsString();
                 if("149".equals(dex))for(String alias:new String[]{"dragoninite","dragonitite"})if(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation("pixelmon:"+alias)) instanceof com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem){
@@ -114,13 +117,22 @@ public final class Content {
         } else if ("moves".equals(type)) {
             Set<String> names = new HashSet<>();
             for (JsonElement value : data.values()) names.add(value.getAsJsonObject().get("attackName").getAsString());
-            for (JsonElement move : DATA.getAsJsonArray("moves")) {
+            List<JsonElement> additions=new ArrayList<>();for(JsonElement move:DATA.getAsJsonArray("moves"))additions.add(move);
+            for(JsonElement move:CapSpecies.DATA.getAsJsonArray("moves"))additions.add(move);
+            for (JsonElement move : additions) {
                 String name = move.getAsJsonObject().get("attackName").getAsString();
                 if (!names.contains(name)) data.put(new ResourceLocation("pixelmon", "backport_" + name.toLowerCase(Locale.ROOT).replace(' ', '_')), copy(move));
             }
             for(JsonElement value:data.values()){
                 JsonObject move=value.getAsJsonObject();
                 String moveName=move.get("attackName").getAsString();
+                // The native Thunderbolt crystal row previously admitted every Pikachu.
+                // Only the independent signature may respond to Pikashunium Z now.
+                if(!"Ten Million Volts".equals(moveName) && move.has("z")){
+                    JsonArray allowed=new JsonArray();for(JsonElement row:move.getAsJsonArray("z"))
+                        if(!"pikashunium_z".equals(row.getAsJsonObject().get("crystal").getAsString()))allowed.add(row);
+                    move.add("z",allowed);
+                }
                 // These damaging signatures gained entry hazards in Gen 9.
                 // Ancient aliases retain the Legends splinter mechanics.
                 if(MODERN_MOVES.has(moveName) && move.getAsJsonArray("effects").toString().contains("Splinters"))

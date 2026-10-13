@@ -61,6 +61,7 @@ def mark_npcs(data, theme, fresh=False, role=''):
         persistent['BackportGymType'] = nbtlib.String(theme)
         persistent['BackportGymRole'] = nbtlib.String(role)
         entity['GymLeader']=nbtlib.Byte(role=='leader')
+        if role=='leader':entity['WinMoney']=nbtlib.Int(200000)
         if role!='leader':
             winnings=entity.get('WinningsTag',{})
             for key in list(winnings):

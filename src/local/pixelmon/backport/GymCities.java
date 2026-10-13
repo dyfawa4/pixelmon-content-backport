@@ -63,6 +63,7 @@ public final class GymCities {
     public static void initialize(NPCTrainer npc){
         CompoundNBT data=npc.getPersistentData();
         Element theme=theme(npc);
+        if(isLeader(npc))npc.winMoney=GymRewardPolicy.LEADER_PRIZE;
         if(theme!=null && !isLeader(npc)){
             net.minecraft.item.ItemStack[] rewards=Arrays.stream(npc.getWinnings()).filter(s->s==null || !(s.func_77973_b() instanceof com.pixelmonmod.pixelmon.items.BadgeItem)).toArray(net.minecraft.item.ItemStack[]::new);
             if(rewards.length!=npc.getWinnings().length)npc.updateDrops(rewards);

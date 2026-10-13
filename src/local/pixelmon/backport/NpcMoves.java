@@ -59,6 +59,7 @@ public final class NpcMoves {
                 offensive++;stab|=pokemon.getForm().getTypes().contains(attack.getType());
             }
         }
+        if(pokemon.getSpecies().getDex()==892)legal &= names.contains(pokemon.getForm().isForm("rapidstrike")?"Surging Strikes":"Wicked Blow");
         long utility=pokemon.getMoveset().stream().filter(a->a.getAttackCategory()==AttackCategory.STATUS).count();
         boolean sustain=pokemon.getMoveset().stream().anyMatch(a->recovery(a) || a.getMove().getAttackName().equals("Rest"));
         boolean support=utility>=2 && sustain && pokemon.getForm().getBattleStats().getStat(BattleStatsType.HP)+pokemon.getForm().getBattleStats().getStat(BattleStatsType.DEFENSE)+pokemon.getForm().getBattleStats().getStat(BattleStatsType.SPECIAL_DEFENSE)>=270;
@@ -73,6 +74,11 @@ public final class NpcMoves {
         Random random=new Random(trainer.getLeastSignificantBits() ^ p.getUUID().getMostSignificantBits());
         if(p.getSpecies().getDex()==890){
             for(String name:new String[]{"Dynamax Cannon","Sludge Bomb","Flamethrower","Recover"})
+                pool.stream().filter(a->a.getAttackName().equals(name)).findFirst().ifPresent(chosen::add);
+        }
+        if(p.getSpecies().getDex()==892){
+            boolean rapid=p.getForm().isForm("rapidstrike");
+            for(String name:new String[]{rapid?"Surging Strikes":"Wicked Blow","Close Combat","U-turn",rapid?"Aqua Jet":"Sucker Punch"})
                 pool.stream().filter(a->a.getAttackName().equals(name)).findFirst().ifPresent(chosen::add);
         }
         boolean physical=p.getForm().getBattleStats().getStat(BattleStatsType.ATTACK)>=p.getForm().getBattleStats().getStat(BattleStatsType.SPECIAL_ATTACK);

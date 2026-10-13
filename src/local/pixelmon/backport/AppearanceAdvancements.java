@@ -30,9 +30,5 @@ public final class AppearanceAdvancements {
         if(spiky(pokemon) && pokemon.getPersistentData().func_74767_n("Pichu_friend") && stored(player,pokemon))
             PixelmonAdvancements.SPEC_TRIGGER.trigger(player,pokemon);
     }
-    private static void captured(ServerPlayerEntity player,Pokemon pokemon){
-        if(server(player) && (rainbow(pokemon) || zombie(pokemon) || spiky(pokemon)))PixelmonAdvancements.SPEC_TRIGGER.trigger(player,pokemon);
-    }
-    @SubscribeEvent public void capture(CaptureEvent.SuccessfulCapture event){captured(event.getPlayer(),event.getPokemon().getPokemon());}
-    @SubscribeEvent public void raid(CaptureEvent.SuccessfulRaidCapture event){captured(event.getPlayer(),event.getRaidPokemon());}
+    @SubscribeEvent public void capture(CaptureEvent.SuccessfulCapture event){AcquisitionQueue.stored(event.getPokemon().getPokemon());}
 }

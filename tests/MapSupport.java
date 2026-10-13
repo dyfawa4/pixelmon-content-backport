@@ -25,6 +25,10 @@ public final class MapSupport {
             for(String action:new String[]{"overview","leader","city","center","shop","hub","team","end"})
                 gym.then(Commands.func_197057_a("gym").then(Commands.func_197057_a(action).executes(ctx->GymTestMaps.action(ctx.getSource().func_197035_h(),action))));
             e.getDispatcher().register(gym);
+            LiteralArgumentBuilder<CommandSource> cap=Commands.func_197057_a("backportqa");
+            for(String action:new String[]{"team","end","cap","double","persist","skills","tera","motion","normal","fire","water","electric","grass","ice","fighting","poison","ground","flying","psychic","bug","rock","ghost","dragon","dark","steel","fairy"})
+                cap.then(Commands.func_197057_a("cap").then(Commands.func_197057_a(action).executes(ctx->CapTestMaps.action(ctx.getSource().func_197035_h(),action))));
+            e.getDispatcher().register(cap);
             LiteralArgumentBuilder<CommandSource> feature=Commands.func_197057_a("backportqa");
             for(String action:new String[]{"riding","capture_next","fusion_next","zygarde","flute","menu","mega","eternamax","special_field","forms","urshifu","galar","end"})
                 feature.then(Commands.func_197057_a("feature").then(Commands.func_197057_a(action).executes(ctx->FeatureTestMaps.action(ctx.getSource().func_197035_h(),action))));
@@ -34,7 +38,7 @@ public final class MapSupport {
         @SubscribeEvent public static void tick(TickEvent.ServerTickEvent e){
             if(e.phase!=TickEvent.Phase.END || ServerLifecycleHooks.getCurrentServer()==null)return;
             for(ServerPlayerEntity p:ServerLifecycleHooks.getCurrentServer().func_184103_al().func_181057_v())
-                if(FeatureTestMaps.isMap(p)){FeatureTestMaps.tick(p);break;}else if(GymTestMaps.isMap(p)){GymTestMaps.tick(p);break;}else if(TestMaps.isMap(p)){TestMaps.tick(p);break;}
+                if(CapTestMaps.isMap(p)){CapTestMaps.tick(p);break;}else if(FeatureTestMaps.isMap(p)){FeatureTestMaps.tick(p);break;}else if(GymTestMaps.isMap(p)){GymTestMaps.tick(p);break;}else if(TestMaps.isMap(p)){TestMaps.tick(p);break;}
         }
     }
 }

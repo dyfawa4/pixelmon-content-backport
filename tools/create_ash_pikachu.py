@@ -111,7 +111,9 @@ def build(jar):
         assert check.bones==native.bones and len(check.faces)>len(native.faces)
         (output/(palette+'.bmd')).write_bytes(data)
         (output/(palette+'.pqc')).write_text('$body pixelmon_backport:textures/pokemon/025_ash_cap/'+palette+'.bmd\n$anim idle pixelmon_backport:textures/pokemon/025_ash_cap/idle.bmd\n$anim walk pixelmon_backport:textures/pokemon/025_ash_cap/walk.bmd\n$scale 0.4\n',encoding='utf-8')
-        render_sprite(check,atlas,output/(palette+'_sprite.png'))
+    # Party/minimap icons use the native logical 32px size, not a 128px mesh render.
+    from create_cap_sprites import build as build_sprites
+    build_sprites(jar)
     species=json.loads(z.read('data/pixelmon/species/025_pikachu.json'))
     form=copy.deepcopy(species['forms'][0]);form['name']='ash_cap';form['defaultBaseForm']=''
     for gender in form['genderProperties']:

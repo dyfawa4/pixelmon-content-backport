@@ -16,6 +16,11 @@ public abstract class TeraScreenMixin extends Screen {
     @Unique private TeraButton backport$button;
     @Unique private long backport$nextQuery;
     protected TeraScreenMixin(){super(new StringTextComponent(""));}
+    @Redirect(method="func_230430_a_",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/status/StatusType;getLocalizedName()Ljava/lang/String;",ordinal=1))
+    private String backport$terrainName(com.pixelmonmod.pixelmon.battles.status.StatusType terrain){
+        return BurstClient.terrain(bm.battleControllerIndex,bm.battleEnded,terrain)
+            ?net.minecraft.client.resources.I18n.func_135052_a("pixelmon.backport.burst.name"):terrain.getLocalizedName();
+    }
     @Inject(method="func_231160_c_",at=@At("RETURN"))
     private void backport$init(CallbackInfo ci){backport$button=func_230480_a_(new TeraButton(4,4,new TranslationTextComponent("pixelmon.backport.tera.button"),b->{PixelmonClientData p=bm.getCurrentPokemon();if(p!=null){bm.megaEvolving=false;bm.dynamaxing=false;bm.showZMoves=false;TeraNetwork.CHANNEL.sendToServer(new TeraNetwork.Request(bm.battleControllerIndex,p.pokemonUUID,1,-1));}}));backport$button.field_230694_p_=false;}
     @Inject(method="func_230430_a_",at=@At("HEAD"))

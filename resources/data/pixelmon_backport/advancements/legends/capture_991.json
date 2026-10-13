@@ -8,7 +8,7 @@
       "text": "铜墙铁壁"
     },
     "description": {
-      "text": "成功捕捉铁包袱。"
+      "text": "成功获得铁包袱。"
     },
     "frame": "task",
     "show_toast": true,

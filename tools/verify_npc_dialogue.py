@@ -30,7 +30,10 @@ def main():
    if target.is_file():
     en=json.loads(native.read(path));zh=json.loads(target.read_text(encoding='utf8'))
     assert skeleton(en['chat'])==skeleton(zh['chat']),(name,'changed chat indices')
-    assert {k:v for k,v in en.items() if k!='chat'}=={k:v for k,v in zh.items() if k!='chat'},(name,'gameplay/name/skin data changed')
+    assert {k:v for k,v in en.items() if k not in ('chat','names')}=={k:v for k,v in zh.items() if k not in ('chat','names')},(name,'gameplay/skin data changed')
+    assert len(en.get('names',[]))==len(zh.get('names',[])),(name,'name indices changed')
+    for x,y in zip(en.get('names',[]),zh.get('names',[])):
+     assert {k:v for k,v in x.items() if k!='name'}=={k:v for k,v in y.items() if k!='name'},(name,'name gameplay changed')
     for text in leaves(zh['chat']):
      assert re.search('[\u4e00-\u9fff]',text) or not re.search('[A-Za-z]',text),(name,'English fallback',text)
     overlay+=1;lines+=len(list(leaves(zh['chat'])))
@@ -38,7 +41,7 @@ def main():
    available+=1
   pip=json.loads((root/'resources/data/pixelmon/npcs/villagers/littleboy_zh_cn.json').read_text(encoding='utf8'))
   assert '捕捉高手' in pip['chat'][2]['lines'][0]['text']
- assert overlay==162 and available==178,(overlay,available)
+ assert overlay==178 and available==178,(overlay,available)
  embedded=0
  for ns in ['pixelmon','pixelmon_backport']:
   for path in (root/f'resources/data/{ns}/structures/gyms').rglob('*.nbt'):embedded+=audit_embedded(read_nbt(path.read_bytes()),str(path))

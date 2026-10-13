@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 
-/** Cosmetic cap, tied to the real native held crystal, with unchanged base stats. */
+/** Read compatibility for the retired held-crystal costume. New caps are a species. */
 public final class CapPikachu {
     public static final String FORM="ash_cap";
     public static void addForm(Map<ResourceLocation,JsonElement> data){
@@ -30,11 +30,7 @@ public final class CapPikachu {
         if(pokemon.getSpecies().getDex()!=25 || pokemon.isEgg())return;
         String form=pokemon.getForm().getName();
         if(!form.isEmpty() && !"base".equals(form) && !FORM.equals(form))return;
-        boolean wear=held.func_77973_b()==PixelmonItems.pikashunium_z;
-        String palette=pokemon.getPalette().getName();
-        if(wear && !palette.equals("none") && !palette.equals("shiny"))return;
-        if(wear && !FORM.equals(form))pokemon.setForm(FORM);
-        else if(!wear && FORM.equals(form))pokemon.setForm("");
+        if(FORM.equals(form))pokemon.setForm("");
     }
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public void held(HeldItemChangedEvent event){if(!event.isCanceled())sync(event.pokemon,event.newHeldItem);}

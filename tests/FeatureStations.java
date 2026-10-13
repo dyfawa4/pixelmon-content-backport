@@ -114,7 +114,7 @@ public final class FeatureStations {
     static void specialField(ServerPlayerEntity p){
         int[] dex={382,383,888,889};String[] items={"blue_orb","red_orb","rusted_sword","rusted_shield"};
         for(int i=0;i<dex.length;i++){Pokemon mon=FeatureTestMaps.mon(dex[i]);mon.setHeldItem(DedicatedTestMaps.stack("pixelmon:"+items[i],1));replace(p,i,mon);}
-        FeatureTestMaps.tell(p,"前四格替换为盖欧卡、固拉多、苍响、藏玛然特，携带对应宝珠/剑/盾。请手动放出，按J完成变化后查看成就；检查换掉道具、收回、进入对战和读档时还原。生成不会授予成就。");
+        FeatureTestMaps.tell(p,"前四格替换为盖欧卡、固拉多、苍响、藏玛然特，携带对应宝珠/剑/盾。请手动放出，按J完成变化后查看成就；检查换掉道具、收回、进入对战和读档时还原。真实入队计入物种获得成就；变化成就仍需完成对应操作。");
     }
     static void forms(ServerPlayerEntity p){
         int[] dex={492,483,484,487,641,642,645,905,720};
@@ -123,14 +123,14 @@ public final class FeatureStations {
         replace(p,0,FeatureTestMaps.mon(dex[index]));p.func_184611_a(Hand.MAIN_HAND,DedicatedTestMaps.stack("pixelmon:"+items[index],1));
         p.getPersistentData().func_74768_a("BackportFormFixtureIndex",index+1);
         if(dex[index]==492)TestMaps.cmd(p,"time set day");
-        FeatureTestMaps.tell(p,"第一格已替换为 "+chinese(dex[index])+"，主手为对应原生转换道具。请放出后实际使用道具、等待动画，再检查成就及还原后保留。再次右键轮换；生成本身不授予成就。");
+        FeatureTestMaps.tell(p,"第一格已替换为 "+chinese(dex[index])+"，主手为对应原生转换道具。请放出后实际使用道具、等待动画，再检查成就及还原后保留。再次右键轮换；真实入队计入物种获得成就；目标形态成就仍需完成对应操作。");
     }
     static void urshifu(ServerPlayerEntity p){
         replace(p,0,FeatureTestMaps.mon(891));replace(p,1,FeatureTestMaps.mon(891));
         List<ItemStack> scrolls=new ArrayList<>();
         for(var type:ScrollBlock.Type.values())scrolls.add(ScrollItem.makeScroll(type,false,type.getDefaultResource()));
         TestMaps.supply(p.func_71121_q(),-20,20,"熊徒弟进化：水之卷轴 / 恶之卷轴",scrolls);
-        FeatureTestMaps.tell(p,"前两格已替换为熊徒弟，西侧木桶有两种原生卷轴。请分别摆放并通过原生交互进化，不要同时在8格内摆两种卷轴。检查一击流“招招致命”和连击流“流水连击”，生成不授予成就。");
+        FeatureTestMaps.tell(p,"前两格已替换为熊徒弟，西侧木桶有两种原生卷轴。请分别摆放并通过原生交互进化，不要同时在8格内摆两种卷轴。检查一击流“招招致命”和连击流“流水连击”，熊徒弟真实入队计入物种获得；武道熊师形态成就需完成进化。");
     }
     static void galar(ServerPlayerEntity p){
         int index=Math.floorMod(p.getPersistentData().func_74762_e("BackportGalarFixtureIndex"),3);
@@ -151,7 +151,7 @@ public final class FeatureStations {
         var party=StorageProxy.getParty(p);Pokemon pokemon=FeatureTestMaps.mon(718);pokemon.setAbility(new PowerConstruct());party.set(0,pokemon);
         ItemStack cube=new ItemStack(PixelmonItems.zygarde_cube);for(var core:ZygardeCubeItem.CoreType.values())if(core!=ZygardeCubeItem.CoreType.RANDOM)ZygardeCubeItem.addCore(cube,core);
         p.func_184611_a(Hand.MAIN_HAND,cube);PixelmonEntity entity=pokemon.getOrSpawnPixelmon(p);entity.func_70012_b(18.5,65,2.5,0,0);
-        FeatureTestMaps.tell(p,"已放出属于你的基格尔德，并手持完整多面体；直接右键基格尔德，检查形态和学习招式。生成不授予捕捉成就。");
+        FeatureTestMaps.tell(p,"已放出属于你的基格尔德，并手持完整多面体；直接右键基格尔德，检查形态和学习招式。真实入队计入物种获得；请实际交互检查形态流程。");
     }
     static void flute(ServerPlayerEntity p){
         var w=p.func_71121_q();TestMaps.block(w,16,65,12,"minecraft:air");TestMaps.block(w,16,65,12,"pixelmon:arc_chalice");

@@ -964,5 +964,7 @@
   "dimension.pixelmon.drowned_world": "Drowned World",
   "advancements.rainbow.description": "Catch a rainbow Pokemon, or successfully use a Rainbow Wing to give your own Pokemon the rainbow palette.",
   "advancements.spiky_pichu.description": "Catch a Spiky-eared Pichu, or obtain one by using Forage at an Ilex Shrine with a Pichu at 255 friendship.",
-  "advancements.zombie.description": "Catch a zombie-palette Pokemon, or successfully transform your own Pokemon with a Jack o Lantern on a full-moon night, outdoors at light level 12 or higher."
+  "advancements.zombie.description": "Catch a zombie-palette Pokemon, or successfully transform your own Pokemon with a Jack o Lantern on a full-moon night, outdoors at light level 12 or higher.",
+  "advancements.feebas_karp.description": "Catch a disguised Pokémon that reveals itself as Ditto.",
+  "advancements.feebas_karp.title": "Disguise Uncovered"
 }

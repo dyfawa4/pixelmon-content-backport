@@ -29,7 +29,7 @@ public final class FeatureTestMaps {
                 TestMaps.label(w,0,68,-7,"新宝可梦骑乘：放出队伍，空手右键；Shift 下马");
                 TestMaps.label(w,0,67,-7,"地面道路 / 跳跃障碍 / 水域；/backportqa feature riding 切换测试队伍");action(p,"riding");
             }else{
-                TestMaps.label(w,0,68,-7,"捕捉成就必须实际捕捉；生成、赠送、合体均不替代捕捉");
+                TestMaps.label(w,0,68,-7,"物种成就计入真实获得；野生生成本身不计，伪装捕捉任务仍须实际捕捉");
                 TestMaps.label(w,0,67,-7,"/backportqa feature capture_next 或 fusion_next 切换场景");
                 TestMaps.supply(w,-4,0,"捕捉测试用品",Arrays.asList(DedicatedTestMaps.stack("pixelmon:master_ball",64),DedicatedTestMaps.stack("pixelmon:ultra_ball",64)));
                 TestMaps.supply(w,-4,4,"基格尔德与天界之笛复测",Arrays.asList(DedicatedTestMaps.stack("pixelmon:zygarde_cube",1),DedicatedTestMaps.stack("pixelmon:arc_chalice",1)));

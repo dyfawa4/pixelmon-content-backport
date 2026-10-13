@@ -40,7 +40,11 @@ public final class FieldMega {
         return p==null?null:target(p,p.getForm());
     }
     public static boolean primalSpecies(Pokemon p){return p!=null && (p.getSpecies().getDex()==382 || p.getSpecies().getDex()==383);}
+    public static boolean rayquazaSpecies(Pokemon p){return p!=null && p.getSpecies().getDex()==384;}
     public static boolean crownedSpecies(Pokemon p){return p!=null && (p.getSpecies().getDex()==888 || p.getSpecies().getDex()==889);}
+    public static boolean constructSpecies(Pokemon p){return p!=null && p.getSpecies().getDex()==718 && (p.getAbility() instanceof com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.PowerConstruct || active(p) && p.getPersistentData().func_74775_l(MARKER).func_74779_i("Ability").equals("PowerConstruct"));}
+    public static boolean completeStep(Pokemon p){return p!=null && FieldSequencePolicy.completeStep(p.getSpecies().getDex(),constructSpecies(p),p.getForm().getName());}
+    public static boolean chainedStone(Pokemon p){return constructSpecies(p) && p.getForm().isForm("complete") && p.getHeldItemAsItemHeld() instanceof MegaStoneItem;}
     private static boolean specialSpecies(Pokemon p){return primalSpecies(p)||crownedSpecies(p);}
     public static boolean transformed(Pokemon p){return p!=null && (p.getForm().getName().startsWith("mega") || primalSpecies(p) && p.getForm().isForm("primal") || crownedSpecies(p) && p.getForm().isForm("crowned"));}
     private static Stats target(Pokemon p,Stats base){
@@ -53,11 +57,17 @@ public final class FieldMega {
             if(base.isForm("crowned"))return null;
             return p.getHeldItem().func_77973_b()==(p.getSpecies().getDex()==888?PixelmonItems.rusted_sword:PixelmonItems.rusted_shield)?p.getSpecies().getForm("crowned"):null;
         }
-        if(base.getName().startsWith("mega") || !(p.getHeldItemAsItemHeld() instanceof MegaStoneItem))return null;
+        if(constructSpecies(p) && !base.isForm("complete") && !base.getName().startsWith("mega"))return p.getSpecies().getForm("complete");
+        if(base.getName().startsWith("mega"))return null;
+        // Native Rayquaza canMegaEvolve uses its learned move, not a stone.
+        // The shared start/tick checks still require the owner's Mega bracelet.
+        if(rayquazaSpecies(p))return p.getMoveset().hasAttack(com.pixelmonmod.pixelmon.api.battles.attack.AttackRegistry.DRAGON_ASCENT)
+            ?p.getSpecies().getForm("mega"):null;
+        if(!(p.getHeldItemAsItemHeld() instanceof MegaStoneItem))return null;
         // A form name alone is insufficient: each base form declares its compatible stones.
         return base.getMegaForm(p.getHeldItem().func_77973_b()).filter(f->f!=null).orElse(null);
     }
-    public static boolean active(Pokemon p){return p.getPersistentData().func_74764_b(MARKER);}
+    public static boolean active(Pokemon p){return p!=null && p.getPersistentData().func_74764_b(MARKER);}
     private static boolean querying(Pokemon p){synchronized(EvolutionQueryList.queryList){return EvolutionQueryList.queryList.stream().anyMatch(q->q.pokemonUUID.equals(p.getUUID()));}}
     public static String start(ServerPlayerEntity player,UUID id){
         if(BattleRegistry.getBattle(player)!=null)return "battle";
@@ -68,21 +78,27 @@ public final class FieldMega {
         if(p.isEgg() || p.getHealth()<=0 || p.hasFlag("unmegaevo"))return "unavailable";
         PixelmonEntity entity=p.getPixelmonEntity().orElse(null);
         if(entity==null || !entity.func_70089_S() || entity.field_70170_p!=player.field_70170_p || entity.getOwner()!=player || entity.func_70068_e(player)>1024)return "sendout";
-        if(active(p)){restore(p);return "reverted";}
         if(entity.battleController!=null || querying(p))return "busy";
+        boolean chaining=FieldSequencePolicy.chain(active(p),constructSpecies(p),p.getForm().getName(),p.getPersistentData().func_74775_l(MARKER).func_74779_i("Target"),p.getHeldItemAsItemHeld() instanceof MegaStoneItem);
+        if(active(p) && !chaining){restore(p);return "reverted";}
         if(transformed(p))return "already";
         Stats form=target(p);
         if(form==null){
             if(primalSpecies(p))return p.getSpecies().getDex()==382?"blue_orb":"red_orb";
             if(crownedSpecies(p))return p.getSpecies().getDex()==888?"rusted_sword":"rusted_shield";
+            if(rayquazaSpecies(p))return "dragon_ascent";
             return p.getHeldItemAsItemHeld() instanceof MegaStoneItem?"stone":"no_stone";
         }
-        if(!specialSpecies(p) && !party.getMegaItem().canMega())return "bracelet";
-        if(specialSpecies(p)?Pixelmon.EVENT_BUS.post(new ItemFormChangeEvent(player,p.getHeldItem(),entity,null)):Pixelmon.EVENT_BUS.post(new MegaEvolutionEvent.MoveSkill(player,p,p.getHeldItem())))return "canceled";
-        CompoundNBT state=new CompoundNBT();state.func_74778_a("Form",p.getForm().getName());state.func_74778_a("Target",form.getName());state.func_74768_a("Slot",p.getAbilitySlot());state.func_74757_a("Hidden",p.hasHiddenAbility());state.func_74778_a("Ability",p.getAbilityName());
+        boolean completing=constructSpecies(p) && form.isForm("complete");
+        if(!specialSpecies(p) && !completing && !party.getMegaItem().canMega())return "bracelet";
+        if(specialSpecies(p) || completing?Pixelmon.EVENT_BUS.post(new ItemFormChangeEvent(player,p.getHeldItem(),entity,null)):Pixelmon.EVENT_BUS.post(new MegaEvolutionEvent.MoveSkill(player,p,p.getHeldItem())))return "canceled";
+        // A chained Mega keeps the original ten/fifty-percent recovery snapshot.
+        CompoundNBT state=chaining?p.getPersistentData().func_74775_l(MARKER).func_74737_b():new CompoundNBT();
+        if(!chaining){state.func_74778_a("Form",p.getForm().getName());state.func_74768_a("Slot",p.getAbilitySlot());state.func_74757_a("Hidden",p.hasHiddenAbility());state.func_74778_a("Ability",p.getAbilityName());}
+        state.func_74778_a("Target",form.getName());
         p.getPersistentData().func_218657_a(MARKER,state);ACTIVE.add(p);
         new EvolutionQuery(entity,form);
-        return primalSpecies(p)?"primal_started":crownedSpecies(p)?"crowned_started":"started";
+        return completing?"complete_started":primalSpecies(p)?"primal_started":crownedSpecies(p)?"crowned_started":"started";
     }
     public static void restore(Pokemon p){
         if(!active(p))return;
@@ -122,6 +138,12 @@ public final class FieldMega {
         @SubscribeEvent public void evolved(MegaEvolutionEvent.Post event){
             Pokemon p=event.getPokemon();
             if(!ACTIVE.contains(p) || !active(p) || !p.getForm().getName().equals(p.getPersistentData().func_74775_l(MARKER).func_74779_i("Target")))return;
+            if(p.getSpecies().getDex()==718 && p.getForm().isForm("complete")){
+                CompoundNBT state=p.getPersistentData().func_74775_l(MARKER);
+                p.setAbilitySlot(state.func_74762_e("Slot"));p.setHA(state.func_74767_n("Hidden"));
+                com.pixelmonmod.pixelmon.api.pokemon.ability.AbilityRegistry.getAbility(state.func_74779_i("Ability")).ifPresent(p::setAbility);
+                return;
+            }
             // A base hidden/second slot may not exist in the Mega form. Select its
             // actual ability; the base slot and hidden flag remain in our marker.
             for(var ability:p.getForm().getAbilities().getAbilities())if(ability!=null){p.setAbilitySlot(-1);p.setHA(false);p.setAbility(ability);break;}
@@ -132,8 +154,10 @@ public final class FieldMega {
                 PixelmonEntity e=p.getPixelmonEntity().orElse(null);ServerPlayerEntity owner=p.getOwnerPlayer();
                 if(!active(p)){ACTIVE.remove(p);continue;}
                 CompoundNBT state=p.getPersistentData().func_74775_l(MARKER);Stats base=p.getSpecies().getForm(state.func_74779_i("Form"));
-                Stats compatible=target(p,base);boolean stone=compatible!=null && compatible.getName().equals(state.func_74779_i("Target"));
-                if(e==null || !e.func_70089_S() || owner==null || e.getOwner()!=owner || e.field_70170_p!=owner.field_70170_p || p.getHealth()<=0 || !stone || !specialSpecies(p) && !StorageProxy.getParty(owner).getMegaItem().canMega() || (!p.getForm().getName().equals(state.func_74779_i("Target")) && !querying(p)))restore(p);
+                boolean completing=constructSpecies(p) && state.func_74779_i("Target").equals("complete");
+                Stats compatible=constructSpecies(p) && !completing?p.getSpecies().getForm("complete").getMegaForm(p.getHeldItem().func_77973_b()).orElse(null):target(p,base);
+                boolean stone=compatible!=null && compatible.getName().equals(state.func_74779_i("Target"));
+                if(e==null || !e.func_70089_S() || owner==null || e.getOwner()!=owner || e.field_70170_p!=owner.field_70170_p || p.getHealth()<=0 || !stone || !specialSpecies(p) && !completing && !StorageProxy.getParty(owner).getMegaItem().canMega() || (!p.getForm().getName().equals(state.func_74779_i("Target")) && !querying(p)))restore(p);
             }
         }
         @SubscribeEvent public void logout(PlayerEvent.PlayerLoggedOutEvent event){if(event.getPlayer() instanceof ServerPlayerEntity)for(Pokemon p:StorageProxy.getParty((ServerPlayerEntity)event.getPlayer()).getAll())if(p!=null)restore(p);}

@@ -58,7 +58,7 @@ public final class FieldMegaScreen extends Screen {
         ResourceLocation skill=Resources.moveSkillPointer;
         if(pokemon!=null){var skills=ClientProxy.getMoveSkills(pokemon);for(var s:skills)if(!s.id.equals("change_form")){skill=s.sprite;if(s.id.equals(PixelmonOverlayScreen.selectedMoveSkill))break;}}
         image(m,skill,cx-icon/2,cy+radius*.61f-icon/2,icon);
-        label(m,tr(FieldMega.transformed(pokemon)?"revert":FieldMega.primalSpecies(pokemon)?"primal":FieldMega.crownedSpecies(pokemon)?(pokemon.getSpecies().getDex()==888?"crowned_sword":"crowned_shield"):"mega"),cx,cy-(int)(radius*.40),0xffffff);
+        label(m,tr(FieldMega.completeStep(pokemon)?"complete":FieldMega.transformed(pokemon) || FieldMega.active(pokemon) && !FieldMega.chainedStone(pokemon)?"revert":FieldMega.primalSpecies(pokemon)?"primal":FieldMega.crownedSpecies(pokemon)?(pokemon.getSpecies().getDex()==888?"crowned_sword":"crowned_shield"):"mega"),cx,cy-(int)(radius*.40),0xffffff);
         label(m,tr("skills"),cx,cy+(int)(radius*.84),0xffffff);
         label(m,pokemon==null?tr("empty"):pokemon.getDisplayName()+" · "+(slot+1),cx,cy+(int)(radius*.25),0xffffff);
         label(m,tr("target"),cx,cy-(int)radius-15,0xb5dfef);

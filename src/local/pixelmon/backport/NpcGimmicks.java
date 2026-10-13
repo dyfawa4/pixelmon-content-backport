@@ -1,5 +1,6 @@
 package local.pixelmon.backport;
 import java.util.*;
+import com.google.gson.*;
 import com.pixelmonmod.pixelmon.api.pokemon.*;
 import com.pixelmonmod.pixelmon.api.registries.PixelmonItems;
 import com.pixelmonmod.pixelmon.api.battles.AttackCategory;
@@ -64,48 +65,49 @@ public final class NpcGimmicks {
     public static void augment(TrainerParticipant participant){
         NPCTrainer npc=participant.trainer;
         if(!enabled(npc) || !GymCities.isLeader(npc))return;
-        boolean existing=Arrays.stream(participant.allPokemon).anyMatch(p->com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies.isLegendary(p.getSpecies()));
-        if(existing && npc.getPersistentData().func_74767_n("BackportNpcRoster")){
-            // Repair the previously generated special ace in place; keep UUID, party and stats.
-            if(participant.allPokemon.length>1){
-                Pokemon last=participant.allPokemon[participant.allPokemon.length-1].pokemon;
-                if(last.getSpecies().getDex()==890 && last.getPersistentData().func_74767_n(PROFILE)
-                    && last.getHeldItem().func_77973_b() instanceof ReferenceItems.Meteorite)
-                    last.getPersistentData().func_74757_a(NpcMoves.ACE,true);
-            }
-            return;
-        }
-        Random random=new Random(npc.func_110124_au().getLeastSignificantBits());
         Element theme=GymCities.theme(npc);
-        // Every actual gym leader receives an ace; other equal bosses keep their roster.
-        if(!existing && participant.allPokemon.length>0){
-            List<com.pixelmonmod.pixelmon.api.pokemon.species.Species> candidates=new ArrayList<>();
-            List<com.pixelmonmod.pixelmon.api.pokemon.species.Species> all=new ArrayList<>();
-            for(int dex:com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies.getLegendaries()){
-                com.pixelmonmod.pixelmon.api.pokemon.species.Species species=com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies.fromNationalDex(dex);
-                if(species!=null && NpcMoves.viable(species)){all.add(species);if(species.getDefaultForm().getTypes().contains(theme))candidates.add(species);}
-            }
-            if(candidates.isEmpty() || random.nextInt(5)==0)candidates=all;
-            candidates.sort(Comparator.comparingInt(s->s.getDex()));
-            if(!candidates.isEmpty()){
-                int index=participant.allPokemon.length<6?participant.allPokemon.length:participant.allPokemon.length-1;
-                com.pixelmonmod.pixelmon.api.pokemon.species.Species selected=theme==Element.POISON && random.nextDouble()<.70
-                    ?com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies.fromNationalDex(890):candidates.get(random.nextInt(candidates.size()));
-                Pokemon ace=PokemonFactory.create(selected);
-                Pokemon source=participant.allPokemon[Math.min(index,participant.allPokemon.length-1)].pokemon;
-                ace.setLevelNum(source.getPokemonLevel());ace.initialize();ace.rerollMoveset();
-                net.minecraft.nbt.CompoundNBT training=new net.minecraft.nbt.CompoundNBT();source.getIVs().writeToNBT(training);source.getEVs().writeToNBT(training);
-                ace.getIVs().readFromNBT(training);ace.getEVs().readFromNBT(training);ace.getStats().recalculateStats();ace.heal();
-                ace.getPersistentData().func_74757_a(NpcMoves.ACE,true);
-                if(theme==Element.POISON && ace.getSpecies().getDex()==890)ace.setHeldItem(new ItemStack(Backport.REGISTERED.get("eternatus_meteorite").get()));
-                NpcMoves.configure(ace,npc.func_110124_au());
-                npc.getPokemonStorage().set(index,ace);
-                participant.allPokemon=Arrays.copyOf(participant.allPokemon,Math.max(participant.allPokemon.length,index+1));
-                participant.allPokemon[index]=new PixelmonWrapper(participant,ace,index);
-            }
+        if(participant.allPokemon.length==0)return;
+        Pokemon last=participant.allPokemon[participant.allPokemon.length-1].pokemon;
+        boolean replaceLegacyCrossTheme=participant.allPokemon.length>1 && npc.getPersistentData().func_74767_n("BackportNpcRoster")
+            && last.getPersistentData().func_74767_n(PROFILE) && (last.getSpecies().getDefaultForm().getTags().isLegendary() || last.getSpecies().getDefaultForm().getTags().isMythical())
+            && !last.getForm().getTypes().contains(theme);
+        // Re-evaluate old saves too: BackportNpcRoster was only a presence flag,
+        // and could lock in an immature or unrelated legendary forever.
+        for(PixelmonWrapper member:participant.allPokemon)if(!replaceLegacyCrossTheme && aceEligible(member.pokemon,theme)){
+            for(var other:participant.allPokemon)other.pokemon.getPersistentData().func_74757_a(GymAcePolicy.MARKER,false);
+            member.pokemon.getPersistentData().func_74757_a(GymAcePolicy.MARKER,true);
+            member.pokemon.getPersistentData().func_74757_a(NpcMoves.ACE,true);
+            npc.getPersistentData().func_74768_a("BackportNpcRosterVersion",2);return;
         }
-        npc.getPersistentData().func_74757_a("BackportNpcRoster",true);
+        List<com.mojang.datafixers.util.Pair<com.pixelmonmod.pixelmon.api.pokemon.species.Species,com.pixelmonmod.pixelmon.api.pokemon.species.Stats>> candidates=new ArrayList<>();
+        JsonArray rows=GymAcePolicy.DATA.getAsJsonArray(theme.name().toLowerCase(Locale.ROOT));
+        if(rows==null)throw new IllegalStateException("No mature ace plan for "+theme);
+        for(var value:rows){var row=value.getAsJsonObject();var species=com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies.fromNationalDex(row.get("dex").getAsInt());
+            if(species==null)continue;var form=row.has("form")?species.getForm(row.get("form").getAsString()):species.getDefaultForm();
+            if(form!=null && aceEligible(species,form,theme))candidates.add(com.mojang.datafixers.util.Pair.of(species,form));
+        }
+        if(candidates.isEmpty())throw new IllegalStateException("No registered legal mature ace for "+theme);
+        var selected=candidates.get(new Random(npc.func_110124_au().getLeastSignificantBits()).nextInt(candidates.size()));
+        int index=replaceLegacyCrossTheme?participant.allPokemon.length-1:participant.allPokemon.length<6?participant.allPokemon.length:participant.allPokemon.length-1;
+        Pokemon source=participant.allPokemon[Math.min(index,participant.allPokemon.length-1)].pokemon;
+        Pokemon ace=PokemonFactory.create(selected.getFirst());ace.setForm(selected.getSecond());ace.setLevelNum(source.getPokemonLevel());ace.initialize();ace.rerollMoveset();
+        net.minecraft.nbt.CompoundNBT training=new net.minecraft.nbt.CompoundNBT();source.getIVs().writeToNBT(training);source.getEVs().writeToNBT(training);
+        ace.getIVs().readFromNBT(training);ace.getEVs().readFromNBT(training);ace.getStats().recalculateStats();ace.heal();
+        for(var member:participant.allPokemon)member.pokemon.getPersistentData().func_74757_a(GymAcePolicy.MARKER,false);
+        ace.getPersistentData().func_74757_a(GymAcePolicy.MARKER,true);ace.getPersistentData().func_74757_a(NpcMoves.ACE,true);
+        if(theme==Element.POISON && ace.getSpecies().getDex()==890)ace.setHeldItem(new ItemStack(Backport.REGISTERED.get("eternatus_meteorite").get()));
+        NpcMoves.configure(ace,npc.func_110124_au());npc.getPokemonStorage().set(index,ace);
+        participant.allPokemon=Arrays.copyOf(participant.allPokemon,Math.max(participant.allPokemon.length,index+1));participant.allPokemon[index]=new PixelmonWrapper(participant,ace,index);
+        npc.getPersistentData().func_74757_a("BackportNpcRoster",true);npc.getPersistentData().func_74768_a("BackportNpcRosterVersion",2);
     }
+    private static boolean aceEligible(Pokemon pokemon,Element theme){return aceEligible(pokemon.getSpecies(),pokemon.getForm(),theme);}
+    private static boolean aceEligible(com.pixelmonmod.pixelmon.api.pokemon.species.Species species,com.pixelmonmod.pixelmon.api.pokemon.species.Stats form,Element theme){
+        int total=0;for(var stat:new com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType[]{com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.HP,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.ATTACK,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.DEFENSE,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.SPECIAL_ATTACK,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.SPECIAL_DEFENSE,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.SPEED})total+=form.getBattleStats().getStat(stat);
+        boolean usable=form.getMoves().getAllMoves().stream().filter(a->a.getAttackCategory()!=AttackCategory.STATUS && a.getBasePower()>0).count()>=2;
+        boolean legendary=species.getDefaultForm().getTags().isLegendary() || species.getDefaultForm().getTags().isMythical() || form.getTags().isLegendary() || form.getTags().isMythical();
+        return GymAcePolicy.eligible(species.getDex(),total,legendary,usable,form.getTypes().contains(theme));
+    }
+
     public static void profile(Pokemon pokemon,UUID trainer,List<Pokemon> threats){
         if(pokemon.getPersistentData().func_74767_n(PROFILE))return;
         Random random=new Random(trainer.getLeastSignificantBits() ^ pokemon.getUUID().getMostSignificantBits());

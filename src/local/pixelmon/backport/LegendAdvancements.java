@@ -8,7 +8,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.event.TickEvent;
-/** Only successful capture events and completed native item-fusion operations count. */
+/** Actual capture/acquisition and completed native transformations count. */
 public final class LegendAdvancements {
     public static final JsonObject DATA=Content.read("backport/advancements.json");
     private final List<Pending> pending=new ArrayList<>();
@@ -23,7 +23,7 @@ public final class LegendAdvancements {
         if(advancement!=null)player.func_192039_O().func_192750_a(advancement,"earned");
     }
     public static void capture(ServerPlayerEntity player,Pokemon pokemon){
-        if(pokemon==null || pokemon.isEgg())return;
+        if(!AcquisitionAdvancements.ownedStored(player,pokemon))return;
         int dex=pokemon.getSpecies().getDex();
         JsonObject row=DATA.getAsJsonObject("captures").getAsJsonObject(Integer.toString(dex));
         if(DATA.has("capturesByForm") && DATA.getAsJsonObject("capturesByForm").has(Integer.toString(dex))){
@@ -32,8 +32,7 @@ public final class LegendAdvancements {
         if(row==null)return;
         award(player,"root");award(player,row.get("category").getAsString());award(player,row.get("id").getAsString());
     }
-    @SubscribeEvent(priority=EventPriority.LOWEST) public void captured(CaptureEvent.SuccessfulCapture event){capture(event.getPlayer(),event.getPokemon().getPokemon());}
-    @SubscribeEvent(priority=EventPriority.LOWEST) public void raid(CaptureEvent.SuccessfulRaidCapture event){capture(event.getPlayer(),event.getRaidPokemon());}
+    @SubscribeEvent(priority=EventPriority.LOWEST) public void captured(CaptureEvent.SuccessfulCapture event){AcquisitionQueue.stored(event.getPokemon().getPokemon());}
     @SubscribeEvent(priority=EventPriority.LOWEST) public void form(ItemFormChangeEvent event){
         if(!event.isCanceled() && event.player!=null && event.fusion!=null && !event.fusion.isEgg())pending.add(new Pending(event));
     }
@@ -86,7 +85,8 @@ public final class LegendAdvancements {
         var storage=pokemon.getStorage();
         if(storage==null || pokemon.getPosition()==null || storage.get(pokemon.getPosition())!=pokemon)return;
         ServerPlayerEntity player=pokemon.getOwnerPlayer();
-        if(player==null || player.field_70170_p.field_72995_K || !player.func_110124_au().equals(pokemon.getOwnerPlayerUUID()))return;
+        if(player==null || player.field_70170_p.field_72995_K || !player.func_110124_au().equals(pokemon.getOwnerPlayerUUID())
+            || !AcquisitionAdvancements.ownedStored(player,pokemon))return;
         // The native cube changes Power Construct Zygarde directly and does
         // not emit a capture or assembly event. Award the completed base form.
         if(pokemon.getSpecies().getDex()==718){capture(player,pokemon);return;}
@@ -105,13 +105,6 @@ public final class LegendAdvancements {
         ServerPlayerEntity player=pokemon.getOwnerPlayer();
         if(player==null || !player.func_110124_au().equals(pokemon.getOwnerPlayerUUID()))return;
         award(player,"root");award(player,"primal");award(player,"form_"+pokemon.getSpecies().getDex()+"_primal");
-    }
-    public static void urshifuEvolution(ServerPlayerEntity player,Pokemon pokemon,int beforeDex){
-        var server=net.minecraftforge.fml.server.ServerLifecycleHooks.getCurrentServer();
-        if(server==null || !server.func_213162_bc() || player==null || pokemon==null || beforeDex!=891 || pokemon.getSpecies().getDex()!=892 || pokemon.isEgg())return;
-        var storage=pokemon.getStorage();
-        if(storage==null || pokemon.getPosition()==null || storage.get(pokemon.getPosition())!=pokemon || !player.func_110124_au().equals(pokemon.getOwnerPlayerUUID()))return;
-        capture(player,pokemon);
     }
     @SubscribeEvent public void playerTick(TickEvent.PlayerTickEvent event){if(event.phase==TickEvent.Phase.END && event.player instanceof ServerPlayerEntity && event.player.field_70173_aa%20==0)eternamax((ServerPlayerEntity)event.player);}
     private static int partnerFor(int dex,String form){

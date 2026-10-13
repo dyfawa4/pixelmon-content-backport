@@ -1,0 +1,55 @@
+package local.pixelmon.backport;
+
+import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.*;
+import com.pixelmonmod.pixelmon.battles.BattleRegistry;
+import net.minecraft.entity.player.ServerPlayerEntity;
+
+public final class BurstCapture {
+    public BurstCapture(){}
+    @net.minecraftforge.eventbus.api.SubscribeEvent(priority=net.minecraftforge.eventbus.api.EventPriority.LOWEST)
+    public void capture(com.pixelmonmod.pixelmon.api.events.CaptureEvent.StartCapture event){
+        if(event.getPokeBall()!=null && forbidden(event.getPokeBall().getBallType(),event.getPokemon().getPokemon()))event.setCanceled(true);
+    }
+    public static boolean forbidden(PokeBall ball,Pokemon pokemon){
+        return ball!=null && pokemon!=null && pokemon.getSpecies().getDex()==CapSpecies.DEX
+            && (ball.is(PokeBallRegistry.MASTER_BALL) || ball.is(PokeBallRegistry.PARK_BALL) || ball.is(PokeBallRegistry.ORIGIN_BALL));
+    }
+    public static boolean active(ServerPlayerEntity player,Pokemon target){
+        if(player==null || target==null || target.isEgg() || target.isUncatchable())return false;
+        var bc=BattleRegistry.getBattle(player);var field=BurstTerrain.current(bc);
+        if(field==null)return false;var team=bc.getParticipantForEntity(player);
+        if(!(team instanceof com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant) || team.team!=field.team)return false;
+        for(var opponent:bc.participants)if(opponent.team!=field.team && opponent instanceof com.pixelmonmod.pixelmon.battles.controller.participants.WildPixelmonParticipant)
+            for(var wrapper:opponent.allPokemon)if(wrapper.getPokemonUUID().equals(target.getUUID())
+                && OriginMercy.canCapture((com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant)team,wrapper))return true;
+        return false;
+    }
+    public static double bonus(ServerPlayerEntity player,Pokemon target,PokeBall ball,double nativeBonus){
+        return BurstPolicy.catchBonus(nativeBonus,active(player,target),forbidden(ball,target));
+    }
+    public static java.util.List<String> outlinedBalls(com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant participant){
+        java.util.Set<String> names=new java.util.LinkedHashSet<>();
+        for(var opponent:participant.getOpponents())if(opponent instanceof com.pixelmonmod.pixelmon.battles.controller.participants.WildPixelmonParticipant)
+            for(var wrapper:opponent.allPokemon){
+                Pokemon target=wrapper.pokemon;
+                if(!wrapper.onBattlefield || !wrapper.isAlive() || !active(participant.player,target))continue;
+                var entity=target.getPixelmonEntity();
+                if(!entity.isPresent() || entity.get().getOwner()!=null || entity.get().getBossTier().isBoss())continue;
+                names.addAll(outlinedBalls(participant.player,target,com.pixelmonmod.pixelmon.entities.pokeballs.PokeBallMode.BATTLE));
+            }
+        return new java.util.ArrayList<>(names);
+    }
+    public static java.util.List<String> outlinedBalls(ServerPlayerEntity player,Pokemon target,com.pixelmonmod.pixelmon.entities.pokeballs.PokeBallMode mode){
+        java.util.List<String> names=new java.util.ArrayList<>();
+        if(target==null || target.isEgg() || target.isUncatchable())return names;
+        for(PokeBall ball:PokeBallRegistry.getAll()){
+            // Native raid calculations also accept a null projectile. Read-only:
+            // no capture events, RNG, inventory changes, or turn consumption.
+            var logic=ball.getLogic();double bonus=logic.getCatchBonus(ball,null,player,target,mode);
+            int rate=logic.modifyCaptureRate(ball,null,target,target.getForm().getCatchRate());
+            if(BurstDisplayPolicy.ball(bonus,rate,forbidden(ball,target),ball.isGuaranteedCatch()))names.add(ball.getName());
+        }
+        return names;
+    }
+}

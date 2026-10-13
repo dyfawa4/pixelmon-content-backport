@@ -3,7 +3,7 @@ import argparse, hashlib, io, json, pathlib, struct, zipfile
 
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 DIST=ROOT/'dist'
-parser=argparse.ArgumentParser();parser.add_argument('--version',default='1.3.0');VERSION=parser.parse_args().version
+parser=argparse.ArgumentParser();parser.add_argument('--version',default='1.3.0');parser.add_argument('--review-only',action='store_true');ARGS=parser.parse_args();VERSION=ARGS.version
 
 def jar(data, helper=False):
     with zipfile.ZipFile(io.BytesIO(data)) as archive:
@@ -24,9 +24,13 @@ def main():
     classes=jar(production.read_bytes())
     with zipfile.ZipFile(production) as archive:
         nodes=[name for name in archive.namelist() if name.startswith('data/pixelmon_backport/advancements/legends/') and name.endswith('.json')]
-        assert [name for name in nodes if json.loads(archive.read(name))['display']['frame']=='challenge']==['data/pixelmon_backport/advancements/legends/capture_493.json']
+        expected=['data/pixelmon_backport/advancements/legends/capture_493.json']
+        if VERSION=='1.4.0':expected.append('data/pixelmon_backport/advancements/legends/capture_1026.json')
+        assert sorted(name for name in nodes if json.loads(archive.read(name))['display']['frame']=='challenge')==sorted(expected)
         if VERSION=='1.3.0':assert all(json.loads(archive.read(name))['display']['hidden'] for name in nodes)
-    for suffix,count in [('test-maps',9),('gym-test-maps',19)]:
+    packages=[('test-maps',9),('gym-test-maps',20 if VERSION=='1.4.0' else 19)]
+    if VERSION=='1.4.0':packages.append(('cap-test-map',1))
+    for suffix,count in packages:
         with zipfile.ZipFile(DIST/f'Pixelmon-Backport-{suffix}-{VERSION}.zip') as archive:
             assert archive.testzip() is None
             names=archive.namelist()
@@ -34,12 +38,23 @@ def main():
             assert len(worlds)==count and all(len(name.split('/'))==3 for name in worlds), worlds
             assert not any(name.endswith('.zip') or '/playerdata/' in name for name in names)
             mods=[name for name in names if name.startswith('mods/') and name.endswith('.jar')]
-            assert len(mods)==1
-            jar(archive.read(mods[0]),helper=True)
+            if VERSION=='1.4.0':
+                assert len(mods)==2
+                assert archive.read('mods/'+production.name)==production.read_bytes(),(suffix,'stale production jar')
+                helper=next(name for name in mods if name!='mods/'+production.name);jar(archive.read(helper),helper=True)
+            else:
+                assert len(mods)==1;jar(archive.read(mods[0]),helper=True)
+    if ARGS.review_only:
+        print(f'PASS unpublished review artifacts: Java 11 classes={classes}; direct saves={packages}; metadata/CRC and exact current addon in every test package; no playerdata/automatic QA.')
+        return
     with zipfile.ZipFile(DIST/f'Pixelmon-Backport-{VERSION}.zip') as archive:
         assert archive.testzip() is None
         assert archive.read('mods/'+production.name)==production.read_bytes()
         assert f'docs/VALIDATION_{VERSION}.md' in archive.namelist()
+        if VERSION=='1.4.0':
+            assert archive.read('HANDBOOK.md')==(ROOT/'HANDBOOK.md').read_bytes()
+            assert archive.read(f'docs/CAP_PIKACHU_{VERSION}.md')==(ROOT/f'docs/CAP_PIKACHU_{VERSION}.md').read_bytes()
+            assert (DIST/f'Pixelmon-Backport-Cap-Pikachu-{VERSION}.md').read_bytes()==(ROOT/f'docs/CAP_PIKACHU_{VERSION}.md').read_bytes()
     with zipfile.ZipFile(DIST/f'Pixelmon-Backport-source-{VERSION}.zip') as archive:
         assert archive.testzip() is None
         names=set(archive.namelist())
@@ -53,6 +68,6 @@ def main():
     for line in (DIST/f'SHA256SUMS-{VERSION}.txt').read_text().splitlines():
         digest,name=line.split('  ',1)
         assert hashlib.sha256((DIST/name).read_bytes()).hexdigest()==digest,name
-    print(f'PASS review artifacts: Java 11 classes={classes}; direct saves=9+19; complete source; metadata/CRC/SHA256; no internal automatic QA in map helper.')
+    print(f'PASS release artifacts: Java 11 classes={classes}; direct saves={packages}; complete source; metadata/CRC/SHA256; no internal automatic QA in map helper.')
 
 if __name__=='__main__':main()

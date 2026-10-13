@@ -857,6 +857,40 @@ def furnish_rooms(b,g,category):
  place([(0,1,0,wood+'_planks',None),(0,2,0,b.light,None)],preferred=zone(1,1))
  b.data['BackportFurnitureCells']=n.Int(len(reserved-set(b.service_aisles)-b.supports-b.entrance_aisles))
 
+def rock_temple(b,g=0):
+    cx,cz=b.w//2,b.d//2;r=min(8,(b.w-6)//2,(b.d-10)//2)
+    assert r>=6,(b.w,b.d)
+    x0,x1,z0,z1=cx-r,cx+r,cz-r,cz+r
+    protected=[p for p,block in b.blocks.items() if 'nbt' in block and g<p[1] and x0<=p[0]<=x1 and z0<=p[2]<=z1]
+    assert not protected,('landmark overlaps a connector or service',protected)
+    b.box(x0,g+1,z0,x1,max(b.oldh,g+12),z1,'air')
+    # Main sanctuary: a complete, stepped sandstone roof over a hollow room.
+    b.box(x0,g,z0,x1,g,z1,'smooth_sandstone')
+    b.box(x0,g+1,z0+4,x1,g+5,z1,'sandstone')
+    b.box(x0+1,g+1,z0+5,x1-1,g+5,z1-1,'air')
+    for rise in range(5):
+        b.box(x0+rise,g+6+rise,z0+4+rise,x1-rise,g+6+rise,z1-rise,'cut_sandstone')
+    # Two symmetric front pylons, with the native temple's orange glyph palette.
+    for left in (x0,x1-3):
+        b.box(left,g+1,z0,left+3,g+8,z0+3,'sandstone')
+        b.box(left,g+8,z0,left+3,g+8,z0+3,'cut_sandstone')
+        for x in (left+1,left+2):
+            b.box(x,g+2,z0,x,g+6,z0,'orange_terracotta')
+            b.put(x,g+4,z0,'chiseled_sandstone')
+        b.box(left,g+9,z0,left+3,g+9,z0+3,'smooth_sandstone')
+    # One centered open entrance: no additional side doors or offset hinges.
+    b.box(x0+4,g+4,z0,x1-4,g+4,z0+4,'cut_sandstone')
+    b.box(cx-2,g+1,z0+4,cx+2,g+4,z0+4,'chiseled_sandstone')
+    b.box(cx-1,g+1,z0,cx+1,g+3,z0+5,'air')
+    for dx,dz in ((-1,0),(1,0),(0,-1),(0,1)):
+        b.put(cx+dx,g,cz+dz,'orange_terracotta')
+    b.put(cx,g,cz,'blue_terracotta')
+    for x in (x0+2,x1-2):
+        for z in (z0+6,z1-2):
+            b.put(x,g+1,z,'cut_sandstone');b.put(x,g+2,z,'lantern',{'hanging':'false','waterlogged':'false'})
+    return (x0,x1,z0,z1)
+
+
 def outdoors(b,g,category,variant,joints):
  cx,cz=b.w//2,b.d//2;t=b.theme
  if category=='tree':
@@ -894,7 +928,7 @@ def outdoors(b,g,category,variant,joints):
    b.pillar(cx,cz,g,14);b.circle(cx,cz,r,g+10,b.glass)
    b.line(cx-r,cz,cx+r,cz,g+10,b.roof);b.line(cx,cz-r,cx,cz+r,g+10,b.roof)
   elif t=='rock':
-   for step in range(5):b.box(cx-r+step,g+step+1,cz-r+step,cx+r-step,g+step+1,cz+r-step,b.roof)
+   rock_temple(b,g)
   else:b.pillar(cx,cz,g,12 if t=='dark' else 8)
   b.reward(2,g+1,max(2,b.d-3),'ultra',True)
  elif category=='garden' and b.w>=5 and b.d>=5:

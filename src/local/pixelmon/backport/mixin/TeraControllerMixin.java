@@ -13,6 +13,8 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.*;
 @Mixin(value=BattleController.class,remap=false)
 public abstract class TeraControllerMixin {
+    @Inject(method="isEvolving",at=@At("HEAD"))
+    private void backport$deadEvolution(org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<Boolean> cir){local.pixelmon.backport.BattleEvolutionGuard.recover((BattleController)(Object)this);}
     @Inject(method="update",at=@At("RETURN"))
     private void backport$refreshTypes(CallbackInfo ci){TeraNetwork.refresh((BattleController)(Object)this);}
     @Inject(method="update",at=@At("HEAD"))

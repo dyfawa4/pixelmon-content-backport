@@ -28,7 +28,28 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidData");
         weatherTargets.add("com.pixelmonmod.pixelmon.items.SpawnDenItem");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.raids.RaidStartScreen");
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.raids.RaidCatchScreen");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidData$RaidPlayer");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.catching.CaptureMethod");
+        weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer");
+        weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.NPCChatting");
+        weatherTargets.add("com.pixelmonmod.pixelmon.entities.pokeballs.EmptyPokeBallEntity");
+        weatherTargets.add("com.pixelmonmod.pixelmon.blocks.PokeChestBlock");
+        weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.registry.DropItemRegistry");
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.npc.ChattingNPCScreen");
+        weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.pokedex.RequestSpawnDataPacket");
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.machines.infuser.InfuserScreen");
+        weatherTargets.add("net.minecraft.world.gen.feature.LakesFeature");
+        weatherTargets.add("net.minecraft.world.gen.feature.TreeFeature");
+        weatherTargets.add("net.minecraft.world.gen.feature.RandomPatchFeature");
+        weatherTargets.add("net.minecraft.entity.Entity");
+        weatherTargets.add("net.minecraft.entity.player.PlayerEntity");
+        weatherTargets.add("net.minecraft.entity.LivingEntity");
+        weatherTargets.add("net.minecraft.network.play.ServerPlayNetHandler");
+        weatherTargets.add("net.minecraft.client.entity.player.ClientPlayerEntity");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.advancements.triggers.LegendaryCaptureTrigger$Instance");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.catching.CaptureMethods$1");
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.screens.bag.ItemMenuButton");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidGovernor");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.participants.RaidPixelmonParticipant");
         for(String status:new String[]{"Freeze","Sunny","Rainy","EntryHazard"})weatherTargets.add("com.pixelmonmod.pixelmon.battles.status."+status);
@@ -60,6 +81,7 @@ public final class MixinApplicationVerification {
             }
         }
         for(int i=1;i<args.length;i++)try(JarFile optional=new JarFile(args[i])){
+            if(optional.getJarEntry("com/strangeone101/pixeltweaks/integration/jei/category/InfuserRecipeCategory.class")!=null)verify(transformer,optional,"com.strangeone101.pixeltweaks.integration.jei.category.InfuserRecipeCategory");
             if(optional.getJarEntry("pixelmondetector/marker/PKMarker.class")!=null){verify(transformer,optional,"pixelmondetector.marker.PKMarker");verify(transformer,optional,"pixelmondetector.entities.EntityFinder");}
             if(optional.getJarEntry("com/chaosthedude/explorerscompass/util/StructureSearchWorker.class")!=null){verify(transformer,optional,"com.chaosthedude.explorerscompass.util.StructureSearchWorker");verify(transformer,optional,"com.chaosthedude.explorerscompass/util/StructureUtils".replace('/','.'));}
         }
@@ -90,12 +112,16 @@ public final class MixinApplicationVerification {
     }
     static void verify(IMixinTransformer transformer,JarFile jar,String name)throws Exception{
         byte[] original;
-        try(InputStream in=jar.getInputStream(jar.getJarEntry(name.replace('.','/')+".class"))){original=in.readAllBytes();}
+        var entry=jar.getJarEntry(name.replace('.','/')+".class");
+        try(InputStream in=entry==null?MixinApplicationVerification.class.getClassLoader().getResourceAsStream(name.replace('.','/')+".class"):jar.getInputStream(entry)){if(in==null)throw new IllegalStateException("Missing native target "+name);original=in.readAllBytes();}
         byte[] patched=transformer.transformClassBytes(name,name,original);
         ClassNode node=new ClassNode();new ClassReader(patched).accept(node,0);int calls=0;
         for(MethodNode method:node.methods){
             new Analyzer<>(new BasicVerifier()).analyze(node.name,method);
-            for(AbstractInsnNode instruction:method.instructions.toArray())if(instruction instanceof MethodInsnNode && ((MethodInsnNode)instruction).name.contains("backport$"))++calls;
+            for(AbstractInsnNode instruction:method.instructions.toArray())if(instruction instanceof MethodInsnNode){
+                MethodInsnNode call=(MethodInsnNode)instruction;
+                if(call.name.contains("backport$") || (name.endsWith(".CaptureMethod") && method.name.equals("calculateBallBonus") && call.owner.equals("local/pixelmon/backport/BurstCapture") && call.name.equals("bonus")))++calls;
+            }
         }
         if(calls<1)throw new AssertionError("No injected hook "+name);
         System.out.println("PASS transformed and verified "+name);

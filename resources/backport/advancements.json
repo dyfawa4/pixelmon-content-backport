@@ -1,5 +1,11 @@
 {
   "captures": {
+    "1026": {
+      "id": "capture_1026",
+      "category": "gen7",
+      "title": "最好的伙伴",
+      "species": "CapPikachu"
+    },
     "480": {
       "id": "capture_480",
       "category": "gen4",
@@ -767,6 +773,41 @@
       "form": "crowned",
       "id": "form_889_crowned",
       "title": "盾之王",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 386,
+      "form": "",
+      "id": "form_386_changed",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 386,
+      "form": "attack",
+      "id": "form_386_changed",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 386,
+      "form": "defense",
+      "id": "form_386_changed",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 386,
+      "form": "speed",
+      "id": "form_386_changed",
+      "category": "forms",
+      "source": "form-change"
+    },
+    {
+      "dex": 386,
+      "form": "sus",
+      "id": "form_386_changed",
       "category": "forms",
       "source": "form-change"
     }

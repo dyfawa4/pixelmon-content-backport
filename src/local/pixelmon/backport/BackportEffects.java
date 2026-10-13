@@ -15,10 +15,19 @@ import com.pixelmonmod.pixelmon.enums.heldItems.EnumHeldItems;
 public final class BackportEffects {
     private BackportEffects(){}
     public static void register(){
-        for(Class<? extends EffectBase> type:new Class[]{AlluringVoice.class,BurningBulwark.class,DragonCheer.class,ElectroShot.class,FickleBeam.class,HardPress.class,IvyCudgel.class,PsychicNoise.class,SupercellSlam.class,SyrupBomb.class,TeraStarstorm.class,TeraBlast.class,UpperHand.class,MightyCleave.class}) {
+        for(Class<? extends EffectBase> type:new Class[]{AlluringVoice.class,BurningBulwark.class,DragonCheer.class,ElectroShot.class,FickleBeam.class,HardPress.class,IvyCudgel.class,PsychicNoise.class,SupercellSlam.class,SyrupBomb.class,TeraStarstorm.class,TeraBlast.class,UpperHand.class,MightyCleave.class,BurstField.class}) {
             String key="Backport"+type.getSimpleName();
             Class<?> present=EffectTypeAdapter.EFFECTS.putIfAbsent(key,type);
             if(present!=null && present!=type)throw new IllegalStateException("Effect id collision: "+key);
+        }
+    }
+    public static class BurstField extends SpecialAttackBase {
+        @Override public AttackResult applyEffectStart(PixelmonWrapper user,PixelmonWrapper target){
+            if(user.getSpecies().getDex()==CapSpecies.DEX && user.attack!=null && user.attack.isZ && user.isAlive() && !user.bc.battleEnded){
+                user.bc.globalStatusController.addGlobalStatus(user,new BurstTerrain(user.getParticipant().team));
+                user.bc.sendToAll("pixelmon.backport.burst.start");
+            }
+            return AttackResult.proceed;
         }
     }
     public static class AlluringVoice extends SpecialAttackBase {

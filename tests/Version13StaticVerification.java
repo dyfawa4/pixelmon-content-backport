@@ -35,6 +35,8 @@ public final class Version13StaticVerification {
                 String[] icon=sprite.split(":",2);
                 var image=javax.imageio.ImageIO.read(loader.getResource("assets/"+icon[0]+"/textures/"+icon[1]));
                 check(image!=null && image.getColorModel().hasAlpha(),"Missing transparent cap sprite "+sprite);
+                check(image.getWidth()==32 && image.getHeight()==32,"Cap minimap icon must match native 32px sprites, not the old 128px render");
+                check((image.getRGB(0,0)>>>24)==0,"Cap sprite must retain a transparent margin");
                 for(JsonElement entry:palette.getAsJsonObject("modelLocator").getAsJsonArray("pqc")){
                     String[] id=entry.getAsString().split(":",2);
                     try(InputStream in=loader.getResourceAsStream("assets/"+id[0]+"/textures/"+id[1])){

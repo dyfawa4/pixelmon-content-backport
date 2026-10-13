@@ -12,6 +12,7 @@ def main():
     if str(marker.get('BackportGymRole',''))!='leader':
      assert not any(str(item.get('id','')).endswith('_badge') for item in entity.get('WinningsTag',{}).values()),(path,'non-leader awards badge')
      continue
+    assert int(entity.get('WinMoney',0))==200000,(path,'leader money',entity.get('WinMoney'))
     theme=str(marker['BackportGymType']);fresh=bool(marker.get('BackportGymNew',0))
     # Some native leaders are identified by template role, rather than this
     # flag. Their native loseBattle reward path does not require the flag.

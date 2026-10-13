@@ -10,6 +10,8 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(value=Attack.class,remap=false)
 public abstract class TeraAttackMixin {
+    @Inject(method="getTypeEffectiveness",at=@At("RETURN"),cancellable=true)
+    private void backport$burst(PixelmonWrapper user,PixelmonWrapper target,CallbackInfoReturnable<Double> cir){cir.setReturnValue(local.pixelmon.backport.BurstTerrain.effectiveness(user,target,(Attack)(Object)this,cir.getReturnValue()));}
     @Redirect(method="doDamageCalc",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/ability/Ability;modifyStab(D)D"))
     private double backport$stab(Ability ability,double nativeStab,PixelmonWrapper user,PixelmonWrapper target,double crit){return Tera.stab(user,((Attack)(Object)this).getType(),ability.modifyStab(nativeStab));}
     @Inject(method="doDamageCalc",at=@At("RETURN"))

@@ -16,6 +16,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** Route native UI reads through battle-local display data, never mutate a move. */
 @Mixin(targets="com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.ChooseAttack$MoveButton",remap=false)
 public abstract class TeraMoveDisplayMixin {
+    @Inject(method="func_230431_b_",at=@At("RETURN"))
+    private void backport$burstBorder(MatrixStack matrix,int mouseX,int mouseY,float partial,CallbackInfo ci){if(local.pixelmon.backport.BurstClient.move(attack))local.pixelmon.backport.BurstClient.moveOutline(matrix,(net.minecraft.client.gui.widget.Widget)(Object)this,id);}
+    @Shadow public int id;
     @Shadow private Attack attack;
     @Shadow private int displayedPower;
     @Unique private static final ResourceLocation backport$stellarIcon=new ResourceLocation("pixelmon_backport","textures/gui/type/stellar.png");
