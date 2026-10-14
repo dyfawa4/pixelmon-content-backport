@@ -10,8 +10,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value=Template.class,remap=false)
 public abstract class NaturalPokeStopMixin {
-    @Inject(method="func_237145_a_",at=@At("RETURN"),cancellable=true)
-    private static void backport$naturalStops(IWorld world,BlockPos origin,BlockPos pivot,PlacementSettings settings,List<Template.BlockInfo> blocks,CallbackInfoReturnable<List<Template.BlockInfo>> cir){
+    // Forge's real placement path calls this six-argument method directly;
+    // the old vanilla method is only a compatibility wrapper and is bypassed.
+    @Inject(method="processBlockInfos",at=@At("RETURN"),cancellable=true)
+    private static void backport$naturalStops(IWorld world,BlockPos origin,BlockPos pivot,PlacementSettings settings,List<Template.BlockInfo> blocks,Template template,CallbackInfoReturnable<List<Template.BlockInfo>> cir){
         cir.setReturnValue(NaturalPokeStops.convert(world,cir.getReturnValue()));
     }
 }

@@ -11,11 +11,13 @@ $taskDetector=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter 'Pi
 $taskCompass=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*ExplorersCompass*.jar' | ForEach-Object {$_.FullName})
 $taskNature=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*NaturesCompass*.jar' | ForEach-Object {$_.FullName})
 $taskTweaks=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter 'PixelTweaks*.jar' | ForEach-Object {$_.FullName})
-$taskOptional=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*.jar' | Where-Object {$_.Name -match 'ftb[-_]|architectury|幸运方块'} | ForEach-Object {$_.FullName})
+$taskOptional=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*.jar' | Where-Object {$_.Name -match 'ftb[-_]|architectury|幸运方块|lootr|configured'} | ForEach-Object {$_.FullName})
+$taskForgeClient=@(Get-ChildItem -LiteralPath (Join-Path $LibrariesDirectory 'net/minecraftforge/forge') -Recurse -Filter '*36.2.42-client.jar' | ForEach-Object {$_.FullName})
+if($taskForgeClient.Count -ne 1){throw 'Exactly one actual Forge 36.2.42 patched client is required for template placement checks'}
 $taskCP=(@($taskTests,$taskBuild.classes,(Join-Path $PSScriptRoot 'resources'),(Join-Path $PSScriptRoot 'tests/resources'))+$taskAsm+$taskGson+@($taskBuild.classpath)+$taskDetector+$taskCompass+$taskNature+$taskTweaks+$taskOptional) -join [IO.Path]::PathSeparator
 & $taskJavac --release 11 -proc:none -encoding UTF8 -cp $taskCP -d $taskTests @taskSources
 if($LASTEXITCODE -ne 0){throw 'Test compilation failed'}
-& $taskBuild.java -ea -cp $taskCP MixinApplicationVerification $PixelmonJar @taskDetector @taskCompass @taskNature @taskTweaks @taskOptional
+& $taskBuild.java -ea -cp $taskCP MixinApplicationVerification $PixelmonJar @taskDetector @taskCompass @taskNature @taskTweaks @taskOptional @taskForgeClient
 if($LASTEXITCODE -ne 0){throw 'Mixin verification failed'}
 & $taskBuild.java -ea -cp $taskCP GymLookupStaticVerification
 if($LASTEXITCODE -ne 0){throw 'Gym lookup static verification failed'}
@@ -53,6 +55,22 @@ if($LASTEXITCODE -ne 0){throw 'Gym mature ace verification failed'}
 
 & $taskBuild.java -ea -cp $taskCP GymTerrainVerification
 if($LASTEXITCODE -ne 0){throw 'Gym terrain generation verification failed'}
+& $taskBuild.java -ea -cp $taskCP GymRegionBoundaryVerification
+if($LASTEXITCODE -ne 0){throw 'Reported region boundary regression failed'}
+& $taskBuild.java -ea -cp $taskCP StructureSaveNameVerification
+if($LASTEXITCODE -ne 0){throw 'Structure reference save name regression failed'}
+& $taskBuild.java -ea -cp $taskCP DetectorLinePrecisionVerification
+if($LASTEXITCODE -ne 0){throw 'Far-coordinate detector precision failed'}
+& $taskBuild.java -ea -cp $taskCP ClientDisplayVerification
+if($LASTEXITCODE -ne 0){throw 'Dialogue runtime and detector stale target checks failed'}
+& $taskBuild.java -ea -cp $taskCP MergedPatchVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Integrated raid catch animation checks failed'}
+& $taskBuild.java -ea -cp $taskCP StrongholdVerification
+if($LASTEXITCODE -ne 0){throw 'Native stronghold ring compass regression failed'}
+& $taskBuild.java -ea -cp $taskCP TeraDenLocatorVerification
+if($LASTEXITCODE -ne 0){throw 'Real Tera den locator boundaries failed'}
+& $taskBuild.java -ea -cp $taskCP TeraHabitatVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Tera raid biome/dimension boundaries failed'}
 & $taskBuild.java -ea -cp $taskCP NpcLocalizationVerification
 if($LASTEXITCODE -ne 0){throw 'NPC localization verification failed'}
 & $taskBuild.java -ea -cp $taskCP DisguisedCaptureVerification

@@ -40,6 +40,4 @@ public abstract class CompassGymSearchMixin {
     private void backport$gymSettings(CallbackInfo ci){
         if(structure instanceof GymLocator.TypedGym){separationSettings=GymLocator.settings(world);finished=!GymLocator.available(world,((GymLocator.TypedGym)structure).type);}
     }
-    @Redirect(method="doWork",at=@At(value="INVOKE",target="Lnet/minecraft/world/gen/feature/structure/StructureManager;func_235013_a_(Lnet/minecraft/util/math/SectionPos;Lnet/minecraft/world/gen/feature/structure/Structure;Lnet/minecraft/world/IStructureReader;)Lnet/minecraft/world/gen/feature/structure/StructureStart;"))
-    private StructureStart<?> backport$actualGym(StructureManager manager,SectionPos pos,Structure<?> requested,IStructureReader chunk){return GymLocator.filteredStart(manager,pos,requested,chunk);}
 }

@@ -27,7 +27,7 @@ public final class RaidCapExclusionVerification {
         require(RaidSpawnExclusions.candidates(List.of(new RaidRegistry.Raid(1026,""))).isEmpty(),"Cap-only den pool not empty");
         JsonArray entries=TeraRaids.DATA.getAsJsonArray("encounters");JsonObject injected=new JsonObject();
         injected.addProperty("spec","CapPikachu");injected.addProperty("min",1);injected.addProperty("max",6);injected.addProperty("weight",1e15);entries.add(injected);
-        try{for(int stars=1;stars<=6;stars++)for(int seed=0;seed<500;seed++)require(RaidSpawnExclusions.allowedSpec(TeraRaids.pick(stars,new Random(seed)).get("spec").getAsString()),"Injected high-weight Cap leaked into Tera pool");}
+        try{for(int stars=1;stars<=6;stars++)for(int seed=0;seed<500;seed++)require(RaidSpawnExclusions.allowedSpec(TeraRaids.pick(stars,new Random(seed),spec->true).get("spec").getAsString()),"Injected high-weight Cap leaked into Tera pool");}
         finally{entries.remove(injected);}
         try(JarFile jar=new JarFile(args[0])){
             ClassNode den=nativeClass(jar,"com/pixelmonmod/pixelmon/entities/DenEntity");

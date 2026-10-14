@@ -38,13 +38,14 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.pokeballs.EmptyPokeBallEntity");
         weatherTargets.add("com.pixelmonmod.pixelmon.blocks.PokeChestBlock");
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.registry.DropItemRegistry");
-        weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.npc.ChattingNPCScreen");
+            weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.ScreenHelper");
+            weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.custom.dialogue.DialogueScreen");
+            weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.NPCShopkeeper");
         weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.pokedex.RequestSpawnDataPacket");
         weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition");
         weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.archetypes.algorithms.checkspawns.LegendaryCheckSpawns");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.machines.infuser.InfuserScreen");
         weatherTargets.add("com.pixelmonmod.pixelmon.items.PixelmonItem");
-        weatherTargets.add("net.minecraft.world.gen.feature.template.Template");
         weatherTargets.add("net.minecraft.world.gen.feature.LakesFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.TreeFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.RandomPatchFeature");
@@ -64,6 +65,7 @@ public final class MixinApplicationVerification {
             weatherTargets.add("com.pixelmonmod.pixelmon.world.structure.type.GymStructure$Start");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.zygarde.ZygardeCubeScreen");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.render.tileEntities.RenderTileEntityArcChalice");
+            weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.raids.RaidCatchScreen");
             weatherTargets.add("com.pixelmonmod.pixelmon.blocks.tileentity.ArcChaliceTileEntity");
             weatherTargets.add("com.pixelmonmod.pixelmon.api.events.legendary.ArceusEvent");
             weatherTargets.add("com.pixelmonmod.pixelmon.world.listener.DrownedWorldListener");
@@ -87,11 +89,18 @@ public final class MixinApplicationVerification {
             }
         }
         for(int i=1;i<args.length;i++)try(JarFile optional=new JarFile(args[i])){
+            if(optional.getJarEntry("net/minecraft/world/gen/feature/template/Template.class")!=null){
+                verify(transformer,optional,"net.minecraft.world.gen.feature.template.Template");
+                verify(transformer,optional,"net.minecraft.world.server.ServerChunkProvider");
+                verify(transformer,optional,"net.minecraft.world.gen.ChunkGenerator");
+            }
             if(optional.getJarEntry("pokelucky/Process.class")!=null)verify(transformer,optional,"pokelucky.Process");
+            if(optional.getJarEntry("noobanidus/mods/lootr/entity/EntityTicker.class")!=null)verify(transformer,optional,"noobanidus.mods.lootr.entity.EntityTicker");
             if(optional.getJarEntry("dev/ftb/mods/ftbquests/client/FTBQuestsClient.class")!=null)verify(transformer,optional,"dev.ftb.mods.ftbquests.client.FTBQuestsClient");
             if(optional.getJarEntry("com/chaosthedude/naturescompass/util/BiomeUtils.class")!=null)verify(transformer,optional,"com.chaosthedude.naturescompass.util.BiomeUtils");
             if(optional.getJarEntry("com/strangeone101/pixeltweaks/integration/jei/category/InfuserRecipeCategory.class")!=null)verify(transformer,optional,"com.strangeone101.pixeltweaks.integration.jei.category.InfuserRecipeCategory");
-            if(optional.getJarEntry("pixelmondetector/marker/PKMarker.class")!=null){verify(transformer,optional,"pixelmondetector.marker.PKMarker");verify(transformer,optional,"pixelmondetector.entities.EntityFinder");}
+            if(optional.getJarEntry("pixelmondetector/marker/PKMarker.class")!=null){verify(transformer,optional,"pixelmondetector.marker.PKMarker");verify(transformer,optional,"pixelmondetector.entities.EntityFinder");verify(transformer,optional,"pixelmondetector.marker.MarkerManager");verify(transformer,optional,"pixelmondetector.config.PDConfig$Common");}
+            if(optional.getJarEntry("com/mrcrayfish/configured/impl/ForgeValue.class")!=null){verify(transformer,optional,"com.mrcrayfish.configured.impl.ForgeValue");verify(transformer,optional,"com.mrcrayfish.configured.impl.ForgeFolderEntry");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ConfigScreen");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ConfigScreen$ConfigItem");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ModConfigSelectionScreen");}
             if(optional.getJarEntry("com/chaosthedude/explorerscompass/util/StructureSearchWorker.class")!=null){verify(transformer,optional,"com.chaosthedude.explorerscompass.util.StructureSearchWorker");verify(transformer,optional,"com.chaosthedude.explorerscompass/util/StructureUtils".replace('/','.'));}
         }
         verifyFieldClientSelection();
@@ -132,7 +141,37 @@ public final class MixinApplicationVerification {
                 if(call.name.contains("backport$") || (name.endsWith(".CaptureMethod") && method.name.equals("calculateBallBonus") && call.owner.equals("local/pixelmon/backport/BurstCapture") && call.name.equals("bonus")))++calls;
             }
         }
+        if(name.equals("net.minecraft.world.server.ServerChunkProvider")){
+            boolean request=false;
+            for(MethodNode m:node.methods)if(m.name.equals("backport$requestChunk"))for(AbstractInsnNode i:m.instructions)
+                if(i instanceof MethodInsnNode && ((MethodInsnNode)i).name.equals("func_217233_c"))request=true;
+            if(!request || !node.interfaces.contains("local/pixelmon/backport/mixin/CompassChunkRequestInvoker"))throw new AssertionError("Missing nonblocking chunk request invoker");
+            ++calls;
+        }
+        if(name.equals("net.minecraft.world.gen.ChunkGenerator")){
+            boolean ring=false,init=false;
+            for(MethodNode m:node.methods)for(AbstractInsnNode i:m.instructions){
+                if(m.name.equals("backport$strongholdRings")&&i instanceof FieldInsnNode&&((FieldInsnNode)i).name.equals("field_235951_f_"))ring=true;
+                if(m.name.equals("backport$initializeStrongholds")&&i instanceof MethodInsnNode&&((MethodInsnNode)i).name.equals("func_235958_g_"))init=true;
+            }
+            if(!ring||!init)throw new AssertionError("Native stronghold ring accessor/init missing");++calls;
+        }
         if(calls<1)throw new AssertionError("No injected hook "+name);
+        if(name.equals("net.minecraft.world.gen.feature.template.Template")){
+            boolean placed=false,converted=false;
+            for(MethodNode m:node.methods)for(AbstractInsnNode i:m.instructions)if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;
+                if(!m.name.equals("func_237145_a_")&&c.name.equals("processBlockInfos"))placed=true;
+                if(m.name.equals("processBlockInfos")&&c.name.contains("backport$naturalStops"))converted=true;
+            }
+            if(!placed||!converted)throw new AssertionError("Supply conversion does not hook the actual Forge placement route");
+        }
+        if(name.equals("noobanidus.mods.lootr.entity.EntityTicker")){
+            boolean cleanup=false,now=false,add=false,oldRead=false;
+            for(MethodNode m:node.methods)for(AbstractInsnNode i:m.instructions)if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;
+                cleanup|=c.name.equals("discardRetired");now|=c.name.equals("func_225313_a");add|=c.name.equals("func_217376_c");oldRead|=c.name.equals("func_212849_a_");
+            }
+            if(!cleanup||!now||!add||oldRead)throw new AssertionError("Lootr must retire worlds and read loaded chunks, keeping insertion without blocking");
+        }
         if(name.equals("com.pixelmonmod.pixelmon.battles.attacks.Attack")){
             for(MethodNode m:node.methods)if(m.name.equals("modifyMoveStats")){
                 int nativeAbility=-1,boost=-1,pos=0;

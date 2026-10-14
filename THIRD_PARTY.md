@@ -12,4 +12,6 @@ Minecraft、Forge、Pixelmon 旧版本体及参考定制版完整 JAR 是用户�
 
 官方来源：[Pixelmon](https://reforged.gg/)、[Pixelmon Wiki](https://pixelmonmod.com/wiki/)、[Minecraft Forge](https://files.minecraftforge.net/)、[Minecraft](https://www.minecraft.net/)。本项目不是 Pixelmon 官方发布。
 
+1.4.2 将用户提供的 `pixelmon-jei-fix` 与 `pixelmon-raid-catch-fix` 两份 MIT 补丁源码合入附加模组：分别恢复 JEI 的服务端通道判断和修正高帧率巢穴捕捉动画计时。保留来源项目的版权与许可文本，见 `resources/META-INF/licenses/JEI_CONNECTION_FIX.txt`、`resources/META-INF/licenses/RAID_CATCH_ANIMATION_FIX.txt`。不打包独立补丁模组的入口或注册额外模组ID。
+
 1.4.1 的46份ZA Mega普通／闪光头像复用 [PokemonWorkshop/GameDataPacks](https://github.com/PokemonWorkshop/GameDataPacks/tree/d430fb553df98ccde5f9f90ece78e36b07d8083c) 的像素素材，作者为 Batin、ezerart、Luis779，源素材整理为 Aelysya。本项目只提取64×32双帧图的第一张32×32图，没有重新生成、缩放或重绘。素材按其来源的 Pokemon Studio Public License（署名、非商业、相同方式共享）保留许可，MIT代码许可不覆盖这些素材。完整归属见[随JAR打包的声明](resources/META-INF/MEGA_AVATAR_CREDITS.txt)，逐文件来源见[资源清单](resources/backport/mega_avatar_sources.json)。

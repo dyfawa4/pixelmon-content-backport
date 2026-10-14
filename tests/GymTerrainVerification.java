@@ -9,12 +9,15 @@ public final class GymTerrainVerification {
             check(!GymTerrainProtection.intersects(origin,origin,origin+15,origin+15,origin+16,origin+16,origin+40,origin+40),"Nonoverlapping surroundings suppressed");
             check(GymTerrainProtection.intersects(origin,origin,origin+15,origin+15,origin-60,origin-60,origin+60,origin+60),"Inside city not protected");
         }
-        boolean planned=false,loadedOnly=false,generationOnly=false;
+        boolean planned=false,loadedOnly=false,generationOnly=false;int boundedReads=0;
         for(MethodNode m:Version13StaticVerification.node("local/pixelmon/backport/GymTerrainProtection").methods)for(AbstractInsnNode i:m.instructions){
-            if(i instanceof MethodInsnNode){var n=(MethodInsnNode)i;planned|=n.name.equals("func_241827_a");loadedOnly|=n.name.equals("func_217354_b");check(!n.name.equals("func_241211_a_") && !n.name.equals("func_180501_a"),"Protection repaired the world after damage instead of preventing the feature");}
+            if(i instanceof MethodInsnNode){var n=(MethodInsnNode)i;planned|=n.name.equals("func_230346_b_");
+                if(n.name.equals("func_217353_a")){boundedReads++;loadedOnly|=i.getPrevious().getOpcode()==org.objectweb.asm.Opcodes.ICONST_0;check(i.getPrevious().getOpcode()==org.objectweb.asm.Opcodes.ICONST_0,"Region read requires an out-of-region chunk");}
+                check(!n.name.equals("func_241827_a"),"Lazy StructureManager stream can read out-of-region starts");
+                check(!n.name.equals("func_241211_a_") && !n.name.equals("func_180501_a"),"Protection repaired the world after damage instead of preventing the feature");}
             if(i instanceof TypeInsnNode)generationOnly|=((TypeInsnNode)i).desc.equals("net/minecraft/world/gen/WorldGenRegion");
         }
-        check(planned && loadedOnly && generationOnly,"Planned/referenced city or generation boundary missing");
+        check(planned && loadedOnly && generationOnly && boundedReads==2,"Bounded holder/start reads or generation boundary missing");
         boolean villageOnly=false;for(MethodNode m:Version13StaticVerification.node("net/minecraft/world/gen/feature/LakesFeature").methods)for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode)villageOnly|=((FieldInsnNode)i).name.equals("field_236381_q_");
         check(villageOnly,"Recheck native lake's vanilla-village-only protection");
         System.out.println("PASS planned gym footprint protection before natural lakes/trees/patches; negative-coordinate/cross-chunk edges and untouched surroundings, loaded-reference-only and generation-only boundaries; template water and player saplings unaffected. Natural generation remains manual.");

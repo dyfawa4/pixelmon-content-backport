@@ -46,10 +46,10 @@ public final class TeraRaids {
         }
         return p;
     }
-    public static JsonObject pick(int stars,Random random){
+    public static JsonObject pick(int stars,Random random,java.util.function.Predicate<String> habitat){
         List<JsonObject> entries=new ArrayList<>();double sum=0;
-        for(JsonElement row:DATA.getAsJsonArray("encounters")){JsonObject r=row.getAsJsonObject();if(RaidSpawnExclusions.allowedSpec(r.get("spec").getAsString()) && stars>=r.get("min").getAsInt() && stars<=r.get("max").getAsInt()){entries.add(r);sum+=r.get("weight").getAsDouble();}}
-        if(entries.isEmpty())throw new IllegalStateException("Empty Tera encounter pool "+stars);
+        for(JsonElement row:DATA.getAsJsonArray("encounters")){JsonObject r=row.getAsJsonObject();if(RaidSpawnExclusions.allowedSpec(r.get("spec").getAsString()) && stars>=r.get("min").getAsInt() && stars<=r.get("max").getAsInt() && habitat.test(r.get("spec").getAsString())){entries.add(r);sum+=r.get("weight").getAsDouble();}}
+        if(entries.isEmpty())return null;
         double roll=random.nextDouble()*sum;for(JsonObject r:entries){roll-=r.get("weight").getAsDouble();if(roll<0)return r;}return entries.get(entries.size()-1);
     }
     public static RaidSettings settings(RaidData raid,Pokemon p){int stars=Math.max(1,Math.min(6,raid.getStars()));

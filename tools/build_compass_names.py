@@ -25,7 +25,8 @@ def main():
     for lang in [vanilla,bop,language(a.pixelmon,'pixelmon','zh_cn')]:
         biome.update({k[len('biome.'):].replace('.',':',1):v for k,v in lang.items() if k.startswith('biome.')})
     dimensions={'minecraft:overworld':'主世界','minecraft:the_nether':'下界','minecraft:the_end':'末地','pixelmon:ultraspace':'究极空间','pixelmon:ultra_space':'究极空间','pixelmon:drownedworld':'溺水世界','pixelmon:drowned_world':'溺水世界'}
-    source={'minecraft':'我的世界','pixelmon':'宝可梦重铸','pixelmon_backport':'重铸内容回迁','biomesoplenty':'超多生物群系'}
+    structure['bettermineshafts:mineshaft']='废弃矿井'
+    source={'minecraft':'我的世界','pixelmon':'宝可梦重铸','pixelmon_backport':'重铸内容回迁','biomesoplenty':'超多生物群系','bettermineshafts':'YUNG矿井优化'}
     data={'structure':structure,'biome':biome,'dimension':dimensions,'source':source}
     for group in data.values():
         assert all(any('\u4e00'<=c<='\u9fff' for c in value) for value in group.values()), 'Untranslated catalogue value'

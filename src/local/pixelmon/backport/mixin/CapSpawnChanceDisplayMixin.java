@@ -6,6 +6,7 @@ import com.pixelmonmod.pixelmon.api.events.spawning.LegendaryCheckSpawnsEvent;
 import com.pixelmonmod.pixelmon.api.config.PixelmonConfigProxy;
 import net.minecraft.command.CommandSource;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -24,6 +25,7 @@ public abstract class CapSpawnChanceDisplayMixin {
             (CapSpecies.NAME.equalsIgnoreCase(e.getKey()) || localized.equals(e.getKey()) || "pixelmon.cappikachu".equals(e.getKey()))
             && e.getValue()!=null && e.getValue()>0))return;
         double global=PixelmonConfigProxy.getSpawning().getLegendarySpawnChance();
-        source.func_197030_a(new TranslationTextComponent("pixelmon_backport.spawns.cap_chance",String.format(Locale.ROOT,"%.1f",BurstPolicy.spawnChance(global)*100),String.format(Locale.ROOT,"%.1f",global*100)),false);
+        source.func_197030_a(new TranslationTextComponent("pixelmon_backport.spawns.cap_chance_label").func_240699_a_(TextFormatting.GOLD)
+            .func_230529_a_(new TranslationTextComponent("pixelmon_backport.spawns.cap_chance_value",String.format(Locale.ROOT,"%.1f",BurstPolicy.spawnChance(global)*100),String.format(Locale.ROOT,"%.1f",global*100)).func_240699_a_(TextFormatting.GREEN)),false);
     }
 }

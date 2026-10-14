@@ -52,8 +52,19 @@ public final class TeraDenEntity extends DenEntity {
     @Override public void roll(int day){
         setLastRollDay(day);if(field_70170_p.field_72995_K || refreshed==day || getData().map(RaidData::hasPlayers).orElse(false))return;
         refreshed=day;int r=field_70146_Z.nextInt(100),stars=r<20?1:r<40?2:r<60?3:r<80?4:r<95?5:6;
-        Pokemon p=TeraRaids.encounter(TeraRaids.pick(stars,field_70146_Z));type(field_70146_Z.nextInt(18));field_70180_af.func_187227_b(PALETTE,p.getPalette().getName());
+        rollEncounter(stars,false);
+    }
+    public boolean rollEncounter(int stars,boolean legendaryOnly){
+        if(field_70170_p.field_72995_K || getData().map(RaidData::hasPlayers).orElse(false))return false;
+        var habitat=new TeraRaidHabitats.Context(field_70170_p,func_233580_cy_());
+        var entry=TeraRaids.pick(stars,field_70146_Z,spec->habitat.allowed(spec)&&(!legendaryOnly||PixelmonSpecies.fromNameOrDex(spec.split(" ")[0]).map(s->s.isLegendary()||s.isMythical()).orElse(false)));
+        if(entry==null){clearData();return false;}
+        Pokemon p=TeraRaids.encounter(entry);type(field_70146_Z.nextInt(18));field_70180_af.func_187227_b(PALETTE,p.getPalette().getName());
         setData(new RaidData(func_145782_y(),stars,p.getSpecies(),p.getForm()));
+        return true;
+    }
+    public boolean allowedEncounter(RaidData data){
+        return data==null || data.getStars()<0 || new TeraRaidHabitats.Context(field_70170_p,func_233580_cy_()).allowed(data.getSpecies().getDex()+" form:"+data.getForm().getName());
     }
     @Override public void func_213281_b(CompoundNBT nbt){super.func_213281_b(nbt);nbt.func_74768_a("BackportTeraType",teraType());nbt.func_74778_a("BackportTeraPalette",palette());nbt.func_74768_a("BackportTeraDay",refreshed);if(getData().isPresent()){RaidData data=getServerData();CompoundNBT raid=new CompoundNBT();raid.func_74768_a("Species",data.getSpecies().getDex());raid.func_74778_a("Form",data.getForm().getName());raid.func_74768_a("Stars",data.getStars());nbt.func_218657_a("BackportTeraRaid",raid);}}
     @Override public void func_70037_a(CompoundNBT nbt){super.func_70037_a(nbt);setBaseHidden(true);getPersistentData().func_74768_a("BackportDenKind",1);type(Math.max(0,Math.min(18,nbt.func_74762_e("BackportTeraType"))));refreshed=nbt.func_74762_e("BackportTeraDay");String palette=nbt.func_74779_i("BackportTeraPalette");field_70180_af.func_187227_b(PALETTE,palette.isEmpty()?"none":palette);if(nbt.func_74764_b("BackportTeraRaid")){CompoundNBT saved=nbt.func_74775_l("BackportTeraRaid");com.pixelmonmod.pixelmon.api.pokemon.species.Species species=PixelmonSpecies.fromNationalDex(saved.func_74762_e("Species"));setData(new RaidData(func_145782_y(),Math.max(1,Math.min(6,saved.func_74762_e("Stars"))),species,species.getForm(saved.func_74779_i("Form"))));}}

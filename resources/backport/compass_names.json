@@ -106,7 +106,28 @@
     "pixelmon_backport:dragon_gym": "龙属性道馆",
     "pixelmon_backport:dark_gym": "恶属性道馆",
     "pixelmon_backport:steel_gym": "钢属性道馆",
-    "pixelmon_backport:fairy_gym": "妖精属性道馆"
+    "pixelmon_backport:fairy_gym": "妖精属性道馆",
+    "pixelmon_backport:badlands_tera_den": "恶地太晶巢穴",
+    "pixelmon_backport:beach_tera_den": "海滩太晶巢穴",
+    "pixelmon_backport:desert_tera_den": "沙漠太晶巢穴",
+    "pixelmon_backport:end_tera_den": "末地太晶巢穴",
+    "pixelmon_backport:forest_tera_den": "森林太晶巢穴",
+    "pixelmon_backport:ice_tera_den": "冰原太晶巢穴",
+    "pixelmon_backport:jungle_tera_den": "丛林太晶巢穴",
+    "pixelmon_backport:mountain_tera_den": "山地太晶巢穴",
+    "pixelmon_backport:mushroom_tera_den": "蘑菇岛太晶巢穴",
+    "pixelmon_backport:nether_tera_den": "下界太晶巢穴",
+    "pixelmon_backport:plains_tera_den": "平原太晶巢穴",
+    "pixelmon_backport:snow_tera_den": "雪原太晶巢穴",
+    "pixelmon_backport:taiga_tera_den": "针叶林太晶巢穴",
+    "pixelmon_backport:water_tera_den": "水域太晶巢穴",
+    "pixelmon_backport:swamp_tera_den": "沼泽太晶巢穴",
+    "pixelmon_backport:ultra_deep_sea_tera_den": "究极深海太晶巢穴",
+    "pixelmon_backport:ultra_desert_tera_den": "究极沙漠太晶巢穴",
+    "pixelmon_backport:ultra_forest_tera_den": "究极森林太晶巢穴",
+    "pixelmon_backport:ultra_jungle_tera_den": "究极丛林太晶巢穴",
+    "pixelmon_backport:ultra_plant_tera_den": "究极植物世界太晶巢穴",
+    "bettermineshafts:mineshaft": "废弃矿井"
   },
   "biome": {
     "minecraft:badlands": "恶地",
@@ -331,6 +352,7 @@
     "minecraft": "我的世界",
     "pixelmon": "宝可梦重铸",
     "pixelmon_backport": "重铸内容回迁",
-    "biomesoplenty": "超多生物群系"
+    "biomesoplenty": "超多生物群系",
+    "bettermineshafts": "YUNG矿井优化"
   }
 }

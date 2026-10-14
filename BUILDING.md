@@ -139,3 +139,8 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 `build.ps1` 读取正式模组元数据版本；两份地图构建脚本也读取该版本，并保留既有初始世界名称。先构建正式补丁，运行 `check.ps1 -PixelmonJar <本体.jar> -LibrariesDirectory <libraries目录>`，再运行 `build-test-maps.ps1` 和 `build-cap-test-map.ps1`。
 
 本轮离线检查包括104个实际Mixin目标、正式忍蛙增益实现的受控回合与成员隔离测试，以及补给站概率和任务恢复接口；不启动自动游戏对战。三份地图就绪后运行 `python tools/package_release.py --version 1.4.1` 与 `python tools/verify_release_package.py --version 1.4.1`，封装九份制品及其校验文件，忍蛙专项说明单独提供。验证范围见 `docs/VALIDATION_1.4.1.md`。
+
+
+## 1.4.2 发布封装
+
+正式JAR、三份手动地图、源码、手册和专项说明保持同一1.4.2版本。构建顺序为 `build.ps1`、`check.ps1`、`build-test-maps.ps1`、`build-cap-test-map.ps1`，随后运行 `python tools/package_release.py --version 1.4.2` 和 `python tools/verify_release_package.py --version 1.4.2`。探测器双语目录在构建时由资源生成；真实界面验证使用私有QA模组，不进入正式JAR或地图配套模组。验证范围见 `docs/VALIDATION_1.4.2.md`。

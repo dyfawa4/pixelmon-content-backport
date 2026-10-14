@@ -88,6 +88,7 @@ public final class Backport {
         LegendAdvancements achievements=new LegendAdvancements();
         Pixelmon.EVENT_BUS.register(achievements);net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(achievements);
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event)->event.enqueueWork(()->{
+            GymLocator.registerNames();
             GymCities.registerGeneration();
             for(Map.Entry<String,RegistryObject<Item>> entry:REGISTERED.entrySet()){
                 Item stone=item(entry.getKey());

@@ -2,7 +2,7 @@
 import argparse,copy,json,re,zipfile
 from pathlib import Path
 from npc_zh_cn import leaves
-from npc_names_zh_cn import VILLAGER_NAMES,SHOP_NAMES
+from npc_names_zh_cn import VILLAGER_NAMES,SHOP_NAMES,TRAINER_AND_GYM_NAMES
 from embedded_npc_zh_cn import NAMES,TEXTS
 ROOT=Path(__file__).resolve().parents[1]
 MISSING={
@@ -23,8 +23,18 @@ def pair(en,zh,result):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--pixelmon',required=True);args=p.parse_args()
-    definitions={};stock={};texts=dict(TEXTS);names=dict(NAMES);total=0;named=0
+    definitions={};stock={};texts=dict(TEXTS);names=dict(TRAINER_AND_GYM_NAMES);names.update(NAMES);total=0;named=0
+    embedded=json.loads((ROOT/'tools/embedded_trainer_zh_cn.json').read_text(encoding='utf8'))
+    names.update(embedded['names']);texts.update(embedded['texts'])
     with zipfile.ZipFile(args.pixelmon) as jar:
+        # Seed all shared names before trainer files: ZIP order is not a dependency.
+        for path in jar.namelist():
+            if not path.startswith('data/pixelmon/npcs/') or not path.endswith('_en_us.json'):continue
+            kind=path.split('/')[3];key=Path(path).name[:-11]
+            table=VILLAGER_NAMES if kind=='villagers' else SHOP_NAMES if kind=='shopkeepers' else {}
+            if key in table:
+                source=json.loads(jar.read(path))
+                for row,text in zip(source['names'],table[key].split('|')):names.setdefault(row['name'],text)
         for path in jar.namelist():
             if not path.startswith('data/pixelmon/npcs/') or not path.endswith('_en_us.json'):continue
             target=ROOT/'resources'/path.replace('_en_us','_zh_cn');en=json.loads(jar.read(path))
@@ -40,6 +50,10 @@ def main():
                 for source,row,text in zip(en['names'],zh['names'],translated):row['name']=text;names.setdefault(source['name'],text)
                 assert {k:v for k,v in en.items() if k not in ('names','chat')}=={k:v for k,v in zh.items() if k not in ('names','chat')},path
                 named+=1
+            else:
+                for source,row in zip(en.get('names',[]),zh.get('names',[])):
+                    row['name']=names.get(source['name'],source['name'])
+                    assert row['name']=='N' or not re.search('[A-Za-z]',row['name']) or re.search('[\u4e00-\u9fff]',row['name']),(path,'Unmapped NPC name',source['name'])
             pair(en['chat'],zh['chat'],texts);total+=len(list(leaves(zh['chat'])))
             target.parent.mkdir(parents=True,exist_ok=True);target.write_text(json.dumps(zh,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
             definitions[path[len('data/pixelmon/npcs/'):].replace('_en_us','_zh_cn')[:-5]]=zh

@@ -35,6 +35,8 @@ $taskForgeCompileApi=Join-Path $taskCache 'compile-api/forge-client.jar'
 python (Join-Path $PSScriptRoot 'tools/prepare_compile_api.py') $ForgeClientJar $taskForgeCompileApi | Out-Null
 if($LASTEXITCODE -ne 0){throw 'Forge compile API preparation failed'}
 $taskClasspath=(@($taskForgeCompileApi,$taskCompileApi,$PixelmonJar,$JeiJar)+$taskLibraries) -join [IO.Path]::PathSeparator
+python -X utf8 (Join-Path $PSScriptRoot 'tools/build_detector_config_catalog.py')
+if($LASTEXITCODE -ne 0){throw 'Detector configuration catalog generation failed'}
 $taskSources=@(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'src') -Filter '*.java' -Recurse | ForEach-Object {$_.FullName})
 & $taskJavac --release 11 -proc:none -encoding UTF-8 -cp $taskClasspath -d $taskClasses @taskSources
 if($LASTEXITCODE -ne 0){throw 'Java 11 compilation failed'}

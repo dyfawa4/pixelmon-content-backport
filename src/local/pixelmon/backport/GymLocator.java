@@ -26,7 +26,19 @@ import net.minecraftforge.registries.*;
 /** Search aliases index native gym starts; they are never added to biome generation. */
 public final class GymLocator {
     public static final DeferredRegister<Structure<?>> ALIASES=DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES,Content.NS);
-    static {for(String type:GymThemePaths.TYPES)ALIASES.register(type+"_gym",()->new TypedGym(type));}
+    static {for(String type:GymThemePaths.TYPES)ALIASES.register(type+"_gym",()->new TypedGym(type));TeraDenLocator.registerAliases(ALIASES);}
+    /** Forge registry IDs alone do not populate the legacy structure NBT name map. */
+    public static void registerNames(){
+        int repaired=0;
+        for(var entry:ALIASES.getEntries()){
+            Structure<?> value=entry.get();String key=entry.getId().toString();
+            Structure<?> previous=Structure.field_236365_a_.get(key);
+            if(previous!=null && previous!=value)throw new IllegalStateException("Conflicting structure save name "+key);
+            if(value.func_143025_a()==null)repaired++;
+            Structure.field_236365_a_.put(key,value);
+        }
+        org.apache.logging.log4j.LogManager.getLogger("pixelmon_backport").info("Registered {} structure save names; repaired {} missing legacy names",ALIASES.getEntries().size(),repaired);
+    }
     private final Map<CommandSource,Search> jobs=new LinkedHashMap<>();
     public static final class TypedGym extends GymStructure {
         public final String type;

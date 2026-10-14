@@ -1,0 +1,13 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+[[mods]]
+modId="backport_stability_probe"
+version="1"
+displayName="Private backport stability checks"
+[[dependencies.backport_stability_probe]]
+modId="pixelmon_backport"
+mandatory=true
+versionRange="[1.4.2,)"
+ordering="AFTER"
+side="CLIENT"

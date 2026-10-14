@@ -1,7 +1,7 @@
 """Developer-only isolated client; no user account or original save access.
 Uses an existing Java 11 installation and launcher version JSON/libraries.
 """
-import argparse,json,pathlib,subprocess,shutil,os,uuid
+import argparse,json,pathlib,subprocess,shutil,os,uuid,zipfile
 root=pathlib.Path(__file__).resolve().parents[1]
 p=argparse.ArgumentParser();p.add_argument('--version-json',type=pathlib.Path,required=True)
 p.add_argument('--minecraft-root',type=pathlib.Path,required=True)
@@ -26,9 +26,12 @@ if a.instance_name:
 gamedir.mkdir(exist_ok=True);(gamedir/'mods').mkdir(exist_ok=True)
 (gamedir/'local').mkdir(exist_ok=True)
 old=str(a.pixelmon.resolve())
+with zipfile.ZipFile(build['jar']) as addon_archive:
+    merged_patches='local/pixelmon/backport/client/RaidCatchClock.class' in addon_archive.namelist() and 'local/pixelmon/backport/client/JeiConnectionRepair.class' in addon_archive.namelist()
 if a.full_pack:
     # Original saves, accounts, options and logs are never copied or modified.
     for source in (a.version_json.parent/'mods').glob('*.jar'):
+        if merged_patches and source.name.startswith(('pixelmon-jei-fix-','pixelmon-raid-catch-fix-')):continue
         if source.resolve()==pathlib.Path(old).resolve() or source.name.startswith(('pixelmon-content-backport-','backport-test-maps-','backport-client-test','backport-feedback-','backport-field-')):continue
         shutil.copy2(source,gamedir/'mods'/source.name)
     for name in ['config','defaultconfigs','kubejs','scripts','shaderpacks']:
@@ -84,7 +87,24 @@ for path in cp:
 cp=list(selected.values())
 cp.append(str(a.version_json.with_suffix('.jar')))
 natives=a.version_json.parent/'natives-windows-x86_64'
-if not natives.exists():raise FileNotFoundError(natives)
+if not natives.exists():
+    # New pack exports may not yet contain the launcher's extracted natives.
+    # Prepare the declared Windows libraries in this private instance only.
+    natives=gamedir/'natives-windows-x86_64';natives.mkdir(exist_ok=True)
+    extracted=0
+    for lib in version['libraries']:
+        if not allowed(lib.get('rules',[])):continue
+        classifier=lib.get('natives',{}).get('windows')
+        if not classifier:continue
+        classifier=classifier.replace('${arch}','64')
+        native_lib=lib.get('downloads',{}).get('classifiers',{}).get(classifier)
+        if not native_lib:continue
+        archive=a.minecraft_root/'libraries'/native_lib['path']
+        with zipfile.ZipFile(archive) as library:
+            for entry in library.namelist():
+                if not entry.lower().endswith('.dll') or '/x86/' in entry.lower():continue
+                (natives/pathlib.PurePosixPath(entry).name).write_bytes(library.read(entry));extracted+=1
+    if not extracted:raise FileNotFoundError('No declared Windows natives could be extracted')
 gui_scale=2
 if a.full_pack:
     # Read only this display preference; do not import accounts, servers or
@@ -103,7 +123,7 @@ if a.gym_map:
     if not destination.exists():shutil.copytree(source,destination)
 world=root/'.cache/test-server/backport-test';destination=gamedir/'saves/backport-test'
 if not a.manual and not destination.exists():shutil.copytree(world,destination)
-args=[build['java'],'-Xms1G',f'-Xmx{a.memory_gb}G',f'-Djava.library.path={natives}',
+args=[build['java'],'-XX:-OmitStackTraceInFastThrow','-Xms1G',f'-Xmx{a.memory_gb}G',f'-Djava.library.path={natives}',
       '-Dminecraft.launcher.brand=Backport-Manual' if a.manual else '-Dminecraft.launcher.brand=Backport-QA','-Dminecraft.launcher.version=1','-Dmixin.debug.export=true','-Dbackport.network.test='+str(not a.manual).lower(),
       '-Dbackport.gallery.enabled='+str(not a.manual and not a.full_pack).lower(),
       '-Dbackport.ui.preview='+str(a.ui_preview).lower(),
