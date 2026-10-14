@@ -35,6 +35,16 @@ public final class TeraItems {
         return true;}
     }
     public static boolean hasAnyOrb(PlayerEntity p){try(PokeInventory inventory=new PokeInventory(p)){for(ItemStack s:inventory.stacks)if(!s.func_190926_b() && s.func_77973_b() instanceof Orb)return true;return false;}}
+    public static void recharge(PlayerEntity player){
+        if(!(player instanceof ServerPlayerEntity) || player.field_70170_p.field_72995_K)return;
+        ServerPlayerEntity owner=(ServerPlayerEntity)player;
+        var server=owner.func_184102_h();if(server==null)return;
+        // Optional healing packets may invoke their native handler off-thread.
+        if(!server.func_213162_bc()){server.execute(()->recharge(owner));return;}
+        boolean changed=false;try(PokeInventory inventory=new PokeInventory(owner)){for(ItemStack s:inventory.stacks)
+            if(!s.func_190926_b() && s.func_77973_b() instanceof Orb && !charged(s)){s.func_196082_o().func_74757_a("BackportTeraSpent",false);changed=true;}}
+        if(changed){owner.field_71071_by.func_70296_d();owner.func_146105_b(new TranslationTextComponent("pixelmon.backport.tera.recharged"),true);}
+    }
     public static class Orb extends PixelmonItem {
         public Orb(){super(new Item.Properties().func_200917_a(1).func_200916_a(ItemGroup.field_78026_f));}
         @Override public boolean func_77636_d(ItemStack stack){return charged(stack);}
@@ -58,9 +68,7 @@ public final class TeraItems {
     }
     public static class Charging {
         @SubscribeEvent public void healer(HealerEvent.Post event){
-            if(event.player.field_70170_p.field_72995_K)return;
-            boolean changed=false;try(PokeInventory inventory=new PokeInventory(event.player)){for(ItemStack s:inventory.stacks)if(!s.func_190926_b() && s.func_77973_b() instanceof Orb && !charged(s)){s.func_196082_o().func_74757_a("BackportTeraSpent",false);changed=true;}}
-            if(changed){event.player.field_71071_by.func_70296_d();event.player.func_146105_b(new TranslationTextComponent("pixelmon.backport.tera.recharged"),true);}
+            recharge(event.player);
         }
     }
 }

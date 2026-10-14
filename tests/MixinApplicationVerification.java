@@ -26,6 +26,8 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.ChooseAttack$MoveButton");
         weatherTargets.add("com.pixelmonmod.pixelmon.container.PokeBagContainer");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidData");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidRandomizer");
+        weatherTargets.add("com.pixelmonmod.pixelmon.entities.DenEntity");
         weatherTargets.add("com.pixelmonmod.pixelmon.items.SpawnDenItem");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.raids.RaidStartScreen");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.raids.RaidCatchScreen");
@@ -38,7 +40,11 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.registry.DropItemRegistry");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.npc.ChattingNPCScreen");
         weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.pokedex.RequestSpawnDataPacket");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.archetypes.algorithms.checkspawns.LegendaryCheckSpawns");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.machines.infuser.InfuserScreen");
+        weatherTargets.add("com.pixelmonmod.pixelmon.items.PixelmonItem");
+        weatherTargets.add("net.minecraft.world.gen.feature.template.Template");
         weatherTargets.add("net.minecraft.world.gen.feature.LakesFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.TreeFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.RandomPatchFeature");
@@ -81,6 +87,9 @@ public final class MixinApplicationVerification {
             }
         }
         for(int i=1;i<args.length;i++)try(JarFile optional=new JarFile(args[i])){
+            if(optional.getJarEntry("pokelucky/Process.class")!=null)verify(transformer,optional,"pokelucky.Process");
+            if(optional.getJarEntry("dev/ftb/mods/ftbquests/client/FTBQuestsClient.class")!=null)verify(transformer,optional,"dev.ftb.mods.ftbquests.client.FTBQuestsClient");
+            if(optional.getJarEntry("com/chaosthedude/naturescompass/util/BiomeUtils.class")!=null)verify(transformer,optional,"com.chaosthedude.naturescompass.util.BiomeUtils");
             if(optional.getJarEntry("com/strangeone101/pixeltweaks/integration/jei/category/InfuserRecipeCategory.class")!=null)verify(transformer,optional,"com.strangeone101.pixeltweaks.integration.jei.category.InfuserRecipeCategory");
             if(optional.getJarEntry("pixelmondetector/marker/PKMarker.class")!=null){verify(transformer,optional,"pixelmondetector.marker.PKMarker");verify(transformer,optional,"pixelmondetector.entities.EntityFinder");}
             if(optional.getJarEntry("com/chaosthedude/explorerscompass/util/StructureSearchWorker.class")!=null){verify(transformer,optional,"com.chaosthedude.explorerscompass.util.StructureSearchWorker");verify(transformer,optional,"com.chaosthedude.explorerscompass/util/StructureUtils".replace('/','.'));}
@@ -124,6 +133,25 @@ public final class MixinApplicationVerification {
             }
         }
         if(calls<1)throw new AssertionError("No injected hook "+name);
+        if(name.equals("com.pixelmonmod.pixelmon.battles.attacks.Attack")){
+            for(MethodNode m:node.methods)if(m.name.equals("modifyMoveStats")){
+                int nativeAbility=-1,boost=-1,pos=0;
+                for(AbstractInsnNode i:m.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;
+                    if(c.name.equals("modifyPowerAndAccuracyUser")&&c.owner.endsWith("/Ability"))nativeAbility=pos;
+                    if(c.name.contains("backport$power"))boost=pos;}pos++;}
+                if(nativeAbility<0||boost<=nativeAbility)throw new AssertionError("Water boost applied before native Battle Bond power adjustment");
+            }
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper")){
+            for(MethodNode m:node.methods)if(m.name.equals("useAttack")&&m.desc.equals("(Z)V")){
+                int boost=-1,abilityStart=-1,pos=0;
+                for(AbstractInsnNode i:m.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;
+                    if(c.name.contains("backport$ashWaterBeforeAttack"))boost=pos;
+                    if(c.name.equals("startMove")&&c.owner.endsWith("/Ability"))abilityStart=pos;}pos++;}
+                if(boost<0||abilityStart<=boost)throw new AssertionError("Water boost starts after the attack begins");
+            }
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.client.DefaultServerList"))MultiplayerRegressionVerification.executePatched(patched);
         System.out.println("PASS transformed and verified "+name);
     }
 }

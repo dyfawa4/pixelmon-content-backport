@@ -36,6 +36,7 @@ public final class TeraRaids {
     public static Pokemon encounter(JsonObject entry){
         String[] tokens=entry.get("spec").getAsString().split(" ");
         Species s=PixelmonSpecies.fromNameOrDex(tokens[0]).orElseThrow(()->new IllegalArgumentException("Missing Tera species "+tokens[0]));
+        if(!RaidSpawnExclusions.allowed(s.getDex()))throw new IllegalArgumentException("Species excluded from Tera dens: "+tokens[0]);
         Pokemon p=PokemonFactory.create(s);
         for(int i=1;i<tokens.length;i++){
             String[] part=tokens[i].split(":",2);
@@ -47,7 +48,7 @@ public final class TeraRaids {
     }
     public static JsonObject pick(int stars,Random random){
         List<JsonObject> entries=new ArrayList<>();double sum=0;
-        for(JsonElement row:DATA.getAsJsonArray("encounters")){JsonObject r=row.getAsJsonObject();if(stars>=r.get("min").getAsInt() && stars<=r.get("max").getAsInt()){entries.add(r);sum+=r.get("weight").getAsDouble();}}
+        for(JsonElement row:DATA.getAsJsonArray("encounters")){JsonObject r=row.getAsJsonObject();if(RaidSpawnExclusions.allowedSpec(r.get("spec").getAsString()) && stars>=r.get("min").getAsInt() && stars<=r.get("max").getAsInt()){entries.add(r);sum+=r.get("weight").getAsDouble();}}
         if(entries.isEmpty())throw new IllegalStateException("Empty Tera encounter pool "+stars);
         double roll=random.nextDouble()*sum;for(JsonObject r:entries){roll-=r.get("weight").getAsDouble();if(roll<0)return r;}return entries.get(entries.size()-1);
     }

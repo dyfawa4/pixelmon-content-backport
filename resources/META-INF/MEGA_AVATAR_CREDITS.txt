@@ -1,0 +1,20 @@
+Z-A Mega box-icon artwork used by this extension
+
+Source: PokemonWorkshop/GameDataPacks
+https://github.com/PokemonWorkshop/GameDataPacks
+Pinned source revision: d430fb553df98ccde5f9f90ece78e36b07d8083c
+Z-A Icon Sprites: Batin, ezerart, Luis779.
+Resource compilation, alignment and resizing in the source pack: Aelysya.
+Pokemon characters: Nintendo / Game Freak / The Pokemon Company.
+
+Source license: Pokemon Studio Public License (Attribution, NonCommercial,
+ShareAlike). The source's license and disclaimer are available at:
+https://github.com/PokemonWorkshop/PokemonStudio/blob/develop/LICENSE.md
+The imported artwork retains those terms; this notice does not change the
+license of the extension's separately authored code or other assets.
+
+Technical conversion performed here: extracted the first 32x32 frame from
+each 64x32 box-icon sheet and saved it as a static transparent PNG. No resizing,
+redrawing, recoloring or AI generation was applied to the bundled icons.
+Complete per-file sources and checksums: backport/mega_avatar_sources.json
+No association with or endorsement by the artwork creators is claimed.

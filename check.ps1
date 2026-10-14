@@ -9,11 +9,13 @@ $taskAsm=@(Get-ChildItem -LiteralPath (Join-Path $LibrariesDirectory 'org/ow2/as
 $taskGson=@(Get-ChildItem -LiteralPath (Join-Path $LibrariesDirectory 'com/google/code/gson') -Filter '*.jar' -Recurse | Sort-Object {[version]$_.Directory.Name} -Descending | ForEach-Object {$_.FullName})
 $taskDetector=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter 'PixelmonDetector-*.jar' | ForEach-Object {$_.FullName})
 $taskCompass=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*ExplorersCompass*.jar' | ForEach-Object {$_.FullName})
+$taskNature=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*NaturesCompass*.jar' | ForEach-Object {$_.FullName})
 $taskTweaks=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter 'PixelTweaks*.jar' | ForEach-Object {$_.FullName})
-$taskCP=(@($taskTests,$taskBuild.classes,(Join-Path $PSScriptRoot 'resources'),(Join-Path $PSScriptRoot 'tests/resources'))+$taskAsm+$taskGson+@($taskBuild.classpath)+$taskDetector+$taskCompass+$taskTweaks) -join [IO.Path]::PathSeparator
+$taskOptional=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*.jar' | Where-Object {$_.Name -match 'ftb[-_]|architectury|幸运方块'} | ForEach-Object {$_.FullName})
+$taskCP=(@($taskTests,$taskBuild.classes,(Join-Path $PSScriptRoot 'resources'),(Join-Path $PSScriptRoot 'tests/resources'))+$taskAsm+$taskGson+@($taskBuild.classpath)+$taskDetector+$taskCompass+$taskNature+$taskTweaks+$taskOptional) -join [IO.Path]::PathSeparator
 & $taskJavac --release 11 -proc:none -encoding UTF8 -cp $taskCP -d $taskTests @taskSources
 if($LASTEXITCODE -ne 0){throw 'Test compilation failed'}
-& $taskBuild.java -ea -cp $taskCP MixinApplicationVerification $PixelmonJar @taskDetector @taskCompass @taskTweaks
+& $taskBuild.java -ea -cp $taskCP MixinApplicationVerification $PixelmonJar @taskDetector @taskCompass @taskNature @taskTweaks @taskOptional
 if($LASTEXITCODE -ne 0){throw 'Mixin verification failed'}
 & $taskBuild.java -ea -cp $taskCP GymLookupStaticVerification
 if($LASTEXITCODE -ne 0){throw 'Gym lookup static verification failed'}
@@ -67,3 +69,19 @@ if($LASTEXITCODE -ne 0){throw 'All legendary acquisition audit failed'}
 if($LASTEXITCODE -ne 0){throw 'Burst dynamic preview verification failed'}
 & $taskBuild.java -ea -cp $taskCP PokedexHabitatVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Pokedex habitat verification failed'}
+& $taskBuild.java -ea -cp $taskCP MultiplayerRegressionVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Multiplayer initialization regression failed'}
+& $taskBuild.java -ea -cp $taskCP CapSpawnVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Cap village spawn/query regression failed'}
+& $taskBuild.java -ea -cp $taskCP HotfixAdditionsVerification $PixelmonJar @taskCompass @taskNature
+if($LASTEXITCODE -ne 0){throw 'Gender/compass/reward/chance hotfix checks failed'}
+& $taskBuild.java -ea -cp $taskCP RayquazaMegaAdvancementVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Rayquaza Mega achievement completion checks failed'}
+& $taskBuild.java -ea -cp $taskCP MegaBossAvatarVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'All Mega Boss avatar resource checks failed'}
+& $taskBuild.java -ea -cp $taskCP RaidCapExclusionVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Cap exclusion from Max/Tera dens failed'}
+& $taskBuild.java -ea -cp $taskCP AshWaterBoostVerification
+if($LASTEXITCODE -ne 0){throw 'Ash Water boost lifetime/isolation regression failed'}
+& $taskBuild.java -ea -cp $taskCP V199FinishVerification
+if($LASTEXITCODE -ne 0){throw 'V199 supply/quest/ability acquisition regression failed'}

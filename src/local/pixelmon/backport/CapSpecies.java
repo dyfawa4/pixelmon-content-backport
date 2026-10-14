@@ -30,6 +30,7 @@ public final class CapSpecies {
         base.addProperty("name","");base.addProperty("defaultBaseForm","");
         base.add("battleStats",copy(DATA.get("battleStats")));base.add("abilities",copy(DATA.get("abilities")));
         base.addProperty("catchRate",3);base.add("tags",strings("legendary"));
+        base.addProperty("malePercentage",100);base.add("possibleGenders",strings("MALE"));
         base.add("eggGroups",strings("UNDISCOVERED"));base.add("preEvolutions",new JsonArray());base.add("evolutions",new JsonArray());
         base.add("megaItems",new JsonArray());base.add("megas",new JsonArray());
         JsonObject gmax=new JsonObject();gmax.addProperty("canHaveFactor",false);gmax.addProperty("canGigantamax",false);gmax.addProperty("form","");gmax.addProperty("move","");base.add("gigantamax",gmax);

@@ -671,6 +671,14 @@
   ],
   "transformations": [
     {
+      "dex": 384,
+      "form": "mega",
+      "id": "form_384_mega",
+      "title": "凌云九霄",
+      "category": "forms",
+      "source": "mega-evolution"
+    },
+    {
       "dex": 890,
       "form": "eternamax",
       "id": "form_890_eternamax",

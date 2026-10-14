@@ -966,5 +966,6 @@
   "advancements.spiky_pichu.description": "Catch a Spiky-eared Pichu, or obtain one by using Forage at an Ilex Shrine with a Pichu at 255 friendship.",
   "advancements.zombie.description": "Catch a zombie-palette Pokemon, or successfully transform your own Pokemon with a Jack o Lantern on a full-moon night, outdoors at light level 12 or higher.",
   "advancements.feebas_karp.description": "Catch a disguised Pokémon that reveals itself as Ditto.",
-  "advancements.feebas_karp.title": "Disguise Uncovered"
+  "advancements.feebas_karp.title": "Disguise Uncovered",
+  "attack.water_shuriken.description": "The user strikes first with throwing stars two to five times. Ash-Greninja with Battle Bond strikes exactly three times at 20 power per hit and first gains 50% more Water damage for three turns, including this turn. Only the user benefits. Reuse refreshes duration without stacking; ordinary Greninja does not gain this boost."
 }

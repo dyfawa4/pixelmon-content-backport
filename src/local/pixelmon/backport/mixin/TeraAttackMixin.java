@@ -22,5 +22,5 @@ public abstract class TeraAttackMixin {
         return new com.pixelmonmod.pixelmon.api.events.battles.AttackEvent.TypeEffectiveness(bc,user,target,value);
     }
     @Inject(method="modifyMoveStats",at=@At("RETURN"))
-    private void backport$power(PixelmonWrapper user,PixelmonWrapper target,Ability a,Ability b,int power,CallbackInfoReturnable<int[]> cir){int[] stats=cir.getReturnValue();stats[0]=Tera.floorPower(user,(Attack)(Object)this,stats[0]);}
+    private void backport$power(PixelmonWrapper user,PixelmonWrapper target,Ability a,Ability b,int power,CallbackInfoReturnable<int[]> cir){int[] stats=cir.getReturnValue();stats[0]=local.pixelmon.backport.AshWaterBoost.power(user,(Attack)(Object)this,Tera.floorPower(user,(Attack)(Object)this,stats[0]));}
 }

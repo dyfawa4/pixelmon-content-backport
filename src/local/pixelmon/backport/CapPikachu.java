@@ -27,6 +27,11 @@ public final class CapPikachu {
     }
     public static void sync(Pokemon pokemon){sync(pokemon,pokemon.getHeldItem());}
     public static void sync(Pokemon pokemon,ItemStack held){
+        if(pokemon.getSpecies().getDex()==CapSpecies.DEX){
+            if(pokemon.getGender()!=com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender.MALE)
+                pokemon.setGender(com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender.MALE);
+            return;
+        }
         if(pokemon.getSpecies().getDex()!=25 || pokemon.isEgg())return;
         String form=pokemon.getForm().getName();
         if(!form.isEmpty() && !"base".equals(form) && !FORM.equals(form))return;

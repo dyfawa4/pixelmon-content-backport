@@ -790,5 +790,17 @@
   "pixelmon_backport.advancement.deoxys_changed.description": "成功转换自己拥有的代欧奇希斯形态。",
   "pixelmon_backport.field_mega.dragon_ascent": "烈空坐需要先学会画龙点睛。",
   "pixelmon.backport.burst.name": "爆裂场地",
-  "pixelmon_backport.infuser.name": "树果炼制器"
+  "pixelmon_backport.infuser.name": "树果炼制器",
+  "pixelmon_backport.spawns.global": "全局神兽生成率：",
+  "pixelmon_backport.spawns.weights": "可能生成（候选权重）：",
+  "pixelmon_backport.spawns.cap_chance": "智皮卡专属生成率：%s%%（全局%s%%减40个百分点；候选权重另算）。",
+  "pixelmon_backport.advancement.rayquaza_mega.title": "凌云九霄",
+  "pixelmon_backport.advancement.rayquaza_mega.description": "让自己拥有的烈空坐成功完成超级进化。",
+  "pixelmon_backport.quests.syncing": "任务数据正在重新同步，完成后会自动打开任务书。",
+  "pixelmon_backport.quests.retry": "任务数据暂未同步，请稍后重试打开任务书。",
+  "pixelmon_backport.battle.ash_water_boost": "%s的水系攻击获得了50%加成，持续三回合！",
+  "pixelmon_backport.advancement.greninja_bond.title": "殊途同归",
+  "pixelmon_backport.advancement.greninja_bond.description": "获得一只特性为牵绊进化的甲贺忍蛙。",
+  "attack.water_shuriken.description": "用粘液制成的手里剑，连续攻击2～5次，并优先攻击。牵绊进化后的小智版甲贺忍蛙固定攻击3次，单次威力20；使出前先提升自身水系伤害50%，持续3回合（包含当回合）。仅自身受益，重复使用只刷新时间，不叠加；普通甲贺忍蛙不获得此增益。",
+  "pixelmon_backport.battle.ash_water_boost_end": "%s的水系伤害加成结束了！"
 }

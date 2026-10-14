@@ -76,6 +76,7 @@ public final class Backport {
         Pixelmon.EVENT_BUS.register(new TeraRaids.Events());
         BackportEffects.register();
         TeraNetwork.register();
+        QuestSyncRecovery.register();
         FieldMega.register();
         Pixelmon.EVENT_BUS.register(new CapPikachu());
         Pixelmon.EVENT_BUS.register(new CapSpawns());

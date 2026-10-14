@@ -4,19 +4,21 @@
 
 这是一个独立的附加模组：在保留旧版重铸本体与整合包的基础上，加入新种类、ZA Mega 形态、携带道具、进化物品和中文资料，并提供太晶战斗、独立太晶巢穴及对应获取渠道。适合希望继续使用 1.16.5，同时体验更多新内容的玩家。
 
-`1.4.0 正式版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
+`1.4.1 正式版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
 
-**[最新版本：下载 1.4.0](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.4.0)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
+**[最新版本：下载 1.4.1](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.4.1)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
 
 ---
 
-## 1.4.0 更新
+## 1.4.1 更新
 
-独立智皮卡与专属 Z「雷之起源」、持续爆裂场地正式加入；修复传说进化/巢穴获得成就、伪装百变怪与馆主超进化卡死，十八馆主基础奖金提高到20万宝可元。保留确认的城市布局，中央岩石景观改沙漠神殿，补齐城市对白、第九世代图鉴栖息地与树果炼制器中文标题，并改善对战运动冻结。
+小智版甲贺忍蛙的飞水手里剑先赋予仅自身的水系攻击50%加成，当回合立即受益，持续三回合；重复只刷新时间，到期播报结束。新增「殊途同归」与「凌云九霄」成就。修复多人游戏崩溃、智皮卡平原村庄刷新／查询及概率说明，固定公性并保证野生击败奖励；巢穴排除智皮卡。补齐双罗盘中文，统一Mega像素头像，新增罕见／传说补给站自然替换，并改善任务数据失步后的恢复。
 
-**[智皮卡与智皮卡 Z 详细玩法](docs/CAP_PIKACHU_1.4.0.md)** 包含独立身份、完整属性、技能池、平原村庄获取、刷新概率、捕获率3、禁球、晶石配方、Z使用步骤、留1HP/全力攻击、爆裂倍率与持续、变属性招式及黄色边框。
+**[忍蛙技能与成就详细说明](docs/GRENINJA_1.4.1.md)** 包含适用形态／特性、每击20→30、固定3击、当回合加成、三回合计时、刷新与清理，以及「殊途同归」的真实获得条件。
 
-发布包含正式补丁、功能包、三份地图包、完整手册、智皮卡专项说明、完整源码与校验文件。完整变化见[1.4.0发布说明](docs/RELEASE_1.4.0.md)，验证见[发布验证记录](docs/VALIDATION_1.4.0.md)。任务书目标、奖励与任务条件由任务书维护者处理，本版不修改。
+**[智皮卡与智皮卡 Z 详细玩法](docs/CAP_PIKACHU_1.4.1.md)** 包含独立身份、完整属性、技能池、平原村庄获取、刷新概率、捕获率3、禁球、晶石配方、Z使用步骤、留1HP/全力攻击、爆裂倍率与持续、变属性招式及黄色边框。
+
+发布包含正式补丁、功能包、三份地图包、完整手册、智皮卡及忍蛙专项说明、完整源码与校验文件。完整变化见[1.4.1发布说明](docs/RELEASE_1.4.1.md)，验证见[发布验证记录](docs/VALIDATION_1.4.1.md)。任务书目标、奖励与任务条件由任务书维护者处理，本版不修改。
 
 ## 可以体验什么
 
@@ -35,25 +37,26 @@
 
 各物品的适用条件、配方、掉落和操作步骤，见 [完整玩法与获取手册](HANDBOOK.md)。
 
-## 已发布 1.4.0 下载与安装
+## 已发布 1.4.1 下载与安装
 
 | 下载 | 用途 |
 | :--- | :--- |
-| `pixelmon-content-backport-1.16.5-1.4.0.jar` | 单独安装补丁 |
-| `Pixelmon-Backport-1.4.0.zip` | 功能包：模组 JAR、完整手册与安装说明 |
-| `Pixelmon-Backport-test-maps-1.4.0.zip` | 原七张功能地图，加骑乘、捕捉成就与合体两张独立地图 |
-| `Pixelmon-Backport-gym-test-maps-1.4.0.zip` | 十八张城市、徽章展示及新版岩石城，共20张 |
-| `Pixelmon-Backport-cap-test-map-1.4.0.zip` | 智皮卡专项手动测试地图 |
-| `Pixelmon-Backport-Cap-Pikachu-1.4.0.md` | 智皮卡与智皮卡Z详细玩法 |
-| `Pixelmon-Backport-source-1.4.0.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
-| `Pixelmon-Backport-Handbook-1.4.0.md` | 单独阅读或分享完整玩法说明 |
-| `SHA256SUMS-1.4.0.txt` | 校验全部八份发布文件 |
+| `pixelmon-content-backport-1.16.5-1.4.1.jar` | 单独安装补丁 |
+| `Pixelmon-Backport-1.4.1.zip` | 功能包：模组 JAR、完整手册与安装说明 |
+| `Pixelmon-Backport-test-maps-1.4.1.zip` | 原七张功能地图，加骑乘、捕捉成就与合体两张独立地图 |
+| `Pixelmon-Backport-gym-test-maps-1.4.1.zip` | 十八张城市、徽章展示及新版岩石城，共20张 |
+| `Pixelmon-Backport-cap-test-map-1.4.1.zip` | 智皮卡专项手动测试地图 |
+| `Pixelmon-Backport-Cap-Pikachu-1.4.1.md` | 智皮卡与智皮卡Z详细玩法 |
+| `Pixelmon-Backport-source-1.4.1.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
+| `Pixelmon-Backport-Handbook-1.4.1.md` | 单独阅读或分享完整玩法说明 |
+| `Pixelmon-Backport-Greninja-1.4.1.md` | 忍蛙技能更新、三回合规则与新成就 |
+| `SHA256SUMS-1.4.1.txt` | 校验全部九份发布文件 |
 
-上述文件可从 [1.4.0 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.4.0) 下载，也可由构建脚本生成到 `dist/`。
+上述文件可从 [1.4.1 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.4.1) 下载，也可由构建脚本生成到 `dist/`。
 
 1. 准备 Minecraft **1.16.5**、Forge **36.2.42**、**Java 11** 和旧版 Pixelmon 重铸本体。已验证文件名为 9.1.13、内部版本为 9.1.12 的本体。
 2. 关闭游戏与服务器，备份存档；升级时移除旧版回迁功能模组，只保留一份。
-3. 解压功能包，将 `mods/pixelmon-content-backport-1.16.5-1.4.0.jar` 放入实际游戏实例的 `mods` 目录，然后启动游戏。多人游戏中，服务器和所有客户端使用相同版本。
+3. 解压功能包，将 `mods/pixelmon-content-backport-1.16.5-1.4.1.jar` 放入实际游戏实例的 `mods` 目录，然后启动游戏。多人游戏中，服务器和所有客户端使用相同版本。
 4. 如需道具查询，安装 JEI **1.16.5 / 7.x**；如需测试地图，按 [地图指南](TEST_MAPS.md) 安装独立地图包。
 
 功能包不附带 Pixelmon 本体；测试地图单独下载。地图 ZIP 顶层直接是 `mods/` 与 `saves/`，将 `saves` 下选定的世界文件夹复制到实例中，避免再套一层目录。

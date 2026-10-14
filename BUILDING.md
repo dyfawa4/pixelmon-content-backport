@@ -133,3 +133,9 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 ## 1.4.0 智皮卡地图与发布
 
 运行 `build-cap-test-map.ps1` 构建单独智皮卡地图包。正式补丁源码检查含95个实际Mixin目标；可选PixelTweaks与JEI仅在对应依赖存在时校验。三份地图和正式JAR准备后运行 `python tools/package_release.py --version 1.4.0`，再运行 `python tools/verify_release_package.py --version 1.4.0`，生成并检查完整源码、玩家文档和八份制品校验值。
+
+## 1.4.1 回归与发布
+
+`build.ps1` 读取正式模组元数据版本；两份地图构建脚本也读取该版本，并保留既有初始世界名称。先构建正式补丁，运行 `check.ps1 -PixelmonJar <本体.jar> -LibrariesDirectory <libraries目录>`，再运行 `build-test-maps.ps1` 和 `build-cap-test-map.ps1`。
+
+本轮离线检查包括104个实际Mixin目标、正式忍蛙增益实现的受控回合与成员隔离测试，以及补给站概率和任务恢复接口；不启动自动游戏对战。三份地图就绪后运行 `python tools/package_release.py --version 1.4.1` 与 `python tools/verify_release_package.py --version 1.4.1`，封装九份制品及其校验文件，忍蛙专项说明单独提供。验证范围见 `docs/VALIDATION_1.4.1.md`。

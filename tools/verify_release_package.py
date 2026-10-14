@@ -25,11 +25,11 @@ def main():
     with zipfile.ZipFile(production) as archive:
         nodes=[name for name in archive.namelist() if name.startswith('data/pixelmon_backport/advancements/legends/') and name.endswith('.json')]
         expected=['data/pixelmon_backport/advancements/legends/capture_493.json']
-        if VERSION=='1.4.0':expected.append('data/pixelmon_backport/advancements/legends/capture_1026.json')
+        if VERSION in {'1.4.0', '1.4.1'}:expected.append('data/pixelmon_backport/advancements/legends/capture_1026.json')
         assert sorted(name for name in nodes if json.loads(archive.read(name))['display']['frame']=='challenge')==sorted(expected)
         if VERSION=='1.3.0':assert all(json.loads(archive.read(name))['display']['hidden'] for name in nodes)
-    packages=[('test-maps',9),('gym-test-maps',20 if VERSION=='1.4.0' else 19)]
-    if VERSION=='1.4.0':packages.append(('cap-test-map',1))
+    packages=[('test-maps',9),('gym-test-maps',20 if VERSION in {'1.4.0', '1.4.1'} else 19)]
+    if VERSION in {'1.4.0', '1.4.1'}:packages.append(('cap-test-map',1))
     for suffix,count in packages:
         with zipfile.ZipFile(DIST/f'Pixelmon-Backport-{suffix}-{VERSION}.zip') as archive:
             assert archive.testzip() is None
@@ -38,7 +38,7 @@ def main():
             assert len(worlds)==count and all(len(name.split('/'))==3 for name in worlds), worlds
             assert not any(name.endswith('.zip') or '/playerdata/' in name for name in names)
             mods=[name for name in names if name.startswith('mods/') and name.endswith('.jar')]
-            if VERSION=='1.4.0':
+            if VERSION in {'1.4.0', '1.4.1'}:
                 assert len(mods)==2
                 assert archive.read('mods/'+production.name)==production.read_bytes(),(suffix,'stale production jar')
                 helper=next(name for name in mods if name!='mods/'+production.name);jar(archive.read(helper),helper=True)
@@ -51,10 +51,12 @@ def main():
         assert archive.testzip() is None
         assert archive.read('mods/'+production.name)==production.read_bytes()
         assert f'docs/VALIDATION_{VERSION}.md' in archive.namelist()
-        if VERSION=='1.4.0':
+        if VERSION in {'1.4.0', '1.4.1'}:
             assert archive.read('HANDBOOK.md')==(ROOT/'HANDBOOK.md').read_bytes()
             assert archive.read(f'docs/CAP_PIKACHU_{VERSION}.md')==(ROOT/f'docs/CAP_PIKACHU_{VERSION}.md').read_bytes()
             assert (DIST/f'Pixelmon-Backport-Cap-Pikachu-{VERSION}.md').read_bytes()==(ROOT/f'docs/CAP_PIKACHU_{VERSION}.md').read_bytes()
+    if VERSION=='1.4.1':
+        assert (DIST/'Pixelmon-Backport-Greninja-1.4.1.md').read_bytes()==(ROOT/'docs/GRENINJA_1.4.1.md').read_bytes()
     with zipfile.ZipFile(DIST/f'Pixelmon-Backport-source-{VERSION}.zip') as archive:
         assert archive.testzip() is None
         names=set(archive.namelist())

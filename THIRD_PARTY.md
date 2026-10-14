@@ -11,3 +11,5 @@ Minecraft、Forge、Pixelmon 旧版本体及参考定制版完整 JAR 是用户�
 1.3.0 小智帽形态使用旧版本体皮卡丘的身体、骨架、正常/闪光贴图及待机/行走动画；帽子几何、配色与标志由 `tools/create_ash_pikachu.py` 添加，形态图标由该模型渲染。原生身体、贴图和动画保留上游权利，正常/闪光图标也含这些上游元素。
 
 官方来源：[Pixelmon](https://reforged.gg/)、[Pixelmon Wiki](https://pixelmonmod.com/wiki/)、[Minecraft Forge](https://files.minecraftforge.net/)、[Minecraft](https://www.minecraft.net/)。本项目不是 Pixelmon 官方发布。
+
+1.4.1 的46份ZA Mega普通／闪光头像复用 [PokemonWorkshop/GameDataPacks](https://github.com/PokemonWorkshop/GameDataPacks/tree/d430fb553df98ccde5f9f90ece78e36b07d8083c) 的像素素材，作者为 Batin、ezerart、Luis779，源素材整理为 Aelysya。本项目只提取64×32双帧图的第一张32×32图，没有重新生成、缩放或重绘。素材按其来源的 Pokemon Studio Public License（署名、非商业、相同方式共享）保留许可，MIT代码许可不覆盖这些素材。完整归属见[随JAR打包的声明](resources/META-INF/MEGA_AVATAR_CREDITS.txt)，逐文件来源见[资源清单](resources/backport/mega_avatar_sources.json)。

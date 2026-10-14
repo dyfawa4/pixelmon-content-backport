@@ -51,6 +51,7 @@ public final class BurstVerification {
             }
         }
         String preserved=nativePikachu.toString();JsonObject cap=CapSpecies.create(nativePikachu),base=cap.getAsJsonArray("forms").get(0).getAsJsonObject();
+        check(base.get("malePercentage").getAsInt()==100 && base.getAsJsonArray("possibleGenders").toString().equals("[\"MALE\"]"),"Cap must be male-only without altering native Pikachu");
         check(cap.get("dex").getAsInt()==1026 && cap.get("name").getAsString().equals("CapPikachu"),"Independent identity missing");
         check(preserved.equals(nativePikachu.toString()),"Ordinary Pikachu mutated");
         check(base.get("catchRate").getAsInt()==3 && base.get("catchRate").getAsInt()==metagrossRate && base.getAsJsonArray("tags").contains(new JsonPrimitive("legendary")),"Catch parameter must be the native Metagross extreme-low value, not a flat percentage");
@@ -70,7 +71,7 @@ public final class BurstVerification {
         check(main.get("basePower").getAsInt()==120 && main.get("accuracy").getAsInt()==100,"Signature stats");
         check(z.get("basePower").getAsInt()==185 && z.get("attackName").getAsString().equals("Origin of Thunder") && z.getAsJsonArray("allowedPokemon").get(0).getAsString().equals("CapPikachu"),"Z stats/name/eligibility");
         JsonObject spawn=resource("data/pixelmon/spawning/legendaries/cappikachu.set.json").getAsJsonArray("spawnInfos").get(0).getAsJsonObject();
-        check(spawn.get("interval").getAsString().equals("legendary") && spawn.getAsJsonObject("condition").getAsJsonArray("stringBiomes").toString().equals("[\"minecraft:plains\"]") && spawn.getAsJsonObject("condition").getAsJsonArray("structures").toString().equals("[\"minecraft:village\"]"),"Spawn location/clock broadened");
+        check(spawn.get("interval").getAsString().equals("legendary") && spawn.getAsJsonObject("condition").getAsJsonArray("stringBiomes").toString().equals("[\"minecraft:plains\"]") && spawn.getAsJsonObject("condition").getAsJsonArray("structures").toString().equals("[\"village\"]"),"Spawn location/clock broadened or unsupported native village key");
         JsonObject recipe=resource("data/pixelmon/recipes/pikashunium_z.json");check(recipe.getAsJsonArray("ingredients").size()==4 && recipe.getAsJsonObject("result").get("count").getAsInt()==1,"Four-to-one recipe");
         check(resource("data/pixelmon_backport/advancements/legends/capture_1026.json").getAsJsonObject("display").get("frame").getAsString().equals("challenge"),"Partner challenge missing");
         for(String lang:new String[]{"en_us","zh_cn"}){JsonObject locale=resource("assets/pixelmon_backport/lang/"+lang+".json");for(String key:new String[]{"pixelmon.cappikachu","attack.ten_million_volts","attack.origin_of_thunder","pixelmon.backport.burst.start"})check(locale.has(key),"Missing localized identity "+key);}

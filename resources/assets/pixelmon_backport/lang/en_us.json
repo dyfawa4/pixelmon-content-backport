@@ -737,5 +737,17 @@
   "pixelmon_backport.advancement.deoxys_changed.title": "Ever-Changing",
   "pixelmon_backport.advancement.deoxys_changed.description": "Successfully change the form of your own Deoxys.",
   "pixelmon_backport.field_mega.dragon_ascent": "Rayquaza must learn Dragon Ascent first.",
-  "pixelmon.backport.burst.name": "Burst Terrain"
+  "pixelmon.backport.burst.name": "Burst Terrain",
+  "pixelmon_backport.spawns.global": "Global legendary spawn chance:",
+  "pixelmon_backport.spawns.weights": "Possible spawns (candidate weights):",
+  "pixelmon_backport.spawns.cap_chance": "Cap Pikachu spawn chance: %s%% (global %s%% minus 40 percentage points; candidate weights are separate).",
+  "pixelmon_backport.advancement.rayquaza_mega.title": "Soaring Above the Clouds",
+  "pixelmon_backport.advancement.rayquaza_mega.description": "Successfully Mega Evolve your own Rayquaza.",
+  "pixelmon_backport.quests.syncing": "Resyncing quest data. The quest book will reopen when ready.",
+  "pixelmon_backport.quests.retry": "Quest data is not ready. Please try opening the quest book again shortly.",
+  "pixelmon_backport.battle.ash_water_boost": "%s's Water attacks gain 50% power for three turns!",
+  "pixelmon_backport.advancement.greninja_bond.title": "Different Paths, Same Destination",
+  "pixelmon_backport.advancement.greninja_bond.description": "Obtain a Greninja with the Battle Bond ability.",
+  "attack.water_shuriken.description": "The user strikes first with throwing stars two to five times. Ash-Greninja with Battle Bond strikes exactly three times at 20 power per hit and first gains 50% more Water damage for three turns, including this turn. Only the user benefits. Reuse refreshes duration without stacking; ordinary Greninja does not gain this boost.",
+  "pixelmon_backport.battle.ash_water_boost_end": "%s's Water damage boost has ended!"
 }

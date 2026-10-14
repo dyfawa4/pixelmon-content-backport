@@ -8,7 +8,12 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 @Mixin(value=DefaultServerList.class,remap=false)
 public abstract class DefaultServerListMixin {
     @Inject(method="tryFetchDefaultServers(Ljava/lang/Runnable;)V",at=@At("HEAD"),cancellable=true)
-    private static void backport$noAds(Runnable complete,CallbackInfo ci){if(complete!=null)complete.run();ci.cancel();}
+    private static void backport$noAds(Runnable complete,CallbackInfo ci){
+        // The native callback opens a NEW CustomMultiplayerScreen. Its init
+        // immediately calls this method again, even after a deferred callback.
+        // No list was downloaded/changed, so there is nothing to refresh.
+        ci.cancel();
+    }
     @Inject(method="fetchDefaultServers",at=@At("HEAD"),cancellable=true)
     private static void backport$noDownload(CallbackInfoReturnable<CompletableFuture<?>> cir){cir.setReturnValue(CompletableFuture.completedFuture(null));}
 }

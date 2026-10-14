@@ -5,6 +5,12 @@
   "compatibilityLevel": "JAVA_11",
   "plugin": "local.pixelmon.backport.mixin.BackportMixinPlugin",
   "mixins": [
+    "NaturalPokeStopMixin",
+    "LuckyPhoneHealMixin",
+    "DenCapExclusionMixin",
+    "RaidCapExclusionMixin",
+    "CapVillageConditionMixin",
+    "CapSpawnChanceDisplayMixin",
     "PokedexHabitatMixin",
     "DatapackMixin",
     "SharpnessMixin",
@@ -76,6 +82,8 @@
     "BattleMotionPacketMixin"
   ],
   "client": [
+    "QuestOpenRecoveryMixin",
+    "CapZTooltipMixin",
     "InfuserTitleMixin",
     "InfuserJeiTitleMixin",
     "BattleMotionClientInputMixin",
@@ -96,6 +104,8 @@
     "FieldSkillScreenMixin",
     "DefaultServerListMixin",
     "PromotedServersMixin",
+    "CompassNamesMixin",
+    "NatureCompassNamesMixin",
     "NpcDialogueDisplayMixin"
   ],
   "injectors": {

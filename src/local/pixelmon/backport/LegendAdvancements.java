@@ -25,6 +25,9 @@ public final class LegendAdvancements {
     public static void capture(ServerPlayerEntity player,Pokemon pokemon){
         if(!AcquisitionAdvancements.ownedStored(player,pokemon))return;
         int dex=pokemon.getSpecies().getDex();
+        if(dex==658 && pokemon.getAbility() instanceof com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond){
+            award(player,"root");award(player,"gen6");award(player,"capture_658_bond");
+        }
         JsonObject row=DATA.getAsJsonObject("captures").getAsJsonObject(Integer.toString(dex));
         if(DATA.has("capturesByForm") && DATA.getAsJsonObject("capturesByForm").has(Integer.toString(dex))){
             row=DATA.getAsJsonObject("capturesByForm").getAsJsonObject(Integer.toString(dex)).getAsJsonObject(pokemon.getForm().getName());
@@ -76,6 +79,15 @@ public final class LegendAdvancements {
         int dex=wrapper.getSpecies().getDex();if(dex!=382 && dex!=383)return;
         award(player,"root");award(player,"primal");award(player,"form_"+dex+"_primal");
     }
+    /** Called only after native battle Mega evolution returns success. */
+    public static void megaRayquaza(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper wrapper){
+        if(wrapper.bc==null || wrapper.bc.simulateMode || wrapper.bc.battleEnded
+            || wrapper.getSpecies().getDex()!=384 || !wrapper.getForm().isForm("mega")
+            || !(wrapper.getParticipant() instanceof com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant))return;
+        ServerPlayerEntity player=((com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant)wrapper.getParticipant()).player;
+        if(!AcquisitionAdvancements.ownedStored(player,wrapper.pokemon))return;
+        award(player,"root");award(player,"forms");award(player,"form_384_mega");
+    }
     public static void formChanged(Pokemon pokemon,String before){
         // A client copy can resolve the integrated-server player by UUID. The
         // server thread and the canonical stored object are both required.
@@ -90,6 +102,13 @@ public final class LegendAdvancements {
         // The native cube changes Power Construct Zygarde directly and does
         // not emit a capture or assembly event. Award the completed base form.
         if(pokemon.getSpecies().getDex()==718){capture(player,pokemon);return;}
+        // The field marker is installed after permission checks and event
+        // cancellation, before the native animation actually changes the form.
+        // Bare setForm, creation, loading and a received Mega do not count.
+        if(pokemon.getSpecies().getDex()==384 && FieldMega.active(pokemon) && pokemon.getForm().isForm("mega")
+            && pokemon.getPersistentData().func_74775_l(FieldMega.MARKER).func_74779_i("Target").equals("mega")){
+            award(player,"root");award(player,"forms");award(player,"form_384_mega");
+        }
         for(JsonElement value:DATA.getAsJsonArray("transformations")){
             JsonObject row=value.getAsJsonObject();
             if(!row.has("source") || !row.get("source").getAsString().equals("form-change"))continue;

@@ -29,7 +29,7 @@ public abstract class TeraWrapperMixin {
     @Inject(method="isItemRemovable",at=@At("HEAD"),cancellable=true)
     private void backport$keepMask(PixelmonWrapper user,CallbackInfoReturnable<Boolean> cir){if(self().getSpecies().getDex()==1017 && self().getHeldItem() instanceof Backport.Mask)cir.setReturnValue(false);}
     @Inject(method="<init>(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;)V",at=@At("RETURN"))
-    private void backport$copy(PixelmonWrapper original,CallbackInfo ci){Tera.copy(original,self());}
+    private void backport$copy(PixelmonWrapper original,CallbackInfo ci){Tera.copy(original,self());local.pixelmon.backport.AshWaterBoost.copy(original,self());}
     @Inject(method="megaEvolve",at=@At("HEAD"),cancellable=true)
     private void backport$tera(CallbackInfoReturnable<Boolean> cir){if(Tera.selected(self()))cir.setReturnValue(Tera.activate(self()));}
     @Inject(method="setAttack(Lcom/pixelmonmod/pixelmon/battles/attacks/Attack;Ljava/util/List;Z)V",at=@At("RETURN"))
@@ -52,4 +52,8 @@ public abstract class TeraWrapperMixin {
     private void backport$spent(boolean affectPP,CallbackInfo ci){Tera.consumeBoost(self());Tera.enforceType(self());}
     @Inject(method="useAttack(Z)V",at=@At("HEAD"))
     private void backport$beginMove(boolean affectPP,CallbackInfo ci){Tera.beginMove(self());}
+    @Inject(method="useAttack(Z)V",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/ability/Ability;startMove(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;)V"))
+    private void backport$ashWaterBeforeAttack(boolean affectPP,CallbackInfo ci){local.pixelmon.backport.AshWaterBoost.start(self());}
+    @Inject(method="resetOnSwitch",at=@At("RETURN"))
+    private void backport$clearAshWater(CallbackInfo ci){local.pixelmon.backport.AshWaterBoost.clear(self());}
 }

@@ -13,7 +13,7 @@ public final class BackportMixinPlugin implements IMixinConfigPlugin {
     public boolean shouldApplyMixin(String t,String m){
         if(t.startsWith("com.strangeone101.pixeltweaks."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null
             && getClass().getClassLoader().getResource("mezz/jei/api/recipe/category/IRecipeCategory.class")!=null;
-        if(t.startsWith("pixelmondetector.") || t.startsWith("com.chaosthedude.explorerscompass."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
+        if(t.startsWith("pixelmondetector.") || t.startsWith("com.chaosthedude.explorerscompass.") || t.startsWith("com.chaosthedude.naturescompass.") || t.startsWith("pokelucky.") || t.startsWith("dev.ftb.mods.ftbquests."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
         return true;
     }
     public void acceptTargets(Set<String> mine,Set<String> other){}
