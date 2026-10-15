@@ -7,6 +7,22 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 
 public final class BurstCapture {
     public BurstCapture(){}
+    private static final java.util.Map<com.pixelmonmod.pixelmon.battles.controller.BattleController,java.util.Set<java.util.UUID>> WARNED=new java.util.WeakHashMap<>();
+    @net.minecraftforge.eventbus.api.SubscribeEvent
+    public void battle(com.pixelmonmod.pixelmon.api.events.battles.BattleStartedEvent.Post event){
+        var battle=event.getBattleController();
+        if(battle==null || battle.simulateMode || battle.battleEnded)return;
+        for(var participant:battle.participants){
+            if(!(participant instanceof com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant))continue;
+            var player=((com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant)participant).player;
+            if(player==null)continue;
+            boolean cap=false;
+            for(var opponent:battle.participants)if(opponent.team!=participant.team && opponent instanceof com.pixelmonmod.pixelmon.battles.controller.participants.WildPixelmonParticipant)
+                for(var target:opponent.allPokemon)if(target.pokemon!=null && target.pokemon.getSpecies().getDex()==CapSpecies.DEX)cap=true;
+            if(cap && WARNED.computeIfAbsent(battle,key->new java.util.HashSet<>()).add(player.func_110124_au()))
+                player.func_146105_b(new net.minecraft.util.text.TranslationTextComponent("pixelmon.backport.cap.capture_warning"),false);
+        }
+    }
     @net.minecraftforge.eventbus.api.SubscribeEvent(priority=net.minecraftforge.eventbus.api.EventPriority.LOWEST)
     public void capture(com.pixelmonmod.pixelmon.api.events.CaptureEvent.StartCapture event){
         if(event.getPokeBall()!=null && forbidden(event.getPokeBall().getBallType(),event.getPokemon().getPokemon()))event.setCanceled(true);

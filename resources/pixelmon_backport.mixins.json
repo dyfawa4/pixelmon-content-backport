@@ -5,6 +5,7 @@
   "compatibilityLevel": "JAVA_11",
   "plugin": "local.pixelmon.backport.mixin.BackportMixinPlugin",
   "mixins": [
+    "FtbStructureTaskMixin",
     "NaturalPokeStopMixin",
     "DetectorConfigTranslationMixin",
     "LootrQueueLifecycleMixin",
@@ -87,9 +88,11 @@
     "BattleMotionEntityMixin",
     "BattleMotionPlayerMixin",
     "BattleMotionLivingMixin",
-    "BattleMotionPacketMixin"
+    "BattleMotionPacketMixin",
+    "LuckySpeciesMixin"
   ],
   "client": [
+    "LootrShoulderDownloadMixin",
     "QuestOpenRecoveryMixin",
     "CapZTooltipMixin",
     "InfuserTitleMixin",
@@ -105,6 +108,8 @@
     "BattleInfoMoveMixin",
     "BattleInfoTooltipMixin",
     "DetectorDenMixin",
+    "DetectorPokeStopMarkerMixin",
+    "DetectorPokeStopLineMixin",
     "DetectorConfigCommentMixin",
     "DetectorConfigFolderMixin",
     "DetectorConfigTitleMixin",
@@ -124,7 +129,9 @@
     "CompassNamesMixin",
     "NatureCompassNamesMixin",
     "NpcDialogueDisplayMixin",
-    "NpcDialogueChoiceMixin"
+    "NpcDialogueChoiceMixin",
+    "AshMoveDisplayMixin",
+    "AshBattleMessageMixin"
   ],
   "injectors": {
     "defaultRequire": 1

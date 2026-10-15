@@ -38,7 +38,11 @@ $taskClasspath=(@($taskForgeCompileApi,$taskCompileApi,$PixelmonJar,$JeiJar)+$ta
 python -X utf8 (Join-Path $PSScriptRoot 'tools/build_detector_config_catalog.py')
 if($LASTEXITCODE -ne 0){throw 'Detector configuration catalog generation failed'}
 $taskSources=@(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'src') -Filter '*.java' -Recurse | ForEach-Object {$_.FullName})
-& $taskJavac --release 11 -proc:none -encoding UTF-8 -cp $taskClasspath -d $taskClasses @taskSources
+$taskCompileArgs=Join-Path $taskBuild 'javac.args'
+$taskCompileLines=@('--release','11','-proc:none','-encoding','UTF-8','-cp',('"'+$taskClasspath.Replace('\','/')+'"'),'-d',('"'+$taskClasses.Replace('\','/')+'"'))
+$taskCompileLines+=@($taskSources | ForEach-Object {'"'+$_.Replace('\','/')+'"'})
+[IO.File]::WriteAllLines($taskCompileArgs,$taskCompileLines,[Text.UTF8Encoding]::new($false))
+& $taskJavac ('@'+$taskCompileArgs)
 if($LASTEXITCODE -ne 0){throw 'Java 11 compilation failed'}
 $taskDist=(New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot 'dist')).FullName
 $taskMetadata=Get-Content -LiteralPath (Join-Path $PSScriptRoot 'resources/META-INF/mods.toml') -Raw

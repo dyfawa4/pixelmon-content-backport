@@ -2,6 +2,8 @@ import java.io.*;
 import java.util.*;
 import java.util.jar.JarFile;
 import com.google.gson.*;
+import net.minecraft.util.ResourceLocation;
+import local.pixelmon.backport.Content;
 import org.objectweb.asm.*;
 import org.objectweb.asm.tree.*;
 
@@ -23,6 +25,7 @@ public final class CapSpawnVerification {
     static boolean field(MethodNode m,String owner,String name){for(AbstractInsnNode i:m.instructions.toArray())if(i instanceof FieldInsnNode){FieldInsnNode f=(FieldInsnNode)i;if(f.owner.equals(owner)&&f.name.equals(name))return true;}return false;}
     static void require(boolean b,String reason){if(!b)throw new AssertionError(reason);}
     public static void main(String[] args)throws Exception{
+        verifyMagearnaRules(args[0]);
         String structure="net/minecraft/world/gen/feature/structure/Structure";
         ClassNode mc=resource(structure);MethodNode registrations=method(mc,"<clinit>");
         require(constant(registrations,"Village")&&!constant(registrations,"minecraft:village"),"Actual native structure registration differs");
@@ -52,5 +55,41 @@ public final class CapSpawnVerification {
         MethodNode lookup=method(resource("net/minecraft/world/gen/feature/structure/StructureManager"),"func_235010_a_");
         require(call(lookup,"net/minecraft/world/gen/feature/structure/StructureManager","func_235011_a_"),"Structure manager no longer follows start references");
         System.out.println("PASS actual Village->village native registry and start-only cache root causes; native legendary query shares corrected Cap-only full structure references; plains/70/legendary clock/40-point reduction preserved; other species unchanged.");
+    }
+
+    static void verifyMagearnaRules(String nativeJar)throws Exception{
+        Map<ResourceLocation,JsonElement> data=new LinkedHashMap<>();
+        try(JarFile jar=new JarFile(nativeJar)){
+            for(var entry:Collections.list(jar.entries())){
+                String path=entry.getName(),prefix="data/pixelmon/spawning/";
+                if(!path.startsWith(prefix)||!path.endsWith(".json"))continue;
+                try(Reader reader=new InputStreamReader(jar.getInputStream(entry),java.nio.charset.StandardCharsets.UTF_8)){
+                    data.put(new ResourceLocation("pixelmon",path.substring(prefix.length(),path.length()-5)),new JsonParser().parse(reader));
+                }
+            }
+            MethodNode fits=method(nativeClass(jar,"com/pixelmonmod/pixelmon/api/spawning/conditions/SpawnCondition"),"fits");
+            require(call(fits,"com/pixelmonmod/pixelmon/api/util/helpers/WorldHelper","insideStructure"),"Native structure predicate changed");
+        }
+        ResourceLocation key=new ResourceLocation("pixelmon","legendaries/magearna.set");
+        JsonObject original=data.get(key).getAsJsonObject();String originalText=original.toString();
+        Map<ResourceLocation,String> before=new HashMap<>();data.forEach((k,v)->before.put(k,v.toString()));
+        Content.apply("pixelmon","spawning",data);
+        JsonObject expected=new JsonParser().parse(originalText).getAsJsonObject();
+        JsonObject condition=expected.getAsJsonArray("spawnInfos").get(0).getAsJsonObject().getAsJsonObject("condition");
+        require(condition.getAsJsonArray("stringBiomes").toString().equals("[\"roofed\"]"),"Native biome root cause changed");
+        condition.remove("stringBiomes");JsonArray structures=new JsonArray();structures.add("mansion");condition.add("structures",structures);
+        require(data.get(key).equals(expected),"Only biome restriction and mansion guard may change; timer/rarity/level/indoors/day/floor must remain native");
+        require(original.toString().equals(originalText),"Shared native JSON was mutated");
+        for(var entry:data.entrySet())if(!entry.getKey().equals(key))require(entry.getValue().toString().equals(before.get(entry.getKey())),"Unrelated spawn rule changed: "+entry.getKey());
+        String once=data.toString();Content.apply("pixelmon","spawning",data);require(once.equals(data.toString()),"Reload duplicated rules");
+        var absent=new HashMap<ResourceLocation,JsonElement>();Content.apply("pixelmon","spawning",absent);require(absent.isEmpty(),"Disabled/removed Magearna rule was recreated");
+        var foreign=new HashMap<ResourceLocation,JsonElement>();foreign.put(new ResourceLocation("custom","legendaries/magearna.set"),original);Content.apply("pixelmon","spawning",foreign);require(foreign.values().iterator().next()==original,"Foreign data pack entry changed");
+        var otherContext=new HashMap<ResourceLocation,JsonElement>();otherContext.put(key,original);Content.apply("custom","spawning",otherContext);require(otherContext.get(key)==original,"Foreign loader context changed");
+        ClassNode bridge=resource("local/pixelmon/backport/mixin/CapVillageConditionMixin");MethodNode fit=method(bridge,"backport$capVillage");
+        require(constant(fit,801)&&constant(fit,"mansion")&&constant(fit,"minecraft:mansion")&&call(fit,"local/pixelmon/backport/MagearnaSpawns","mansion"),"Species-scoped mansion bridge missing");
+        MethodNode mansion=method(resource("local/pixelmon/backport/MagearnaSpawns"),"mansion");
+        require(call(mansion,"net/minecraft/world/server/ServerWorld","func_217354_b")&&call(mansion,"net/minecraft/world/gen/feature/structure/StructureManager","func_235010_a_")&&call(mansion,"net/minecraft/world/gen/feature/structure/StructureStart","func_75069_d")&&field(mansion,"net/minecraft/world/gen/feature/structure/Structure","field_236368_d_"),"Loaded native mansion reference/validity lookup missing");
+        require(call(method(resource("local/pixelmon/backport/Content"),"apply"),"local/pixelmon/backport/MagearnaSpawns","merge"),"Rule patch not connected to native loader");
+        System.out.println("PASS actual native Magearna spawn pool: only roofed restriction replaced with mansion structure; native daytime/indoors/birch floor/level/legendary timer/rarity retained, all other spawn rules unchanged, reload idempotent, missing rules/foreign contexts preserved; species-scoped native cross-chunk mansion reference bridge.");
     }
 }

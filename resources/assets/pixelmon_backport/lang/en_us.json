@@ -567,7 +567,7 @@
   "entity.pixelmon_backport.tera_den": "Tera Raid Den",
   "item.pixelmon_backport.tera_den_spawner": "Tera Den Generator",
   "pixelmon.backport.tera.raid.instructions": "Tera raid: 300 seconds. Use 3 moves to charge. Win for shards, Tera Blast TM and tier rewards.",
-  "pixelmon.backport.tera.raid.empty": "This Tera den is complete today. Come back next game day.",
+  "pixelmon.backport.tera.raid.empty": "This Tera den currently has no Pokemon to challenge. Wait for the next game-day refresh.",
   "pixelmon.backport.tera.raid.start": "Tera raid started! Use 3 moves to charge your orb.",
   "pixelmon.backport.tera.raid.shield": "The opponent raised its Tera shield!",
   "pixelmon.backport.tera.raid.broken": "The Tera shield broke!",
@@ -745,7 +745,7 @@
   "pixelmon_backport.advancement.rayquaza_mega.description": "Successfully Mega Evolve your own Rayquaza.",
   "pixelmon_backport.quests.syncing": "Resyncing quest data. The quest book will reopen when ready.",
   "pixelmon_backport.quests.retry": "Quest data is not ready. Please try opening the quest book again shortly.",
-  "pixelmon_backport.battle.ash_water_boost": "%s's Water attacks gain 50% power for three turns!",
+  "pixelmon_backport.battle.ash_water_boost": "%s strengthened itself! Its Water attacks gain 50% power for three turns!",
   "pixelmon_backport.advancement.greninja_bond.title": "Different Paths, Same Destination",
   "pixelmon_backport.advancement.greninja_bond.description": "Obtain a Greninja with the Battle Bond ability.",
   "attack.water_shuriken.description": "The user strikes first with throwing stars two to five times. Ash-Greninja with Battle Bond strikes exactly three times at 20 power per hit and first gains 50% more Water damage for three turns, including this turn. Only the user benefits. Reuse refreshes duration without stacking; ordinary Greninja does not gain this boost.",
@@ -771,5 +771,6 @@
   "structure.pixelmon_backport.ultra_desert_tera_den": "Ultra Desert Tera Den",
   "structure.pixelmon_backport.ultra_forest_tera_den": "Ultra Forest Tera Den",
   "structure.pixelmon_backport.ultra_jungle_tera_den": "Ultra Jungle Tera Den",
-  "structure.pixelmon_backport.ultra_plant_tera_den": "Ultra Plant Tera Den"
+  "structure.pixelmon_backport.ultra_plant_tera_den": "Ultra Plant Tera Den",
+  "pixelmon.backport.cap.capture_warning": "This Pokemon cannot be caught with a Master Ball, Park Ball, or Origin Ball."
 }

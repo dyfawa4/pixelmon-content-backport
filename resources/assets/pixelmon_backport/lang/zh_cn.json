@@ -569,7 +569,7 @@
   "entity.pixelmon_backport.tera_den": "太晶巢穴",
   "item.pixelmon_backport.tera_den_spawner": "太晶巢穴生成器",
   "pixelmon.backport.tera.raid.instructions": "太晶团战：300 秒限制，使用 3 次招式充能。胜利可得碎片、太晶爆发光盘及星级奖励。",
-  "pixelmon.backport.tera.raid.empty": "此太晶巢穴今日已完成，请等待下一游戏日。",
+  "pixelmon.backport.tera.raid.empty": "此太晶巢穴当前没有可挑战的宝可梦，请等待下一游戏日刷新。",
   "pixelmon.backport.tera.raid.start": "太晶团战开始！使用 3 次招式为太晶珠充能。",
   "pixelmon.backport.tera.raid.shield": "对手展开了太晶护盾！",
   "pixelmon.backport.tera.raid.broken": "太晶护盾被打破了！",
@@ -798,7 +798,7 @@
   "pixelmon_backport.advancement.rayquaza_mega.description": "让自己拥有的烈空坐成功完成超级进化。",
   "pixelmon_backport.quests.syncing": "任务数据正在重新同步，完成后会自动打开任务书。",
   "pixelmon_backport.quests.retry": "任务数据暂未同步，请稍后重试打开任务书。",
-  "pixelmon_backport.battle.ash_water_boost": "%s的水系攻击获得了50%加成，持续三回合！",
+  "pixelmon_backport.battle.ash_water_boost": "%s强化了自身！水系攻击威力提升50%，持续三回合！",
   "pixelmon_backport.advancement.greninja_bond.title": "殊途同归",
   "pixelmon_backport.advancement.greninja_bond.description": "获得一只特性为牵绊进化的甲贺忍蛙。",
   "attack.water_shuriken.description": "用粘液制成的手里剑，连续攻击2～5次，并优先攻击。牵绊进化后的小智版甲贺忍蛙固定攻击3次，单次威力20；使出前先提升自身水系伤害50%，持续3回合（包含当回合）。仅自身受益，重复使用只刷新时间，不叠加；普通甲贺忍蛙不获得此增益。",
@@ -824,5 +824,6 @@
   "structure.pixelmon_backport.ultra_desert_tera_den": "究极沙漠太晶巢穴",
   "structure.pixelmon_backport.ultra_forest_tera_den": "究极森林太晶巢穴",
   "structure.pixelmon_backport.ultra_jungle_tera_den": "究极丛林太晶巢穴",
-  "structure.pixelmon_backport.ultra_plant_tera_den": "究极植物世界太晶巢穴"
+  "structure.pixelmon_backport.ultra_plant_tera_den": "究极植物世界太晶巢穴",
+  "pixelmon.backport.cap.capture_warning": "该宝可梦无法用大师球、公园球和起源球捕捉！"
 }

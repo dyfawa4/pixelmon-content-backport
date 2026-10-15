@@ -1,3 +1,5 @@
+import com.pixelmonmod.pixelmon.client.gui.starter.ChooseStarterScreen;
+import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.event.TickEvent;
@@ -11,11 +13,26 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 /** Distributable map controls only. No automatic QA scenarios or report collectors. */
 @Mod("backport_client_test")
 public final class MapSupport {
+    private static final java.util.Set<java.util.UUID> MANUAL_READY=java.util.concurrent.ConcurrentHashMap.newKeySet();
+    @Mod.EventBusSubscriber(modid="backport_client_test",value=net.minecraftforge.api.distmarker.Dist.CLIENT)
+    public static final class ClientEvents {
+        @SubscribeEvent public static void closeObsoleteStarter(TickEvent.ClientTickEvent e){
+            if(e.phase!=TickEvent.Phase.END)return;
+            net.minecraft.client.Minecraft mc=net.minecraft.client.Minecraft.func_71410_x();
+            if(mc.field_71439_g!=null && MANUAL_READY.contains(mc.field_71439_g.func_110124_au())
+                && mc.field_71462_r instanceof ChooseStarterScreen)mc.func_147108_a(null);
+        }
+        @SubscribeEvent public static void starterScreen(net.minecraftforge.client.event.GuiOpenEvent e){
+            net.minecraft.client.Minecraft mc=net.minecraft.client.Minecraft.func_71410_x();
+            if(mc.field_71439_g!=null && MANUAL_READY.contains(mc.field_71439_g.func_110124_au())
+                && e.getGui() instanceof ChooseStarterScreen)e.setCanceled(true);
+        }
+    }
     @Mod.EventBusSubscriber(modid="backport_client_test")
     public static final class Events {
         @SubscribeEvent public static void commands(RegisterCommandsEvent e){
             LiteralArgumentBuilder<CommandSource> root=Commands.func_197057_a("backportqa");
-            for(String action:new String[]{"reset","end","raids","raidteam","careteam","breedteam","evolveteam","starterteam","nextteam","hurt","faint","showfirst"})
+            for(String action:new String[]{"reset","end","ash","ashboost","ashstatus","raids","raidteam","careteam","breedteam","evolveteam","starterteam","nextteam","hurt","faint","showfirst"})
                 root.then(Commands.func_197057_a("map").then(Commands.func_197057_a(action).executes(ctx->{
                     ServerPlayerEntity p=ctx.getSource().func_197035_h();if(!TestMaps.isMap(p))return 0;
                     if(!TestMaps.prepared)TestMaps.setup(p);TestMaps.action(p,action);return 1;
@@ -38,7 +55,8 @@ public final class MapSupport {
         @SubscribeEvent public static void tick(TickEvent.ServerTickEvent e){
             if(e.phase!=TickEvent.Phase.END || ServerLifecycleHooks.getCurrentServer()==null)return;
             for(ServerPlayerEntity p:ServerLifecycleHooks.getCurrentServer().func_184103_al().func_181057_v())
-                if(CapTestMaps.isMap(p)){CapTestMaps.tick(p);break;}else if(FeatureTestMaps.isMap(p)){FeatureTestMaps.tick(p);break;}else if(GymTestMaps.isMap(p)){GymTestMaps.tick(p);break;}else if(TestMaps.isMap(p)){TestMaps.tick(p);break;}
+                if(CapTestMaps.isMap(p)){CapTestMaps.tick(p);break;}else if(FeatureTestMaps.isMap(p)){FeatureTestMaps.tick(p);break;}else if(GymTestMaps.isMap(p)){GymTestMaps.tick(p);break;}else if(TestMaps.isMap(p)){TestMaps.tick(p);if(StorageProxy.getParty(p).starterPicked)MANUAL_READY.add(p.func_110124_au());break;}
         }
+        @SubscribeEvent public static void stopped(net.minecraftforge.fml.event.server.FMLServerStoppedEvent e){MANUAL_READY.clear();}
     }
 }

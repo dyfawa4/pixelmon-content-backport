@@ -35,6 +35,14 @@ public final class BattleInfoCompat {
         return attack.getType();
     }
     public static int movePower(Attack attack,PixelmonClientData user,int nativePower){
+        // The battle sidebar reads ImmutableAttack's shared base power (15),
+        // unlike Battle Bond's server calculation. Show per-hit form power;
+        // the temporary +50% boost remains a separate battle message.
+        ClientBattleManager bm=ClientProxy.battleManager;
+        if(attack!=null && user!=null && user.species!=null && user.species.getDex()==658
+            && ("ash".equals(user.form)||"ash_permanent".equals(user.form))
+            && "Water Shuriken".equals(attack.getMove().getAttackName())
+            && user.dynamax==0 && (bm==null||!bm.showZMoves&&!bm.dynamaxing&&bm.dynamaxTurnsLeft<=0))return 20;
         return teraMove(attack,user) && attack.getMove().getAttackName().equals("Tera Blast") && Tera.TYPES[teraType(user)]==Element.MYSTERY?100:nativePower;
     }
     public static AttackCategory moveCategory(Attack attack,PixelmonClientData user){

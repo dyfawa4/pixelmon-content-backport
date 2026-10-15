@@ -1,0 +1,27 @@
+{
+  "acceptedOn": "2026-10-15",
+  "cityPieces": 97,
+  "seed": 143143,
+  "sourceScreenshot": "a5e2bad4",
+  "files": {
+    "region/r.-1.-1.mca": "7212d4be4e50a85ef7ffa17cad14141cef3b8c4414a4563415adb822eeed4a3b",
+    "region/r.-1.0.mca": "afce2a004b5e68792ecfb1922c12ee9fe7eb40bed0f424609157e6e3a7261b5e",
+    "region/r.-1.1.mca": "bbb66248fb9474ca36fc9931e345b177cb382bcab37495faad4ab77f8ab44984",
+    "region/r.0.-1.mca": "fc297f72b6d607589c8b2ec5ce282ce75e5069084a5c33ceea1520c09e047631",
+    "region/r.0.0.mca": "1392a93bbf851ad26c1ffe3db7e8aeb3781a666f40bd41bd6f111368824be21c",
+    "region/r.0.1.mca": "13948a12ac480aadb0e9af4bb3e46f966f291e5918a1b25f6b97fcca9820f8b4",
+    "data/backport_gym_test.dat": "d8fefd79f0fd69f50e7d96ca97bfe4e259b23c971baa9c42b21adddd53487cee"
+  },
+  "included": "Clean repository level.dat, approved region terrain and city-ready marker only",
+  "excluded": [
+    "Player",
+    "playerdata",
+    "stats",
+    "advancements",
+    "pokemon",
+    "FTB teams/quests",
+    "serverconfig",
+    "session.lock",
+    "logs"
+  ]
+}

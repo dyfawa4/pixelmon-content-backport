@@ -55,6 +55,9 @@ public final class TestMapVerification {
             BattleController ashBattle=BattleRegistry.getBattle(player);
             require(ashBattle!=null,"Ash map battle failed");
             PixelmonWrapper ashUser=ashBattle.participants.get(0).allPokemon[0],ashTarget=ashBattle.participants.get(1).allPokemon[0];
+            require(ashUser.getForm().isForm("battle_bond") && ashUser.pokemon.getPalette().getSprite().toString().contains("/base/"),"Fresh fixture must use ordinary Greninja appearance");
+            require(ashBattle.participants.get(1).controlledPokemon.size()==1 && ashTarget.getParticipant().hasMorePokemonReserve(),"Ash fixture must have one active target and a real reserve");
+            require(ashTarget.getHealth()==1,"Ash fixture HP must survive native startup healing");
             ashTarget.setHealth(0);
             require(ashTarget.getParticipant().hasMorePokemon(),"Ash fixture needs a live reserve after the KO");
             ((BattleBond)ashUser.getBattleAbility()).tookDamageUser(300,ashUser,ashTarget,new Attack("Water Shuriken"));

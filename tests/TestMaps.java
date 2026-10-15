@@ -1,3 +1,4 @@
+import com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond;
 import java.util.*;
 import java.math.BigDecimal;
 import com.pixelmonmod.pixelmon.api.battles.BattleType;
@@ -42,6 +43,16 @@ public final class TestMaps {
     static final Set<Entity> testEntities=new HashSet<>();
     static final Set<String> observed=new HashSet<>();
     static String scenario="";
+    /** Native trainer semantics: one active opponent and a genuine reserve. */
+    static final class AshOpponent extends TrainerParticipant {
+        AshOpponent(NPCTrainer trainer){super(trainer,1);}
+        @Override public void startBattle(){
+            super.startBattle();
+            // Native trainer startup heals the team. Set HP after that, before
+            // the controller constructs the client's initial battle data.
+            allPokemon[0].setHealth(1);
+        }
+    }
     static void cmd(ServerPlayerEntity p,String text){ServerLifecycleHooks.getCurrentServer().func_195571_aL().func_197059_a(p.func_195051_bN().func_197033_a(4).func_197031_a(),text);}
     static boolean isMap(ServerPlayerEntity p){return ServerLifecycleHooks.getCurrentServer().func_240793_aU_().func_76065_j().startsWith("回迁测试 ");}
     static Item item(String id){return ForgeRegistries.ITEMS.getValue(new ResourceLocation(id));}
@@ -91,7 +102,10 @@ public final class TestMaps {
             npc(w,shop,0,-5,"新增道具购买／卖出测试");
             station(w,-5,0,"背包内太晶珠与 52 水碎片","bag");station(w,5,0,"背包太晶实战","bagbattle");
         }else if(mode.equals("forms")){
-            station(w,-6,0,"厄诡椪与面具","ogerpon");station(w,-2,0,"换形与物品进化队伍","forms");station(w,2,0,"小智甲贺忍蛙实战","ash");station(w,6,0,"ZA 新 Mega 队伍","za");
+            station(w,-6,0,"厄诡椪与面具","ogerpon");station(w,-2,0,"换形与物品进化队伍","forms");station(w,2,0,"牵绊进化测试（普通外观→小智）","ash");station(w,6,0,"ZA 新 Mega 队伍","za");
+            station(w,2,4,"忍蛙强化与结束播报（保留现有个体）","ashboost");
+            station(w,7,4,"检查忍蛙形态与个体身份","ashstatus");
+            label(w,3,68,6,"先击倒1HP对手触发牵绊；再用飞水手里剑，然后守住两回合看结束播报");
             station(w,0,2,"无极汰那与陨星合成测试","eternamax");
             List<ItemStack> materials=new ArrayList<>();materials.add(new ItemStack(item("minecraft:end_stone_bricks"),6));for(String id:new String[]{"pixelmon:azure_flute","pixelmon:meteorite","pixelmon:master_ball"})materials.add(DedicatedTestMaps.stack(id,1));supply(w,-12,0,"无极陨星：完整九格合成材料",materials);
             String[] actions={"raichux","raichuy","dragonite","starmie","greninja","zygarde","darkrai"};
@@ -107,12 +121,17 @@ public final class TestMaps {
         }else {
             station(w,-6,0,"双打 Mega／太晶布局","double");station(w,0,0,"双打太晶与换人","doubletera");station(w,6,0,"双打晶光星群目标","doublestar");
         }
-        reset(p);prepared=true;System.out.println("BACKPORT_QA_MAP_READY "+mode+" stations="+stations.size());
+        boolean keep="forms".equals(mode) && (p.getPersistentData().func_74767_n("BackportFormsInitialized") || hasEarnedAsh(p));
+        if(!keep)reset(p);else StorageProxy.getParty(p).starterPicked=true;
+        if("forms".equals(mode))p.getPersistentData().func_74757_a("BackportFormsInitialized",true);
+        prepared=true;System.out.println("BACKPORT_QA_MAP_READY "+mode+" stations="+stations.size()+" preserved="+keep);
     }
     static void tick(ServerPlayerEntity p){
         if(!prepared){setup(p);return;}
         BattleController b=BattleRegistry.getBattle(p);if(b==null)return;
         for(BattleParticipant team:b.participants)for(PixelmonWrapper mon:team.allPokemon){
+            if(mon.getSpecies().getDex()==658 && mon.pokemon.getAbility() instanceof BattleBond && team instanceof PlayerParticipant && observed.add("ash-state:"+mon.getPokemonUUID()+":"+mon.getForm().getName()))
+                p.func_146105_b(new StringTextComponent("忍蛙当前状态："+ashState(mon.pokemon)),false);
             if(Tera.active(mon) && observed.add("tera:"+mon.getPokemonUUID()))System.out.println("BACKPORT_QA_TERA_ACTIVE "+scenario+" dex="+mon.getSpecies().getDex()+" form="+mon.getForm().getName());
             if(mon.isMega && observed.add("mega:"+mon.getPokemonUUID()))System.out.println("BACKPORT_QA_MEGA_ACTIVE "+scenario+" dex="+mon.getSpecies().getDex()+" form="+mon.getForm().getName());
         }
@@ -150,6 +169,8 @@ public final class TestMaps {
     }
     static void action(ServerPlayerEntity p,String kind){
         if(kind.equals("reset")){reset(p);return;}if(kind.equals("end")){end(p);return;}
+        if(kind.equals("ashstatus")){ashStatus(p);return;}
+        if(kind.equals("ashboost")){ashBoost(p);return;}
         if(DedicatedTestMaps.action(p,kind))return;
         end(p);scenario=kind;boolean doub=kind.startsWith("double");
         if(kind.equals("raids")){raidFixtures(p.func_71121_q());return;}if(kind.equals("raidteam")){raidTeam(p);return;}
@@ -171,7 +192,14 @@ public final class TestMaps {
         Pokemon user=mon(za.containsKey(kind)?za.get(kind):kind.contains("star") || kind.equals("terapagos")?1024:kind.equals("ash")?658:kind.equals("mega") || kind.equals("z") || kind.equals("double")?6:143);
         Pokemon ally=mon(9),enemy=mon(143),other=mon(242);
         moves(user,kind.equals("ash")?"Water Shuriken":user.getSpecies().getDex()==1024?"Tera Starstorm":"Tera Blast","Flamethrower","Surf","Rock Slide");moves(ally,"Protect","Surf","Ice Beam","Tackle");moves(enemy,"Splash");moves(other,"Splash");
-        if(kind.equals("ash")){user.setForm("battle_bond");moves(enemy,"Splash");enemy.setHealth(1);}
+        if(kind.equals("ash")){
+            user.setForm("battle_bond");user.setPalette("none");
+            if(!(user.getAbility() instanceof BattleBond) || PermanentAsh.isAsh(user.getForm()) || !user.getPalette().getSprite().toString().contains("/base/")){
+                p.func_146105_b(new StringTextComponent("测试个体的普通形态数据异常，未开始战斗；请检查日志。"),false);
+                System.err.println("BACKPORT_QA_ASH_FIXTURE_INVALID form="+user.getForm().getName()+" sprite="+user.getPalette().getSprite());return;
+            }
+            moves(user,"Water Shuriken","Protect","Surf","Tackle");moves(enemy,"Splash");enemy.setHealth(1);
+        }
         if(za.containsKey(kind)){
             if(kind.equals("zygarde")){user.setForm("complete");moves(user,"Core Enforcer","Thousand Arrows","Dragon Pulse","Protect");}
             user.setHeldItem(new ItemStack(Backport.item(stones.get(kind))));
@@ -183,12 +211,66 @@ public final class TestMaps {
             bag(p);Tera.changeType(user,Element.WATER);
         }
         p.func_70012_b(.5,65,7.5,180,12);p.func_70634_a(.5,65,7.5);
-        Entity a=user.getOrSpawnPixelmon(p),c=ally.getOrSpawnPixelmon(p),e=enemy.getOrSpawnPixelmon(p.field_70170_p,.5,65,-3.5),f=other.getOrSpawnPixelmon(p.field_70170_p,3.5,65,-3.5);Collections.addAll(testEntities,a,c,e,f);for(Entity entity:testEntities)if(entity!=null)entity.func_184211_a("backport_qa_fixture");
+        Entity a=user.getOrSpawnPixelmon(p),c=ally.getOrSpawnPixelmon(p);Collections.addAll(testEntities,a,c);
+        BattleParticipant opponent;
+        if(kind.equals("ash")){
+            NPCTrainer trainer=new NPCTrainer(p.field_70170_p);
+            for(int i=0;i<6;i++)trainer.getPokemonStorage().set(i,null);
+            trainer.getPokemonStorage().set(0,enemy);trainer.getPokemonStorage().set(1,other);
+            npc(p.func_71121_q(),trainer,0,-4,"牵绊测试训练家（首发1HP，后备幸福蛋）");testEntities.add(trainer);
+            opponent=new AshOpponent(trainer);
+        }else{
+            Entity e=enemy.getOrSpawnPixelmon(p.field_70170_p,.5,65,-3.5),f=other.getOrSpawnPixelmon(p.field_70170_p,3.5,65,-3.5);Collections.addAll(testEntities,e,f);
+            opponent=new WildPixelmonParticipant(doub?new Pokemon[]{enemy,other}:new Pokemon[]{enemy});
+        }
+        for(Entity entity:testEntities)if(entity!=null)entity.func_184211_a("backport_qa_fixture");
         BattleRules rules=new BattleRules(doub?BattleType.DOUBLE:BattleType.SINGLE);rules.set(BattleRuleRegistry.GEN_MODE,EnumOldGenMode.Mega);
         // Native Battle Bond checks that a target participant still has an able
         // Pokemon after the KO; provide a reserve for the Ash unlock fixture.
-        BattleController b=BattleRegistry.startBattle(new BattleParticipant[]{new PlayerParticipant(p,doub?new Pokemon[]{user,ally}:new Pokemon[]{user})},new BattleParticipant[]{new WildPixelmonParticipant(doub || kind.equals("ash")?new Pokemon[]{enemy,other}:new Pokemon[]{enemy})},rules);
-        if(b==null)throw new AssertionError("Map battle rejected "+kind);System.out.println("BACKPORT_QA_SCENARIO_START "+kind);
+        PlayerParticipant player=new PlayerParticipant(p,doub?new Pokemon[]{user,ally}:new Pokemon[]{user});
+        BattleController b=BattleRegistry.startBattle(new BattleParticipant[]{player},new BattleParticipant[]{opponent},rules);
+        if(b==null)throw new AssertionError("Map battle rejected "+kind);
+        if(kind.equals("ash")){
+            // Also refresh the opponent snapshot; changing server HP alone does
+            // not update a client snapshot already queued during battle startup.
+            player.updateOpponentPokemon();
+            p.func_146105_b(new StringTextComponent("新建普通外观的牵绊忍蛙：蓝色头冠，飞水手里剑15威力、2～5击。击倒1HP卡比兽后才变为小智版：红色头冠、背部手里剑，20威力、固定3击。"),false);
+            System.out.println("BACKPORT_QA_ASH_FIXTURE form="+user.getForm().getName()+" sprite="+user.getPalette().getSprite()+" active="+opponent.controlledPokemon.size()+" firstHP="+opponent.allPokemon[0].getHealth()+" reserve="+opponent.hasMorePokemonReserve());
+        }
+        System.out.println("BACKPORT_QA_SCENARIO_START "+kind);
+    }
+    static boolean hasEarnedAsh(ServerPlayerEntity p){
+        for(int i=0;i<6;i++){Pokemon mon=StorageProxy.getParty(p).get(i);if(mon!=null&&mon.getSpecies().getDex()==658&&mon.getForm().isForm(PermanentAsh.FORM))return true;}
+        return false;
+    }
+    static void ashStatus(ServerPlayerEntity p){
+        for(int i=0;i<6;i++){
+            Pokemon mon=StorageProxy.getParty(p).get(i);
+            if(mon!=null&&mon.getSpecies().getDex()==658)p.func_146105_b(new StringTextComponent("忍蛙槽位"+(i+1)+"："+ashState(mon)+"；形态="+mon.getForm().getName()+"，特性="+mon.getAbility().getClass().getSimpleName()+"，个体="+mon.getUUID()),false);
+        }
+        BattleController battle=BattleRegistry.getBattle(p);
+        if(battle!=null)for(BattleParticipant participant:battle.participants)if(!(participant instanceof PlayerParticipant))for(PixelmonWrapper mon:participant.controlledPokemon)
+            p.func_146105_b(new StringTextComponent("当前对手："+mon.pokemon.getSpecies().getName()+"，HP="+mon.getHealth()+"/"+mon.getMaxHealth()+"，后备="+participant.hasMorePokemonReserve()),false);
+    }
+    static String ashState(Pokemon mon){
+        return PermanentAsh.isAsh(mon.getForm()) && mon.getAbility() instanceof BattleBond
+            ? "已变身小智形态（红色头冠、背部手里剑；飞水手里剑20威力／固定3击）"
+            : "尚未羁绊变身（普通外观、蓝色头冠；飞水手里剑15威力／2～5击）";
+    }
+    static void ashBoost(ServerPlayerEntity p){
+        Pokemon user=null;
+        for(int i=0;i<6;i++){Pokemon mon=StorageProxy.getParty(p).get(i);if(mon!=null&&mon.getSpecies().getDex()==658&&PermanentAsh.isAsh(mon.getForm())&&mon.getAbility() instanceof BattleBond){user=mon;break;}}
+        if(user==null){p.func_146105_b(new StringTextComponent("先使用牵绊进化测试点，击倒首个对手取得小智形态。"),false);return;}
+        end(p);scenario="ashboost";user.heal();moves(user,"Water Shuriken","Protect","Surf","Tackle");
+        Pokemon enemy=mon(242);enemy.setLevelNum(100);enemy.heal();moves(enemy,"Splash");
+        p.func_70012_b(.5,65,7.5,180,12);p.func_70634_a(.5,65,7.5);
+        Entity own=user.getOrSpawnPixelmon(p),target=enemy.getOrSpawnPixelmon(p.field_70170_p,.5,65,-3.5);
+        Collections.addAll(testEntities,own,target);for(Entity entity:testEntities)if(entity!=null)entity.func_184211_a("backport_qa_fixture");
+        BattleRules rules=new BattleRules(BattleType.SINGLE);rules.set(BattleRuleRegistry.GEN_MODE,EnumOldGenMode.Mega);
+        BattleController battle=BattleRegistry.startBattle(new BattleParticipant[]{new PlayerParticipant(p,new Pokemon[]{user})},new BattleParticipant[]{new WildPixelmonParticipant(new Pokemon[]{enemy})},rules);
+        if(battle==null){p.func_146105_b(new StringTextComponent("测试战斗未能开始，请结束当前战斗后重试。"),false);return;}
+        p.func_146105_b(new StringTextComponent("先飞水手里剑强化自身，再守住两回合；若再用飞水手里剑会刷新三回合。"),false);
+        System.out.println("BACKPORT_QA_SCENARIO_START ashboost uuid="+user.getUUID());
     }
     @SubscribeEvent public static void click(PlayerInteractEvent.RightClickBlock event){
         if(event.getWorld().field_72995_K || !(event.getPlayer() instanceof ServerPlayerEntity) || event.getHand()!=Hand.MAIN_HAND)return;

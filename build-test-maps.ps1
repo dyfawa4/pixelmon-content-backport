@@ -30,6 +30,7 @@ $taskGymPackage=(New-Item -ItemType Directory -Force -Path (Join-Path $taskStage
 Copy-Item -LiteralPath $taskMods -Destination $taskGymPackage -Recurse
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'test-maps/gym-saves-v9') -Destination (Join-Path $taskGymPackage 'saves') -Recurse
 Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'test-maps/gym-saves-v14') | ForEach-Object {Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $taskGymPackage 'saves') -Recurse}
+Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'test-maps/gym-saves-v143') | ForEach-Object {Copy-Item -LiteralPath $_.FullName -Destination (Join-Path $taskGymPackage 'saves') -Recurse}
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'GYM_TEST_MAPS.md') -Destination (Join-Path $taskGymPackage 'README.md')
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'GYM_GENERATION.md') -Destination $taskGymPackage
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'LICENSE.txt') -Destination $taskGymPackage

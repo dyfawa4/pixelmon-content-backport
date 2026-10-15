@@ -3,9 +3,9 @@ loaderVersion="[36,)"
 license="Code: MIT; converted upstream assets retain Pixelmon copyright"
 [[mods]]
 modId="pixelmon_backport"
-version="1.4.2"
+version="1.4.3"
 displayName="Pixelmon Content Backport"
-description='''New species, forms, items and Tera mechanics for Pixelmon 9.1.12 on Java 11. Version 1.4.2.'''
+description='''New species, forms, items and Tera mechanics for Pixelmon 9.1.12 on Java 11. Version 1.4.3.'''
 [[dependencies.pixelmon_backport]]
 modId="forge"
 mandatory=true

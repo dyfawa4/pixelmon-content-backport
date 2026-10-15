@@ -24,6 +24,7 @@ public final class Content {
     }
     public static void apply(String context, String type, Map<ResourceLocation, JsonElement> data) {
         if (!"pixelmon".equals(context)) return;
+        if("spawning".equals(type))MagearnaSpawns.merge(data);
         if("npcs".equals(type))NpcLocalization.merge(data);
         if(DATA.has("referenceExtras"))for(Map.Entry<ResourceLocation,JsonElement> entry:data.entrySet()){
             String key=type+"/"+entry.getKey().func_110623_a();JsonObject extras=DATA.getAsJsonObject("referenceExtras");

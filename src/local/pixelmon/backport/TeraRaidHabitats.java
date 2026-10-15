@@ -39,7 +39,7 @@ public final class TeraRaidHabitats {
             return decisions.computeIfAbsent(spec,this::check);
         }
         private boolean check(String spec){
-            String[] parts=spec.split(" ");var species=PixelmonSpecies.fromNameOrDex(parts[0]).orElse(null);
+            String[] parts=spec.split(" ");var species=resolve(parts[0]);
             if(species==null || !RaidSpawnExclusions.allowed(species.getDex()) || biome==null)return false;
             String form=species.getDefaultForm().getName();for(String part:parts)if(part.startsWith("form:"))form=part.substring(5);
             if(species.getDex()==550&&form.equals("white_striped"))form="white";
@@ -69,6 +69,15 @@ public final class TeraRaidHabitats {
             }
             return false;
         }
+    }
+    private static Species resolve(String token){
+        // Native fromNameOrDex accepts Integer dex values, but a numeric String
+        // is treated as a species NAME. Saved raid validation passes "152 form:".
+        if(token.matches("[0-9]+")){
+            try{return PixelmonSpecies.fromDex(Integer.parseInt(token)).orElse(null);}
+            catch(NumberFormatException invalid){return null;}
+        }
+        return PixelmonSpecies.fromNameOrDex(token).orElse(null);
     }
     public static String key(int dex,String form){
         Species species=PixelmonSpecies.fromNationalDex(dex);

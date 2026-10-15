@@ -76,11 +76,32 @@ public final class AshWaterBoostVerification {
         call("start",ash);Object sim=battle.getConstructor().newInstance();field(sim,"simulateMode",true);field(sim,"battleTurn",14);Object clone=actor(sim,"ash",true);
         helper.getMethod("copy",wrapper,wrapper).invoke(null,ash,clone);check(power(clone,shuriken,20)==30,"AI clone lost active state");call("clear",clone);
         check(power(ash,shuriken,20)==30&&messages(sim).isEmpty(),"AI modified live boost or broadcast");
+        // Native AI wrappers retain the SAME controller. simulateMode is reset
+        // before the live endTurn; it cannot identify a retained AI copy then.
+        int endsBefore=Collections.frequency(messages(bc),"pixelmon_backport.battle.ash_water_boost_end");
+        Object copy1=actor(bc,"ash",true),copy2=actor(bc,"ash",true);
+        helper.getMethod("copy",wrapper,wrapper).invoke(null,ash,copy1);
+        helper.getMethod("copy",wrapper,wrapper).invoke(null,ash,copy2);
+        field(bc,"simulateMode",true);check(power(copy1,shuriken,20)==30,"Shared-controller AI copy lost boost");
+        field(bc,"simulateMode",false);field(bc,"battleTurn",17);clock("expire",bc);
+        check(Collections.frequency(messages(bc),"pixelmon_backport.battle.ash_water_boost_end")==endsBefore+1,"AI copies duplicate the live expiry announcement");
+        Object freshCopy=actor(bc,"ash",true);helper.getMethod("copy",wrapper,wrapper).invoke(null,ash,freshCopy);
+        field(freshCopy,"attack",shuriken);field(bc,"simulateMode",true);call("start",freshCopy);
+        field(bc,"simulateMode",false);int messagesBefore=messages(bc).size();call("clear",freshCopy);
+        check(messages(bc).size()==messagesBefore,"AI-started boost broadcasts after simulation flag resets");
+        call("start",ash);field(bc,"simulateMode",true);field(bc,"battleTurn",20);clock("expire",bc);
+        field(bc,"battleTurn",17);field(bc,"simulateMode",false);
+        check(power(ash,shuriken,20)==30,"Simulated endTurn consumed the live actor's boost");
         call("start",ash);field(ash,"alive",false);clock("expire",bc);check(power(ash,shuriken,20)==20,"Fainted actor retains boost");field(ash,"alive",true);
         call("start",ash);clock("end",bc);check(power(ash,shuriken,20)==20,"Battle end retains boost");
         // Verify hooks relative to the real native attack/turn timeline, not just fixture behavior.
         boolean increment=false;for(MethodNode m:Version13StaticVerification.node(API.replace('.','/')+"battles/controller/BattleController").methods)if(m.name.equals("endTurn"))for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode&&i.getOpcode()==Opcodes.PUTFIELD&&((FieldInsnNode)i).name.equals("battleTurn"))increment=true;
         check(increment,"Native endTurn clock contract changed");
+        boolean sharedController=false;
+        for(MethodNode m:Version13StaticVerification.node(API.replace('.','/')+"battles/controller/participants/PixelmonWrapper").methods)
+            if(m.name.equals("<init>")&&m.desc.equals("(L"+API.replace('.','/')+"battles/controller/participants/PixelmonWrapper;)V"))
+                for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode&&i.getOpcode()==Opcodes.PUTFIELD&&((FieldInsnNode)i).name.equals("bc"))sharedController=true;
+        check(sharedController,"Native AI copy controller contract changed");
         for(String key:new String[]{"pixelmon_backport.battle.ash_water_boost","pixelmon_backport.battle.ash_water_boost_end"})for(String lang:new String[]{"en_us","zh_cn"})check(json("assets/pixelmon_backport/lang/"+lang+".json").getAsJsonObject().has(key),"Missing battle message "+key);
         System.out.println("PASS production Ash Water boost: current attack, own actor isolation, ordinary/form/ability/Z exclusions, three-turn expiry, refresh without stacking, switch/faint/end cleanup, AI clone isolation and bilingual end messages.");
     }

@@ -39,6 +39,8 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.blocks.PokeChestBlock");
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.registry.DropItemRegistry");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.ScreenHelper");
+            weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.pokechecker.PokeCheckerMovesScreen");
+            weatherTargets.add("com.pixelmonmod.pixelmon.battles.tasks.BattleMessagePacket");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.custom.dialogue.DialogueScreen");
             weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.NPCShopkeeper");
         weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.pokedex.RequestSpawnDataPacket");
@@ -96,7 +98,12 @@ public final class MixinApplicationVerification {
             }
             if(optional.getJarEntry("pokelucky/Process.class")!=null)verify(transformer,optional,"pokelucky.Process");
             if(optional.getJarEntry("noobanidus/mods/lootr/entity/EntityTicker.class")!=null)verify(transformer,optional,"noobanidus.mods.lootr.entity.EntityTicker");
+            if(optional.getJarEntry("noobanidus/mods/lootr/repack/shoulders/data/ShoulderList.class")!=null){
+                verify(transformer,optional,"noobanidus.mods.lootr.repack.shoulders.data.ShoulderList");
+                verifyLootrOfflineStartup(transformer,optional);
+            }
             if(optional.getJarEntry("dev/ftb/mods/ftbquests/client/FTBQuestsClient.class")!=null)verify(transformer,optional,"dev.ftb.mods.ftbquests.client.FTBQuestsClient");
+            if(optional.getJarEntry("dev/ftb/mods/ftbquests/quest/task/StructureTask.class")!=null)verify(transformer,optional,"dev.ftb.mods.ftbquests.quest.task.StructureTask");
             if(optional.getJarEntry("com/chaosthedude/naturescompass/util/BiomeUtils.class")!=null)verify(transformer,optional,"com.chaosthedude.naturescompass.util.BiomeUtils");
             if(optional.getJarEntry("com/strangeone101/pixeltweaks/integration/jei/category/InfuserRecipeCategory.class")!=null)verify(transformer,optional,"com.strangeone101.pixeltweaks.integration.jei.category.InfuserRecipeCategory");
             if(optional.getJarEntry("pixelmondetector/marker/PKMarker.class")!=null){verify(transformer,optional,"pixelmondetector.marker.PKMarker");verify(transformer,optional,"pixelmondetector.entities.EntityFinder");verify(transformer,optional,"pixelmondetector.marker.MarkerManager");verify(transformer,optional,"pixelmondetector.config.PDConfig$Common");}
@@ -104,6 +111,44 @@ public final class MixinApplicationVerification {
             if(optional.getJarEntry("com/chaosthedude/explorerscompass/util/StructureSearchWorker.class")!=null){verify(transformer,optional,"com.chaosthedude.explorerscompass.util.StructureSearchWorker");verify(transformer,optional,"com.chaosthedude.explorerscompass/util/StructureUtils".replace('/','.'));}
         }
         verifyFieldClientSelection();
+    }
+    /** Run the real original/patched method against a deterministic offline URL handler. */
+    static void verifyLootrOfflineStartup(IMixinTransformer transformer,JarFile jar)throws Exception{
+        String name="noobanidus.mods.lootr.repack.shoulders.data.ShoulderList";
+        byte[] original=jar.getInputStream(jar.getJarEntry(name.replace('.','/')+".class")).readAllBytes();
+        byte[] patched=transformer.transformClassBytes(name,name,original);
+        ClassNode originalNode=new ClassNode();new ClassReader(original).accept(originalNode,0);
+        MethodNode load=originalNode.methods.stream().filter(m->m.name.equals("load")).findFirst().orElseThrow();
+        if(!java.util.Arrays.stream(load.instructions.toArray()).anyMatch(i->i instanceof MethodInsnNode&&((MethodInsnNode)i).owner.equals("org/apache/commons/io/IOUtils")&&((MethodInsnNode)i).name.equals("toString")))throw new AssertionError("Native synchronous supporter download changed");
+        // Keep this test independent of real DNS/network availability. The original
+        // load blocks inside openConnection; the injected entry must never reach it.
+        java.util.concurrent.CountDownLatch entered=new java.util.concurrent.CountDownLatch(1),release=new java.util.concurrent.CountDownLatch(1);
+        java.util.concurrent.atomic.AtomicInteger requests=new java.util.concurrent.atomic.AtomicInteger();
+        java.net.URL.setURLStreamHandlerFactory(protocol->protocol.equals("https")?new java.net.URLStreamHandler(){
+            protected java.net.URLConnection openConnection(java.net.URL url){
+                requests.incrementAndGet();entered.countDown();
+                try{release.await();}catch(InterruptedException ex){Thread.currentThread().interrupt();}
+                return new java.net.URLConnection(url){public void connect(){}public java.io.InputStream getInputStream(){return new java.io.ByteArrayInputStream("[]".getBytes(java.nio.charset.StandardCharsets.UTF_8));}};
+            }
+        }:null);
+        java.util.function.Function<byte[],Class<?>> define=bytes->new ClassLoader(MixinApplicationVerification.class.getClassLoader()){
+            Class<?> defineNative(){return defineClass(name,bytes,0,bytes.length);}
+        }.defineNative();
+        Class<?> unpatched=define.apply(original),fixed=define.apply(patched);
+        var originalFailure=new java.util.concurrent.atomic.AtomicReference<Throwable>();
+        Thread blocked=new Thread(()->{try{unpatched.getMethod("load").invoke(null);}catch(Throwable ex){originalFailure.set(ex);}},"offline-lootr-original");blocked.setDaemon(true);blocked.start();
+        try{
+            if(!entered.await(5,java.util.concurrent.TimeUnit.SECONDS))throw new AssertionError("Original native downloader did not reach the blocking fixture",originalFailure.get());
+            if(!blocked.isAlive())throw new AssertionError("Original native download unexpectedly completed before network release");
+            int before=requests.get();
+            var done=new java.util.concurrent.atomic.AtomicReference<Throwable>();
+            Thread corrected=new Thread(()->{try{fixed.getMethod("load").invoke(null);}catch(Throwable ex){done.set(ex);}},"offline-lootr-fixed");corrected.setDaemon(true);corrected.start();corrected.join(2000);
+            if(corrected.isAlive()||done.get()!=null||requests.get()!=before)throw new AssertionError("Patched native startup blocked or attempted a cosmetic download",done.get());
+            var map=fixed.getDeclaredField("dataMap");map.setAccessible(true);
+            if(!((java.util.Map<?,?>)map.get(null)).isEmpty())throw new AssertionError("Offline supporter map must remain empty");
+        }finally{release.countDown();blocked.join(2000);}
+        if(originalFailure.get()!=null)throw new AssertionError("Original fixture failed unexpectedly",originalFailure.get());
+        System.out.println("PASS actual Lootr native supporter load blocks on unavailable HTTPS; transformed load returns without network request; empty cosmetic map is safe. No actual network or Minecraft world initialized.");
     }
     /** The default native setter calls a method stripped from a client distribution. */
     static void verifyFieldClientSelection()throws Exception{

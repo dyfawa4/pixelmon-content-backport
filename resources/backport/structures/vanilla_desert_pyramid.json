@@ -1,0 +1,18 @@
+{
+  "fills": 56,
+  "sets": 178,
+  "foundationColumns": 441,
+  "chests": 4,
+  "source": "Minecraft 1.16.5 DesertPyramidPiece.func_230383_a_",
+  "sourceClassSha256": "a08908fe6d7da72f0105769061f60e751d4acdf4c8a09f4935d6952c9f8f0293",
+  "coordinateMode": "unrotated local coordinates; solid terrain below foundation; chest facings point into chamber",
+  "lootSeeds": "omitted to roll fresh loot for each placed chest",
+  "nativeMinY": -14,
+  "nativeMaxY": 10,
+  "footprint": [
+    21,
+    21
+  ],
+  "recordedBlocks": 4388,
+  "outputSha256": "d6cbb693499f041db0234eeede7e6b59d5b97cda5b2d402724b3ba9cebf33748"
+}
