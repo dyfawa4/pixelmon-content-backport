@@ -1,0 +1,90 @@
+{
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:774, palette:\"red\", form:\"meteor\"}"
+    },
+    "title": {
+      "translate": "advancements.minior_capture_all.title"
+    },
+    "description": {
+      "translate": "advancements.minior_capture_all.description"
+    },
+    "hidden": true
+  },
+  "parent": "pixelmon:specs/spec_trigger",
+  "criteria": {
+    "red": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Minior palette:red",
+        "backport_expected_dex": 774
+      }
+    },
+    "orange": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Minior palette:orange",
+        "backport_expected_dex": 774
+      }
+    },
+    "yellow": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Minior palette:yellow",
+        "backport_expected_dex": 774
+      }
+    },
+    "green": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Minior palette:green",
+        "backport_expected_dex": 774
+      }
+    },
+    "blue": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Minior palette:blue",
+        "backport_expected_dex": 774
+      }
+    },
+    "indigo": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Minior palette:indigo",
+        "backport_expected_dex": 774
+      }
+    },
+    "violet": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Minior palette:violet",
+        "backport_expected_dex": 774
+      }
+    }
+  },
+  "requirements": [
+    [
+      "red"
+    ],
+    [
+      "orange"
+    ],
+    [
+      "yellow"
+    ],
+    [
+      "green"
+    ],
+    [
+      "blue"
+    ],
+    [
+      "indigo"
+    ],
+    [
+      "violet"
+    ]
+  ]
+}

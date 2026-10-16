@@ -16,11 +16,13 @@ root = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
 parser.add_argument('--output-dir', required=True, type=Path)
 parser.add_argument('--build-id', default='1.4.3-offline-test-20261015')
+parser.add_argument('--python-deps', type=Path, help='Local nbtlib dependency directory, used only for packaging verification')
 args = parser.parse_args()
 out = args.output_dir.resolve()
 assert not out.exists(), 'Use a fresh output directory; existing deliveries are not overwritten'
 version = re.search(r'^version="([^"]+)"', (root/'resources/META-INF/mods.toml').read_text(), re.M).group(1)
-assert version == '1.4.3', 'Review the test instructions before packaging a different version'
+assert version in {'1.4.3', '1.4.4'}, 'Review the test instructions before packaging a different version'
+assert args.build_id.startswith(version+'-'), 'Build ID must match the actual addon version'
 dist = root/'dist'
 production = dist/f'pixelmon-content-backport-1.16.5-{version}.jar'
 helper_name = f'backport-test-maps-1.16.5-{version}.jar'
@@ -90,7 +92,7 @@ assert len(worlds) == len(set(worlds)) == 11
 
 # All maps come from public clean initial templates, never the manual instance.
 # Check embedded player data as well as paths before handing them to testers.
-sys.path.insert(0, str(root/'.cache/temple-python'))
+sys.path.insert(0, str(args.python_deps or root/'.cache/temple-python'))
 import nbtlib
 for world in worlds:
     path = out/'saves'/world/'level.dat'
@@ -102,9 +104,9 @@ for relative, expected in accepted['files'].items():
     assert digest((out/'saves'/rock/relative).read_bytes()) == expected, relative
 
 documents = {
-    'README.md': 'docs/OFFLINE_TEST_1.4.3.md',
-    '测试清单.md': 'docs/OFFLINE_TEST_CHECKLIST_1.4.3.md',
-    '测试反馈模板.md': 'docs/OFFLINE_TEST_FEEDBACK_1.4.3.md',
+    'README.md': f'docs/OFFLINE_TEST_{version}.md',
+    '测试清单.md': f'docs/OFFLINE_TEST_CHECKLIST_{version}.md',
+    '测试反馈模板.md': f'docs/OFFLINE_TEST_FEEDBACK_{version}.md',
 }
 for name in ['HANDBOOK.md', 'TEST_MAPS.md', 'FEATURE_TEST_MAPS.md', 'GYM_TEST_MAPS.md',
              'CAP_TEST_MAP.md', 'LICENSE.txt', 'THIRD_PARTY.md']:
@@ -114,19 +116,38 @@ for name in ['RELEASE_1.4.3.md', 'REPAIR_1.4.3.md', 'VALIDATION_1.4.3.md',
              'MAGEARNA_MANSIONS_1.4.3.md', 'DEN_AUDIT_2026-10-15.md',
              'GRENINJA_1.4.3.md', 'CAP_PIKACHU_1.4.3.md', 'ROCK_VANILLA_TEMPLE_1.4.3.md']:
     documents['docs/'+name] = 'docs/'+name
+if version == '1.4.4':
+    for name in ['RELEASE_1.4.4.md', 'VALIDATION_1.4.4.md', 'LEGENDARY_ADVANCEMENTS_1.4.4.md',
+                 'CRASH_Z_PREVIEW_1.4.4.md', 'BOSS_CAPTURE_1.4.4.md', 'SPECIAL_APPEARANCE_1.4.4.md',
+                 'GRENINJA_1.4.4.md', 'CAP_PIKACHU_1.4.4.md']:
+        documents['docs/'+name] = 'docs/'+name
+    for name in ['CAP_TERA_LEARNING_2026-10-16.md', 'BATTLE_PP_CRASH_2026-10-16.md',
+                 'QUEST_MONEY_2026-10-16.md', 'QUEST_MONEY_DETAILS_2026-10-16.json', 'JAVA11_GATE_2026-10-16.md', 'BATTLE_TELEPORT_CRASH_2026-10-16.md', 'EDITOR_CHINESE_2026-10-16.md', 'TERA_RAID_CAPTURE_1.4.4.md', 'LOCAL_CLEANUP_SAFETY_2026-10-16.md']:
+        documents['docs/'+name] = 'docs/'+name
 for target, source in documents.items():
     destination = out/target
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(root/source, destination)
+overrides = []
+if version == '1.4.4':
+    for path in sorted((root/'pack-overrides').rglob('*.snbt')):
+        relative = path.relative_to(root/'pack-overrides')
+        assert relative.parts[:4] == ('config', 'ftbquests', 'quests', 'chapters')
+        destination = out/relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(path, destination)
+        overrides.append(relative.as_posix())
 shutil.copy2(root/'.cache/bop-mansion-registry.json', out/'docs/BOP府邸登记检查.json')
 build_time = datetime.now(timezone(timedelta(hours=8))).isoformat(timespec='seconds')
 identity = dict(version=version, build_id=args.build_id, built_at=build_time,
-                status='Manual tester build; not yet published to GitHub',
+                status='1.4.4 release tester handoff; local manual client accepted on 2026-10-16',
                 minecraft='1.16.5', forge='36.2.42', java=11,
                 pixelmon='file 9.1.13 / internal 9.1.12',
                 main_jar_sha256=digest(main_bytes), helper_jar_sha256=digest(helper_bytes),
                 worlds=worlds, approved_rock_city_pieces=97,
-                tests='Java11 build, offline regressions and live unspawned Tera probes passed; human acceptance remains pending',
+                quest_config_overrides=overrides,
+                tests=('Java11 build and full offline regressions passed; latest manual client accepted; detailed multiplayer limits are in VALIDATION_1.4.4.md'
+                       if version == '1.4.4' else 'Java11 build, offline regressions and live unspawned Tera probes passed; human acceptance remains pending'),
                 private_diagnostics_included=False, original_game_client_included=False)
 (out/'构建信息.json').write_text(json.dumps(identity, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
 files = sorted(p for p in out.rglob('*') if p.is_file())

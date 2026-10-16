@@ -10,13 +10,19 @@ public final class AcquisitionAdvancements {
         var server=net.minecraftforge.fml.server.ServerLifecycleHooks.getCurrentServer();
         if(server==null || !server.func_213162_bc() || player==null || player.field_70170_p.field_72995_K || pokemon==null || pokemon.isEgg()
             || !player.func_110124_au().equals(pokemon.getOwnerPlayerUUID()))return false;
-        var storage=pokemon.getStorage();
+        var storage=pokemon.getStorage();var position=pokemon.getPosition();
+        if(position==null || position.order<0)return false;
         if(storage instanceof com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage){
-            if(storage!=com.pixelmonmod.pixelmon.api.storage.StorageProxy.getParty(player))return false;
-        }else if(storage instanceof com.pixelmonmod.pixelmon.api.storage.PCStorage){
-            if(storage!=com.pixelmonmod.pixelmon.api.storage.StorageProxy.getPCForPlayer(player))return false;
+            if(storage!=com.pixelmonmod.pixelmon.api.storage.StorageProxy.getParty(player) || position.order>=storage.getAll().length)return false;
+        }else if(storage instanceof com.pixelmonmod.pixelmon.api.storage.PCStorage || storage instanceof com.pixelmonmod.pixelmon.api.storage.PCBox){
+            var pc=com.pixelmonmod.pixelmon.api.storage.StorageProxy.getPCForPlayer(player);
+            if(pc==null || position.box<0 || position.box>=pc.getBoxCount() || position.order>=com.pixelmonmod.pixelmon.api.storage.PCBox.POKEMON_PER_BOX)return false;
+            if(storage instanceof com.pixelmonmod.pixelmon.api.storage.PCBox){
+                var box=(com.pixelmonmod.pixelmon.api.storage.PCBox)storage;
+                if(box.pc!=pc || box.boxNumber!=position.box || pc.getBox(position.box)!=box)return false;
+            }else if(storage!=pc)return false;
         }else return false;
-        return pokemon.getPosition()!=null && storage.get(pokemon.getPosition())==pokemon;
+        return storage.get(position)==pokemon;
     }
     public static void species(ServerPlayerEntity player,Pokemon pokemon){
         if(!ownedStored(player,pokemon))return;

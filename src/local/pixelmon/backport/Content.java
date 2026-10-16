@@ -90,31 +90,7 @@ public final class Content {
                     if(settings!=null)f.add("movement",copy(settings));
                 }
             }
-            for(JsonElement value:data.values()){
-                JsonObject species=value.getAsJsonObject();String dex=species.get("dex").getAsString();if(!TERA_LEARNING.has(dex))continue;
-                JsonArray source=TERA_LEARNING.getAsJsonArray(dex);
-                for(JsonElement valueForm:species.getAsJsonArray("forms")){
-                    JsonObject form=valueForm.getAsJsonObject();String name=form.get("name").getAsString();
-                    boolean base=name.isEmpty() || name.equals("base");if(!source.contains(new JsonPrimitive(name)) && !(base && source.contains(new JsonPrimitive("base"))))continue;
-                    // A missing move object inherits the base form in the native loader.
-                    // Materialize that inheritance before adding a move; otherwise regional
-                    // variants would lose their entire native learnset and retain only Tera Blast.
-                    JsonObject moves;
-                    if(form.has("moves"))moves=form.getAsJsonObject("moves");
-                    else{
-                        JsonObject baseForm=species.getAsJsonArray("forms").get(0).getAsJsonObject();
-                        String baseName=form.has("defaultBaseForm")?form.get("defaultBaseForm").getAsString():"";
-                        if(!baseName.isEmpty())for(JsonElement candidate:species.getAsJsonArray("forms"))
-                            if(baseName.equals(candidate.getAsJsonObject().get("name").getAsString()))baseForm=candidate.getAsJsonObject();
-                        moves=baseForm.has("moves")?copy(baseForm.get("moves")).getAsJsonObject():new JsonObject();
-                        form.add("moves",moves);
-                    }
-                    JsonArray machines=moves.has("tmMoves9")?moves.getAsJsonArray("tmMoves9"):new JsonArray();moves.add("tmMoves9",machines);if(!machines.contains(new JsonPrimitive("Tera Blast")))machines.add("Tera Blast");
-                    JsonArray levels=moves.has("levelUpMoves")?moves.getAsJsonArray("levelUpMoves"):new JsonArray();moves.add("levelUpMoves",levels);
-                    boolean learned=false;for(JsonElement level:levels)if(level.getAsJsonObject().getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")))learned=true;
-                    if(!learned){JsonObject target=null;for(JsonElement level:levels)if(level.getAsJsonObject().get("level").getAsInt()==50)target=level.getAsJsonObject();if(target==null){target=new JsonObject();target.addProperty("level",50);target.add("attacks",new JsonArray());levels.add(target);}target.getAsJsonArray("attacks").add("Tera Blast");}
-                }
-            }
+            for(JsonElement value:data.values())applyTeraLearning(value.getAsJsonObject());
         } else if ("moves".equals(type)) {
             Set<String> names = new HashSet<>();
             for (JsonElement value : data.values()) names.add(value.getAsJsonObject().get("attackName").getAsString());
@@ -195,6 +171,32 @@ public final class Content {
             }
         }
         return result;
+    }
+    /** Apply the shared Tera Blast eligibility after custom species are created. */
+    public static void applyTeraLearning(JsonObject species){
+        String dex=species.get("dex").getAsString();if(!TERA_LEARNING.has(dex))return;
+        JsonArray source=TERA_LEARNING.getAsJsonArray(dex);
+        for(JsonElement valueForm:species.getAsJsonArray("forms")){
+            JsonObject form=valueForm.getAsJsonObject();String name=form.get("name").getAsString();
+            boolean base=name.isEmpty() || name.equals("base");if(!source.contains(new JsonPrimitive(name)) && !(base && source.contains(new JsonPrimitive("base"))))continue;
+            // A missing move object inherits the base form in the native loader.
+            // Materialize that inheritance before adding a move; otherwise regional
+            // variants would lose their entire native learnset and retain only Tera Blast.
+            JsonObject moves;
+            if(form.has("moves"))moves=form.getAsJsonObject("moves");
+            else{
+                JsonObject baseForm=species.getAsJsonArray("forms").get(0).getAsJsonObject();
+                String baseName=form.has("defaultBaseForm")?form.get("defaultBaseForm").getAsString():"";
+                if(!baseName.isEmpty())for(JsonElement candidate:species.getAsJsonArray("forms"))
+                    if(baseName.equals(candidate.getAsJsonObject().get("name").getAsString()))baseForm=candidate.getAsJsonObject();
+                moves=baseForm.has("moves")?copy(baseForm.get("moves")).getAsJsonObject():new JsonObject();
+                form.add("moves",moves);
+            }
+            JsonArray machines=moves.has("tmMoves9")?moves.getAsJsonArray("tmMoves9"):new JsonArray();moves.add("tmMoves9",machines);if(!machines.contains(new JsonPrimitive("Tera Blast")))machines.add("Tera Blast");
+            JsonArray levels=moves.has("levelUpMoves")?moves.getAsJsonArray("levelUpMoves"):new JsonArray();moves.add("levelUpMoves",levels);
+            boolean learned=false;for(JsonElement level:levels)if(level.getAsJsonObject().getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")))learned=true;
+            if(!learned){JsonObject target=null;for(JsonElement level:levels)if(level.getAsJsonObject().get("level").getAsInt()==50)target=level.getAsJsonObject();if(target==null){target=new JsonObject();target.addProperty("level",50);target.add("attacks",new JsonArray());levels.add(target);}target.getAsJsonArray("attacks").add("Tera Blast");}
+        }
     }
     private static void mergeMegaPairs(JsonObject target,JsonObject source){
         if(!source.has("megaItems") || !source.has("megas"))return;

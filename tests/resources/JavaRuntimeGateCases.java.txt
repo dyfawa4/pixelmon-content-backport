@@ -1,0 +1,28 @@
+package fixture;
+import local.pixelmon.backport.JavaRuntimePolicy;
+import local.pixelmon.backport.client.*;
+import local.pixelmon.backport.mixin.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.*;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+public final class JavaRuntimeGateCases {
+ static void check(boolean ok,String text){if(!ok)throw new AssertionError(text);}
+ public static void run()throws Exception{
+  var locked=JavaRuntimeGate.class.getDeclaredField("locked");locked.setAccessible(true);
+  var world=JavaRuntimeMinecraftMixin.class.getDeclaredMethod("backport$java11World",CallbackInfo.class);world.setAccessible(true);
+  var connect=JavaRuntimeConnectMixin.class.getDeclaredMethod("backport$java11Connect",CallbackInfo.class);connect.setAccessible(true);
+  Screen[] requested={null,new MainMenuScreen(),new WorldSelectionScreen(),new CreateWorldScreen(),new MultiplayerScreen(),new ConnectingScreen()};
+  for(int feature:new int[]{8,11,16,17,21,25}){
+   JavaRuntimePolicy.feature=feature;
+   for(Screen source:requested){
+    locked.setBoolean(null,false);Screen result=JavaRuntimeGate.filter(source);
+    check(feature==11?result==source:result instanceof JavaRuntimeScreen,"Entry menu bypass at Java "+feature);
+    if(feature!=11){check(JavaRuntimeGate.filter(null) instanceof JavaRuntimeScreen,"Close bypass");check(JavaRuntimeGate.filter(new Screen()) instanceof JavaRuntimeScreen,"Other GUI bypass");check(JavaRuntimeGate.filter(result)==result,"Gate recreated recursively");}
+   }
+   var mc=Minecraft.INSTANCE;int before=mc.opens;
+   check(JavaRuntimeGate.blockEntry()==(feature!=11),"Direct entry policy changed");check(mc.opens-before==(feature==11?0:1),"Java 11 gained side effects / wrong Java no screen");
+   var ci=new CallbackInfo("load/create",true);world.invoke(new Gates.Game(),ci);check(ci.isCancelled()==(feature!=11),"Direct world load/create bypass");
+   ci=new CallbackInfo("connect",true);connect.invoke(new Gates.Connect(),ci);check(ci.isCancelled()==(feature!=11),"Direct multiplayer connection bypass");
+  }
+ }
+}

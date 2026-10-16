@@ -1,0 +1,76 @@
+package fixture;
+import java.util.*;
+import com.google.gson.*;
+import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;
+import com.pixelmonmod.pixelmon.api.pokemon.species.Species;
+import com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.*;
+import com.pixelmonmod.pixelmon.api.battles.attack.AttackRegistry;
+import com.pixelmonmod.pixelmon.battles.attacks.*;
+import com.pixelmonmod.pixelmon.api.pokemon.Nature;
+import com.pixelmonmod.pixelmon.api.util.ITranslatable;
+import com.pixelmonmod.pixelmon.client.gui.pokemoneditor.*;
+import com.pixelmonmod.pixelmon.init.registry.ItemRegistration;
+import com.pixelmonmod.pixelmon.items.HeldItem;
+import local.pixelmon.backport.client.EditorNames;
+import net.minecraft.client.Minecraft;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.util.ResourceLocation;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+public final class EditorChineseCases {
+    static void check(boolean ok,String text){if(!ok)throw new AssertionError(text);}
+    static void completions(IndividualEditorBaseScreen screen,String prefix,String expected,boolean cancel)throws Exception{
+        var object=new Completion();Class<?> type=object.getClass().getSuperclass();
+        var options=type.getDeclaredField("completions");options.setAccessible(true);options.set(object,PixelmonSpecies.all);
+        var cache=type.getDeclaredField("cache");cache.setAccessible(true);List<ITranslatable> list=new ArrayList<>();cache.set(object,list);
+        Minecraft.func_71410_x().field_71462_r=screen;var method=Arrays.stream(type.getDeclaredMethods()).filter(m->m.getName().equals("backport$bilingualPrefix")).findFirst().orElseThrow();method.setAccessible(true);
+        var ci=new CallbackInfo("fixture",true);method.invoke(object,prefix,ci);check(ci.isCancelled()==cancel,"Completion escaped editor scope");
+        if(cancel&&expected!=null)check(list.stream().anyMatch(p->p instanceof Species&&((Species)p).name.equals(expected)),"Missing bilingual completion");
+    }
+    public static void run(String json,boolean patched)throws Exception{
+        Data.tables=JsonParser.parseString(json).getAsJsonObject();
+        for(var row:Data.tables.getAsJsonObject("species").entrySet())PixelmonSpecies.all.add(new Species(row.getKey()));
+        for(var row:Data.tables.getAsJsonObject("balls").entrySet())PokeBallRegistry.all.add(new PokeBall(row.getKey()));
+        for(var row:Data.tables.getAsJsonObject("moves").entrySet())AttackRegistry.all.add(new ImmutableAttack(row.getKey()));
+        var p=new PokemonEditorIndividualScreen();p.name("皮卡丘");
+        if(!patched){check(p.changes==0,"Native species responder unexpectedly accepts Chinese");p.ball("高级球");check(p.p.ball==null,"Native ball responder unexpectedly accepts Chinese");return;}
+        check(p.p.species.name.equals("Pikachu")&&p.changes==1,"Chinese species did not reach native change operation");
+        p.name("Pikachu");check(p.changes==1,"Same species resent/changed");p.name("不是真宝可梦");check(p.changes==1,"Unknown species committed");p.name("皮卡");check(p.changes==1,"Partial name committed without completion");
+        p.name("戴帽子的皮卡丘");check(p.p.species.name.equals("CapPikachu"),"Added Cap species inaccessible");p.name("太乐巴戈斯");check(p.p.species.name.equals("Terapagos"),"Added species inaccessible");
+        p.ball("高级球");check(p.p.ball.name.equals("ultra_ball"),"Chinese ball failed");p.ball("master_ball");check(p.p.ball.name.equals("master_ball"),"English ball regressed");p.ball("不存在的球");check(p.p.ball.name.equals("master_ball"),"Invalid ball altered value");
+        // Execute native checkFields; unchanged Chinese text must keep actual Attack objects/PP.
+        var thunder=new Attack("Thunderbolt");thunder.pp=3;var psychic=new Attack("Psychic");psychic.pp=4;
+        p.p.moves.add(thunder);p.p.moves.add(psychic);p.move(0,"十万伏特");p.move(1,"精神强念");check(p.save(),"Chinese moves rejected");
+        check(p.p.moves.get(0)==thunder&&p.p.moves.get(1)==psychic&&thunder.pp==3&&psychic.pp==4,"Unchanged moves recreated/reset PP");
+        p.move(1,"太晶爆发");check(p.save()&&p.p.moves.get(1).getMove().name.equals("Tera Blast"),"New move save failed");
+        p.move(0,"Thunderbolt");check(p.save()&&p.p.moves.get(0)==thunder,"English move compatibility lost");
+        p.move(1,"");check(p.save()&&p.p.moves.size()==1,"Native empty move deletion changed");
+        Data.tables.getAsJsonObject("moves").addProperty("Thunderbolt","重名招式");Data.tables.getAsJsonObject("moves").addProperty("Tera Blast","重名招式");
+        p.move(0,"重名招式");check(p.save()&&p.p.moves.get(0)==thunder&&thunder.pp==3,"Existing translated duplicate lost move or PP");
+        p.move(1,"重名招式");check(!p.save()&&p.p.moves.size()==1,"New ambiguous move picked native first match");p.move(1,"Tera Blast");check(p.save()&&p.p.moves.get(1).getMove().name.equals("Tera Blast"),"Explicit move name blocked by translation duplicate");
+        check(EditorNames.moves(List.of("重名招式")).containsAll(List.of("重名招式 [Thunderbolt]","重名招式 [Tera Blast]")),"Duplicate Chinese completions not disambiguated");
+        p.move(1,"重名招式 [Tera Blast]");check(p.save()&&p.p.moves.get(1).getMove().name.equals("Tera Blast"),"Qualified Chinese completion rejected");
+        // Chinese item labels resolve before native ResourceLocation validation.
+        var leftovers=new HeldItem("pixelmon:leftovers","吃剩的东西");var sword=new HeldItem("pixelmon:rusted_sword","腐朽的剑");
+        ItemRegistration.all.add(leftovers);ItemRegistration.all.add(sword);ItemRegistration.all.add(new Item("minecraft:stone","石头"));
+        try{new ResourceLocation("吃剩的东西");throw new AssertionError("Expected native ID format rejection");}catch(IllegalArgumentException expected){}
+        check(new ResourceLocation(EditorNames.item("吃剩的东西")).toString().equals("pixelmon:leftovers"),"Chinese held item parsing failed");
+        check(EditorNames.item("pixelmon:rusted_sword").equals("pixelmon:rusted_sword"),"Namespaced item ID changed");check(EditorNames.item("石头").equals("石头"),"Non-held item enabled");
+        var advanced=new Advanced();Class<?> advancedType=advanced.getClass().getSuperclass();
+        var heldText=advancedType.getDeclaredField("heldText");heldText.setAccessible(true);var text=new TextFieldWidget();heldText.set(advanced,text);
+        var held=advancedType.getDeclaredField("heldItem");held.setAccessible(true);held.set(advanced,new ItemStack(leftovers));
+        var guard=advancedType.getDeclaredMethod("backport$unfinishedChineseItem",CallbackInfo.class);guard.setAccessible(true);
+        text.text="吃剩的";var incomplete=new CallbackInfo("fixture",true);guard.invoke(advanced,incomplete);check(incomplete.isCancelled()&&((ItemStack)held.get(advanced)).func_190926_b(),"Partial Chinese item kept stale held item or reached native ID parser");
+        text.text="吃剩的东西";var complete=new CallbackInfo("fixture",true);guard.invoke(advanced,complete);check(!complete.isCancelled(),"Valid Chinese held item blocked");
+        var itemName=advancedType.getDeclaredMethod("backport$heldItemName",String.class);itemName.setAccessible(true);check(itemName.invoke(advanced,text.text).equals("pixelmon:leftovers"),"Actual item input callback not canonical");
+        check(EditorNames.items(List.of("pixelmon:leftovers")).contains("吃剩的东西"),"No Chinese held completions");
+        check(EditorNames.moves(List.of("十万伏特")).containsAll(List.of("十万伏特","Thunderbolt","Tera Blast")),"Move completion missing English/added moves");
+        for(var nature:Nature.values()){check(Nature.natureFromString(nature.getLocalizedName())==nature,"Native Chinese nature parser regressed");check(Nature.natureFromString(nature.name())==nature,"Native English nature parser regressed");}
+        check(EditorNames.natures(List.of("固执")).contains("ADAMANT"),"No English nature completion");
+        completions(p,"皮卡","Pikachu",true);completions(p,"pika","Pikachu",true);completions(p,"戴帽","CapPikachu",true);completions(null,"皮卡",null,false);
+        // Resource/locale changes are read live, not frozen into a startup cache.
+        Data.tables.getAsJsonObject("species").addProperty("Pikachu","资源包皮卡丘");check(EditorNames.species("资源包皮卡丘").equals("Pikachu"),"Resource-pack reload used stale names");
+        Data.tables.getAsJsonObject("species").addProperty("Pikachu","重复译名");Data.tables.getAsJsonObject("species").addProperty("Raichu","重复译名");check(EditorNames.species("重复译名").equals("重复译名"),"Ambiguous species guessed");check(EditorNames.species("Pikachu").equals("Pikachu"),"Explicit ID blocked by translation collision");
+    }
+}

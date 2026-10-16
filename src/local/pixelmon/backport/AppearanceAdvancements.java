@@ -16,9 +16,7 @@ public final class AppearanceAdvancements {
         return player!=null && !player.field_70170_p.field_72995_K && server!=null && server.func_213162_bc();
     }
     private static boolean stored(ServerPlayerEntity player,Pokemon pokemon){
-        if(!server(player) || pokemon==null || pokemon.isEgg() || !player.func_110124_au().equals(pokemon.getOwnerPlayerUUID()))return false;
-        var storage=pokemon.getStorage();
-        return storage!=null && pokemon.getPosition()!=null && storage.get(pokemon.getPosition())==pokemon;
+        return AcquisitionAdvancements.ownedStored(player,pokemon);
     }
     public static void rainbowConverted(ServerPlayerEntity player,Pokemon pokemon){
         if(rainbow(pokemon) && stored(player,pokemon))PixelmonAdvancements.SPEC_TRIGGER.trigger(player,pokemon);

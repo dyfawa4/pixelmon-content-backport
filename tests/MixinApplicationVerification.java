@@ -28,6 +28,7 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidData");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidRandomizer");
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.DenEntity");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.BattleController");
         weatherTargets.add("com.pixelmonmod.pixelmon.items.SpawnDenItem");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.raids.RaidStartScreen");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.raids.RaidCatchScreen");
@@ -59,10 +60,19 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.api.advancements.triggers.LegendaryCaptureTrigger$Instance");
         weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.catching.CaptureMethods$1");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.screens.bag.ItemMenuButton");
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.screens.bag.ChooseBag");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidGovernor");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.participants.RaidPixelmonParticipant");
         for(String status:new String[]{"Freeze","Sunny","Rainy","EntryHazard"})weatherTargets.add("com.pixelmonmod.pixelmon.battles.status."+status);
         try(JarFile jar=new JarFile(args[0])) {
+            String[] editorTargets={EditorChineseVerification.BASE,EditorChineseVerification.BALL,"com.pixelmonmod.pixelmon.client.gui.pokemoneditor.PokemonEditorAdvancedScreen","com.pixelmonmod.pixelmon.client.gui.widgets.TabCompleteTranslateableTextField"};
+            byte[][] editorCode=new byte[4][];for(int i=0;i<editorTargets.length;i++){String target=editorTargets[i];verify(transformer,jar,target);editorCode[i]=transformer.transformClassBytes(target,target,jar.getInputStream(jar.getJarEntry(target.replace('.','/')+".class")).readAllBytes());}
+            EditorChineseVerification.verify(jar,editorCode[0],editorCode[1],editorCode[2],editorCode[3]);
+            verify(transformer,jar,"com.pixelmonmod.pixelmon.client.ClientProxy");
+            String teleportProxy="com.pixelmonmod.pixelmon.client.ClientProxy",teleportChoose="com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.ChooseAttack";
+            BattleTeleportVerification.verify(jar,
+                transformer.transformClassBytes(teleportProxy,teleportProxy,jar.getInputStream(jar.getJarEntry(teleportProxy.replace('.','/')+".class")).readAllBytes()),
+                transformer.transformClassBytes(teleportChoose,teleportChoose,jar.getInputStream(jar.getJarEntry(teleportChoose.replace('.','/')+".class")).readAllBytes()));
             weatherTargets.add("com.pixelmonmod.pixelmon.entities.pixelmon.interactions.InteractionTechnicalMove");weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.participants.TrainerParticipant");weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.ai.TacticalAI");
             weatherTargets.add("com.pixelmonmod.pixelmon.world.structure.type.GymStructure$Start");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.zygarde.ZygardeCubeScreen");
@@ -85,6 +95,9 @@ public final class MixinApplicationVerification {
             weatherTargets.add("com.pixelmonmod.pixelmon.api.advancements.triggers.SpecTrigger$Instance");
             weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.ai.AdvancedAI");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.override.multiplayer.CustomServerList");
+            String raidPlayer="com.pixelmonmod.pixelmon.battles.raids.RaidData$RaidPlayer";
+            RaidCaptureParityVerification.verify(jar.getInputStream(jar.getJarEntry(raidPlayer.replace('.','/')+".class")).readAllBytes(),
+                transformer.transformClassBytes(raidPlayer,raidPlayer,jar.getInputStream(jar.getJarEntry(raidPlayer.replace('.','/')+".class")).readAllBytes()));
             for(String name:weatherTargets)verify(transformer,jar,name);
             for(String name:new String[]{"com.pixelmonmod.api.loader.DatapackLoader$Impl","com.pixelmonmod.pixelmon.client.models.smd.SmdAnimation","com.pixelmonmod.pixelmon.api.pokemon.species.palette.locator.ModelLocator","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Sharpness","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Bulletproof","com.pixelmonmod.pixelmon.items.TechnicalMoveItem","com.pixelmonmod.pixelmon.api.pokemon.species.moves.Moves","com.pixelmonmod.pixelmon.items.heldItems.BlankTechnicalMachineItem","com.pixelmonmod.pixelmon.api.registries.PixelmonItems","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond","com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.attackModifiers.MultipleHit","com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper","com.pixelmonmod.pixelmon.battles.attacks.Attack","com.pixelmonmod.pixelmon.battles.controller.BattleController","com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats","com.pixelmonmod.pixelmon.api.registries.PixelmonForms","com.pixelmonmod.pixelmon.client.gui.battles.BattleScreen"}) {
                 verify(transformer,jar,name);
@@ -92,6 +105,8 @@ public final class MixinApplicationVerification {
         }
         for(int i=1;i<args.length;i++)try(JarFile optional=new JarFile(args[i])){
             if(optional.getJarEntry("net/minecraft/world/gen/feature/template/Template.class")!=null){
+                verify(transformer,optional,"net.minecraft.client.Minecraft");
+                verify(transformer,optional,"net.minecraft.client.gui.screen.ConnectingScreen");
                 verify(transformer,optional,"net.minecraft.world.gen.feature.template.Template");
                 verify(transformer,optional,"net.minecraft.world.server.ServerChunkProvider");
                 verify(transformer,optional,"net.minecraft.world.gen.ChunkGenerator");

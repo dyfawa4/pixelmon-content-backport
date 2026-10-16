@@ -26,11 +26,20 @@ public final class BurstClient {
     }
     public static boolean move(Attack attack){
         if(attack==null)return false;
+        int displayFlags=flags();
+        if((displayFlags&BurstDisplayPolicy.FIELD)==0)return false;
         var manager=ClientProxy.battleManager;if(manager==null || manager.getCurrentPokemon()==null)return false;
         var user=manager.getCurrentPokemon();
         // The button retains its base attack even while displaying a Z/Max move.
         // Read the same native conversion as setupAttack, without editing it.
-        if(manager.showZMoves){var z=attack.getMove().getZMove(user,false);if(z!=null && attack.getAttackCategory()!=com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS && Attack.hasAttack(z.attackName))attack=new Attack(z.attackName);}
+        if(manager.showZMoves){
+            var z=attack.getMove().getZMove(user,false);
+            if(z!=null && attack.getAttackCategory()!=com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS && Attack.hasAttack(z.attackName)){
+                // Generic Z definitions omit category and inherit it from the
+                // original move. This detached preview must retain that link.
+                Attack preview=new Attack(z.attackName);preview.originalMove=attack;attack=preview;
+            }
+        }
         else if(manager.dynamaxing || user.pokemonUUID.equals(manager.dynamax)){
             attack=user.gmaxFactor?com.pixelmonmod.pixelmon.battles.attacks.MaxMoveConverter.getGMaxMoveFromAttack(attack.copy(),null,user.species,user.getBaseStats())
                 :com.pixelmonmod.pixelmon.battles.attacks.MaxMoveConverter.getMaxMoveFromAttack(attack.copy(),null);
@@ -40,9 +49,13 @@ public final class BurstClient {
         boolean electric=type==Element.ELECTRIC;
         if(!manager.showZMoves && !manager.dynamaxing && !user.pokemonUUID.equals(manager.dynamax) && state!=null && state.battle==manager.battleControllerIndex && state.burstElectricMoves.containsKey(user.pokemonUUID))electric=state.burstElectricMoves.get(user.pokemonUUID).contains(attack.getMove().getAttackName());
         if(attack.getMove().getAttackName().equals("Revelation Dance") && !BattleInfoCompat.defense(user).isEmpty())type=BattleInfoCompat.defense(user).get(0);
-        return BurstDisplayPolicy.move(flags(),attack.getActualMove().getAttackName(),
+        boolean affected=BurstDisplayPolicy.move(displayFlags,attack.getActualMove().getAttackName(),
             electric,
             attack.getAttackCategory()!=com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS);
+        // Ordinary Z selection has no yellow cue. The Cap signature still
+        // requires actual field benefit; non-Z allies use the same policy above.
+        return affected && (!manager.showZMoves || user.species!=null && user.species.getDex()==CapSpecies.DEX
+            && "Origin of Thunder".equals(attack.getActualMove().getAttackName()));
     }
     public static boolean ball(ItemStack stack){
         if((flags()&BurstDisplayPolicy.CAPTURE)==0 || stack.func_190926_b())return false;

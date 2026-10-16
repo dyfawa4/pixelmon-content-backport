@@ -1,0 +1,183 @@
+package fixture;
+import java.util.*;
+import com.google.gson.*;
+import com.pixelmonmod.pixelmon.api.pokemon.*;
+import com.pixelmonmod.pixelmon.api.pokemon.species.*;
+import com.pixelmonmod.pixelmon.api.storage.*;
+import com.pixelmonmod.pixelmon.api.registries.PixelmonItems;
+import com.pixelmonmod.pixelmon.battles.controller.*;
+import com.pixelmonmod.pixelmon.battles.controller.participants.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import local.pixelmon.backport.*;
+
+public class Legendary144Cases {
+    static ServerPlayerEntity player;
+    static PlayerPartyStorage party;
+    static PCStorage pc;
+    static AcquisitionQueue queue;
+    static void check(boolean b,String why){if(!b)throw new AssertionError(why);}
+    static void setup(){
+        ServerLifecycleHooks.server=new net.minecraft.server.MinecraftServer();
+        player=new ServerPlayerEntity();party=new PlayerPartyStorage();party.uuid=player.id;
+        pc=new PCStorage(5);pc.playerUUID=player.id;
+        StorageProxy.parties.clear();StorageProxy.pcs.clear();
+        StorageProxy.parties.put(player.id,party);StorageProxy.pcs.put(player.id,pc);
+        ServerLifecycleHooks.server.players.players.put(player.id,player);
+        queue=new AcquisitionQueue();queue.stopped(new net.minecraftforge.fml.event.server.FMLServerStoppedEvent());
+    }
+    static void endTick(){queue.tick(new TickEvent.ServerTickEvent(TickEvent.Phase.END));}
+    static Pokemon party(int dex,int slot){var p=new Pokemon(dex,"hero");party.set(new StoragePosition(-1,slot),p);return p;}
+    static Pokemon box(int dex,String form,int b,int slot){var p=new Pokemon(dex,form);pc.getBox(b).set(new StoragePosition(b,slot),p);return p;}
+    static String id(String name){return "pixelmon_backport:legends/"+name;}
+    static boolean earned(String name){return player.progress.earned.contains(id(name));}
+    static void resetAwards(){player.progress.earned.clear();player.nativeLegend=0;player.nativeSpec=0;}
+    static void crown(Pokemon p){p.form=new Stats(p.species,"crowned");p.held.item=p.species.dex==888?PixelmonItems.rusted_sword:PixelmonItems.rusted_shield;}
+    static PixelmonWrapper actor(Pokemon p,PlayerParticipant participant,BattleController battle,boolean active){
+        var w=new PixelmonWrapper();w.pokemon=p;w.participant=participant;w.bc=battle;w.onBattlefield=active;
+        if(active)participant.controlledPokemon.add(w);return w;
+    }
+    public static void legacy(){
+        setup();for(int i=0;i<6;i++)party(25,i);endTick();resetAwards();
+        var caught=box(888,"hero",0,0);
+        check(caught.getStorage() instanceof PCBox,"Native insertion did not attach PCBox");
+        check(player.id.equals(caught.getOwnerPlayerUUID()),"Native PCBox owner lookup did not resolve player");
+        check(!AcquisitionAdvancements.ownedStored(player,caught),"1.4.3 PCBox omission not reproduced");
+        endTick();check(!earned("capture_888"),"Old PC acquisition unexpectedly awarded");
+        party.set(new StoragePosition(-1,0),caught);endTick();check(earned("capture_888"),"Taking old PC object into party must reproduce recovery");
+        var shield=party(889,0);var sword=party(888,1);endTick();resetAwards();
+        crown(shield);LegendAdvancements.formChanged(shield,"hero");
+        crown(sword);LegendAdvancements.formChanged(sword,"hero");
+        check(earned("form_889_crowned")&&earned("form_888_crowned"),"1.4.3 all-party native Crowned double award not reproduced");
+        System.out.println("REPRODUCED native PCBox capture omission -> party recovery, and Crowned initialization of active shield + reserve sword.");
+    }
+    public static void fixed(){
+        setup();for(int i=0;i<6;i++)party(25,i);endTick();resetAwards();
+        var caught=box(888,"hero",4,29);
+        check(AcquisitionAdvancements.ownedStored(player,caught),"Last PC box/slot rejected");
+        queue.tick(new TickEvent.ServerTickEvent(TickEvent.Phase.START));check(!earned("capture_888"),"Award before END tick");
+        endTick();check(earned("capture_888")&&player.nativeLegend==1&&player.nativeSpec==1,"PC capture needs immediate native and backport species award");
+        check(party.getAll()[0].getSpecies().getDex()==25,"PC test silently moved target into full party");
+        AcquisitionQueue.stored(caught);AcquisitionQueue.stored(caught);resetAwards();endTick();
+        check(player.nativeLegend==1&&player.nativeSpec==1,"Same-tick duplicate insertion replayed");
+        var pos=caught.getPosition();var realBox=(PCBox)caught.getStorage();
+        var fake=new PCBox(pc,4);fake.pokemon[29]=caught;caught.storage=fake;
+        check(!AcquisitionAdvancements.ownedStored(player,caught),"Unregistered box impersonated real PC");
+        caught.storage=realBox;var saved=pc.playerUUID;pc.playerUUID=UUID.randomUUID();
+        check(!AcquisitionAdvancements.ownedStored(player,caught),"Other owner PC accepted");pc.playerUUID=saved;
+        realBox.pc=new PCStorage(5);realBox.pc.playerUUID=player.id;
+        check(!AcquisitionAdvancements.ownedStored(player,caught),"Same UUID foreign PC copy accepted");realBox.pc=pc;
+        caught.position=new StoragePosition(5,0);check(!AcquisitionAdvancements.ownedStored(player,caught),"Invalid box accepted");
+        caught.position=new StoragePosition(4,30);check(!AcquisitionAdvancements.ownedStored(player,caught),"Invalid order accepted");
+        caught.position=new StoragePosition(-1,0);check(!AcquisitionAdvancements.ownedStored(player,caught),"Negative PC box accepted");caught.position=pos;
+        caught.egg=true;check(!AcquisitionAdvancements.ownedStored(player,caught),"Egg accepted");caught.egg=false;
+        ServerLifecycleHooks.server.main=false;check(!AcquisitionAdvancements.ownedStored(player,caught),"Non-server thread accepted");ServerLifecycleHooks.server.main=true;
+        player.field_70170_p.field_72995_K=true;check(!AcquisitionAdvancements.ownedStored(player,caught),"Client owner accepted");player.field_70170_p.field_72995_K=false;
+        caught.position=null;check(!AcquisitionAdvancements.ownedStored(player,caught),"Missing position accepted");caught.position=pos;
+        var copy=new Pokemon(888,"hero");copy.storage=realBox;copy.position=pos;
+        check(!AcquisitionAdvancements.ownedStored(player,copy),"Noncanonical object in same PC slot accepted");
+        // Every actual backport species/form route is tested against its real JSON ID.
+        int routes=0;
+        for(var row:LegendAdvancements.DATA.getAsJsonObject("captures").entrySet()){
+            String form="";
+            var byForm=LegendAdvancements.DATA.getAsJsonObject("capturesByForm").getAsJsonObject(row.getKey());
+            if(byForm!=null)for(var specific:byForm.entrySet())if(specific.getValue().getAsJsonObject().get("id").equals(row.getValue().getAsJsonObject().get("id")))form=specific.getKey();
+            resetAwards();box(Integer.parseInt(row.getKey()),form,0,0);endTick();
+            check(earned(row.getValue().getAsJsonObject().get("id").getAsString()),"Missing PC species route "+row.getKey());routes++;
+            check(player.progress.earned.equals(Set.of(id("root"),id(row.getValue().getAsJsonObject().get("category").getAsString()),id(row.getValue().getAsJsonObject().get("id").getAsString()))),"Unrelated species award leaked from "+row.getKey());
+        }
+        for(var species:LegendAdvancements.DATA.getAsJsonObject("capturesByForm").entrySet()){
+            int dex=Integer.parseInt(species.getKey());var rows=species.getValue().getAsJsonObject();
+            for(var row:rows.entrySet()){
+                resetAwards();box(dex,row.getKey(),0,0);endTick();
+                check(earned(row.getValue().getAsJsonObject().get("id").getAsString()),"Missing PC form route "+species.getKey()+":"+row.getKey());routes++;
+                check(player.progress.earned.equals(Set.of(id("root"),id(row.getValue().getAsJsonObject().get("category").getAsString()),id(row.getValue().getAsJsonObject().get("id").getAsString()))),"Unrelated form award leaked");
+            }
+            resetAwards();box(dex,"wrong_form",0,0);endTick();
+            for(var row:rows.entrySet())check(!earned(row.getValue().getAsJsonObject().get("id").getAsString()),"Wrong form route accepted");
+        }
+        // No inventory mutation or synthetic capture statistics: species triggers only.
+        check(player.nativeLegend==1&&player.nativeSpec==1,"Generic acquisition trigger route changed");
+        var old=box(889,"hero",2,17);endTick();resetAwards();
+        var login=new net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent();login.player=player;queue.login(login);endTick();
+        check(earned("capture_889"),"Login fails to backfill unopened PC box");
+        // Original 128-object tick budget stays bounded, then drains remaining entries.
+        for(int i=0;i<130;i++)box(480,"",i/30,i%30);resetAwards();endTick();check(player.nativeLegend==128,"Queue budget not respected");endTick();check(player.nativeLegend==130,"Queue tail dropped");
+        System.out.println("PASS "+routes+" real backport species/form acquisition routes through native PCBox insertion; full party, last box, login, bounds, duplicates and ownership negatives.");
+        crownedCases();
+        transformationCases();
+    }
+    static void crownedCases(){
+        setup();CrownedAdvancements.clear();var shield=party(889,0);var sword=party(888,1);endTick();resetAwards();
+        var battle=new BattleController();var participant=new PlayerParticipant();participant.player=player;battle.participants.add(participant);
+        var active=actor(shield,participant,battle,true);var reserve=actor(sword,participant,battle,false);
+        participant.allPokemon=new PixelmonWrapper[]{active,reserve};
+        crown(shield);LegendAdvancements.formChanged(shield,"hero");CrownedAdvancements.changed(active,"hero");
+        crown(sword);LegendAdvancements.formChanged(sword,"hero");CrownedAdvancements.changed(reserve,"hero");CrownedAdvancements.tick();
+        check(earned("form_889_crowned")&&!earned("form_888_crowned"),"Reserve sword still awards with active shield");
+        active.onBattlefield=false;reserve.onBattlefield=true;participant.controlledPokemon.clear();participant.controlledPokemon.add(reserve);CrownedAdvancements.tick();
+        check(earned("form_888_crowned"),"Actual switch into sword lost achievement");
+        resetAwards();CrownedAdvancements.changed(reserve,"crowned");CrownedAdvancements.tick();check(player.progress.earned.isEmpty(),"Already-crowned gift/repeat counted as new change");
+        for(int failure=0;failure<7;failure++){
+            CrownedAdvancements.clear();resetAwards();battle.battleEnded=false;battle.simulateMode=false;reserve.alive=true;reserve.onBattlefield=true;participant.player=player;
+            sword.species.dex=888;sword.form=new Stats(sword.species,"crowned");sword.held.item=PixelmonItems.rusted_sword;
+            if(failure==0)battle.simulateMode=true;if(failure==1)battle.battleEnded=true;if(failure==2)participant.player=new ServerPlayerEntity();
+            if(failure==3)sword.held.item=PixelmonItems.rusted_shield;if(failure==4)sword.form=new Stats(new Species(889),"crowned");
+            if(failure==5)sword.form.name="hero";if(failure==6){reserve.onBattlefield=false;CrownedAdvancements.changed(reserve,"hero");battle.battleEnded=true;}
+            CrownedAdvancements.changed(reserve,"hero");CrownedAdvancements.tick();check(player.progress.earned.isEmpty(),"Invalid battle Crowned case "+failure);
+        }
+        battle.battleEnded=false;battle.simulateMode=false;participant.player=player;reserve.onBattlefield=true;
+        for(int dex:new int[]{888,889}){
+            var p=party(dex,0);crown(p);endTick();resetAwards();
+            LegendAdvancements.formChanged(p,"hero");check(player.progress.earned.isEmpty(),"Bare setForm awarded field Crowned");
+            var marker=new net.minecraft.nbt.CompoundNBT();marker.func_74778_a("Target","crowned");p.persistent.func_218657_a(FieldMega.MARKER,marker);
+            LegendAdvancements.formChanged(p,"hero");check(earned("form_"+dex+"_crowned")&&!earned("form_"+(dex==888?889:888)+"_crowned"),"Field Crowned species crossed");
+            resetAwards();LegendAdvancements.formChanged(p,"crowned");check(player.progress.earned.isEmpty(),"Unchanged field form awarded");
+            marker.func_74778_a("Target","mega");LegendAdvancements.formChanged(p,"hero");check(player.progress.earned.isEmpty(),"Wrong field target accepted");
+            marker.func_74778_a("Target","crowned");p.held.item=new net.minecraft.item.Item();LegendAdvancements.formChanged(p,"hero");check(player.progress.earned.isEmpty(),"Wrong field item accepted");
+        }
+        System.out.println("PASS shield lead/reserve sword, actual reserve switch, species-parent/item identity, ended/simulation/other-owner, new-change-only and both successful field Crowned paths.");
+    }
+    static void transformationCases(){
+        setup();int forms=0;
+        for(var value:LegendAdvancements.DATA.getAsJsonArray("transformations")){
+            var row=value.getAsJsonObject();if(!row.has("source")||!row.get("source").getAsString().equals("form-change"))continue;
+            int dex=row.get("dex").getAsInt();if(dex==888||dex==889)continue;
+            String form=row.get("form").getAsString();var p=party(dex,0);p.form=new Stats(p.species,form);endTick();resetAwards();
+            LegendAdvancements.formChanged(p,form);check(player.progress.earned.isEmpty(),"Unchanged form awarded "+dex);
+            LegendAdvancements.formChanged(p,"fixture_other_form");
+            check(player.progress.earned.equals(Set.of(id("root"),id(row.get("category").getAsString()),id(row.get("id").getAsString()))),"Specific transformation routing failed "+dex+":"+form);forms++;
+            resetAwards();p.species.dex=25;LegendAdvancements.formChanged(p,"fixture_other_form");check(player.progress.earned.isEmpty(),"Same-name form accepted wrong species "+form);
+            p.species.dex=dex;p.egg=true;LegendAdvancements.formChanged(p,"fixture_other_form");check(player.progress.earned.isEmpty(),"Egg transformation counted");p.egg=false;
+            var clone=new Pokemon(dex,form);clone.storage=p.storage;clone.position=p.position;LegendAdvancements.formChanged(clone,"fixture_other_form");check(player.progress.earned.isEmpty(),"Unstored transform copy counted");
+        }
+        int fusions=0;
+        for(var value:LegendAdvancements.DATA.getAsJsonArray("fusions")){
+            var row=value.getAsJsonObject();int dex=row.get("dex").getAsInt();String form=row.get("form").getAsString();
+            int partner=dex==646?(form.equals("black")?644:643):dex==800?(form.equals("dusk")?791:792):form.equals("icerider")?896:897;
+            var p=party(dex,0);p.form=new Stats(p.species,form);var fused=new net.minecraft.nbt.CompoundNBT();fused.func_74768_a("fixturePartner",partner);p.persistent.func_218657_a("FusedPokemon",fused);endTick();resetAwards();
+            LegendAdvancements.fusionCompleted(player,p,"base",partner,true);check(player.progress.earned.isEmpty(),"Canceled fusion awarded");
+            LegendAdvancements.fusionCompleted(player,p,form,partner,false);check(player.progress.earned.isEmpty(),"Unchanged fusion awarded");
+            LegendAdvancements.fusionCompleted(player,p,"base",partner+1,false);check(player.progress.earned.isEmpty(),"Wrong fusion partner awarded");
+            p.persistent.func_82580_o("FusedPokemon");LegendAdvancements.fusionCompleted(player,p,"base",partner,false);check(player.progress.earned.isEmpty(),"Unfused form preview awarded");
+            p.persistent.func_218657_a("FusedPokemon",fused);LegendAdvancements.fusionCompleted(player,p,"base",partner,false);
+            check(player.progress.earned.equals(Set.of(id("root"),id("fusion"),id(row.get("id").getAsString()))),"Fusion route crossed "+dex+":"+form);fusions++;
+            resetAwards();LegendAdvancements.fusionCompleted(new ServerPlayerEntity(),p,"base",partner,false);check(player.progress.earned.isEmpty(),"Other owner fusion awarded");
+            p.form.name="base";LegendAdvancements.fusionCompleted(player,p,form,partner,false);check(player.progress.earned.isEmpty(),"Unfusion awarded completion");
+        }
+        for(int dex:new int[]{382,383,384}){
+            var p=party(dex,0);p.form.name=dex==384?"mega":"primal";endTick();resetAwards();var battle=new BattleController();var participant=new PlayerParticipant();participant.player=player;battle.participants.add(participant);
+            var w=actor(p,participant,battle,true);participant.allPokemon=new PixelmonWrapper[]{w};
+            if(dex==384)LegendAdvancements.megaRayquaza(w);else LegendAdvancements.primal(w);
+            check(earned("form_"+dex+"_"+(dex==384?"mega":"primal")),"Valid actual battle form not awarded");
+            for(int failure=0;failure<4;failure++){
+                resetAwards();w.onBattlefield=true;w.alive=true;battle.simulateMode=false;battle.battleEnded=false;
+                if(failure==0)w.onBattlefield=false;if(failure==1)w.alive=false;if(failure==2)battle.simulateMode=true;if(failure==3)battle.battleEnded=true;
+                if(dex==384)LegendAdvancements.megaRayquaza(w);else LegendAdvancements.primal(w);
+                check(player.progress.earned.isEmpty(),"Invalid actual actor awarded "+dex+":"+failure);
+            }
+        }
+        System.out.println("PASS all "+forms+" generic transformation rows, "+fusions+" real fusion routes with cancel/failure/partner/unfusion/copy/owner negatives, and Kyogre/Groudon/Rayquaza actual actor paths.");
+    }
+}

@@ -1,0 +1,71 @@
+package fixture;
+import com.google.gson.*;
+import com.pixelmonmod.pixelmon.api.battles.AttackCategory;
+import com.pixelmonmod.pixelmon.api.pokemon.Element;
+import com.pixelmonmod.pixelmon.battles.attacks.*;
+import com.pixelmonmod.pixelmon.client.*;
+import com.pixelmonmod.pixelmon.client.gui.battles.*;
+import local.pixelmon.backport.*;
+
+public class BurstZCases {
+    static void check(boolean ok,String message){if(!ok)throw new AssertionError(message);}
+    public static void run(String json,boolean old){
+        JsonArray rows=new JsonParser().parse(json).getAsJsonArray();
+        for(var value:rows){var row=value.getAsJsonObject();var a=new ImmutableAttack();a.name=row.get("attackName").getAsString();a.type=Element.valueOf(row.get("attackType").getAsString());a.category=row.has("attackCategory")?AttackCategory.valueOf(row.get("attackCategory").getAsString()):null;Attack.registry.put(a.name,a);}
+        var bm=new ClientBattleManager();ClientProxy.battleManager=bm;bm.showZMoves=true;
+        var user=bm.current;var state=new TeraNetwork.Snapshot();TeraClient.snapshot=state;state.burst.put(user.pokemonUUID,24);
+        var base=new Attack("Thunderbolt");user.z=new ZMove("Gigavolt Havoc");
+        check(new Attack("Gigavolt Havoc").getActualMove().category==null,"Native generic Z unexpectedly has fixed category");
+        if(old){boolean crashed=false;try{BurstClient.move(base);}catch(NullPointerException expected){crashed=true;}check(crashed,"Actual published BurstClient path did not reproduce reported null category fallback");System.out.println("REPRODUCED published 1.4.3 BurstClient -> native Attack.getAttackCategory null originalMove, matching report.");return;}
+        check(!BurstClient.move(base),"Ordinary Electric Z unexpectedly highlighted after fix");
+        int pairs=0,missingCategories=0,statuses=0;
+        for(var value:rows){var row=value.getAsJsonObject();String name=row.get("attackName").getAsString();if(!row.has("z")||Attack.registry.get(name).category==null)continue;
+            for(var zvalue:row.getAsJsonArray("z")){String zname=zvalue.getAsJsonObject().get("attackName").getAsString();if(!Attack.hasAttack(zname))continue;
+                var attack=new Attack(name);user.z=new ZMove(zname);var category=attack.getAttackCategory();
+                var displayed=category==AttackCategory.STATUS?attack.getActualMove():Attack.registry.get(zname);
+                boolean expected=false; // No ordinary Z yellow border, regardless of species/type.
+                check(BurstClient.move(attack)==expected,"Wrong Z border "+name+" -> "+zname);
+                check(attack.getActualMove()==Attack.registry.get(name)&&attack.originalMove==null&&attack.pp==17&&attack.getAttackCategory()==category,"Preview mutated original move "+name);
+                pairs++;if(displayed.category==null)missingCategories++;if(category==AttackCategory.STATUS)statuses++;
+            }
+        }
+        check(pairs>500&&missingCategories>100,"Insufficient real native Z coverage: "+pairs+"/"+missingCategories);
+        // Native status Z effects use a separate resource shape, without z[]
+        // attack replacements. Exercise the refusal to replace a status move.
+        user.z=new ZMove("Breakneck Blitz");
+        for(var value:rows){var row=value.getAsJsonObject();String name=row.get("attackName").getAsString();var nativeMove=Attack.registry.get(name);if(nativeMove.category!=AttackCategory.STATUS)continue;
+            var status=new Attack(name);boolean expected=false;
+            check(BurstClient.move(status)==expected,"Status Z selection replaced base category "+name);check(status.originalMove==null,"Status move mutated");statuses++;
+        }
+        check(statuses>100,"Missing native status coverage");
+        // Both damaging categories must inherit, including non-Electric Z moves.
+        for(String name:new String[]{"Thunderbolt","Wild Charge","Tackle","Surf"}){
+            var attack=new Attack(name);user.z=new ZMove(attack.getType()==Element.ELECTRIC?"Gigavolt Havoc":"Breakneck Blitz");
+            check(!BurstClient.move(attack),"Ordinary physical/special Z gained yellow border "+name);
+        }
+        user.z=new ZMove("not_registered");check(!BurstClient.move(base),"Missing Z definition highlighted base in Z mode");
+        user.z=null;check(!BurstClient.move(base),"Absent Z compatibility highlighted base in Z mode");
+        // Independent Cap signature; ordinary Pikachu and other allies cannot
+        // borrow the signature, but their normal moves can benefit from terrain.
+        var signature=new Attack("Ten Million Volts");user.z=new ZMove("Origin of Thunder");
+        check(!BurstClient.move(signature),"Ordinary Pikachu borrowed Cap Z cue");user.species.dex=1026;
+        check(BurstClient.move(signature),"Eligible Cap signature lost field cue");
+        user.z=new ZMove("Gigavolt Havoc");check(!BurstClient.move(base),"Cap ordinary Z gained signature cue");
+        user.species.dex=658;bm.showZMoves=false;
+        for(int flags:new int[]{24,17,25}){state.burst.put(user.pokemonUUID,flags);check(BurstClient.move(base),"Eligible non-Cap ally lost normal Electric border");check(!BurstClient.move(new Attack("Surf")),"Unrelated ally move highlighted");}
+        state.burst.put(user.pokemonUUID,16);check(!BurstClient.move(base),"Unaffected airborne ally highlighted");
+        state.burst.put(user.pokemonUUID,24);bm.showZMoves=true;
+        int before=user.previewCalls;TeraClient.snapshot=null;check(!BurstClient.move(base),"Absent field highlighted");TeraClient.snapshot=state;
+        state.battle=999;check(!BurstClient.move(base),"Stale snapshot highlighted");state.battle=144;state.burst.put(user.pokemonUUID,8);check(!BurstClient.move(base),"No field bit highlighted");
+        check(user.previewCalls==before,"Inactive border still queried/converted Z move");state.burst.put(user.pokemonUUID,24);
+        check(!BurstClient.move(null),"Null move highlighted");bm.current=null;check(!BurstClient.move(base),"No current actor highlighted");bm.current=user;
+        ClientProxy.battleManager=null;check(!BurstClient.move(base),"No manager highlighted");ClientProxy.battleManager=bm;
+        bm.showZMoves=false;
+        for(boolean gmax:new boolean[]{false,true})for(boolean selected:new boolean[]{false,true}){
+            user.gmaxFactor=gmax;bm.dynamaxing=selected;bm.dynamax=selected?null:user.pokemonUUID;
+            check(BurstClient.move(base),"Max/GMax Electric preview failed");check(!BurstClient.move(new Attack("Protect")),"Max Guard highlighted");check(!BurstClient.move(new Attack("Tackle")),"Max Strike highlighted");
+            check(base.originalMove==null&&base.pp==17,"Max preview mutated source");
+        }
+        System.out.println("PASS "+pairs+" native Z source/target pairs ("+missingCategories+" inherited categories, "+statuses+" status), real category fallback, source immutability, missing/stale field and Max/GMax contracts.");
+    }
+}

@@ -1,0 +1,300 @@
+{
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:201, palette:\"none\", form:\"a\"}"
+    },
+    "title": {
+      "translate": "advancements.unown_capture_all.title"
+    },
+    "description": {
+      "translate": "advancements.unown_capture_all.description"
+    },
+    "hidden": true
+  },
+  "parent": "pixelmon:specs/spec_trigger",
+  "criteria": {
+    "a": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:a",
+        "backport_expected_dex": 201
+      }
+    },
+    "b": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:b",
+        "backport_expected_dex": 201
+      }
+    },
+    "c": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:c",
+        "backport_expected_dex": 201
+      }
+    },
+    "d": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:d",
+        "backport_expected_dex": 201
+      }
+    },
+    "e": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:e",
+        "backport_expected_dex": 201
+      }
+    },
+    "f": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:f",
+        "backport_expected_dex": 201
+      }
+    },
+    "g": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:g",
+        "backport_expected_dex": 201
+      }
+    },
+    "h": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:h",
+        "backport_expected_dex": 201
+      }
+    },
+    "i": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:i",
+        "backport_expected_dex": 201
+      }
+    },
+    "j": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:j",
+        "backport_expected_dex": 201
+      }
+    },
+    "k": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:k",
+        "backport_expected_dex": 201
+      }
+    },
+    "l": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:l",
+        "backport_expected_dex": 201
+      }
+    },
+    "m": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:m",
+        "backport_expected_dex": 201
+      }
+    },
+    "n": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:n",
+        "backport_expected_dex": 201
+      }
+    },
+    "o": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:o",
+        "backport_expected_dex": 201
+      }
+    },
+    "p": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:p",
+        "backport_expected_dex": 201
+      }
+    },
+    "q": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:q",
+        "backport_expected_dex": 201
+      }
+    },
+    "r": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:r",
+        "backport_expected_dex": 201
+      }
+    },
+    "s": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:s",
+        "backport_expected_dex": 201
+      }
+    },
+    "t": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:t",
+        "backport_expected_dex": 201
+      }
+    },
+    "u": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:u",
+        "backport_expected_dex": 201
+      }
+    },
+    "v": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:v",
+        "backport_expected_dex": 201
+      }
+    },
+    "w": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:w",
+        "backport_expected_dex": 201
+      }
+    },
+    "x": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:x",
+        "backport_expected_dex": 201
+      }
+    },
+    "y": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:y",
+        "backport_expected_dex": 201
+      }
+    },
+    "z": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:z",
+        "backport_expected_dex": 201
+      }
+    },
+    "exclamation": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:exclamation",
+        "backport_expected_dex": 201
+      }
+    },
+    "question": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Unown form:question",
+        "backport_expected_dex": 201
+      }
+    }
+  },
+  "requirements": [
+    [
+      "a"
+    ],
+    [
+      "b"
+    ],
+    [
+      "c"
+    ],
+    [
+      "d"
+    ],
+    [
+      "e"
+    ],
+    [
+      "f"
+    ],
+    [
+      "g"
+    ],
+    [
+      "h"
+    ],
+    [
+      "i"
+    ],
+    [
+      "j"
+    ],
+    [
+      "k"
+    ],
+    [
+      "l"
+    ],
+    [
+      "m"
+    ],
+    [
+      "n"
+    ],
+    [
+      "o"
+    ],
+    [
+      "p"
+    ],
+    [
+      "q"
+    ],
+    [
+      "r"
+    ],
+    [
+      "s"
+    ],
+    [
+      "t"
+    ],
+    [
+      "u"
+    ],
+    [
+      "v"
+    ],
+    [
+      "w"
+    ],
+    [
+      "x"
+    ],
+    [
+      "y"
+    ],
+    [
+      "z"
+    ],
+    [
+      "exclamation"
+    ],
+    [
+      "question"
+    ]
+  ]
+}

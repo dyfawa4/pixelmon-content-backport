@@ -43,28 +43,32 @@ public final class LegendAdvancements {
     @SubscribeEvent(priority=EventPriority.LOWEST) public void zygardeMerge(com.pixelmonmod.pixelmon.api.events.legendary.ZygardeEvent.Assemble.Merge.End event){assembled.add(event);}
     @SubscribeEvent public void tick(TickEvent.ServerTickEvent event){
         if(event.phase!=TickEvent.Phase.END)return;
+        CrownedAdvancements.tick();
         for(Pending p:pending){
-            String after=p.pokemon.getForm().getName();
-            if(p.event.isCanceled() || after.equals(p.before) || !p.player.func_110124_au().equals(p.pokemon.getOwnerPlayerUUID())
-                || p.pokemon.getPersistentData().func_74775_l("FusedPokemon").isEmpty())continue;
-            for(JsonElement value:DATA.getAsJsonArray("fusions")){
-                JsonObject row=value.getAsJsonObject();
-                if(row.get("dex").getAsInt()==p.pokemon.getSpecies().getDex() && row.get("form").getAsString().equals(after)
-                    && partnerFor(p.pokemon.getSpecies().getDex(),after)==p.partner){
-                    award(p.player,"root");award(p.player,"fusion");award(p.player,row.get("id").getAsString());
-                }
-            }
+            fusionCompleted(p.player,p.pokemon,p.before,p.partner,p.event.isCanceled());
         }
         pending.clear();
         for(var completed:assembled){
             if(completed.zygarde==null)continue;
-            Pokemon p=completed.zygarde;var storage=p.getStorage();
-            if(completed.isCanceled() || completed.cells<=0 || completed.player==null || storage==null || p.getPosition()==null
-                || storage.get(p.getPosition())!=p || !completed.player.func_110124_au().equals(p.getOwnerPlayerUUID()))continue;
+            Pokemon p=completed.zygarde;
+            if(completed.isCanceled() || completed.cells<=0 || !AcquisitionAdvancements.ownedStored(completed.player,p))continue;
             capture(completed.player,p);
         }
         assembled.clear();
     }
+    public static void fusionCompleted(ServerPlayerEntity player,Pokemon pokemon,String before,int partner,boolean canceled){
+        if(canceled || !AcquisitionAdvancements.ownedStored(player,pokemon) || pokemon.getForm().getName().equals(before)
+            || pokemon.getPersistentData().func_74775_l("FusedPokemon").isEmpty())return;
+        String after=pokemon.getForm().getName();
+        for(JsonElement value:DATA.getAsJsonArray("fusions")){
+            JsonObject row=value.getAsJsonObject();
+            if(row.get("dex").getAsInt()==pokemon.getSpecies().getDex() && row.get("form").getAsString().equals(after)
+                && partnerFor(pokemon.getSpecies().getDex(),after)==partner){
+                award(player,"root");award(player,"fusion");award(player,row.get("id").getAsString());
+            }
+        }
+    }
+    @SubscribeEvent public void stopped(net.minecraftforge.fml.event.server.FMLServerStoppedEvent event){pending.clear();assembled.clear();CrownedAdvancements.clear();}
     public static void eternamax(ServerPlayerEntity player){
         for(Pokemon p:com.pixelmonmod.pixelmon.api.storage.StorageProxy.getParty(player).getAll())if(p!=null && p.getSpecies().getDex()==890
             && player.func_110124_au().equals(p.getOwnerPlayerUUID()) && p.getForm().isForm("eternamax") && p.getHeldItemAsItemHeld() instanceof ReferenceItems.Meteorite){
@@ -72,10 +76,11 @@ public final class LegendAdvancements {
         }
     }
     public static void primal(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper wrapper){
-        if(wrapper.bc==null || wrapper.bc.simulateMode || !wrapper.getForm().isForm("primal")
+        if(wrapper.bc==null || wrapper.bc.simulateMode || wrapper.bc.battleEnded || !wrapper.getForm().isForm("primal")
             || !(wrapper.getParticipant() instanceof com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant))return;
         ServerPlayerEntity player=((com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant)wrapper.getParticipant()).player;
-        if(player==null || !player.func_110124_au().equals(wrapper.pokemon.getOwnerPlayerUUID()))return;
+        if(!wrapper.onBattlefield || !wrapper.isAlive() || !wrapper.getParticipant().controlledPokemon.contains(wrapper)
+            || !wrapper.bc.participants.contains(wrapper.getParticipant()) || !AcquisitionAdvancements.ownedStored(player,wrapper.pokemon))return;
         int dex=wrapper.getSpecies().getDex();if(dex!=382 && dex!=383)return;
         award(player,"root");award(player,"primal");award(player,"form_"+dex+"_primal");
     }
@@ -85,7 +90,8 @@ public final class LegendAdvancements {
             || wrapper.getSpecies().getDex()!=384 || !wrapper.getForm().isForm("mega")
             || !(wrapper.getParticipant() instanceof com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant))return;
         ServerPlayerEntity player=((com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant)wrapper.getParticipant()).player;
-        if(!AcquisitionAdvancements.ownedStored(player,wrapper.pokemon))return;
+        if(!wrapper.onBattlefield || !wrapper.isAlive() || !wrapper.getParticipant().controlledPokemon.contains(wrapper)
+            || !wrapper.bc.participants.contains(wrapper.getParticipant()) || !AcquisitionAdvancements.ownedStored(player,wrapper.pokemon))return;
         award(player,"root");award(player,"forms");award(player,"form_384_mega");
     }
     public static void formChanged(Pokemon pokemon,String before){
@@ -102,6 +108,7 @@ public final class LegendAdvancements {
         // The native cube changes Power Construct Zygarde directly and does
         // not emit a capture or assembly event. Award the completed base form.
         if(pokemon.getSpecies().getDex()==718){capture(player,pokemon);return;}
+        if(pokemon.getSpecies().getDex()==888 || pokemon.getSpecies().getDex()==889){CrownedAdvancements.field(pokemon);return;}
         // The field marker is installed after permission checks and event
         // cancellation, before the native animation actually changes the form.
         // Bare setForm, creation, loading and a received Mega do not count.
@@ -122,7 +129,7 @@ public final class LegendAdvancements {
         var storage=pokemon.getStorage();
         if(storage==null || pokemon.getPosition()==null || storage.get(pokemon.getPosition())!=pokemon)return;
         ServerPlayerEntity player=pokemon.getOwnerPlayer();
-        if(player==null || !player.func_110124_au().equals(pokemon.getOwnerPlayerUUID()))return;
+        if(!AcquisitionAdvancements.ownedStored(player,pokemon))return;
         award(player,"root");award(player,"primal");award(player,"form_"+pokemon.getSpecies().getDex()+"_primal");
     }
     @SubscribeEvent public void playerTick(TickEvent.PlayerTickEvent event){if(event.phase==TickEvent.Phase.END && event.player instanceof ServerPlayerEntity && event.player.field_70173_aa%20==0)eternamax((ServerPlayerEntity)event.player);}

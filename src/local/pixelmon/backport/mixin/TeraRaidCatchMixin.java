@@ -10,10 +10,8 @@ public abstract class TeraRaidCatchMixin {
     @Inject(method="winRaid",at=@At("RETURN"))
     private void backport$burstPreview(com.pixelmonmod.pixelmon.battles.controller.participants.RaidPixelmonParticipant opponent,RaidData raid,com.pixelmonmod.pixelmon.battles.raids.RaidGovernor governor,CallbackInfo ci){local.pixelmon.backport.BurstRaidCapture.preview(raid,(RaidData.RaidPlayer)(Object)this);}
     @Shadow public Pokemon possibleCatch;
-    @Shadow public boolean canCatch;
     @Inject(method="tryCatch",at=@At("HEAD"),cancellable=true)
-    private void backport$guaranteed(RaidData raid,PokeBall ball,CallbackInfoReturnable<Integer> cir){
+    private void backport$forbiddenBall(RaidData raid,PokeBall ball,CallbackInfoReturnable<Integer> cir){
         if(local.pixelmon.backport.BurstCapture.forbidden(ball,possibleCatch)){cir.setReturnValue(0);return;}
-        if(canCatch && possibleCatch!=null && possibleCatch.getPersistentData().func_74767_n("BackportTeraRaidCatch"))cir.setReturnValue(4);
     }
 }

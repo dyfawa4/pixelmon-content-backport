@@ -1,0 +1,120 @@
+{
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:852, palette:\"shiny\", form:\"\"}"
+    },
+    "title": {
+      "translate": "advancements.clobbopus_jump_all.title"
+    },
+    "description": {
+      "translate": "advancements.clobbopus_jump_all.description"
+    },
+    "hidden": false
+  },
+  "parent": "pixelmon:specs/clobbopus_jump_capture",
+  "criteria": {
+    "0": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:none",
+        "backport_expected_dex": 852
+      }
+    },
+    "1": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:irish",
+        "backport_expected_dex": 852
+      }
+    },
+    "2": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:diamonds",
+        "backport_expected_dex": 852
+      }
+    },
+    "3": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:clubs",
+        "backport_expected_dex": 852
+      }
+    },
+    "4": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:martian",
+        "backport_expected_dex": 852
+      }
+    },
+    "5": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:starry",
+        "backport_expected_dex": 852
+      }
+    },
+    "6": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:yellow_ringed",
+        "backport_expected_dex": 852
+      }
+    },
+    "7": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:red_ringed",
+        "backport_expected_dex": 852
+      }
+    },
+    "8": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:alien",
+        "backport_expected_dex": 852
+      }
+    },
+    "s": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Clobbopus palette:shiny",
+        "backport_expected_dex": 852
+      }
+    }
+  },
+  "requirements": [
+    [
+      "0"
+    ],
+    [
+      "1"
+    ],
+    [
+      "2"
+    ],
+    [
+      "3"
+    ],
+    [
+      "4"
+    ],
+    [
+      "5"
+    ],
+    [
+      "6"
+    ],
+    [
+      "7"
+    ],
+    [
+      "8"
+    ],
+    [
+      "s"
+    ]
+  ]
+}

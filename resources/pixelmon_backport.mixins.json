@@ -89,9 +89,19 @@
     "BattleMotionPlayerMixin",
     "BattleMotionLivingMixin",
     "BattleMotionPacketMixin",
-    "LuckySpeciesMixin"
+    "LuckySpeciesMixin",
+    "CrownedBattleAdvancementMixin"
   ],
   "client": [
+    "EditorBaseInputMixin",
+    "EditorBallInputMixin",
+    "EditorAdvancedInputMixin",
+    "EditorCompletionMixin",
+    "BattleDimensionClientMixin",
+    "BattleSelectionSafetyMixin",
+    "JavaRuntimeMinecraftMixin",
+    "JavaRuntimeConnectMixin",
+    "BossBagSelectionMixin",
     "LootrShoulderDownloadMixin",
     "QuestOpenRecoveryMixin",
     "CapZTooltipMixin",

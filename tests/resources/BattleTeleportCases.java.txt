@@ -1,0 +1,51 @@
+package fixture;
+import java.util.*;
+import java.lang.reflect.*;
+import com.pixelmonmod.pixelmon.client.*;
+import com.pixelmonmod.pixelmon.client.gui.battles.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerChangedDimensionEvent;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+public final class BattleTeleportCases {
+    static void check(boolean ok,String text){if(!ok)throw new AssertionError(text);}
+    static void guards(ClientBattleManager bm,boolean blocked)throws Exception{
+        var selection=new Selection();Class<?> type=selection.getClass().getSuperclass();
+        var field=type.getSuperclass().getDeclaredField("bm");field.setAccessible(true);field.set(selection,bm);
+        int count=0;for(var method:type.getDeclaredMethods())if(method.getName().equals("backport$renderLiveBattle")||method.getName().equals("backport$clickLiveBattle")){
+            method.setAccessible(true);var ci=new CallbackInfo("fixture",true);
+            Object[] values=method.getName().equals("backport$renderLiveBattle")?new Object[]{null,640,360,0,0,0f,ci}:new Object[]{640,360,0d,0d,ci};
+            method.invoke(selection,values);check(ci.isCancelled()==blocked,"Wrong render/click cancellation");count++;
+        }check(count==2,"Selection handlers missing");
+    }
+    public static void run(boolean patched)throws Exception{
+        var mc=Minecraft.func_71410_x();UUID host=UUID.randomUUID();mc.field_71439_g=new ClientPlayerEntity(host);
+        var proxy=new ClientProxy();var bm=new ClientBattleManager();ClientProxy.battleManager=bm;
+        var teams=bm.teamPokemon;var pokemon=bm.fullOurPokemon;bm.selectedActions.add("queued action");bm.megaEvolving=true;
+        proxy.onDimensionChange(new PlayerChangedDimensionEvent(new PlayerEntity(UUID.randomUUID())));
+        if(!patched){
+            check(bm.battleEnded,"Native dimension bug no longer reproduced");
+            // Native teardown clears these fields while an old attack screen can remain.
+            bm.teamPokemon=null;bm.fullOurPokemon=null;bm.battleControllerIndex=-1;
+            try{bm.selectedMove();throw new AssertionError("Expected native selectedMove null-team crash");}catch(NullPointerException expected){
+                check(Arrays.stream(expected.getStackTrace()).anyMatch(e->e.getMethodName().equals("selectedMove")&&e.getLineNumber()==749),"Different crash than report");
+            }return;
+        }
+        check(!bm.battleEnded&&bm.teamPokemon==teams&&bm.fullOurPokemon==pokemon&&bm.selectedActions.size()==1&&bm.megaEvolving,"Remote transfer mutated host battle");
+        for(int i=0;i<1000;i++){bm.isSpectating=i%2==0;proxy.onDimensionChange(new PlayerChangedDimensionEvent(new PlayerEntity(UUID.randomUUID())));check(!bm.battleEnded,"Remote transfer ended active/spectated battle");}
+        guards(bm,false);check(bm.selectedActions.size()==1&&bm.megaEvolving,"UI guard changed live actions");
+        bm.selectedMove();check(bm.finished==1,"Native single selection broken");
+        // Exercise the original double-battle next-actor lambda, not a rewritten selector.
+        var a=new PixelmonClientData();var b=new PixelmonClientData();bm.teamPokemon=new UUID[]{a.pokemonUUID,b.pokemonUUID};bm.fullOurPokemon=new ArrayList<>(List.of(a,b));bm.pokemonToChoose.add(b.pokemonUUID);
+        var switches=bm.getClass().getDeclaredField("canSwitchList");switches.setAccessible(true);switches.set(bm,List.of(true));bm.selectedActions.clear();
+        bm.selectedMove();check(bm.currentPokemon==1&&bm.canSwitch&&bm.finished==1,"Native double selection broken");
+        proxy.onDimensionChange(new PlayerChangedDimensionEvent(new PlayerEntity(host)));
+        check(bm.battleEnded,"Own server-side UUID must retain native cleanup despite distinct player objects");guards(bm,true);
+        bm.battleEnded=false;mc.field_71439_g=null;proxy.onDimensionChange(new PlayerChangedDimensionEvent(new PlayerEntity(host)));check(!bm.battleEnded,"No local player mutated battle");
+        mc.field_71439_g=new ClientPlayerEntity(host);proxy.onDimensionChange(new PlayerChangedDimensionEvent(null));check(!bm.battleEnded,"Null player mutated battle");
+        guards(null,true);bm.battleControllerIndex=-1;guards(bm,true);bm.battleControllerIndex=12;
+        bm.teamPokemon=null;guards(bm,true);bm.teamPokemon=teams;bm.fullOurPokemon=null;guards(bm,true);
+        bm.fullOurPokemon=pokemon;guards(bm,false);check(bm.finished==1,"Detached guards sent/completed an action");
+    }
+}

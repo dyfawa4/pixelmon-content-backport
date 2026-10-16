@@ -16,7 +16,7 @@ public final class AcquisitionQueue {
     private static final Queue<UUID> LOGINS=new ConcurrentLinkedQueue<>();
     public static void stored(Pokemon pokemon){
         var server=ServerLifecycleHooks.getCurrentServer();if(server==null || !server.func_213162_bc() || pokemon==null)return;
-        var storage=pokemon.getStorage();if(storage instanceof com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage || storage instanceof com.pixelmonmod.pixelmon.api.storage.PCStorage)PENDING.add(pokemon);
+        var storage=pokemon.getStorage();if(storage instanceof com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage || storage instanceof com.pixelmonmod.pixelmon.api.storage.PCStorage || storage instanceof com.pixelmonmod.pixelmon.api.storage.PCBox)PENDING.add(pokemon);
     }
     @SubscribeEvent public void login(PlayerEvent.PlayerLoggedInEvent event){if(event.getPlayer() instanceof ServerPlayerEntity)LOGINS.add(event.getPlayer().func_110124_au());}
     @SubscribeEvent public void hatched(com.pixelmonmod.pixelmon.api.events.EggHatchEvent.Post event){stored(event.getPokemon());}

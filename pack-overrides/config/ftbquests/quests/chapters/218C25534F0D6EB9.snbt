@@ -1,0 +1,3477 @@
+{
+	id: "218C25534F0D6EB9"
+	group: "0D745374099B27EE"
+	order_index: 2
+	filename: "218C25534F0D6EB9"
+	title: "第三章：英勇出征"
+	icon: "minecraft:end_portal_frame"
+	default_quest_shape: ""
+	default_hide_dependency_lines: false
+	images: [
+		{
+			x: 12.0d
+			y: -5.0d
+			width: 5.0d
+			height: 5.0d
+			rotation: 0.0d
+			image: "pixelmon:textures/pokemon/067_machoke/all/base/none/sprite.png"
+			hover: [ ]
+			click: ""
+			dev: false
+			corner: false
+		}
+		{
+			x: -4.0d
+			y: 8.5d
+			width: 5.0d
+			height: 5.0d
+			rotation: 0.0d
+			image: "pixelmon:textures/pokemon/114_tangela/all/base/shiny/sprite.png"
+			hover: [ ]
+			click: ""
+			dev: false
+			corner: false
+		}
+	]
+	quests: [
+		{
+			x: 0.0d
+			y: 0.0d
+			shape: "diamond"
+			description: [
+				"你正式踏上了征服异世界的旅途，路上会遇到什么挑战呢？"
+				"tip：完成前一章的主线后，解锁第三章。"
+			]
+			dependencies: ["7A05FE1D31A82785"]
+			size: 1.5d
+			id: "4D4A3F23D5482903"
+			tasks: [{
+				id: "1C214ADFAC46223C"
+				type: "checkmark"
+				title: "异世界的探险"
+			}]
+			rewards: [
+				{
+					id: "49C1462C42999271"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "0CF4914478B03BEE"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "再探下界"
+			icon: "minecraft:warped_nylium"
+			x: 0.0d
+			y: -2.5d
+			description: ["在第一章中，为了收集资源，我们已经进入了下界，但是仅仅是为了收集制作PC的材料。现在再次回到下界，挑战下界的BOSS凋零。凋零没有因为宝可梦的入侵而受到影响，现在击败凋零，让下界的宝可梦拥有舒适的生活空间。"]
+			dependencies: ["4D4A3F23D5482903"]
+			id: "09D79748DD790279"
+			tasks: [{
+				id: "6FC101C4B20C808F"
+				type: "dimension"
+				title: "到达下界"
+				icon: "minecraft:crimson_nylium"
+				dimension: "minecraft:the_nether"
+			}]
+			rewards: [
+				{
+					id: "28E2C4EF780C174A"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "4D807CC7B77AC3E7"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "凋灵的必备道具"
+			x: 0.0d
+			y: -5.0d
+			description: [
+				"凋灵骷髅头颅会自然生成在下界的两座城市--火焰城市和幽灵城市中。火焰城市会生成在下界荒地生物群系，幽灵城市会自然生成在灵魂沙峡谷生物群系。在下界使用探险家指南针搜索火属性道馆或幽灵属性道馆可以定位城市。前往两座城市，找到隐藏在城市中的凋灵骷髅头颅。"
+				"提示：凋灵骷髅头颅只会在城市的房屋内生成，不会出现在箱子里，而是放在房屋内的某处。"
+			]
+			dependencies: ["09D79748DD790279"]
+			id: "3CADB52A9B0FC17D"
+			tasks: [{
+				id: "4B06976DB4F25CCF"
+				type: "item"
+				item: "minecraft:wither_skeleton_skull"
+			}]
+			rewards: [
+				{
+					id: "415A427164E5539F"
+					type: "item"
+					item: "minecraft:wither_skeleton_skull"
+					count: 2
+				}
+				{
+					id: "59561066D8D30757"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "00C82BDF9E8B2DF7"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "凋零效果的解法"
+			x: 0.0d
+			y: -7.5d
+			description: ["收集完凋灵骷髅头颅之后，接下来需要的就是破解凋零buff。奶桶是个不错的选择，在宝可梦世界中，牛奶不可以再通过奶牛获取，但是我们还有其他办法。生成在平原的宝可梦--大奶罐在收服之后可以挤奶。现在前往平原，收服一只大奶罐，并挤出牛奶。"]
+			dependencies: ["3CADB52A9B0FC17D"]
+			id: "226E7EBE24E527CC"
+			tasks: [{
+				id: "0E92833E98E3CEAD"
+				type: "item"
+				item: "minecraft:milk_bucket"
+			}]
+			rewards: [
+				{
+					id: "1D769F885E5BFCB7"
+					type: "item"
+					item: "minecraft:milk_bucket"
+					count: 5
+				}
+				{
+					id: "646243A9A3E1EB44"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "5C660F9F3AB1FC6C"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "蛋糕是个谎言"
+			x: -2.5d
+			y: -7.5d
+			description: ["出发讨伐凋灵之前，先做个蛋糕犒劳一下自己吧！"]
+			dependencies: ["226E7EBE24E527CC"]
+			id: "1758C3A3DDDC6F74"
+			tasks: [{
+				id: "2CB3EC7D1C016E13"
+				type: "item"
+				item: "minecraft:cake"
+			}]
+			rewards: [
+				{
+					id: "2BDF9A67D4ACCCB7"
+					type: "item"
+					item: "minecraft:cake"
+					count: 3
+				}
+				{
+					id: "0B87056549FC7E53"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "75B3F44F96F4BB1D"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "战力的提升"
+			x: 0.0d
+			y: -10.0d
+			description: ["为了击败凋灵，一套不错的装备是有必要的。现在制作出一套钻石套装，并且将他们附魔，提升自己的战力吧！"]
+			dependencies: ["226E7EBE24E527CC"]
+			id: "567C85ECAC8073DE"
+			tasks: [
+				{
+					id: "0101F1E1B136AA55"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_helmet"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "24DC98CA9C7EEECF"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_chestplate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "6E23D803D4015253"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_leggings"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "4FC84459D24A90A4"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "5B29F94D9FBB8ED5"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_sword"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "0F26868FF68F774A"
+					type: "item"
+					item: "minecraft:diamond_block"
+					count: 2
+				}
+				{
+					id: "3A72812EA8D92FF5"
+					type: "ftbmoney:money"
+					ftb_money: 300L
+				}
+				{
+					id: "7ADC6E169A5B48F6"
+					type: "xp"
+					xp: 300
+				}
+			]
+		}
+		{
+			title: "解放下界"
+			x: 0.0d
+			y: -12.5d
+			description: [
+				"你已经做好了充足的准备，是时候找一个合适的地方击败凋灵了。"
+				"tip：去往主世界的基岩层找到合适的基岩，可以无伤击败凋灵哦！"
+			]
+			dependencies: ["567C85ECAC8073DE"]
+			id: "716D696C5174B3A3"
+			tasks: [{
+				id: "6AA4E7DCD7082E28"
+				type: "kill"
+				title: "击败凋灵"
+				icon: "minecraft:wither_rose"
+				entity: "minecraft:wither"
+				value: 1L
+			}]
+			rewards: [
+				{
+					id: "3B13DF17C0740695"
+					type: "ftbmoney:money"
+					ftb_money: 1000L
+				}
+				{
+					id: "3FAB7B8176310A35"
+					type: "xp"
+					xp: 1000
+				}
+				{
+					id: "4294E9CAF003E0B4"
+					type: "item"
+					item: "minecraft:nether_star"
+				}
+			]
+		}
+		{
+			title: "胜利的证明"
+			x: 0.0d
+			y: -15.0d
+			description: [
+				"制作一个信标，并将信标摆放在家周围并激活，它可以给你源源不断的带来增益效果。"
+				"tip：宝可梦模组内的矿物块不能作为信标基座使用。"
+			]
+			dependencies: ["716D696C5174B3A3"]
+			id: "7DE6B66FCDBE8573"
+			tasks: [{
+				id: "5EB28A4E5244F78A"
+				type: "advancement"
+				title: "激活信标"
+				icon: "minecraft:nether_star"
+				advancement: "minecraft:nether/create_beacon"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "512F02C68E02279F"
+					type: "item"
+					item: "minecraft:iron_block"
+					count: 32
+				}
+				{
+					id: "643AF3ADB4FBC64E"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "24EFEC4AF7D2CFED"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "信标的升级"
+			x: 0.0d
+			y: -17.5d
+			shape: "diamond"
+			description: [
+				"将信标升级至最大功效，它可以为你提供两种不同的效果以及更高级的效果。"
+				"tip：完成该任务后，解锁分支“世界考察的完成”。"
+			]
+			dependencies: ["7DE6B66FCDBE8573"]
+			size: 1.5d
+			id: "1EE56C9099AAD394"
+			tasks: [{
+				id: "529E90ACA8B03B87"
+				type: "advancement"
+				title: "升级信标至最大功效"
+				icon: "minecraft:beacon"
+				advancement: "minecraft:nether/create_full_beacon"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "16CACE6CA1BDE688"
+					type: "item"
+					item: "minecraft:music_disc_pigstep"
+				}
+				{
+					id: "45BBBE4D76AB6AEE"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "59B295E7E2D33172"
+					type: "xp"
+					xp: 500
+				}
+				{
+					id: "2214572FDC2F87CF"
+					type: "item"
+					item: {
+						id: "pixelmon:magma_stone"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"远古残骸好像有点难挖，还是在商店买吧。\",\"color\":\"red\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"下界的证明\",\"color\":\"red\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+			]
+		}
+		{
+			title: "最终之战前的准备"
+			x: 0.0d
+			y: 3.0d
+			description: [
+				"末影龙作为原版的Boss级生物，同样没有受到宝可梦世界的影响。现在收集资源前往末地，击败末影龙，解放末地。"
+				"tip：烈焰粉通过击败下界的火系宝可梦获得，末影珍珠击败幽灵系和超能系宝可梦有概率获得。"
+			]
+			dependencies: ["4D4A3F23D5482903"]
+			id: "0079CB417D835203"
+			tasks: [{
+				id: "6B146CE1458C690D"
+				type: "item"
+				item: "minecraft:ender_eye"
+				count: 12L
+			}]
+			rewards: [
+				{
+					id: "0722F2C06DAFC7D4"
+					type: "item"
+					item: "minecraft:ender_eye"
+					count: 5
+				}
+				{
+					id: "59C1D12E1133E985"
+					type: "item"
+					item: "minecraft:ender_pearl"
+					count: 5
+				}
+				{
+					id: "0873DFAC8E1AADEE"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "1618A1618CE1867B"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "遗迹的探寻"
+			x: 0.0d
+			y: 8.0d
+			description: ["根据末影之眼和探险者指南针的提示，找到要塞吧！"]
+			dependencies: ["61C943AB7E3D5E9E"]
+			id: "229824A62FD3FDEE"
+			tasks: [{
+				id: "7ECFF0569EA88442"
+				type: "structure"
+				title: "到达要塞"
+				icon: "minecraft:mossy_stone_bricks"
+				structure: "minecraft:stronghold"
+			}]
+			rewards: [
+				{
+					id: "66B19D5B08659632"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "0AA6FDE7A654BD6C"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "充足的战前准备"
+			x: 0.0d
+			y: 5.5d
+			description: ["为了击败末影龙，一套不错的装备是有必要的。现在制作出一套钻石套装和一些武器，并且将他们附魔，提升自己的战力吧！"]
+			dependencies: ["0079CB417D835203"]
+			id: "61C943AB7E3D5E9E"
+			tasks: [
+				{
+					id: "477531B105FF02BE"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_helmet"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "152FB45FEAD0670C"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_chestplate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "1B4A0F7000BB057E"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_leggings"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "43B5B8EB3384B7D2"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "18F921ADFE4D9122"
+					type: "item"
+					item: {
+						id: "minecraft:diamond_sword"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "4A95D421ED39FC1C"
+					type: "item"
+					item: {
+						id: "minecraft:bow"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "185F81561F31DCB0"
+					type: "item"
+					item: "minecraft:arrow"
+				}
+				{
+					id: "0DBB556D011B547E"
+					type: "item"
+					item: "minecraft:glass_bottle"
+					count: 9L
+				}
+			]
+			rewards: [
+				{
+					id: "5BFBE2FE95B1BE91"
+					type: "item"
+					item: "minecraft:arrow"
+					count: 64
+				}
+				{
+					id: "6E70F5CA94A3A2E0"
+					type: "item"
+					item: "minecraft:diamond_block"
+					count: 2
+				}
+				{
+					id: "180F206A545318E0"
+					type: "ftbmoney:money"
+					ftb_money: 300L
+				}
+				{
+					id: "5EFB64448F72FDBF"
+					type: "xp"
+					xp: 300
+				}
+			]
+		}
+		{
+			title: "决战的开始"
+			icon: "minecraft:end_stone"
+			x: 0.0d
+			y: 10.5d
+			description: ["如果已经准备好了，就进去末地，击败末影龙吧！"]
+			dependencies: ["229824A62FD3FDEE"]
+			id: "55615C51A6B3CAE0"
+			tasks: [{
+				id: "749FCF449B8B7FDD"
+				type: "dimension"
+				title: "进入末地"
+				icon: "minecraft:end_stone"
+				dimension: "minecraft:the_end"
+			}]
+			rewards: [
+				{
+					id: "3FAC75FAC2A959FC"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "288C10F115B8836A"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "有用的酿造素材"
+			x: 2.5d
+			y: 10.5d
+			description: [
+				"龙息是制作滞留型药水的必备素材。收集一些龙息，以备不时之需。"
+				"tip：对着末影龙的嘴可以无限装取龙息。"
+			]
+			dependencies: ["55615C51A6B3CAE0"]
+			id: "479FB1CE0707F036"
+			tasks: [{
+				id: "5501A21088005075"
+				type: "item"
+				item: "minecraft:dragon_breath"
+			}]
+			rewards: [
+				{
+					id: "583C22300D8071B9"
+					type: "item"
+					item: "minecraft:dragon_breath"
+					count: 10
+				}
+				{
+					id: "5049C9BFB4BCC365"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "051D5F69A05479E6"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "决战的胜利"
+			icon: "minecraft:dragon_head"
+			x: 0.0d
+			y: 13.0d
+			description: ["击败末影龙并获取龙蛋，领取胜利的果实。"]
+			dependencies: ["55615C51A6B3CAE0"]
+			id: "7A1ABB3644F2DDD3"
+			tasks: [
+				{
+					id: "2230C8AE8C1736DC"
+					type: "advancement"
+					title: "击败末影龙"
+					advancement: "minecraft:end/kill_dragon"
+					criterion: ""
+				}
+				{
+					id: "03FC56F41DC1EC5E"
+					type: "advancement"
+					title: "获得龙蛋"
+					advancement: "minecraft:end/dragon_egg"
+					criterion: ""
+				}
+			]
+			rewards: [
+				{
+					id: "1FD803C7C7E466CA"
+					type: "item"
+					item: "minecraft:dragon_egg"
+				}
+				{
+					id: "49C127B1BED567C7"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "44CA6F4F6A288286"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "再战末影龙"
+			icon: "minecraft:dragon_egg"
+			x: -6.0d
+			y: 13.0d
+			description: ["再次击败末影龙，以此来彻底的解放末地。"]
+			dependencies: ["2410914D80A6931A"]
+			id: "6AEB56567E97CB6D"
+			tasks: [
+				{
+					id: "4D99B79F7C699A40"
+					type: "advancement"
+					title: "复活末影龙"
+					advancement: "minecraft:end/respawn_dragon"
+					criterion: ""
+				}
+				{
+					id: "5E8AA89315A842D0"
+					type: "kill"
+					title: "击败末影龙"
+					icon: "minecraft:dragon_head"
+					entity: "minecraft:ender_dragon"
+					value: 1L
+				}
+			]
+			rewards: [
+				{
+					id: "031FB0F4E860B1B9"
+					type: "ftbmoney:money"
+					ftb_money: 1000L
+				}
+				{
+					id: "4E4FEA2BB1824E27"
+					type: "xp"
+					xp: 1000
+				}
+			]
+		}
+		{
+			title: "末影龙复活仪式"
+			x: -3.0d
+			y: 13.0d
+			description: ["为了彻底摆脱末影龙对末地的控制，我们需要再次击败末影龙。收集四个末影水晶，之后将四个末影水晶放到中央的祭坛，以复活末影龙。"]
+			dependencies: ["7A1ABB3644F2DDD3"]
+			id: "2410914D80A6931A"
+			tasks: [{
+				id: "0C1DB386F17DDBD2"
+				type: "item"
+				item: "minecraft:end_crystal"
+				count: 4L
+			}]
+			rewards: [
+				{
+					id: "49F145A537641F9E"
+					type: "item"
+					item: "minecraft:end_crystal"
+					count: 4
+				}
+				{
+					id: "01904A07D8D6ED99"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "5F6BA4E4DD369453"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "远程的折跃"
+			x: 0.0d
+			y: 16.0d
+			description: ["在击败末影龙之后，还需要前往外岛寻找隐藏的宝藏。折跃门可以帮助你迅速的到达外岛。"]
+			dependencies: ["7A1ABB3644F2DDD3"]
+			id: "5FA5D4D2C59D1841"
+			tasks: [{
+				id: "0B8FE1A361ECDEC2"
+				type: "advancement"
+				title: "进入折跃门"
+				advancement: "minecraft:end/enter_end_gateway"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "2B2D8D0CED2889C6"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "4CCC61AD8D5F4325"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "结束？才刚刚开始！"
+			x: 0.0d
+			y: 19.0d
+			description: ["在宝可梦的世界里，末地城不再存在潜影贝。但是末地城的宝藏--鞘翅依然在末地船安静的呆着。找到一座拥有末地船的末地城，获取那传说中的鞘翅吧！"]
+			dependencies: ["5FA5D4D2C59D1841"]
+			id: "7B472E1F4072B6EA"
+			tasks: [{
+				id: "65364B87A34C7CB0"
+				type: "advancement"
+				title: "发现末地城"
+				advancement: "minecraft:end/find_end_city"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "078802FDB69814A2"
+					type: "item"
+					item: "minecraft:shulker_shell"
+					count: 4
+				}
+				{
+					id: "7F3EF9EA14B47CA3"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "6B83EFC0F6BB5BB4"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "28BD9BF8BB52B6F6"
+					type: "advancement"
+					advancement: "minecraft:end/levitate"
+					criterion: ""
+				}
+			]
+		}
+		{
+			title: "天空没有极限"
+			x: 0.0d
+			y: 22.0d
+			description: ["虽然在宝可梦模组里面，飞行非常便利，只需要有飞行宝可梦的帮助即可。但是鞘翅在烟花的帮助下，依然比宝可梦模组里面的任何宝可梦都要快速。在跑图赶路的时候，使用鞘翅也是一个不错的选择。"]
+			dependencies: ["7B472E1F4072B6EA"]
+			id: "37EA27DA031EBA32"
+			tasks: [{
+				id: "39B20EF7F9CB13ED"
+				type: "item"
+				item: {
+					id: "minecraft:elytra"
+					Count: 1b
+					tag: {
+						Damage: 0
+					}
+				}
+			}]
+			rewards: [
+				{
+					id: "398D4D0982CC31C5"
+					type: "item"
+					item: {
+						id: "minecraft:enchanted_book"
+						Count: 1b
+						tag: {
+							StoredEnchantments: [{
+								lvl: 1s
+								id: "minecraft:mending"
+							}]
+						}
+					}
+				}
+				{
+					id: "1C732DC671E14D98"
+					type: "item"
+					item: {
+						id: "minecraft:enchanted_book"
+						Count: 1b
+						tag: {
+							StoredEnchantments: [{
+								lvl: 3s
+								id: "minecraft:unbreaking"
+							}]
+						}
+					}
+				}
+				{
+					id: "3E348074600883C2"
+					type: "item"
+					item: "minecraft:firework_rocket"
+					count: 32
+				}
+				{
+					id: "17711E4A53C5DA82"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "46B4F440C569066C"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "末地的特产"
+			x: -3.0d
+			y: 16.0d
+			description: [
+				"紫颂果和紫颂花是末地的特产，带回主世界给宝可梦的瞧瞧吧！"
+				"tip：紫颂花空手即可采集。"
+			]
+			dependencies: ["5FA5D4D2C59D1841"]
+			id: "19F1B033B7E0C2C2"
+			tasks: [
+				{
+					id: "5C8794D9E689AAD6"
+					type: "item"
+					item: "minecraft:chorus_fruit"
+				}
+				{
+					id: "750D42100A3EAF01"
+					type: "item"
+					item: "minecraft:chorus_flower"
+				}
+			]
+			rewards: [
+				{
+					id: "14329418D2A97730"
+					type: "item"
+					item: "minecraft:chorus_fruit"
+					count: 32
+				}
+				{
+					id: "2F6D12AE1EBD9284"
+					type: "item"
+					item: "minecraft:chorus_flower"
+					count: 5
+				}
+				{
+					id: "306F7EBFE83D64B8"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "44645D54DAF2487C"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "解放末地"
+			x: -4.5d
+			y: 18.5d
+			shape: "diamond"
+			description: [
+				"你已经解放了末地，来领取你的奖励吧！"
+				"tip：完成该任务后，解锁分支“世界考察的完成”。"
+			]
+			dependencies: [
+				"6AEB56567E97CB6D"
+				"19F1B033B7E0C2C2"
+				"37EA27DA031EBA32"
+			]
+			size: 1.5d
+			id: "65287FB1AD2877A2"
+			tasks: [{
+				id: "3EE19E7ADC93BE7C"
+				type: "checkmark"
+				title: "解放了末地"
+			}]
+			rewards: [{
+				id: "201AF74C143A1ABE"
+				type: "item"
+				item: {
+					id: "pixelmon:lunar_wing"
+					Count: 1b
+					tag: {
+						HideFlags: 1
+						display: {
+							Lore: ["{\"text\":\"末地的全称叫末路之地，但是好像没人这么叫它，包括我。\",\"color\":\"white\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+							Name: "[{\"text\":\"末地的证明\",\"color\":\"white\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+						}
+						Enchantments: [{
+							lvl: 1s
+							id: "minecraft:binding_curse"
+						}]
+					}
+				}
+			}]
+		}
+		{
+			title: "溺亡的世界"
+			icon: "pixelmon:drowned_world_teleporter"
+			x: 3.0d
+			y: 0.0d
+			description: [
+				"溺水世界是一个充满了水的世界。这里刷新的所有宝可梦都是溺水材质的，但是因为溺水世界的特殊性，这个世界的宝可梦无法被捕捉，即便使用大师球也必定会失败。在原版宝可梦模组中，溺水世界需要在特定的时间完成村民任务后才能进入，在本整合包中，玩家可以通过完成该任务进入且也仅有一次机会进入溺水世界。如果想要重复进入溺水世界，可以在溺水世界放置一个指路石。溺水世界中仅有3种群系，他们分别是溺水暖海，溺水绯红和溺水黑暗。如果想要回到主世界，只需要到达255层高度或者0层高度，即可返回主世界。由于溺水世界过于危险，所以请先制作一套水之石套装再进入溺水世界。水之石套装是一套通过水之石合成的装备。穿齐一套时，没有附魔的水之石靴子会被水下速掘II，且玩家会获得水下呼吸II的效果。"
+				"注：在本整合包中，玩家仅有一次进入溺水世界的机会，切勿浪费！如果不小心把传送门弄丢了就只能创哥理赔了！"
+			]
+			dependencies: ["4D4A3F23D5482903"]
+			id: "38E624E08CEAC837"
+			tasks: [
+				{
+					id: "1A72FCBE42E90D80"
+					type: "item"
+					item: {
+						id: "pixelmon:water_stone_helm"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "132E8CFE9266C753"
+					type: "item"
+					item: {
+						id: "pixelmon:water_stone_plate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "47280F4B296D3006"
+					type: "item"
+					item: {
+						id: "pixelmon:water_stone_legs"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "1366EF858AE2D9A5"
+					type: "item"
+					item: {
+						id: "pixelmon:water_stone_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "322F8863C9195FF7"
+					type: "item"
+					item: "pixelmon:drowned_world_teleporter"
+				}
+				{
+					id: "2F68D6BD9C371290"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "3E2E9D9D69B77A21"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "死寂的溺水世界"
+			icon: "pixelmon:ultra_deep_crystal"
+			x: 6.0d
+			y: 0.0d
+			description: ["准备好了吗？那就进入这个死寂的世界一探究竟吧！"]
+			dependencies: ["38E624E08CEAC837"]
+			id: "2AFB6C4E55BD5B4B"
+			tasks: [{
+				id: "69F48F5AC6B8FE8B"
+				type: "dimension"
+				title: "进入溺水世界"
+				icon: "pixelmon:drowned_world_teleporter"
+				dimension: "pixelmon:drowned_world"
+			}]
+			rewards: [
+				{
+					id: "3CF672F3FDD4F37E"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "44A19A88C1292616"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "血色的绯红"
+			icon: "minecraft:red_nether_bricks"
+			x: 8.0d
+			y: -1.5d
+			description: ["一片死寂，这里仅有一些溺亡的宝可梦....."]
+			dependencies: ["2AFB6C4E55BD5B4B"]
+			id: "1ECC8D73D9F92A76"
+			tasks: [{
+				id: "64CBE0C6B86A7BE0"
+				type: "biome"
+				title: "到达溺水绯红生物群系"
+				icon: "minecraft:red_nether_bricks"
+				biome: "pixelmon:drowned_crimson"
+			}]
+			rewards: [
+				{
+					id: "10FBC212257C5AAE"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "5C9BDE3A2F5AFAE3"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "无声的暖海"
+			x: 8.0d
+			y: 0.0d
+			description: ["一片死寂，这里仅有一些溺亡的宝可梦....."]
+			dependencies: ["2AFB6C4E55BD5B4B"]
+			id: "421FCC6423ABBFD3"
+			tasks: [{
+				id: "7877976E20D079FA"
+				type: "biome"
+				title: "到达溺水暖海生物群系"
+				icon: "minecraft:dead_brain_coral_block"
+				biome: "pixelmon:drowned_warm"
+			}]
+			rewards: [
+				{
+					id: "5E2FBE8BB845AFCA"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "5CCCAD638D6A70DE"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "深邃的黑暗"
+			x: 8.0d
+			y: 1.5d
+			description: ["一片死寂，这里仅有一些溺亡的宝可梦....."]
+			dependencies: ["2AFB6C4E55BD5B4B"]
+			id: "2C90942D52B0F257"
+			tasks: [{
+				id: "5EB4A2D11FE9BD5D"
+				type: "biome"
+				title: "到达溺水黑暗生物群系"
+				icon: "minecraft:black_concrete_powder"
+				biome: "pixelmon:drowned_dark"
+			}]
+			rewards: [
+				{
+					id: "4209D3387B2A352F"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "0833AEF31E1A4D79"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			x: 12.0d
+			y: 0.0d
+			shape: "diamond"
+			description: [
+				"你已经见证了宝可梦的消散，来领取你的奖励吧。"
+				"tip：完成该任务后，解锁分支“世界考察的完成”。"
+			]
+			dependencies: ["667BBF7F3C6C91FE"]
+			size: 1.5d
+			id: "4BDC86FEB7BEBAD8"
+			tasks: [{
+				id: "311C8152272AD8CA"
+				type: "checkmark"
+				title: "生命的叹息"
+			}]
+			rewards: [
+				{
+					id: "4BBC5AE81B8063F4"
+					type: "item"
+					item: {
+						id: "pixelmon:radiant_petal"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"其实这个世界的宝可梦根本没死，只是他们原本就长这个样子而已。\",\"color\":\"dark_blue\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"溺亡的证明\",\"color\":\"dark_blue\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+				{
+					id: "59D9D3B9C7638ED7"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "345ED2A3C4505669"
+					type: "xp"
+					xp: 500
+				}
+				{
+					id: "673BC1E6063FB78B"
+					type: "command"
+					title: "？？？"
+					icon: "pixelmon:cross_tombstone"
+					auto: "no_toast"
+					command: "/say @p，你已被死寂缠身。"
+					player_command: false
+				}
+				{
+					id: "412C634D2EB01EAB"
+					type: "command"
+					title: "？？？"
+					icon: "bountifulbaubles:obsidian_skull"
+					auto: "no_toast"
+					command: "/playsound minecraft:ambient.cave ambient @p"
+					player_command: true
+				}
+			]
+		}
+		{
+			x: 3.0d
+			y: 2.5d
+			description: [
+				"在宝可梦的世界中，还有其他由进化石合成而来的盔甲，来看看他们的效果吧！"
+				"tip：该分支仅作为支线，不影响主线的进程。"
+			]
+			dependencies: ["38E624E08CEAC837"]
+			id: "25BB7CBB4902F48D"
+			tasks: [{
+				id: "21DBAC30E46E7FCC"
+				type: "checkmark"
+				title: "进化石盔甲"
+			}]
+			rewards: [{
+				id: "7FC73FA2CA9D3EA7"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			title: "觉醒的力量"
+			x: 4.0d
+			y: 3.5d
+			description: [
+				"觉醒之石套装是一套通过觉醒之石合成的装备。穿齐一套时，玩家会获得跳跃提升IV且免疫摔落伤害。"
+				"觉醒之石剑是一件通过觉醒之石合成的装备。进化石工具在使用时都会产生特殊效果（右键）。使用耐久度：使用觉醒之石工具和特殊效果需要消耗一点耐久度。特殊效果：觉醒之石工具的特殊效果可以给予玩家达五分钟的生命提升效果。伤害：觉醒之石剑对生物和玩家（无护甲的情况下），可以造成1点的伤害。"
+			]
+			dependencies: ["25BB7CBB4902F48D"]
+			id: "7DB875FB97B626C6"
+			tasks: [
+				{
+					id: "4EA6D68C9644B632"
+					type: "item"
+					item: {
+						id: "pixelmon:dawn_stone_helm"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "7369695E56E91540"
+					type: "item"
+					item: {
+						id: "pixelmon:dawn_stone_plate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "74822785DF866295"
+					type: "item"
+					item: {
+						id: "pixelmon:dawn_stone_legs"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "5500FAB146C7F188"
+					type: "item"
+					item: {
+						id: "pixelmon:dawn_stone_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "4B605BFB58B47D07"
+					type: "item"
+					item: {
+						id: "pixelmon:dawn_stone_sword"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "73F4A41F36D03ABC"
+					type: "item"
+					item: "pixelmon:dawn_stone"
+					count: 24
+				}
+				{
+					id: "06DC152E598A3C2F"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "2802CC524E15102F"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "火焰的魄力"
+			x: 5.0d
+			y: 4.5d
+			description: [
+				"火之石套装是一套通过火之石合成的装备。穿齐一套时，没有附魔的火之石靴子会被附魔火焰保护II且玩家会获得防火III的效果。"
+				"火之石镐是一件通过火之石合成的装备。进化石工具在使用时都会产生特殊效果（右键）。使用耐久度：使用火之石镐攻击生物、使用特殊效果、挖掘方块会消耗一点耐久度。挖掘效率：钻石质工具。挖掘等级：3级（Obsidian/黑曜石级）。特殊效果：火之石工具的特殊效果可以将水源变成黑曜石。伤害：火之石镐对生物和玩家（无护甲的情况下），可以造成9点的伤害。"
+			]
+			dependencies: ["25BB7CBB4902F48D"]
+			id: "590BD027B7510EEC"
+			tasks: [
+				{
+					id: "07FA4AB6497F1AC3"
+					type: "item"
+					item: {
+						id: "pixelmon:fire_stone_helm"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "402CD9FDDCB48093"
+					type: "item"
+					item: {
+						id: "pixelmon:fire_stone_plate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "076E1FD872E7DEF2"
+					type: "item"
+					item: {
+						id: "pixelmon:fire_stone_legs"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "3ABDE1AD974547DF"
+					type: "item"
+					item: {
+						id: "pixelmon:fire_stone_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "3AC7138EE3DD8256"
+					type: "item"
+					item: {
+						id: "pixelmon:fire_stone_pickaxe"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "04DA67ECDB4067AB"
+					type: "item"
+					item: "pixelmon:fire_stone"
+					count: 24
+				}
+				{
+					id: "17770A58E4E6DCCA"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "41E9B3B6153134DD"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "绿植的坚挺"
+			x: 6.0d
+			y: 5.5d
+			description: [
+				"叶之石套装是一套通过叶之石合成的装备。穿齐一套时，没有附魔的叶之石靴子会被摔落保护III与荆棘III。"
+				"叶之石锄是一件通过叶之石合成的装备。进化石工具在使用时都会产生特殊效果（右键）。挖掘效率：铁质工具。攻击速度：铁质工具。使用耐久度：使用叶之石工具需要1点耐久度,使用特殊效果需要12点耐久度。特殊效果：叶之石工具的特殊效果可以将作物催熟，使用效果与骨粉相同。伤害：叶之石锄对生物和玩家（无护甲的情况下）可以造成2点的伤害。"
+			]
+			dependencies: ["25BB7CBB4902F48D"]
+			id: "4EBFAF65B68F89AD"
+			tasks: [
+				{
+					id: "244BB141C9008081"
+					type: "item"
+					item: {
+						id: "pixelmon:leaf_stone_helm"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "788E7152C430442C"
+					type: "item"
+					item: {
+						id: "pixelmon:leaf_stone_plate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "35B05E75F1A21501"
+					type: "item"
+					item: {
+						id: "pixelmon:leaf_stone_legs"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "4A0FD4CA734696F4"
+					type: "item"
+					item: {
+						id: "pixelmon:leaf_stone_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "7C67BE0A628EB690"
+					type: "item"
+					item: {
+						id: "pixelmon:leaf_stone_hoe"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "03692F1B877B346D"
+					type: "item"
+					item: "pixelmon:leaf_stone"
+					count: 24
+				}
+				{
+					id: "15CC9493C5DE145D"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "387120910167EC4A"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "黑暗的幽匿"
+			x: 7.0d
+			y: 6.5d
+			description: [
+				"暗之石套装是一套通过暗之石合成的装备。穿齐一套时，玩家会获得饱和II的效果。"
+				"暗之石锤是一件通过暗之石合成的装备。进化石工具在使用时都会产生特殊效果（右键）。使用耐久度：使用暗之石锤攻击生物会消耗1点耐久，挖掘方块和使用特殊效果需要消耗一点耐久度。特殊效果：暗之石工具的特殊效果可以给予玩家达五分钟的隐身效果。伤害：暗之石锤对生物和玩家（无护甲的情况下），可以造成3点的伤害。"
+			]
+			dependencies: ["25BB7CBB4902F48D"]
+			id: "780907AAF7551C74"
+			tasks: [
+				{
+					id: "70D48612930F9A6C"
+					type: "item"
+					item: {
+						id: "pixelmon:dusk_stone_helm"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "15BE68FCA7462B39"
+					type: "item"
+					item: {
+						id: "pixelmon:dusk_stone_plate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "5DF3ECFF067A13B3"
+					type: "item"
+					item: {
+						id: "pixelmon:dusk_stone_legs"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "26E1640C777E5BA7"
+					type: "item"
+					item: {
+						id: "pixelmon:dusk_stone_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "2C88EE0F64DA00D7"
+					type: "item"
+					item: {
+						id: "pixelmon:dusk_stone_hammer"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "0EFE6A3F2F2D48AA"
+					type: "item"
+					item: "pixelmon:dusk_stone"
+					count: 24
+				}
+				{
+					id: "422945F9465C861C"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "0DF6216151CC6EC2"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "惊蛰的洪亮"
+			x: 8.0d
+			y: 7.5d
+			description: [
+				"雷之石套装是一套通过雷之石合成的装备。穿齐一套时，玩家会获得急迫III的效果且鞋子会额外增加50%的移速。"
+				"雷之石斧是一件通过雷之石合成的装备。进化石工具在使用时都会产生特殊效果（右键）。使用耐久度：使用雷之石斧攻击生物、使用特殊效果、挖掘方块会消耗一点耐久度。挖掘效率：金质工具。特殊效果：雷之石工具会给予本身（使用此特殊效果的工具）效率3的附魔。伤害：雷之石斧对生物和玩家（无护甲的情况下），可以造成1点的伤害。"
+			]
+			dependencies: ["25BB7CBB4902F48D"]
+			id: "609806E6C3F935EF"
+			tasks: [
+				{
+					id: "4DD5EA4F3765BFFB"
+					type: "item"
+					item: {
+						id: "pixelmon:thunder_stone_helm"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "699C4A91934968E8"
+					type: "item"
+					item: {
+						id: "pixelmon:thunder_stone_plate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "5AEE32A6B7E94A87"
+					type: "item"
+					item: {
+						id: "pixelmon:thunder_stone_legs"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "5F8F471BC085E625"
+					type: "item"
+					item: {
+						id: "pixelmon:thunder_stone_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "05E1A6157551E4F7"
+					type: "item"
+					item: {
+						id: "pixelmon:thunder_stone_axe"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "3122310ECE5F72AB"
+					type: "item"
+					item: "pixelmon:thunder_stone"
+					count: 24
+				}
+				{
+					id: "2BDCEAABDC5B4DA0"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "40F481CDEB71E8F7"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "闪耀的烈日"
+			x: 10.0d
+			y: 9.5d
+			description: ["日之石套装是一套通过日之石合成的装备。穿齐一套时，没有附魔的日之石靴子会被附魔保护Ⅳ与弹射物保护Ⅳ。"]
+			dependencies: ["25BB7CBB4902F48D"]
+			id: "549248B26581A811"
+			tasks: [
+				{
+					id: "32F1279755AA9CC3"
+					type: "item"
+					item: {
+						id: "pixelmon:sun_stone_helm"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "549A5FE8BF7B30DB"
+					type: "item"
+					item: {
+						id: "pixelmon:sun_stone_plate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "3B056B431AB82C0A"
+					type: "item"
+					item: {
+						id: "pixelmon:sun_stone_legs"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "613DF02C11803D2C"
+					type: "item"
+					item: {
+						id: "pixelmon:sun_stone_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "1EED3B10C2185AFA"
+					type: "dimension"
+					title: "进入下界"
+					icon: "minecraft:crimson_nylium"
+					dimension: "minecraft:the_nether"
+				}
+			]
+			rewards: [
+				{
+					id: "019CC0A53E9A456A"
+					type: "item"
+					item: "pixelmon:sun_stone"
+					count: 24
+				}
+				{
+					id: "19EDFB4B62A80011"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "1CC3F7386648AAEE"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			x: 11.0d
+			y: 10.5d
+			shape: "diamond"
+			description: ["你已经收集了所有的进化石制作的盔甲，来领取你的奖励吧！"]
+			dependencies: [
+				"7DB875FB97B626C6"
+				"590BD027B7510EEC"
+				"4EBFAF65B68F89AD"
+				"780907AAF7551C74"
+				"609806E6C3F935EF"
+				"549248B26581A811"
+				"0BA6ED94477E7CDE"
+			]
+			size: 1.5d
+			id: "66EDC4D948592302"
+			tasks: [{
+				id: "38794FD0C8D7214C"
+				type: "checkmark"
+				title: "日新月异"
+			}]
+			rewards: [
+				{
+					id: "2BF83CA3B7C5C5B3"
+					type: "item"
+					item: {
+						id: "pixelmon:enigma_stone"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"玩世不恭。\",\"color\":\"gray\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"石头的证明\",\"color\":\"gray\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+				{
+					id: "6711D7CBFC9B08F3"
+					type: "item"
+					item: {
+						id: "pixelmon:beef_hammer"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "24F814C05423D60B"
+					type: "ftbmoney:money"
+					ftb_money: 1000L
+				}
+				{
+					id: "30732F2D05A2147A"
+					type: "xp"
+					xp: 1000
+				}
+			]
+		}
+		{
+			title: "最后的领域"
+			x: -3.0d
+			y: 0.0d
+			description: [
+				"要进入究极空间，玩家必须找到一个自然生成的究极之洞或获得宝可梦索尔迦雷欧、露奈雅拉、奈克洛兹玛、阿尔宙斯或帕路奇亚。       如果玩家发现一个自然生成的究极之洞，则需要使用一只可以飞行的宝可梦或搭建方块进入洞内。当玩家进入洞内时，它们将自动传送到究极空间维度。       如果玩家拥有宝可梦索尔迦雷欧、露奈雅拉、奈克洛兹玛、阿尔宙斯或帕路奇亚，则可以使用战斗外技能生成传送门，这将在天上生成一个究极之洞。然后就可以像自然生成的究极之洞一样进入，此技能可以在战斗外技能冷却完成后重新生成究极之洞。"
+				"有十只究极异兽只能在究极空间内获得，他们分别是：费洛美螂，毒贝比，恶食大王，电束木，铁火辉夜，爆肌蚊，纸御剑，虚吾伊德，砰头小丑和垒磊石。究极异兽不属于传说中的宝可梦。"
+				"究极空间比主世界危险的多。这里的宝可梦等级普遍较高而且好战。在与宝可梦发起对战时，有概率触发团战，同时与多个宝可梦战斗。这个时候最好立刻逃跑，被高等级的宝可梦群殴基本上很难打过。"
+				"究极空间拥有数不胜数的巢穴，是后期发展的好地方。"
+				"另外，携带防尘护目镜进入究极空间时，视野的迷雾会全部消除。"
+				"另外，究极空间会给予你非常多的负面效果，建议前往支线“奇妙的饰品”获得足够的饰品后再来进入究极空间！"
+			]
+			dependencies: ["4D4A3F23D5482903"]
+			id: "1D4D3F54E96463DE"
+			tasks: [{
+				id: "78EB3136EEB6E157"
+				type: "advancement"
+				title: "找到虫洞，进入究极空间"
+				icon: "pixelmon:ultra_space_teleporter"
+				advancement: "pixelmon:ultra_space/root"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "51ADC92A57761CC9"
+					type: "item"
+					item: "waystones:waystone"
+					count: 3
+				}
+				{
+					id: "304BA9D8E7E79AA9"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "13862C1E8CAC86ED"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "十分危险的沙漠"
+			x: -5.0d
+			y: 1.5d
+			description: [
+				"究极沙漠内蕴藏的数量极多的水晶块，玩家对水晶有需求的话，可以来这里采集。"
+				"究极沙漠的表面生长在一些究极沙漠仙人掌，触碰后不仅会伤害玩家，还会给予玩家非常多的负面效果。"
+			]
+			dependencies: ["1D4D3F54E96463DE"]
+			id: "3B2CB032805E83E0"
+			tasks: [{
+				id: "298198CAA69A0209"
+				type: "biome"
+				title: "到达究极沙漠生物群系"
+				icon: "pixelmon:ultra_desert_gilded_sand"
+				biome: "pixelmon:ultra_desert"
+			}]
+			rewards: [
+				{
+					id: "4A03216C38208DF9"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "67E573C73050A918"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "异常茂密的丛林"
+			x: -5.0d
+			y: -2.0d
+			description: ["究极丛林同样生长的数量繁多的究极森林花，而且地形错综复杂。是一个不宜久留的地方。"]
+			dependencies: ["1D4D3F54E96463DE"]
+			id: "7034934C009B45DD"
+			tasks: [{
+				id: "6EADE11F5CA84DDF"
+				type: "biome"
+				title: "到达究极丛林生物群系"
+				icon: "pixelmon:ultra_jungle_sapling"
+				biome: "pixelmon:ultra_jungle"
+			}]
+			rewards: [
+				{
+					id: "5B7C39D06103933E"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "120DC6CD5F57DE2A"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "电闪雷鸣的发电站"
+			icon: "minecraft:obsidian"
+			x: -5.0d
+			y: 5.0d
+			description: ["究极发电站内拥有数量较多的信号塔和黑曜石塔。黑曜石塔的顶层必定会生成一些玉石原矿，来这里挖掘玉石是个不错的选择。"]
+			dependencies: ["1D4D3F54E96463DE"]
+			id: "46B21BB523323F4E"
+			tasks: [{
+				id: "03BAB02636A63D5D"
+				type: "biome"
+				title: "到达究极发电厂生物群系"
+				icon: "minecraft:obsidian"
+				biome: "pixelmon:ultra_plant"
+			}]
+			rewards: [
+				{
+					id: "2696C6FBF3C2842E"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "206F76CE91D85E4D"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "遮天蔽日的森林"
+			x: -5.0d
+			y: -3.5d
+			description: ["究极森林内生长着数量繁多的究极森林朵，一定要小心这种花朵。触碰后会给予玩家非常多的负面效果。"]
+			dependencies: ["1D4D3F54E96463DE"]
+			id: "792616FEB6F784C5"
+			tasks: [{
+				id: "2D358DE3F20E8E59"
+				type: "biome"
+				title: "到达究极森林生物群系"
+				icon: "pixelmon:ultra_elm_sapling"
+				biome: "pixelmon:ultra_forest"
+			}]
+			rewards: [
+				{
+					id: "700FF8A892EA28B0"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "7CF5688DFC1F9E8B"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "错综复杂的深海"
+			x: -5.0d
+			y: 3.5d
+			description: ["究极深海由水域和究极深海石头构成。水域中有数量较少的究极海带和水草，玩家触碰后同样会给予非常多的负面效果。不过海带和海草一般生成在水底，对于玩家来说较难触碰。"]
+			dependencies: ["1D4D3F54E96463DE"]
+			id: "76CEF52536BEAB88"
+			tasks: [{
+				id: "3001910F3A1E83E2"
+				type: "biome"
+				title: "到达究极深海生物群系"
+				icon: "pixelmon:ultra_deep_crying_crystal"
+				biome: "pixelmon:ultra_deep_sea"
+			}]
+			rewards: [
+				{
+					id: "3993067B38BC4548"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "5C2DAB1BAE7FA9AF"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "高耸入云的峡谷"
+			x: -5.0d
+			y: -5.0d
+			description: [
+				"究极峡谷的地形差非常的巨大。"
+				"究极峡谷内的水会变为绿色的，但是触碰之后不会有任何效果。究极峡谷内埋藏了许多的管道，挖掘它们会给予玩家非常多的负面效果。建议携带一只大奶罐和桶之后再来挖掘这些管道。"
+			]
+			dependencies: ["1D4D3F54E96463DE"]
+			id: "19390944996AA03A"
+			tasks: [{
+				id: "52BA57C2AC19784F"
+				type: "biome"
+				title: "到达究极峡谷生物群系"
+				icon: "pixelmon:ultra_space_cobblestone"
+				biome: "pixelmon:ultra_crater"
+			}]
+			rewards: [
+				{
+					id: "7AA13A2A5E10620B"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "6A7F999AAB331C8D"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "异世界的奖励箱"
+			x: -5.0d
+			y: -1.0d
+			description: [
+				"究极球箱是宝可梦重铸中奖励箱的一种。外观为究极球的样子。通常自然生成在究极空间中。生存模式下一般手段无法将其破坏。自然生成的究极球箱可以通过右键打开来获得其装在里面的物品。"
+				"可以开出各种石板，各种Z招式以及究极球。"
+				"究极球箱在究极空间生成的数量非常多。"
+			]
+			dependencies: ["1D4D3F54E96463DE"]
+			id: "48544A81176BE26E"
+			tasks: [{
+				id: "61A6612A268E3164"
+				type: "observation"
+				title: "找到一个究极球奖励箱"
+				icon: "pixelmon:beast_chest"
+				timer: 0L
+				observe_type: 0
+				to_observe: "pixelmon:beast_chest"
+			}]
+			rewards: [
+				{
+					id: "05F995CDC9A56FDE"
+					type: "item"
+					item: "pixelmon:ultra_rare_soda"
+				}
+				{
+					id: "1D2157DB8F193C8A"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "755CC97E62F4CC81"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "打瞌睡的花朵"
+			x: -8.0d
+			y: -3.0d
+			description: [
+				"究极森林花是一种生长在究极森林和究极丛林的植物。当玩家触碰它时，会立刻获得缓慢IV的效果，并且使同行栏的所有宝可梦陷入瞌睡状态。"
+				"究极森林花空手即可采集。"
+			]
+			dependencies: [
+				"4125C9BFC505F3D8"
+				"36D5F71274793474"
+				"75A68B6BD0A71DE2"
+			]
+			id: "3A0ACC6C757D9762"
+			tasks: [{
+				id: "099856D87751B02A"
+				type: "item"
+				item: "pixelmon:ultra_forest_flower"
+			}]
+			rewards: [
+				{
+					id: "7B5C20CCF84B1133"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "495958C7A3D8D29F"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "有毒的仙人掌"
+			x: -8.0d
+			y: 1.0d
+			description: [
+				"究极沙漠仙人掌是一种生长在究极沙漠的植物。当玩家触碰它时，会立刻获得中毒IV的效果，并且使同行栏的所有宝可梦陷入中毒状态。"
+				"究极沙漠仙人掌可以烧制成紫色燃料。"
+				"究极沙漠仙人掌需要石质及以上等级的斧头才能采集。"
+			]
+			dependencies: ["3B2CB032805E83E0"]
+			id: "79E193185DFA609F"
+			tasks: [{
+				id: "429ECB56CBC8D0B9"
+				type: "item"
+				item: "pixelmon:ultra_desert_cactus"
+			}]
+			rewards: [
+				{
+					id: "522B374840127E99"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "56FDAE1215663900"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "睡死的海带"
+			x: -8.0d
+			y: 4.0d
+			description: [
+				"究极深海海带是一种生长在究极深海的水生植物。当玩家触碰它时，会立刻获得缓慢IV和失明IV的效果，并且使同行栏的所有宝可梦陷入睡眠状态。"
+				"现在作死触碰究极深海海带，试试它的效果！"
+			]
+			dependencies: ["12A752CBF4205ED7"]
+			id: "0E8A6BFCFC11FA69"
+			tasks: [{
+				id: "3ACF35B33A69C3C5"
+				type: "advancement"
+				title: "触碰究极深海海带"
+				advancement: "pixelmon:ultra_space/ultra_deep_sea_sleep"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "7796919EBBF5DE34"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "7FE067091CEE88A0"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "黢蓝的石头"
+			x: -8.0d
+			y: 3.0d
+			description: ["究极深海石头是一种生成在究极深海生物群系，并且拥有特殊用途的建筑方块。关于它的具体用处，在后面的章节再做解析。现在先来收集一些吧！"]
+			dependencies: ["470CB985B6461B86"]
+			id: "061B069BCB31AD59"
+			tasks: [{
+				id: "7705363B8CD5876B"
+				type: "item"
+				item: "pixelmon:ultra_deep_stone"
+				count: 8L
+			}]
+			rewards: [
+				{
+					id: "6A47112768DC5174"
+					type: "item"
+					item: "pixelmon:ultra_deep_stone"
+					count: 10
+				}
+				{
+					id: "3929EAD344B43238"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "564D44CA3A310B33"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "可怕的肺石症"
+			x: -8.0d
+			y: -5.0d
+			description: [
+				"究极峡谷到处都是裸露的金属管道。挖掘骨块，铁块和铝块有概率会获得肺石症，具体的效果为：玩家获得挖掘疲劳IV，中毒IV以及失明II的效果，同行栏的所有宝可梦都会陷入中毒状态。但挖掘其他的矿物块不会得肺石症。"
+				"tip：根据作者的实地考察，究极峡谷貌似只会生成铁块管道，铝块管道，骨块管道，银块管道和铂块管道。其中只有银块管道和铂块管道在挖掘后不会得肺石症。"
+			]
+			dependencies: ["19390944996AA03A"]
+			id: "033BB6B7A71253D4"
+			tasks: [{
+				id: "002D77795EA064A3"
+				type: "advancement"
+				title: "作死获得一次肺石症"
+				advancement: "pixelmon:ultra_space/ultra_crater_sickness"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "0B9E94E8BD2F888C"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "40D7158B49DB448F"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			icon: "minecraft:sea_lantern"
+			x: -8.0d
+			y: 5.0d
+			description: [
+				"挖掘究极发电站生物群系内的海晶灯，有概率召唤一道闪电劈向玩家并使同行栏的所有宝可梦陷入麻痹状态。"
+				"究极发电站生物群系内的信号塔上的海晶灯内必定会刷新一种矿物块，高概率为钻石块，低概率为远古残骸。"
+			]
+			dependencies: ["46B21BB523323F4E"]
+			id: "30947890BFD45280"
+			tasks: [{
+				id: "38E8EB980FB8C7F3"
+				type: "checkmark"
+				title: "电人的信号塔"
+			}]
+			rewards: [
+				{
+					id: "3ABCB2387917EBB1"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "63FD505B5386476E"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			x: -11.0d
+			y: 0.0d
+			shape: "diamond"
+			description: [
+				"你已经见证了究极的诡异，来领取你的奖励吧。"
+				"tip：完成该任务后，解锁分支“世界考察的完成”。"
+			]
+			hide_dependency_lines: false
+			dependencies: [
+				"3A0ACC6C757D9762"
+				"79E193185DFA609F"
+				"30947890BFD45280"
+				"033BB6B7A71253D4"
+				"061B069BCB31AD59"
+				"4D0971A720BA135E"
+				"71DAC100A074D7EE"
+				"7FD86FC511CA85D1"
+				"0E8A6BFCFC11FA69"
+			]
+			size: 1.5d
+			id: "5C026F064EB708EA"
+			tasks: [{
+				id: "22DCF3EA8A51AA4C"
+				type: "checkmark"
+				title: "诡异的究极"
+			}]
+			rewards: [
+				{
+					id: "218EE603C11431C4"
+					type: "item"
+					item: {
+						id: "pixelmon:dragon_skull"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"这究极空间怎么一个建筑都没有，探索起来这么无聊。\",\"color\":\"blue\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"究极的证明\",\"color\":\"blue\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+				{
+					id: "7E962620583FCA0B"
+					type: "ftbmoney:money"
+					ftb_money: 1000L
+				}
+				{
+					id: "5DCEF7C3BFDBE1F9"
+					type: "xp"
+					xp: 1000
+				}
+			]
+		}
+		{
+			x: -11.0d
+			y: 8.5d
+			shape: "diamond"
+			description: [
+				"你已经去往了全部的世界，接下来该了解宝可梦世界的传说了。完成前置任务后解锁该分支。"
+				"tip：完成该任务后，解锁最终章和支线“究极的干扰”，支线“强者的征途”和支线“时空的踪迹”。"
+			]
+			hide_dependency_lines: true
+			dependencies: [
+				"5C026F064EB708EA"
+				"65287FB1AD2877A2"
+				"4BDC86FEB7BEBAD8"
+				"1EE56C9099AAD394"
+			]
+			size: 2.0d
+			id: "019ADA5F4502DD85"
+			tasks: [{
+				id: "1C38B1A5BB8AA430"
+				type: "checkmark"
+				title: "世界考察的完成"
+			}]
+			rewards: [
+				{
+					id: "681F14BE9D644589"
+					type: "ftbmoney:money"
+					ftb_money: 2000L
+				}
+				{
+					id: "4885FE65FBC0F97B"
+					type: "xp"
+					xp: 2000
+				}
+				{
+					id: "0123AA53DED1ECA0"
+					type: "item"
+					item: {
+						id: "pixelmon:green_petal"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"这第三章什么鬼玩意，宝可梦世界怎么还要打末影龙！\",\"color\":\"white\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"第三章的证明\",\"color\":\"white\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+			]
+		}
+		{
+			title: "奇怪的蛋"
+			x: -8.0d
+			y: 0.0d
+			description: [
+				"宝可梦的蛋是一种会自然生成在究极空间基岩层洞穴的方块。当玩家挖掉这个蛋时，会被立刻弹开，并且出现一只当前地形对应的究极异兽史诗boss与其对战。"
+				"现在前往地下找到一个宝可梦的蛋，并且与其中的boss对战试试吧！"
+				"tip：如果实在不想寻找，商店可以直接购买。"
+			]
+			dependencies: ["1D4D3F54E96463DE"]
+			id: "4D0971A720BA135E"
+			tasks: [{
+				id: "2B821E6625DA1E8D"
+				type: "observation"
+				title: "发现宝可梦的蛋"
+				icon: "pixelmon:pokemon_egg"
+				timer: 0L
+				observe_type: 0
+				to_observe: "pixelmon:pokemon_egg"
+			}]
+			rewards: [
+				{
+					id: "563A27DE6A279F27"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "411627CC8C1AA3A4"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "皎洁的明月"
+			x: 9.0d
+			y: 8.5d
+			description: [
+				"月之石套装是一套通过月之石合成的装备。穿齐一套时，没有附魔的月之石靴子会被附魔保护Ⅳ与爆炸保护Ⅳ。"
+				"月之石锹是一件通过月之石合成的装备。进化石工具在使用时都会产生特殊效果（右键）。使用耐久度：使用月之石锹挖掘方块和使用特殊效果会消耗一点耐久度。挖掘效率：金质工具。特殊效果：月之石工具的特殊效果可以给予玩家达五分钟的夜视效果。伤害：月之石锹对生物和玩家（无护甲的情况下），可以造成2.5点的伤害。"
+			]
+			dependencies: ["25BB7CBB4902F48D"]
+			id: "0BA6ED94477E7CDE"
+			tasks: [
+				{
+					id: "0D69771F457560AB"
+					type: "item"
+					item: {
+						id: "pixelmon:moon_stone_helm"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "4D44D663D80FD62D"
+					type: "item"
+					item: {
+						id: "pixelmon:moon_stone_plate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "6F1655B8426C78D7"
+					type: "item"
+					item: {
+						id: "pixelmon:moon_stone_legs"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "4AB2B943E3866B7F"
+					type: "item"
+					item: {
+						id: "pixelmon:moon_stone_boots"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "226771541F777C5A"
+					type: "item"
+					item: {
+						id: "pixelmon:moon_stone_shovel"
+						Count: 1b
+						tag: {
+							Damage: 6
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "1D86FD742B78C6B4"
+					type: "item"
+					item: "pixelmon:moon_stone"
+					count: 24
+				}
+				{
+					id: "3BC7431DD302E707"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "28FE40DEE27D7C37"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			title: "保险的做法"
+			x: -2.5d
+			y: -10.0d
+			description: [
+				"如果觉得钻石套装不足以击败末影龙，那就来试试合金套装吧！"
+				"在下界坐标16层左右，残骸的生成数量最多。如果需要，可以到这个层数挖掘远古残骸。"
+			]
+			dependencies: ["567C85ECAC8073DE"]
+			id: "59E7E7D2B7EB6469"
+			tasks: [{
+				id: "37A3EDFD90C54122"
+				type: "item"
+				item: "minecraft:ancient_debris"
+			}]
+			rewards: [
+				{
+					id: "5CF3F57311F7CF73"
+					type: "item"
+					item: "minecraft:ancient_debris"
+					count: 3
+				}
+				{
+					id: "513317ECEBCF961F"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "44A65EF87BAC9584"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "坚硬的材料"
+			x: -2.5d
+			y: -15.0d
+			description: ["挖掘残骸，烧制合金碎片和合金锭吧！"]
+			dependencies: ["59AE68CFE0BDB91E"]
+			id: "6132457F20268375"
+			tasks: [
+				{
+					id: "275BF97BBB9B7CBF"
+					type: "item"
+					item: "minecraft:netherite_scrap"
+				}
+				{
+					id: "012CD164EFDFCFDD"
+					type: "item"
+					item: "minecraft:netherite_ingot"
+				}
+			]
+			rewards: [
+				{
+					id: "5537D025D46317EA"
+					type: "item"
+					item: "minecraft:netherite_ingot"
+				}
+				{
+					id: "4C389F9EC40CEDA2"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "668982E2BCE38FF5"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "强力的装备"
+			x: -2.5d
+			y: -17.5d
+			description: ["现在升级你的钻石套装，这样你一定可以击败凋灵了！"]
+			dependencies: ["6132457F20268375"]
+			id: "627A21279F369396"
+			tasks: [{
+				id: "0CA5BFE6D6ECB191"
+				type: "advancement"
+				title: "获得一整套下界合金套装"
+				icon: {
+					id: "minecraft:netherite_chestplate"
+					Count: 1b
+					tag: {
+						Damage: 0
+					}
+				}
+				advancement: "minecraft:nether/netherite_armor"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "42C34BC65319307A"
+					type: "item"
+					item: "ironfurnaces:netherite_furnace"
+				}
+				{
+					id: "46F19D8148850043"
+					type: "item"
+					item: "metalbarrels:netherite_barrel"
+				}
+				{
+					id: "5A5662AE26664802"
+					type: "ftbmoney:money"
+					ftb_money: 300L
+				}
+				{
+					id: "210219BE262BE214"
+					type: "xp"
+					xp: 300
+				}
+			]
+		}
+		{
+			title: "光辉岁月"
+			x: 2.5d
+			y: -2.5d
+			description: ["堡垒遗迹中添加了部分和宝可梦相关的物品，如果需要，可以前往获取。"]
+			dependencies: ["09D79748DD790279"]
+			id: "6A68E02983A0D695"
+			tasks: [{
+				id: "2B2B428F88C3B03D"
+				type: "advancement"
+				title: "发现堡垒遗迹"
+				advancement: "minecraft:nether/find_bastion"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "56B8F5D381523C2B"
+					type: "item"
+					item: {
+						id: "minecraft:chest"
+						Count: 1b
+						tag: {
+							BlockEntityTag: {
+								LootTable: "chests/bastion_other"
+							}
+							display: {
+								Lore: ["{\"text\":\"里面可以开出堡垒遗迹奖励箱的物品。\",\"color\":\"gray\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"堡垒遗迹奖励箱\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+						}
+					}
+				}
+				{
+					id: "02E07E9E8EDAAE9C"
+					type: "item"
+					item: {
+						id: "minecraft:chest"
+						Count: 1b
+						tag: {
+							BlockEntityTag: {
+								LootTable: "chests/bastion_treasure"
+							}
+							display: {
+								Lore: ["{\"text\":\"里面可以开出堡垒遗迹藏宝室的物品。\",\"color\":\"gray\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"堡垒藏宝室奖励箱\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+						}
+					}
+				}
+				{
+					id: "316B05418085216D"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "758EE332F16C322F"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			x: 3.0d
+			y: -4.0d
+			description: [
+				"对炭小侍使用，使其进化为红莲铠骑。"
+				"打开堡垒遗迹的箱子有低概率获得。"
+			]
+			dependencies: ["6A68E02983A0D695"]
+			id: "116E45E4F30383BC"
+			tasks: [{
+				id: "1C4D28C0A6939B12"
+				type: "item"
+				item: "pixelmon:auspicious_armor"
+			}]
+			rewards: [
+				{
+					id: "06B77B474104FB66"
+					type: "item"
+					item: "minecraft:netherite_ingot"
+				}
+				{
+					id: "7EC450BFBEEDBB5A"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "5E0D32BE1D4829FA"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			x: 1.5d
+			y: -4.0d
+			description: [
+				"对炭小侍使用，使其进化为苍炎刃鬼。"
+				"打开堡垒遗迹的箱子有低概率获得。"
+			]
+			dependencies: ["6A68E02983A0D695"]
+			id: "1405F0B6E5B77312"
+			tasks: [{
+				id: "2C021FE7690C97E1"
+				type: "item"
+				item: "pixelmon:malicious_armor"
+			}]
+			rewards: [
+				{
+					id: "6922780FA93593B4"
+					type: "item"
+					item: "minecraft:lodestone"
+				}
+				{
+					id: "2F57770367343B86"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "32BC32642F96E0FC"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "非你莫属"
+			x: -6.5d
+			y: -1.0d
+			description: ["究极球是究极空间的特产。通过打开究极球奖励箱，尝试找到一个究极球吧！"]
+			dependencies: ["48544A81176BE26E"]
+			id: "71DAC100A074D7EE"
+			tasks: [{
+				id: "3CC9919856542902"
+				type: "item"
+				title: "获得究极球"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "beast_ball"
+					}
+				}
+				match_nbt: true
+			}]
+			rewards: [
+				{
+					id: "2A0B8ADB18034615"
+					type: "item"
+					item: {
+						id: "pixelmon:poke_ball"
+						Count: 1b
+						tag: {
+							PokeBallID: "beast_ball"
+						}
+					}
+					count: 3
+				}
+				{
+					id: "227BAC143FBEA572"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "38E73B05B815AFB1"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "工匠的技艺"
+			x: -2.5d
+			y: -12.5d
+			description: ["使用锻造台可以合成下界合金装备，赶快行动起来吧！"]
+			dependencies: ["59E7E7D2B7EB6469"]
+			id: "59AE68CFE0BDB91E"
+			tasks: [{
+				id: "0E8DA6433C3CEC21"
+				type: "item"
+				item: "minecraft:smithing_table"
+			}]
+			rewards: [
+				{
+					id: "288E5D1ED7D5E435"
+					type: "item"
+					item: "minecraft:netherite_ingot"
+				}
+				{
+					id: "13AC2DF055BE82C5"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "36AED52134D0DE8E"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "并非阴森"
+			x: -2.5d
+			y: -2.5d
+			description: ["我们还需要获取烈焰棒。现在前往要塞，寻找烈焰人刷怪笼，看看烈焰人发生了什么变化吧！"]
+			dependencies: ["09D79748DD790279"]
+			id: "49559F6C804B2838"
+			tasks: [{
+				id: "36A44E050783B018"
+				type: "advancement"
+				title: "发现下界要塞"
+				advancement: "minecraft:nether/find_fortress"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "74D503DBC6FE3AF1"
+					type: "pixelmon:pokeloot"
+					title: "抽取一次大师球奖励箱"
+					count: 1
+					play_sound: true
+					loot_tier: 2b
+				}
+				{
+					id: "5732E24A8E767853"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "658DD213797EC510"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "大火杆"
+			x: -2.5d
+			y: -5.0d
+			description: ["在要塞中找到烈焰人刷怪笼，现在的烈焰人刷怪笼会刷新出熔岩蜗牛一家，击败他们一样可以获得烈焰棒。现在收集6根烈焰棒，为之后去往末地做好准备吧！"]
+			dependencies: ["49559F6C804B2838"]
+			id: "564A954D13AA05F0"
+			tasks: [{
+				id: "157A6BA30A0D0C66"
+				type: "item"
+				item: "minecraft:blaze_rod"
+				count: 6L
+			}]
+			rewards: [
+				{
+					id: "6E97F1632C7FF21B"
+					type: "item"
+					item: "minecraft:blaze_rod"
+					count: 6
+				}
+				{
+					id: "1FC40807A4FFA959"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "3B8006E74566C596"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "必须维系的纽带"
+			x: -5.0d
+			y: 6.5d
+			description: ["在究极发电厂黑曜石塔顶的箱子里面有概率找到，可以让通讯进化的宝可梦直接进化，是非常有用的道具。"]
+			dependencies: ["46B21BB523323F4E"]
+			id: "0ADB8FD6A91D9F18"
+			tasks: [{
+				id: "193A549252F9EB94"
+				type: "item"
+				item: "pixelmon:linking_cord"
+			}]
+			rewards: [
+				{
+					id: "4E7A986CA721902A"
+					type: "item"
+					item: "pixelmon:linking_cord"
+				}
+				{
+					id: "491B1357D5DED5F3"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "30A9BDBD7D62B833"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "峡谷的悬赏"
+			icon: {
+				id: "pixelmon:poke_ball"
+				Count: 1b
+				tag: {
+					PokeBallID: "master_ball"
+				}
+			}
+			x: -8.0d
+			y: -7.0d
+			description: ["收集究极峡谷会出现的各种矿物块各一组，可以兑换一个大师球。"]
+			dependencies: ["033BB6B7A71253D4"]
+			id: "37595DBC475FD891"
+			tasks: [
+				{
+					id: "13513249A37E68EB"
+					type: "item"
+					item: "pixelmon:aluminium_block"
+					count: 64L
+				}
+				{
+					id: "2951924028BFEAD0"
+					type: "item"
+					item: "pixelmon:silver_block"
+					count: 64L
+				}
+				{
+					id: "688C0A0EBB337711"
+					type: "item"
+					item: "pixelmon:platinum_block"
+					count: 64L
+				}
+				{
+					id: "0DF78C9E69D73DF2"
+					type: "item"
+					item: "minecraft:bone_block"
+					count: 64L
+				}
+				{
+					id: "0891C402295BDFB9"
+					type: "item"
+					item: "minecraft:iron_block"
+					count: 64L
+				}
+			]
+			rewards: [{
+				id: "5FC4B62FCFF01A4E"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "master_ball"
+					}
+				}
+			}]
+		}
+		{
+			title: "究极的悬赏"
+			icon: {
+				id: "pixelmon:poke_ball"
+				Count: 1b
+				tag: {
+					PokeBallID: "master_ball"
+				}
+			}
+			x: -8.0d
+			y: -1.0d
+			description: [
+				"现在可以使用32个究极球兑换一个大师球，是否兑换？"
+				"tip：该兑换会消耗究极球！"
+			]
+			dependencies: ["71DAC100A074D7EE"]
+			id: "7185466A641506F3"
+			tasks: [{
+				id: "5FB1EF87BF77A313"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "beast_ball"
+					}
+				}
+				count: 32L
+				consume_items: true
+			}]
+			rewards: [{
+				id: "2875E40AA82393DE"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "master_ball"
+					}
+				}
+			}]
+		}
+		{
+			title: "末路之地的悬赏"
+			icon: {
+				id: "pixelmon:poke_ball"
+				Count: 1b
+				tag: {
+					PokeBallID: "master_ball"
+				}
+			}
+			x: -6.0d
+			y: 11.0d
+			description: ["你遇到了击败5次末影龙奖励一个大师球的悬赏，要来挑战一下吗？"]
+			dependencies: ["6AEB56567E97CB6D"]
+			id: "35D29DF67B747426"
+			tasks: [{
+				id: "7391CF453ED4EECD"
+				type: "kill"
+				icon: "minecraft:dragon_head"
+				entity: "minecraft:ender_dragon"
+				value: 5L
+			}]
+			rewards: [{
+				id: "6F0EC37F2C1D27C3"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "master_ball"
+					}
+				}
+			}]
+		}
+		{
+			title: "下界的悬赏"
+			icon: {
+				id: "pixelmon:poke_ball"
+				Count: 1b
+				tag: {
+					PokeBallID: "master_ball"
+				}
+			}
+			x: -5.0d
+			y: -10.0d
+			description: [
+				"现在可以消耗1个下界合金块兑换一个大师球，是否同意？"
+				"tip：该兑换会消耗下界合金块！"
+			]
+			dependencies: ["59E7E7D2B7EB6469"]
+			id: "6546DA4002BA45D6"
+			tasks: [{
+				id: "3DB5930C8016556A"
+				type: "item"
+				item: "minecraft:netherite_block"
+				consume_items: true
+			}]
+			rewards: [{
+				id: "5A9FB88EF5D13B36"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "master_ball"
+					}
+				}
+			}]
+		}
+		{
+			title: "发财了！什么！假的！"
+			x: -8.0d
+			y: 2.0d
+			description: ["究极沙漠中遍布着水晶块，但是这个矿物的作用貌似并不是太大，不管怎么样，挖一点吧！"]
+			dependencies: ["3B2CB032805E83E0"]
+			id: "7FD86FC511CA85D1"
+			tasks: [{
+				id: "0BB22B82A15FE996"
+				type: "item"
+				item: "pixelmon:crystal_block"
+				count: 16L
+			}]
+			rewards: [
+				{
+					id: "7A1E2BD356F6F288"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "37D43D5F80701C8B"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "顺手的事"
+			x: 2.0d
+			y: -6.0d
+			description: ["来都来了，下界的城市也会生成骷髅头，顺便带走吧！"]
+			dependencies: ["3CADB52A9B0FC17D"]
+			id: "4EFA3C54ADED7264"
+			tasks: [{
+				id: "74F44F15828C36AA"
+				type: "item"
+				item: "minecraft:skeleton_skull"
+				count: 3L
+			}]
+			rewards: [
+				{
+					id: "78EBEC3C0F2B1742"
+					type: "item"
+					item: "pixelmon:rare_bone"
+				}
+				{
+					id: "1084DD369B76290F"
+					type: "item"
+					item: "pixelmon:dish_curry_bone"
+				}
+				{
+					id: "045565C8BA675036"
+					type: "item"
+					item: "pixelmon:thick_club"
+				}
+				{
+					id: "54768FF8C3E82909"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "4BA7D2C911A79513"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "究极丛林的考察"
+			x: -6.5d
+			y: -2.0d
+			description: ["究极丛林生长着究极丛林树，现在收集一些相关物品，进行考察吧！"]
+			dependencies: ["7034934C009B45DD"]
+			id: "4125C9BFC505F3D8"
+			tasks: [
+				{
+					id: "5A04A32E3297E07E"
+					type: "item"
+					item: "pixelmon:ultra_jungle_log"
+					count: 16L
+				}
+				{
+					id: "769782C667B40400"
+					type: "item"
+					item: "pixelmon:ultra_jungle_sapling"
+					count: 2L
+				}
+			]
+			rewards: [
+				{
+					id: "082CB95EB409F2A1"
+					type: "item"
+					item: "pixelmon:leaf_stone"
+				}
+				{
+					id: "434A0DA137D1FA9B"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "276571C27AFBD5B9"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "究极森林的考察1"
+			x: -6.5d
+			y: -4.0d
+			description: ["究极森林生长着究极榆树，现在收集一些相关物品，进行考察吧！"]
+			dependencies: ["792616FEB6F784C5"]
+			id: "36D5F71274793474"
+			tasks: [
+				{
+					id: "4A3E9307CDE055CF"
+					type: "item"
+					item: "pixelmon:ultra_elm_log"
+					count: 16L
+				}
+				{
+					id: "5DDB92B7E10E52F0"
+					type: "item"
+					item: "pixelmon:ultra_elm_sapling"
+				}
+			]
+			rewards: [
+				{
+					id: "1D58473EB9D5D994"
+					type: "pixelmon:pokedollars"
+					title: "1万宝可元"
+					count: 10000
+				}
+				{
+					id: "66A2E4EF09D654B2"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "440849FDAC6FA873"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "究极森林的考察2"
+			x: -6.5d
+			y: -3.0d
+			description: ["究极森林生长着究极银杏树，现在收集一些相关物品，进行考察吧！"]
+			dependencies: ["792616FEB6F784C5"]
+			id: "75A68B6BD0A71DE2"
+			tasks: [
+				{
+					id: "5C3C76D98F2AB443"
+					type: "item"
+					item: "pixelmon:ultra_gingko_log"
+					count: 16L
+				}
+				{
+					id: "6AC520975333A936"
+					type: "item"
+					item: "pixelmon:ultra_gingko_sapling"
+				}
+			]
+			rewards: [
+				{
+					id: "22A37F151D31BBD5"
+					type: "item"
+					item: {
+						id: "minecraft:enchanted_book"
+						Count: 1b
+						tag: {
+							StoredEnchantments: [{
+								lvl: 3s
+								id: "minecraft:unbreaking"
+							}]
+						}
+					}
+				}
+				{
+					id: "37826B7DCCB65AD8"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "65549FF8D0D84654"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "哭泣的水晶"
+			x: -6.5d
+			y: 3.0d
+			description: ["看起来很奇特的水晶，仿佛在哭泣一般..."]
+			dependencies: ["76CEF52536BEAB88"]
+			id: "470CB985B6461B86"
+			tasks: [{
+				id: "6C68AB8CA40B7D93"
+				type: "item"
+				item: "pixelmon:ultra_deep_crying_crystal"
+				count: 16L
+			}]
+			rewards: [
+				{
+					id: "21F92E1F98D46983"
+					type: "item"
+					item: "minecraft:jack_o_lantern"
+				}
+				{
+					id: "0B876D2A955EABCF"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "052A1F3E422567A8"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "神秘的水晶"
+			x: -6.5d
+			y: 4.0d
+			description: ["看起来很奇特的水晶，仿佛在哀嚎一般..."]
+			dependencies: ["76CEF52536BEAB88"]
+			id: "12A752CBF4205ED7"
+			tasks: [{
+				id: "35B3E65018029071"
+				type: "item"
+				item: "pixelmon:ultra_deep_crystal"
+				count: 16L
+			}]
+			rewards: [
+				{
+					id: "67DE53CD86AF4AB8"
+					type: "item"
+					item: "minecraft:diamond_ore"
+					count: 3
+				}
+				{
+					id: "3824CEEAAAC4C139"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "547E24D7B7C89620"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "安息亡魂"
+			x: 10.0d
+			y: 0.0d
+			description: [
+				"溺水世界生活着各种溺亡的宝可梦，他们的灵魂久久不可消散。"
+				"并且在这个世界中，只有黑暗球可以捕捉宝可梦，其他的精灵球都会失效（包括大师球）。"
+				"现在捕捉一种溺水材质的宝可梦，帮助他们安息吧！"
+				"tip：建议进入对战捕捉。"
+			]
+			dependencies: [
+				"1ECC8D73D9F92A76"
+				"421FCC6423ABBFD3"
+				"2C90942D52B0F257"
+			]
+			id: "667BBF7F3C6C91FE"
+			tasks: [{
+				id: "737FB02E0336C45D"
+				type: "advancement"
+				title: "捕捉一只溺水材质的宝可梦"
+				advancement: "pixelmon:specs/drowned_capture"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "040A5BB3FA3E4C10"
+					type: "item"
+					item: {
+						id: "pixelmon:poke_ball"
+						Count: 1b
+						tag: {
+							PokeBallID: "dusk_ball"
+						}
+					}
+					count: 128
+				}
+				{
+					id: "7DD0264487A6F3C6"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "229B11AE9A6EEEF2"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "磁石的收集"
+			x: 5.0d
+			y: -2.5d
+			description: [
+				"堡垒遗迹中有概率找到磁石。"
+				"磁石兑换金币的循环任务已移除；本任务保留磁石的收集奖励。"
+			]
+			dependencies: ["6A68E02983A0D695"]
+			id: "0198DD3E8CCAD2E8"
+			tasks: [{
+				id: "76AD2080397C327A"
+				type: "item"
+				item: "minecraft:lodestone"
+			}]
+			rewards: [
+				{
+					id: "2EE3C4BBD361AA1B"
+					type: "item"
+					item: "minecraft:lodestone"
+					count: 2
+				}
+				{
+					id: "541CEAA0CA5BB487"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "0D0CF94B1A013366"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "终于找到你"
+			x: -8.0d
+			y: -2.0d
+			description: [
+				"特性：牵绊变身打倒对手时，与训练家的牵绊会增强，变为小智版甲贺忍蛙。飞水手里剑的招式威力会增强。该特性无法用特性胶囊转变获得。"
+				"牵绊变身特性的甲贺忍蛙只能通过在究极丛林钓鱼获得，并且水深必须超过3格。"
+				"只有厉害钓竿可以钓到牵绊变身的甲贺忍蛙，并且牵绊变身甲贺忍蛙只会出现在三感叹号（！！！）的事件中，钓鱼前可以先找老渔夫鉴定钓竿，品质越好，稀有事件的概率越高。"
+			]
+			dependencies: ["4125C9BFC505F3D8"]
+			id: "44E662D9505D844B"
+			tasks: [{
+				id: "4DA42D46D7A5BBD0"
+				type: "advancement"
+				title: "获得牵绊变身特性的甲贺忍蛙"
+				advancement: "pixelmon_backport:legends/capture_658_bond"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "09C194E9150401CD"
+					type: "item"
+					item: {
+						id: "pixelmon:poke_ball"
+						Count: 1b
+						tag: {
+							PokeBallID: "master_ball"
+						}
+					}
+				}
+				{
+					id: "7AB4A7FF5B681B86"
+					type: "item"
+					item: "pixelmon:loaded_dice"
+				}
+				{
+					id: "3A7A5AF0F0DC0EAB"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "6CBCBC769B645798"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+		{
+			x: -11.0d
+			y: 11.5d
+			description: ["完成某个任务后解锁。"]
+			hide_dependency_lines: true
+			dependencies: ["44E662D9505D844B"]
+			size: 1.5d
+			id: "2E207BADDE83A14B"
+			tasks: [{
+				id: "1AB30D9CB1BE9186"
+				type: "checkmark"
+				title: "第三章隐藏任务"
+			}]
+			rewards: [
+				{
+					id: "23FADA0101F31227"
+					type: "item"
+					title: "皮卡丘进化石"
+					item: "pixelmon_backport:greninjite"
+				}
+				{
+					id: "777E1985114827DB"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "4732BA97D49FC63E"
+					type: "xp"
+					xp: 500
+				}
+			]
+		}
+	]
+}

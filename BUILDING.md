@@ -1,6 +1,6 @@
 # 从完整源码构建
 
-1.4.3 发布源码包含全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及九张功能地图、十八张城市地图和徽章展示的初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
+1.4.4 发布源码包含全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及九张功能地图、十八张城市地图、徽章展示及两版岩石城的初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
 
 ## 环境与外部依赖
 
@@ -15,6 +15,7 @@
 ```powershell
 git clone https://github.com/dyfawa4/pixelmon-content-backport.git
 cd pixelmon-content-backport
+git checkout v1.4.4
 
 .\build.ps1 `
   -JdkDirectory 'C:\Java\jdk-11' `
@@ -24,7 +25,7 @@ cd pixelmon-content-backport
 
 脚本查找 Forge client JAR；存在多份时，加 `-ForgeClientJar '完整路径\forge-1.16.5-36.2.42-client.jar'` 指定。若 PowerShell 执行策略阻止脚本，可在此次调用中使用 `powershell -ExecutionPolicy Bypass -File .\build.ps1 ...`，无需更改系统策略。
 
-产物是 `dist/pixelmon-content-backport-1.16.5-1.4.3.jar`。脚本用 `javac --release 11` 编译全部 `src/**/*.java`，再原样打包 `resources/`。资源文件保持原始字节。JAR 时间戳与压缩封装可能造成文件 SHA-256 不同，应对比内部 class / 资源内容；这不代表 Java 版本或功能不同。
+产物是 `dist/pixelmon-content-backport-1.16.5-1.4.4.jar`。脚本用 `javac --release 11` 编译全部 `src/**/*.java`，再原样打包 `resources/`。资源文件保持原始字节。JAR 时间戳与压缩封装可能造成文件 SHA-256 不同，应对比内部 class / 资源内容；这不代表 Java 版本或功能不同。
 
 ## 源码与目录
 
@@ -85,7 +86,7 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 .\build-test-maps.ps1
 ```
 
-此脚本编译 `tests/MapSupport.java` 和八个地图辅助源码，打包地图控制模组，生成九张功能地图包 `dist/Pixelmon-Backport-test-maps-1.4.0.zip` 和二十张城市/徽章地图包 `dist/Pixelmon-Backport-gym-test-maps-1.4.0.zip`。两包使用同一份地图控制模组，只安装一份。控制模组按世界名称识别测试地图，正式功能模组不包含自动 QA 或自动退出代码。实际使用步骤见 [TEST_MAPS.md](TEST_MAPS.md)。
+此脚本编译 `tests/MapSupport.java` 和八个地图辅助源码，打包地图控制模组，生成九张功能地图包 `dist/Pixelmon-Backport-test-maps-1.4.4.zip` 和二十一张城市/徽章地图包 `dist/Pixelmon-Backport-gym-test-maps-1.4.4.zip`。两包使用同一份地图控制模组，只安装一份。控制模组按世界名称识别测试地图，正式功能模组不包含自动 QA 或自动退出代码。实际使用步骤见 [TEST_MAPS.md](TEST_MAPS.md)。
 
 如需从自己的新建超平坦空白世界生成地图，`PrepareTestMaps` 接收两个位置参数：原始世界文件夹、输出 saves 文件夹。它复制世界并写入七个测试世界名称；进入地图后由控制模组准备设施。请使用空白世界，勿使用个人存档作模板。
 
@@ -145,6 +146,14 @@ python tools/inspect_visual_assets.py --old '旧版.jar' --reference '定制参�
 
 正式JAR、三份手动地图、源码、手册和专项说明保持同一1.4.2版本。构建顺序为 `build.ps1`、`check.ps1`、`build-test-maps.ps1`、`build-cap-test-map.ps1`，随后运行 `python tools/package_release.py --version 1.4.2` 和 `python tools/verify_release_package.py --version 1.4.2`。探测器双语目录在构建时由资源生成；真实界面验证使用私有QA模组，不进入正式JAR或地图配套模组。验证范围见 `docs/VALIDATION_1.4.2.md`。
 
-## 1.4.3 发布打包
+## 1.4.4 发布打包
 
-运行生产构建与离线检查后，依次执行`build-test-maps.ps1`、`build-cap-test-map.ps1`、`python tools/package_release.py --version 1.4.3`和`python tools/verify_release_package.py --version 1.4.3`。地图包分别为9／21／1个世界。岩石城已验收快照及哈希在`test-maps/gym-saves-v143/`，普通构建直接保留，不运行空白地图生成器覆盖该快照。
+运行生产构建与离线检查后，依次执行`build-test-maps.ps1`、`build-cap-test-map.ps1`、`python tools/package_release.py --version 1.4.4`和`python tools/verify_release_package.py --version 1.4.4`。地图包分别为9／21／1个世界。岩石城已验收快照及哈希在`test-maps/gym-saves-v143/`，普通构建直接保留，不运行空白地图生成器覆盖该快照。
+
+## 1.4.4 备份恢复
+
+Git 标签 `v1.4.4` 与 Release 的 `Pixelmon-Backport-source-1.4.4.zip` 均保留完整附加模组源码、已转换资源、测试、工具、地图初始文件及任务书覆盖。源码 ZIP 解压后可直接按上述步骤构建，无需原开发机的 `.cache` 或 `.发布缓存`。依赖仍由使用者自行提供；源码不包含 Minecraft／Pixelmon 本体。
+
+专项智皮卡地图用 `pwsh -File build-cap-test-map.ps1` 生成，再执行 `python tools/package_release.py --version 1.4.4` 与 `python tools/verify_release_package.py --version 1.4.4`。打包校验会核对全部 Java 11 类、当前主模组、9／21／1 张地图、已验收岩石城快照和源码覆盖。
+
+`tools/清理旧缓存.cmd` 与 `cleanup-local.ps1` 是原开发机的只读清单预览工具，不参与构建，不会删除文件，`-Execute` 被禁用。其他机器不用运行它们。

@@ -82,6 +82,7 @@ public final class Backport {
         Pixelmon.EVENT_BUS.register(new CapSpawns());
         Pixelmon.EVENT_BUS.register(new BurstRaidCapture());
         Pixelmon.EVENT_BUS.register(new BurstCapture());
+        Pixelmon.EVENT_BUS.register(new BossCaptureGuard());
         Pixelmon.EVENT_BUS.register(new GymChallenge());
         Pixelmon.EVENT_BUS.register(new AppearanceAdvancements());
         Pixelmon.EVENT_BUS.register(new TeraItems.Charging());

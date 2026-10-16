@@ -32,8 +32,7 @@ public final class BurstRaidCapture {
     public static void clear(RaidData raid){PENDING.remove(raid);}
     public static void preview(RaidData raid,RaidData.RaidPlayer player){
         if(player.playerEntity==null)return;Set<UUID> pending=PENDING.get(raid);List<String> balls=Collections.emptyList();
-        if(pending!=null && pending.contains(player.player) && player.canCatch && player.possibleCatch!=null
-            && !player.possibleCatch.getPersistentData().func_74767_n("BackportTeraRaidCatch"))
+        if(pending!=null && pending.contains(player.player) && player.canCatch && player.possibleCatch!=null)
             balls=BurstCapture.outlinedBalls(player.playerEntity,player.possibleCatch,com.pixelmonmod.pixelmon.entities.pokeballs.PokeBallMode.EMPTY);
         TeraNetwork.CHANNEL.send(net.minecraftforge.fml.network.PacketDistributor.PLAYER.with(()->player.playerEntity),new TeraNetwork.RaidBurst(raid.uuid,balls));
     }

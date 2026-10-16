@@ -825,5 +825,13 @@
   "structure.pixelmon_backport.ultra_forest_tera_den": "究极森林太晶巢穴",
   "structure.pixelmon_backport.ultra_jungle_tera_den": "究极丛林太晶巢穴",
   "structure.pixelmon_backport.ultra_plant_tera_den": "究极植物世界太晶巢穴",
-  "pixelmon.backport.cap.capture_warning": "该宝可梦无法用大师球、公园球和起源球捕捉！"
+  "pixelmon.backport.cap.capture_warning": "该宝可梦无法用大师球、公园球和起源球捕捉！",
+  "pixelmon.backport.java11.title": "警告⚠",
+  "pixelmon.backport.java11.current": "当前使用的Java版本：%s",
+  "pixelmon.backport.java11.reason": "此版本 Pixelmon 在其他 Java 上可能发生初始化失败、对战中断或存档异常。",
+  "pixelmon.backport.java11.step1": "请退出游戏，在启动器的此实例设置中，选择 64 位 Java 11。",
+  "pixelmon.backport.java11.step2": "保存 Java 设置后重新启动游戏；正确使用 Java 11 时将自动放行。",
+  "pixelmon.backport.java11.blocked": "当前已禁止创建世界、加载存档和加入服务器。",
+  "pixelmon.backport.java11.notice": "检测到您未使用%s启动游戏，请选择%s启动游戏！！！",
+  "pixelmon.backport.java11.bundled": "您下载的文件里面有%s，解压即可导入使用！"
 }

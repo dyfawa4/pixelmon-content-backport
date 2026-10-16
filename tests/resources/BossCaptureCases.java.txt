@@ -1,0 +1,49 @@
+package fixture;
+import com.pixelmonmod.pixelmon.api.pokemon.boss.BossTier;
+import com.pixelmonmod.pixelmon.api.battles.*;
+import com.pixelmonmod.pixelmon.api.events.battles.BagItemEvent;
+import com.pixelmonmod.pixelmon.battles.controller.*;
+import com.pixelmonmod.pixelmon.battles.controller.participants.*;
+import com.pixelmonmod.pixelmon.client.gui.battles.*;
+import local.pixelmon.backport.BossCaptureGuard;
+import local.pixelmon.backport.client.BossCaptureClient;
+
+public class BossCaptureCases {
+    static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+    public static void run(String ids){
+        var player=new PlayerParticipant();var battle=new BattleController();player.bc=battle;battle.participant=player;
+        var own=new PixelmonWrapper();player.controlledPokemon.add(own);
+        var enemy=new WildPixelmonParticipant();enemy.team=1;player.opponents.add(enemy);var target=new PixelmonWrapper();enemy.controlledPokemon.add(target);
+        var hook=new BossCaptureGuard();var event=new BagItemEvent.SelectItem.Pre();event.battle=battle;event.player=player.player;event.stack=new net.minecraft.item.ItemStack();event.stack.ball=true;
+        var bm=new ClientBattleManager();bm.battleSetup=new ParticipantType[][]{{ParticipantType.Player},{ParticipantType.WildPokemon}};
+        var shown=new PixelmonClientData();bm.displayedEnemyPokemon=new PixelmonClientData[]{shown};
+        int tiers=0;
+        for(String id:(ids+",custom_red_boss,CUSTOM_BLUE_BOSS").split(",")){
+            target.entity.tier=new BossTier(id);shown.bossTier=target.entity.tier;boolean boss=!id.equals("notboss");
+            check(bm.canCatchOpponent()==!boss,"Native client eligibility changed "+id);
+            for(String ball:new String[]{"poke_ball","ultra_ball","master_ball","park_ball","origin_ball"}){
+                event.canceled=false;event.stack.kind=ball;player.player.messages=0;player.player.packets=0;hook.choose(event);
+                check(event.canceled==boss,"Wrong native Boss selection "+id+":"+ball);
+                check(event.stack.count==9&&own.wait&&own.selectedAction==41,"Rejected choice consumed an item/turn");
+                check(player.player.messages==(boss?1:0)&&player.player.packets==(boss?1:0),"Native picking menu not restored");
+            }
+            bm.bagSection=BagSection.POKEBALLS;BossCaptureClient.prepare(bm);check((bm.bagSection==null)==boss,"Stale ball category restored incorrectly "+id);
+            bm.bagSection=BagSection.POKEBALLS;check(BossCaptureClient.click(bm)==boss,"Stale click bypass "+id);if(boss)check(bm.mode==BattleMode.MAIN_MENU,"Rejected click left player stuck");tiers++;
+        }
+        target.entity.tier=new BossTier("rare");shown.bossTier=target.entity.tier;
+        for(int negative=0;negative<11;negative++){
+            event.canceled=false;event.player=player.player;event.stack.ball=true;battle.raid=false;battle.tera=false;battle.simulateMode=false;battle.battleEnded=false;target.onBattlefield=true;target.alive=true;player.opponents.clear();player.opponents.add(enemy);var entity=target.entity;
+            if(negative==0)event.stack.ball=false;if(negative==1)battle.raid=true;if(negative==2)battle.tera=true;if(negative==3)battle.simulateMode=true;if(negative==4)battle.battleEnded=true;
+            if(negative==5)target.onBattlefield=false;if(negative==6)target.alive=false;if(negative==7)target.entity=null;
+            if(negative==8){var trainer=new BattleParticipant();trainer.controlledPokemon.add(target);player.opponents.clear();player.opponents.add(trainer);}
+            if(negative==9)player.opponents.clear();if(negative==10)event.player=new net.minecraft.entity.player.ServerPlayerEntity();
+            player.player.messages=0;player.player.packets=0;hook.choose(event);check(!event.canceled&&player.player.messages==0&&player.player.packets==0,"Guard overreached case "+negative);target.entity=entity;
+        }
+        // Native uncatchable bit and trainer eligibility remain authoritative.
+        bm.bagSection=BagSection.HEALING;check(!BossCaptureClient.click(bm),"Healing category blocked");
+        shown.bossTier=new BossTier("notboss");shown.blockCapture=true;bm.bagSection=BagSection.POKEBALLS;check(BossCaptureClient.click(bm),"Native uncatchable gate bypassed");
+        shown.blockCapture=false;bm.battleSetup[1][0]=ParticipantType.Trainer;bm.bagSection=BagSection.POKEBALLS;check(BossCaptureClient.click(bm),"Native trainer gate bypassed");
+        check(!BossCaptureClient.click(null),"Missing manager treated as Boss");
+        System.out.println("PASS "+tiers+" native/custom tier IDs x five ball kinds, native stale-list eligibility, server rejection before commit, menu restoration and ownership/raid/medicine/actor negatives.");
+    }
+}

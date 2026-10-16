@@ -1,0 +1,3352 @@
+{
+	id: "0A003D4D2F9883E4"
+	group: "0D745374099B27EE"
+	order_index: 0
+	filename: "0A003D4D2F9883E4"
+	title: "第一章：启程休整"
+	icon: "minecraft:grass_block"
+	default_quest_shape: ""
+	default_hide_dependency_lines: false
+	images: [
+		{
+			x: -9.0d
+			y: -12.5d
+			width: 10.0d
+			height: 10.0d
+			rotation: 0.0d
+			image: "pixelmon:textures/pokemon/376_metagross/all/base/none/sprite.png"
+			hover: [ ]
+			click: ""
+			dev: false
+			corner: false
+		}
+		{
+			x: 11.5d
+			y: 7.5d
+			width: 5.0d
+			height: 5.0d
+			rotation: 0.0d
+			image: "pixelmon:textures/pokemon/208_steelix/all/mega/crystal/sprite.png"
+			hover: [ ]
+			click: ""
+			dev: false
+			corner: false
+		}
+		{
+			x: 17.0d
+			y: -14.0d
+			width: 5.0d
+			height: 5.0d
+			rotation: 0.0d
+			image: "pixelmon:textures/pokemon/149_dragonite/all/base/none/sprite.png"
+			hover: [ ]
+			click: ""
+			dev: false
+			corner: false
+		}
+		{
+			x: 37.5d
+			y: 0.5d
+			width: 5.0d
+			height: 5.0d
+			rotation: 0.0d
+			image: "pixelmon:textures/items/quests/basement_key_brass.png"
+			hover: [ ]
+			click: ""
+			dev: false
+			corner: false
+		}
+	]
+	quests: [
+		{
+			title: "指引归乡的明珠"
+			x: 1.0d
+			y: 0.5d
+			subtitle: "激活指路石"
+			description: [
+				"你是一名宝可梦初学者，将要从你的家乡出发并踏上旅途。现在去激活村庄里的指路石，为你的下一步做好准备吧！（如果你的村庄是平原村庄，或许会出现神秘的皮卡丘哦！）"
+				"tip：如果你的出生点为僵尸村庄，没有刷新指路石。建议你再找一个村庄完成第一个任务或者直接新开一个存档。"
+			]
+			dependencies: ["68D38FD2E28A4620"]
+			id: "15B93AB6354C8FDE"
+			tasks: [{
+				id: "119EE679AFEFD7A5"
+				type: "stat"
+				title: "激活指路石"
+				icon: "waystones:waystone"
+				stat: "waystones:waystone_activated"
+				value: 1
+			}]
+			rewards: [
+				{
+					id: "0344576048D4DF3D"
+					type: "item"
+					item: {
+						id: "minecraft:wooden_pickaxe"
+						Count: 1b
+						tag: {
+							Damage: 56
+							display: {
+								Lore: ["{\"text\":\"像是前人遗留的，只能用来挖掘三次方块。\",\"color\":\"gray\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"破旧的木镐\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+						}
+					}
+				}
+				{
+					id: "6A5F7CD0844EAC49"
+					type: "item"
+					item: "minecraft:torch"
+					count: 10
+				}
+				{
+					id: "7E8588AD919B4406"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "2AC9D5C2D5615A31"
+					type: "item"
+					item: "minecraft:bread"
+					count: 10
+				}
+			]
+		}
+		{
+			title: "初次见面"
+			icon: {
+				id: "pixelmon:pixelmon_sprite"
+				Count: 1b
+				tag: {
+					ndex: 4s
+					palette: "none"
+					form: ""
+					gender: 0b
+				}
+			}
+			x: 3.5d
+			y: 0.5d
+			description: [
+				"你从家里拿上了照相机和一些胶卷，为你接下来的旅途拍摄一些美景。"
+				"右键即可打开相机，左键拍照，没有胶卷时无法使用。"
+			]
+			dependencies: ["15B93AB6354C8FDE"]
+			id: "72BC4C839D87EDD5"
+			tasks: [{
+				id: "614DED80DFB1C6A5"
+				type: "checkmark"
+				title: "初次见面"
+			}]
+			rewards: [
+				{
+					id: "417D37F08C24341D"
+					type: "item"
+					item: "pixelmon:camera"
+				}
+				{
+					id: "32E5AEF240C011B1"
+					type: "item"
+					item: "pixelmon:film"
+				}
+			]
+		}
+		{
+			title: "第一位伙伴"
+			icon: "pixelmon:camera"
+			x: 6.0d
+			y: 0.5d
+			description: [
+				"出发探险之前，先为你的第一只宝可梦拍一张照片，记录一下美好的瞬间吧！拍摄任意宝可梦均可完成任务！按R键可以放出选中的宝可梦！"
+				"tip：拍摄完照片不要扔掉哦，照片可以戴在玩家头上进行装饰。"
+			]
+			dependencies: ["72BC4C839D87EDD5"]
+			id: "6BBC4B1833D589AE"
+			tasks: [{
+				id: "4F5D8F8D3F75EF57"
+				type: "item"
+				title: "任意宝可梦的照片"
+				item: {
+					id: "pixelmon:pixelmon_sprite"
+					Count: 1b
+					tag: {
+						ndex: 4s
+						palette: "none"
+						form: ""
+						gender: 1b
+					}
+				}
+			}]
+			rewards: [
+				{
+					id: "4F23D6265A478769"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "4CB31325045801E0"
+					type: "xp"
+					xp: 100
+				}
+				{
+					id: "514ECEB83374E29B"
+					type: "item"
+					item: "pixelmon:exp_share"
+				}
+			]
+		}
+		{
+			title: "致富的根本"
+			x: 3.5d
+			y: -1.5d
+			description: [
+				"这是你第一次离家的长途冒险，做好一些准备是有必要的。在村庄附近收集一些木材，以备不时之需。"
+				"tip:持有斧头砍伐树根砍树时，可以直接把一整颗都砍掉哦。"
+			]
+			dependencies: ["15B93AB6354C8FDE"]
+			id: "5C9F84BF92D7FCF1"
+			tasks: [{
+				id: "22E2E8F34F6A86D2"
+				type: "item"
+				title: "获取20个任意材质的原木"
+				item: {
+					id: "itemfilters:tag"
+					Count: 1b
+					tag: {
+						value: "minecraft:logs"
+					}
+				}
+				count: 20L
+			}]
+			rewards: [
+				{
+					id: "71D5D873F0BBB8CC"
+					type: "item"
+					item: "minecraft:oak_log"
+					count: 32
+				}
+				{
+					id: "39FBCF18A94F654E"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+			]
+		}
+		{
+			title: "旅途的必须品"
+			icon: "pixelmon:red_healer"
+			x: 16.0d
+			y: 2.5d
+			shape: "square"
+			description: [
+				"治疗仪是一种功能性方块。与其交互会治疗玩家携带的宝可梦，治疗时会发出15强度的红石信号。"
+				"一旦放置之后就不可回收，空手破坏什么都不掉，镐子破坏会掉落一个铝锭，但是使用精准采集附魔的镐可以回收治疗仪。"
+				"合成时有30%概率会随机获得一个多边兽部件。"
+				"旅途的路上，几台治疗机是必不可少的，制作一台治疗仪，可以方便你随时治疗你的宝可梦！"
+				"tip：完成该任务后解锁分支“勇往直下”。"
+			]
+			dependencies: ["5D5FA49EB24D03E1"]
+			id: "48E84D3B434258C4"
+			tasks: [{
+				id: "5FFF474003F62B25"
+				type: "item"
+				title: "获得任意颜色的治疗仪"
+				item: {
+					id: "itemfilters:tag"
+					Count: 1b
+					tag: {
+						value: "pixelmon:healers"
+					}
+				}
+			}]
+			rewards: [
+				{
+					id: "047958B859D96B4B"
+					type: "item"
+					item: "pixelmon:red_healer"
+					count: 3
+				}
+				{
+					id: "564CFC2D318987E8"
+					type: "xp"
+					xp: 150
+				}
+			]
+		}
+		{
+			title: "热门的话题"
+			x: 11.0d
+			y: -1.5d
+			description: ["制作一个熔炉，可以为你接下来的探险提供必要的帮助。"]
+			dependencies: ["2B171B68CB4BAEB7"]
+			id: "28BD27E786925240"
+			tasks: [{
+				id: "585F3CD2FBD24007"
+				type: "item"
+				item: "minecraft:furnace"
+			}]
+			rewards: [
+				{
+					id: "2C9F75B90CF01100"
+					type: "item"
+					item: "minecraft:cooked_beef"
+					count: 10
+				}
+				{
+					id: "3EA8FF2F33AB06E1"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "54E0251D8C3F0B72"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "工具的升级"
+			x: 13.5d
+			y: -1.5d
+			description: ["铁质工具的升级对于你接下来的探险也有很大的帮助。"]
+			dependencies: ["28BD27E786925240"]
+			id: "1A84D35DAF3CE99C"
+			tasks: [{
+				id: "206CFD192BC97579"
+				type: "item"
+				item: "minecraft:iron_ingot"
+				count: 3L
+			}]
+			rewards: [
+				{
+					id: "5967D71D7FA433BC"
+					type: "item"
+					item: {
+						id: "minecraft:iron_pickaxe"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "44CC71B971A3AF6C"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "3DCDBCA425377511"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "很热的话题"
+			x: 11.0d
+			y: -3.5d
+			description: [
+				"由普通熔炉升级而来，需要8s时间来烧制物品，比普通熔炉快了2s。"
+				"该分支仅作为支线，不影响主线的进程。"
+			]
+			dependencies: [
+				"28BD27E786925240"
+				"1A84D35DAF3CE99C"
+			]
+			id: "391B7D9E1C4A0E0F"
+			tasks: [{
+				id: "08693367659671A1"
+				type: "item"
+				item: "ironfurnaces:iron_furnace"
+			}]
+			rewards: [
+				{
+					id: "62C2EC9B0C419B53"
+					type: "item"
+					item: "minecraft:iron_ingot"
+					count: 8
+				}
+				{
+					id: "35970545EE731568"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "03C0DB99836761EA"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "超热的话题"
+			x: 11.0d
+			y: -5.5d
+			description: ["由铁熔炉升级而来，需要7s时间来烧制物品，比铁熔炉快了1s。"]
+			dependencies: ["391B7D9E1C4A0E0F"]
+			id: "3E99A58700539831"
+			tasks: [{
+				id: "29CF8CE0A6F606C6"
+				type: "item"
+				item: "ironfurnaces:silver_furnace"
+			}]
+			rewards: [
+				{
+					id: "7F93CE2F647C1282"
+					type: "item"
+					item: "pixelmon:silver_ingot"
+					count: 8
+				}
+				{
+					id: "687BEC258FA82B2F"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "159B469D78F77EAD"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "更热的话题"
+			x: 11.0d
+			y: -7.5d
+			description: ["由银熔炉升级而来，需要6s时间来烧制物品，比银熔炉快了1s。"]
+			dependencies: ["3E99A58700539831"]
+			id: "1DE9D03934C3BAEE"
+			tasks: [{
+				id: "6068F08A4CEF6ABA"
+				type: "item"
+				item: "ironfurnaces:gold_furnace"
+			}]
+			rewards: [
+				{
+					id: "0589E338C2A4A9C5"
+					type: "item"
+					item: "minecraft:gold_ingot"
+					count: 8
+				}
+				{
+					id: "587332B2555A1990"
+					type: "ftbmoney:money"
+					ftb_money: 400L
+				}
+				{
+					id: "73A9D6CB968F34F2"
+					type: "xp"
+					xp: 400
+				}
+			]
+		}
+		{
+			title: "火热的话题"
+			x: 11.0d
+			y: -9.5d
+			description: ["由金熔炉升级而来，需要4s时间来烧制物品，比金熔炉快了2s。"]
+			dependencies: ["1DE9D03934C3BAEE"]
+			id: "78014EC0876B8218"
+			tasks: [{
+				id: "39488B3A4501D10A"
+				type: "item"
+				item: "ironfurnaces:diamond_furnace"
+			}]
+			rewards: [
+				{
+					id: "1A627AF5271B1BB5"
+					type: "item"
+					item: "minecraft:diamond"
+					count: 6
+				}
+				{
+					id: "04DF4B8578F2A35E"
+					type: "ftbmoney:money"
+					ftb_money: 800L
+				}
+				{
+					id: "7A314216F026A5A1"
+					type: "xp"
+					xp: 800
+				}
+			]
+		}
+		{
+			title: "火爆的话题2"
+			x: 12.5d
+			y: -11.5d
+			description: ["由钻石熔炉升级而来，需要2s时间来烧制物品，比钻石熔炉快了2s。与绿宝石熔炉为同一等级。"]
+			dependencies: ["78014EC0876B8218"]
+			id: "33858DC8E22B6E15"
+			tasks: [{
+				id: "0EDC09C1E060BBB0"
+				type: "item"
+				item: "ironfurnaces:crystal_furnace"
+			}]
+			rewards: [
+				{
+					id: "56F7A1DEA0736245"
+					type: "item"
+					item: "minecraft:ender_eye"
+				}
+				{
+					id: "4931B136B02B4B8E"
+					type: "ftbmoney:money"
+					ftb_money: 1200L
+				}
+				{
+					id: "507ECA2CB449578F"
+					type: "xp"
+					xp: 1600
+				}
+			]
+		}
+		{
+			title: "火爆的话题1"
+			x: 9.5d
+			y: -11.5d
+			description: ["由钻石熔炉升级而来，需要2s时间来烧制物品，比钻石熔炉快了2s。与水晶熔炉为同一等级。"]
+			dependencies: ["78014EC0876B8218"]
+			id: "21EF743CE1BA2183"
+			tasks: [{
+				id: "2AF784EC64FC88F3"
+				type: "item"
+				item: "ironfurnaces:emerald_furnace"
+			}]
+			rewards: [
+				{
+					id: "4F3F0BB396E0EDB2"
+					type: "item"
+					item: "minecraft:emerald"
+					count: 8
+				}
+				{
+					id: "74993432AD12A2B0"
+					type: "ftbmoney:money"
+					ftb_money: 1200L
+				}
+				{
+					id: "56C4C155CEBD90B3"
+					type: "xp"
+					xp: 1600
+				}
+			]
+		}
+		{
+			title: "火辣的话题"
+			x: 11.0d
+			y: -13.0d
+			description: ["由绿宝石熔炉或水晶熔炉升级而来，需要1s时间来烧制物品，比绿宝石熔炉和水晶熔炉快了1s。"]
+			dependencies: [
+				"21EF743CE1BA2183"
+				"33858DC8E22B6E15"
+			]
+			id: "3CAB4ADA419679C3"
+			tasks: [{
+				id: "26734A5B817C4123"
+				type: "item"
+				item: "ironfurnaces:obsidian_furnace"
+			}]
+			rewards: [
+				{
+					id: "3F879FFD864C0837"
+					type: "item"
+					item: "minecraft:obsidian"
+					count: 4
+				}
+				{
+					id: "02FE3A7A6A444588"
+					type: "xp_levels"
+					xp_levels: 30
+				}
+				{
+					id: "130D094998CB26E3"
+					type: "ftbmoney:money"
+					ftb_money: 1600L
+				}
+			]
+		}
+		{
+			title: "超级热门的话题"
+			x: 11.0d
+			y: -15.0d
+			description: ["由黑曜石熔炉升级而来，需要0.15s时间来烧制物品，比黑曜石熔炉快了0.45s。"]
+			dependencies: ["3CAB4ADA419679C3"]
+			id: "7CFAE26784E3BFCB"
+			tasks: [{
+				id: "7A60777565400927"
+				type: "item"
+				item: "ironfurnaces:netherite_furnace"
+			}]
+			rewards: [
+				{
+					id: "2EA3282DCBC3603A"
+					type: "item"
+					item: "minecraft:netherite_ingot"
+					count: 4
+				}
+				{
+					id: "7E6D8E71A448A71E"
+					type: "xp_levels"
+					xp_levels: 40
+				}
+				{
+					id: "4B7DCF3FC4E49EF9"
+					type: "ftbmoney:money"
+					ftb_money: 1600L
+				}
+			]
+		}
+		{
+			title: "超级巨热门话题"
+			x: 11.0d
+			y: -17.0d
+			shape: "diamond"
+			description: ["彩虹熔炉是下界合金熔炉的升级版，也是“更多熔炉”模组中等级最高的熔炉，虽然需要1s的时间来烧制物品，但是它一次可以烧制64个。"]
+			dependencies: ["7CFAE26784E3BFCB"]
+			id: "18E87591440F6F06"
+			tasks: [{
+				id: "71AFEE8060306346"
+				type: "item"
+				item: "ironfurnaces:million_furnace"
+			}]
+			rewards: [
+				{
+					id: "779A0982CB582907"
+					type: "item"
+					item: {
+						id: "pixelmon:legendary_clues"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"热门的话题永不过时。\",\"color\":\"yellow\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"热门的证明\",\"color\":\"yellow\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+				{
+					id: "1BC1A26ED0EFA87B"
+					type: "ftbmoney:money"
+					ftb_money: 3200L
+				}
+				{
+					id: "6CD15C4507936CB2"
+					type: "xp_levels"
+					xp_levels: 50
+				}
+				{
+					id: "38D84B8FFD9531C0"
+					type: "item"
+					item: {
+						id: "pixelmon:poke_ball"
+						Count: 1b
+						tag: {
+							PokeBallID: "master_ball"
+						}
+					}
+				}
+			]
+		}
+		{
+			x: 8.5d
+			y: -4.5d
+			description: ["“更多熔炉”模组添加了四种不同的强化，把他们都做出来，试试效果吧！"]
+			dependencies: ["391B7D9E1C4A0E0F"]
+			id: "1475B8026572B713"
+			tasks: [{
+				id: "14B50A75759B63BE"
+				type: "checkmark"
+				title: "熔炉的强化"
+			}]
+			rewards: [{
+				id: "14793CEF4576ECFF"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			x: 9.0d
+			y: -6.0d
+			dependencies: ["1475B8026572B713"]
+			id: "4FDBF15C3C05C612"
+			tasks: [{
+				id: "153DE9B17E23815E"
+				type: "item"
+				item: "ironfurnaces:augment_blasting"
+			}]
+			rewards: [{
+				id: "601607B367A2A329"
+				type: "ftbmoney:money"
+				ftb_money: 50L
+			}]
+		}
+		{
+			x: 7.5d
+			y: -6.0d
+			dependencies: ["1475B8026572B713"]
+			id: "13708B7C2CCDDDC3"
+			tasks: [{
+				id: "39CEFD093543D1E9"
+				type: "item"
+				item: "ironfurnaces:augment_smoking"
+			}]
+			rewards: [{
+				id: "234450504E933102"
+				type: "ftbmoney:money"
+				ftb_money: 50L
+			}]
+		}
+		{
+			x: 7.0d
+			y: -4.5d
+			dependencies: ["1475B8026572B713"]
+			id: "36C1C1993FBB29DB"
+			tasks: [{
+				id: "67E4629460A0CCAA"
+				type: "item"
+				item: "ironfurnaces:augment_speed"
+			}]
+			rewards: [{
+				id: "61E0521D9FCA74E7"
+				type: "ftbmoney:money"
+				ftb_money: 50L
+			}]
+		}
+		{
+			x: 7.5d
+			y: -3.0d
+			dependencies: ["1475B8026572B713"]
+			id: "1CA94FE6200C493B"
+			tasks: [{
+				id: "69D8177F61A23B81"
+				type: "item"
+				item: "ironfurnaces:augment_fuel"
+			}]
+			rewards: [{
+				id: "39E0198012FDE1E7"
+				type: "ftbmoney:money"
+				ftb_money: 50L
+			}]
+		}
+		{
+			title: "整合包基本情况"
+			x: -4.0d
+			y: 0.5d
+			description: [
+				"本整合包包含了第一到第九世代所有宝可梦（第九世代部分宝可梦为自制）且为魔改整合，添加了部分魔改物品，并且制作了详细的任务线。并且我将PC的页数大幅度提升到了200页。"
+				"本整合包以宝可梦模组为主，添加了一些辅助模组增进玩家体验。玩家也可自行添加其他模组，但是因此导致的任何问题作者概不负责。"
+			]
+			id: "3B86A3927F3F29B8"
+			tasks: [{
+				id: "43E718D27FFE63B3"
+				type: "checkmark"
+				title: "基础设定"
+			}]
+			rewards: [{
+				id: "6E78B965968C185A"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			x: -4.0d
+			y: 3.0d
+			description: [
+				"游戏内的金钱无法重复获得，用完就没了，请谨慎使用！"
+				"本整合包里面很多的稀有物品都可以在系统商店里面购买获得，如果你想增加挑战性，可以尝试不使用系统商店通关本整合包（确实不简单，很考验耐心）"
+			]
+			id: "13444968CBB38F55"
+			tasks: [{
+				id: "0F1E1508211143B7"
+				type: "checkmark"
+				title: "警告"
+			}]
+			rewards: [{
+				id: "7AFA279771E74019"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			x: -6.5d
+			y: 3.0d
+			description: [
+				"如在游玩过程中遇到任何bug，或者是觉得不合理的地方，都可以联系作者。"
+				"该整合包由b站up主端忆制作，如若收费，均为盗版！"
+				"如果您是在收费渠道获得该整合包的话，请联系b站up主端忆处理！"
+				"反馈企鹅群："
+				"一群：314115220"
+				"二群：1065586819"
+			]
+			id: "0A851D025DD2591E"
+			tasks: [{
+				id: "26583CF214C0F283"
+				type: "checkmark"
+				title: "说明"
+			}]
+			rewards: [{
+				id: "004E88537EFA316E"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			title: "万物的本源"
+			x: 6.0d
+			y: -1.5d
+			description: [
+				"作为万物的本源，工作台在每一个世界都是必不可少的！"
+				"宝可梦模组里面的包包只能存放宝可梦相关物品，无法进行升级，因此只能作为前期使用。"
+			]
+			dependencies: ["5C9F84BF92D7FCF1"]
+			id: "7104037FBB82A165"
+			tasks: [{
+				id: "7458A5DD043BFB2A"
+				type: "item"
+				item: "minecraft:crafting_table"
+			}]
+			rewards: [
+				{
+					id: "7D8AF72DB8A35E61"
+					type: "choice"
+					table_id: 5923287224392802883L
+				}
+				{
+					id: "53F1023CF0D46D89"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "53D71244CD464F0D"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "更加便利"
+			x: 5.0d
+			y: -3.5d
+			description: ["便携工作台可以让你在不放置工作台的情况下使用工作台，是一种很方便的道具。"]
+			dependencies: ["7104037FBB82A165"]
+			id: "10ACAB5EE3FCEE49"
+			tasks: [{
+				id: "55F549BCBFDA449B"
+				type: "item"
+				item: "portablecraftingtable:portable_crafting_table"
+			}]
+			rewards: [
+				{
+					id: "35A137C2F523939B"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "07F466211852F413"
+					type: "xp"
+					icon: "minecraft:experience_bottle"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "球果的收集"
+			x: 6.0d
+			y: 2.5d
+			description: ["球果会生成在任何有树生长的地形（这不是废话吗），是制作精灵球的必要道具。截至目前，模组内一共有7种球果，现在先去收集一些回来吧！"]
+			dependencies: ["2E1BD6C903812D38"]
+			id: "7C32CFC480DEC5CB"
+			tasks: [{
+				id: "15967BE0F4D48F66"
+				type: "item"
+				title: "收集任意颜色的球果3个"
+				item: {
+					id: "itemfilters:tag"
+					Count: 1b
+					tag: {
+						value: "pixelmon:apricorns"
+					}
+				}
+				count: 3L
+			}]
+			rewards: [
+				{
+					id: "0709D0585D54CF60"
+					type: "item"
+					item: "pixelmon:black_apricorn"
+				}
+				{
+					id: "0F13052AF93CFD31"
+					type: "item"
+					item: "pixelmon:white_apricorn"
+				}
+				{
+					id: "2AB78BA7A7BAE501"
+					type: "item"
+					item: "pixelmon:pink_apricorn"
+				}
+				{
+					id: "05B2D05B9F91C241"
+					type: "item"
+					item: "pixelmon:green_apricorn"
+				}
+				{
+					id: "0F501EF5FC21C588"
+					type: "item"
+					item: "pixelmon:blue_apricorn"
+				}
+				{
+					id: "1C8862798B94290B"
+					type: "item"
+					item: "pixelmon:yellow_apricorn"
+				}
+				{
+					id: "3D1A288639B47652"
+					type: "item"
+					item: "pixelmon:red_apricorn"
+					count: 4
+				}
+				{
+					id: "040C9DBB8F5A4C20"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+			]
+		}
+		{
+			title: "便利的回家方法"
+			icon: {
+				id: "waystones:warp_stone"
+				Count: 1b
+				tag: {
+					Damage: 0
+				}
+			}
+			x: 17.5d
+			y: -3.5d
+			description: [
+				"治疗机在没有精准采集的情况下挖掘会直接碎掉，因此频繁的回到村庄中的宝可梦中心治疗是很有必要的。相比于指路石来说，传送石不需要消耗经验就可以回到村庄，是你旅途上必备的道具。现在集齐宝可梦模组里面的每一种矿物就可以兑换它。"
+				"该分支仅作为支线，不影响主线的进程。"
+			]
+			dependencies: ["6B7A2E11B1EC6D58"]
+			id: "36202FBBBA017E2D"
+			tasks: [
+				{
+					id: "11BCA43F1BF46D7D"
+					type: "item"
+					item: "pixelmon:ruby"
+				}
+				{
+					id: "2412A9DCA51647A4"
+					type: "item"
+					item: "pixelmon:sapphire"
+				}
+				{
+					id: "512F73AEC9CD493E"
+					type: "item"
+					item: "pixelmon:amethyst"
+				}
+				{
+					id: "4A29B4DE48B5EFE0"
+					type: "item"
+					item: "pixelmon:crystal"
+				}
+				{
+					id: "6B79DC1D47C85EBE"
+					type: "item"
+					item: "pixelmon:platinum_ingot"
+				}
+				{
+					id: "3515829CA9DAED50"
+					type: "item"
+					item: "pixelmon:silver_ingot"
+				}
+				{
+					id: "158C36835F28B8CE"
+					type: "item"
+					item: "pixelmon:aluminium_ingot"
+				}
+				{
+					id: "0088CB91EA0AAEAE"
+					type: "item"
+					item: "pixelmon:silicon"
+				}
+			]
+			rewards: [
+				{
+					id: "76C9429A99A13D84"
+					type: "item"
+					item: {
+						id: "waystones:warp_stone"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "4C61B27C748224FC"
+					type: "item"
+					item: "minecraft:diamond"
+					count: 3
+				}
+				{
+					id: "7A1C748968E3D305"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "48C94F7665321E91"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "更加实用的传送方法"
+			x: 17.5d
+			y: -7.5d
+			shape: "diamond"
+			description: ["传送石盘是定点传送的最佳选择。虽然传送石盘不像指路石和传送石那样可以去往任意记录过的地点，但是传送石盘的传送不需要冷却，也不需要消耗经验，只需要交换他们其中的调谐燧石就可以两端来回传送，是远距离传送的好帮手。"]
+			dependencies: ["14D812F7403A5BD9"]
+			id: "2ACA36124744615F"
+			tasks: [{
+				id: "5DDDB2F4FB99ED92"
+				type: "item"
+				item: "waystones:warp_plate"
+				count: 2L
+			}]
+			rewards: [
+				{
+					id: "0AA41A44045BA65E"
+					type: "item"
+					item: "waystones:warp_plate"
+					count: 4
+				}
+				{
+					id: "2F1F16DD3E3B3C78"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "28FE1610BA726084"
+					type: "xp_levels"
+					xp_levels: 5
+				}
+				{
+					id: "36A7CB1EF4E55472"
+					type: "item"
+					item: {
+						id: "pixelmon:berry_pot"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"老师，我有点晕。\",\"color\":\"dark_purple\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"传送的证明\",\"color\":\"dark_purple\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+			]
+		}
+		{
+			title: "精灵球的制作"
+			x: 11.0d
+			y: 2.5d
+			description: [
+				"精灵球的种类繁多，其中红白球是最基础的精灵球，尝试制作一些出来吧！"
+				"tip：精灵球的修正概率为1，可以由红，红，红一种球果和铁/铝制球座合成。"
+			]
+			dependencies: ["5346A3F273110C04"]
+			id: "624A7DAA626445E4"
+			tasks: [{
+				id: "0BB58ADA8F394772"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "poke_ball"
+					}
+				}
+				match_nbt: true
+			}]
+			rewards: [
+				{
+					id: "1A141F32E48436D7"
+					type: "item"
+					item: {
+						id: "pixelmon:poke_ball"
+						Count: 1b
+						tag: {
+							PokeBallID: "poke_ball"
+						}
+					}
+					count: 10
+				}
+				{
+					id: "3296CD82666A23AC"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "2010FCD8C2B69889"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "球座的制作"
+			x: 8.5d
+			y: 2.5d
+			description: ["与1.12.2版本的宝可梦不同，1.16.5版本的宝可梦模组不再需要将铁锭和铝锭压成锭状，直接在工作台制作即可。"]
+			dependencies: ["7C32CFC480DEC5CB"]
+			id: "5346A3F273110C04"
+			tasks: [{
+				id: "711F235A114AC74F"
+				type: "item"
+				title: "制作铁制或铝制的精灵球球座5个"
+				item: {
+					id: "itemfilters:tag"
+					Count: 1b
+					tag: {
+						value: "pixelmon:pokeball_bases"
+					}
+				}
+				count: 5L
+			}]
+			rewards: [
+				{
+					id: "19A1608C786D6681"
+					type: "item"
+					item: "minecraft:stone_button"
+					count: 5
+				}
+				{
+					id: "7E605D1D9E75D5AB"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "48BA4E46D042807C"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "不一样的白色僵尸"
+			x: 13.0d
+			y: -3.5d
+			description: ["宝可梦世界中的铁傀儡貌似发生了一些变化，收集齐材料，制造一只铁傀儡，看看会发生什么吧！"]
+			dependencies: ["1A84D35DAF3CE99C"]
+			id: "2DA7BEA62BFE44EC"
+			tasks: [{
+				id: "62BFAD26B583DC20"
+				type: "advancement"
+				title: "召唤一只铁傀儡"
+				advancement: "minecraft:adventure/summon_iron_golem"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "0C41EA02B6370DA0"
+					type: "item"
+					item: "minecraft:iron_block"
+					count: 4
+				}
+				{
+					id: "33BC0E0CB0641771"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "2D8274E1E3B4E824"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "07101FBF2C7BC9DD"
+					type: "item"
+					item: "pixelmon:film"
+				}
+			]
+		}
+		{
+			title: "去往下界前的准备"
+			icon: {
+				id: "minecraft:diamond_pickaxe"
+				Count: 1b
+				tag: {
+					Damage: 0
+				}
+			}
+			x: 16.0d
+			y: -1.5d
+			shape: "square"
+			description: [
+				"铂，红宝石，蓝宝石，水晶，紫水晶制作的镐子拥有和钻石镐一样的挖掘等级，使用它们之中的任意一把镐子挖掘黑曜石，为你接下来去往下界的旅程做好准备。"
+				"tip：完成该任务后解锁分支“勇往直下”。"
+			]
+			dependencies: ["1A84D35DAF3CE99C"]
+			id: "6B7A2E11B1EC6D58"
+			tasks: [
+				{
+					id: "39C29FD5C22CE457"
+					type: "item"
+					item: "minecraft:obsidian"
+					count: 10L
+				}
+				{
+					id: "172A60E18FCBD553"
+					type: "item"
+					item: {
+						id: "minecraft:flint_and_steel"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "3E8C0EAF4F7D778F"
+					type: "item"
+					item: "minecraft:obsidian"
+					count: 4
+				}
+				{
+					id: "295EAC3217BA30E5"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "4BABDC399DF63F14"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "勇往直下"
+			x: 19.0d
+			y: 0.5d
+			description: [
+				"前往下界获取荧石，这是你制作PC的关键道具。"
+				"tip：完成前置任务后解锁该分支。 前置任务为方形形状的任务。"
+			]
+			dependencies: [
+				"6B7A2E11B1EC6D58"
+				"48E84D3B434258C4"
+				"2D2F07F599B15586"
+			]
+			id: "171B06E43D2D8716"
+			tasks: [{
+				id: "3A94F8C6CABE920E"
+				type: "dimension"
+				title: "前往下界"
+				icon: "minecraft:crimson_nylium"
+				dimension: "minecraft:the_nether"
+			}]
+			rewards: [
+				{
+					id: "7A3BF63166381E15"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "5FC9A36357700831"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "光芒万丈"
+			x: 21.5d
+			y: 0.5d
+			description: ["荧石需要和红色粉合成红石灯后才可以参与PC的制作，想必你之前去下界挖了不少吧！"]
+			dependencies: ["171B06E43D2D8716"]
+			id: "6B7EFAC470CC0B64"
+			tasks: [{
+				id: "7FB824A52D9B9E7B"
+				type: "item"
+				item: "minecraft:glowstone_dust"
+				count: 4L
+			}]
+			rewards: [
+				{
+					id: "378AD27A6274BA4D"
+					type: "item"
+					item: "minecraft:glowstone_dust"
+					count: 16
+				}
+				{
+					id: "432C692185C80C9D"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "30DFB641A7B80C08"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "宝可梦的切换"
+			x: 24.0d
+			y: 0.5d
+			description: [
+				"PC是一种功能性方块，可以用于管理玩家的宝可梦。"
+				"①：玩家的鼠标会变为“手套”形状，左键可以把宝可梦“拿在手上”，再次点击左键就能放到指着的位置，右键宝可梦可以查看一些宝可梦的信息。"
+				"②：显示当前所在箱子页面，左箭头和右箭头用于切换页面，默认玩家一共有30个页面，在本整合包中，拥有200个界面，以便玩家收集更多宝可梦。"
+				"③：当前页面中保存的宝可梦，每个页面可以保存30只宝可梦。"
+				"④：搜索功能，默认按键为S，可用于快速检索宝可梦；页面命名功能，默认按键为R；壁纸更换功能，可以把当前页面的壁纸更换为其他款式默认按键为W。"
+				"使用镐可以快速破坏PC，哪怕不使用任何工具破坏PC也可以让PC掉落。每当制作一个PC的时候都会有30%概率获得随机一种多边兽组件。"
+				"现在收集材料，制作出PC吧！"
+			]
+			dependencies: ["6B7EFAC470CC0B64"]
+			id: "7E81E9D86AB53C8A"
+			tasks: [{
+				id: "5FD5DF7F94344B5E"
+				type: "item"
+				title: "获得任意一种颜色的PC"
+				item: {
+					id: "itemfilters:tag"
+					Count: 1b
+					tag: {
+						value: "pixelmon:pcs"
+					}
+				}
+			}]
+			rewards: [
+				{
+					id: "0597DB3D0D4B7D26"
+					type: "item"
+					item: "pixelmon:red_pc"
+					count: 3
+				}
+				{
+					id: "6CAFDDE59CF322BC"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "7D10FCE1B2B34CFA"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "关键的附魔"
+			x: 14.5d
+			y: -7.5d
+			description: ["制作附魔台，附魔出宝可梦模组里面的关键附魔——精准采集，可以使你无损耗的挖掘治疗仪，是探险路上的必备附魔。"]
+			dependencies: ["581E4337EF11E5CA"]
+			id: "38C17577A2239F9D"
+			tasks: [{
+				id: "247F381144ECD782"
+				type: "item"
+				item: "minecraft:enchanting_table"
+			}]
+			rewards: [
+				{
+					id: "3227E4BA85AE6A56"
+					type: "xp"
+					xp: 500
+				}
+				{
+					id: "5DECA997E9F145E8"
+					type: "item"
+					item: "minecraft:lapis_lazuli"
+					count: 32
+				}
+			]
+		}
+		{
+			title: "便捷的祛魔"
+			x: 14.5d
+			y: -9.5d
+			description: [
+				"砂轮可以去除你已经附魔的物品并返还部分经验，这里不再过多介绍。"
+				"附魔精准采集的镐子可以完整的挖掘治疗仪。"
+				"在本整合包中，不需要精准采集也可以挖掘治疗仪。"
+			]
+			dependencies: ["38C17577A2239F9D"]
+			id: "04B72F3C0668D01A"
+			tasks: [{
+				id: "3010559DD342419E"
+				type: "item"
+				item: "minecraft:grindstone"
+			}]
+			rewards: [
+				{
+					id: "77A3C19EABE087B9"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "5C8FB4DA3BE3C47E"
+					type: "xp"
+					xp: 100
+				}
+				{
+					id: "5DA41024953C60CF"
+					type: "item"
+					item: {
+						id: "minecraft:enchanted_book"
+						Count: 1b
+						tag: {
+							StoredEnchantments: [{
+								lvl: 1s
+								id: "minecraft:silk_touch"
+							}]
+						}
+					}
+				}
+			]
+		}
+		{
+			title: "实用的传送方法"
+			x: 17.5d
+			y: -5.5d
+			description: ["制作更多的指路石，以便你在不同的地方更加便利的来往！"]
+			dependencies: ["36202FBBBA017E2D"]
+			id: "14D812F7403A5BD9"
+			tasks: [{
+				id: "08B3ED7DB7A58BCB"
+				type: "item"
+				item: "waystones:waystone"
+			}]
+			rewards: [
+				{
+					id: "52CF5D40FE379B55"
+					type: "item"
+					item: "waystones:waystone"
+					count: 3
+				}
+				{
+					id: "7753E20F5C0318D5"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "0949043F43F37203"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "上天入地"
+			x: 13.5d
+			y: 0.5d
+			description: ["自然指南针可以找到世界上的任何群系，可以帮你节省跑图寻找生物群系的时间。"]
+			dependencies: ["5EBCBB1C1020C3CC"]
+			id: "6FEFCE70587A8FE0"
+			tasks: [{
+				id: "66439BF879FF1321"
+				type: "item"
+				item: {
+					id: "naturescompass:naturescompass"
+					Count: 1b
+					tag: { }
+				}
+			}]
+			rewards: [
+				{
+					id: "4E68CB7E32DFA1AF"
+					type: "item"
+					item: "minecraft:cooked_porkchop"
+					count: 10
+				}
+				{
+					id: "7C5716345F448C59"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "2A9FF5B6EFF5615E"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "通今博古"
+			x: 16.0d
+			y: 0.5d
+			shape: "square"
+			description: [
+				"探险家指南针可以帮你找到世界上的任何结构（除了地牢），对于你寻找宝可梦里某些低概率刷新的建筑有很大帮助。为了丰富您的游戏体验，不建议您直接使用指南针的传送功能传送过去。"
+				"tip:蜘蛛网通过击败昆虫类的宝可梦有概率获得。"
+				"完成该任务后解锁分支“勇往直下”。"
+				"警告：如果您是联机或者服务器，请谨慎使用该道具，可能会导致游戏崩溃！"
+			]
+			dependencies: ["6FEFCE70587A8FE0"]
+			id: "2D2F07F599B15586"
+			tasks: [{
+				id: "1078680D0D676DBD"
+				type: "item"
+				item: {
+					id: "explorerscompass:explorerscompass"
+					Count: 1b
+					tag: { }
+				}
+			}]
+			rewards: [
+				{
+					id: "071DE86E8E8E19ED"
+					type: "item"
+					item: {
+						id: "minecraft:iron_helmet"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "44DAFEB642CB3752"
+					type: "item"
+					item: {
+						id: "minecraft:iron_chestplate"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "1C4FFE54E576830E"
+					type: "item"
+					item: {
+						id: "minecraft:iron_leggings"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "79B35D632B46AD7B"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "7E73938C30CE4CDB"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "更快的速度"
+			x: 16.0d
+			y: 4.5d
+			description: ["跑鞋可以提升你50%的速度，对你的跑图速度有着极大的提升。"]
+			dependencies: ["48E84D3B434258C4"]
+			id: "2C6548263364ED25"
+			tasks: [{
+				id: "56420CE8E38D074A"
+				type: "item"
+				item: {
+					id: "pixelmon:old_running_boots"
+					Count: 1b
+					tag: {
+						Damage: 0
+					}
+				}
+			}]
+			rewards: [
+				{
+					id: "1099663848FF4784"
+					type: "item"
+					item: "minecraft:diamond"
+					count: 3
+				}
+				{
+					id: "5A67E8377F5FAC8A"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "69B6866605BF29A0"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "超快的速度"
+			x: 16.0d
+			y: 6.5d
+			description: [
+				"疾风跑鞋是普通跑鞋的升级版，相比之下提升了25%的速度，是性价比很高的道具。"
+				"但是该跑鞋会持续消耗耐久。当耐久消耗完毕后，会变回普通跑鞋。"
+			]
+			dependencies: ["2C6548263364ED25"]
+			id: "79A3523793188CED"
+			tasks: [{
+				id: "12ECF9A4F71D243C"
+				type: "item"
+				item: {
+					id: "pixelmon:new_running_boots"
+					Count: 1b
+					tag: {
+						Damage: 0
+					}
+				}
+			}]
+			rewards: [
+				{
+					id: "6BFE25928B784B90"
+					type: "item"
+					item: "pixelmon:rare_candy"
+				}
+				{
+					id: "33C305786B775F87"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "5EE9DDB85BE1EB24"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			x: -4.0d
+			y: -2.0d
+			description: ["作者：想增加难度？那你是高手啊，用不到死亡不掉落，我来给你关...AUV~"]
+			id: "277696917048110D"
+			tasks: [{
+				id: "436147298A2F6073"
+				type: "checkmark"
+				title: "点击开启死亡不掉落"
+				disable_toast: true
+			}]
+			rewards: [{
+				id: "3A13C6FF3DB99A9E"
+				type: "command"
+				title: "开启死亡不掉落"
+				icon: "minecraft:skeleton_skull"
+				auto: "enabled"
+				command: "/gamerule keepInventory true"
+				player_command: false
+			}]
+		}
+		{
+			title: "准备已完成！"
+			icon: {
+				id: "minecraft:diamond_sword"
+				Count: 1b
+				tag: {
+					Damage: 0
+				}
+			}
+			x: 27.0d
+			y: 0.5d
+			shape: "diamond"
+			description: [
+				"你已经做好了充足的准备，可以出发探险了！"
+				"tip：完成该任务后，解锁第二章，支线“困扰的谜题”和支线“奇妙的饰品”。"
+			]
+			dependencies: ["7E81E9D86AB53C8A"]
+			size: 2.0d
+			id: "122D7051099B3125"
+			tasks: [{
+				id: "7F0B8E52E2D3FD37"
+				type: "checkmark"
+			}]
+			rewards: [
+				{
+					id: "4EE5FF6BA01C8D75"
+					type: "ftbmoney:money"
+					ftb_money: 500L
+				}
+				{
+					id: "5088EE459498D32B"
+					type: "xp"
+					xp: 200
+				}
+				{
+					id: "00678861C3CC01CD"
+					type: "item"
+					item: {
+						id: "pixelmon:black_mane_hair"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"这第一章怎么感觉这么简陋，以后要不要重制一下？\",\"color\":\"white\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"第一章的证明\",\"color\":\"white\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+			]
+		}
+		{
+			title: "融会贯通"
+			x: 14.5d
+			y: -11.5d
+			description: ["制作出铁砧，不仅可以用来修复装备，还可以融合附魔。"]
+			dependencies: ["04B72F3C0668D01A"]
+			id: "493F22FBB955D3AC"
+			tasks: [{
+				id: "3F09FBA5072763C2"
+				type: "item"
+				item: "minecraft:anvil"
+			}]
+			rewards: [
+				{
+					id: "67EE4C7C1CC4A6C1"
+					type: "item"
+					item: "minecraft:anvil"
+					count: 2
+				}
+				{
+					id: "4B1CAA351405F2EB"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "23175E189B6BF7A6"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "初来乍到"
+			x: -1.5d
+			y: 0.5d
+			shape: "diamond"
+			subtitle: "陌生的世界"
+			description: ["这是一个陌生的世界，你需要适应你的新身份。"]
+			id: "68D38FD2E28A4620"
+			tasks: [{
+				id: "39BAC3CF864AD5FB"
+				type: "dimension"
+				title: "陌生的世界？"
+				icon: "minecraft:grass_block"
+				dimension: "minecraft:overworld"
+			}]
+			rewards: [{
+				id: "20C91DBFD9027EBF"
+				type: "item"
+				auto: "enabled"
+				item: "ftbquests:book"
+			}]
+		}
+		{
+			x: -9.0d
+			y: -2.0d
+			description: [
+				"整合包更改了一些按键，在此说明。"
+				"N键打开村庄村民接的任务"
+				"B键打开精妙背包模组里的背包"
+				"V键可以在放出宝可梦的时候切换对战外招式"
+				"G键可以使用选择的对战外招式"
+				"I键可以打开宝可梦图鉴"
+				"O键可以切换宝可梦侧边栏的展现形式"
+				"R键可以放出选中的宝可梦"
+				"小键盘↑↓键可以切换宝可梦栏位里的宝可梦"
+				"backspace下方的“\\”键可以打开宝可梦雷达的侦测界面，选择侦测某一具体宝可梦"
+				"M键可以放大旅行地图，可以在该页面进行配置"
+				"z键可以让你在骑乘宝可梦起飞的途中下降，空格键可以上升"
+				"I键可以打开宝可梦图鉴"
+				"L键可以打开成就"
+				"J键可以进行场外超进化"
+			]
+			id: "6BFB5AA5DF46E413"
+			tasks: [{
+				id: "634B3EF0C74E5D6B"
+				type: "checkmark"
+				title: "关于按键的说明"
+			}]
+			rewards: [{
+				id: "689744A98F5A7F1C"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			x: -9.0d
+			y: 3.0d
+			description: [
+				"本整合包添加了通用拼音模组，使用JEI搜索物品的时候输入拼音即可搜索到你想要的物品。"
+				"整合包安装了连锁模组。按Tab上面的~键即可使用。"
+				"本包在对战时有专属的音乐，如果在设置里面把音乐关掉就没有了，因此不建议关闭音乐！"
+			]
+			id: "3C5F1C0A1C2C1ED0"
+			tasks: [{
+				id: "25A47BDC1A712E4A"
+				type: "checkmark"
+				title: "技巧"
+			}]
+			rewards: [{
+				id: "7031D541CE27175C"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			title: "容纳一物"
+			x: 3.5d
+			y: 2.5d
+			description: ["宝可梦模组中的道具琳琅满目，制作箱子来储存他们是十分有必要的。"]
+			dependencies: ["15B93AB6354C8FDE"]
+			id: "2E1BD6C903812D38"
+			tasks: [{
+				id: "51A705D6DB22EA72"
+				type: "item"
+				item: "minecraft:chest"
+			}]
+			rewards: [
+				{
+					id: "1FDB09C27116378D"
+					type: "item"
+					item: "minecraft:chest"
+					count: 3
+				}
+				{
+					id: "327E51366CF72BE2"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "268F9D4CFD889611"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			x: -9.0d
+			y: -11.0d
+			description: ["列出了全18种属性的相互克制关系，可以逐一进行查看。"]
+			id: "77F796A142601693"
+			tasks: [{
+				id: "402DD4FDD280CA42"
+				type: "checkmark"
+				title: "宝可梦属性克制关系"
+			}]
+			rewards: [{
+				id: "2268FC5A7F517715"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:grass"
+			x: -9.0d
+			y: -14.0d
+			subtitle: "草"
+			description: ["克制：地面，岩石，水 0.5倍：火，草，毒，飞行，虫，龙，钢 被克：虫，毒，飞行，火，冰"]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "3DC8FAEAEABBA1D7"
+			tasks: [{
+				id: "3A7287D97AAA84A8"
+				type: "checkmark"
+				title: "草"
+			}]
+			rewards: [{
+				id: "2AB3A772BC5D55BD"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:water_bucket"
+			x: -8.0d
+			y: -13.5d
+			subtitle: "水"
+			description: ["克制：地面，火，岩石            0.5倍：水，草，龙                   被克：电，草 "]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "2EA2F7822B198FE7"
+			tasks: [{
+				id: "6BE2674D0A1E2B51"
+				type: "checkmark"
+				title: "水"
+			}]
+			rewards: [{
+				id: "2EBB3701E218B1D4"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: {
+				id: "minecraft:flint_and_steel"
+				Count: 1b
+				tag: {
+					Damage: 0
+				}
+			}
+			x: -10.0d
+			y: -13.5d
+			subtitle: "火"
+			description: ["克制：虫，草，钢，冰                   0.5倍：地面，岩石，水                        被克：地面，水，岩石                            "]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "286F0313ED7916CD"
+			tasks: [{
+				id: "1390D022DDEA5811"
+				type: "checkmark"
+				title: "火"
+			}]
+			rewards: [{
+				id: "7A84BF2C65DD5800"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:paper"
+			x: -9.0d
+			y: -13.0d
+			subtitle: "一般"
+			description: [
+				"克制：无"
+				"0.5倍：岩石，钢"
+				"被克：格斗"
+				"无效果：幽灵"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "151D59AEE8631B34"
+			tasks: [{
+				id: "6DE5CD27D70E1E34"
+				type: "checkmark"
+				title: "一般"
+			}]
+			rewards: [{
+				id: "59DC3B86F34FBD7B"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:stone"
+			x: -10.5d
+			y: -12.5d
+			subtitle: "地面"
+			description: [
+				"克制:火，电，毒，岩石，钢"
+				"0.5倍:草，虫"
+				"被克:水，草，冰"
+				"无效果:飞行"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "37092EB3D4E0EB00"
+			tasks: [{
+				id: "2E134EEB05481598"
+				type: "checkmark"
+				title: "地面"
+			}]
+			rewards: [{
+				id: "09AA04353AB229A0"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:cobblestone"
+			x: -7.5d
+			y: -12.5d
+			subtitle: "岩石"
+			description: [
+				"克制:火，冰，飞行，虫"
+				"0.5倍:格斗，地面，钢"
+				"被克:水，草，格斗，地面，钢"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "11E97CE4911C3B32"
+			tasks: [{
+				id: "65C69E7AB0FEE86C"
+				type: "checkmark"
+				title: "岩石"
+			}]
+			rewards: [{
+				id: "28CD4DC4D22BD96B"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:snowball"
+			x: -9.5d
+			y: -12.0d
+			subtitle: "冰"
+			description: [
+				"克制：飞行，草，龙，地面"
+				"0.5倍：火，水，冰，钢"
+				"被克：钢，岩石，火，格斗"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "2EFD70DF74DCA9ED"
+			tasks: [{
+				id: "06312A487953E7CA"
+				type: "checkmark"
+				title: "冰"
+			}]
+			rewards: [{
+				id: "5F2594CC15D5A433"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:redstone"
+			x: -8.5d
+			y: -12.0d
+			subtitle: "电"
+			description: [
+				"克制：飞行，水"
+				"0.5倍：电，草，龙"
+				"被克：地面"
+				"无效果：地面"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "08D15F9AA2890A4E"
+			tasks: [{
+				id: "7C613EB1B93259DC"
+				type: "checkmark"
+				title: "电"
+			}]
+			rewards: [{
+				id: "09801D0A3CD12D03"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:feather"
+			x: -10.5d
+			y: -11.5d
+			subtitle: "飞行"
+			description: [
+				"克制:草，格斗，虫"
+				"0.5倍:电，岩石，钢"
+				"被克:电，冰，岩石"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "32474834C0230368"
+			tasks: [{
+				id: "5FA51BF568C216EE"
+				type: "checkmark"
+				title: "飞行"
+			}]
+			rewards: [{
+				id: "1F319896C625A41C"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:wither_rose"
+			x: -7.5d
+			y: -11.5d
+			subtitle: "幽灵"
+			description: [
+				"克制:超能，幽灵"
+				"0.5倍:恶"
+				"被克:幽灵，恶"
+				"无效果:一般"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "4B369EF894EC8CBF"
+			tasks: [{
+				id: "256562ACC1A14EB4"
+				type: "checkmark"
+				title: "幽灵"
+			}]
+			rewards: [{
+				id: "008481B96C46A538"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:silverfish_spawn_egg"
+			x: -9.5d
+			y: -10.0d
+			subtitle: "虫"
+			description: [
+				"克制:草，超能，恶"
+				"0.5倍:火，格斗，毒，飞行，幽灵，钢，妖精"
+				"被克:火，飞行，岩石"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "6F1C8B63FB503E1E"
+			tasks: [{
+				id: "424F1DDA56A4333A"
+				type: "checkmark"
+				title: "虫"
+			}]
+			rewards: [{
+				id: "1A7F18C4CDD666F3"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:poisonous_potato"
+			x: -8.5d
+			y: -10.0d
+			subtitle: "毒"
+			description: [
+				"克制:草，妖精"
+				"0.5倍:毒，地面，岩石，幽灵"
+				"被克:地面，超能"
+				"无效果:钢"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "1E04F2BB7164530A"
+			tasks: [{
+				id: "217F5BD6ABDB5057"
+				type: "checkmark"
+				title: "毒"
+			}]
+			rewards: [{
+				id: "1545F434DF6B9726"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:dragon_head"
+			x: -9.0d
+			y: -9.0d
+			subtitle: "龙"
+			description: [
+				"克制:龙"
+				"0.5倍:钢"
+				"被克:冰，龙，妖精"
+				"无效果:妖精"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "43AEE60FFD8E9793"
+			tasks: [{
+				id: "39DD92901C289981"
+				type: "checkmark"
+				title: "龙"
+			}]
+			rewards: [{
+				id: "687FF63DD8882529"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:rotten_flesh"
+			x: -9.0d
+			y: -8.0d
+			subtitle: "恶"
+			description: [
+				"克制:超能，幽灵"
+				"0.5倍:格斗，恶，妖精"
+				"被克:格斗，虫，妖精"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "2A65C6508D1A0D22"
+			tasks: [{
+				id: "20364FA9D4CE1F28"
+				type: "checkmark"
+				title: "恶"
+			}]
+			rewards: [{
+				id: "7826972AFFFABF5F"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: {
+				id: "minecraft:diamond_sword"
+				Count: 1b
+				tag: {
+					Damage: 0
+				}
+			}
+			x: -7.5d
+			y: -10.0d
+			subtitle: "格斗"
+			description: [
+				"克制:一般，冰，岩石，恶，钢"
+				"0.5倍:毒，飞行，超能，虫，妖精"
+				"被克:飞行，超能，妖精"
+				"无效果:幽灵"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "49EBDF7A19972CC2"
+			tasks: [{
+				id: "2FE7665B312D0650"
+				type: "checkmark"
+				title: "格斗"
+			}]
+			rewards: [{
+				id: "43902BA9494B20E5"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:totem_of_undying"
+			x: -10.5d
+			y: -10.0d
+			subtitle: "超能力"
+			description: [
+				"克制:格斗，毒"
+				"0.5倍:超能，钢"
+				"被克:虫，幽灵，恶"
+				"无效果:恶"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "37826DACD29D44E5"
+			tasks: [{
+				id: "6CF2F3B15E04AC9D"
+				type: "checkmark"
+				title: "超能力"
+			}]
+			rewards: [{
+				id: "32B0841C3B702C05"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:honeycomb"
+			x: -11.5d
+			y: -10.0d
+			subtitle: "妖精"
+			description: [
+				"克制:格斗，龙，恶"
+				"0.5倍:火，毒，钢"
+				"被克:毒，钢"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "37510304D8479DDA"
+			tasks: [{
+				id: "42770D8E4A6D1124"
+				type: "checkmark"
+				title: "妖精"
+			}]
+			rewards: [{
+				id: "2655861C3462101E"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			icon: "minecraft:iron_ingot"
+			x: -6.5d
+			y: -10.0d
+			subtitle: "钢"
+			description: [
+				"克制:冰，岩石，妖精"
+				"0.5倍:火，水，电，钢"
+				"被克:火，格斗，地面"
+			]
+			hide_dependency_lines: true
+			dependencies: ["77F796A142601693"]
+			id: "7C17D3C2310591E1"
+			tasks: [{
+				id: "671E02DE2E57CD27"
+				type: "checkmark"
+				title: "钢"
+			}]
+			rewards: [{
+				id: "22C8636B0B09B3E3"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			x: -6.5d
+			y: -2.0d
+			description: [
+				"/ivs 宝可梦队伍序列号 查看宝可梦的个体值"
+				"/evs 宝可梦队伍序列号 查看宝可梦的能力值"
+				"/wiki 宝可梦英文名 来查看相关信息"
+				"/checkspawns 附近精灵刷新率"
+				"/checkspawns legendary 神兽出现时间"
+				"/endbattle 强制停止对战(卡战斗) "
+				"/checkspawns megaboss"
+				"查询下次出现boss的时间"
+				"/locategym属性可以找到道馆"
+			]
+			id: "65E0FE89E097AF3B"
+			tasks: [{
+				id: "4E4617BB367B3EE8"
+				type: "checkmark"
+				title: "宝可梦基础指令（无需权限）"
+			}]
+			rewards: [{
+				id: "23545063657FC7AA"
+				type: "ftbmoney:money"
+				ftb_money: 10L
+			}]
+		}
+		{
+			title: "勤俭节约"
+			x: 14.5d
+			y: -13.5d
+			description: [
+				"XpTome模组添加的唯一物品，用于存储经验。手持经验宝典，按住Shift点击右键，即可将身上的经验存入书中，每本XpTome的存储量最大为1395，恰好是玩家从0经验升级到30级所需的经验值。手持已经存有经验的XpTome，点击右键即可将其中存储的经验全部取出。"
+				"经验宝典可以更好的帮助你附魔，不会导致经验的浪费，是个很实用的道具。"
+			]
+			dependencies: ["493F22FBB955D3AC"]
+			id: "46EDE64CBDB43EC2"
+			tasks: [{
+				id: "283521EB39D2D1B0"
+				type: "item"
+				item: {
+					id: "xpbook:xp_tome"
+					Count: 1b
+					tag: { }
+				}
+			}]
+			rewards: [
+				{
+					id: "4C81E1DF951D9E5F"
+					type: "item"
+					item: {
+						id: "xpbook:xp_tome"
+						Count: 1b
+						tag: { }
+					}
+					count: 3
+				}
+				{
+					id: "6E530BE8B6BA35F5"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "1B7112FABE62AA83"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "作者的整蛊"
+			x: 1.5d
+			y: 5.0d
+			description: ["作者的整蛊物品。此箱子里只能放进去泥土和灰化土（连草方块与耕地都不行）。"]
+			dependencies: ["2E1BD6C903812D38"]
+			id: "56D445E6D4387D64"
+			tasks: [{
+				id: "50D4D99F89ADC9E7"
+				type: "item"
+				item: "ironchest:dirt_chest"
+			}]
+			rewards: [
+				{
+					id: "357975413FA111D2"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "26775586A7FEAC64"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "容纳十物"
+			x: 3.5d
+			y: 4.5d
+			description: [
+				"有6X9共54格的容量。"
+				"该分支仅作为支线，不影响主线的进程。"
+			]
+			dependencies: ["2E1BD6C903812D38"]
+			id: "3B1CB2912FB8CE46"
+			tasks: [{
+				id: "6BA0B687A162D321"
+				type: "item"
+				item: "ironchest:iron_chest"
+			}]
+			rewards: [
+				{
+					id: "7A0E442BC8770915"
+					type: "item"
+					item: "minecraft:iron_ingot"
+					count: 8
+				}
+				{
+					id: "36A4BAD015E33D14"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "4C6452BDDB912A50"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "容纳百物"
+			x: 3.5d
+			y: 6.5d
+			description: ["有8×9共72格的容量。"]
+			dependencies: ["3B1CB2912FB8CE46"]
+			id: "5CC37DA6020A3B7F"
+			tasks: [{
+				id: "62B68887B0893C3A"
+				type: "item"
+				item: "ironchest:silver_chest"
+			}]
+			rewards: [
+				{
+					id: "0A347BEED7F1BDF9"
+					type: "item"
+					item: "pixelmon:silver_ingot"
+					count: 6
+				}
+				{
+					id: "76D1F2F0E1B0E4B0"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "7A9A31E1E30C4A89"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "容纳千物"
+			x: 3.5d
+			y: 8.5d
+			description: ["有9×9共81格的容量。"]
+			dependencies: ["5CC37DA6020A3B7F"]
+			id: "1685CB8FE9598A1F"
+			tasks: [{
+				id: "7B052CA1D54621C9"
+				type: "item"
+				item: "ironchest:gold_chest"
+			}]
+			rewards: [
+				{
+					id: "08F585F50E43DBD6"
+					type: "item"
+					item: "minecraft:gold_ingot"
+					count: 8
+				}
+				{
+					id: "0B7F0000393CC1F4"
+					type: "ftbmoney:money"
+					ftb_money: 400L
+				}
+				{
+					id: "59C6CC29E6303CFE"
+					type: "xp"
+					xp: 400
+				}
+			]
+		}
+		{
+			title: "容纳万物"
+			x: 3.5d
+			y: 10.5d
+			description: ["有9×12共108格的容量，是此mod容量最大的箱子之一（黑曜石箱子和水晶箱子跟他一样大，因为他们由钻石箱子升级而来）。"]
+			dependencies: ["1685CB8FE9598A1F"]
+			id: "3B86A7509B22114D"
+			tasks: [{
+				id: "4FE06FD0A420B7C6"
+				type: "item"
+				item: "ironchest:diamond_chest"
+			}]
+			rewards: [
+				{
+					id: "25B68B3744D43F9E"
+					type: "item"
+					item: "minecraft:diamond"
+					count: 2
+				}
+				{
+					id: "2E922B63178DE9D1"
+					type: "ftbmoney:money"
+					ftb_money: 800L
+				}
+				{
+					id: "74D7370B44867BE3"
+					type: "xp"
+					xp: 800
+				}
+			]
+		}
+		{
+			title: "透明的万物"
+			x: 1.5d
+			y: 7.5d
+			description: ["和钻石箱子一样能储存9×12共108格的物品，它可以透过箱体看见里面的一小部分（优先展示先放进去的物品）物品。"]
+			dependencies: ["3B86A7509B22114D"]
+			id: "724C311F483BEF2F"
+			tasks: [{
+				id: "2A9167784ED56712"
+				type: "item"
+				item: "ironchest:crystal_chest"
+			}]
+			rewards: [
+				{
+					id: "7790247FFFB4AF58"
+					type: "item"
+					item: "minecraft:diamond"
+					count: 2
+				}
+				{
+					id: "23E8F8965CB0814E"
+					type: "ftbmoney:money"
+					ftb_money: 800L
+				}
+				{
+					id: "2842F33813AE4A59"
+					type: "xp"
+					xp: 800
+				}
+			]
+		}
+		{
+			title: "隐蔽的万物"
+			x: 1.5d
+			y: 10.5d
+			description: ["和钻石箱子一样9X12共108格容量，它非常防爆，核弹爆炸也炸不坏它。"]
+			dependencies: ["3B86A7509B22114D"]
+			id: "6A654EA3E158254F"
+			tasks: [{
+				id: "760414C374D787D0"
+				type: "item"
+				item: "ironchest:obsidian_chest"
+			}]
+			rewards: [
+				{
+					id: "0742BC7F3EF91BA7"
+					type: "item"
+					item: "minecraft:obsidian"
+					count: 8
+				}
+				{
+					id: "38211749F7B1FBE6"
+					type: "ftbmoney:money"
+					ftb_money: 800L
+				}
+				{
+					id: "78A7250435C908F7"
+					type: "xp"
+					xp: 800
+				}
+			]
+		}
+		{
+			title: "物以类聚"
+			x: -0.5d
+			y: 7.5d
+			shape: "diamond"
+			description: ["恭喜你通关了“更多箱子”模组，来领取你的奖励吧！"]
+			dependencies: [
+				"56D445E6D4387D64"
+				"724C311F483BEF2F"
+				"6A654EA3E158254F"
+			]
+			id: "67438C7C2DAA33F5"
+			tasks: [{
+				id: "5B59E303D75C7F7A"
+				type: "checkmark"
+				title: "收集了所有种类的箱子"
+			}]
+			rewards: [
+				{
+					id: "5FE0D646BC672F8C"
+					type: "item"
+					item: {
+						id: "pixelmon:escape_rope"
+						Count: 1b
+						tag: {
+							HideFlags: 1
+							display: {
+								Lore: ["{\"text\":\"就这几个箱子还要搞个证明出来，是不是太小看我了？\",\"color\":\"dark_purple\",\"bold\":false,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}"]
+								Name: "[{\"text\":\"箱子的证明\",\"color\":\"dark_purple\",\"bold\":true,\"italic\":false,\"underlined\":false,\"strikethrough\":false,\"obfuscated\":false}]"
+							}
+							Enchantments: [{
+								lvl: 1s
+								id: "minecraft:binding_curse"
+							}]
+						}
+					}
+				}
+				{
+					id: "56CCCA1173311E0F"
+					type: "ftbmoney:money"
+					ftb_money: 1000L
+				}
+				{
+					id: "7B4CD07457559D58"
+					type: "xp"
+					xp: 1000
+				}
+				{
+					id: "456FCB8C1511750B"
+					type: "item"
+					item: {
+						id: "pixelmon:poke_ball"
+						Count: 1b
+						tag: {
+							PokeBallID: "master_ball"
+						}
+					}
+				}
+			]
+		}
+		{
+			title: "知识就是力量"
+			x: 14.5d
+			y: -3.5d
+			description: [
+				"收集甘蔗和皮革，制作出一本书，为制作附魔台做好准备。"
+				"tip：皮革通过击败平原的宝可梦有概率获得。"
+				"该分支仅作为支线，不影响主线的进程。"
+			]
+			dependencies: ["6B7A2E11B1EC6D58"]
+			id: "69DC729AB131C364"
+			tasks: [{
+				id: "7C38F4801536A1B5"
+				type: "item"
+				item: "minecraft:book"
+			}]
+			rewards: [
+				{
+					id: "025E956AB6E549DF"
+					type: "item"
+					item: "minecraft:bookshelf"
+					count: 5
+				}
+				{
+					id: "3233A4AE9970D9C1"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "570E9859AD861445"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "隐藏任务"
+			icon: {
+				id: "pixelmon:poke_ball"
+				Count: 1b
+				tag: {
+					PokeBallID: "master_ball"
+				}
+			}
+			x: -8.95d
+			y: -14.8d
+			description: ["恭喜你发现了隐藏任务。现在可以花费500金币购买一次大师球，是否购买？"]
+			size: 0.1d
+			id: "794106108C1FE3BF"
+			tasks: [{
+				id: "60237B933206CCF6"
+				type: "ftbmoney:money"
+				value: 500L
+			}]
+			rewards: [{
+				id: "5B3A81DAE32DE3B3"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "master_ball"
+					}
+				}
+			}]
+		}
+		{
+			title: "生面孔"
+			x: 13.0d
+			y: -5.5d
+			description: ["摆放好铁块后，出现的不是铁傀儡，而是一种宝可梦。请为这个奇特的宝可梦拍一张照片。"]
+			dependencies: ["2DA7BEA62BFE44EC"]
+			id: "5E68A3512D5D8164"
+			tasks: [{
+				id: "7A2423877C7F0A3D"
+				type: "item"
+				title: "给神秘宝可梦拍一张照片"
+				icon: "pixelmon:quest_editor"
+				item: {
+					id: "pixelmon:pixelmon_sprite"
+					Count: 1b
+					tag: {
+						ndex: 623s
+						palette: "none"
+						form: ""
+						gender: 2b
+					}
+				}
+				match_nbt: true
+			}]
+			rewards: [
+				{
+					id: "178FCDE9E10F01BA"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "06CECEA771058EE9"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+		{
+			title: "更好的材料"
+			x: 8.5d
+			y: -1.5d
+			description: ["收集一些圆石并制作石镐，他们会让你接下来的生存之路更加的通畅。"]
+			dependencies: ["7104037FBB82A165"]
+			id: "2B171B68CB4BAEB7"
+			tasks: [
+				{
+					id: "2FF629C0D3C95000"
+					type: "item"
+					item: "minecraft:cobblestone"
+					count: 20L
+				}
+				{
+					id: "008719E8DD5B7ACF"
+					type: "item"
+					item: {
+						id: "minecraft:stone_pickaxe"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+			]
+			rewards: [
+				{
+					id: "4A4C82E3C5981FB2"
+					type: "item"
+					item: {
+						id: "minecraft:stone_axe"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "47A42382EFC52D00"
+					type: "item"
+					item: {
+						id: "minecraft:stone_shovel"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "6956002D8F233711"
+					type: "item"
+					item: {
+						id: "minecraft:stone_hoe"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "7B54C98CDF91DF04"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+			]
+		}
+		{
+			title: "第一场战斗"
+			icon: {
+				id: "minecraft:iron_sword"
+				Count: 1b
+				tag: {
+					Damage: 0
+				}
+			}
+			x: 8.5d
+			y: 0.5d
+			description: ["宝可梦对战是这个世界的主要规则。现在寻找一只宝可梦，与其对战，熟悉熟悉规则吧！"]
+			dependencies: ["6BBC4B1833D589AE"]
+			id: "7D64A9CD4E6C920A"
+			tasks: [{
+				id: "1CFDCD1826A68892"
+				type: "advancement"
+				title: "赢得第一场对战的胜利"
+				advancement: "pixelmon:wild_battle_victories/wild_battle_victory_trigger"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "5E0FFF568C743C5E"
+					type: "pixelmon:pokedollars"
+					title: "5k宝可元"
+					count: 5000
+				}
+				{
+					id: "114D17DEA0E81760"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "1D1DD6808184AB39"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "相同的替身"
+			x: 11.0d
+			y: 0.5d
+			description: ["这个世界中也存在和你一样身份的训练家。找到他们，并且尝试与他们切磋一下吧！"]
+			dependencies: ["7D64A9CD4E6C920A"]
+			id: "5EBCBB1C1020C3CC"
+			tasks: [{
+				id: "21005BF4786A0E85"
+				type: "observation"
+				title: "找到一名训练家"
+				icon: "pixelmon:trainer_editor"
+				timer: 0L
+				observe_type: 5
+				to_observe: "pixelmon:npc_trainer"
+			}]
+			rewards: [
+				{
+					id: "66DAF9EA4D2CAA4C"
+					type: "pixelmon:pokeloot"
+					title: "随机道具"
+					count: 1
+					play_sound: true
+					loot_tier: 0b
+				}
+				{
+					id: "7D998E1056D0F4DD"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "4D685F25D7B9782F"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			title: "逗号键可以关闭引导线。"
+			x: -12.0d
+			y: -2.0d
+			subtitle: "逗号键可以关闭引导线。"
+			description: ["逗号键可以关闭引导线。"]
+			size: 2.0d
+			id: "34E7B5DEF817C4D2"
+			tasks: [{
+				id: "6F0F0A2052B83939"
+				type: "checkmark"
+				title: "逗号键可以关闭引导线。"
+			}]
+			rewards: [{
+				id: "2CB82B5CD3477343"
+				type: "command"
+				title: "逗号键可以关闭引导线。"
+				icon: "minecraft:paper"
+				auto: "enabled"
+				command: "/say 逗号键可以关闭引导线。"
+				player_command: false
+			}]
+		}
+		{
+			title: "四季变幻"
+			x: 21.5d
+			y: -1.5d
+			description: [
+				"整合包中加入了季节模组，不同的季节会为这片大地带来不同的变化。"
+				"将季节指示器放在红石灯上面，就可以告知当前的季节了！"
+				"现在赶快制作出来吧！"
+			]
+			dependencies: ["6B7EFAC470CC0B64"]
+			id: "550215B3A2751377"
+			tasks: [
+				{
+					id: "686CE3A5D2FD83C6"
+					type: "item"
+					item: "sereneseasons:season_sensor"
+				}
+				{
+					id: "7465E5A61883BA45"
+					type: "item"
+					item: "minecraft:redstone_lamp"
+				}
+			]
+			rewards: [
+				{
+					id: "6BF488621740661C"
+					type: "item"
+					item: {
+						id: "pixelmon:ruby_pickaxe"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+				}
+				{
+					id: "564E75C7C581C190"
+					type: "ftbmoney:money"
+					ftb_money: 150L
+				}
+				{
+					id: "0ABD1F49531CA918"
+					type: "xp"
+					xp: 150
+				}
+			]
+		}
+		{
+			title: "粉笔不是用来写字的"
+			x: 16.0d
+			y: -3.5d
+			description: [
+				"粉笔不能用来击败上课睡觉的学生，但是可以制造指引你的标记。"
+				"为了防止自己迷路，现在制作一根粉笔试试吧！"
+			]
+			dependencies: ["6B7A2E11B1EC6D58"]
+			id: "25151074E95E9054"
+			tasks: [{
+				id: "29E1BE38A86FE1AF"
+				type: "item"
+				title: "制作任意颜色的粉笔"
+				item: {
+					id: "itemfilters:tag"
+					Count: 1b
+					tag: {
+						value: "forge:chalk"
+					}
+				}
+			}]
+			rewards: [
+				{
+					id: "2FBF4FC2CF93FD98"
+					type: "choice"
+					icon: {
+						id: "chalk:cyan_chalk"
+						Count: 1b
+						tag: {
+							Damage: 0
+						}
+					}
+					table_id: 5242468910004178202L
+				}
+				{
+					id: "5BE3C70EC47339CF"
+					type: "ftbmoney:money"
+					ftb_money: 50L
+				}
+				{
+					id: "376A074F49609500"
+					type: "xp"
+					xp: 50
+				}
+			]
+		}
+		{
+			x: -12.0d
+			y: 3.0d
+			subtitle: "请务必使用Java11启动该整合包，否则会出现严重的bug！！！！"
+			description: ["请务必使用Java11启动该整合包，否则会出现严重的bug！！！！"]
+			size: 2.0d
+			id: "35EE98F3E4579F91"
+			tasks: [{
+				id: "372D57106C68B4D9"
+				type: "checkmark"
+				title: "请务必使用Java11启动该整合包，否则会出现严重的bug！！！！"
+			}]
+			rewards: [{
+				id: "53C3A123D53D0B80"
+				type: "command"
+				title: "请务必使用Java11启动该整合包，否则会出现严重的bug！！！！"
+				icon: "minecraft:paper"
+				auto: "enabled"
+				command: "/say 请务必使用Java11启动该整合包，否则会出现严重的bug！！！！"
+				player_command: false
+			}]
+		}
+		{
+			title: "球果的悬赏"
+			icon: {
+				id: "pixelmon:poke_ball"
+				Count: 1b
+				tag: {
+					PokeBallID: "master_ball"
+				}
+			}
+			x: 6.0d
+			y: 4.5d
+			description: ["消耗所有种类的球果各一组，可以兑换一个大师球。"]
+			dependencies: ["7C32CFC480DEC5CB"]
+			id: "29B0BA5ED2F400E3"
+			tasks: [
+				{
+					id: "7E9B7732E6F3FFF8"
+					type: "item"
+					item: "pixelmon:black_apricorn"
+					count: 64L
+					consume_items: true
+				}
+				{
+					id: "0983930E1FA1322F"
+					type: "item"
+					item: "pixelmon:white_apricorn"
+					count: 64L
+					consume_items: true
+				}
+				{
+					id: "51496F8E0C636C32"
+					type: "item"
+					item: "pixelmon:pink_apricorn"
+					count: 64L
+					consume_items: true
+				}
+				{
+					id: "4583192534BD4720"
+					type: "item"
+					item: "pixelmon:green_apricorn"
+					count: 64L
+					consume_items: true
+				}
+				{
+					id: "00B1A160178E07BE"
+					type: "item"
+					item: "pixelmon:blue_apricorn"
+					count: 64L
+					consume_items: true
+				}
+				{
+					id: "21ACEB0EF49934D5"
+					type: "item"
+					item: "pixelmon:red_apricorn"
+					count: 64L
+					consume_items: true
+				}
+				{
+					id: "74CD1E9C51D9A919"
+					type: "item"
+					item: "pixelmon:yellow_apricorn"
+					count: 64L
+					consume_items: true
+				}
+			]
+			rewards: [{
+				id: "5F6796E0B45C8E1C"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "master_ball"
+					}
+				}
+			}]
+		}
+		{
+			title: "光芒的悬赏"
+			icon: {
+				id: "pixelmon:poke_ball"
+				Count: 1b
+				tag: {
+					PokeBallID: "master_ball"
+				}
+			}
+			x: 21.5d
+			y: 2.5d
+			description: ["消耗一组荧石，可以兑换一个大师球。"]
+			dependencies: ["6B7EFAC470CC0B64"]
+			id: "657012B5E3A0646F"
+			tasks: [{
+				id: "39FFD8BA7CFAA2C4"
+				type: "item"
+				item: "minecraft:glowstone"
+				count: 64L
+				consume_items: true
+			}]
+			rewards: [{
+				id: "1B7C24B7F464FF61"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "master_ball"
+					}
+				}
+			}]
+		}
+		{
+			x: -12.0d
+			y: 0.5d
+			subtitle: "右上角可以打开商店！"
+			description: ["右上角可以打开商店！"]
+			size: 2.0d
+			id: "22ED53368E9269D2"
+			tasks: [{
+				id: "59E11D9ABD483589"
+				type: "checkmark"
+				title: "右上角可以打开商店！"
+			}]
+			rewards: [{
+				id: "4145A3800FBF78AE"
+				type: "command"
+				title: "右上角可以打开商店！"
+				icon: "minecraft:paper"
+				auto: "enabled"
+				command: "/say 右上角可以打开商店！"
+				player_command: false
+			}]
+		}
+		{
+			title: "无拘无束"
+			x: 13.5d
+			y: 2.5d
+			description: [
+				"你已经学会制作精灵球了！现在尝试捕捉一只宝可梦吧！"
+				"右键即可丢出精灵球！"
+			]
+			dependencies: ["624A7DAA626445E4"]
+			id: "5D5FA49EB24D03E1"
+			tasks: [{
+				id: "3E4BA12D7FF3B31A"
+				type: "advancement"
+				title: "捕捉任意宝可梦"
+				icon: "pixelmon:poke_display"
+				advancement: "pixelmon:types/capture_type_trigger"
+				criterion: ""
+			}]
+			rewards: [
+				{
+					id: "137C8738870B2A7A"
+					type: "item"
+					item: {
+						id: "pixelmon:poke_ball"
+						Count: 1b
+						tag: {
+							PokeBallID: "poke_ball"
+						}
+					}
+					count: 10
+				}
+				{
+					id: "67C047B5568A27F7"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "3240055507C3D88B"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "蓝光闪闪"
+			x: 14.5d
+			y: -5.5d
+			description: ["钻石在宝可梦世界中并没有拓展太多用途，几乎只能用来制作治疗仪。因此还是先用钻石制作附魔台吧！"]
+			dependencies: ["69DC729AB131C364"]
+			id: "581E4337EF11E5CA"
+			tasks: [{
+				id: "69FF1CB514F34067"
+				type: "item"
+				item: "minecraft:diamond"
+				count: 3L
+			}]
+			rewards: [
+				{
+					id: "5B9166FC1D86B27E"
+					type: "item"
+					item: "minecraft:diamond"
+					count: 2
+				}
+				{
+					id: "3F9B381473812B13"
+					type: "ftbmoney:money"
+					ftb_money: 100L
+				}
+				{
+					id: "2E311E2DC04E2292"
+					type: "xp"
+					xp: 100
+				}
+			]
+		}
+		{
+			title: "钻石的悬赏"
+			icon: {
+				id: "pixelmon:poke_ball"
+				Count: 1b
+				tag: {
+					PokeBallID: "master_ball"
+				}
+			}
+			x: 16.0d
+			y: -5.5d
+			description: ["消耗32个钻石，可以兑换一个大师球，要来试试吗？"]
+			dependencies: ["581E4337EF11E5CA"]
+			id: "43B36D04C478BF70"
+			tasks: [{
+				id: "7A522E08EFB3C881"
+				type: "item"
+				item: "minecraft:diamond"
+				count: 32L
+				consume_items: true
+			}]
+			rewards: [{
+				id: "5C38580AFE9C02E7"
+				type: "item"
+				item: {
+					id: "pixelmon:poke_ball"
+					Count: 1b
+					tag: {
+						PokeBallID: "master_ball"
+					}
+				}
+			}]
+		}
+		{
+			x: -6.5d
+			y: 0.5d
+			shape: "diamond"
+			subtitle: "如果金币数量显示异常，请点我！"
+			description: ["如果金币数量显示异常，请点我！"]
+			size: 2.0d
+			can_repeat: true
+			repeat_cooldown: 0
+			repeat_wait_all_members: true
+			id: "621F156471B2C856"
+			tasks: [{
+				id: "5450D93960A18982"
+				type: "checkmark"
+				title: "如果金币数量显示异常，请点我！"
+			}]
+			rewards: [{
+				id: "2AE23515B503A5E4"
+				type: "ftbmoney:money"
+				ftb_money: 0L
+			}]
+		}
+		{
+			x: -9.0d
+			y: 0.5d
+			description: [
+				"在这里特别感谢b站用户：没有好名字QXQ"
+				"对本整合包的大力支持！"
+				"这位负责了整合包的魔改部分。"
+				"而我（端忆）负责了任务的编写。"
+			]
+			id: "0D08B4EDEE635C0E"
+			tasks: [{
+				id: "44859C6499C7FD49"
+				type: "checkmark"
+				title: "鸣谢"
+			}]
+			rewards: [
+				{
+					id: "6260852263320200"
+					type: "item"
+					item: "minecraft:name_tag"
+				}
+				{
+					id: "575DFAA61585152A"
+					type: "ftbmoney:money"
+					ftb_money: 10L
+				}
+			]
+		}
+		{
+			x: 29.5d
+			y: 0.5d
+			description: ["完成某个任务后解锁。"]
+			hide_dependency_lines: true
+			dependencies: ["5E68A3512D5D8164"]
+			size: 1.5d
+			id: "68AB9A7F40A20747"
+			tasks: [{
+				id: "21CAE2B4A6128512"
+				type: "checkmark"
+				title: "第一章隐藏任务"
+			}]
+			rewards: [
+				{
+					id: "0890890AAF5AE673"
+					type: "item"
+					title: "下界合金块"
+					item: "pixelmon:peat_block"
+				}
+				{
+					id: "1E6F6F3D6BCC2D43"
+					type: "ftbmoney:money"
+					ftb_money: 200L
+				}
+				{
+					id: "0A791870155A45CF"
+					type: "xp"
+					xp: 200
+				}
+			]
+		}
+	]
+}

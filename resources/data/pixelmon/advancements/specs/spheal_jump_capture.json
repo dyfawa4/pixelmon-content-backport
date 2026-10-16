@@ -1,0 +1,94 @@
+{
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:363, palette:\"pokeball\", form:\"\"}"
+    },
+    "title": {
+      "translate": "advancements.spheal_jump.title"
+    },
+    "description": {
+      "translate": "advancements.spheal_jump.description"
+    },
+    "hidden": true
+  },
+  "parent": "pixelmon:specs/spec_trigger",
+  "criteria": {
+    "1": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:pokeball",
+        "backport_expected_dex": 363
+      }
+    },
+    "2": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:duskball",
+        "backport_expected_dex": 363
+      }
+    },
+    "3": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:loveball",
+        "backport_expected_dex": 363
+      }
+    },
+    "4": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:friendball",
+        "backport_expected_dex": 363
+      }
+    },
+    "5": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:heavyball",
+        "backport_expected_dex": 363
+      }
+    },
+    "6": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:moonball",
+        "backport_expected_dex": 363
+      }
+    },
+    "7": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:premierball",
+        "backport_expected_dex": 363
+      }
+    },
+    "8": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:masterball",
+        "backport_expected_dex": 363
+      }
+    },
+    "9": {
+      "trigger": "pixelmon:spec_trigger",
+      "conditions": {
+        "spec": "Spheal palette:gsball",
+        "backport_expected_dex": 363
+      }
+    }
+  },
+  "requirements": [
+    [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9"
+    ]
+  ]
+}

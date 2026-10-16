@@ -3,7 +3,7 @@ loaderVersion="[36,)"
 license="MIT"
 [[mods]]
 modId="backport_client_test"
-version="1.4.3"
+version="1.4.4"
 displayName="回迁测试地图配套"
 description='''Controls and prepared fixtures for the Content Backport feature maps and eighteen independent v6 gym inspection maps.'''
 [[dependencies.backport_client_test]]

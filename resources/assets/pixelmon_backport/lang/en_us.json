@@ -772,5 +772,13 @@
   "structure.pixelmon_backport.ultra_forest_tera_den": "Ultra Forest Tera Den",
   "structure.pixelmon_backport.ultra_jungle_tera_den": "Ultra Jungle Tera Den",
   "structure.pixelmon_backport.ultra_plant_tera_den": "Ultra Plant Tera Den",
-  "pixelmon.backport.cap.capture_warning": "This Pokemon cannot be caught with a Master Ball, Park Ball, or Origin Ball."
+  "pixelmon.backport.cap.capture_warning": "This Pokemon cannot be caught with a Master Ball, Park Ball, or Origin Ball.",
+  "pixelmon.backport.java11.title": "Warning ⚠",
+  "pixelmon.backport.java11.current": "Current Java version: %s",
+  "pixelmon.backport.java11.reason": "This Pixelmon version relies on Java 11. Other versions can fail initialization and interrupt battles.",
+  "pixelmon.backport.java11.step1": "Quit the game. Select 64-bit Java 11 in this instance's launcher settings.",
+  "pixelmon.backport.java11.step2": "Save the setting and restart. Java 11 will be allowed automatically.",
+  "pixelmon.backport.java11.blocked": "Creating worlds, loading saves and joining servers are blocked.",
+  "pixelmon.backport.java11.notice": "Java11 is not in use. Please start the game with %s! Use %s to continue.",
+  "pixelmon.backport.java11.bundled": "Your download includes %s. Extract it and import it into your launcher!"
 }

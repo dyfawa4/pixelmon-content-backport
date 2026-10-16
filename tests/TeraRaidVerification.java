@@ -63,7 +63,7 @@ public final class TeraRaidVerification {
             require(player.field_71071_by.field_70462_a.stream().anyMatch(s->TechnicalMoveItem.getMove(s)!=null && TechnicalMoveItem.getMove(s).getAttackName().equals("Tera Blast")),"Victory TM171 not delivered to native inventory");
             require(player.field_71071_by.field_70462_a.stream().anyMatch(s->s.func_77973_b()==local.pixelmon.backport.Backport.REGISTERED.get("water_tera_shard").get() && s.func_190916_E()>=4),"Victory matching shards not delivered");
             party.set(1,null);
-            net.minecraft.item.Item ball=TeraRaids.rewardItem("pixelmon:poke_ball");net.minecraft.item.ItemStack stack=new net.minecraft.item.ItemStack(ball,2);player.func_184611_a(net.minecraft.util.Hand.MAIN_HAND,stack);int before=party.countPokemon();data.processAction(10,0,stack,player);require(stack.func_190916_E()==1 && party.countPokemon()==before+1,"Native raid capture/consumption failed");
+            net.minecraft.item.Item ball=TeraRaids.rewardItem("pixelmon:master_ball");net.minecraft.item.ItemStack stack=new net.minecraft.item.ItemStack(ball,2);player.func_184611_a(net.minecraft.util.Hand.MAIN_HAND,stack);int before=party.countPokemon();data.processAction(10,0,stack,player);require(stack.func_190916_E()==1 && party.countPokemon()==before+1,"Native raid capture/consumption failed");
             System.out.println("BACKPORT_TERA_RAID_PLAYER_PASS native lobby/four allies/start/actual Tera/shield/victory rewards/TM171/capture/ball consumption");
         }finally{if(battle!=null && !battle.battleEnded)battle.endBattleWithoutXP();den.func_70106_y();party.set(0,original);for(int i=1;i<6;i++)party.set(i,null);player.func_184611_a(net.minecraft.util.Hand.MAIN_HAND,previous);}
     }

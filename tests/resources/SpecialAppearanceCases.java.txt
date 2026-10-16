@@ -1,0 +1,44 @@
+package fixture;
+import com.google.gson.*;
+import com.pixelmonmod.pixelmon.api.pokemon.Pokemon;
+import com.pixelmonmod.pixelmon.api.advancements.triggers.SpecTrigger;
+import local.pixelmon.backport.mixin.*;
+import net.minecraft.loot.ConditionArrayParser;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+public final class SpecialAppearanceCases {
+    static final class Factory extends SpecCriterionFactoryMixin {}
+    static java.lang.reflect.Method factory,guard;
+    static void check(boolean ok,String message){if(!ok)throw new AssertionError(message);}
+    static boolean matches(JsonObject condition,Pokemon pokemon,boolean nativeMatch)throws Exception{
+        SpecTrigger.Instance instance=new SpecTrigger.Instance(nativeMatch);
+        var created=new CallbackInfoReturnable<SpecTrigger.Instance>("createInstance",false,instance);
+        factory.invoke(new Factory(),condition,null,created);
+        var tested=new CallbackInfoReturnable<Boolean>("test",true);
+        guard.invoke(instance,pokemon,tested);
+        return tested.isCancelled()?tested.getReturnValue():instance.test(pokemon);
+    }
+    public static void run(String data)throws Exception{
+        factory=SpecCriterionFactoryMixin.class.getDeclaredMethod("backport$species",JsonObject.class,ConditionArrayParser.class,CallbackInfoReturnable.class);factory.setAccessible(true);
+        guard=SpecCriterionSpeciesMixin.class.getDeclaredMethod("backport$exactSpecies",Pokemon.class,CallbackInfoReturnable.class);guard.setAccessible(true);
+        var rows=new JsonParser().parse(data).getAsJsonArray();int comparisons=0;
+        for(var row:rows){
+            var c=row.getAsJsonObject();int expected=c.get("backport_expected_dex").getAsInt();String key=c.get("criterion").getAsString();
+            // Unresolved species matcher returns true: actual injected guard must still refuse every wrong species.
+            for(int dex=1;dex<=1026;dex++){check(matches(c,new Pokemon(dex,false),true)==(dex==expected),"Wrong-species match: "+key+"/"+dex);comparisons++;}
+            check(!matches(c,new Pokemon(expected,true),true),"Egg matched: "+key);
+            check(!matches(c,null,true),"Null matched: "+key);
+            check(!matches(c,new Pokemon(expected,false),false),"Guard bypassed native palette/form rejection: "+key);
+        }
+        for(String name:new String[]{"Eevee","unown","minior"}){
+            var old=new JsonObject();old.addProperty("spec",name);
+            check(matches(old,new Pokemon(501,false),true),"Old empty-spec reproduction missing");
+        }
+        for(String spec:new String[]{"s","palette:rainbow","palette:zombie","palette:summer"}){
+            var c=new JsonObject();c.addProperty("spec",spec);
+            check(matches(c,new Pokemon(501,false),true),"Real shiny/palette result blocked");
+            check(!matches(c,new Pokemon(501,false),false),"Ordinary starter bypassed native shiny/palette check");
+        }
+        System.out.println("PASS production guards: "+comparisons+" species comparisons, all 250 eggs/null/native-rejection cases and reported three unguarded starter matches reproduced.");
+    }
+}

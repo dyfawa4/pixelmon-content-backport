@@ -34,6 +34,8 @@ Write-Output 'Offline checks complete. Gameplay and natural-world acceptance are
 if($LASTEXITCODE -ne 0){throw 'Utility command target boundaries failed'}
 & $taskBuild.java -ea -cp $taskCP EeveeFamilyVerification
 if($LASTEXITCODE -ne 0){throw 'Eevee family criteria verification failed'}
+& $taskBuild.java -ea -cp $taskCP SpecialAppearanceVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Special appearance starter/species criteria regression failed'}
 & $taskBuild.java -ea -cp $taskCP NpcSwitchPolicyVerification
 if($LASTEXITCODE -ne 0){throw 'NPC switch policy verification failed'}
 & $taskBuild.java -ea -cp $taskCP GymTrainingVerification
@@ -44,10 +46,20 @@ if($LASTEXITCODE -ne 0){throw 'Acquisition verification failed'}
 if($LASTEXITCODE -ne 0){throw 'Field sequence verification failed'}
 & $taskBuild.java -ea -cp $taskCP BurstVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Burst/species verification failed'}
+& $taskBuild.java -ea -cp $taskCP CapTeraLearningVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Cap Pikachu Tera Blast learning regression failed'}
+& $taskBuild.java -ea -cp $taskCP JavaRuntimeGateVerification
+if($LASTEXITCODE -ne 0){throw 'Strict Java 11 world/menu gate verification failed'}
 & $taskBuild.java -ea -cp $taskCP LegendaryBirdVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Legendary bird criteria verification failed'}
 & $taskBuild.java -ea -cp $taskCP AcquisitionCoverageVerification
 if($LASTEXITCODE -ne 0){throw 'Acquisition coverage verification failed'}
+& $taskBuild.java -ea -cp $taskCP Legendary144Verification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Legendary 1.4.4 PCBox and Crowned completion regressions failed'}
+& $taskBuild.java -ea -cp $taskCP BurstZCrashVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Z move border crash regression failed'}
+& $taskBuild.java -ea -cp $taskCP BossCaptureVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Wild Boss ball selection verification failed'}
 & $taskBuild.java -ea -cp $taskCP GymPrizeVerification
 if($LASTEXITCODE -ne 0){throw 'Gym prize verification failed'}
 
