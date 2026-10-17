@@ -4,7 +4,7 @@
 
 这是一个独立的附加模组：在保留旧版重铸本体与整合包的基础上，加入新种类、ZA Mega 形态、携带道具、进化物品和中文资料，并提供太晶战斗、独立太晶巢穴及对应获取渠道。适合希望继续使用 1.16.5，同时体验更多新内容的玩家。
 
-`1.5.0 发布准备版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
+`1.5.0 正式版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
 
 **[最新版本：1.5.0](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.5.0)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
 
