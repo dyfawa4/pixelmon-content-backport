@@ -1,0 +1,34 @@
+package fixture;
+import com.pixelmonmod.pixelmon.api.events.battles.BagItemEvent;
+import com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBall;
+import com.pixelmonmod.pixelmon.battles.controller.*;
+import com.pixelmonmod.pixelmon.battles.controller.participants.*;
+import local.pixelmon.backport.CapBallGuard;
+
+public class CapBallGuardCases {
+    static void check(boolean ok,String why){if(!ok)throw new AssertionError(why);}
+    public static void run(){
+        var player=new PlayerParticipant();var battle=new BattleController();player.bc=battle;battle.participant=player;
+        var own=new PixelmonWrapper();player.controlledPokemon.add(own);
+        var enemy=new WildPixelmonParticipant();enemy.team=1;player.opponents.add(enemy);var target=new PixelmonWrapper();target.entity.pokemon=target.pokemon;enemy.controlledPokemon.add(target);
+        var event=new BagItemEvent.SelectItem.Pre();event.battle=battle;event.player=player.player;event.stack=new net.minecraft.item.ItemStack();event.stack.ball=true;
+        var guard=new CapBallGuard();
+        for(String ball:new String[]{"master_ball","origin_ball","park_ball","poke_ball","great_ball","ultra_ball","dusk_ball","premier_ball"})for(boolean shiny:new boolean[]{false,true})for(int dex:new int[]{25,1026,150}){
+            event.stack.kind=ball;event.canceled=false;player.player.messages=0;player.player.packets=0;target.pokemon.species.dex=dex;target.pokemon.shiny=shiny;
+            boolean reject=dex==1026&&(ball.equals("master_ball")||ball.equals("origin_ball")||ball.equals("park_ball"));
+            guard.choose(event);check(event.canceled==reject,"Wrong battle restriction "+dex+":"+ball+":"+shiny);
+            check(event.stack.count==9&&own.wait&&own.selectedAction==41,"Consumed item or action");
+            check(player.player.messages==(reject?1:0)&&player.player.packets==(reject?1:0),"Missing explanation/menu restore or legal ball disturbed");
+            check(CapBallGuard.fieldBlocked(new PokeBall(ball),target.entity)==reject,"Wrong field restriction");
+        }
+        target.pokemon.species.dex=1026;event.stack.kind="master_ball";
+        for(int n=0;n<12;n++){
+            event.canceled=false;event.player=player.player;event.stack.ball=true;event.stack.empty=false;battle.raid=false;battle.tera=false;battle.simulateMode=false;battle.battleEnded=false;target.onBattlefield=true;target.alive=true;player.opponents.clear();player.opponents.add(enemy);var entity=target.entity;
+            if(n==0)event.stack.ball=false;if(n==1)battle.raid=true;if(n==2)battle.tera=true;if(n==3)battle.simulateMode=true;if(n==4)battle.battleEnded=true;if(n==5)target.onBattlefield=false;if(n==6)target.alive=false;if(n==7)target.entity=null;if(n==8){player.opponents.clear();var trainer=new BattleParticipant();trainer.controlledPokemon.add(target);player.opponents.add(trainer);}if(n==9)player.opponents.clear();if(n==10)event.player=new net.minecraft.entity.player.ServerPlayerEntity();if(n==11)event.stack.empty=true;
+            player.player.messages=0;player.player.packets=0;guard.choose(event);check(!event.canceled&&player.player.messages==0&&player.player.packets==0,"Battle boundary "+n);target.entity=entity;
+        }
+        var entity=target.entity;entity.owned=true;check(!CapBallGuard.fieldBlocked(new PokeBall("master_ball"),entity),"Owned field target intercepted");entity.owned=false;entity.trainer=new com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer();check(!CapBallGuard.fieldBlocked(new PokeBall("park_ball"),entity),"Trainer field target intercepted");entity.trainer=null;
+        check(!CapBallGuard.fieldBlocked(null,entity)&&!CapBallGuard.fieldBlocked(new PokeBall("master_ball"),null),"Null field input");
+        System.out.println("PASS cap three-ball guard: 8 ball kinds x normal/shiny x 3 species, pre-commit item/turn preservation, chat/menu recovery, legal-ball pass-through, owned/trainer/null field negatives and 12 battle boundaries. Native field return path checked in the actual client separately.");
+    }
+}

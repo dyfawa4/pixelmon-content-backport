@@ -1,0 +1,8 @@
+{
+  "baseline": "v1.4.4",
+  "unchanged_movement_resource_files": 7,
+  "changed_movement_resource_files": [],
+  "native_entry": "AbstractInteractionsEntity native interaction remains in place",
+  "runtime": "Onix native immediate remount passed 3 times; original non-rideable cap control retained",
+  "limits": "Resource/code parity plus representative runtime checks; no claim of every creature manually tested"
+}

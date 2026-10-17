@@ -156,4 +156,15 @@ Git 标签 `v1.4.4` 与 Release 的 `Pixelmon-Backport-source-1.4.4.zip` 均保�
 
 专项智皮卡地图用 `pwsh -File build-cap-test-map.ps1` 生成，再执行 `python tools/package_release.py --version 1.4.4` 与 `python tools/verify_release_package.py --version 1.4.4`。打包校验会核对全部 Java 11 类、当前主模组、9／21／1 张地图、已验收岩石城快照和源码覆盖。
 
+## 太晶外观样板
+
+已转换的 19 种冠冕直接包含在 `resources/`，普通构建无需下载。重新研究资源可运行 `python tools/fetch_tera_visual_upstream.py`，它从官方 Modrinth 9.4.1 ZIP 按范围读取冠冕及研究条目，并将研究 class 留在忽略的 `.cache/`；`python tools/convert_tera_visuals.py` 生成旧版冠冕、遮罩和来源清单。转换与完整资源审计需要 `requirements-tools.txt` 中的工具库。
+
+构建后运行 `python tools/audit_tera_visuals.py --pixelmon-jar <本体.jar> --output docs/TERA_VISUAL_MODEL_AUDIT_1.4.5.json`。`check.ps1` 含不启动游戏的外观顶点/透明度和 Mixin 验证。`pwsh -File build-tera-visual-test-map.ps1 -Revision r2` 生成单独手动样板地图包，包含 19 属性、体型配对、特殊形态与自制戴帽皮卡丘正常/异色对照。脚本拒绝覆盖已有 ZIP，重新打包应更换 revision；它不启动游戏。验收说明见 `TERA_VISUAL_TEST_MAP.md`，当前界限与结果见 `docs/TERA_VISUAL_VALIDATION_1.4.5.md`。
+
 `tools/清理旧缓存.cmd` 与 `cleanup-local.ps1` 是原开发机的只读清单预览工具，不参与构建，不会删除文件，`-Execute` 被禁用。其他机器不用运行它们。
+
+
+## 1.5.0 发布封装
+
+当前版本为 1.5.0，未发布的 1.4.5 内容全部并入。上文旧版本命令为历史示例；恢复本版使用标签 `v1.5.0`。使用 JDK 11 构建，再执行一次 `check.ps1`，随后构建原功能／城市／帽皮三包及 NPC、太晶、乘骑专项地图。使用 `python tools/package_offline_test.py --output-dir .cache/offline-150 --build-id 1.5.0-release` 整理 14 张干净地图，再执行 `python tools/package_release.py --version 1.5.0 --source-ref HEAD` 与 `python tools/verify_release_package.py --version 1.5.0`。源码按已提交的指定 Git 版本封装，避免混入本地无关修改。正式模组不包含地图辅助和自动验收代码。

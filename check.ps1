@@ -1,6 +1,8 @@
 [CmdletBinding()]
 param([Parameter(Mandatory=$true)][string] $PixelmonJar,[Parameter(Mandatory=$true)][string] $LibrariesDirectory)
 $ErrorActionPreference='Stop'
+python -X utf8 (Join-Path $PSScriptRoot 'tools/audit_npc_quests.py') --pixelmon-jar $PixelmonJar --output (Join-Path $PSScriptRoot '.cache/npc-quests-145/quest-audit.json')
+if($LASTEXITCODE -ne 0){throw 'NPC quest graph/localization audit failed'}
 $taskBuild=Get-Content -LiteralPath (Join-Path $PSScriptRoot '.cache/last-build.json') -Raw | ConvertFrom-Json
 $taskTests=(New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot '.cache/test-classes')).FullName
 $taskJavac=Join-Path (Split-Path $taskBuild.java) 'javac.exe'
@@ -25,6 +27,8 @@ if($LASTEXITCODE -ne 0){throw 'Test compilation failed'}
 if($LASTEXITCODE -ne 0){throw 'Mixin verification failed'}
 & $taskBuild.java -ea -cp $taskCP GymLookupStaticVerification
 if($LASTEXITCODE -ne 0){throw 'Gym lookup static verification failed'}
+& $taskBuild.java -ea -cp $taskCP TeraVisualVerification
+if($LASTEXITCODE -ne 0){throw 'Tera visuals geometry and lifecycle verification failed'}
 & $taskBuild.java -ea -cp $taskCP Version13StaticVerification
 if($LASTEXITCODE -ne 0){throw 'Version 1.3 static verification failed'}
 & $taskBuild.java -ea -cp $taskCP GymItemAllowanceVerification
@@ -54,6 +58,8 @@ if($LASTEXITCODE -ne 0){throw 'Strict Java 11 world/menu gate verification faile
 if($LASTEXITCODE -ne 0){throw 'Legendary bird criteria verification failed'}
 & $taskBuild.java -ea -cp $taskCP AcquisitionCoverageVerification
 if($LASTEXITCODE -ne 0){throw 'Acquisition coverage verification failed'}
+& $taskBuild.java -ea -cp $taskCP LateBloomerVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Late bloomer acquisition resources and collection verification failed'}
 & $taskBuild.java -ea -cp $taskCP Legendary144Verification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Legendary 1.4.4 PCBox and Crowned completion regressions failed'}
 & $taskBuild.java -ea -cp $taskCP BurstZCrashVerification $PixelmonJar

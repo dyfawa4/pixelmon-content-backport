@@ -21,6 +21,14 @@ args = parser.parse_args()
 out = args.output_dir.resolve()
 assert not out.exists(), 'Use a fresh output directory; existing deliveries are not overwritten'
 version = re.search(r'^version="([^"]+)"', (root/'resources/META-INF/mods.toml').read_text(), re.M).group(1)
+if version == '1.5.0':
+    from package_offline_150 import package
+    package(root, out, args.build_id)
+    raise SystemExit(0)
+if version == '1.4.5':
+    from package_offline_145 import package
+    package(root, out, args.build_id)
+    raise SystemExit(0)
 assert version in {'1.4.3', '1.4.4'}, 'Review the test instructions before packaging a different version'
 assert args.build_id.startswith(version+'-'), 'Build ID must match the actual addon version'
 dist = root/'dist'

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 /** A separate, versioned channel: no modification to native packet layouts. */
 public final class TeraNetwork {
-    public static final SimpleChannel CHANNEL=NetworkRegistry.newSimpleChannel(new ResourceLocation(Content.NS,"tera"),()->"8","8"::equals,"8"::equals);
+    public static final SimpleChannel CHANNEL=NetworkRegistry.newSimpleChannel(new ResourceLocation(Content.NS,"tera"),()->"10","10"::equals,"10"::equals);
     private TeraNetwork(){}
     public static void raidStatus(TeraRaidParticipant raid){if(raid.bc.simulateMode)return;for(ServerPlayerEntity player:raid.bc.getPlayerEntities())CHANNEL.send(PacketDistributor.PLAYER.with(()->player),new RaidStatus(raid.bc.battleIndex,(int)Math.max(0,300-raid.rules.elapsed/20),raid.charge(raid.bc.getParticipantForEntity(player)),raid.rules.segments(),raid.stars));}
     private static final Map<BattleController,Snapshot> LAST=Collections.synchronizedMap(new WeakHashMap<>());

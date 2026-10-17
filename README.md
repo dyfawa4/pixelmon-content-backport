@@ -4,11 +4,17 @@
 
 这是一个独立的附加模组：在保留旧版重铸本体与整合包的基础上，加入新种类、ZA Mega 形态、携带道具、进化物品和中文资料，并提供太晶战斗、独立太晶巢穴及对应获取渠道。适合希望继续使用 1.16.5，同时体验更多新内容的玩家。
 
-`1.4.4 正式版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
+`1.5.0 发布准备版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
 
-**[最新版本：下载 1.4.4](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.4.4)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
+**[最新版本：1.5.0](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.5.0)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
 
 ---
+
+## 1.5.0 更新
+
+重构乘骑操控、转向、模型座位和视角；新增 19 属性太晶冠冕及晶体外观；完善 NPC 任务提交与对话恢复，加入“大器晚成”获得成就和帽皮三种珍贵球保护；修复空气奖励，隔离道馆徽章奖池，馆主复活道具换为活力块。主菜单只更换背景。
+
+原乘骑／飞行资格、碰撞箱和既有玩法保持。全部未发布 1.4.5 内容并入 1.5.0，1.4.4 作为旧正式版保留。详见 [更新说明](docs/RELEASE_1.5.0.md)、[验证范围](docs/VALIDATION_1.5.0.md) 和 [乘骑测试地图](RIDING_TEST_MAP.md)。
 
 ## 1.4.4 更新
 
@@ -59,27 +65,27 @@ FTB“发现结构”任务补齐模组结构类型注册 ID 的识别，沿用�
 
 各物品的适用条件、配方、掉落和操作步骤，见 [完整玩法与获取手册](HANDBOOK.md)。
 
-## 已发布 1.4.4 下载与安装
+## 1.5.0 下载与安装
 
 | 下载 | 用途 |
 | :--- | :--- |
-| `pixelmon-content-backport-1.16.5-1.4.4.jar` | 单独安装补丁 |
-| `Pixelmon-Backport-1.4.4.zip` | 功能包：模组 JAR、完整手册与安装说明 |
-| `Pixelmon-Backport-test-maps-1.4.4.zip` | 原七张功能地图，加骑乘、捕捉成就与合体两张独立地图 |
-| `Pixelmon-Backport-gym-test-maps-1.4.4.zip` | 十八张城市、徽章展示和岩石城版本地图，共21张；最新岩石城为已验收快照 |
-| `Pixelmon-Backport-cap-test-map-1.4.4.zip` | 智皮卡专项手动测试地图 |
-| `Pixelmon-Backport-Cap-Pikachu-1.4.4.md` | 智皮卡与智皮卡Z详细玩法 |
-| `Pixelmon-Backport-source-1.4.4.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
-| `Pixelmon-Backport-Handbook-1.4.4.md` | 单独阅读或分享完整玩法说明 |
-| `Pixelmon-Backport-Greninja-1.4.4.md` | 忍蛙技能更新、三回合规则与新成就 |
-| `1.4.4-离线测试包-最新.zip` | 同版本模组、11 张干净地图、任务书覆盖与说明 |
-| `SHA256SUMS-1.4.4.txt` | 校验全部发布文件（离线包另附独立 SHA-256） |
+| `pixelmon-content-backport-1.16.5-1.5.0.jar` | 单独安装补丁 |
+| `Pixelmon-Backport-1.5.0.zip` | 功能包：模组 JAR、完整手册与安装说明 |
+| `Pixelmon-Backport-test-maps-1.5.0.zip` | 原七张功能地图，加骑乘、捕捉成就与合体两张独立地图 |
+| `Pixelmon-Backport-gym-test-maps-1.5.0.zip` | 十八张城市、徽章展示和岩石城版本地图，共21张；最新岩石城为已验收快照 |
+| `Pixelmon-Backport-cap-test-map-1.5.0.zip` | 智皮卡专项手动测试地图 |
+| `Pixelmon-Backport-Cap-Pikachu-1.5.0.md` | 智皮卡与智皮卡Z详细玩法 |
+| `Pixelmon-Backport-source-1.5.0.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
+| `Pixelmon-Backport-Handbook-1.5.0.md` | 单独阅读或分享完整玩法说明 |
+| `Pixelmon-Backport-Greninja-1.5.0.md` | 忍蛙技能更新、三回合规则与新成就 |
+| `1.5.0-离线测试包-最新.zip` | 同版本模组、14 张干净地图、任务书覆盖与说明 |
+| `SHA256SUMS-1.5.0.txt` | 校验全部发布文件（离线包另附独立 SHA-256） |
 
-上述文件可从 [1.4.4 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.4.4) 下载，也可由构建脚本生成到 `dist/`。
+上述文件可从 [1.5.0 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.5.0) 下载，也可由构建脚本生成到 `dist/`。
 
 1. 准备 Minecraft **1.16.5**、Forge **36.2.42**、**Java 11** 和旧版 Pixelmon 重铸本体。已验证文件名为 9.1.13、内部版本为 9.1.12 的本体。
 2. 关闭游戏与服务器，备份存档；升级时移除旧版回迁功能模组，只保留一份。
-3. 解压功能包，将 `mods/pixelmon-content-backport-1.16.5-1.4.4.jar` 放入实际游戏实例的 `mods` 目录，然后启动游戏。多人游戏中，服务器和所有客户端使用相同版本。
+3. 解压功能包，将 `mods/pixelmon-content-backport-1.16.5-1.5.0.jar` 放入实际游戏实例的 `mods` 目录，然后启动游戏。多人游戏中，服务器和所有客户端使用相同版本。
 4. 如需道具查询，安装 JEI **1.16.5 / 7.x**；如需测试地图，按 [地图指南](TEST_MAPS.md) 安装独立地图包。
 
 本版已集成JEI连接及巢穴捕捉动画修复，移除旧的 `pixelmon-jei-fix` 和 `pixelmon-raid-catch-fix` 独立补丁，保留JEI依赖。

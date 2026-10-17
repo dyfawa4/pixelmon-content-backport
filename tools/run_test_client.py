@@ -9,6 +9,9 @@ p.add_argument('--pixelmon',type=pathlib.Path,required=True)
 p.add_argument('--instance-name',help='Separate private instance folder name; letters, digits and hyphens only')
 p.add_argument('--manual',action='store_true',help='Launch a separate normal menu for manual acceptance, with current helper and initial maps; no automatic QA')
 p.add_argument('--map-helper',type=pathlib.Path,help='Current compiled manual map helper JAR')
+p.add_argument('--addon-jar',type=pathlib.Path,help='Explicit local addon for comparing a saved baseline in a private instance')
+p.add_argument('--manual-world',type=pathlib.Path,help='Stage only this initial manual world instead of the historical map sets')
+p.add_argument('--open-world',action='store_true',help='Open the selected manual world using its opt-in map helper')
 p.add_argument('--memory-gb',type=int,choices=range(2,17),default=5,help='Maximum Java heap in GiB')
 p.add_argument('--field-wheel-preview',action='store_true',help='Private field wheel UI fixture; requires a separate instance name')
 p.add_argument('--full-pack',action='store_true',help='Copy enabled pack mods/configuration into a separate QA instance')
@@ -19,6 +22,9 @@ if a.manual and (not a.instance_name or not a.map_helper or a.ui_preview or a.fi
     p.error('--manual requires --instance-name and --map-helper, and cannot use automatic preview modes')
 a.version_json=a.version_json.resolve();a.minecraft_root=a.minecraft_root.resolve()
 build=json.loads((root/'.cache/last-build.json').read_text(encoding='utf-8-sig'))
+if a.addon_jar:
+    if not a.instance_name or not a.addon_jar.is_file():p.error('--addon-jar requires a private instance and an existing JAR')
+    build['jar']=str(a.addon_jar.resolve())
 version=json.loads(a.version_json.read_text(encoding='utf-8-sig'));gamedir=root/('.cache/test-client-full' if a.full_pack else '.cache/test-client')
 if a.instance_name:
     if not __import__('re').fullmatch(r'[a-z0-9-]+',a.instance_name):raise ValueError('Invalid isolated instance name')
@@ -28,6 +34,24 @@ gamedir.mkdir(exist_ok=True);(gamedir/'mods').mkdir(exist_ok=True)
 old=str(a.pixelmon.resolve())
 with zipfile.ZipFile(build['jar']) as addon_archive:
     merged_patches='local/pixelmon/backport/client/RaidCatchClock.class' in addon_archive.namelist() and 'local/pixelmon/backport/client/JeiConnectionRepair.class' in addon_archive.namelist()
+    addon_version=__import__('re').search(r'^version="([^"]+)"',addon_archive.read('META-INF/mods.toml').decode('utf-8'),__import__('re').M).group(1)
+if a.manual:
+    # Catch stale test-helper bounds before opening Forge's loading-error screen.
+    import tomllib
+    with zipfile.ZipFile(a.map_helper) as helper_archive:
+        helper_meta=tomllib.loads(helper_archive.read('META-INF/mods.toml').decode('utf-8'))
+    def numeric_version(value):
+        pieces=[int(v) for v in value.split('.')]
+        return tuple((pieces+[0,0,0])[:3])
+    for dependencies in helper_meta.get('dependencies',{}).values():
+        for dependency in dependencies:
+            if dependency.get('modId')!='pixelmon_backport':continue
+            requirement=dependency.get('versionRange','')
+            match=__import__('re').fullmatch(r'([\[(])([^,]*),([^\])]*)([\])])',requirement)
+            if not match:continue
+            left,low,high,right=match.groups();current=numeric_version(addon_version)
+            allowed=(not low or current>numeric_version(low) or current==numeric_version(low) and left=='[') and (not high or current<numeric_version(high) or current==numeric_version(high) and right==']')
+            if not allowed:p.error(f'Test helper {a.map_helper.name} requires {requirement}; addon is {addon_version}. Rebuild the helper for the current version before launching.')
 if a.full_pack:
     # Original saves, accounts, options and logs are never copied or modified.
     for source in (a.version_json.parent/'mods').glob('*.jar'):
@@ -40,13 +64,19 @@ if a.full_pack:
     if not a.manual:shutil.copy2(root/'.cache/test-client/mods/backport-client-test.jar',gamedir/'mods/backport-client-test.jar')
 if a.manual:
     shutil.copy2(a.map_helper,gamedir/'mods'/a.map_helper.name)
-    for folder in ['saves','gym-saves-v9']:
-        for source in (root/'test-maps'/folder).iterdir():
-            destination=gamedir/'saves'/source.name
-            if source.is_dir() and not destination.exists():shutil.copytree(source,destination)
+    if a.manual_world:
+        source=a.manual_world.resolve()
+        if not source.is_dir() or not (source/'level.dat').is_file():raise ValueError('Manual world needs an existing initial level.dat')
+        destination=gamedir/'saves'/source.name
+        if not destination.exists():shutil.copytree(source,destination)
+    else:
+        for folder in ['saves','gym-saves-v9']:
+            for source in (root/'test-maps'/folder).iterdir():
+                destination=gamedir/'saves'/source.name
+                if source.is_dir() and not destination.exists():shutil.copytree(source,destination)
 for src,name in [(old,'Pixelmon-legacy.jar'),(build['jar'],'backport-dev.jar')]:
     target=gamedir/'mods'/name
-    if not target.exists() or pathlib.Path(src).stat().st_mtime>target.stat().st_mtime:shutil.copy2(src,target)
+    if (a.addon_jar and name=='backport-dev.jar') or not target.exists() or pathlib.Path(src).stat().st_mtime>target.stat().st_mtime:shutil.copy2(src,target)
 if a.instance_name and a.gym_map and not (gamedir/'mods/backport-client-test.jar').exists():
     shutil.copy2(root/'.cache/test-client/mods/backport-feedback-client-test.jar.disabled',gamedir/'mods/backport-feedback-client-test.jar')
 if a.field_wheel_preview:
@@ -124,6 +154,7 @@ if a.gym_map:
 world=root/'.cache/test-server/backport-test';destination=gamedir/'saves/backport-test'
 if not a.manual and not destination.exists():shutil.copytree(world,destination)
 args=[build['java'],'-XX:-OmitStackTraceInFastThrow','-Xms1G',f'-Xmx{a.memory_gb}G',f'-Djava.library.path={natives}',
+      '-Dbackport.manual.world='+(a.manual_world.name if a.manual and a.manual_world and a.open_world else ''),
       '-Dminecraft.launcher.brand=Backport-Manual' if a.manual else '-Dminecraft.launcher.brand=Backport-QA','-Dminecraft.launcher.version=1','-Dmixin.debug.export=true','-Dbackport.network.test='+str(not a.manual).lower(),
       '-Dbackport.gallery.enabled='+str(not a.manual and not a.full_pack).lower(),
       '-Dbackport.ui.preview='+str(a.ui_preview).lower(),

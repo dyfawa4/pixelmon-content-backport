@@ -11,6 +11,6 @@ public final class PokeChestLootVerification {
         boolean claim=false,give=false,cancel=false;
         for(MethodNode m:Version13StaticVerification.node("com/pixelmonmod/pixelmon/blocks/PokeChestBlock").methods)if(m.name.equals("func_225533_a_"))for(var i:m.instructions)if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;claim|=c.name.equals("addClaimer");give|=c.name.equals("giveItemStack");cancel|=c.name.equals("post");}
         check(claim && give && cancel,"Native claim/give/fullbag/cancellation path missing");
-        System.out.println("PASS wild master-chest scope, null/air/nonpositive rejection, native valid-array and per-drop fallback wiring, original claim/cancel/fullbag path retained; no game initialized.");
+        System.out.println("PASS loot validity guards and wild master-chest fallback scope; original native claim/cancel/fullbag path retained. Broad chest/query/weighted-pool gameplay cases run in RewardGameTest.");
     }
 }

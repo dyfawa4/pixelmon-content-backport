@@ -12,6 +12,13 @@ Minecraft、Forge、Pixelmon 旧版本体及参考定制版完整 JAR 是用户�
 
 官方来源：[Pixelmon](https://reforged.gg/)、[Pixelmon Wiki](https://pixelmonmod.com/wiki/)、[Minecraft Forge](https://files.minecraftforge.net/)、[Minecraft](https://www.minecraft.net/)。本项目不是 Pixelmon 官方发布。
 
+太晶化外观回迁使用官方 Pixelmon 1.21.1 9.4.1（Modrinth 版本 `tY57GRtu`）的 19 种太晶冠冕。原始路径为 `assets/pixelmon/textures/hat/tera_jewel/`；保留网格坐标、法线、UV 与原始 PNG 字节，仅将静态骨架合并为旧版可稳定读取的单根骨架。逐文件来源、原始/转换后哈希和面数见 `resources/backport/tera_visual_sources.json`，转换工具为 `tools/convert_tera_visuals.py`。这些冠冕与贴图保留 Pixelmon 及原作者权利，不在本项目 MIT 代码许可范围内。身体结晶遮罩 `textures/tera/facets.png` 由本项目工具生成；渲染与同步代码为本项目实现，未打包高版本反编译代码。
+
+2026-10-17 的材质修正进一步参考同一官方版本 `assets/pixelmon/shaders/core/terrastalization.*`、`stellar.*` 的逐三角面明暗、闪烁及边缘反光思路，并参考宝可梦朱／紫官网的太晶化外观说明。参考文件哈希与链接见 `resources/backport/tera_material_reference.json`。旧版使用本项目的固定管线三角面适配实现，没有将高版本 Java 类或无法直接运行的 ShaderInstance 着色器打入正式 JAR；相关上游参考内容仍保留原作者权利。原先生成的 `facets.png` 仍保留在资源中，当前身体渲染不再读取该 UV 图案，避免细长部位产生拉伸条纹。
+
 1.4.2 将用户提供的 `pixelmon-jei-fix` 与 `pixelmon-raid-catch-fix` 两份 MIT 补丁源码合入附加模组：分别恢复 JEI 的服务端通道判断和修正高帧率巢穴捕捉动画计时。保留来源项目的版权与许可文本，见 `resources/META-INF/licenses/JEI_CONNECTION_FIX.txt`、`resources/META-INF/licenses/RAID_CATCH_ANIMATION_FIX.txt`。不打包独立补丁模组的入口或注册额外模组ID。
 
 1.4.1 的46份ZA Mega普通／闪光头像复用 [PokemonWorkshop/GameDataPacks](https://github.com/PokemonWorkshop/GameDataPacks/tree/d430fb553df98ccde5f9f90ece78e36b07d8083c) 的像素素材，作者为 Batin、ezerart、Luis779，源素材整理为 Aelysya。本项目只提取64×32双帧图的第一张32×32图，没有重新生成、缩放或重绘。素材按其来源的 Pokemon Studio Public License（署名、非商业、相同方式共享）保留许可，MIT代码许可不覆盖这些素材。完整归属见[随JAR打包的声明](resources/META-INF/MEGA_AVATAR_CREDITS.txt)，逐文件来源见[资源清单](resources/backport/mega_avatar_sources.json)。
+
+
+1.5.0 主菜单背景由用户提供并指定使用，为 Minecraft 村庄与戴帽皮卡丘截图；原画面中的 Minecraft／Pixelmon 等上游素材权利保持不变。文件为 `resources/assets/pixelmon_backport/textures/gui/journey_background.png`。

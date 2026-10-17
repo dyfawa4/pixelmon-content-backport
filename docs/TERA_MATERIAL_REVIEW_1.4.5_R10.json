@@ -1,0 +1,280 @@
+{
+  "casesPerBuild": 138,
+  "subjects": {
+    "1026-0": {
+      "pairs": {
+        "水/电": {
+          "r9BodyRgbDifference": 2.048,
+          "candidateBodyRgbDifference": 11.831
+        },
+        "幽灵/妖精": {
+          "r9BodyRgbDifference": 1.305,
+          "candidateBodyRgbDifference": 5.376
+        },
+        "一般/钢": {
+          "r9BodyRgbDifference": 0.537,
+          "candidateBodyRgbDifference": 1.509
+        },
+        "水/冰": {
+          "r9BodyRgbDifference": 0.618,
+          "candidateBodyRgbDifference": 4.983
+        },
+        "超能力/妖精": {
+          "r9BodyRgbDifference": 0.805,
+          "candidateBodyRgbDifference": 2.527
+        }
+      },
+      "medianSkinChangeByType": {
+        "一般": 2.3333333333333335,
+        "火": 1.6666666666666667,
+        "水": 3.3333333333333335,
+        "草": 2.0,
+        "电": 1.3333333333333333,
+        "冰": 2.6666666666666665,
+        "格斗": 2.0,
+        "毒": 2.6666666666666665,
+        "地面": 1.3333333333333333,
+        "飞行": 2.3333333333333335,
+        "超能力": 2.3333333333333335,
+        "虫": 1.6666666666666667,
+        "岩石": 1.3333333333333333,
+        "幽灵": 2.6666666666666665,
+        "龙": 2.6666666666666665,
+        "恶": 2.3333333333333335,
+        "钢": 2.3333333333333335,
+        "妖精": 2.3333333333333335,
+        "星晶": 2.3333333333333335
+      }
+    },
+    "1026-1": {
+      "pairs": {
+        "水/电": {
+          "r9BodyRgbDifference": 2.109,
+          "candidateBodyRgbDifference": 11.869
+        },
+        "幽灵/妖精": {
+          "r9BodyRgbDifference": 1.32,
+          "candidateBodyRgbDifference": 5.382
+        },
+        "一般/钢": {
+          "r9BodyRgbDifference": 0.498,
+          "candidateBodyRgbDifference": 1.559
+        },
+        "水/冰": {
+          "r9BodyRgbDifference": 0.689,
+          "candidateBodyRgbDifference": 4.966
+        },
+        "超能力/妖精": {
+          "r9BodyRgbDifference": 0.725,
+          "candidateBodyRgbDifference": 2.497
+        }
+      },
+      "medianSkinChangeByType": {
+        "一般": 2.6666666666666665,
+        "火": 1.3333333333333333,
+        "水": 3.6666666666666665,
+        "草": 2.6666666666666665,
+        "电": 1.3333333333333333,
+        "冰": 3.0,
+        "格斗": 1.6666666666666667,
+        "毒": 2.6666666666666665,
+        "地面": 1.3333333333333333,
+        "飞行": 2.6666666666666665,
+        "超能力": 2.3333333333333335,
+        "虫": 1.6666666666666667,
+        "岩石": 1.6666666666666667,
+        "幽灵": 3.0,
+        "龙": 3.0,
+        "恶": 2.6666666666666665,
+        "钢": 2.6666666666666665,
+        "妖精": 2.6666666666666665,
+        "星晶": 2.6666666666666665
+      }
+    },
+    "197-0": {
+      "pairs": {
+        "水/电": {
+          "r9BodyRgbDifference": 2.675,
+          "candidateBodyRgbDifference": 15.442
+        },
+        "幽灵/妖精": {
+          "r9BodyRgbDifference": 1.703,
+          "candidateBodyRgbDifference": 6.999
+        },
+        "一般/钢": {
+          "r9BodyRgbDifference": 1.327,
+          "candidateBodyRgbDifference": 2.762
+        },
+        "水/冰": {
+          "r9BodyRgbDifference": 0.811,
+          "candidateBodyRgbDifference": 6.379
+        },
+        "超能力/妖精": {
+          "r9BodyRgbDifference": 1.017,
+          "candidateBodyRgbDifference": 3.256
+        }
+      },
+      "medianSkinChangeByType": {
+        "一般": 8.333333333333334,
+        "火": 5.0,
+        "水": 5.0,
+        "草": 3.6666666666666665,
+        "电": 7.333333333333333,
+        "冰": 7.666666666666667,
+        "格斗": 4.666666666666667,
+        "毒": 6.333333333333333,
+        "地面": 5.0,
+        "飞行": 7.333333333333333,
+        "超能力": 5.666666666666667,
+        "虫": 5.666666666666667,
+        "岩石": 5.333333333333333,
+        "幽灵": 4.0,
+        "龙": 5.0,
+        "恶": 2.0,
+        "钢": 7.0,
+        "妖精": 7.666666666666667,
+        "星晶": 6.0
+      }
+    },
+    "38-0": {
+      "pairs": {
+        "水/电": {
+          "r9BodyRgbDifference": 2.841,
+          "candidateBodyRgbDifference": 18.52
+        },
+        "幽灵/妖精": {
+          "r9BodyRgbDifference": 1.802,
+          "candidateBodyRgbDifference": 8.394
+        },
+        "一般/钢": {
+          "r9BodyRgbDifference": 1.126,
+          "candidateBodyRgbDifference": 2.692
+        },
+        "水/冰": {
+          "r9BodyRgbDifference": 0.859,
+          "candidateBodyRgbDifference": 7.791
+        },
+        "超能力/妖精": {
+          "r9BodyRgbDifference": 1.11,
+          "candidateBodyRgbDifference": 3.902
+        }
+      },
+      "medianSkinChangeByType": {
+        "一般": 2.0,
+        "火": 5.666666666666667,
+        "水": 4.666666666666667,
+        "草": 5.0,
+        "电": 4.666666666666667,
+        "冰": 3.0,
+        "格斗": 5.666666666666667,
+        "毒": 4.0,
+        "地面": 4.666666666666667,
+        "飞行": 3.0,
+        "超能力": 4.0,
+        "虫": 4.666666666666667,
+        "岩石": 3.3333333333333335,
+        "幽灵": 4.333333333333333,
+        "龙": 4.0,
+        "恶": 5.666666666666667,
+        "钢": 2.3333333333333335,
+        "妖精": 3.0,
+        "星晶": 3.3333333333333335
+      }
+    },
+    "6-0": {
+      "pairs": {
+        "水/电": {
+          "r9BodyRgbDifference": 2.985,
+          "candidateBodyRgbDifference": 10.581
+        },
+        "幽灵/妖精": {
+          "r9BodyRgbDifference": 1.953,
+          "candidateBodyRgbDifference": 4.762
+        },
+        "一般/钢": {
+          "r9BodyRgbDifference": 0.699,
+          "candidateBodyRgbDifference": 1.594
+        },
+        "水/冰": {
+          "r9BodyRgbDifference": 0.898,
+          "candidateBodyRgbDifference": 4.319
+        },
+        "超能力/妖精": {
+          "r9BodyRgbDifference": 1.173,
+          "candidateBodyRgbDifference": 2.21
+        }
+      },
+      "medianSkinChangeByType": {
+        "一般": 3.3333333333333335,
+        "火": 2.0,
+        "水": 3.3333333333333335,
+        "草": 2.6666666666666665,
+        "电": 2.3333333333333335,
+        "冰": 3.6666666666666665,
+        "格斗": 2.3333333333333335,
+        "毒": 3.3333333333333335,
+        "地面": 1.6666666666666667,
+        "飞行": 3.3333333333333335,
+        "超能力": 2.6666666666666665,
+        "虫": 2.6666666666666665,
+        "岩石": 2.3333333333333335,
+        "幽灵": 3.0,
+        "龙": 3.0,
+        "恶": 2.3333333333333335,
+        "钢": 3.0,
+        "妖精": 3.0,
+        "星晶": 3.0
+      }
+    },
+    "6-1": {
+      "pairs": {
+        "水/电": {
+          "r9BodyRgbDifference": 3.288,
+          "candidateBodyRgbDifference": 10.732
+        },
+        "幽灵/妖精": {
+          "r9BodyRgbDifference": 2.152,
+          "candidateBodyRgbDifference": 4.866
+        },
+        "一般/钢": {
+          "r9BodyRgbDifference": 0.778,
+          "candidateBodyRgbDifference": 1.639
+        },
+        "水/冰": {
+          "r9BodyRgbDifference": 1.009,
+          "candidateBodyRgbDifference": 4.37
+        },
+        "超能力/妖精": {
+          "r9BodyRgbDifference": 1.279,
+          "candidateBodyRgbDifference": 2.234
+        }
+      },
+      "medianSkinChangeByType": {
+        "一般": 4.666666666666667,
+        "火": 2.6666666666666665,
+        "水": 3.6666666666666665,
+        "草": 3.0,
+        "电": 3.6666666666666665,
+        "冰": 4.333333333333333,
+        "格斗": 2.6666666666666665,
+        "毒": 3.3333333333333335,
+        "地面": 3.0,
+        "飞行": 4.333333333333333,
+        "超能力": 3.3333333333333335,
+        "虫": 3.0,
+        "岩石": 3.3333333333333335,
+        "幽灵": 2.6666666666666665,
+        "龙": 3.3333333333333335,
+        "恶": 1.3333333333333333,
+        "钢": 4.0,
+        "妖精": 4.333333333333333,
+        "星晶": 3.6666666666666665
+      }
+    }
+  },
+  "note": "Descriptive RGB differences in actual body screenshots. Crowns and UI excluded. Not an all-species acceptance result.",
+  "candidateMainSha256": "8670fce760fba74210a2ce63c60fb26aa3de91ec8617812487be2dc8cf52f55c",
+  "baselineMainSha256": "7082540b8d30f62b44abbdba00c8ed6df647e93cfcd12b2fd71ae2ed206717ff",
+  "totalActualScreenshots": 276,
+  "renderingErrors": 0
+}

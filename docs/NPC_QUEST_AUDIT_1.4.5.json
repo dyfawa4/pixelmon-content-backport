@@ -1,0 +1,792 @@
+{
+  "version": "1.4.5",
+  "pixelmon_jar": "【像素宝可梦 重铸】Pixelmon-1.16.5-9.1.13-universal.jar",
+  "quest_count": 39,
+  "stage_count": 165,
+  "objective_types": {
+    "APRICORN_HARVEST": 8,
+    "BLOCKER": 12,
+    "BLOCK_BREAK": 2,
+    "BLOCK_USE": 2,
+    "DATE": 3,
+    "DEX_VALUES_SPEC_INSERTER": 5,
+    "DIALOGUE": 82,
+    "DIMENSION": 3,
+    "ENTITY_INTERACT": 2,
+    "FLAG": 2,
+    "FOLLOWTHROUGH": 4,
+    "INTEGER_INSERTER": 14,
+    "ITEM_CRAFT": 15,
+    "ITEM_HAS": 3,
+    "ITEM_PICKUP": 1,
+    "NAME_INSERTER": 26,
+    "NPC_GIVE": 16,
+    "NPC_RESPOND": 54,
+    "NPC_TALK": 46,
+    "NPC_TIMED_INSERTER": 26,
+    "POKEMON_CAPTURE": 12,
+    "POKEMON_DEFEAT": 18,
+    "POKEMON_DEFEATED_BY": 1,
+    "RANDOM": 3,
+    "STRING_INSERTER": 2,
+    "STRUCTURE": 4,
+    "TILEENTITY_VICINITY": 5,
+    "TIMER": 1,
+    "TRAINER_DEFEAT": 1,
+    "TYPE_VALUES_SPEC_INSERTER": 4
+  },
+  "quests": [
+    {
+      "id": "data/pixelmon/quests/blue/catch_15.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "INTEGER_INSERTER": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "STRING_INSERTER": 1,
+        "TYPE_VALUES_SPEC_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "f9af2a253b45a6bfece7c76cd120201027406a0864aea309fb39d6cd37372ed1"
+    },
+    {
+      "id": "data/pixelmon/quests/blue/catch_shiny.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "4d1ef0eabf975b2948c3f8c0af844c7f95dc89b66b7d00d774753eac756214b8"
+    },
+    {
+      "id": "data/pixelmon/quests/blue/defeat_30.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "INTEGER_INSERTER": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_DEFEAT": 1,
+        "STRING_INSERTER": 1,
+        "TYPE_VALUES_SPEC_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "7300dfe2ea147d39b202f9304443ff36d704f9644ada3d91dd1156f29dba6076"
+    },
+    {
+      "id": "data/pixelmon/quests/blue/defeat_5_specific.json",
+      "stages": 3,
+      "objective_types": {
+        "DEX_VALUES_SPEC_INSERTER": 5,
+        "DIALOGUE": 2,
+        "INTEGER_INSERTER": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_DEFEAT": 5
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "c36b10cf3a8e5502a42e2d51e4a7e1388de16e6a81585bf426fce77d11cfbc42"
+    },
+    {
+      "id": "data/pixelmon/quests/blue/find_pokeloot.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "INTEGER_INSERTER": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "TILEENTITY_VICINITY": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "2f58737f9f84e986f9ecfe4f156fa9df61b7a9c574b84951eba5543dd9dcda38"
+    },
+    {
+      "id": "data/pixelmon/quests/blue/mine_20_diamonds.json",
+      "stages": 3,
+      "objective_types": {
+        "BLOCK_BREAK": 1,
+        "DIALOGUE": 2,
+        "INTEGER_INSERTER": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "1d4f04b06e1d65c9b32590af1f83f306ae6477b97fe1f797c44665bcc4a237ab"
+    },
+    {
+      "id": "data/pixelmon/quests/blue/mine_50_redstone.json",
+      "stages": 3,
+      "objective_types": {
+        "BLOCK_BREAK": 1,
+        "DIALOGUE": 2,
+        "INTEGER_INSERTER": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "a3c33476498c70304757b46a85680fe35f32def8c315868c4488e8a39f60b9ff"
+    },
+    {
+      "id": "data/pixelmon/quests/blue/pick_apricorns.json",
+      "stages": 3,
+      "objective_types": {
+        "APRICORN_HARVEST": 7,
+        "DIALOGUE": 2,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "8e95085895283f0f77ffa7ff49a5bf9b6d54fb7d5078715606e81f5bd59afb39"
+    },
+    {
+      "id": "data/pixelmon/quests/green/catch_a_pokemon.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "POKEMON_CAPTURE": 1,
+        "TYPE_VALUES_SPEC_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "9c46736c9ca1957e84dbc13bb7f5e7a10277b26d5d8fbdb3f4ad38ed6943bf36"
+    },
+    {
+      "id": "data/pixelmon/quests/green/craft_great_ball.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "ITEM_CRAFT": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "d350d90beee9f331927dc6bc41ff680d7c6331fa459c55b575a344ce7ea6c482"
+    },
+    {
+      "id": "data/pixelmon/quests/green/craft_healer.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "ITEM_CRAFT": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "af718fdd7506604021dba9b95d235950dff2c41116da843b9b613692031f3627"
+    },
+    {
+      "id": "data/pixelmon/quests/green/craft_pc.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "ITEM_CRAFT": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "eac5b829b51ed13e0de1536cfc075fc3684cd3e001a053ad9049bb39b54ebd04"
+    },
+    {
+      "id": "data/pixelmon/quests/green/craft_poke_ball.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "ITEM_CRAFT": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "4abb7dce559b272fd783d30be7e7624f5a050a39c53dd21b16bf8ab7a1ed9304"
+    },
+    {
+      "id": "data/pixelmon/quests/green/craft_ultra_ball.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "ITEM_CRAFT": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "3aaf373db437ad6efa22dfe7dc3264e8805211c47b021caa25929f453bde7c5e"
+    },
+    {
+      "id": "data/pixelmon/quests/green/defeat_a_pokemon.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "POKEMON_DEFEAT": 1,
+        "TYPE_VALUES_SPEC_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "1a318f3659bd04c5e56cc60f761f5906ee158c3aee1082d63304baf44b551e8c"
+    },
+    {
+      "id": "data/pixelmon/quests/green/find_master_ball.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "ITEM_PICKUP": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "bacdb61782cf1fb3d0ad18c52c4109752a7db56668a431e8b83dc69f772f3d46"
+    },
+    {
+      "id": "data/pixelmon/quests/green/find_village.json",
+      "stages": 1,
+      "objective_types": {
+        "STRUCTURE": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "c930365489f87bfafc3c144b64afc8a4fdf65c57086699e868751fc5167e0d03"
+    },
+    {
+      "id": "data/pixelmon/quests/green/heal_team.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "BLOCK_USE": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "cf00fb920d766e77e25be1b7281952230460ab30575a23bb40882cb92bc75c3d"
+    },
+    {
+      "id": "data/pixelmon/quests/green/open_pc.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "BLOCK_USE": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "1fb5b3e5f2f181f87672748d51dfc22196c372f9d12f2c1f9b6c65a4c01a60fc"
+    },
+    {
+      "id": "data/pixelmon/quests/green/pick_apricorn.json",
+      "stages": 2,
+      "objective_types": {
+        "APRICORN_HARVEST": 1,
+        "BLOCKER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "4ac6b7f156e919a10d88bad75cc48a5507d0e30895c98930aea3dda360d33c37"
+    },
+    {
+      "id": "data/pixelmon/quests/green/talk_to_npc.json",
+      "stages": 2,
+      "objective_types": {
+        "BLOCKER": 1,
+        "ENTITY_INTERACT": 2
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "3eaf375d2f3733d69a65ef962de660ec0fa2639a160c0de523378fa1801f4acb"
+    },
+    {
+      "id": "data/pixelmon/quests/magenta/dynamax.json",
+      "stages": 9,
+      "objective_types": {
+        "DIALOGUE": 7,
+        "INTEGER_INSERTER": 3,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 6,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "POKEMON_DEFEAT": 1,
+        "TRAINER_DEFEAT": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "b8a75b0c89496bbaf022a9a23ad50b923bc3a13ec653fcd60ce5c5a6378dea9f"
+    },
+    {
+      "id": "data/pixelmon/quests/red/articuno.json",
+      "stages": 10,
+      "objective_types": {
+        "DIALOGUE": 5,
+        "INTEGER_INSERTER": 1,
+        "ITEM_CRAFT": 1,
+        "ITEM_HAS": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 4,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "POKEMON_DEFEAT": 1,
+        "TILEENTITY_VICINITY": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "319dfc3e0570624ca722e4d1cc73a831119b65161538c686c39ea457fed37fe8"
+    },
+    {
+      "id": "data/pixelmon/quests/red/celebi.json",
+      "stages": 23,
+      "objective_types": {
+        "DIALOGUE": 13,
+        "INTEGER_INSERTER": 1,
+        "ITEM_CRAFT": 7,
+        "NAME_INSERTER": 1,
+        "NPC_GIVE": 14,
+        "NPC_RESPOND": 4,
+        "NPC_TALK": 3,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "TILEENTITY_VICINITY": 1,
+        "TIMER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "15eaf631a6a77c1adaafb90ff96836798ad047c64485af55299f7767a52af4de"
+    },
+    {
+      "id": "data/pixelmon/quests/red/galarian_articuno.json",
+      "stages": 7,
+      "objective_types": {
+        "DIALOGUE": 4,
+        "FOLLOWTHROUGH": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 3,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "POKEMON_DEFEAT": 1,
+        "RANDOM": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "cf4da3c1dfbd640f8922342e0b6ffee74762d1bca3a4b1dfda86b677a21416a9"
+    },
+    {
+      "id": "data/pixelmon/quests/red/galarian_moltres.json",
+      "stages": 7,
+      "objective_types": {
+        "DIALOGUE": 4,
+        "FOLLOWTHROUGH": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 3,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "POKEMON_DEFEAT": 1,
+        "RANDOM": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "05bc06f3465737088df5c4df5664f5b6299879c1236079bdc711be1e171930a2"
+    },
+    {
+      "id": "data/pixelmon/quests/red/galarian_zapdos.json",
+      "stages": 7,
+      "objective_types": {
+        "DIALOGUE": 4,
+        "FOLLOWTHROUGH": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 3,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "POKEMON_DEFEAT": 1,
+        "RANDOM": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "cb6be9fab3a4a16891906788b3662693796b186c95566d82e4bfca2b009321d2"
+    },
+    {
+      "id": "data/pixelmon/quests/red/moltres.json",
+      "stages": 10,
+      "objective_types": {
+        "DIALOGUE": 5,
+        "INTEGER_INSERTER": 1,
+        "ITEM_CRAFT": 1,
+        "ITEM_HAS": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 4,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "POKEMON_DEFEAT": 1,
+        "TILEENTITY_VICINITY": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "f761452b45a3b3ac72d4f1524209aa366e8a980614bddf56d7ee9ec4245f53ca"
+    },
+    {
+      "id": "data/pixelmon/quests/red/zapdos.json",
+      "stages": 10,
+      "objective_types": {
+        "DIALOGUE": 5,
+        "INTEGER_INSERTER": 1,
+        "ITEM_CRAFT": 1,
+        "ITEM_HAS": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 4,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "POKEMON_DEFEAT": 1,
+        "TILEENTITY_VICINITY": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "48481e86a80dd2c6eba44019bdbaedbce4425a6ecc6069d6b3855540cd322187"
+    },
+    {
+      "id": "data/pixelmon/quests/special/defeat_drowned.json",
+      "stages": 5,
+      "objective_types": {
+        "DATE": 1,
+        "DIALOGUE": 2,
+        "FLAG": 1,
+        "INTEGER_INSERTER": 1,
+        "NAME_INSERTER": 1,
+        "NPC_GIVE": 2,
+        "NPC_RESPOND": 2,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_DEFEAT": 2,
+        "POKEMON_DEFEATED_BY": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "4a6c619fb6ed048bb2c434f0ff6c1c6e83ac8fdaffb214cdbfaf38601b3c3d3a"
+    },
+    {
+      "id": "data/pixelmon/quests/special/enter_drowned_world.json",
+      "stages": 3,
+      "objective_types": {
+        "DATE": 1,
+        "DIALOGUE": 1,
+        "FOLLOWTHROUGH": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TIMED_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "2be35fbe60495c722ecbb0b97699ae3873a70bc7cd083f9a7ab06c553c12b7f2"
+    },
+    {
+      "id": "data/pixelmon/quests/special/waterbreathing.json",
+      "stages": 4,
+      "objective_types": {
+        "DATE": 1,
+        "DIALOGUE": 2,
+        "FLAG": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_CAPTURE": 1,
+        "POKEMON_DEFEAT": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "b8e678ffc0c76a4018c321f01952639f24b343e620b73d339ccd75246c0773e7"
+    },
+    {
+      "id": "data/pixelmon/quests/yellow/defeat_250.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "POKEMON_DEFEAT": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "12a98c988d2784147bf7673552f9e2a3b7c75e6885f2d2eaa2a0e515bfc0a814"
+    },
+    {
+      "id": "data/pixelmon/quests/yellow/find_fortress.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "STRUCTURE": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "c83c6ca5be8eb71788f4355f111b242ef45cdf9ec42496a19bc257ed4aa866e0"
+    },
+    {
+      "id": "data/pixelmon/quests/yellow/find_pyramid.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "STRUCTURE": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "80e3a6d202395cf709202bf3b9b61bd8f39f19a0dbeec056ba6a1bf363ec1862"
+    },
+    {
+      "id": "data/pixelmon/quests/yellow/find_stronghold.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1,
+        "STRUCTURE": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "f86050e97920cbe680f19ee9148b32bee9a307199499c935e574543cfc6630dd"
+    },
+    {
+      "id": "data/pixelmon/quests/yellow/visit_end.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "DIMENSION": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "7719ed4a911c990add6c1756ad9b7046a34f9bbe02d7ac8b0481784342b7508b"
+    },
+    {
+      "id": "data/pixelmon/quests/yellow/visit_nether.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "DIMENSION": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "36d1fb4be40a4336c6628d0328df611c908487a09849c06a3c06ff7ce4f5e0d2"
+    },
+    {
+      "id": "data/pixelmon/quests/yellow/visit_ultra_space.json",
+      "stages": 3,
+      "objective_types": {
+        "DIALOGUE": 2,
+        "DIMENSION": 1,
+        "NAME_INSERTER": 1,
+        "NPC_RESPOND": 2,
+        "NPC_TALK": 1,
+        "NPC_TIMED_INSERTER": 1
+      },
+      "retained": true,
+      "reward_and_stage_definition_changed": false,
+      "native_definition_sha256": "2a33068ec7f07f018af6767e6ee3f8de4513cc02322f88d267ee37501087a3cc"
+    }
+  ],
+  "graph_errors": [],
+  "unresolved_dialogue_keys": [],
+  "localization": {
+    "native_missing_zh_keys_before_addon": [
+      "ability.Hospitality",
+      "ability.Hospitality.description",
+      "ability.MindsEye",
+      "ability.MindsEye.description",
+      "ability.SupersweetSyrup",
+      "ability.SupersweetSyrup.description",
+      "ability.ToxicChain",
+      "ability.ToxicChain.description",
+      "item.pixelmon.boss_music_disc",
+      "item.pixelmon.boss_music_disc.desc",
+      "item.pixelmon.custom_music_disc",
+      "item.pixelmon.custom_music_disc.desc",
+      "item.pixelmon.gym_music_disc",
+      "item.pixelmon.gym_music_disc.desc",
+      "item.pixelmon.legendary_music_disc",
+      "item.pixelmon.legendary_music_disc.desc",
+      "item.pixelmon.player_music_disc",
+      "item.pixelmon.player_music_disc.desc",
+      "item.pixelmon.pokecenter_music_disc",
+      "item.pixelmon.pokecenter_music_disc.desc",
+      "item.pixelmon.raid_music_disc",
+      "item.pixelmon.raid_music_disc.desc",
+      "item.pixelmon.tm_gen9.171",
+      "item.pixelmon.tm_gen9.172",
+      "item.pixelmon.tm_gen9.173",
+      "item.pixelmon.tm_gen9.174",
+      "item.pixelmon.tm_gen9.175",
+      "item.pixelmon.tm_gen9.176",
+      "item.pixelmon.tm_gen9.177",
+      "item.pixelmon.tm_gen9.178",
+      "item.pixelmon.tm_gen9.179",
+      "item.pixelmon.tm_gen9.180",
+      "item.pixelmon.tm_gen9.181",
+      "item.pixelmon.tm_gen9.182",
+      "item.pixelmon.tm_gen9.183",
+      "item.pixelmon.tm_gen9.184",
+      "item.pixelmon.tm_gen9.185",
+      "item.pixelmon.tm_gen9.186",
+      "item.pixelmon.tm_gen9.187",
+      "item.pixelmon.tm_gen9.188",
+      "item.pixelmon.tm_gen9.189",
+      "item.pixelmon.tm_gen9.190",
+      "item.pixelmon.tm_gen9.191",
+      "item.pixelmon.tm_gen9.192",
+      "item.pixelmon.tm_gen9.193",
+      "item.pixelmon.tm_gen9.194",
+      "item.pixelmon.tm_gen9.195",
+      "item.pixelmon.tm_gen9.196",
+      "item.pixelmon.tm_gen9.197",
+      "item.pixelmon.tm_gen9.198",
+      "item.pixelmon.tm_gen9.199",
+      "item.pixelmon.tm_gen9.200",
+      "item.pixelmon.tm_gen9.201",
+      "item.pixelmon.tm_gen9.202",
+      "item.pixelmon.tm_gen9.203",
+      "item.pixelmon.tm_gen9.204",
+      "item.pixelmon.tm_gen9.205",
+      "item.pixelmon.tm_gen9.206",
+      "item.pixelmon.tm_gen9.207",
+      "item.pixelmon.tm_gen9.208",
+      "item.pixelmon.tm_gen9.209",
+      "item.pixelmon.tm_gen9.210",
+      "item.pixelmon.tm_gen9.211",
+      "item.pixelmon.tm_gen9.212",
+      "item.pixelmon.tm_gen9.213",
+      "item.pixelmon.tm_gen9.214",
+      "item.pixelmon.tm_gen9.215",
+      "item.pixelmon.tm_gen9.216",
+      "item.pixelmon.tm_gen9.217",
+      "item.pixelmon.tm_gen9.218",
+      "item.pixelmon.tm_gen9.219",
+      "item.pixelmon.tm_gen9.220",
+      "item.pixelmon.tm_gen9.221",
+      "item.pixelmon.tm_gen9.222",
+      "item.pixelmon.tm_gen9.223",
+      "item.pixelmon.tm_gen9.224",
+      "item.pixelmon.tm_gen9.225",
+      "item.pixelmon.tm_gen9.226",
+      "item.pixelmon.tm_gen9.227",
+      "item.pixelmon.tm_gen9.228",
+      "item.pixelmon.tm_gen9.229",
+      "item.pixelmon.trainer_music_disc",
+      "item.pixelmon.trainer_music_disc.desc",
+      "item.pixelmon.ultraspace_music_disc",
+      "item.pixelmon.ultraspace_music_disc.desc",
+      "item.pixelmon.wild_music_disc",
+      "item.pixelmon.wild_music_disc.desc",
+      "pixelmon.abilities.hospitality",
+      "pixelmon.abilities.mindseye",
+      "pixelmon.abilities.revenant9",
+      "pixelmon.abilities.supersweetsyrup",
+      "pixelmon.clobbopus.palette.shiny.description",
+      "pixelmon.command.spectest.failure",
+      "pixelmon.command.spectest.failure.miss",
+      "pixelmon.command.spectest.failure.no_spec",
+      "pixelmon.command.spectest.failure.not_player",
+      "pixelmon.command.spectest.failure.not_pokemon",
+      "pixelmon.command.spectest.success",
+      "pixelmon.cosmetic.hat.witch",
+      "pixelmon.dipplin",
+      "pixelmon.dipplin.description",
+      "pixelmon.effect.frostbitten",
+      "pixelmon.evolution.conditions.moveuses",
+      "pixelmon.fezandipiti",
+      "pixelmon.fezandipiti.description",
+      "pixelmon.flag.nodrops",
+      "pixelmon.flag.unbattleable",
+      "pixelmon.flag.unbreedable",
+      "pixelmon.flag.uncatchable",
+      "pixelmon.flag.undexable",
+      "pixelmon.flag.unmegaevo",
+      "pixelmon.flag.untradeable",
+      "pixelmon.generic.form.bike",
+      "pixelmon.magikarp.palette.shiny.description",
+      "pixelmon.munkidori",
+      "pixelmon.munkidori.description",
+      "pixelmon.ogerpon",
+      "pixelmon.ogerpon.description",
+      "pixelmon.ogerpon.form.cornerstone",
+      "pixelmon.ogerpon.form.hearthflame",
+      "pixelmon.ogerpon.form.teal",
+      "pixelmon.ogerpon.form.wellspring",
+      "pixelmon.okidogi",
+      "pixelmon.okidogi.description",
+      "pixelmon.palette.autumn",
+      "pixelmon.palette.spring",
+      "pixelmon.palette.tangela",
+      "pixelmon.palette.winter",
+      "pixelmon.palette.witch",
+      "pixelmon.poltchageist",
+      "pixelmon.poltchageist.description",
+      "pixelmon.poltchageist.form.artisan",
+      "pixelmon.poltchageist.form.counterfeit",
+      "pixelmon.shellos.palette.shiny.description",
+      "pixelmon.sinistcha",
+      "pixelmon.sinistcha.description",
+      "pixelmon.sinistcha.form.masterpiece",
+      "pixelmon.sinistcha.form.unremarkable",
+      "pixelmon.slugma.palette.shiny.description",
+      "pixelmon.spheal.palette.shiny.description",
+      "pixelmon.status.drowsycure",
+      "pixelmon.status.drowsycureitem",
+      "pixelmon.status.freefromsnaptrap",
+      "pixelmon.status.frostbitecure",
+      "pixelmon.status.frostbitecureitem",
+      "pixelmon.status.frostbitehurt",
+      "pixelmon.ursaluna.form.bloodmoon",
+      "pixelmon.ursaluna.form.bloodmoon.description",
+      "showdown.import.exception.invalid_nature_toxtricity"
+    ],
+    "effective_english_key_count": 15873,
+    "effective_missing_zh_keys": [],
+    "quest_npc_key_count": 941,
+    "quest_npc_missing_zh_keys": [],
+    "quest_npc_format_errors": [],
+    "identical_english_values": {
+      "pixelmon.missingno": "MissingNo",
+      "pixelmon.missingno.form.missingno": "MissingNo",
+      "menu.pixelmon": "Pixelmon",
+      "menu.discord": "Discord",
+      "pixelmon.pokepaste.link": "https://pokepast.es"
+    }
+  },
+  "scope": "Resource/key and graph audit; does not claim every live NPC/world/dialogue has been manually played."
+}

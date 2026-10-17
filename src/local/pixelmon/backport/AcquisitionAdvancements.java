@@ -29,6 +29,7 @@ public final class AcquisitionAdvancements {
         PixelmonAdvancements.LEGENDARY_CAPTURE_TRIGGER.trigger(player,pokemon);
         PixelmonAdvancements.SPEC_TRIGGER.trigger(player,pokemon);
         LegendAdvancements.capture(player,pokemon);
+        LateBloomerAdvancements.acquired(player,pokemon);
     }
     public static void evolved(ServerPlayerEntity player,Pokemon pokemon,int beforeDex){
         if(pokemon==null || !AcquisitionPolicy.evolved(beforeDex,pokemon.getSpecies().getDex(),pokemon.isEgg(),true,true,ownedStored(player,pokemon)))return;
@@ -41,5 +42,6 @@ public final class AcquisitionAdvancements {
         PixelmonAdvancements.throwCaptureTriggers(player,pokemon.getBall(),pokemon);
         PixelmonAdvancements.POKEDEX_TRIGGER.trigger(player);
         LegendAdvancements.capture(player,pokemon);
+        LateBloomerAdvancements.acquired(player,pokemon);
     }
 }

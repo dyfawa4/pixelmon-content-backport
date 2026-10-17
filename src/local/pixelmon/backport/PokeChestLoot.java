@@ -19,9 +19,9 @@ public final class PokeChestLoot {
         return new ItemStack(candy==null || candy==Items.field_190931_a?Items.field_151045_i:candy);
     }
     public static ItemStack[] drops(PokeLootEvent.GetDrops event){
-        ItemStack[] original=event.getDrops();if(!applies(event.chest))return original;
+        ItemStack[] original=event.getDrops();
         List<ItemStack> valid=new ArrayList<>();if(original!=null)for(ItemStack item:original)if(valid(item))valid.add(item);
-        if(valid.isEmpty())valid.add(fallback());return valid.toArray(new ItemStack[0]);
+        if(valid.isEmpty()&&applies(event.chest))valid.add(fallback());return valid.toArray(new ItemStack[0]);
     }
-    public static ItemStack drop(PokeLootEvent.Drop event){ItemStack item=event.getDrop();return applies(event.chest) && !valid(item)?fallback():item;}
+    public static ItemStack drop(PokeLootEvent.Drop event){ItemStack item=event.getDrop();return valid(item)?item:applies(event.chest)?fallback():ItemStack.field_190927_a;}
 }

@@ -1,0 +1,57 @@
+package fixture;
+import java.util.*;
+import com.pixelmonmod.pixelmon.api.pokemon.*;
+import com.pixelmonmod.pixelmon.api.pokemon.species.*;
+import com.pixelmonmod.pixelmon.api.storage.*;
+import net.minecraft.entity.player.*;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
+import local.pixelmon.backport.*;
+
+/** Runs production acquisition code with the existing native PCBox and owner-lookup fixture. */
+public class LateBloomerCases extends Legendary144Cases {
+    static String late(String id){return "pixelmon_backport:late_bloomers/"+id;}
+    static boolean has(String id){return player.progress.earned.contains(late(id));}
+    static int count(){return (int)player.progress.earned.stream().filter(id->id.startsWith(late(""))&&!id.equals(late("root"))).count();}
+    static Pokemon owned(int dex,String form,int slot){var p=box(dex,form,4,slot);endTick();return p;}
+    public static void run(){
+        setup();
+        owned(706,"",0);check(has("goodra")&&!has("hisuian_goodra")&&count()==1&&has("root"),"First Goodra failed opening or crossed forms");
+        for(int i=0;i<30;i++)AcquisitionQueue.stored(pc.getBox(4).get(0));endTick();check(count()==1&&has("root"),"Duplicates awarded other species");
+        owned(706,"hisuian",1);check(has("hisuian_goodra")&&count()==2,"Hisuian form missing or not distinct");
+        int[] dex={149,248,373,376,445,635,784,887};String[] ids={"dragonite","tyranitar","salamence","metagross","garchomp","hydreigon","kommo_o","dragapult"};
+        for(int i=0;i<dex.length;i++){owned(dex[i],"",i+2);check(has(ids[i]),"PC last box acquisition missed "+ids[i]);}
+        check(count()==10&&has("root"),"Previously earned opening lost");owned(998,"",29);check(count()==11&&has("root")&&has("baxcalibur"),"All eleven failed");
+        for(int i=0;i<30;i++)AcquisitionQueue.stored(pc.getBox(4).get(29));endTick();check(count()==11,"Duplicate final changed criteria");
+        pc.getBox(4).set(new StoragePosition(4,29),null);endTick();check(has("root")&&has("baxcalibur"),"Releasing/trading revoked earned progress");
+
+        setup();var p=party(148,0);endTick();
+        p.species=new Species(149);p.form=new Stats(p.species,"");
+        AcquisitionAdvancements.evolved(player,p,149);check(!has("dragonite"),"Unchanged evolution counted");
+        AcquisitionAdvancements.evolved(player,p,148);check(has("dragonite")&&count()==1,"Completed evolution failed");
+        setup();owned(25,"",0);owned(705,"hisuian",1);owned(706,"unknown",2);check(count()==0,"Unrelated or unrecognized form counted");
+        var egg=box(998,"",0,0);egg.egg=true;endTick();check(!has("baxcalibur"),"Egg counted before hatch");
+        egg.egg=false;AcquisitionQueue.stored(egg);endTick();check(has("baxcalibur"),"Completed hatch missed");
+
+        setup();p=box(149,"",0,0);pc.getBox(0).set(new StoragePosition(0,0),null);endTick();check(count()==0,"Failed/replaced insertion counted");
+        p=owned(149,"",0);player.progress.earned.clear();
+        var clone=new Pokemon(149,"");clone.storage=p.storage;clone.position=p.position;
+        LateBloomerAdvancements.acquired(player,clone);LateBloomerAdvancements.acquired(new ServerPlayerEntity(),p);LateBloomerAdvancements.acquired(player,null);check(count()==0,"Copy, null or other owner counted");
+        player.field_70170_p.field_72995_K=true;LateBloomerAdvancements.acquired(player,p);player.field_70170_p.field_72995_K=false;check(count()==0,"Client counted");
+        ServerLifecycleHooks.server.main=false;LateBloomerAdvancements.acquired(player,p);ServerLifecycleHooks.server.main=true;check(count()==0,"Off-server-thread counted");
+        var trainer=new TrainerPartyStorage();trainer.uuid=player.id;var npc=new Pokemon(149,"");trainer.set(new StoragePosition(-1,0),npc);endTick();check(count()==0,"Trainer storage counted");
+        // Login recovery uses current canonical party+PC, without requiring a new catch.
+        var login=new PlayerEvent.PlayerLoggedInEvent();login.player=player;queue.login(login);endTick();check(has("dragonite")&&count()==1,"Existing PC login recovery failed");
+
+        setup();p=owned(706,"hisuian",0);var sender=player;var receiver=new ServerPlayerEntity();
+        var receiverParty=new PlayerPartyStorage();receiverParty.uuid=receiver.id;var receiverPC=new PCStorage(5);receiverPC.playerUUID=receiver.id;
+        StorageProxy.parties.put(receiver.id,receiverParty);StorageProxy.pcs.put(receiver.id,receiverPC);ServerLifecycleHooks.server.players.players.put(receiver.id,receiver);
+        pc.getBox(4).set(new StoragePosition(4,0),null);receiverPC.getBox(4).set(new StoragePosition(4,29),p);endTick();
+        check(sender.progress.earned.contains(late("hisuian_goodra"))&&receiver.progress.earned.contains(late("hisuian_goodra")),"Real trade/receive failed or revoked sender history");
+        check(!receiver.progress.earned.contains(late("goodra")),"Trade crossed Goodra forms");
+        for(int i=0;i<dex.length;i++){setup();owned(dex[i],"",0);check(has(ids[i])&&has("root")&&count()==1,"Any first species must unlock opening "+ids[i]);}
+        for(String form:new String[]{"","hisuian"}){setup();owned(706,form,0);check(has("root")&&count()==1,"Either first Goodra unlocks opening");}
+        setup();owned(998,"",0);check(has("root")&&count()==1,"First Baxcalibur unlocks opening");
+        System.out.println("PASS production late-bloomer acquisition: each of 11 first targets independently unlocks opening, duplicate and separate Goodra forms, native PC last slot/owner lookup, completed evolution/hatch, login recovery, trade persistence, replaced insertion and egg/client/NPC/copy/owner/thread rejection. No game world initialized.");
+    }
+}

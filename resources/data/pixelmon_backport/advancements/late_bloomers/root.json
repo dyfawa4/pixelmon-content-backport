@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:149s,palette:\"none\",form:\"\",gender:0b}"
+    },
+    "title": {
+      "translate": "pixelmon_backport.advancements.late_bloomers.root.title"
+    },
+    "description": {
+      "translate": "pixelmon_backport.advancements.late_bloomers.root.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/block/birch_planks.png"
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

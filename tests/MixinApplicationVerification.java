@@ -18,6 +18,8 @@ public final class MixinApplicationVerification {
         Constructor<?> ctor=Class.forName("org.spongepowered.asm.mixin.transformer.MixinTransformer").getDeclaredConstructor();ctor.setAccessible(true);
         IMixinTransformer transformer=(IMixinTransformer)ctor.newInstance();
         java.util.List<String> weatherTargets=new java.util.ArrayList<>();
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.models.smd.Bone");
+        for(String target:new String[]{"com.pixelmonmod.pixelmon.entities.pixelmon.AbstractClientEntity","com.pixelmonmod.pixelmon.client.models.smd.DeformVertex","com.pixelmonmod.pixelmon.client.models.smd.ValveStudioModel","com.pixelmonmod.pixelmon.client.render.entity.layers.PokemonShimLayer"})weatherTargets.add(target);
         for(String ability:new String[]{"Chlorophyll","SwiftSwim","SolarPower","DrySkin","RainDish","Hydration","LeafGuard","Forecast","FlowerGift"})weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.ability.abilities."+ability);
         for(String effect:new String[]{"WeatherBall","Synthesis","Growth","HydroSteam"})weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic."+effect);
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.multiTurn.SolarBeam");
@@ -39,10 +41,16 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.pokeballs.EmptyPokeBallEntity");
         weatherTargets.add("com.pixelmonmod.pixelmon.blocks.PokeChestBlock");
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.registry.DropItemRegistry");
+        for(String reward:new String[]{"api.pokemon.boss.DropSet","api.pokemon.boss.DropSet$Drop","entities.pixelmon.drops.DropItemQueryList","api.drops.CustomDropScreenFactory$Builder","battles.raids.WeightedItemStacks","api.pokemon.drops.ItemWithChance"})weatherTargets.add("com.pixelmonmod.pixelmon."+reward);
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.ScreenHelper");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.pokechecker.PokeCheckerMovesScreen");
             weatherTargets.add("com.pixelmonmod.pixelmon.battles.tasks.BattleMessagePacket");
             weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.custom.dialogue.DialogueScreen");
+        for(String dialogue:new String[]{"DialogueNextActionPacket","SetDialogueDataPacket","DialogueChoiceMadePacket"})weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.dialogue."+dialogue);
+        weatherTargets.add("com.pixelmonmod.pixelmon.quests.actions.actions.EndDialogueAction");
+        for(String riding:new String[]{"entities.pixelmon.PixelmonEntity","entities.pixelmon.movement.PixelmonMovementGround","entities.pixelmon.movement.PixelmonMovementFlying","comm.packetHandlers.RidingMovementPacket","comm.packetHandlers.RidingVerticalMovementPacket","client.keybindings.MovementHandler","client.keybindings.OldMovementHandler","client.render.entity.renderers.AbstractPokemonRenderer"})weatherTargets.add("com.pixelmonmod.pixelmon."+riding);
+        weatherTargets.add("com.pixelmonmod.pixelmon.entities.pixelmon.AbstractMovesEntity");
+        for(String riding:new String[]{"net.minecraft.network.play.ServerPlayNetHandler","net.minecraft.client.entity.player.ClientPlayerEntity","net.minecraft.client.renderer.entity.PlayerRenderer","net.minecraft.client.renderer.ActiveRenderInfo"})weatherTargets.add(riding);
             weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.NPCShopkeeper");
         weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.pokedex.RequestSpawnDataPacket");
         weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.conditions.SpawnCondition");
@@ -65,6 +73,12 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.participants.RaidPixelmonParticipant");
         for(String status:new String[]{"Freeze","Sunny","Rainy","EntryHazard"})weatherTargets.add("com.pixelmonmod.pixelmon.battles.status."+status);
         try(JarFile jar=new JarFile(args[0])) {
+            java.util.Map<String,byte[]> questPatched=new java.util.LinkedHashMap<>();
+            for(String target:new String[]{"com.pixelmonmod.pixelmon.quests.objectives.objectives.player.ItemObjective","com.pixelmonmod.pixelmon.quests.objectives.objectives.entity.NPCObjective","com.pixelmonmod.pixelmon.quests.objectives.Objective","com.pixelmonmod.pixelmon.quests.QuestProgress","com.pixelmonmod.pixelmon.quests.listeners.ItemListeners","com.pixelmonmod.pixelmon.quests.objectives.objectives.meta.DateObjective","com.pixelmonmod.pixelmon.quests.objectives.objectives.world.WorldTimeObjective","com.pixelmonmod.pixelmon.quests.objectives.objectives.world.StructureObjective"}) {
+                verify(transformer,jar,target);
+                questPatched.put(target,transformer.transformClassBytes(target,target,jar.getInputStream(jar.getJarEntry(target.replace('.','/')+".class")).readAllBytes()));
+            }
+            NpcQuestVerification.verify(jar,questPatched);
             String[] editorTargets={EditorChineseVerification.BASE,EditorChineseVerification.BALL,"com.pixelmonmod.pixelmon.client.gui.pokemoneditor.PokemonEditorAdvancedScreen","com.pixelmonmod.pixelmon.client.gui.widgets.TabCompleteTranslateableTextField"};
             byte[][] editorCode=new byte[4][];for(int i=0;i<editorTargets.length;i++){String target=editorTargets[i];verify(transformer,jar,target);editorCode[i]=transformer.transformClassBytes(target,target,jar.getInputStream(jar.getJarEntry(target.replace('.','/')+".class")).readAllBytes());}
             EditorChineseVerification.verify(jar,editorCode[0],editorCode[1],editorCode[2],editorCode[3]);
@@ -194,6 +208,18 @@ public final class MixinApplicationVerification {
         try(InputStream in=entry==null?MixinApplicationVerification.class.getClassLoader().getResourceAsStream(name.replace('.','/')+".class"):jar.getInputStream(entry)){if(in==null)throw new IllegalStateException("Missing native target "+name);original=in.readAllBytes();}
         byte[] patched=transformer.transformClassBytes(name,name,original);
         ClassNode node=new ClassNode();new ClassReader(patched).accept(node,0);int calls=0;
+        if(name.equals("com.pixelmonmod.pixelmon.entities.pixelmon.drops.DropItemQueryList")){
+            int entries=0;for(MethodNode method:node.methods)if(method.name.equals("register")){
+                boolean shared=false;for(AbstractInsnNode instruction:method.instructions)if(instruction instanceof MethodInsnNode&&((MethodInsnNode)instruction).name.contains("backport$sharedRewards"))shared=true;
+                if(!shared)throw new AssertionError("Unfiltered reward register overload "+method.desc);entries++;
+            }if(entries!=2)throw new AssertionError("Native reward register overload count changed");
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.api.pokemon.boss.DropSet")){
+            int entries=0;for(MethodNode method:node.methods)if(method.name.equals("<init>")){
+                boolean cleaned=false;for(AbstractInsnNode instruction:method.instructions)if(instruction instanceof MethodInsnNode&&((MethodInsnNode)instruction).name.contains("backport$loaded"))cleaned=true;
+                if(!cleaned)throw new AssertionError("Unfiltered reward constructor "+method.desc);entries++;
+            }if(entries!=3)throw new AssertionError("Native DropSet constructor count changed");
+        }
         for(MethodNode method:node.methods){
             new Analyzer<>(new BasicVerifier()).analyze(node.name,method);
             for(AbstractInsnNode instruction:method.instructions.toArray())if(instruction instanceof MethodInsnNode){
@@ -215,6 +241,29 @@ public final class MixinApplicationVerification {
                 if(m.name.equals("backport$initializeStrongholds")&&i instanceof MethodInsnNode&&((MethodInsnNode)i).name.equals("func_235958_g_"))init=true;
             }
             if(!ring||!init)throw new AssertionError("Native stronghold ring accessor/init missing");++calls;
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.quests.QuestProgress")){
+            if(!node.interfaces.contains("local/pixelmon/backport/mixin/NpcQuestProgressAccess")
+                    ||node.methods.stream().filter(m->m.name.equals("backport$remaining")||m.name.equals("backport$totals")).count()!=2)
+                throw new AssertionError("Native quest counter accessors missing");
+            ++calls;
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.client.models.smd.DeformVertex")){
+            boolean rest=false;
+            for(MethodNode m:node.methods)if(m.name.equals("backport$restPosition"))for(AbstractInsnNode instruction:m.instructions)
+                if(instruction instanceof FieldInsnNode && ((FieldInsnNode)instruction).name.equals("baseLoc"))rest=true;
+            if(!rest || !node.interfaces.contains("local/pixelmon/backport/mixin/TeraVertexAccess"))throw new AssertionError("Missing immutable rest-position accessor");
+            ++calls;
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.client.models.smd.Bone")){
+            boolean before=false,reset=false;
+            for(MethodNode method:node.methods)if(method.name.equals("reset"))for(AbstractInsnNode instruction:method.instructions){
+                if(instruction instanceof MethodInsnNode){MethodInsnNode call=(MethodInsnNode)instruction;
+                    if(call.name.contains("backport$rememberPose"))before=true;
+                    if(call.name.equals("setIdentity")){if(!before)throw new AssertionError("Head pose captured after native reset");reset=true;}
+                }
+            }
+            if(!before || !reset || !node.interfaces.contains("local/pixelmon/backport/client/TeraBonePose"))throw new AssertionError("Missing actual skinning-pose capture before reset");
         }
         if(calls<1)throw new AssertionError("No injected hook "+name);
         if(name.equals("net.minecraft.world.gen.feature.template.Template")){

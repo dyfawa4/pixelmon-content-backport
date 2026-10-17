@@ -1,0 +1,118 @@
+package fixture;
+import java.util.*;
+import java.time.*;
+import net.minecraft.item.*;
+import net.minecraft.nbt.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.*;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.TickEvent;
+import com.pixelmonmod.pixelmon.Pixelmon;
+import com.pixelmonmod.pixelmon.quests.*;
+import com.pixelmonmod.pixelmon.quests.quest.*;
+import com.pixelmonmod.pixelmon.quests.objectives.*;
+import com.pixelmonmod.pixelmon.quests.objectives.objectives.player.ItemObjective;
+import com.pixelmonmod.pixelmon.quests.objectives.objectives.entity.NPCObjective;
+import com.pixelmonmod.pixelmon.quests.actions.Action;
+import com.pixelmonmod.pixelmon.storage.playerData.QuestData;
+import com.pixelmonmod.pixelmon.api.storage.StorageProxy;
+import local.pixelmon.backport.*;
+
+public final class NpcQuestCases {
+    static final Item BALL=new Item("pixelmon:poke_ball"),RED=new Item("pixelmon:red_healer"),BLUE=new Item("pixelmon:blue_healer"),REDPC=new Item("pixelmon:red_pc"),BLUEPC=new Item("pixelmon:blue_pc");
+    static void check(boolean ok,String label){if(!ok)throw new AssertionError(label);}
+    static CompoundNBT tag(String id){CompoundNBT n=new CompoundNBT();n.put("PokeBallID",new StringNBT(id));return n;}
+    static ItemStack stack(Item item,int count){return new ItemStack(item,count);}
+    static ItemStack ball(String id,int count){ItemStack s=stack(BALL,count);s.func_77982_d(tag(id));return s;}
+    static Arguments itemArgs(Item i,int count,CompoundNBT n){return new Arguments(i,count,-1,"",n);}
+    static ServerPlayerEntity player(){ServerPlayerEntity p=new ServerPlayerEntity();p.field_70170_p=new ServerWorld();return p;}
+    static Entity npc(ServerPlayerEntity p){Entity n=new Entity();n.field_70170_p=p.field_70170_p;return n;}
+    static QuestProgress goal(QuestData d,IObjective io,Arguments args,int count){
+        Stage s=new Stage();Objective o=new Objective(io,args,0);s.objectives.add(o);s.actions.add(new Action(0));QuestProgress p=new QuestProgress(d,s,count);d.progress.add(p);return p;
+    }
+    static Arguments npcArgs(Entity npc,boolean success,Item item,int count,CompoundNBT n){return new Arguments(NPCObjective.Type.GIVE,npc.uuid,success,item,count,-1,"",n);}
+    static boolean submit(ServerPlayerEntity player,Entity npc,boolean success,String id,int quantity,CompoundNBT n)throws Exception{
+        QuestData d=new QuestData(player);NPCObjective io=new NPCObjective(id,id.equals("NPC_GIVE")?NPCObjective.Type.GIVE:NPCObjective.Type.SHOW);
+        Arguments a=npcArgs(npc,success,BALL,quantity,n);QuestProgress p=goal(d,io,a,1);
+        return io.test(p.stage,d,p,p.stage.objectives.get(0),a,new Context(npc));
+    }
+    public static void nativeRegression()throws Exception{
+        check(!ItemObjective.compare(ball("level_ball",64),BALL,8,-1,"",tag("level_ball")),"Native 64 rejected for 8 reproduced");
+        check(ItemObjective.compare(ball("level_ball",1),BALL,8,-1,"",tag("level_ball")),"Native 1 incorrectly accepted for 8 reproduced");
+        ServerPlayerEntity player=player();Entity npc=npc(player);ItemStack exact=ball("level_ball",8);player.field_71071_by.field_70462_a.add(exact);
+        check(!submit(player,npc,false,"NPC_GIVE",8,tag("level_ball"))&&exact.func_190926_b(),"Native failure branch removes items reproduced");
+        ItemObjective craft=new ItemObjective("ITEM_CRAFT");QuestData d=new QuestData(player);Arguments a=itemArgs(BALL,5,tag("level_ball"));QuestProgress p=goal(d,craft,a,5);
+        check(!craft.test(p.stage,d,p,p.stage.objectives.get(0),a,new Context(ball("level_ball",4))),"Native bulk craft rejects output stack reproduced");
+    }
+    public static void fixedCases()throws Exception{
+        check(ItemObjective.compare(ball("level_ball",64),BALL,8,-1,"",tag("level_ball")),"64 accepted for 8");
+        check(!ItemObjective.compare(ball("level_ball",7),BALL,8,-1,"",tag("level_ball")),"7 cannot satisfy 8");
+        ServerPlayerEntity player=player();Entity npc=npc(player);ItemStack a=ball("level_ball",64);player.field_71071_by.field_70462_a.add(a);
+        check(submit(player,npc,true,"NPC_GIVE",8,tag("level_ball"))&&a.func_190916_E()==56,"64 minus exactly 8");
+        check(player.field_71071_by.dirty==1,"Inventory dirty after successful commit");
+        check(!submit(player,npc,false,"NPC_GIVE",8,tag("level_ball"))&&a.func_190916_E()==56,"Failure probe with enough does not deduct");
+        check(submit(player,npc,true,"NPC_SHOW",8,tag("level_ball"))&&a.func_190916_E()==56,"SHOW never consumes");
+        player.field_71071_by.field_70462_a.clear();a=ball("level_ball",3);ItemStack b=ball("level_ball",6);player.field_71071_by.field_70462_a.add(a);player.field_71071_by.field_184439_c.add(b);
+        check(submit(player,npc,true,"NPC_GIVE",8,tag("level_ball"))&&a.func_190916_E()==0&&b.func_190916_E()==1,"Across main inventory and offhand");
+        a.func_190920_e(3);b.func_190920_e(4);
+        check(!submit(player,npc,true,"NPC_GIVE",8,tag("level_ball"))&&a.func_190916_E()==3&&b.func_190916_E()==4,"Shortage is atomic");
+        check(submit(player,npc,false,"NPC_GIVE",8,tag("level_ball"))&&a.func_190916_E()==3&&b.func_190916_E()==4,"Failure branch with shortage has no mutation");
+        check(((net.minecraft.util.text.TranslationTextComponent)player.messages.get(player.messages.size()-1)).args[1].equals(8),"Localized feedback carries actual required quantity");
+        b.func_190920_e(64);b.func_77982_d(tag("ultra_ball"));
+        check(!submit(player,npc,true,"NPC_GIVE",8,tag("level_ball"))&&b.func_190916_E()==64,"Different ball IDs never substitute");
+        Entity other=npc(player);QuestData data=new QuestData(player);NPCObjective give=new NPCObjective("NPC_GIVE",NPCObjective.Type.GIVE);Arguments na=npcArgs(npc,true,BALL,1,tag("level_ball"));QuestProgress np=goal(data,give,na,1);
+        check(!give.test(np.stage,data,np,np.stage.objectives.get(0),na,new Context(other)),"Other NPC cannot accept quest");
+        npc.field_70170_p=new ServerWorld();check(!give.test(np.stage,data,np,np.stage.objectives.get(0),na,new Context(npc)),"Cross-dimension stale dialogue cannot submit");npc.field_70170_p=player.field_70170_p;
+        npc.field_70128_L=true;check(!give.test(np.stage,data,np,np.stage.objectives.get(0),na,new Context(npc)),"Removed NPC cannot submit");npc.field_70128_L=false;
+        for(String color:List.of("white","orange","magenta","light_blue","yellow","lime","pink","gray","light_gray","cyan","purple","blue","brown","green","red","black")){
+            check(NpcQuestItems.sameFunction(new Item("pixelmon:"+color+"_healer"),RED),"Healer color "+color);
+            check(NpcQuestItems.sameFunction(new Item("pixelmon:"+color+"_pc"),REDPC),"PC color "+color);
+        }
+        check(!NpcQuestItems.sameFunction(BLUE,REDPC)&&!NpcQuestItems.sameFunction(new Item("other:blue_healer"),RED),"Separate functionality/namespace");
+        check(!NpcQuestItems.sameFunction(new Item("pixelmon:red_apricorn"),new Item("pixelmon:blue_apricorn")),"Apricorn colors remain distinct");
+        ItemStack nested=ball("level_ball",2);CompoundNBT nestedRequired=tag("level_ball"),child=new CompoundNBT(),more=new CompoundNBT();child.put("x",new StringNBT("a"));nestedRequired.put("custom",child);more.put("x",new StringNBT("a"));more.put("cosmetic",new StringNBT("safe"));nested.func_77978_p().put("custom",more);nested.name("My Balls");
+        check(NpcQuestItems.matches(nested,BALL,-1,"",nestedRequired),"Required NBT subset and renamed items");
+        check(!NpcQuestItems.matches(nested,BALL,-1,"Different Name",nestedRequired),"Explicit name remains enforced");nested.damage(3);
+        check(!NpcQuestItems.matches(nested,BALL,1,"",nestedRequired),"Explicit damage remains enforced");
+        Random random=new Random(145);
+        for(int i=0;i<1000;i++){
+            int x=random.nextInt(65),y=random.nextInt(65),need=1+random.nextInt(150);ItemStack xstack=ball("level_ball",x),ystack=ball("level_ball",y),wrong=ball("ultra_ball",64);
+            boolean ok=NpcQuestItems.submit(Arrays.asList(xstack,wrong,ystack),BALL,need,-1,"",tag("level_ball"),true);
+            check(ok==(x+y>=need),"Random availability "+i);
+            check(xstack.func_190916_E()+ystack.func_190916_E()==x+y-(ok?need:0)&&wrong.func_190916_E()==64,"Random exact and atomic debit "+i);
+        }
+        // Execute the actual transformed Objective.receive, including native action dispatch and packets.
+        data=new QuestData(player);ItemObjective craft=new ItemObjective("ITEM_CRAFT");Arguments ca=itemArgs(BALL,5,tag("level_ball"));QuestProgress p=goal(data,craft,ca,5);Objective o=p.stage.objectives.get(0);Action reward=p.stage.actions.get(0);
+        check(o.receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",4)),"Batch craft event received");
+        check(p.getObjectiveQuantityComplete(0)==4&&!p.done&&reward.calls==0,"Batch output counts units rather than events");
+        o.receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",64));check(p.done&&reward.calls==1&&p.backport$remaining()[0]==0,"Batch count saturates at target and native reward once");
+        o.receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",64));check(reward.calls==1,"Duplicate event no extra reward");
+        data=new QuestData(player);ItemObjective has=new ItemObjective("ITEM_HAS",true,true);p=goal(data,has,itemArgs(BALL,8,tag("level_ball")),8);o=p.stage.objectives.get(0);
+        List<ItemStack> held=Arrays.asList(ball("level_ball",3),ball("level_ball",4));
+        for(int i=0;i<20;i++)o.receive("ITEM_HAS",p.stage,data,p,0,held);
+        check(p.getObjectiveQuantityComplete(0)==0,"Insufficient possession never accumulates tick credit");
+        held=Arrays.asList(ball("level_ball",3),ball("level_ball",5));o.receive("ITEM_HAS",p.stage,data,p,0,held);check(p.done&&held.get(0).func_190916_E()==3,"Possession aggregates and completes once without debit");
+        data=new QuestData(player);p=goal(data,new ItemObjective("ITEM_HAS_NOT",true,false),itemArgs(BALL,8,tag("level_ball")),8);p.stage.objectives.get(0).receive("ITEM_HAS_NOT",p.stage,data,p,0,Arrays.asList(ball("level_ball",7)));check(p.done,"HAS_NOT is the inverse of total required quantity");
+        // Two independent submissions in one AND stage must retain the first completion.
+        data=new QuestData(player);Stage stage=new Stage();Arguments aa=npcArgs(npc,true,BALL,2,tag("level_ball")),bb=npcArgs(npc,true,BALL,3,tag("ultra_ball"));stage.objectives.add(new Objective(give,aa,0));stage.objectives.add(new Objective(give,bb,1));reward=new Action(0,1);stage.actions.add(reward);p=new QuestProgress(data,stage,1,1);
+        player.field_71071_by.field_70462_a.clear();player.field_71071_by.field_184439_c.clear();a=ball("level_ball",10);b=ball("ultra_ball",10);player.field_71071_by.field_70462_a.add(a);player.field_71071_by.field_70462_a.add(b);
+        stage.objectives.get(0).receive("NPC_GIVE",stage,data,p,0,npc);check(a.func_190916_E()==8&&p.isObjectiveComplete(0)&&!p.done,"First submission retained while waiting for other goal");
+        stage.objectives.get(0).receive("NPC_GIVE",stage,data,p,0,npc);check(a.func_190916_E()==8,"Repeated first submission not charged again");
+        stage.objectives.get(1).receive("NPC_GIVE",stage,data,p,1,npc);check(p.done&&b.func_190916_E()==7&&reward.calls==1,"AND hand-ins native reward exactly once");
+        // Periodic readiness must not manufacture unrelated craft/capture/harvest progress.
+        data=new QuestData(player);StorageProxy.party.data=data;p=goal(data,new ItemObjective("ITEM_CRAFT"),itemArgs(BALL,5,tag("level_ball")),5);p.quest.filename="celebi.json";
+        NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.START,player));check(!p.done,"No START phase progress");
+        NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(p.done&&a.func_190916_E()==8,"Existing stock prepares built-in delivery goal without deduction");
+        QuestProgress custom=goal(data,new ItemObjective("ITEM_CRAFT"),itemArgs(BALL,5,tag("level_ball")),5);NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(!custom.done,"Custom genuine craft objective is not converted into possession");
+        QuestProgress capture=goal(data,new ItemObjective("APRICORN_HARVEST"),itemArgs(BALL,5,tag("level_ball")),5);capture.quest.filename="celebi.json";NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(!capture.done,"Occurrence objectives never retroactively fabricated");
+        data=new QuestData(player);p=goal(data,new ItemObjective("ITEM_CRAFT"),itemArgs(BALL,-1,tag("level_ball")),-1);p.stage.objectives.get(0).receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",1));check(p.done&&p.getObjectiveTotalQuantity(0)==1,"Legacy missing quantity recovered without stage reset");
+        data=new QuestData(player);p=goal(data,new ItemObjective("ITEM_CRAFT"),ca,5);p.stage.conditions=false;p.stage.objectives.get(0).receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",64));check(!p.done&&p.getObjectiveQuantityComplete(0)==0,"Native stage conditions remain enforced");
+        check(NpcQuestConditions.date(LocalDate.of(2027,1,10),LocalDate.of(2026,9,10),LocalDate.of(2027,1,31)),"Cross-year January seasonal date");
+        check(NpcQuestConditions.date(LocalDate.of(2028,9,10),LocalDate.of(2026,9,10),LocalDate.of(2027,1,31)),"Recurring season and inclusive first day");
+        check(NpcQuestConditions.date(LocalDate.of(2028,1,31),LocalDate.of(2026,9,10),LocalDate.of(2027,1,31)),"Inclusive final day");
+        check(!NpcQuestConditions.date(LocalDate.of(2027,6,1),LocalDate.of(2026,9,10),LocalDate.of(2027,1,31)),"Out of season remains blocked");
+        check(NpcQuestConditions.time(0,23000,1000L)&&NpcQuestConditions.time(23999,23000,1000L)&&!NpcQuestConditions.time(12000,23000,1000L),"Midnight wrapping world time");
+        check(NpcQuestConditions.time(48020,20,null)&&NpcQuestConditions.time(12000,0,24000L),"Normalized and full-day time");
+        System.out.println("PASS 1000 randomized debit cases, 16 healer/PC colors, NBT/name/damage guards, native batch/possession/multi-goal rewards, stock readiness, conditions, legacy progress and recurring date/time.");
+    }
+}

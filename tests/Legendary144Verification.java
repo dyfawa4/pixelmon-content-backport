@@ -23,7 +23,7 @@ public final class Legendary144Verification {
     }
     static byte[] production(String name,JarFile legacy)throws Exception{
         ClassNode n=legacy==null?Version13StaticVerification.node(name.replace('.','/')):node(bytes(legacy,name));
-        if(name.endsWith("AcquisitionAdvancements"))n.methods.removeIf(m->!Set.of("ownedStored","species").contains(m.name));
+        if(name.endsWith("AcquisitionAdvancements"))n.methods.removeIf(m->!Set.of("ownedStored","species","evolved").contains(m.name));
         if(name.endsWith("LegendAdvancements"))n.methods.removeIf(m->!Set.of("capture","award","formChanged","fusionCompleted","partnerFor","primal","megaRayquaza","<clinit>").contains(m.name));
         return write(n);
     }
@@ -72,6 +72,7 @@ public final class Legendary144Verification {
         add(s,"local.pixelmon.backport.FieldMega","public class FieldMega {public static final String MARKER=\"BackportFieldMega\";public static boolean active("+pokemon+"Pokemon p){return p.getPersistentData().func_74764_b(MARKER);}}");
         add(s,"local.pixelmon.backport.Content","public class Content {public static final String NS=\"pixelmon_backport\";public static com.google.gson.JsonObject read(String path){try(var in=Content.class.getClassLoader().getResourceAsStream(path)){return new com.google.gson.JsonParser().parse(new java.io.InputStreamReader(in,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();}catch(Exception ex){throw new RuntimeException(ex);}}}");
         s.put("fixture.Legendary144Cases",Files.readString(Path.of("tests/resources/Legendary144Cases.java.txt")));
+        s.put("fixture.LateBloomerCases",Files.readString(Path.of("tests/resources/LateBloomerCases.java.txt")));
         Path dir=Files.createTempDirectory(Path.of(".cache"),"legendary144-fixture-");
         List<String> options=new ArrayList<>(List.of("--release","11","-proc:none","-encoding","UTF-8","-cp",System.getProperty("java.class.path"),"-d",dir.toString()));
         for(var row:s.entrySet()){Path p=dir.resolve(row.getKey().replace('.','/')+".java");Files.createDirectories(p.getParent());Files.writeString(p,row.getValue());options.add(p.toString());}
@@ -84,10 +85,10 @@ public final class Legendary144Verification {
         if(!baseline)System.out.println("SKIP optional 1.4.3 baseline replay: published JAR absent; current production checks still run.");
         for(boolean legacy:baseline?new boolean[]{true,false}:new boolean[]{false})try(JarFile old=legacy?new JarFile("dist/pixelmon-content-backport-1.16.5-1.4.3.jar"):null){
             Map<String,byte[]> code=new HashMap<>();
-            for(String n:List.of("AcquisitionAdvancements","AcquisitionQueue","LegendAdvancements","CrownedAdvancements"))if(!legacy||!n.equals("CrownedAdvancements"))code.put("local.pixelmon.backport."+n,production("local.pixelmon.backport."+n,old));
+            for(String n:List.of("AcquisitionAdvancements","AcquisitionQueue","LegendAdvancements","CrownedAdvancements","LateBloomerAdvancements"))if(!legacy||(!n.equals("CrownedAdvancements")&&!n.equals("LateBloomerAdvancements")))code.put("local.pixelmon.backport."+n,production("local.pixelmon.backport."+n,old));
             try(URLClassLoader loader=new URLClassLoader(new URL[]{dir.toUri().toURL()},Legendary144Verification.class.getClassLoader()){
                 protected Class<?> loadClass(String n,boolean resolve)throws ClassNotFoundException{synchronized(getClassLoadingLock(n)){Class<?> c=findLoadedClass(n);String base=n.contains("$")?n.substring(0,n.indexOf('$')):n;if(c==null&&s.containsKey(base))c=findClass(n);if(c==null&&code.containsKey(n)){byte[] b=code.get(n);c=defineClass(n,b,0,b.length);}if(c==null)c=super.loadClass(n,false);if(resolve)resolveClass(c);return c;}}
-            }){loader.loadClass("fixture.Legendary144Cases").getMethod(legacy?"legacy":"fixed").invoke(null);}
+            }){loader.loadClass("fixture.Legendary144Cases").getMethod(legacy?"legacy":"fixed").invoke(null);if(!legacy)loader.loadClass("fixture.LateBloomerCases").getMethod("run").invoke(null);}
         }
         System.out.println("PASS actual 1.4.3 PCBox omission and reserve Crowned double award reproduced; fixed acquisition/form code executed with original PCBox.set and native owner lookup. Party/PC full-capacity, ownership and actor-negative matrix passed; no game world initialized.");
     }

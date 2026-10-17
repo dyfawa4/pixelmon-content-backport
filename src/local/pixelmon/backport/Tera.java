@@ -22,10 +22,11 @@ public final class Tera {
         public final Element type;
         public final String form;
         public boolean active,selected;
+        public long visualStart=-1;
         public final Set<Element> spent=EnumSet.noneOf(Element.class);
         public final Set<Element> pending=EnumSet.noneOf(Element.class);
         public State(PixelmonWrapper p){base=new ArrayList<>(p.pokemon.getForm().getTypes());type=type(p.pokemon);form=p.getForm().getName();}
-        private State(State s){base=new ArrayList<>(s.base);type=s.type;form=s.form;active=s.active;selected=s.selected;spent.addAll(s.spent);}
+        private State(State s){base=new ArrayList<>(s.base);type=s.type;form=s.form;active=s.active;selected=s.selected;visualStart=s.visualStart;spent.addAll(s.spent);}
     }
     private static final Map<PixelmonWrapper,State> STATES=Collections.synchronizedMap(new WeakHashMap<>());
     private static final Map<BattleParticipant,UUID> USED=Collections.synchronizedMap(new WeakHashMap<>());
@@ -46,6 +47,25 @@ public final class Tera {
     }
     public static State state(PixelmonWrapper p){return STATES.get(p);}
     public static boolean active(PixelmonWrapper p){State s=state(p);return s!=null && s.active;}
+    public static int visualType(com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity entity){
+        synchronized(STATES){for(Map.Entry<PixelmonWrapper,State> entry:STATES.entrySet()){
+            PixelmonWrapper p=entry.getKey();State s=entry.getValue();
+            if(p.entity==entity && p.bc!=null && canonical(p) && TeraVisualState.visible(s.active,p.bc.simulateMode,p.bc.battleEnded,p.onBattlefield,p.isAlive()))
+                return Arrays.asList(TYPES).indexOf(s.type);
+        }}return -1;
+    }
+    private static boolean canonical(PixelmonWrapper p){
+        // AI copies may share the real entity and battle reference. Only a
+        // wrapper still present in the authoritative roster can drive metadata.
+        for(BattleParticipant team:p.bc.participants)for(PixelmonWrapper original:team.allPokemon)if(original==p)return true;
+        return false;
+    }
+    public static long visualStart(com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity entity){
+        synchronized(STATES){for(Map.Entry<PixelmonWrapper,State> entry:STATES.entrySet()){
+            PixelmonWrapper p=entry.getKey();State s=entry.getValue();
+            if(p.entity==entity && p.bc!=null && canonical(p) && TeraVisualState.visible(s.active,p.bc.simulateMode,p.bc.battleEnded,p.onBattlefield,p.isAlive()))return s.visualStart;
+        }}return -1;
+    }
     public static boolean active(Pokemon p){synchronized(STATES){return STATES.entrySet().stream().anyMatch(e->e.getKey().pokemon==p && !e.getKey().bc.simulateMode && e.getValue().active);}}
     public static boolean selected(PixelmonWrapper p){State s=state(p);return s!=null && s.selected;}
     public static boolean used(BattleParticipant p){return USED.containsKey(p);}
@@ -70,6 +90,7 @@ public final class Tera {
             state(p).selected=false;p.willEvolve=false;return false;
         }
         State s=state(p);s.selected=false;s.active=true;p.willEvolve=false;USED.put(p.getParticipant(),p.getPokemonUUID());
+        if(!p.bc.simulateMode && p.entity!=null)s.visualStart=p.entity.field_70170_p.func_82737_E();
         if(p.getSpecies().getDex()==1024){
             float hp=p.getHealthPercent()/100f;boolean full=p.hasFullHealth();
             p.setForm("stellar");p.recalculateMaxHP();p.setHealth(full?p.getMaxHealth():Math.round(p.getMaxHealth()*hp));

@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "cases": [
+    "null-air-zero-NBT-immutable-empty",
+    "boss-weighted-rolls-500-command-preserved-display-only-icon",
+    "raid-weighted-rolls-500-pop-empty-legacy-null",
+    "all-chest-types-owned-custom-master-fallback-loaded-tiers",
+    "native-boss-trainer-query-packet-ID-single-all-claim-command-no-paper",
+    "gym-badge-preserved-once-no-chest-boss-raid-pool-sharing",
+    "custom-screen-shared-server-packet-index-list",
+    "loaded-boss-tier-reward-sample"
+  ]
+}

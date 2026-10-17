@@ -28,6 +28,10 @@ public final class BossCaptureGuard {
             || !blocked((PlayerParticipant)participant))return;
         event.setCanceled(true); // Native BagPacket returns before setUseItem/inventory/turn changes.
         owner.func_146105_b(new net.minecraft.util.text.TranslationTextComponent("gui.choosebag.nopokeballs"),false);
+        restore((PlayerParticipant)participant);
+    }
+    public static void restore(PlayerParticipant participant){
+        var battle=participant.bc;var owner=participant.player;
         if(!battle.isWaiting())return;
         List<UUID> picking=new ArrayList<>();List<Boolean> switching=new ArrayList<>();boolean flee=true;
         for(var member:participant.controlledPokemon)if(member.wait && member.onBattlefield && member.isAlive()){

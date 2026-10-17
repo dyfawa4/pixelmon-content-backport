@@ -25,11 +25,11 @@ def main():
     with zipfile.ZipFile(production) as archive:
         nodes=[name for name in archive.namelist() if name.startswith('data/pixelmon_backport/advancements/legends/') and name.endswith('.json')]
         expected=['data/pixelmon_backport/advancements/legends/capture_493.json']
-        if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4'}:expected.append('data/pixelmon_backport/advancements/legends/capture_1026.json')
+        if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'}:expected.append('data/pixelmon_backport/advancements/legends/capture_1026.json')
         assert sorted(name for name in nodes if json.loads(archive.read(name))['display']['frame']=='challenge')==sorted(expected)
         if VERSION=='1.3.0':assert all(json.loads(archive.read(name))['display']['hidden'] for name in nodes)
-    packages=[('test-maps',9),('gym-test-maps',21 if VERSION in {'1.4.3', '1.4.4'} else 20 if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4'} else 19)]
-    if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4'}:packages.append(('cap-test-map',1))
+    packages=[('test-maps',9),('gym-test-maps',21 if VERSION in {'1.4.3', '1.4.4', '1.5.0'} else 20 if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'} else 19)]
+    if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'}:packages.append(('cap-test-map',1))
     for suffix,count in packages:
         with zipfile.ZipFile(DIST/f'Pixelmon-Backport-{suffix}-{VERSION}.zip') as archive:
             assert archive.testzip() is None
@@ -37,7 +37,7 @@ def main():
             worlds=[name for name in names if name.startswith('saves/') and name.endswith('/level.dat')]
             assert len(worlds)==count and all(len(name.split('/'))==3 for name in worlds), worlds
             assert not any(name.endswith('.zip') or '/playerdata/' in name for name in names)
-            if VERSION in {'1.4.3', '1.4.4'} and suffix=='gym-test-maps':
+            if VERSION in {'1.4.3', '1.4.4', '1.5.0'} and suffix=='gym-test-maps':
                 prefix='saves/backport-gym-v143-rock-vanilla/'
                 accepted=json.loads(archive.read(prefix+'APPROVED_LAYOUT.json'))
                 assert accepted['cityPieces']==97 and accepted['seed']==143143
@@ -49,7 +49,7 @@ def main():
                     if not relative or relative.endswith('/'):continue
                     assert relative in {'level.dat','APPROVED_LAYOUT.json',*accepted['files']},name
             mods=[name for name in names if name.startswith('mods/') and name.endswith('.jar')]
-            if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4'}:
+            if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'}:
                 assert len(mods)==2
                 assert archive.read('mods/'+production.name)==production.read_bytes(),(suffix,'stale production jar')
                 helper=next(name for name in mods if name!='mods/'+production.name);jar(archive.read(helper),helper=True)
@@ -62,11 +62,11 @@ def main():
         assert archive.testzip() is None
         assert archive.read('mods/'+production.name)==production.read_bytes()
         assert f'docs/VALIDATION_{VERSION}.md' in archive.namelist()
-        if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4'}:
+        if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'}:
             assert archive.read('HANDBOOK.md')==(ROOT/'HANDBOOK.md').read_bytes()
             assert archive.read(f'docs/CAP_PIKACHU_{VERSION}.md')==(ROOT/f'docs/CAP_PIKACHU_{VERSION}.md').read_bytes()
             assert (DIST/f'Pixelmon-Backport-Cap-Pikachu-{VERSION}.md').read_bytes()==(ROOT/f'docs/CAP_PIKACHU_{VERSION}.md').read_bytes()
-    if VERSION in {'1.4.1', '1.4.2', '1.4.3', '1.4.4'}:
+    if VERSION in {'1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'}:
         assert (DIST/f'Pixelmon-Backport-Greninja-{VERSION}.md').read_bytes()==(ROOT/f'docs/GRENINJA_{VERSION}.md').read_bytes()
     with zipfile.ZipFile(DIST/f'Pixelmon-Backport-source-{VERSION}.zip') as archive:
         assert archive.testzip() is None

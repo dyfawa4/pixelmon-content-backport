@@ -1,0 +1,33 @@
+{
+  "upstream": "Pixelmon 1.21.1 9.4.1",
+  "modrinthVersion": "tY57GRtu",
+  "sourceUrl": "https://cdn.modrinth.com/data/59ZceYlU/versions/tY57GRtu/Pixelmon-1.21.1-9.4.1-universal.jar",
+  "officialAppearanceReference": "https://www.pokemon.co.jp/ex/sv/ja/features/220803_06/",
+  "usage": "Shader resources inspected as material reference: stable primitive facets, moving highlights and Fresnel rim. Legacy fixed-function implementation is in TeraCrystalVertices; upstream shader files are not bundled as directly loadable 1.16.5 shaders.",
+  "referenceFiles": [
+    {
+      "path": "assets/pixelmon/shaders/core/stellar.fsh",
+      "sha256": "27557fb63026a9b07047c4744efb487f5705a845e58a1e3adf7af1deab5274e7"
+    },
+    {
+      "path": "assets/pixelmon/shaders/core/stellar.json",
+      "sha256": "4287e5bf1452cf4f4d05cba657689742cb3313bd1f9c3e5faf969c60657291ec"
+    },
+    {
+      "path": "assets/pixelmon/shaders/core/stellar.vsh",
+      "sha256": "0b2cae3707ea58091fdcad0fbca26725f2ac18fcb2017545c742e139c5af9563"
+    },
+    {
+      "path": "assets/pixelmon/shaders/core/terrastalization.fsh",
+      "sha256": "d21b75d02e8203d533fa5d8a0bddd741bfd641e6c4d58553c3625838116b53e6"
+    },
+    {
+      "path": "assets/pixelmon/shaders/core/terrastalization.json",
+      "sha256": "c88083b2fed75eeca02f42cd74999e2ecf6f95e792f9938fcd3ee0b303e5a6e0"
+    },
+    {
+      "path": "assets/pixelmon/shaders/core/terrastalization.vsh",
+      "sha256": "0b2cae3707ea58091fdcad0fbca26725f2ac18fcb2017545c742e139c5af9563"
+    }
+  ]
+}

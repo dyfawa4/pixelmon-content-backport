@@ -1,0 +1,14 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+[[mods]]
+modId="backport_tera_visual_test"
+version="1.5.0"
+displayName="1.5.0 太晶外观专项测试地图"
+description='''Opt-in manual Tera crown and body visual fixtures, including custom CapPikachu. No changes to ordinary worlds.'''
+[[dependencies.backport_tera_visual_test]]
+modId="pixelmon_backport"
+mandatory=true
+versionRange="[1.5.0,1.6.0)"
+ordering="AFTER"
+side="BOTH"

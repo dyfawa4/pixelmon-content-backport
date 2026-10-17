@@ -1,0 +1,179 @@
+{
+  "upstream": "Pixelmon 1.21.1 9.4.1",
+  "modrinthVersion": "tY57GRtu",
+  "sourceUrl": "https://cdn.modrinth.com/data/59ZceYlU/versions/tY57GRtu/Pixelmon-1.21.1-9.4.1-universal.jar",
+  "conversion": "Original vertex positions, normals, UVs and textures retained; static bone weights collapsed to one root.",
+  "crowns": [
+    {
+      "type": "normal",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/normal/normal.bmd",
+      "sourceSha256": "224d1b66859580031458943628f805e5c24260827f9cf3bf832b97a31d0f7f5d",
+      "textureSha256": "55fd7cb3823db5a6982f645c9f6184dbdda4737032a469e17a29b2d55edd3b3d",
+      "convertedSha256": "da62c1368c4a086bdb74320e90bc6a6c7083c5968e5594618408afaec670af6d",
+      "triangles": 1744,
+      "bottom": 0.1396539956331253
+    },
+    {
+      "type": "fire",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/fire/fire.bmd",
+      "sourceSha256": "8d8a3ad4cf6df8f4a232be6cfdedf00cdb7498d13a447b93183ea1d2ba7d90e2",
+      "textureSha256": "e78c5b1c9e3fd61152685f3776cb6aab1374c4fba04a3229f06ced3064e14525",
+      "convertedSha256": "9f4dd06cd546beeebb092b08202bf22a50e63be260054d561b86440e14ab6919",
+      "triangles": 6518,
+      "bottom": 9.999999974752427e-07
+    },
+    {
+      "type": "water",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/water/crown.bmd",
+      "sourceSha256": "ab49445c72227c07afb819a62ddae0f4fa233a5032b8e16e445043cf666cee30",
+      "textureSha256": "a9480d854b5c126aea8235efb18d5a0b1e296ae74868d1ebf929cafd132888ff",
+      "convertedSha256": "847c9373c9ccda5f999a4ce312a526907e64026c09c84d68faf5a116e1d9ed2b",
+      "triangles": 4682,
+      "bottom": -0.09332100301980972
+    },
+    {
+      "type": "grass",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/grass/crown.bmd",
+      "sourceSha256": "9bbc666566d34f8d043cd31671e92c66d0fa627cb321c066374d95411c0ebdb5",
+      "textureSha256": "5920e19bf53598845af42571439340775f9025400b02c64a820464815a6dceb4",
+      "convertedSha256": "e881ce888ee1ecbbe4ab1a4228803a6f3f0ccffde3277544c905a4bcd7133fc3",
+      "triangles": 4004,
+      "bottom": 0.0006960000027902424
+    },
+    {
+      "type": "electric",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/electric/electric.bmd",
+      "sourceSha256": "5e9996c3a540d0af800b216397f5c7e77d57ebc4249992af4eb4c89aefefc4c0",
+      "textureSha256": "47cd31ef0e9115bd5812d66b7df63093a931110efa6fed9795511f8b77e44861",
+      "convertedSha256": "f9d1f9102472f6fad836b03a21cfbfb95c42122e1ab606a610d628a95980021b",
+      "triangles": 1104,
+      "bottom": -0.49148300290107727
+    },
+    {
+      "type": "ice",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/ice/ice.bmd",
+      "sourceSha256": "a5ca18799988d4104e514efd122af28f3756fde5ff1bfbf77a6b83fa0c248f37",
+      "textureSha256": "f33e9d2832dda16231de7bc8461e17067478f8a1be72358e2cf5904547b12e7a",
+      "convertedSha256": "9b69667036f0b6b83704c7ac8601828777fda2a15bcab4051f10e44a9b878344",
+      "triangles": 724,
+      "bottom": 0.12179400026798248
+    },
+    {
+      "type": "fighting",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/fighting/fighting.bmd",
+      "sourceSha256": "6b9e4f26b9fd007227057f51876a2894b86d06925a028912353e6eb7c224e1f6",
+      "textureSha256": "94a4d7810c3cf2c9c54a00499cdf6d63d0346d8891cd2371f6f288a8f06cac76",
+      "convertedSha256": "365f8830356fbd66725913f9d90e9e4b51ea2688c9a5993da562828de429c397",
+      "triangles": 828,
+      "bottom": 0.039778001606464386
+    },
+    {
+      "type": "poison",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/poison/poison.bmd",
+      "sourceSha256": "5bbbe3f87e47f8ff25a199f64361d6a5b901e187fafa5e384e10cdb38659d8c6",
+      "textureSha256": "da856b5c1276833066d275929869ed5feb6683b314843b5da8a456abb9c00f0f",
+      "convertedSha256": "119cb6a044301e2ef39d504b09005bf5a9d2d36a4cbb9a80364d2f53702f6a69",
+      "triangles": 1564,
+      "bottom": 0.06608700007200241
+    },
+    {
+      "type": "ground",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/ground/ground.bmd",
+      "sourceSha256": "465e795490905a1902a133a77b0be07c98f66b35af2ac2439e1c8ba4a28d39fb",
+      "textureSha256": "598e5309aa8def0d6d81c28c665b358d7074dace8a6245401b0c407c3395befb",
+      "convertedSha256": "a74f7b730ccdcc88d290b2cf28d9f54136585064ee742adf8f33f9bd1ced7fe7",
+      "triangles": 765,
+      "bottom": 0.06516800075769424
+    },
+    {
+      "type": "flying",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/flying/flying.bmd",
+      "sourceSha256": "a3c646bf1b8f8fc046eb66b0129936acbe9f9c493027cb4928404e10b2dae17d",
+      "textureSha256": "1bb04c4b67fe4e33f6c1dc48fcfa96cd20258b346d654fdce043682b9836a092",
+      "convertedSha256": "dd331bcef88cb55ff341ef51ff0d9396dbf84440ae7a2bb42519a5ebb88a9521",
+      "triangles": 3464,
+      "bottom": -0.19533300399780273
+    },
+    {
+      "type": "psychic",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/psychic/psychic.bmd",
+      "sourceSha256": "77c1a84a9686b63e604c6621056d079cfe83b8f0f88df99261b612739f674cd5",
+      "textureSha256": "7f557753bdef9b61302c34001c90809349141dee1b88eba30f24ae5d3c17a1a6",
+      "convertedSha256": "5135dc1a40efb2cc544d3fd2288a1485b5e8f7d14c5242ce5c5cc070465b6ddd",
+      "triangles": 692,
+      "bottom": 0.12179400026798248
+    },
+    {
+      "type": "bug",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/bug/bug.bmd",
+      "sourceSha256": "eac55aaaaeaf31b0ae422890e33fc0c3d3914b01ab7c79562b65cbddeea5dcc6",
+      "textureSha256": "27df939358308011ca0d7d46d8d0e8d59bdd0d0c8bb2e460a556302c4931d431",
+      "convertedSha256": "611ffab00a11124a9a682fe6f65a18649227bd425de62d9715d0e7c46fd2905d",
+      "triangles": 1872,
+      "bottom": 0.010200000368058681
+    },
+    {
+      "type": "rock",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/rock/crown.bmd",
+      "sourceSha256": "c3680f02b54e6dd5e00af3d049cf3f99a81e87768be9f82aaacd7cf11760991b",
+      "textureSha256": "c504ba534786283c1feef88b81e9c1cd0e26b5554181f0a8765331f04178ab74",
+      "convertedSha256": "d52242362c422f34dfbedefc666b78b98e1de264e8a0fb6ecc32ab023180efeb",
+      "triangles": 1756,
+      "bottom": 0.006777000147849321
+    },
+    {
+      "type": "ghost",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/ghost/ghost.bmd",
+      "sourceSha256": "a478c26739acb65f233a2d01b7c16acf8afa10ffb12ada75eca8231a887c1d61",
+      "textureSha256": "250720a2a5d129d025bda06c505d91b2b9aafe01606aa3f0cbaedf780f6413da",
+      "convertedSha256": "5ee485c4be192381111a6812a7b5c164c3515ac3e2c927b981521c144db298d8",
+      "triangles": 844,
+      "bottom": 0.10395999997854233
+    },
+    {
+      "type": "dragon",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/dragon/dragon.bmd",
+      "sourceSha256": "eb1cab8f6ea617148d41eef8d162046731ea3947710369495957d3d4917c7d36",
+      "textureSha256": "3634952eb019e5bad825fc95aa5368360f3d455930ab3f6ebbc9f8254243acd1",
+      "convertedSha256": "0ffacd975e7fe3aa50f2eb11c46072628e6d1b64adb7df0304922474e36ba393",
+      "triangles": 1332,
+      "bottom": 0.17241300642490387
+    },
+    {
+      "type": "dark",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/dark/dark.bmd",
+      "sourceSha256": "a2912d97d809c82d5021bcd13dfa7d656609ee006f0474d25013f48ebc215f0c",
+      "textureSha256": "d81228b5f78a4965399c7e25244347c311b71ec8c2da943d0419c60fb64e8b99",
+      "convertedSha256": "d6e136647487bd5baebef00c1384688079150d138c980fe15957766a3261db54",
+      "triangles": 1744,
+      "bottom": -0.23570400476455688
+    },
+    {
+      "type": "steel",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/steel/steel.bmd",
+      "sourceSha256": "975ca0b754dfd48bd1a495a354834d25a5fe31d8c46811e5e1b3badab50097df",
+      "textureSha256": "7db6a95cad9f849e72aec1030f1b0a0bbdf4f6cc605e270a1aadb5c67503ec44",
+      "convertedSha256": "324288ae4d16d2720183d2cf5da033c91e6ec3dc9e170f80c53486d9a523b024",
+      "triangles": 494,
+      "bottom": 0.09310100227594376
+    },
+    {
+      "type": "fairy",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/fairy/fairy.bmd",
+      "sourceSha256": "06a38fff14a4ec76e81cb4e93e575fe1abd6213d071285314db5881d3167574b",
+      "textureSha256": "270fa4296464db37c9d0d531572282b361992530dd936ace986aaa496e4b42b2",
+      "convertedSha256": "0810b0e9c7c0de35e4ee9b0b210ba57739fccbea02a23a426ac98b1312a33ce7",
+      "triangles": 1448,
+      "bottom": -0.011637000367045403
+    },
+    {
+      "type": "stellar",
+      "source": "assets/pixelmon/textures/hat/tera_jewel/stellar/crown.bmd",
+      "sourceSha256": "090c8c56c6d17893960e5a6c1cc48522c9288f2bcfb8f24401c12c016f5eaada",
+      "textureSha256": "e36b4efdb7a74deb3512cb65bd6af8f87d3f9790b54c03bb402304367a5e3dc9",
+      "convertedSha256": "17757659dc089c9ee5738b330913e4cc4be4f5496187bbc253fe8879622d6227",
+      "triangles": 2270,
+      "bottom": 0.20413200557231903
+    }
+  ]
+}

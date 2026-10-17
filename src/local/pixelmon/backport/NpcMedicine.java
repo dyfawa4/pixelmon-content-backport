@@ -41,7 +41,7 @@ public final class NpcMedicine {
                     for(PixelmonWrapper enemy:p.getOpponentPokemon())value=Math.max(value,attack.getMove().getBasePower()*Element.getTotalEffectiveness(enemy.type,attack.getType()));
                 if(value>best){best=value;target=member;}
             }
-            if(target!=null)medicine=new ItemStack(PixelmonItems.revive);
+            if(target!=null)medicine=new ItemStack(GymCities.isLeader(((TrainerParticipant)p.getParticipant()).trainer)?PixelmonItems.max_revive:PixelmonItems.revive);
         }
         if(target==null)return false;
         Tera.cancelSelection(p);p.willUseItemPokemon=target.getPokemonUUID();p.willUseItemInStack=medicine;p.willUseItemInStackInfo=-1;
@@ -53,7 +53,7 @@ public final class NpcMedicine {
         Bag bag=BAGS.get(p.getParticipant());if(bag==null || bag.planned!=p.willUseItemInStack || !Objects.equals(bag.target,p.willUseItemPokemon))return false;
         ItemStack stack=p.willUseItemInStack;PixelmonWrapper target=p.getParticipant().getPokemonFromParty(p.willUseItemPokemon);
         bag.planned=null;bag.target=null;
-        boolean revive=stack.func_77973_b()==PixelmonItems.revive;
+        boolean revive=stack.func_77973_b()==PixelmonItems.revive||stack.func_77973_b()==PixelmonItems.max_revive;
         p.willUseItemInStack=null;p.willUseItemInStackInfo=0;p.attack=null;p.selectedAttack=null;
         if(target==null || (revive?bag.revives:bag.heals)<=0)return true;
         UseBattleItemEvent event=new UseBattleItemEvent(p,target,stack,-1);

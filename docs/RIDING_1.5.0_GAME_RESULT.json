@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "cases": [
+    "server-input-immediate-ascent-original-boxes",
+    "release-hover-no-charge-release-surge",
+    "descend-land",
+    "landing-stays-grounded-on-release",
+    "low-roof-native-collision",
+    "ground-press-jump-no-flight",
+    "surf-remains-native-eligible",
+    "cap-remains-unrideable",
+    "animated-model-seat-and-client-no-horse-bar",
+    "dismount-cleanup"
+  ]
+}

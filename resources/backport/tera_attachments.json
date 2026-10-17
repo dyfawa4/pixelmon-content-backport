@@ -1,0 +1,7 @@
+{
+  "description": "Positions use legacy SMD model coordinates; original body and cap geometry are untouched. Crown seats above the original cap, follows the Head skinning matrix, and only the crown is scaled.",
+  "models": {
+    "pixelmon_backport:textures/pokemon/025_ash_cap/none.pqc": {"bone": "Head", "position": [0, 1, -21.2], "scale": 2.0},
+    "pixelmon_backport:textures/pokemon/025_ash_cap/shiny.pqc": {"bone": "Head", "position": [0, 1, -21.2], "scale": 2.0}
+  }
+}
