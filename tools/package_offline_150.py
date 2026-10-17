@@ -59,7 +59,7 @@ def package(root, out, build_id):
     (out/'构建信息.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     sums={p.relative_to(out).as_posix():hashlib.sha256(p.read_bytes()).hexdigest() for p in sorted(out.rglob('*')) if p.is_file()}
     (out/'SHA256SUMS.txt').write_text(''.join(f'{h}  {n}\n' for n,h in sums.items()),encoding='utf-8')
-    archive=dist/'1.5.0-离线测试包-最新.zip';assert not archive.exists()
+    archive=dist/'Pixelmon-Backport-offline-test-1.5.0.zip';assert not archive.exists()
     with ZipFile(archive,'w',ZIP_DEFLATED,compresslevel=6) as z:
         for p in sorted(out.rglob('*')):
             if p.is_file():z.write(p,p.relative_to(out).as_posix())

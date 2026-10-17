@@ -78,7 +78,7 @@ FTB“发现结构”任务补齐模组结构类型注册 ID 的识别，沿用�
 | `Pixelmon-Backport-source-1.5.0.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
 | `Pixelmon-Backport-Handbook-1.5.0.md` | 单独阅读或分享完整玩法说明 |
 | `Pixelmon-Backport-Greninja-1.5.0.md` | 忍蛙技能更新、三回合规则与新成就 |
-| `1.5.0-离线测试包-最新.zip` | 同版本模组、14 张干净地图、任务书覆盖与说明 |
+| `Pixelmon-Backport-offline-test-1.5.0.zip` | 同版本模组、14 张干净地图、任务书覆盖与说明 |
 | `SHA256SUMS-1.5.0.txt` | 校验全部发布文件（离线包另附独立 SHA-256） |
 
 上述文件可从 [1.5.0 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.5.0) 下载，也可由构建脚本生成到 `dist/`。

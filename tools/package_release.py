@@ -54,7 +54,7 @@ artifacts = [addon, package, maps, gyms, handbook, source]
 if version in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'}: artifacts += [cap, cap_guide]
 if version in {'1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'}: artifacts += [greninja_guide]
 if version == '1.5.0':
-    artifacts += [dist/f'1.5.0-离线测试包-最新.zip', dist/'Pixelmon-Backport-npc-quest-test-map-1.5.0.zip', dist/'Pixelmon-Backport-tera-visual-test-map-1.5.0-r10.zip', dist/'Pixelmon-Backport-riding-test-map-1.5.0-r9.zip']
+    artifacts += [dist/'Pixelmon-Backport-offline-test-1.5.0.zip', dist/'Pixelmon-Backport-npc-quest-test-map-1.5.0.zip', dist/'Pixelmon-Backport-tera-visual-test-map-1.5.0-r10.zip', dist/'Pixelmon-Backport-riding-test-map-1.5.0-r9.zip']
 checksums.write_text(''.join(f'{hashlib.sha256(p.read_bytes()).hexdigest()}  {p.name}\n'
                              for p in artifacts), encoding='utf-8')
 print(f'Packaged addon, feature/city maps, handbook, complete source and checksums for {version}.')
