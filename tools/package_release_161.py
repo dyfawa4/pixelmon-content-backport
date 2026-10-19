@@ -1,4 +1,4 @@
-"""Package the accepted 1.6.1 R3 core, documentation and committed source."""
+"""Package reviewed 1.6.1 including R3 and the final config-save fix."""
 import argparse
 import hashlib
 import io
@@ -11,7 +11,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / 'dist'
 VERSION = '1.6.1'
-ACCEPTED_CORE_SHA256 = '68c0b3c4eb791a8a24378340e963c823cb35eb2fa208c96570f2b84adea4ca4c'
+RELEASE_CORE_SHA256 = '6674ba84c7efe44eb656a592ed8645517b7a5a06ec75ba1e8c623822ef9a6935'
 
 
 def sha(data):
@@ -23,7 +23,7 @@ def git(*args):
 
 
 def check_core(data):
-    assert sha(data) == ACCEPTED_CORE_SHA256, 'Core differs from accepted R3'
+    assert sha(data) == RELEASE_CORE_SHA256, 'Core differs from reviewed release'
     with ZipFile(io.BytesIO(data)) as jar:
         assert jar.testzip() is None
         assert 'version="1.6.1"' in jar.read('META-INF/mods.toml').decode()
@@ -95,7 +95,7 @@ def main():
             '完整更新见 docs/RELEASE_1.6.1.md；场内捕捉规则保持不变。\n'))
         bundle.writestr('构建信息.json', json.dumps({
             'version': VERSION, 'source_commit': ref, 'core_sha256': sha(data),
-            'accepted_candidate': '1.6.1-test-r3', 'network_protocol': 13,
+            'base_candidate': '1.6.1-test-r3', 'includes_config_save_fix': True, 'network_protocol': 13,
             'includes_game_or_player_data': False}, ensure_ascii=False, indent=2))
     with ZipFile(package) as bundle:
         assert bundle.testzip() is None
@@ -114,7 +114,7 @@ def main():
         assert sha((DIST / name).read_bytes()) == digest
     (ROOT / '.cache/release-161-assets.json').write_text(
         json.dumps([str(p) for p in artifacts] + [str(manifest)], indent=2), encoding='utf-8')
-    print(f'PASS 1.6.1 release: {len(artifacts)} assets + checksums; accepted R3 core; all committed source blobs verified; source={ref}')
+    print(f'PASS 1.6.1 release: {len(artifacts)} assets + checksums; R3 plus config-save fix; all committed source blobs verified; source={ref}')
 
 
 if __name__ == '__main__':

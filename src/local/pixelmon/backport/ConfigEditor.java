@@ -65,9 +65,30 @@ public final class ConfigEditor {
         }
         try{return JSON.fromJson(value,f.getGenericType());}catch(Exception e){throw new IllegalArgumentException("配置值格式错误",e);}
     }
+    /** Compare JSON-visible values, not Float.doubleValue() against a parsed double.
+     * Float 0.3 serializes as 0.3, but Gson's primitive equality widens it to
+     * 0.30000001192092896. Decimal comparison also keeps adjacent large longs
+     * distinct; using a double epsilon here could overwrite a real stale edit.
+     */
+    private static boolean sameValue(JsonElement current,JsonElement expected){
+        if(current==null||expected==null)return current==expected;
+        if(current.isJsonPrimitive()&&expected.isJsonPrimitive()){
+            JsonPrimitive a=current.getAsJsonPrimitive(),b=expected.getAsJsonPrimitive();
+            if(a.isNumber()&&b.isNumber()){
+                try{return a.getAsBigDecimal().compareTo(b.getAsBigDecimal())==0;}
+                catch(NumberFormatException e){return false;}
+            }
+        }
+        if(current.isJsonArray()&&expected.isJsonArray()){
+            JsonArray a=current.getAsJsonArray(),b=expected.getAsJsonArray();if(a.size()!=b.size())return false;
+            for(int i=0;i<a.size();i++)if(!sameValue(a.get(i),b.get(i)))return false;
+            return true;
+        }
+        return current.equals(expected);
+    }
     public static synchronized String save(String group,String path,JsonElement expected,JsonElement value) throws Exception {
         Entry entry=entries(group).stream().filter(e->e.path.equals(path)).findFirst().orElseThrow(()->new IllegalArgumentException("未知配置项"));
-        JsonElement before=entry.value();if(!before.equals(expected))throw new IllegalStateException("配置已被其他人修改，请刷新后再保存");
+        JsonElement before=entry.value();if(!sameValue(before,expected))throw new IllegalStateException("配置已被其他人修改，请刷新后再保存");
         Object parsed=parse(entry,value),old=entry.field.get(entry.owner);entry.field.set(entry.owner,parsed);
         try{
             if(group.equals("backport"))BackportConfig.save();

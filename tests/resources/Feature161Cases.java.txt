@@ -85,7 +85,7 @@ package info.pixelmon.repack.org.spongepowered.reference;public interface ValueR
 // FILE: com/pixelmonmod/pixelmon/api/config/api/yaml/AbstractYamlConfig.java
 package com.pixelmonmod.pixelmon.api.config.api.yaml;public class AbstractYamlConfig {protected transient info.pixelmon.repack.org.spongepowered.reference.ValueReference<Object,Object> config;public void bind(){config=new info.pixelmon.repack.org.spongepowered.reference.ValueReference<Object,Object>(){};}}
 // FILE: com/pixelmonmod/pixelmon/api/config/PixelmonConfigProxy.java
-package com.pixelmonmod.pixelmon.api.config;public class PixelmonConfigProxy {public static GeneralConfig general;public static GraphicsConfig graphics;public static GeneralConfig getGeneral(){return general;}public static GraphicsConfig getGraphics(){return graphics;}}
+package com.pixelmonmod.pixelmon.api.config;public class PixelmonConfigProxy {public static GeneralConfig general;public static GraphicsConfig graphics;public static SpawningConfig spawning;public static GeneralConfig getGeneral(){return general;}public static GraphicsConfig getGraphics(){return graphics;}public static SpawningConfig getSpawning(){return spawning;}}
 // FILE: com/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice.java
 package com.pixelmonmod.pixelmon.battles.controller.ai;public class MoveChoice {}
 // FILE: com/pixelmonmod/pixelmon/battles/attacks/EffectBase.java
@@ -93,6 +93,9 @@ package com.pixelmonmod.pixelmon.battles.attacks;import java.util.*;import com.p
 // FILE: Feature161Cases.java
 import java.util.*;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonArray;
 import com.pixelmonmod.pixelmon.battles.attacks.EffectBase;
 import com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice;
 import local.pixelmon.backport.*;
@@ -160,6 +163,30 @@ public class Feature161Cases {
   PixelmonServerConfig.load();ck(PixelmonServerConfig.maxLevel==120&&PixelmonServerConfig.ridingSpeedMultiplier==2f,"native server snapshot stale");PixelmonServerConfig.maxLevel=987;
   ConfigEditor.save("graphics","renderWildLevels",new JsonPrimitive(false),new JsonPrimitive(true));
   ck(PixelmonConfigProxy.getGraphics().isRenderWildLevels()&&PixelmonServerConfig.renderWildLevels&&PixelmonServerConfig.maxLevel==987,"graphics cache not live or overwrote server gameplay cache");
+  PixelmonConfigProxy.spawning=(SpawningConfig)unsafe.allocateInstance(SpawningConfig.class);PixelmonConfigProxy.spawning.bind();
+  java.lang.reflect.Field bosses=SpawningConfig.class.getDeclaredField("bossSpawning");bosses.setAccessible(true);bosses.set(PixelmonConfigProxy.spawning,unsafe.allocateInstance(bosses.getType()));
+  java.lang.reflect.Field chance=bosses.getType().getDeclaredField("bossSpawnChance");chance.setAccessible(true);chance.setFloat(PixelmonConfigProxy.spawning.getBossSpawning(),.3f);
+  for(float next:new float[]{.4f,.7f,.1f,1e-5f,.3f}){
+   // Actual page -> JSON wire -> selected row -> ConfigInput -> authoritative save.
+   var page=new JsonParser().parse(ConfigEditor.page("spawning","bossSpawning.bossSpawnChance",0).toString()).getAsJsonObject();
+   var row=page.getAsJsonArray("entries").get(0).getAsJsonObject();
+   ConfigEditor.save("spawning",row.get("path").getAsString(),row.get("value"),ConfigInput.parse(row,Float.toString(next)));
+   ck(PixelmonConfigProxy.getSpawning().getBossSpawning().getBossSpawnChance()==next,"wire float save did not reach native getter");
+   ck(info.pixelmon.repack.org.spongepowered.reference.ValueReference.State.saved.contains(Float.toString(next)),"wire float save did not persist");
+  }
+  var stalePage=new JsonParser().parse(ConfigEditor.page("spawning","bossSpawning.bossSpawnChance",0).toString()).getAsJsonObject();var stale=stalePage.getAsJsonArray("entries").get(0).getAsJsonObject();
+  chance.setFloat(PixelmonConfigProxy.spawning.getBossSpawning(),Math.nextUp(.3f));String saved=info.pixelmon.repack.org.spongepowered.reference.ValueReference.State.saved;
+  try{ConfigEditor.save("spawning","bossSpawning.bossSpawnChance",stale.get("value"),new JsonPrimitive(.8f));throw new AssertionError("real float conflict overwritten");}catch(IllegalStateException expected){}
+  ck(PixelmonConfigProxy.spawning.getBossSpawning().getBossSpawnChance()==Math.nextUp(.3f)&&java.util.Objects.equals(saved,info.pixelmon.repack.org.spongepowered.reference.ValueReference.State.saved),"conflict changed live or saved config");
+  var equality=ConfigEditor.class.getDeclaredMethod("sameValue",JsonElement.class,JsonElement.class);equality.setAccessible(true);
+  ck((Boolean)equality.invoke(null,new JsonPrimitive(.3f),new JsonParser().parse("0.30")),"decimal spelling mismatch");
+  ck(!(Boolean)equality.invoke(null,new JsonPrimitive(9007199254740992L),new JsonParser().parse("9007199254740993")),"large adjacent integer conflict lost");
+  ck(!(Boolean)equality.invoke(null,new JsonPrimitive(.3f),new JsonPrimitive("0.3")),"string accepted as number");
+  ck(!(Boolean)equality.invoke(null,new JsonPrimitive(true),new JsonPrimitive("true")),"string accepted as boolean");
+  var floats=new JsonArray();floats.add(.3f);floats.add(1e-5f);
+  ck((Boolean)equality.invoke(null,floats,new JsonParser().parse("[0.3,0.00001]")),"float list wire mismatch");
+  ck(!(Boolean)equality.invoke(null,floats,new JsonParser().parse("[0.3,0.00002]")),"changed float list conflict lost");
+  System.out.println("PASS config JSON page roundtrip: real native float .3 -> .4 and repeated small/exponent values persist immediately; next-float stale write still rejected");
   info.pixelmon.repack.org.spongepowered.reference.ValueReference.State.fail=true;
   try{ConfigEditor.save("graphics","renderWildLevels",new JsonPrimitive(true),new JsonPrimitive(false));throw new AssertionError("failed save accepted");}catch(java.io.IOException expected){}
   ck(PixelmonConfigProxy.getGraphics().isRenderWildLevels()&&PixelmonServerConfig.renderWildLevels,"failed save did not rollback");
