@@ -20,6 +20,12 @@ public final class BossCaptureVerification {
         if(count!=names.length)throw new AssertionError("Native signature changed "+cls);Files.write(p,write(stub));
     }
     public static void main(String[] args)throws Exception{
+        for(String lang:List.of("zh_cn","en_us")){
+            var text=Version13StaticVerification.resource("assets/pixelmon_backport/lang/"+lang+".json");
+            String field=text.get("pixelmon.backport.cap.field_capture_blocked").getAsString();
+            String warning=text.get("pixelmon.backport.cap.capture_warning").getAsString();
+            if(lang.equals("zh_cn")?(!field.contains("任何精灵球")||!field.contains("场外")||!warning.contains("只能在战斗中")):(!field.contains("any Poke Ball")||!field.contains("outside battle")||!warning.contains("only be caught in battle")))throw new AssertionError("Cap field warning scope "+lang);
+        }
         Map<String,String>s=new LinkedHashMap<>();
         add(s,API+"api.pokemon.boss.BossTier","public class BossTier {public String id;public Boolean isBoss;public BossTier(String s){id=s;}public boolean isBoss(){throw new AssertionError();}public boolean isNotBoss(){throw new AssertionError();}}");
         add(s,PART+"ParticipantType","public enum ParticipantType {WildPokemon,Trainer,Player}");

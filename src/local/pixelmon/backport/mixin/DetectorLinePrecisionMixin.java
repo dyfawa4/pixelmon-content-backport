@@ -18,7 +18,12 @@ public abstract class DetectorLinePrecisionMixin {
     }
     @Redirect(method="drawLine",at=@At(value="INVOKE",target="Lcom/mojang/blaze3d/vertex/IVertexBuilder;func_227888_a_(Lnet/minecraft/util/math/vector/Matrix4f;FFF)Lcom/mojang/blaze3d/vertex/IVertexBuilder;",ordinal=0))
     private IVertexBuilder backport$lineOrigin(IVertexBuilder builder,Matrix4f matrix,float x,float y,float z,Matrix4f original,@Coerce Object marker,IVertexBuilder output,RayTraceResult ray){
-        return backport$vertex(builder,matrix,ray.func_216347_e());
+        // Collision rays originate at the tick-based passenger eye and may hit
+        // alternating blocks while the animated riding camera stays elsewhere.
+        // Anchor to the actual frame camera in every perspective instead.
+        var camera=Minecraft.func_71410_x().field_71460_t.func_215316_n();
+        var look=camera.func_227996_l_();
+        return backport$vertex(builder,matrix,DetectorLineCoordinates.origin(camera.func_216785_c(),look.func_195899_a(),look.func_195900_b(),look.func_195902_c()));
     }
     @Redirect(method="drawLine",at=@At(value="INVOKE",target="Lcom/mojang/blaze3d/vertex/IVertexBuilder;func_227888_a_(Lnet/minecraft/util/math/vector/Matrix4f;FFF)Lcom/mojang/blaze3d/vertex/IVertexBuilder;",ordinal=1))
     private IVertexBuilder backport$lineTarget(IVertexBuilder builder,Matrix4f matrix,float x,float y,float z,Matrix4f original,@Coerce Object marker,IVertexBuilder output,RayTraceResult ray){

@@ -13,6 +13,8 @@ public abstract class DetectorConfigFolderMixin {
     @Shadow @Final private boolean root;
     @Inject(method="getEntryName",at=@At("RETURN"),cancellable=true)
     private void backport$folder(CallbackInfoReturnable<String> cir){
+        String farmer=local.pixelmon.backport.client.FarmersDelightConfigText.folder(spec,root,cir.getReturnValue());
+        if(farmer!=null){cir.setReturnValue(farmer);return;}
         Object value=spec.getRaw(java.util.Arrays.asList("general","allowDetector"));
         if(!(value instanceof ForgeConfigSpec.ValueSpec))return;
         if(!"pixelmondetector.config.allowDetector".equals(((ForgeConfigSpec.ValueSpec)value).getTranslationKey()))return;

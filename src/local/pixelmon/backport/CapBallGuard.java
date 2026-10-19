@@ -7,11 +7,13 @@ import com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity;
 import com.pixelmonmod.pixelmon.items.PokeBallPart;
 import net.minecraftforge.eventbus.api.*;
 
-/** Reject just the three forbidden balls before the native bag action commits. */
+/** All field balls use the native Boss rejection; battle ball rules stay separate. */
 public final class CapBallGuard {
     public static final String MESSAGE="pixelmon.backport.cap.forbidden_ball";
+    public static final String FIELD_MESSAGE="pixelmon.backport.cap.field_capture_blocked";
     public static boolean fieldBlocked(PokeBall ball,PixelmonEntity target){
-        return target!=null && !target.hasOwner() && target.getTrainer()==null && BurstCapture.forbidden(ball,target.getPokemon());
+        return ball!=null && target!=null && !target.hasOwner() && target.getTrainer()==null
+            && target.getPokemon()!=null && target.getPokemon().getSpecies().getDex()==CapSpecies.DEX;
     }
     public static boolean blocked(PlayerParticipant participant,PokeBall ball){
         var battle=participant.bc;

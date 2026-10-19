@@ -13,7 +13,7 @@ $taskDetector=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter 'Pi
 $taskCompass=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*ExplorersCompass*.jar' | ForEach-Object {$_.FullName})
 $taskNature=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*NaturesCompass*.jar' | ForEach-Object {$_.FullName})
 $taskTweaks=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter 'PixelTweaks*.jar' | ForEach-Object {$_.FullName})
-$taskOptional=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*.jar' | Where-Object {$_.Name -match 'ftb[-_]|architectury|幸运方块|lootr|configured'} | ForEach-Object {$_.FullName})
+$taskOptional=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*.jar' | Where-Object {$_.Name -match 'ftb[-_]|architectury|幸运方块|lootr|configured|FarmersDelight'} | ForEach-Object {$_.FullName})
 $taskForgeClient=@(Get-ChildItem -LiteralPath (Join-Path $LibrariesDirectory 'net/minecraftforge/forge') -Recurse -Filter '*36.2.42-client.jar' | ForEach-Object {$_.FullName})
 if($taskForgeClient.Count -ne 1){throw 'Exactly one actual Forge 36.2.42 patched client is required for template placement checks'}
 $taskCP=(@($taskTests,$taskBuild.classes,(Join-Path $PSScriptRoot 'resources'),(Join-Path $PSScriptRoot 'tests/resources'))+$taskAsm+$taskGson+@($taskBuild.classpath)+$taskDetector+$taskCompass+$taskNature+$taskTweaks+$taskOptional) -join [IO.Path]::PathSeparator
@@ -33,8 +33,24 @@ if($LASTEXITCODE -ne 0){throw 'Battle rule regression failed'}
 if($LASTEXITCODE -ne 0){throw '1.6.0 raid selection and quest palette regression failed'}
 & $taskBuild.java -ea -cp $taskCP TeraSnapshotVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Tera snapshot native single-type synchronization failed'}
+if((Test-Path "dist/pixelmon-content-backport-1.16.5-1.4.4.jar") -and (Test-Path "dist/pixelmon-content-backport-1.16.5-1.6.0.jar")){
+    & $taskBuild.java -ea -cp $taskCP CrashSnapshotRegression "dist/pixelmon-content-backport-1.16.5-1.4.4.jar" "dist/pixelmon-content-backport-1.16.5-1.6.0.jar" $taskBuild.jar
+    if($LASTEXITCODE -ne 0){throw 'Reported 1.4.4 snapshot crash versus fixed releases failed'}
+}
 & $taskBuild.java -ea -cp $taskCP ConfigInterfaceVerification
 if($LASTEXITCODE -ne 0){throw 'Chinese configuration input and search failed'}
+& $taskBuild.java -ea -cp $taskCP Feature161Verification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw '1.6.1 render, item scope, Eject Pack and live configuration checks failed'}
+& $taskBuild.java -ea -cp $taskCP Feedback161Verification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw '1.6.1 second feedback: native storage delta / revival / display regression failed'}
+python -X utf8 (Join-Path $PSScriptRoot 'tools/verify_spawn_checker_models.py')
+if($LASTEXITCODE -ne 0){throw 'Detector model coplanar surface regression failed'}
+& $taskBuild.java -ea -cp $taskCP DetectorRecipeVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Detector native shaped recipe and ball-identity checks failed'}
+& $taskBuild.java -ea -cp $taskCP UltraPlantVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Ultra Plant native mining-bolt advancement checks failed'}
+python -X utf8 (Join-Path $PSScriptRoot 'tools/verify_161_localization_art.py') --mods (Split-Path $PixelmonJar)
+if($LASTEXITCODE -ne 0){throw 'Installed Farmer localization and embedded ball art audit failed'}
 & $taskBuild.java -ea -cp $taskCP MegaFollowupVerification
 if($LASTEXITCODE -ne 0){throw 'Mega signature and editor import policies failed'}
 & $taskBuild.java -ea -cp $taskCP NativeVariantModelVerification $PixelmonJar

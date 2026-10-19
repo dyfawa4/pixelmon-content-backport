@@ -20,6 +20,18 @@ public final class GymTerrainVerification {
         check(planned && loadedOnly && generationOnly && boundedReads==2,"Bounded holder/start reads or generation boundary missing");
         boolean villageOnly=false;for(MethodNode m:Version13StaticVerification.node("net/minecraft/world/gen/feature/LakesFeature").methods)for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode)villageOnly|=((FieldInsnNode)i).name.equals("field_236381_q_");
         check(villageOnly,"Recheck native lake's vanilla-village-only protection");
+        boolean radius=false,delegated=false;
+        for(MethodNode m:Version13StaticVerification.node("local/pixelmon/backport/mixin/GymMushroomProtectionMixin").methods)for(AbstractInsnNode i:m.instructions){
+            if(i instanceof FieldInsnNode)radius|=((FieldInsnNode)i).name.equals("field_227274_c_");
+            if(i instanceof MethodInsnNode)delegated|=((MethodInsnNode)i).owner.equals("local/pixelmon/backport/GymTerrainProtection")&&((MethodInsnNode)i).name.equals("protectedArea");
+        }
+        check(radius&&delegated,"Giant mushroom cap radius or existing city protection omitted");
+        for(String type:new String[]{"BigBrownMushroomFeature","BigRedMushroomFeature"})check(Version13StaticVerification.node("net/minecraft/world/gen/feature/"+type).superName.equals("net/minecraft/world/gen/feature/AbstractBigMushroomFeature"),"Native mushroom bypasses shared hook");
+        for(int edge:new int[]{-33,-16,-1,0,15,16,1200}){
+            check(GymTerrainProtection.intersects(edge-4,edge-4,edge+2,edge+2,edge+1,edge+1,edge+16,edge+16),"Mushroom cap crossing city boundary missed");
+            check(!GymTerrainProtection.intersects(edge-8,edge-8,edge-2,edge-2,edge+1,edge+1,edge+16,edge+16),"Unrelated wild mushroom blocked");
+        }
+        System.out.println("PASS red/brown giant mushrooms share native placement guard including cap overlap; player-grown/world-boundary policies retained.");
         System.out.println("PASS planned gym footprint protection before natural lakes/trees/patches; negative-coordinate/cross-chunk edges and untouched surroundings, loaded-reference-only and generation-only boundaries; template water and player saplings unaffected. Natural generation remains manual.");
     }
 }

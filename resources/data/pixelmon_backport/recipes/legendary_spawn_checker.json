@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["SDS", "SBS", "SSS"],
+  "key": {
+    "S": {"item": "pixelmon:silver_ingot"},
+    "D": {"item": "pixelmon_backport:normal_spawn_checker"},
+    "B": {"type": "pixelmon_backport:master_ball"}
+  },
+  "result": {
+    "item": "pixelmon_backport:legendary_spawn_checker",
+    "count": 1
+  }
+}

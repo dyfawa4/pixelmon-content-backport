@@ -60,6 +60,7 @@
     "BattleEvolutionGuardMixin",
     "GymLakeProtectionMixin",
     "GymTreeProtectionMixin",
+    "GymMushroomProtectionMixin",
     "GymPatchProtectionMixin",
     "TeraAttackMixin",
     "TeraControllerMixin",
@@ -133,7 +134,18 @@
     "BattleMotionPacketMixin",
     "LuckySpeciesMixin",
     "CrownedBattleAdvancementMixin",
-    "PiercingDrillMixin"
+    "PiercingDrillMixin",
+    "FramePlacementMixin",
+    "SpawnCheckViewerMixin",
+    "SelfStatAiSnapshotMixin",
+    "StatAiSnapshotMixin",
+    "GroupStatAiSnapshotMixin",
+    "UltraPlantMiningBoltMixin",
+    "UltraPlantLightningHitMixin",
+    "FarmersDelightConfigTranslationMixin",
+    "SpawnNpcNamesMixin",
+    "BallItemArtMixin",
+    "TechnicalMoveNullEntryMixin"
   ],
   "client": [
     "PixelmonOptionsMixin",
@@ -206,7 +218,9 @@
     "AshMoveDisplayMixin",
     "AshBattleMessageMixin",
     "MegaStoneTooltipMixin",
-    "EditorImportMixin"
+    "EditorImportMixin",
+    "EvolutionBeamOriginMixin",
+    "StoragePacketGuardMixin"
   ],
   "injectors": {
     "defaultRequire": 1

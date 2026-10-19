@@ -1,0 +1,487 @@
+{
+  "source": "Pixelmon-9.13-1.9.jar",
+  "sourceSha256": "842d8107691b7ac5f0e93963c024ccb6a54eb7d967b9dd9a6a20805f3764746f",
+  "scope": "Changed item icons, lids, discs and bases only; native 3D pokeball models and entity textures match this reference byte for byte. Ball IDs, PokeBallID NBT and capture logic unchanged.",
+  "files": [
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/aluminum_base.png",
+      "sha256": "da077c69833fa032e1c73445e25af2263ef1fc4c0ec9d614f26d00112cea81c8"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ancient_great_ball.png",
+      "sha256": "dbdfb1aedc8df5420fe0937eeb78c89a9da93a04986af85d499d6d91596cb73b"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ancient_great_ball_lid.png",
+      "sha256": "53e55f75c65ea26d1199dc10d89c2e3e6ac036e3a0544f346019a86e095b78d5"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ancient_heavy_ball.png",
+      "sha256": "6af5901c13a8567d742087fc4104fba1f3fda6df4a30c1afd6d5879efdd41c31"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ancient_heavy_ball_lid.png",
+      "sha256": "e6b639f6eaa857de6dff7325f51967873a52db6ce283ad101f97712e7d118d34"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ancient_poke_ball.png",
+      "sha256": "36408ad660c79c37a5408f7d89607d480c95902f65c2c656807d1ac4c7c1a03c"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ancient_poke_ball_lid.png",
+      "sha256": "d3c8b9194ab8ad804f33791309b0ac82c6ffcd70ec1b51c943d5c22b778402c0"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ancient_ultra_ball.png",
+      "sha256": "e67e451990233f43dc3f672f25d56f626d5c0b0ee1526ba85eaf0b5704bb8a92"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ancient_ultra_ball_lid.png",
+      "sha256": "5b2b65ef08fff55f00e6d3344860f682383b7c0a578e309808b3351e875a73a5"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/beast_ball.png",
+      "sha256": "500150f4a9762098589cf0b7c2912d8cff2c608cc8abe49470fefd2ddfec0b38"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/cherish_ball.png",
+      "sha256": "9d416423e995c81d6d0f089fd001c4b107f1c0672ed377a6b8aba2c7ee5dbc31"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/christmas_ball.png",
+      "sha256": "d0f196218f2c8d91121507c35eaa626205c6193aa94beb4f611144aaafed87ea"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/dive_ball.png",
+      "sha256": "0a32f69cfbab4ef41478db1484a65fc492fd79e9339292cac6ff7ae597e93d92"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/dive_ball_lid.png",
+      "sha256": "a8fcb0a2268c650ecfbb5faab72be836ec959a5edafc1e2cf36e198b4dea84a6"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/dream_ball.png",
+      "sha256": "039b132baa511bce4d19ff35bfb352cdfb2e9aa2e57daf0284aa7d761a147da5"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/dusk_ball.png",
+      "sha256": "edf5078de3d92dc54c14d16c7d4cc9bfc7debce80d9a0daee3bbf888b1fe2573"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/dusk_ball_lid.png",
+      "sha256": "1b43ebb765dd71d62298ea31cd6137f945fdc259986bf9e0aebd5f94e6aebd2b"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/fast_ball.png",
+      "sha256": "a3942cdfcaba308962dc75d2798089b710ca038239d2a819ce7bea5302bee9e5"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/fast_ball_lid.png",
+      "sha256": "0cc9fd6b835ebd613f42d344e2450ee3fa316c37b25401a637df1096a7b7febc"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/feather_ball.png",
+      "sha256": "dd40015190d57c799bec8914205559100420d787880f0aa30020a83adcaa5e34"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/feather_ball_lid.png",
+      "sha256": "1c8358bdf846bad27e0e2a48401f5bd01708e92b9a824266c872071ba1643db4"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/friend_ball.png",
+      "sha256": "7ec1e2e4eb5378d5735a4644673ef0cb2f369ff42e00b772d9fd223a37a2ddd9"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/friend_ball_lid.png",
+      "sha256": "5b6970865add6a69cec4cd7b16f582203917b147aa937196a664f1701ef0871c"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/gigaton_ball.png",
+      "sha256": "79bea27253a64bc15bc984095e99f5caacaacc0af67a5d763275d84e4ab60abd"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/gigaton_ball_lid.png",
+      "sha256": "73966079462af14858773fbf14ee79bb08ab08ad3884973a3e04f7f30638464a"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/great_ball.png",
+      "sha256": "54564c2f4d745a0bb7905983602fbb2d7abbc4c41416f396ce37dc6d4b99224a"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/great_ball_lid.png",
+      "sha256": "cd6102d13eb91f3a1c7fbc10464d486c0576468c258143e8211995df89d2e0b1"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/gs_ball.png",
+      "sha256": "9843cbb71af8ee9e6950f97536e044de36e1318995e12fdda8133392c7fd5395"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/heal_ball.png",
+      "sha256": "c5342e3787e1be15006b203ad776652f3a123290d053b74ddf819427541fa886"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/heal_ball_lid.png",
+      "sha256": "41c797281ffae109f1257000cdd8a4a46daf2b2a1720f5a659bb5bcfc1064629"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/heavy_ball.png",
+      "sha256": "2e8dc1c0de7af5de53326e22456ad99eb7ad0843185ac64db963c63a98b7eaa6"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/heavy_ball_lid.png",
+      "sha256": "edadcefabc6bbcd2c3a542142392d06245bd907d3c55e32f11f49e321fd181d1"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/iron_base.png",
+      "sha256": "c91ce76811e1df9308bbd94801c7d295903e261d7901b0d50077554cc4a194d7"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/jet_ball.png",
+      "sha256": "2d047d62a103bac815223dce22c9aa9165f0b286b5d99596e1b2fa6004a56e49"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/jet_ball_lid.png",
+      "sha256": "e5c2fe8da64a402bd530392a9322dae7bf8daf40f75d2e78d3e5d3c9a32d670b"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/leaden_ball.png",
+      "sha256": "26063c43003f0a93d82f8973f8dc3431bb0be12a96e1732acf9b7dad34b49002"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/leaden_ball_lid.png",
+      "sha256": "c984074e8723149ce226c83f495ea3fa913f0e60a54dc76f2384f5b4ddec7cb5"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/level_ball.png",
+      "sha256": "815629133a263be379ba38b4fa0d79d9d267feb0e17caaf7005afa31611a158a"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/level_ball_lid.png",
+      "sha256": "b35780ac621e485bffae7604331e4540e78642606035c20d63c69cacddc8af83"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/love_ball.png",
+      "sha256": "c76784eae0256f22d68ef778f8f9ddfd40dd4ece496d5c09e6f951537b431dd0"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/love_ball_lid.png",
+      "sha256": "921dff14bfcf4344a4461851143465cb44b60103b18da039797ebb7225d74d6f"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/lure_ball.png",
+      "sha256": "52a6aef9e0930513a402a3cc3f0a6df796a0c98512feab264056e869b310081e"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/lure_ball_lid.png",
+      "sha256": "19ccfd9e89a48fd26a8ff7abd3fe726548055bf3514145e5955c2baa75bc179e"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/luxury_ball.png",
+      "sha256": "74b95cb6a39c8790e1888f1097efe2973510cc43fe59a68471fd2fdda39978ad"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/luxury_ball_lid.png",
+      "sha256": "cc144975af9f00646d0df8ca4b4778e55238fbb33331e3a03a29338c30aaee3c"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/master_ball.png",
+      "sha256": "821f9978dd28feebc5a38c7749499866dfc8f3365a94b7b28284640efdd1da75"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/moon_ball.png",
+      "sha256": "ca584866687d8ad2814d028ecaa08486d4003a05f8b6a12df45b044bbb55822c"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/moon_ball_lid.png",
+      "sha256": "4f1c4009b1d60b78ed2079870e1c4e46c225e629221b54ceaea5dbbe0e95dea3"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/nest_ball.png",
+      "sha256": "2c0389d794045e998eddfe13cb2d4c984da84c9521acbef81d84d073a3b8711c"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/nest_ball_lid.png",
+      "sha256": "fc16ac65af5f45b957883dfa23e9d3be29f6dc2a2e08a9ba0b2fc49f2e6affbf"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/net_ball.png",
+      "sha256": "ddb72275f2e2ce20a0a132016e00cfefb8b2f6a5af4d0d4b41b8dd75a991edf0"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/net_ball_lid.png",
+      "sha256": "6d892028bbc448cd67eb7ca2ae3c3b14364e292a44173d068dd5e0d0017072fb"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/origin_ball.png",
+      "sha256": "53409453c07d973946e608b4b9f26eae21207be68e96dccc4c206b60dccbde6c"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/park_ball.png",
+      "sha256": "0e17e196d633d2d90189b3dae0758f47dafce6c6499998c7773d10f83db30804"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/platinum_base.png",
+      "sha256": "387ccf80bf40d44062bdacec3ae7291075c2524afec147f499b8b8ea14a749b4"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/poke_ball.png",
+      "sha256": "755dee6227018c0a8a4d72139e7c14d16bd0f2c3c2b94d924c6c20a4a03e2e8e"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/poke_ball_lid.png",
+      "sha256": "9635fda5e521e7e1c7420b29b2c86f47c5f9080541cd890289a20168697bc28e"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/premier_ball.png",
+      "sha256": "93fc9923d72115983beabef8526d6fbcbe18670eb0fad115e60cbd37fc6bf137"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/premier_ball_lid.png",
+      "sha256": "7d57bfa968d92ab8e9be072f7d51a13b4de0d84a758911208e1ff0c58d6d4234"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/quick_ball.png",
+      "sha256": "a6817df46236b30dc029e6fdc6df18eec973557957cbe6f699c6dc33af0d69ad"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/quick_ball_lid.png",
+      "sha256": "943c2437d80dd41006eca3456817714d3186a39140cd3a93b57f5eb978b6fc22"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/repeat_ball.png",
+      "sha256": "9999b801e9e728974eac523aed725d8cbc3c3a828e8ec73fcd8dff3cf2184115"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/repeat_ball_lid.png",
+      "sha256": "ae86c16165cd428fa678b674a9f5cf8a2f060fcda807c2b652f6bb5c8579a958"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/safari_ball.png",
+      "sha256": "6616d1cec298ecafca3bbf0a89e32fada3e9021edf3c300c9ef3984b002439d1"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/safari_ball_lid.png",
+      "sha256": "dbeddf02a8a82b0de3c57e03fa9197b1e027c38fcb39a372b213d3f86f62f834"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/silver_base.png",
+      "sha256": "a5b441606d85c8e96173dc6a63395a10af0ad7c8c471b095cf200b3577b0e54c"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/sport_ball.png",
+      "sha256": "e66e68e64f605239b1da225b3ed85ac8540d53d639ff68ec4cfef3a31e7229b5"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/sport_ball_lid.png",
+      "sha256": "6586be8d7a370c3ab4f1b920db137f6389e0eed3f267ada0a4d1c24a98d0b549"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/strange_ball.png",
+      "sha256": "98208d8be0badd049680216e0ba23217460627c247adcfac54b60738d7755c68"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/timer_ball.png",
+      "sha256": "45e6efe15730f8958a9aff1e83e8d76862a50b340cb50695c698d485bb15b6d5"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/timer_ball_lid.png",
+      "sha256": "ed619702037773d649ff5c9a5a7c8cd1eb881bc798db3fbc1474a29f5ace7378"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ultra_ball.png",
+      "sha256": "a9e6ae09714cd1379439bff85620381a116d07a759492273c633e1a5cf1d051c"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/ultra_ball_lid.png",
+      "sha256": "d2ae05aba0afe739c0dd16acf19f96004b5cc7a7f5ec0f21e813d91725e358ce"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/wing_ball.png",
+      "sha256": "08ece41eeb9dddf4c4ab0f6dbf6610c5577f8faaa25344acded3add12f62026e"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/wing_ball_lid.png",
+      "sha256": "77888db167d033861f9b5fd9aac3c8f31ec31a58323044e8236eaf73a743beb6"
+    },
+    {
+      "path": "assets/pixelmon/textures/items/pokeballs/wooden_base.png",
+      "sha256": "796cb064aba66752f81674dc5e39e54dfbe11f142def5cae5b73ad6031ef4a82"
+    }
+  ],
+  "ownedFiles": [
+    "aluminum_base",
+    "ancient_great_ball",
+    "ancient_great_ball_lid",
+    "ancient_heavy_ball",
+    "ancient_heavy_ball_lid",
+    "ancient_poke_ball",
+    "ancient_poke_ball_lid",
+    "ancient_ultra_ball",
+    "ancient_ultra_ball_lid",
+    "beast_ball",
+    "beast_ball_lid",
+    "cherish_ball",
+    "cherish_ball_lid",
+    "christmas_ball",
+    "christmas_ball_lid",
+    "dive_ball",
+    "dive_ball_lid",
+    "dream_ball",
+    "dream_ball_lid",
+    "dusk_ball",
+    "dusk_ball_lid",
+    "fast_ball",
+    "fast_ball_lid",
+    "feather_ball",
+    "feather_ball_lid",
+    "friend_ball",
+    "friend_ball_lid",
+    "gigaton_ball",
+    "gigaton_ball_lid",
+    "great_ball",
+    "great_ball_lid",
+    "gs_ball",
+    "gs_ball_lid",
+    "heal_ball",
+    "heal_ball_lid",
+    "heavy_ball",
+    "heavy_ball_lid",
+    "iron_base",
+    "jet_ball",
+    "jet_ball_lid",
+    "leaden_ball",
+    "leaden_ball_lid",
+    "level_ball",
+    "level_ball_lid",
+    "love_ball",
+    "love_ball_lid",
+    "lure_ball",
+    "lure_ball_lid",
+    "luxury_ball",
+    "luxury_ball_lid",
+    "master_ball",
+    "master_ball_lid",
+    "moon_ball",
+    "moon_ball_lid",
+    "nest_ball",
+    "nest_ball_lid",
+    "net_ball",
+    "net_ball_lid",
+    "origin_ball",
+    "origin_ball_lid",
+    "park_ball",
+    "park_ball_lid",
+    "platinum_base",
+    "poke_ball",
+    "poke_ball_lid",
+    "premier_ball",
+    "premier_ball_lid",
+    "quick_ball",
+    "quick_ball_lid",
+    "repeat_ball",
+    "repeat_ball_lid",
+    "safari_ball",
+    "safari_ball_lid",
+    "silver_base",
+    "sport_ball",
+    "sport_ball_lid",
+    "strange_ball",
+    "strange_ball_lid",
+    "timer_ball",
+    "timer_ball_lid",
+    "ultra_ball",
+    "ultra_ball_lid",
+    "wing_ball",
+    "wing_ball_lid",
+    "wooden_base"
+  ],
+  "ownedNamespace": "pixelmon_backport:items/pokeballs/",
+  "ownedScope": "All 85 reference PNGs, unchanged bytes; runtime ball/lid sprite routing and static base/disc baked models use owned namespace.",
+  "ownedHashes": {
+    "aluminum_base": "da077c69833fa032e1c73445e25af2263ef1fc4c0ec9d614f26d00112cea81c8",
+    "ancient_great_ball": "dbdfb1aedc8df5420fe0937eeb78c89a9da93a04986af85d499d6d91596cb73b",
+    "ancient_great_ball_lid": "53e55f75c65ea26d1199dc10d89c2e3e6ac036e3a0544f346019a86e095b78d5",
+    "ancient_heavy_ball": "6af5901c13a8567d742087fc4104fba1f3fda6df4a30c1afd6d5879efdd41c31",
+    "ancient_heavy_ball_lid": "e6b639f6eaa857de6dff7325f51967873a52db6ce283ad101f97712e7d118d34",
+    "ancient_poke_ball": "36408ad660c79c37a5408f7d89607d480c95902f65c2c656807d1ac4c7c1a03c",
+    "ancient_poke_ball_lid": "d3c8b9194ab8ad804f33791309b0ac82c6ffcd70ec1b51c943d5c22b778402c0",
+    "ancient_ultra_ball": "e67e451990233f43dc3f672f25d56f626d5c0b0ee1526ba85eaf0b5704bb8a92",
+    "ancient_ultra_ball_lid": "5b2b65ef08fff55f00e6d3344860f682383b7c0a578e309808b3351e875a73a5",
+    "beast_ball": "500150f4a9762098589cf0b7c2912d8cff2c608cc8abe49470fefd2ddfec0b38",
+    "beast_ball_lid": "5ef44703035fae4a389a19884b24ed5f088d32d4b425706ded0e8b8d3f4dfff6",
+    "cherish_ball": "9d416423e995c81d6d0f089fd001c4b107f1c0672ed377a6b8aba2c7ee5dbc31",
+    "cherish_ball_lid": "088f400202faf83386cc241d2fddbc86a6ef8a64946a22a6d64f994e75b0bf3f",
+    "christmas_ball": "d0f196218f2c8d91121507c35eaa626205c6193aa94beb4f611144aaafed87ea",
+    "christmas_ball_lid": "202a9c5dd503896f8de0a0ae27981df67a6d7ac1cccddfc2a43314f4880468b5",
+    "dive_ball": "0a32f69cfbab4ef41478db1484a65fc492fd79e9339292cac6ff7ae597e93d92",
+    "dive_ball_lid": "a8fcb0a2268c650ecfbb5faab72be836ec959a5edafc1e2cf36e198b4dea84a6",
+    "dream_ball": "039b132baa511bce4d19ff35bfb352cdfb2e9aa2e57daf0284aa7d761a147da5",
+    "dream_ball_lid": "8ab63f3d1e1319965d24839a145bfc05c04a0169650e738dbc29adb0ea798855",
+    "dusk_ball": "edf5078de3d92dc54c14d16c7d4cc9bfc7debce80d9a0daee3bbf888b1fe2573",
+    "dusk_ball_lid": "1b43ebb765dd71d62298ea31cd6137f945fdc259986bf9e0aebd5f94e6aebd2b",
+    "fast_ball": "a3942cdfcaba308962dc75d2798089b710ca038239d2a819ce7bea5302bee9e5",
+    "fast_ball_lid": "0cc9fd6b835ebd613f42d344e2450ee3fa316c37b25401a637df1096a7b7febc",
+    "feather_ball": "dd40015190d57c799bec8914205559100420d787880f0aa30020a83adcaa5e34",
+    "feather_ball_lid": "1c8358bdf846bad27e0e2a48401f5bd01708e92b9a824266c872071ba1643db4",
+    "friend_ball": "7ec1e2e4eb5378d5735a4644673ef0cb2f369ff42e00b772d9fd223a37a2ddd9",
+    "friend_ball_lid": "5b6970865add6a69cec4cd7b16f582203917b147aa937196a664f1701ef0871c",
+    "gigaton_ball": "79bea27253a64bc15bc984095e99f5caacaacc0af67a5d763275d84e4ab60abd",
+    "gigaton_ball_lid": "73966079462af14858773fbf14ee79bb08ab08ad3884973a3e04f7f30638464a",
+    "great_ball": "54564c2f4d745a0bb7905983602fbb2d7abbc4c41416f396ce37dc6d4b99224a",
+    "great_ball_lid": "cd6102d13eb91f3a1c7fbc10464d486c0576468c258143e8211995df89d2e0b1",
+    "gs_ball": "9843cbb71af8ee9e6950f97536e044de36e1318995e12fdda8133392c7fd5395",
+    "gs_ball_lid": "cb8338bc7f97523c67dc047c4d835c76495e706812a7870bd48f2495992dc290",
+    "heal_ball": "c5342e3787e1be15006b203ad776652f3a123290d053b74ddf819427541fa886",
+    "heal_ball_lid": "41c797281ffae109f1257000cdd8a4a46daf2b2a1720f5a659bb5bcfc1064629",
+    "heavy_ball": "2e8dc1c0de7af5de53326e22456ad99eb7ad0843185ac64db963c63a98b7eaa6",
+    "heavy_ball_lid": "edadcefabc6bbcd2c3a542142392d06245bd907d3c55e32f11f49e321fd181d1",
+    "iron_base": "c91ce76811e1df9308bbd94801c7d295903e261d7901b0d50077554cc4a194d7",
+    "jet_ball": "2d047d62a103bac815223dce22c9aa9165f0b286b5d99596e1b2fa6004a56e49",
+    "jet_ball_lid": "e5c2fe8da64a402bd530392a9322dae7bf8daf40f75d2e78d3e5d3c9a32d670b",
+    "leaden_ball": "26063c43003f0a93d82f8973f8dc3431bb0be12a96e1732acf9b7dad34b49002",
+    "leaden_ball_lid": "c984074e8723149ce226c83f495ea3fa913f0e60a54dc76f2384f5b4ddec7cb5",
+    "level_ball": "815629133a263be379ba38b4fa0d79d9d267feb0e17caaf7005afa31611a158a",
+    "level_ball_lid": "b35780ac621e485bffae7604331e4540e78642606035c20d63c69cacddc8af83",
+    "love_ball": "c76784eae0256f22d68ef778f8f9ddfd40dd4ece496d5c09e6f951537b431dd0",
+    "love_ball_lid": "921dff14bfcf4344a4461851143465cb44b60103b18da039797ebb7225d74d6f",
+    "lure_ball": "52a6aef9e0930513a402a3cc3f0a6df796a0c98512feab264056e869b310081e",
+    "lure_ball_lid": "19ccfd9e89a48fd26a8ff7abd3fe726548055bf3514145e5955c2baa75bc179e",
+    "luxury_ball": "74b95cb6a39c8790e1888f1097efe2973510cc43fe59a68471fd2fdda39978ad",
+    "luxury_ball_lid": "cc144975af9f00646d0df8ca4b4778e55238fbb33331e3a03a29338c30aaee3c",
+    "master_ball": "821f9978dd28feebc5a38c7749499866dfc8f3365a94b7b28284640efdd1da75",
+    "master_ball_lid": "57bdfdc89ba6c29a5308d90b3feced8d411190f565acded19930261f74fb82b1",
+    "moon_ball": "ca584866687d8ad2814d028ecaa08486d4003a05f8b6a12df45b044bbb55822c",
+    "moon_ball_lid": "4f1c4009b1d60b78ed2079870e1c4e46c225e629221b54ceaea5dbbe0e95dea3",
+    "nest_ball": "2c0389d794045e998eddfe13cb2d4c984da84c9521acbef81d84d073a3b8711c",
+    "nest_ball_lid": "fc16ac65af5f45b957883dfa23e9d3be29f6dc2a2e08a9ba0b2fc49f2e6affbf",
+    "net_ball": "ddb72275f2e2ce20a0a132016e00cfefb8b2f6a5af4d0d4b41b8dd75a991edf0",
+    "net_ball_lid": "6d892028bbc448cd67eb7ca2ae3c3b14364e292a44173d068dd5e0d0017072fb",
+    "origin_ball": "53409453c07d973946e608b4b9f26eae21207be68e96dccc4c206b60dccbde6c",
+    "origin_ball_lid": "8f72bc72e068914251be8c7eab17a3113a8ce8b1e5b697e2b6cebd8cd1e79855",
+    "park_ball": "0e17e196d633d2d90189b3dae0758f47dafce6c6499998c7773d10f83db30804",
+    "park_ball_lid": "5d2dc83d93d50b60c23a17def4a7442e9994e32a699b1a652668a55232b35db8",
+    "platinum_base": "387ccf80bf40d44062bdacec3ae7291075c2524afec147f499b8b8ea14a749b4",
+    "poke_ball": "755dee6227018c0a8a4d72139e7c14d16bd0f2c3c2b94d924c6c20a4a03e2e8e",
+    "poke_ball_lid": "9635fda5e521e7e1c7420b29b2c86f47c5f9080541cd890289a20168697bc28e",
+    "premier_ball": "93fc9923d72115983beabef8526d6fbcbe18670eb0fad115e60cbd37fc6bf137",
+    "premier_ball_lid": "7d57bfa968d92ab8e9be072f7d51a13b4de0d84a758911208e1ff0c58d6d4234",
+    "quick_ball": "a6817df46236b30dc029e6fdc6df18eec973557957cbe6f699c6dc33af0d69ad",
+    "quick_ball_lid": "943c2437d80dd41006eca3456817714d3186a39140cd3a93b57f5eb978b6fc22",
+    "repeat_ball": "9999b801e9e728974eac523aed725d8cbc3c3a828e8ec73fcd8dff3cf2184115",
+    "repeat_ball_lid": "ae86c16165cd428fa678b674a9f5cf8a2f060fcda807c2b652f6bb5c8579a958",
+    "safari_ball": "6616d1cec298ecafca3bbf0a89e32fada3e9021edf3c300c9ef3984b002439d1",
+    "safari_ball_lid": "dbeddf02a8a82b0de3c57e03fa9197b1e027c38fcb39a372b213d3f86f62f834",
+    "silver_base": "a5b441606d85c8e96173dc6a63395a10af0ad7c8c471b095cf200b3577b0e54c",
+    "sport_ball": "e66e68e64f605239b1da225b3ed85ac8540d53d639ff68ec4cfef3a31e7229b5",
+    "sport_ball_lid": "6586be8d7a370c3ab4f1b920db137f6389e0eed3f267ada0a4d1c24a98d0b549",
+    "strange_ball": "98208d8be0badd049680216e0ba23217460627c247adcfac54b60738d7755c68",
+    "strange_ball_lid": "0100fd3ce29f05ad8815972f30ae7a182a99522d69913f0ed34aa885a160a306",
+    "timer_ball": "45e6efe15730f8958a9aff1e83e8d76862a50b340cb50695c698d485bb15b6d5",
+    "timer_ball_lid": "ed619702037773d649ff5c9a5a7c8cd1eb881bc798db3fbc1474a29f5ace7378",
+    "ultra_ball": "a9e6ae09714cd1379439bff85620381a116d07a759492273c633e1a5cf1d051c",
+    "ultra_ball_lid": "d2ae05aba0afe739c0dd16acf19f96004b5cc7a7f5ec0f21e813d91725e358ce",
+    "wing_ball": "08ece41eeb9dddf4c4ab0f6dbf6610c5577f8faaa25344acded3add12f62026e",
+    "wing_ball_lid": "77888db167d033861f9b5fd9aac3c8f31ec31a58323044e8236eaf73a743beb6",
+    "wooden_base": "796cb064aba66752f81674dc5e39e54dfbe11f142def5cae5b73ad6031ef4a82"
+  }
+}

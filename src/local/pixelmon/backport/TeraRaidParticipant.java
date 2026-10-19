@@ -19,6 +19,7 @@ public final class TeraRaidParticipant extends RaidPixelmonParticipant {
     public final TeraRaidRules rules=new TeraRaidRules();
     private final Map<BattleParticipant,Integer> charges=new IdentityHashMap<>(),faints=new IdentityHashMap<>();
     private final Map<BattleParticipant,Long> revives=new IdentityHashMap<>();
+    private final Map<BattleParticipant,PixelmonWrapper> fallen=new IdentityHashMap<>();
     private long lastTick=-1;
     private boolean started,finished;
     public TeraRaidParticipant(RaidData raid,TeraDenEntity den,Pokemon pokemon){
@@ -39,7 +40,7 @@ public final class TeraRaidParticipant extends RaidPixelmonParticipant {
         rules.elapsed+=delta;
         if(rules.elapsed>=6000){finished=true;getGovernor().done=true;announce("timeout");bc.endBattle();return;}
         if(rules.shouldRaise(getWrapper().getHealthPercent()))raiseShield();
-        for(Iterator<Map.Entry<BattleParticipant,Long>> it=revives.entrySet().iterator();it.hasNext();){Map.Entry<BattleParticipant,Long> entry=it.next();if(now<entry.getValue())continue;BattleParticipant p=entry.getKey();it.remove();p.isDefeated=false;p.allPokemon[0].healByPercent(100);bc.reviveAfterDefeat(p);announce("revive");}
+        for(Iterator<Map.Entry<BattleParticipant,Long>> it=revives.entrySet().iterator();it.hasNext();){Map.Entry<BattleParticipant,Long> entry=it.next();if(now<entry.getValue())continue;BattleParticipant p=entry.getKey();if(TeraRevival.revive(bc,p,fallen.get(p))){it.remove();fallen.remove(p);announce("revive");}else entry.setValue(now+20);}
         if(!rules.stolen && rules.elapsed>=1800){rules.stolen=true;charges.replaceAll((p,v)->Math.max(0,v-1));announce("stolen");}
         int second=(int)(rules.elapsed/20);if(second!=rules.lastSecond){rules.lastSecond=second;TeraNetwork.raidStatus(this);}
     }
@@ -70,7 +71,7 @@ public final class TeraRaidParticipant extends RaidPixelmonParticipant {
     }
     @Override public void onOpponentKO(BattleController bc,PixelmonWrapper p){
         BattleParticipant owner=p.getParticipant();if(owner.team==team || revives.containsKey(owner))return;
-        int count=faints.getOrDefault(owner,0);faints.put(owner,count+1);revives.put(owner,gameTime()+Math.min(30,5+count*5)*20L);
+        fallen.put(owner,p);int count=faints.getOrDefault(owner,0);faints.put(owner,count+1);revives.put(owner,gameTime()+Math.min(30,5+count*5)*20L);
         if(owner instanceof PlayerParticipant)rules.elapsed+=600;
         TeraNetwork.raidStatus(this);
     }

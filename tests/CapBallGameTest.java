@@ -26,21 +26,21 @@ public final class CapBallGameTest {
         var p=server.func_184103_al().func_181057_v().get(0);if(p.field_70173_aa<200||p.field_70173_aa%20!=0)return;
         try{
             if(step==BALLS.length){
-                Files.writeString(RESULT,"{\"serverPassed\":true,\"actualImpacts\":21,\"blockedAndRefundedOnce\":6,\"blockedWithoutVirtualRefund\":6,\"legalCaptureStarts\":9,\"nativeBallTypesChecked\":"+nativeBalls+"}");
-                System.out.println("CAP_BALL_GAME_SERVER_PASS impacts=21 blocked=12 allowed=9");finished=true;return;
+                Files.writeString(RESULT,"{\"serverPassed\":true,\"actualImpacts\":21,\"blockedAndRefundedOnce\":12,\"blockedWithoutVirtualRefund\":6,\"legalCaptureStarts\":3,\"nativeBallTypesChecked\":"+nativeBalls+"}");
+                System.out.println("CAP_BALL_GAME_SERVER_PASS impacts=21 blocked=18 allowed=3");finished=true;return;
             }
             boolean shiny=(step>=3&&step<6)||(step>=9&&step<12)||step>=18;int dex=step>=12&&step<15?25:1026;
             PixelmonEntity target=new PixelmonEntity(p.func_71121_q(),TeraVisualTestMap.pokemon(dex,"",shiny));target.func_70012_b(20,65,35,0,0);target.func_94061_f(true);p.func_71121_q().func_217376_c(target);
-            if(step==0){for(var b:PokeBallRegistry.getAll()){boolean expect=BurstCapture.forbidden(b,target.getPokemon());check(CapBallGuard.fieldBlocked(b,target)==expect,"Native ball selection "+b.getName());nativeBalls++;}}
+            if(step==0){for(var b:PokeBallRegistry.getAll()){check(CapBallGuard.fieldBlocked(b,target),"Native ball selection "+b.getName());nativeBalls++;}}
             var ball=PokeBallRegistry.getPokeBall(BALLS[step]).getValue().orElseThrow();
             var area=new AxisAlignedBB(18,60,32,24,75,40);for(var old:p.func_71121_q().func_175647_a(ItemEntity.class,area,it->true))old.func_70106_y();
             var projectile=new EmptyPokeBallEntity(p.func_71121_q(),p,ball,step<15);projectile.func_70107_b(20,65.5,35);p.func_71121_q().func_217376_c(projectile);
             var impact=EmptyPokeBallEntity.class.getDeclaredMethod("func_70227_a",RayTraceResult.class);impact.setAccessible(true);impact.invoke(projectile,new EntityRayTraceResult(target));
             var drops=p.func_71121_q().func_175647_a(ItemEntity.class,area,it->it.func_70089_S());
-            boolean forbidden=step<6||step>=15;
+            boolean forbidden=dex==CapSpecies.DEX;
             if(forbidden){
                 check(!projectile.func_70089_S()&&target.hitByPokeball==null&&target.func_70089_S(),"Forbidden ball entered animation "+BALLS[step]);
-                if(step<6)check(drops.size()==1&&drops.get(0).func_92059_d().func_190916_E()==1&&PokeBallPartType(drops.get(0),ball),"Missing/duplicate/wrong refund "+BALLS[step]+" drops="+drops.size());
+                if(step<15)check(drops.size()==1&&drops.get(0).func_92059_d().func_190916_E()==1&&PokeBallPartType(drops.get(0),ball),"Missing/duplicate/wrong refund "+BALLS[step]+" drops="+drops.size());
                 else check(drops.isEmpty(),"Virtual projectile created a ball refund");
             }else check(projectile.func_70089_S()&&target.hitByPokeball==projectile&&drops.isEmpty(),"Legal ball disturbed "+dex+":"+BALLS[step]);
             for(var item:drops)item.func_70106_y();target.hitByPokeball=null;projectile.func_70106_y();target.func_70106_y();
@@ -51,10 +51,10 @@ public final class CapBallGameTest {
     @Mod.EventBusSubscriber(modid="backport_tera_visual_test",value=net.minecraftforge.api.distmarker.Dist.CLIENT)
     public static class Client {
         static int messages,closing;
-        @SubscribeEvent public static void chat(net.minecraftforge.client.event.ClientChatReceivedEvent e){if(enabled()&&e.getMessage().getString().contains("不能用大师球、起源球、公园球捕捉戴帽子的皮卡丘"))messages++;}
+        @SubscribeEvent public static void chat(net.minecraftforge.client.event.ClientChatReceivedEvent e){if(enabled()&&e.getMessage().getString().contains("不能在场外捕捉戴帽子的皮卡丘，任何精灵球都无效"))messages++;}
         @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
             if(e.phase!=TickEvent.Phase.END||!enabled()||!Files.isRegularFile(RESULT)||++closing!=60)return;
-            try{var report=new JsonParser().parse(Files.readString(RESULT)).getAsJsonObject();report.addProperty("clientRejectionMessages",messages);report.addProperty("passed",report.get("serverPassed").getAsBoolean()&&messages==12);Files.writeString(RESULT,new GsonBuilder().setPrettyPrinting().create().toJson(report));System.out.println("CAP_BALL_GAME_FINAL_PASS="+report.get("passed"));}catch(Exception error){error.printStackTrace();}
+            try{var report=new JsonParser().parse(Files.readString(RESULT)).getAsJsonObject();report.addProperty("clientRejectionMessages",messages);report.addProperty("passed",report.get("serverPassed").getAsBoolean()&&messages==18);Files.writeString(RESULT,new GsonBuilder().setPrettyPrinting().create().toJson(report));System.out.println("CAP_BALL_GAME_FINAL_PASS="+report.get("passed"));}catch(Exception error){error.printStackTrace();}
             net.minecraft.client.Minecraft.func_71410_x().func_71400_g();
         }
     }

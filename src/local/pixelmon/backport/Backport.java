@@ -41,6 +41,8 @@ public final class Backport {
         }
         for(int i=0;i<TeraItems.NAMES.length;i++){final int index=i;String name=TeraItems.NAMES[i]+"_tera_shard";REGISTERED.put(name,ITEMS.register(name,()->new TeraItems.Shard(index)));}
         REGISTERED.put("tera_den_spawner",ITEMS.register("tera_den_spawner",TeraDenItem::new));
+        REGISTERED.put("legendary_spawn_checker",ITEMS.register("legendary_spawn_checker",()->new SpawnCheckItem(true)));
+        REGISTERED.put("normal_spawn_checker",ITEMS.register("normal_spawn_checker",()->new SpawnCheckItem(false)));
         REGISTERED.put("tera_blast_disc_single_use",ITEMS.register("tera_blast_disc_single_use",DisposableTeraDisc::new));
         for(Map.Entry<String,JsonElement> definition:GymCities.DATA.getAsJsonObject("newThemes").entrySet()){
             String name=definition.getKey()+"_gym_badge";
@@ -66,6 +68,7 @@ public final class Backport {
         BackportConfig.load();
         NinjaLearning learning=new NinjaLearning();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(learning);Pixelmon.EVENT_BUS.register(learning);
         net.minecraftforge.common.crafting.CraftingHelper.register(MasterBallIngredient.ID,MasterBallIngredient.SERIALIZER);
+        net.minecraftforge.common.crafting.CraftingHelper.register(PokeBallIngredient.ID,PokeBallIngredient.SERIALIZER);
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         GymLocator.ALIASES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -86,6 +89,7 @@ public final class Backport {
         Pixelmon.EVENT_BUS.register(new BurstRaidCapture());
         Pixelmon.EVENT_BUS.register(new BurstCapture());
         Pixelmon.EVENT_BUS.register(new BossCaptureGuard());
+        Pixelmon.EVENT_BUS.register(new InvalidSpeciesSeal());
         Pixelmon.EVENT_BUS.register(new CapBallGuard());
         Pixelmon.EVENT_BUS.register(new GymChallenge());
         Pixelmon.EVENT_BUS.register(new AppearanceAdvancements());

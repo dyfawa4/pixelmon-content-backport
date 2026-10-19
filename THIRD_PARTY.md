@@ -28,3 +28,14 @@ Minecraft、Forge、Pixelmon 旧版本体及参考定制版完整 JAR 是用户�
 2026-10-19 根据用户实机反馈，撤下 Navas 方块风格模型／动画／贴图，恢复用户提供的 Pixelmon 旧模型和普通／闪光材质；包内不再分发这些 Navas 视觉资源。变体仍沿用既有 PokemonWorkshop 像素头像及相应署名许可。当前引用及哈希见 `resources/backport/za-variant-assets.json`，恢复边界见 [旧模型恢复记录](docs/旧模型恢复与测试场补齐_2026-10-19.md)。
 
 本次平滑变体基于原用户提供模型派生：米立龙只调整原鱼体与匹配骨架的排列，玛机雅娜只调整材质坐标以取用原图集已有颜色；原 PNG 字节不改。属于原模型的适配衍生，保留原上游权利，未新增方块模型资源。派生文件及哈希见 `resources/backport/za-variant-assets.json`。
+
+
+1.6.1 避难背包图标直接复用用户提供 Pixelmon-9.13-1.9.jar 内原始 eject_pack.png，未重绘。来源与 SHA-256 见 resources/backport/eject-pack-source.json，素材保留上游权利。展示框引用 Minecraft 内置物品图标，无额外分发该原版图片。刷新检查器当前为下述自制图标。
+
+1.6.1 刷新检查器图标为内置 image_gen 生成的项目专用像素素材，非借用第三方模组图标；生成提示词与32×32整理记录见 resources/backport/spawn-checker-icons-source.json。立体模型为本项目原生 JSON 几何，金属／混凝土材质引用游戏自带资源。
+
+1.6.1 精灵球物品外观迁移用户提供的 `Pixelmon-9.13-1.9.jar` 中 76 张不同的物品图标、球盖、球盘和底座 PNG，保留原始字节；这些上游素材保留原作者权利，不由本项目 MIT 重新授权。逐文件 SHA-256 和来源 JAR 哈希见 `resources/backport/pokeball-item-art-source.json`。原生三维精灵球模型与该参考一致，没有重复复制。
+
+1.6.1 为 Farmer's Delight 1.16.5-0.6.0 增加本项目编写的中文漏译及配置名称／说明。原模组为 vectorwing 的 Farmer's Delight，原模组许可为 MIT；未打包其 Java 类或完整 JAR，原有中文继续由其资源提供。
+
+1.6.1 修订 2 为保证实际材质读取，额外将同一参考模组的全部 85 张精灵球相关 PNG 原字节置于回迁命名空间，并提供本项目的材质 getter 及球盘／底座模型路由。上游素材权利保持不变，全部哈希见上述来源记录；未复制上游 Java 模型实现。

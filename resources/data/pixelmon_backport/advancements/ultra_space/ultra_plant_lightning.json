@@ -1,0 +1,23 @@
+{
+  "parent": "pixelmon:ultra_space/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:sea_lantern"
+    },
+    "title": {
+      "translate": "advancement.pixelmon_backport.ultra_plant_lightning"
+    },
+    "description": {
+      "translate": "advancement.pixelmon_backport.ultra_plant_lightning.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

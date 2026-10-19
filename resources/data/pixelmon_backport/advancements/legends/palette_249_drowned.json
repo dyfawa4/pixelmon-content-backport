@@ -11,7 +11,7 @@
     "description": {
       "text": "获得任务书中对应特殊材质的洛奇亚，并存入自己的队伍或电脑。"
     },
-    "frame": "task",
+    "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": true

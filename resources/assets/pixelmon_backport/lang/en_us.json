@@ -772,7 +772,8 @@
   "structure.pixelmon_backport.ultra_forest_tera_den": "Ultra Forest Tera Den",
   "structure.pixelmon_backport.ultra_jungle_tera_den": "Ultra Jungle Tera Den",
   "structure.pixelmon_backport.ultra_plant_tera_den": "Ultra Plant Tera Den",
-  "pixelmon.backport.cap.capture_warning": "This Pokemon cannot be caught with a Master Ball, Park Ball, or Origin Ball.",
+  "pixelmon.backport.cap.capture_warning": "Cap Pikachu can only be caught in battle. No Poke Ball works outside battle! Master Balls, Origin Balls, and Park Balls remain prohibited in battle.",
+  "pixelmon.backport.cap.field_capture_blocked": "Cap Pikachu cannot be caught outside battle with any Poke Ball! Enter battle to catch it.",
   "pixelmon.backport.cap.forbidden_ball": "You cannot catch Cap Pikachu with a Master Ball, Origin Ball, or Park Ball!",
   "pixelmon.backport.java11.title": "Warning ⚠",
   "pixelmon.backport.java11.current": "Current Java version: %s",
@@ -876,5 +877,13 @@
   "pixelmon.generic.form.megadroopy": "Mega Evolution (Droopy)",
   "pixelmon.generic.form.megastretchy": "Mega Evolution (Stretchy)",
   "pixelmon.generic.form.megaoriginal": "Mega Evolution (Original Color)",
-  "pixelmon.backport.editor.import_slot_missing": "Could not locate the edited party slot. Please reopen the editor."
+  "pixelmon.backport.editor.import_slot_missing": "Could not locate the edited party slot. Please reopen the editor.",
+  "pixelmon.generic.form.megaz": "Mega Evolution (Z)",
+  "item.pixelmon_backport.eject_pack": "Eject Pack",
+  "pixelmon.helditems.ejectpack": "%s's Eject Pack activated!",
+  "item.pixelmon_backport.legendary_spawn_checker": "Legendary Spawn Checker",
+  "item.pixelmon_backport.normal_spawn_checker": "Normal Spawn Checker",
+  "pixelmon.backport.spawn_check.unavailable": "The spawning system is not ready. Please try again shortly.",
+  "advancement.pixelmon_backport.ultra_plant_lightning": "Aaaaaaaaaa!",
+  "advancement.pixelmon_backport.ultra_plant_lightning.desc": "Touch the Ultra Plant signal tower and get struck by lightning"
 }

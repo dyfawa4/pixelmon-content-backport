@@ -1,0 +1,45 @@
+// FILE: local/pixelmon/backport/Content.java
+package local.pixelmon.backport;public class Content {public static final String NS="pixelmon_backport";}
+// FILE: net/minecraft/util/ResourceLocation.java
+package net.minecraft.util;public class ResourceLocation {public final String id;public ResourceLocation(String a,String b){id=a+":"+b;}public String toString(){return id;}}
+// FILE: net/minecraft/nbt/CompoundNBT.java
+package net.minecraft.nbt;public class CompoundNBT {java.util.Map<String,java.util.UUID> values=new java.util.HashMap<>();public void func_186854_a(String k,java.util.UUID v){values.put(k,v);}public boolean func_186855_b(String k){return values.containsKey(k);}public java.util.UUID func_186857_a(String k){return values.get(k);}public void func_82580_o(String k){values.remove(k);}}
+// FILE: net/minecraft/world/World.java
+package net.minecraft.world;public class World {public boolean field_72995_K,allow=true;public int spawns;public boolean func_217376_c(net.minecraft.entity.Entity e){spawns++;return allow;}}
+// FILE: net/minecraft/entity/Entity.java
+package net.minecraft.entity;public class Entity {public net.minecraft.world.World field_70170_p;public java.util.UUID id=java.util.UUID.randomUUID();final net.minecraft.nbt.CompoundNBT data=new net.minecraft.nbt.CompoundNBT();public Entity(net.minecraft.world.World w){field_70170_p=w;}public java.util.UUID func_110124_au(){return id;}public net.minecraft.nbt.CompoundNBT getPersistentData(){return data;}}
+// FILE: net/minecraft/entity/effect/LightningBoltEntity.java
+package net.minecraft.entity.effect;public class LightningBoltEntity extends net.minecraft.entity.Entity {public LightningBoltEntity(net.minecraft.world.World w){super(w);}}
+// FILE: net/minecraft/entity/player/PlayerEntity.java
+package net.minecraft.entity.player;public class PlayerEntity extends net.minecraft.entity.Entity {public PlayerEntity(net.minecraft.world.World w){super(w);}}
+// FILE: net/minecraft/entity/player/ServerPlayerEntity.java
+package net.minecraft.entity.player;public class ServerPlayerEntity extends PlayerEntity {public final net.minecraft.server.MinecraftServer server=new net.minecraft.server.MinecraftServer();public final net.minecraft.advancements.PlayerAdvancements progress=new net.minecraft.advancements.PlayerAdvancements();public ServerPlayerEntity(net.minecraft.world.World w){super(w);}public net.minecraft.server.MinecraftServer func_184102_h(){return server;}public net.minecraft.advancements.PlayerAdvancements func_192039_O(){return progress;}}
+// FILE: net/minecraft/server/MinecraftServer.java
+package net.minecraft.server;public class MinecraftServer {public final net.minecraft.advancements.AdvancementManager manager=new net.minecraft.advancements.AdvancementManager();public net.minecraft.advancements.AdvancementManager func_191949_aK(){return manager;}}
+// FILE: net/minecraft/advancements/Advancement.java
+package net.minecraft.advancements;public class Advancement {}
+// FILE: net/minecraft/advancements/AdvancementManager.java
+package net.minecraft.advancements;public class AdvancementManager {public boolean loaded=true;public String requested;public Advancement func_192778_a(net.minecraft.util.ResourceLocation id){requested=id.toString();return loaded?new Advancement():null;}}
+// FILE: net/minecraft/advancements/PlayerAdvancements.java
+package net.minecraft.advancements;public class PlayerAdvancements {public int awards;public boolean func_192750_a(Advancement a,String criterion){if(!criterion.equals("earned"))throw new AssertionError(criterion);awards++;return true;}}
+// FILE: net/minecraftforge/event/world/BlockEvent.java
+package net.minecraftforge.event.world;public class BlockEvent {public static class BreakEvent {public boolean canceled;final net.minecraft.entity.player.PlayerEntity player;public BreakEvent(net.minecraft.entity.player.PlayerEntity p){player=p;}public net.minecraft.entity.player.PlayerEntity getPlayer(){return player;}public boolean isCanceled(){return canceled;}}}
+// FILE: UltraPlantCases.java
+import local.pixelmon.backport.UltraPlantAchievement;import net.minecraft.world.World;import net.minecraft.entity.Entity;import net.minecraft.entity.player.*;import net.minecraft.entity.effect.LightningBoltEntity;import net.minecraftforge.event.world.BlockEvent.BreakEvent;
+public class UltraPlantCases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ public static void run(){
+  World w=new World();ServerPlayerEntity miner=new ServerPlayerEntity(w),other=new ServerPlayerEntity(w);BreakEvent event=new BreakEvent(miner);LightningBoltEntity bolt=new LightningBoltEntity(w);
+  check(UltraPlantAchievement.spawn(w,bolt,event)&&w.spawns==1,"Native insertion altered");check(miner.progress.awards==0,"Mining/bolt spawn alone awarded");
+  UltraPlantAchievement.struck(other,bolt);check(other.progress.awards==0,"Nearby non-miner awarded");
+  UltraPlantAchievement.struck(miner,new LightningBoltEntity(w));check(miner.progress.awards==0,"Unrelated bolt awarded");
+  miner.field_70170_p=new World();UltraPlantAchievement.struck(miner,bolt);check(miner.progress.awards==0,"Cross-world bolt awarded");miner.field_70170_p=w;
+  UltraPlantAchievement.struck(miner,bolt);check(miner.progress.awards==1,"Actual miner hit not awarded");check(miner.server.manager.requested.equals("pixelmon_backport:ultra_space/ultra_plant_lightning"),"Wrong advancement ID");UltraPlantAchievement.struck(miner,bolt);check(miner.progress.awards==1,"Repeated bolt ticks re-awarded");
+  for(int mode=0;mode<5;mode++){
+   World isolated=new World();ServerPlayerEntity p=new ServerPlayerEntity(isolated);BreakEvent e=new BreakEvent(p);LightningBoltEntity b=new LightningBoltEntity(isolated);
+   if(mode==0)isolated.allow=false;if(mode==1)e.canceled=true;if(mode==2)isolated.field_72995_K=true;if(mode==3)p.field_70170_p=new World();if(mode==4)e=new BreakEvent(new PlayerEntity(isolated));
+   check(UltraPlantAchievement.spawn(isolated,b,e)==isolated.allow,"Insertion result lost");UltraPlantAchievement.struck(p,b);check(p.progress.awards==0,"Invalid spawn scope awarded "+mode);check(isolated.spawns==1,"Native insertion duplicated");
+  }
+  miner.server.manager.loaded=false;LightningBoltEntity retry=new LightningBoltEntity(w);UltraPlantAchievement.spawn(w,retry,event);UltraPlantAchievement.struck(miner,retry);check(miner.progress.awards==1,"Missing datapack advancement failed");miner.server.manager.loaded=true;UltraPlantAchievement.struck(miner,retry);check(miner.progress.awards==2,"Failed award erased marker");
+ }
+}

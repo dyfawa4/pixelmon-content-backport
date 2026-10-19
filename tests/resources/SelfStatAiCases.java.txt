@@ -1,0 +1,73 @@
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/stats/BattleStatsType.java
+package com.pixelmonmod.pixelmon.api.pokemon.stats;public enum BattleStatsType {ATTACK,SPECIAL_ATTACK,DEFENSE,SPECIAL_DEFENSE,SPEED,ACCURACY,EVASION}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/stats/BattleStats.java
+package com.pixelmonmod.pixelmon.api.pokemon.stats;public class BattleStats {public int value=235,copies;public BattleStats(){}public BattleStats(BattleStats b){value=b.value;}public boolean modifyStat(int a,BattleStatsType t,com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,boolean b){value+=a;return true;}public void copyStats(BattleStats b){value=b.value;copies++;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/ability/Ability.java
+package com.pixelmonmod.pixelmon.api.pokemon.ability;public class Ability {}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/ability/abilities/Contrary.java
+package com.pixelmonmod.pixelmon.api.pokemon.ability.abilities;public class Contrary extends com.pixelmonmod.pixelmon.api.pokemon.ability.Ability {}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/ability/abilities/Unaware.java
+package com.pixelmonmod.pixelmon.api.pokemon.ability.abilities;public class Unaware extends com.pixelmonmod.pixelmon.api.pokemon.ability.Ability {}
+// FILE: com/pixelmonmod/pixelmon/api/battles/attack/AttackRegistry.java
+package com.pixelmonmod.pixelmon.api.battles.attack;public class AttackRegistry {public static java.util.Optional<com.pixelmonmod.pixelmon.battles.attacks.ImmutableAttack> BATON_PASS=java.util.Optional.empty(),STORED_POWER=java.util.Optional.empty();}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/EffectBase.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class EffectBase {public float chance=100;public float getChance(){return chance;}}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/basic/OHKO.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic;public class OHKO extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/ImmutableAttack.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class ImmutableAttack {public java.util.List<EffectBase> effects=java.util.List.of();}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/Attack.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class Attack {public ImmutableAttack getMove(){return new ImmutableAttack();}}
+// FILE: com/pixelmonmod/pixelmon/enums/heldItems/EnumHeldItems.java
+package com.pixelmonmod.pixelmon.enums.heldItems;public enum EnumHeldItems {none,whiteHerb,ginemaBerry}
+// FILE: com/pixelmonmod/pixelmon/items/HeldItem.java
+package com.pixelmonmod.pixelmon.items;public class HeldItem {public com.pixelmonmod.pixelmon.enums.heldItems.EnumHeldItems getHeldItemType(){return com.pixelmonmod.pixelmon.enums.heldItems.EnumHeldItems.none;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/log/MoveResults.java
+package com.pixelmonmod.pixelmon.battles.controller.log;public class MoveResults {public int accuracy=100;}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice.java
+package com.pixelmonmod.pixelmon.battles.controller.ai;import java.util.*;import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;public class MoveChoice {public List<PixelmonWrapper> targets=new ArrayList<>();public com.pixelmonmod.pixelmon.battles.attacks.Attack attack=new com.pixelmonmod.pixelmon.battles.attacks.Attack();public com.pixelmonmod.pixelmon.battles.controller.log.MoveResults result=new com.pixelmonmod.pixelmon.battles.controller.log.MoveResults();public float weight;public boolean hitsAlly(){return false;}public static List<MoveChoice> getAffectedChoices(MoveChoice c,List<MoveChoice>a){return a;}public boolean isMiddleTier(){return true;}public boolean isOffensiveMove(){return true;}public void raiseWeight(float v){weight+=v;}public void lowerTier(int n){}public static boolean canOutspeedAnd2HKO(List<MoveChoice>a,PixelmonWrapper p,List<MoveChoice>b){return false;}public static boolean hasPriority(List<MoveChoice>...v){return false;}public static boolean hasSuccessfulAttackChoice(List<MoveChoice>v,Optional<com.pixelmonmod.pixelmon.battles.attacks.ImmutableAttack>...a){return false;}public static List<List<MoveChoice>> splitChoices(List<PixelmonWrapper>p,List<MoveChoice>c){List<List<MoveChoice>>out=new ArrayList<>();for(var v:p)out.add(c);return out;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/ai/BattleAIBase.java
+package com.pixelmonmod.pixelmon.battles.controller.ai;import java.util.*;import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;public class BattleAIBase {public int evaluated,userWeights,opponentWeights,opponentCount;public List<MoveChoice> getBestAttackChoices(PixelmonWrapper p){evaluated++;return List.of();}public void weightFromUserOptions(PixelmonWrapper p,MoveChoice c,List<MoveChoice>a,List<MoveChoice>b,boolean negative){userWeights++;}public void weightFromOpponentOptions(PixelmonWrapper p,MoveChoice c,List<List<MoveChoice>>a,List<List<MoveChoice>>b,boolean negative){opponentWeights++;opponentCount=b.size();}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class PixelmonWrapper {public com.pixelmonmod.pixelmon.battles.controller.BattleController bc;public final com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats stats=new com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats();public final com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase ai=new com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase();public com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats getBattleStats(){return stats;}public com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase getBattleAI(){return ai;}public com.pixelmonmod.pixelmon.items.HeldItem getUsableHeldItem(){return new com.pixelmonmod.pixelmon.items.HeldItem();}public com.pixelmonmod.pixelmon.api.pokemon.ability.Ability getBattleAbility(){return new com.pixelmonmod.pixelmon.api.pokemon.ability.Ability();}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/BattleController.java
+package com.pixelmonmod.pixelmon.battles.controller;import java.util.*;import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;public class BattleController {public boolean sendMessages=true,simulateMode=true,simulateStats;public ArrayList<PixelmonWrapper> opponents=new ArrayList<>();public PixelmonWrapper getFirstMover(PixelmonWrapper... pokemon){return pokemon[1];}public ArrayList<PixelmonWrapper> getOpponentPokemon(PixelmonWrapper p){return opponents;}public ArrayList<PixelmonWrapper> getAdjacentPokemonAndSelf(PixelmonWrapper p){return p==null?new ArrayList<>():opponents;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/BattlePriorityHelper.java
+package com.pixelmonmod.pixelmon.battles.controller;public class BattlePriorityHelper {public static void checkMoveSpeed(BattleController b){}}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/StatsEffectPost.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks;import java.util.*;import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;import com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice;public class StatsEffectPost extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {public com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType type;public int amount;public void weightEffect(PixelmonWrapper p,MoveChoice c,List<MoveChoice>a,List<MoveChoice>b,List<MoveChoice>d,List<MoveChoice>e){}private List<PixelmonWrapper> getAffectedOpponents(PixelmonWrapper p,MoveChoice c){return p.bc.getOpponentPokemon(p);}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/ability/abilities/Competitive.java
+package com.pixelmonmod.pixelmon.api.pokemon.ability.abilities;public class Competitive extends com.pixelmonmod.pixelmon.api.pokemon.ability.Ability {}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/ability/abilities/Defiant.java
+package com.pixelmonmod.pixelmon.api.pokemon.ability.abilities;public class Defiant extends com.pixelmonmod.pixelmon.api.pokemon.ability.Ability {}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/StatsEffect.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks;import java.util.*;import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;import com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice;public class StatsEffect extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {public com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType type;public int amount;public boolean isUser;public boolean getUser(){return isUser;}public void weightEffect(PixelmonWrapper p,MoveChoice c,List<MoveChoice>a,List<MoveChoice>b,List<MoveChoice>d,List<MoveChoice>e){}}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/StatsEffectCone.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks;public class StatsEffectCone extends StatsEffect {}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/StatsEffectTeam.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks;public class StatsEffectTeam extends StatsEffect {}
+// FILE: SelfStatAiCases.java
+import java.util.*;import com.pixelmonmod.pixelmon.api.pokemon.stats.*;import com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.*;import com.pixelmonmod.pixelmon.battles.controller.*;import com.pixelmonmod.pixelmon.battles.controller.participants.*;import com.pixelmonmod.pixelmon.battles.controller.ai.*;
+public class SelfStatAiCases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ static boolean post;static String kind;
+ public static void run(boolean fixed,String suffix){
+  kind=suffix;post=kind.equals("StatsEffectPost");
+  if(!fixed){boolean reproduced=false;try{test(BattleStatsType.SPECIAL_ATTACK,4,-1,true);}catch(NullPointerException e){reproduced=!post||Arrays.stream(e.getStackTrace()).anyMatch(v->v.getMethodName().equals("weightEffect")&&v.getLineNumber()==143);}check(reproduced,"Original snapshot null-pointer not reproduced");return;}
+  for(var t:List.of(BattleStatsType.ATTACK,BattleStatsType.SPECIAL_ATTACK,BattleStatsType.DEFENSE,BattleStatsType.SPECIAL_DEFENSE,BattleStatsType.SPEED))for(int count:new int[]{0,1,2,4})for(int delta:new int[]{-1,1}){
+   test(t,count,delta,true);if(!post)test(t,count,delta,false);
+  }
+ }
+ static void test(BattleStatsType t,int count,int delta,boolean self){
+  var p=new PixelmonWrapper();p.bc=new BattleController();for(int i=0;i<4;i++)p.bc.opponents.add(new PixelmonWrapper());
+  var choice=new MoveChoice();choice.targets.addAll(p.bc.opponents.subList(0,count));List<PixelmonWrapper> targets=choice.targets;var before=new ArrayList<>(targets);var stats=p.stats;
+  if(post){var effect=new StatsEffectPost();effect.type=t;effect.amount=delta;effect.weightEffect(p,choice,List.of(),List.of(),List.of(),List.of());}
+  else {StatsEffect effect=kind.equals("StatsEffectCone")?new StatsEffectCone():kind.equals("StatsEffectTeam")?new StatsEffectTeam():new StatsEffect();effect.type=t;effect.amount=delta;effect.isUser=self;effect.weightEffect(p,choice,List.of(),List.of(),List.of(),List.of());}
+  check(p.stats==stats&&stats.value==235&&stats.copies==(self?1:0),"AI leaked temporary self stats: "+t+"/"+count);
+  for(int i=0;i<4;i++)check(p.bc.opponents.get(i).stats.value==235&&p.bc.opponents.get(i).stats.copies==(!self&&i<count?1:0),"Target snapshot missing or changed");
+  check(p.bc.simulateMode&&p.bc.sendMessages&&!p.bc.simulateStats,"Normal native AI flags changed");check(choice.targets==targets&&targets.equals(before),"Real move targets changed");
+  boolean defense=t==BattleStatsType.DEFENSE||t==BattleStatsType.SPECIAL_DEFENSE;
+  if((self&&defense)||(!self&&!defense&&t!=BattleStatsType.SPEED))check(p.ai.evaluated==((self||(kind.equals("StatsEffectCone")&&count>0))?4:count)&&p.ai.opponentWeights==1&&p.ai.opponentCount==((self||(kind.equals("StatsEffectCone")&&count>0))?4:count),"Opponent size collapsed to snapshot size");
+  if(t!=BattleStatsType.SPEED&&((self&&!defense)||(!self&&defense)))check(p.ai.userWeights==1,"Skipped native offensive weighting");
+ }
+}

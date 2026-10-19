@@ -1,0 +1,95 @@
+// FILE: net/minecraft/util/ResourceLocation.java
+package net.minecraft.util;public class ResourceLocation {public String id;public ResourceLocation(String a,String b){id=a+":"+b;}}
+// FILE: net/minecraft/world/World.java
+package net.minecraft.world;public class World {public long time=1000;public long func_82737_E(){return time;}}
+// FILE: net/minecraft/client/world/ClientWorld.java
+package net.minecraft.client.world;public class ClientWorld extends net.minecraft.world.World {}
+// FILE: net/minecraft/client/Minecraft.java
+package net.minecraft.client;public class Minecraft {public net.minecraft.client.world.ClientWorld field_71441_e=new net.minecraft.client.world.ClientWorld();static Minecraft instance=new Minecraft();public static Minecraft func_71410_x(){return instance;}}
+// FILE: net/minecraft/entity/Entity.java
+package net.minecraft.entity;public class Entity {public net.minecraft.world.World field_70170_p=new net.minecraft.world.World();}
+// FILE: net/minecraft/entity/LivingEntity.java
+package net.minecraft.entity;public class LivingEntity extends Entity {}
+// FILE: net/minecraft/entity/player/ServerPlayerEntity.java
+package net.minecraft.entity.player;public class ServerPlayerEntity extends net.minecraft.entity.LivingEntity {}
+// FILE: net/minecraft/network/PacketBuffer.java
+package net.minecraft.network;public class PacketBuffer extends io.netty.buffer.DuplicatedByteBuf {public PacketBuffer(io.netty.buffer.ByteBuf b){super(b);}public PacketBuffer func_179252_a(java.util.UUID u){writeLong(u.getMostSignificantBits());writeLong(u.getLeastSignificantBits());return this;}public java.util.UUID func_179253_g(){return new java.util.UUID(readLong(),readLong());}}
+// FILE: net/minecraftforge/fml/network/NetworkEvent.java
+package net.minecraftforge.fml.network;public class NetworkEvent {public static class Context {public net.minecraft.entity.player.ServerPlayerEntity sender;public boolean handled;public net.minecraft.entity.player.ServerPlayerEntity getSender(){return sender;}public java.util.concurrent.CompletableFuture<Void> enqueueWork(Runnable r){r.run();return java.util.concurrent.CompletableFuture.completedFuture(null);}public void setPacketHandled(boolean b){handled=b;}}}
+// FILE: local/pixelmon/backport/Content.java
+package local.pixelmon.backport;public class Content {public static final String NS="pixelmon_backport";}
+// FILE: local/pixelmon/backport/TeraNetwork.java
+package local.pixelmon.backport;public class TeraNetwork {public static Channel CHANNEL=new Channel();public static class Channel {public int requests;public Object last;public void sendToServer(Object m){requests++;last=m;}}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/species/Species.java
+package com.pixelmonmod.pixelmon.api.pokemon.species;public class Species {public int dex;public Species(int d){dex=d;}public int getDex(){return dex;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/Pokemon.java
+package com.pixelmonmod.pixelmon.api.pokemon;import com.pixelmonmod.pixelmon.comm.EnumUpdateType;import net.minecraft.network.PacketBuffer;public class Pokemon {public java.util.UUID uuid;public com.pixelmonmod.pixelmon.api.pokemon.species.Species species=new com.pixelmonmod.pixelmon.api.pokemon.species.Species(0);public int hp,level;public boolean failSpawn;public Pokemon(java.util.UUID id){uuid=id;}public java.util.UUID getUUID(){return uuid;}public com.pixelmonmod.pixelmon.api.pokemon.species.Species getSpecies(){return species;}public Pokemon readFromByteBuffer(PacketBuffer b,EnumUpdateType... data){uuid=b.func_179253_g();for(var t:data){if(t==EnumUpdateType.HP)hp=b.readShort();if(t==EnumUpdateType.Name)species=new com.pixelmonmod.pixelmon.api.pokemon.species.Species(b.readShort());if(t==EnumUpdateType.Form)b.readByte();if(t==EnumUpdateType.Stats)level=b.readShort();}return this;}public com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity getOrSpawnPixelmon(net.minecraft.entity.Entity e){return failSpawn?null:new com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity();}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/PokemonFactory.java
+package com.pixelmonmod.pixelmon.api.pokemon;public class PokemonFactory {public static Pokemon create(java.util.UUID id){return new Pokemon(id);}}
+// FILE: com/pixelmonmod/pixelmon/api/storage/StoragePosition.java
+package com.pixelmonmod.pixelmon.api.storage;public class StoragePosition {public int box,order;public StoragePosition(int b,int o){box=b;order=o;}}
+// FILE: com/pixelmonmod/pixelmon/api/storage/PokemonStorage.java
+package com.pixelmonmod.pixelmon.api.storage;public class PokemonStorage {public java.util.UUID uuid=java.util.UUID.randomUUID();public com.pixelmonmod.pixelmon.api.pokemon.Pokemon[] values=new com.pixelmonmod.pixelmon.api.pokemon.Pokemon[60];public int sent;public com.pixelmonmod.pixelmon.api.pokemon.Pokemon get(StoragePosition p){return values[(p.box<0?0:p.box*30)+p.order];}public void set(StoragePosition p,com.pixelmonmod.pixelmon.api.pokemon.Pokemon v){values[(p.box<0?0:p.box*30)+p.order]=v;}public com.pixelmonmod.pixelmon.api.pokemon.Pokemon find(java.util.UUID id){for(var p:values)if(p!=null&&p.uuid.equals(id))return p;return null;}public void notifyListenerAll(net.minecraft.entity.player.ServerPlayerEntity p,com.pixelmonmod.pixelmon.comm.EnumUpdateType... fields){sent+=6;}public void notifyListener(net.minecraft.entity.player.ServerPlayerEntity p,StoragePosition pos,com.pixelmonmod.pixelmon.api.pokemon.Pokemon v,com.pixelmonmod.pixelmon.comm.EnumUpdateType... fields){sent++;}}
+// FILE: com/pixelmonmod/pixelmon/api/storage/PartyStorage.java
+package com.pixelmonmod.pixelmon.api.storage;public class PartyStorage extends PokemonStorage {}
+// FILE: com/pixelmonmod/pixelmon/api/storage/PlayerPartyStorage.java
+package com.pixelmonmod.pixelmon.api.storage;public class PlayerPartyStorage extends PartyStorage {}
+// FILE: com/pixelmonmod/pixelmon/api/storage/PCStorage.java
+package com.pixelmonmod.pixelmon.api.storage;public class PCStorage extends PokemonStorage {public int getBoxCount(){return 2;}}
+// FILE: com/pixelmonmod/pixelmon/api/storage/StorageProxy.java
+package com.pixelmonmod.pixelmon.api.storage;public class StorageProxy {public static PlayerPartyStorage party=new PlayerPartyStorage();public static PCStorage pc=new PCStorage();public static PlayerPartyStorage getParty(net.minecraft.entity.player.ServerPlayerEntity p){return party;}public static PCStorage getPCForPlayer(net.minecraft.entity.player.ServerPlayerEntity p){return pc;}}
+// FILE: com/pixelmonmod/pixelmon/client/storage/ClientStorageManager.java
+package com.pixelmonmod.pixelmon.client.storage;public class ClientStorageManager {public static com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage party=new com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage();public static com.pixelmonmod.pixelmon.api.storage.PokemonStorage getStorage(java.util.UUID id,com.pixelmonmod.pixelmon.api.storage.StoragePosition pos){return party;}}
+// FILE: com/pixelmonmod/pixelmon/Pixelmon.java
+package com.pixelmonmod.pixelmon;public class Pixelmon {public static org.apache.logging.log4j.Logger LOGGER=org.apache.logging.log4j.LogManager.getLogger();public static Bus EVENT_BUS=new Bus();public static class Bus {public boolean cancel;public int pre,post;public boolean post(Object o){if(o instanceof com.pixelmonmod.pixelmon.api.events.SpawnPixelmonEntityForBattleEvent.Pre){pre++;return cancel;}post++;return false;}}}
+// FILE: com/pixelmonmod/pixelmon/api/events/SpawnPixelmonEntityForBattleEvent.java
+package com.pixelmonmod.pixelmon.api.events;public class SpawnPixelmonEntityForBattleEvent {public static class Pre {public Pre(com.pixelmonmod.pixelmon.api.pokemon.Pokemon p){}}public static class Post {public Post(com.pixelmonmod.pixelmon.api.pokemon.Pokemon p,com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity e){}}}
+// FILE: com/pixelmonmod/pixelmon/entities/pixelmon/PixelmonEntity.java
+package com.pixelmonmod.pixelmon.entities.pixelmon;public class PixelmonEntity extends net.minecraft.entity.LivingEntity {public com.pixelmonmod.pixelmon.battles.controller.BattleController battleController;public float hp;public void func_70606_j(float h){hp=h;}public void setPixelmonToFlyForBattle(){}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/ability/AbilityRegistry.java
+package com.pixelmonmod.pixelmon.api.pokemon.ability;public class AbilityRegistry {public static boolean ignoreAbility(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,com.pixelmonmod.pixelmon.battles.controller.BattleController b){return false;}}
+// FILE: com/pixelmonmod/pixelmon/battles/status/StatusBase.java
+package com.pixelmonmod.pixelmon.battles.status;public class StatusBase {public boolean isWholeTeamStatus(){return true;}public StatusBase copy(){return new StatusBase();}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/BattleParticipant.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class BattleParticipant {public com.pixelmonmod.pixelmon.battles.controller.BattleController bc;public boolean isDefeated=true;public net.minecraft.entity.LivingEntity entity=new net.minecraft.entity.LivingEntity();public java.util.List<PixelmonWrapper> controlledPokemon=new java.util.ArrayList<>();public com.pixelmonmod.pixelmon.api.storage.PartyStorage storage;public com.pixelmonmod.pixelmon.api.storage.PartyStorage getStorage(){return storage;}public net.minecraft.entity.LivingEntity getEntity(){return entity;}public void updateOtherPokemon(){}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/PlayerParticipant.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class PlayerParticipant extends BattleParticipant {}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class PixelmonWrapper {public BattleParticipant owner;public com.pixelmonmod.pixelmon.api.pokemon.Pokemon pokemon;public com.pixelmonmod.pixelmon.battles.controller.BattleController bc;public com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity entity;public boolean onBattlefield,isSwitching=true,wait=true;public java.util.UUID newPokemonUUID=java.util.UUID.randomUUID();public int battlePosition,updated,after,ability,attackers;public PixelmonWrapper(BattleParticipant p,com.pixelmonmod.pixelmon.api.pokemon.Pokemon v){owner=p;pokemon=v;}public BattleParticipant getParticipant(){return owner;}public boolean isAlive(){return pokemon.hp>0;}public java.util.UUID getPokemonUUID(){return pokemon.uuid;}public int getHealth(){return pokemon.hp;}public int healByPercent(float n){pokemon.hp=100;return 100;}public void setHealth(int n){pokemon.hp=n;}public void update(com.pixelmonmod.pixelmon.comm.EnumUpdateType... t){updated++;}public java.util.List<com.pixelmonmod.pixelmon.battles.status.StatusBase> getStatuses(){return java.util.Collections.emptyList();}public void addStatus(com.pixelmonmod.pixelmon.battles.status.StatusBase s,PixelmonWrapper p){}public PixelmonWrapper getBattleAbility(){return this;}public void beforeSwitch(PixelmonWrapper p){ability++;}public void afterSwitch(){after++;}public void addAttackers(){attackers++;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/BattleController.java
+package com.pixelmonmod.pixelmon.battles.controller;public class BattleController {public boolean battleEnded,simulateMode;public java.util.List<com.pixelmonmod.pixelmon.battles.controller.participants.BattleParticipant> participants=new java.util.ArrayList<>();public int switches;public void sendSwitchPacket(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper before,com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper after){switches++;}}
+// FILE: com/pixelmonmod/pixelmon/comm/packetHandlers/clientStorage/newStorage/ClientSetPacket.java
+package com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage;public class ClientSetPacket {public java.util.UUID storageUUID;public com.pixelmonmod.pixelmon.api.storage.StoragePosition position;public com.pixelmonmod.pixelmon.comm.EnumUpdateType[] dataTypes;public net.minecraft.network.PacketBuffer pokemonData;public void original(net.minecraftforge.fml.network.NetworkEvent.Context context){}public void fixed(net.minecraftforge.fml.network.NetworkEvent.Context context){}}
+// FILE: Feedback161Cases.java
+import java.util.*;import io.netty.buffer.Unpooled;import com.pixelmonmod.pixelmon.api.pokemon.species.moves.Moves;import com.pixelmonmod.pixelmon.enums.technicalmoves.ITechnicalMove;import com.pixelmonmod.pixelmon.api.pokemon.species.Species;import com.pixelmonmod.pixelmon.api.pokemon.*;import com.pixelmonmod.pixelmon.api.storage.*;import com.pixelmonmod.pixelmon.client.storage.ClientStorageManager;import com.pixelmonmod.pixelmon.comm.EnumUpdateType;import com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage.ClientSetPacket;import com.pixelmonmod.pixelmon.battles.controller.BattleController;import com.pixelmonmod.pixelmon.battles.controller.participants.*;import com.pixelmonmod.pixelmon.Pixelmon;import net.minecraft.network.PacketBuffer;import net.minecraft.client.Minecraft;import net.minecraft.entity.player.ServerPlayerEntity;import local.pixelmon.backport.*;
+public class Feedback161Cases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ static Pokemon pokemon(int dex){Pokemon p=PokemonFactory.create(UUID.randomUUID());p.species=new Species(dex);p.hp=0;return p;}
+ static ClientSetPacket packet(Pokemon p,EnumUpdateType... types){var m=new ClientSetPacket();m.storageUUID=ClientStorageManager.party.uuid;m.position=new StoragePosition(-1,2);m.dataTypes=types;m.pokemonData=new PacketBuffer(Unpooled.buffer());m.pokemonData.func_179252_a(p.uuid);for(var t:types){if(t==EnumUpdateType.HP)m.pokemonData.writeShort(p.hp);if(t==EnumUpdateType.Name)m.pokemonData.writeShort(p.species.dex);if(t==EnumUpdateType.Form)m.pokemonData.writeByte(0);if(t==EnumUpdateType.Stats)m.pokemonData.writeShort(p.level);}Minecraft.func_71410_x().field_71441_e.time+=20;return m;}
+ static void apply(ClientSetPacket p,boolean fixed){if(fixed)p.fixed(null);else p.original(null);p.pokemonData.release();}
+ public static void run(){
+  Moves moves=new Moves();java.util.Set<ITechnicalMove> tms=new java.util.LinkedHashSet<>();tms.add(null);tms.add(()->"Thunderbolt");
+  try{moves.original(tms,"Thunderbolt");throw new AssertionError("Native TM null entry did not reproduce reported exception");}catch(NullPointerException expected){}
+  check(moves.fixed(tms,"thunderBOLT")&&!moves.fixed(tms,"Flamethrower")&&!moves.fixed(null,"Thunderbolt")&&!moves.fixed(tms,null),"TM valid/null case behavior");
+  var party=ClientStorageManager.party;Pokemon groudon=pokemon(383);groudon.hp=369;groudon.level=100;
+  apply(packet(groudon,EnumUpdateType.HP),false);check(party.values[2].species.dex==0&&party.values[2].hp==369,"Native empty-slot delta no longer reproduces MissingNo");party.values[2]=null;
+  apply(packet(groudon,EnumUpdateType.HP),true);check(party.values[2]==null&&TeraNetwork.CHANNEL.requests==1,"Incomplete packet inserted sentinel / failed resync");
+  Pokemon original=pokemon(1000);original.hp=30;party.values[2]=original;apply(packet(groudon,EnumUpdateType.HP),false);check(original.uuid.equals(groudon.uuid)&&original.species.dex==1000,"Native wrong UUID delta no longer reproduces hybrid");
+  original=pokemon(1000);party.values[2]=original;UUID stable=original.uuid;apply(packet(groudon,EnumUpdateType.HP),true);check(original.uuid.equals(stable)&&original.hp==0,"Mismatched delta damaged real Pokemon");
+  var matching=pokemon(1000);matching.uuid=original.uuid;matching.hp=42;apply(packet(matching,EnumUpdateType.HP),true);check(original.hp==42,"Legitimate HP delta lost");
+  apply(packet(groudon,EnumUpdateType.CLIENT),true);check(party.values[2].species.dex==383&&party.values[2].hp==369&&party.values[2].level==100,"Full real snapshot did not recover correct species");
+  var bad=pokemon(0);apply(packet(bad,EnumUpdateType.CLIENT),true);check(party.values[2].species.dex==383,"Full invalid sentinel replaced real Pokemon");
+  ClientSetPacket deletion=new ClientSetPacket();deletion.storageUUID=party.uuid;deletion.position=new StoragePosition(-1,2);deletion.fixed(null);check(party.values[2]==null,"Real deletion blocked");
+  ServerPlayerEntity sender=new ServerPlayerEntity();var serverParty=StorageProxy.party;var pc=StorageProxy.pc;StorageSnapshot.send(sender,UUID.randomUUID(),-1,0);check(serverParty.sent==0,"Foreign storage readable");StorageSnapshot.send(sender,serverParty.uuid,-1,0);check(serverParty.sent==6,"Own party not fully synced");StorageSnapshot.send(sender,serverParty.uuid,-1,0);check(serverParty.sent==6,"Server rate limit missing");sender.field_70170_p.time+=20;StorageSnapshot.send(sender,pc.uuid,2,0);check(pc.sent==0,"Invalid box readable");StorageSnapshot.send(sender,pc.uuid,1,0);check(pc.sent==30,"Own box recovery not bounded to 30");StorageSnapshot.send(null,serverParty.uuid,-1,0);
+  for(int mode=0;mode<9;mode++){
+   BattleController battle=new BattleController();BattleParticipant owner=mode==1||mode==2?new PlayerParticipant():new BattleParticipant();owner.bc=battle;battle.participants.add(owner);Pokemon mon=pokemon(382);PixelmonWrapper fallen=new PixelmonWrapper(owner,mon);
+   if(mode==1){owner.storage=new PartyStorage();owner.storage.values[0]=mon;}if(mode==3)owner.entity=null;if(mode==4)Pixelmon.EVENT_BUS.cancel=true;if(mode==5)mon.failSpawn=true;if(mode==6)battle.simulateMode=true;if(mode==7)battle.battleEnded=true;if(mode==8){owner=new PlayerParticipant();owner.bc=battle;owner.storage=new PartyStorage();fallen.owner=owner;}
+   boolean expected=mode==0||mode==1;check(TeraRevival.revive(battle,owner,fallen)==expected,"Revive scope "+mode);if(expected){check(mon.hp==100&&!owner.isDefeated&&fallen.onBattlefield&&fallen.entity.battleController==battle,"Revive incomplete");check(!fallen.isSwitching&&!fallen.wait&&fallen.newPokemonUUID==null&&battle.switches==1,"Revive left stale switching state");check(fallen.after==1&&fallen.ability==1,"Native hooks omitted");check(TeraRevival.revive(battle,owner,fallen)&&battle.switches==1,"Repeat revive duplicated lifecycle");}else check(mon.hp==0&&owner.isDefeated&&battle.switches==0,"Failed revive partially committed");Pixelmon.EVENT_BUS.cancel=false;
+  }
+ }
+}
+
+// FILE: com/pixelmonmod/pixelmon/enums/technicalmoves/ITechnicalMove.java
+package com.pixelmonmod.pixelmon.enums.technicalmoves;public interface ITechnicalMove {String getAttackName();}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/species/moves/Moves.java
+package com.pixelmonmod.pixelmon.api.pokemon.species.moves;public class Moves {public boolean original(java.util.Set<? extends com.pixelmonmod.pixelmon.enums.technicalmoves.ITechnicalMove> t,String a){return false;}public boolean fixed(java.util.Set<? extends com.pixelmonmod.pixelmon.enums.technicalmoves.ITechnicalMove> t,String a){return false;}}

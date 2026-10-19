@@ -36,7 +36,7 @@ def main():
         nbt='{ndex:%ss,palette:"%s",form:"%s",gender:%sb}'%(r['dex'],r['palette'],r['form'],r['gender'])
         write(ROOT/f'resources/data/pixelmon_backport/advancements/legends/{r["id"]}.json',{
             'parent':'pixelmon_backport:legends/forms',
-            'display':{'icon':{'item':'pixelmon:pixelmon_sprite','nbt':nbt},'title':{'text':r['title']},'description':{'text':f'获得任务书中对应特殊材质的{names.get("pixelmon."+r["species"].lower(),r["species"])}，并存入自己的队伍或电脑。'},'frame':'task','show_toast':True,'announce_to_chat':True,'hidden':True},
+            'display':{'icon':{'item':'pixelmon:pixelmon_sprite','nbt':nbt},'title':{'text':r['title']},'description':{'text':f'获得任务书中对应特殊材质的{names.get("pixelmon."+r["species"].lower(),r["species"])}，并存入自己的队伍或电脑。'},'frame':'challenge' if r['id']=='palette_249_drowned' else 'task','show_toast':True,'announce_to_chat':True,'hidden':True},
             'criteria':{'earned':{'trigger':'minecraft:impossible'}}})
     print(f'Generated {len(rows)} quest-named special legendary palette advancements.')
 if __name__=='__main__':main()

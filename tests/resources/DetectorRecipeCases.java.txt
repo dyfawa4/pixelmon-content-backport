@@ -1,0 +1,70 @@
+// FILE: net/minecraft/util/ResourceLocation.java
+package net.minecraft.util;public class ResourceLocation {final String id;public ResourceLocation(String v){id=v;}public ResourceLocation(String n,String v){id=n+":"+v;}public String toString(){return id;}public boolean equals(Object o){return o instanceof ResourceLocation&&id.equals(o.toString());}public int hashCode(){return id.hashCode();}}
+// FILE: net/minecraft/util/IItemProvider.java
+package net.minecraft.util;public interface IItemProvider {}
+// FILE: net/minecraft/item/Item.java
+package net.minecraft.item;public class Item implements net.minecraft.util.IItemProvider,net.minecraftforge.registries.IForgeRegistryEntry<Item> {public String id;public Item(String n){id=n;}public net.minecraft.util.ResourceLocation getRegistryName(){return new net.minecraft.util.ResourceLocation(id);}}
+// FILE: net/minecraft/nbt/CompoundNBT.java
+package net.minecraft.nbt;public class CompoundNBT {public java.util.Map<String,String> values=new java.util.HashMap<>();public void func_74778_a(String k,String v){values.put(k,v);}public String func_74779_i(String k){return values.getOrDefault(k,"");}}
+// FILE: net/minecraft/item/ItemStack.java
+package net.minecraft.item;public class ItemStack {public Item item;public int count;public net.minecraft.nbt.CompoundNBT tag;public static final ItemStack field_190927_a=new ItemStack(null,0);public ItemStack(net.minecraft.util.IItemProvider i,int n){item=(Item)i;count=n;}public ItemStack(net.minecraft.util.IItemProvider i){this(i,1);}public boolean func_190926_b(){return item==null||count<=0;}public Item func_77973_b(){return item;}public boolean func_77942_o(){return tag!=null;}public net.minecraft.nbt.CompoundNBT func_77978_p(){return tag;}public net.minecraft.nbt.CompoundNBT func_196082_o(){if(tag==null)tag=new net.minecraft.nbt.CompoundNBT();return tag;}public void func_77982_d(net.minecraft.nbt.CompoundNBT t){tag=t;}}
+// FILE: net/minecraft/network/PacketBuffer.java
+package net.minecraft.network;public class PacketBuffer {}
+// FILE: net/minecraftforge/registries/IForgeRegistryEntry.java
+package net.minecraftforge.registries;public interface IForgeRegistryEntry<T> {}
+// FILE: net/minecraftforge/registries/IForgeRegistry.java
+package net.minecraftforge.registries;public interface IForgeRegistry<T extends IForgeRegistryEntry<T>> {T getValue(net.minecraft.util.ResourceLocation id);}
+// FILE: net/minecraftforge/registries/ForgeRegistries.java
+package net.minecraftforge.registries;public class ForgeRegistries {public static IForgeRegistry<net.minecraft.item.Item> ITEMS=id->id.toString().equals("pixelmon:poke_ball")?com.pixelmonmod.pixelmon.api.registries.PixelmonItems.poke_ball:new net.minecraft.item.Item(id.toString());}
+// FILE: net/minecraftforge/common/crafting/IIngredientSerializer.java
+package net.minecraftforge.common.crafting;public interface IIngredientSerializer<T extends net.minecraft.item.crafting.Ingredient> {T parse(com.google.gson.JsonObject j);T parse(net.minecraft.network.PacketBuffer b);void write(net.minecraft.network.PacketBuffer b,T value);}
+// FILE: net/minecraft/item/crafting/Ingredient.java
+package net.minecraft.item.crafting;public class Ingredient {public static final Ingredient field_193370_a=new Ingredient(java.util.stream.Stream.empty()){public boolean test(net.minecraft.item.ItemStack s){return s==null||s.func_190926_b();}};public Ingredient(java.util.stream.Stream<SingleItemList>s){}public static class SingleItemList {public SingleItemList(net.minecraft.item.ItemStack s){}}public boolean test(net.minecraft.item.ItemStack s){return false;}public boolean isSimple(){return false;}public net.minecraftforge.common.crafting.IIngredientSerializer<? extends Ingredient> getSerializer(){return null;}public com.google.gson.JsonElement func_200304_c(){return null;}}
+// FILE: net/minecraft/util/NonNullList.java
+package net.minecraft.util;public class NonNullList<E> extends java.util.ArrayList<E> {}
+// FILE: net/minecraft/inventory/CraftingInventory.java
+package net.minecraft.inventory;public class CraftingInventory {public net.minecraft.item.ItemStack[] stacks=new net.minecraft.item.ItemStack[9];public int func_174922_i(){return 3;}public int func_174923_h(){return 3;}public net.minecraft.item.ItemStack func_70301_a(int i){return stacks[i];}}
+// FILE: net/minecraft/world/World.java
+package net.minecraft.world;public class World {}
+// FILE: net/minecraft/item/crafting/ShapedRecipe.java
+package net.minecraft.item.crafting;public class ShapedRecipe {public int field_77576_b=3,field_77577_c=3;public net.minecraft.util.NonNullList<Ingredient> field_77574_d=new net.minecraft.util.NonNullList<>();public boolean func_77569_a(net.minecraft.inventory.CraftingInventory c,net.minecraft.world.World w){return false;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/item/pokeball/PokeBall.java
+package com.pixelmonmod.pixelmon.api.pokemon.item.pokeball;public class PokeBall {String id;public PokeBall(String n){id=n;}public String getName(){return id;}}
+// FILE: com/pixelmonmod/pixelmon/items/PokeBallItem.java
+package com.pixelmonmod.pixelmon.items;public class PokeBallItem extends net.minecraft.item.Item {public PokeBallItem(){super("pixelmon:poke_ball");}public static net.minecraft.item.ItemStack of(com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBall b,int n){return null;}}
+// FILE: com/pixelmonmod/pixelmon/api/registries/PixelmonItems.java
+package com.pixelmonmod.pixelmon.api.registries;public class PixelmonItems {public static com.pixelmonmod.pixelmon.items.PokeBallItem poke_ball=new com.pixelmonmod.pixelmon.items.PokeBallItem();}
+// FILE: DetectorRecipeCases.java
+import java.nio.file.*;import java.util.*;import com.google.gson.*;import net.minecraft.item.*;import net.minecraft.item.crafting.*;import net.minecraft.inventory.CraftingInventory;import net.minecraft.network.PacketBuffer;import com.pixelmonmod.pixelmon.items.PokeBallItem;import com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBall;import local.pixelmon.backport.MasterBallIngredient;import local.pixelmon.backport.PokeBallIngredient;
+public class DetectorRecipeCases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ static ItemStack item(String id){return new ItemStack(new Item(id));}
+ static ItemStack ball(String id){return PokeBallItem.of(new PokeBall(id),1);}
+ static Ingredient ordinary(String id){return new Ingredient(java.util.stream.Stream.empty()){public boolean test(ItemStack s){return s!=null&&!s.func_190926_b()&&s.func_77973_b().getRegistryName().toString().equals(id);}};}
+ public static void run()throws Exception{
+  for(boolean legendary:new boolean[]{false,true}){
+   String name=legendary?"legendary_spawn_checker":"normal_spawn_checker",metal=legendary?"pixelmon:silver_ingot":"pixelmon:aluminium_ingot",detector=legendary?"pixelmon_backport:normal_spawn_checker":"pixelmon:item_finder",kind=legendary?"master_ball":"poke_ball";
+   var json=new JsonParser().parse(Files.readString(Path.of("resources/data/pixelmon_backport/recipes/"+name+".json"))).getAsJsonObject();
+   check(json.get("type").getAsString().equals("minecraft:crafting_shaped"),"Wrong recipe kind");
+   check(json.getAsJsonObject("result").get("item").getAsString().equals("pixelmon_backport:"+name)&&json.getAsJsonObject("result").get("count").getAsInt()==1,"Wrong result");
+   var recipe=new ShapedRecipe();var grid=new CraftingInventory();int metals=0;
+   for(var row:json.getAsJsonArray("pattern"))for(char c:row.getAsString().toCharArray()){
+    var key=json.getAsJsonObject("key").getAsJsonObject(String.valueOf(c));Ingredient ingredient;
+    if(key.has("type")){
+     check(key.get("type").getAsString().equals("pixelmon_backport:"+kind),"Wrong ball matcher");ingredient=legendary?MasterBallIngredient.SERIALIZER.parse(key):PokeBallIngredient.SERIALIZER.parse(key);
+    }else{String id=key.get("item").getAsString();ingredient=ordinary(id);if(id.equals(metal))metals++;}
+    recipe.field_77574_d.add(ingredient);
+   }
+   check(metals==7,"Seven ingots required");for(int i=0;i<9;i++)grid.stacks[i]=i==1?item(detector):i==4?ball(kind):item(metal);
+   check(grid.stacks[4].func_77973_b().getRegistryName().toString().equals("pixelmon:poke_ball"),"Native ball identity changed");check(recipe.func_77569_a(grid,null),"Exact screenshot recipe rejected");
+   Ingredient matcher=recipe.field_77574_d.get(4);check(!matcher.isSimple(),"NBT matching flattened");
+   var wire=new PacketBuffer();Ingredient client;
+   if(legendary){MasterBallIngredient.SERIALIZER.write(wire,(MasterBallIngredient)matcher);client=MasterBallIngredient.SERIALIZER.parse(wire);}else{PokeBallIngredient.SERIALIZER.write(wire,(PokeBallIngredient)matcher);client=PokeBallIngredient.SERIALIZER.parse(wire);}
+   var renamed=ball(kind);renamed.func_196082_o().func_74778_a("display","renamed");grid.stacks[4]=renamed;check(recipe.func_77569_a(grid,null)&&client.test(renamed),"Renamed ball or client matching lost");
+   for(String wrong:List.of(legendary?"poke_ball":"master_ball","ultra_ball","cherish_ball","bogus")){grid.stacks[4]=ball(wrong);check(!recipe.func_77569_a(grid,null)&&!client.test(grid.stacks[4]),"Wrong ball accepted: "+wrong);}
+   grid.stacks[4]=item("pixelmon:poke_ball");check(!recipe.func_77569_a(grid,null)&&!client.test(grid.stacks[4]),"Unknown untagged ball accepted");grid.stacks[4]=ball(kind);
+   for(int i=0;i<9;i++){ItemStack old=grid.stacks[i];grid.stacks[i]=ItemStack.field_190927_a;check(!recipe.func_77569_a(grid,null),"Missing slot accepted "+i);grid.stacks[i]=old;}
+   grid.stacks[1]=item(legendary?"pixelmon:item_finder":"pixelmon_backport:normal_spawn_checker");check(!recipe.func_77569_a(grid,null),"Wrong detector tier accepted");
+  }
+ }
+}

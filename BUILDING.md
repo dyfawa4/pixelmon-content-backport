@@ -1,6 +1,6 @@
 # 从完整源码构建
 
-1.4.4 发布源码包含全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及九张功能地图、十八张城市地图、徽章展示及两版岩石城的初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
+1.6.1 发布源码包含全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及仓库中已有测试地图的干净初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
 
 ## 环境与外部依赖
 
@@ -15,7 +15,7 @@
 ```powershell
 git clone https://github.com/dyfawa4/pixelmon-content-backport.git
 cd pixelmon-content-backport
-git checkout v1.4.4
+git checkout v1.6.1
 
 .\build.ps1 `
   -JdkDirectory 'C:\Java\jdk-11' `
@@ -25,7 +25,7 @@ git checkout v1.4.4
 
 脚本查找 Forge client JAR；存在多份时，加 `-ForgeClientJar '完整路径\forge-1.16.5-36.2.42-client.jar'` 指定。若 PowerShell 执行策略阻止脚本，可在此次调用中使用 `powershell -ExecutionPolicy Bypass -File .\build.ps1 ...`，无需更改系统策略。
 
-产物是 `dist/pixelmon-content-backport-1.16.5-1.4.4.jar`。脚本用 `javac --release 11` 编译全部 `src/**/*.java`，再原样打包 `resources/`。资源文件保持原始字节。JAR 时间戳与压缩封装可能造成文件 SHA-256 不同，应对比内部 class / 资源内容；这不代表 Java 版本或功能不同。
+产物是 `dist/pixelmon-content-backport-1.16.5-1.6.1.jar`。脚本用 `javac --release 11` 编译全部 `src/**/*.java`，再原样打包 `resources/`。资源文件保持原始字节。JAR 时间戳与压缩封装可能造成文件 SHA-256 不同，应对比内部 class / 资源内容；这不代表 Java 版本或功能不同。
 
 ## 源码与目录
 

@@ -1,0 +1,167 @@
+// FILE: net/minecraft/util/ResourceLocation.java
+package net.minecraft.util;public class ResourceLocation {public final String id;public ResourceLocation(String a,String b){id=a+":"+b;}public ResourceLocation(String a){id=a;}public String toString(){return id;}}
+// FILE: net/minecraft/util/Hand.java
+package net.minecraft.util;public enum Hand {MAIN_HAND,OFF_HAND}
+// FILE: net/minecraft/util/SoundCategory.java
+package net.minecraft.util;public enum SoundCategory {BLOCKS}
+// FILE: net/minecraft/util/SoundEvent.java
+package net.minecraft.util;public class SoundEvent implements net.minecraftforge.registries.IForgeRegistryEntry<SoundEvent> {}
+// FILE: net/minecraft/util/ActionResult.java
+package net.minecraft.util;public class ActionResult<T> {public static <T> ActionResult<T> func_226250_c_(T t){return new ActionResult<>();}public static <T> ActionResult<T> func_226248_a_(T t){return new ActionResult<>();}}
+// FILE: net/minecraft/util/CooldownTracker.java
+package net.minecraft.util;import java.util.*;import net.minecraft.item.Item;public class CooldownTracker {public int tick;public final Map<Item,Integer> ends=new IdentityHashMap<>();public boolean func_185141_a(Item i){return ends.getOrDefault(i,0)>tick;}public void func_185145_a(Item i,int ticks){ends.put(i,tick+ticks);}}
+// FILE: net/minecraft/util/math/BlockPos.java
+package net.minecraft.util.math;public class BlockPos {}
+// FILE: net/minecraft/util/text/ITextComponent.java
+package net.minecraft.util.text;public interface ITextComponent {String getString();}
+// FILE: net/minecraft/util/text/TranslationTextComponent.java
+package net.minecraft.util.text;public class TranslationTextComponent implements ITextComponent {final String s;public TranslationTextComponent(String s,Object... args){this.s=s;}public String getString(){return s;}}
+// FILE: net/minecraft/command/CommandSource.java
+package net.minecraft.command;public class CommandSource {}
+// FILE: net/minecraft/entity/Entity.java
+package net.minecraft.entity;public class Entity {public net.minecraft.util.math.BlockPos func_233580_cy_(){return new net.minecraft.util.math.BlockPos();}}
+// FILE: net/minecraft/entity/player/PlayerEntity.java
+package net.minecraft.entity.player;import net.minecraft.item.*;import net.minecraft.util.*;public class PlayerEntity extends net.minecraft.entity.Entity {public ItemStack stack=new ItemStack();public CooldownTracker cooldown=new CooldownTracker();public int errors;public ItemStack func_184586_b(Hand h){return stack;}public CooldownTracker func_184811_cZ(){return cooldown;}public void func_146105_b(net.minecraft.util.text.ITextComponent text,boolean action){errors++;}}
+// FILE: net/minecraft/entity/player/ServerPlayerEntity.java
+package net.minecraft.entity.player;public class ServerPlayerEntity extends PlayerEntity {public String name="Tester";public net.minecraft.util.text.ITextComponent func_200200_C_(){return new net.minecraft.util.text.TranslationTextComponent(name);}public net.minecraft.command.CommandSource func_195051_bN(){return new net.minecraft.command.CommandSource();}}
+// FILE: net/minecraft/world/World.java
+package net.minecraft.world;public class World {public boolean field_72995_K,accept=true;public int added,sounds;public boolean func_217376_c(net.minecraft.entity.Entity e){added++;return accept;}public void func_184133_a(net.minecraft.entity.player.PlayerEntity p,net.minecraft.util.math.BlockPos pos,net.minecraft.util.SoundEvent sound,net.minecraft.util.SoundCategory cat,float volume,float pitch){sounds++;}}
+// FILE: net/minecraft/item/ItemGroup.java
+package net.minecraft.item;public class ItemGroup {public static final ItemGroup field_78040_i=new ItemGroup();}
+// FILE: net/minecraft/item/ItemStack.java
+package net.minecraft.item;public class ItemStack {public int count=1;}
+// FILE: net/minecraft/item/Item.java
+package net.minecraft.item;public class Item {public static class Properties {public Properties func_200916_a(ItemGroup group){return this;}public Properties func_200917_a(int count){return this;}}}
+// FILE: net/minecraftforge/registries/IForgeRegistryEntry.java
+package net.minecraftforge.registries;public interface IForgeRegistryEntry<T> {}
+// FILE: net/minecraftforge/registries/IForgeRegistry.java
+package net.minecraftforge.registries;public interface IForgeRegistry<T extends IForgeRegistryEntry<T>> {T getValue(net.minecraft.util.ResourceLocation id);}
+// FILE: net/minecraftforge/registries/ForgeRegistries.java
+package net.minecraftforge.registries;public class ForgeRegistries {public static final IForgeRegistry<net.minecraft.util.SoundEvent> SOUND_EVENTS=id->{if(!id.id.equals("minecraft:entity.item_frame.place"))throw new AssertionError("sound");return new net.minecraft.util.SoundEvent();};}
+// FILE: com/pixelmonmod/pixelmon/items/PixelmonItem.java
+package com.pixelmonmod.pixelmon.items;public class PixelmonItem extends net.minecraft.item.Item {public PixelmonItem(net.minecraft.item.Item.Properties p){}}
+// FILE: com/pixelmonmod/pixelmon/items/HeldItem.java
+package com.pixelmonmod.pixelmon.items;public class HeldItem extends PixelmonItem {public HeldItem(com.pixelmonmod.pixelmon.enums.heldItems.EnumHeldItems e,net.minecraft.item.Item.Properties p){super(p);}}
+// FILE: com/pixelmonmod/pixelmon/enums/heldItems/EnumHeldItems.java
+package com.pixelmonmod.pixelmon.enums.heldItems;public enum EnumHeldItems {ejectPack}
+// FILE: com/pixelmonmod/pixelmon/api/spawning/calculators/CheckSpawns.java
+package com.pixelmonmod.pixelmon.api.spawning.calculators;public interface CheckSpawns {void checkSpawns(com.pixelmonmod.pixelmon.api.spawning.AbstractSpawner s,net.minecraft.command.CommandSource p,java.util.List<String> args);}
+// FILE: com/pixelmonmod/pixelmon/api/spawning/AbstractSpawner.java
+package com.pixelmonmod.pixelmon.api.spawning;public class AbstractSpawner {public com.pixelmonmod.pixelmon.api.spawning.calculators.CheckSpawns checkSpawns;}
+// FILE: com/pixelmonmod/pixelmon/api/spawning/SpawnerCoordinator.java
+package com.pixelmonmod.pixelmon.api.spawning;public class SpawnerCoordinator {public final java.util.Map<String,AbstractSpawner> values=new java.util.HashMap<>();public AbstractSpawner getSpawner(String n){return values.get(n);}}
+// FILE: com/pixelmonmod/pixelmon/spawning/LegendarySpawner.java
+package com.pixelmonmod.pixelmon.spawning;public class LegendarySpawner extends com.pixelmonmod.pixelmon.api.spawning.AbstractSpawner {}
+// FILE: com/pixelmonmod/pixelmon/spawning/PixelmonSpawning.java
+package com.pixelmonmod.pixelmon.spawning;public class PixelmonSpawning {public static com.pixelmonmod.pixelmon.api.spawning.SpawnerCoordinator coordinator=new com.pixelmonmod.pixelmon.api.spawning.SpawnerCoordinator();}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/stats/BattleStatsType.java
+package com.pixelmonmod.pixelmon.api.pokemon.stats;public enum BattleStatsType {HP,ATTACK,DEFENSE,SPECIAL_ATTACK,SPECIAL_DEFENSE,SPEED}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/stats/BattleStats.java
+package com.pixelmonmod.pixelmon.api.pokemon.stats;public class BattleStats {public int speedStat=100;}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/ImmutableAttack.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class ImmutableAttack {public String name="Tackle";public String getAttackName(){return name;}}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/Attack.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class Attack {public ImmutableAttack move=new ImmutableAttack();public ImmutableAttack getActualMove(){return move;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/ParticipantType.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public enum ParticipantType {Player,Trainer,WildPokemon}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/BattleParticipant.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class BattleParticipant {public ParticipantType type=ParticipantType.Trainer;public boolean reserve=true;public java.util.List<PixelmonWrapper> switchingOut=new java.util.ArrayList<>();public ParticipantType getType(){return type;}public boolean hasMorePokemonReserve(){return reserve;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/ai/BattleAIBase.java
+package com.pixelmonmod.pixelmon.battles.controller.ai;public class BattleAIBase {public java.util.UUID getNextSwitch(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){return java.util.UUID.randomUUID();}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class PixelmonWrapper {public com.pixelmonmod.pixelmon.battles.controller.BattleController bc;public boolean onBattlefield=true,alive=true,blocked;public int consumed,prepared;public com.pixelmonmod.pixelmon.items.HeldItem item;public BattleParticipant part=new BattleParticipant();public com.pixelmonmod.pixelmon.battles.attacks.Attack attack=new com.pixelmonmod.pixelmon.battles.attacks.Attack();public com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats stats=new com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats();public boolean isAlive(){return alive;}public BattleParticipant getParticipant(){return part;}public com.pixelmonmod.pixelmon.items.HeldItem getUsableHeldItem(){return item;}public boolean stopsForcedSwitches(PixelmonWrapper p){return blocked;}public com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats getBattleStats(){return stats;}public String getNickname(){return "Tester";}public void consumeItem(){consumed++;item=null;}public void setUpSwitchMove(){prepared++;}public net.minecraft.entity.player.ServerPlayerEntity getPlayerOwner(){return new net.minecraft.entity.player.ServerPlayerEntity();}public java.util.UUID getPokemonUUID(){return java.util.UUID.randomUUID();}public com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase getBattleAI(){return new com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase();}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/BattleController.java
+package com.pixelmonmod.pixelmon.battles.controller;import com.pixelmonmod.pixelmon.battles.controller.participants.*;public class BattleController {public int battleTurn=1,turn;public boolean battleEnded,simulateMode,simulateStats,sendMessages=true;public int switches;public java.util.List<PixelmonWrapper> turnList=new java.util.ArrayList<>();public java.util.ArrayList<PixelmonWrapper> active=new java.util.ArrayList<>();public java.util.ArrayList<PixelmonWrapper> getActiveUnfaintedPokemon(){return active;}public void sendToAll(String key,Object... args){}public int getPositionOfPokemon(PixelmonWrapper p,BattleParticipant b){return 0;}public void switchPokemon(java.util.UUID from,java.util.UUID to,boolean forced){switches++;}}
+// FILE: com/pixelmonmod/pixelmon/comm/data/PixelmonPacket.java
+package com.pixelmonmod.pixelmon.comm.data;public class PixelmonPacket {}
+// FILE: com/pixelmonmod/pixelmon/battles/tasks/EnforcedSwitchTask.java
+package com.pixelmonmod.pixelmon.battles.tasks;public class EnforcedSwitchTask extends com.pixelmonmod.pixelmon.comm.data.PixelmonPacket {public EnforcedSwitchTask(int p,boolean f){}}
+// FILE: com/pixelmonmod/pixelmon/api/util/helpers/NetworkHelper.java
+package com.pixelmonmod.pixelmon.api.util.helpers;public class NetworkHelper {public static void sendPacket(com.pixelmonmod.pixelmon.comm.data.PixelmonPacket packet,net.minecraft.entity.player.ServerPlayerEntity p){}}
+// FILE: local/pixelmon/backport/NinjaTraining.java
+package local.pixelmon.backport;public class NinjaTraining {public static com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper bonus(com.pixelmonmod.pixelmon.battles.controller.BattleController b){return null;}}
+// FILE: info/pixelmon/repack/org/spongepowered/reference/ValueReference.java
+package info.pixelmon.repack.org.spongepowered.reference;public interface ValueReference<T,N> {public class State {public static boolean fail;public static String saved;}public default boolean setAndSave(T value){if(State.fail)return false;State.saved=new com.google.gson.Gson().toJson(value);return true;}}
+// FILE: com/pixelmonmod/pixelmon/api/config/api/yaml/AbstractYamlConfig.java
+package com.pixelmonmod.pixelmon.api.config.api.yaml;public class AbstractYamlConfig {protected transient info.pixelmon.repack.org.spongepowered.reference.ValueReference<Object,Object> config;public void bind(){config=new info.pixelmon.repack.org.spongepowered.reference.ValueReference<Object,Object>(){};}}
+// FILE: com/pixelmonmod/pixelmon/api/config/PixelmonConfigProxy.java
+package com.pixelmonmod.pixelmon.api.config;public class PixelmonConfigProxy {public static GeneralConfig general;public static GraphicsConfig graphics;public static GeneralConfig getGeneral(){return general;}public static GraphicsConfig getGraphics(){return graphics;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice.java
+package com.pixelmonmod.pixelmon.battles.controller.ai;public class MoveChoice {}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/EffectBase.java
+package com.pixelmonmod.pixelmon.battles.attacks;import java.util.*;import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;import com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice;public class EffectBase {public void weightEffect(PixelmonWrapper p,MoveChoice c,List<MoveChoice>a,List<MoveChoice>b,List<MoveChoice>d,List<MoveChoice>e){}}
+// FILE: Feature161Cases.java
+import java.util.*;
+import com.google.gson.JsonPrimitive;
+import com.pixelmonmod.pixelmon.battles.attacks.EffectBase;
+import com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice;
+import local.pixelmon.backport.*;
+import net.minecraft.entity.player.*;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
+import com.pixelmonmod.pixelmon.api.spawning.*;
+import com.pixelmonmod.pixelmon.spawning.*;
+import com.pixelmonmod.pixelmon.battles.controller.*;
+import com.pixelmonmod.pixelmon.battles.controller.participants.*;
+import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
+import com.pixelmonmod.pixelmon.api.config.*;
+public class Feature161Cases {
+ static void ck(boolean b,String m){if(!b)throw new AssertionError(m);}
+ public static void run() throws Exception {
+  World world=new World();net.minecraft.entity.Entity frame=new net.minecraft.entity.Entity();
+  ck(FramePlacement.spawn(world,frame)&&world.added==1&&world.sounds==1,"one server place sound");
+  world.accept=false;ck(!FramePlacement.spawn(world,frame)&&world.sounds==1,"failed place silent");
+  world.accept=true;world.field_72995_K=true;FramePlacement.spawn(world,frame);ck(world.sounds==1,"client duplicate sound");world.field_72995_K=false;
+  ServerPlayerEntity user=new ServerPlayerEntity(),other=new ServerPlayerEntity();other.name="Other";
+  List<ServerPlayerEntity> players=List.of(user,other);ck(SpawnChecks.players(players)==players,"ordinary command altered");
+  int[] counts={0,0};AbstractSpawner normal=new AbstractSpawner();LegendarySpawner legendary=new LegendarySpawner();
+  normal.checkSpawns=(s,p,a)->{ck(s==normal,"normal chose legendary");counts[0]++;};
+  legendary.checkSpawns=(s,p,a)->{ck(s==legendary&&SpawnChecks.players(players).equals(List.of(user)),"legendary wrong viewer");counts[1]++;};
+  PixelmonSpawning.coordinator.values.put("Tester",normal);PixelmonSpawning.coordinator.values.put("legendary",legendary);
+  SpawnCheckItem n=new SpawnCheckItem(false),l=new SpawnCheckItem(true);user.stack.count=7;
+  n.func_77659_a(world,user,Hand.MAIN_HAND);n.func_77659_a(world,user,Hand.MAIN_HAND);ck(counts[0]==1&&user.cooldown.ends.get(n)==60,"normal cooldown");
+  l.func_77659_a(world,user,Hand.OFF_HAND);ck(counts[1]==1&&user.cooldown.ends.get(l)==60,"shared cooldown");
+  ck(user.stack.count==7&&SpawnChecks.players(players)==players,"consumption or leaked scope");
+  user.cooldown.tick=59;n.func_77659_a(world,user,Hand.MAIN_HAND);ck(counts[0]==1,"early query");
+  user.cooldown.tick=60;n.func_77659_a(world,user,Hand.MAIN_HAND);ck(counts[0]==2&&user.stack.count==7,"repeated use");
+  PixelmonSpawning.coordinator.values.put("Other",normal);n.func_77659_a(world,other,Hand.MAIN_HAND);ck(counts[0]==3,"other player's cooldown shared");
+  world.field_72995_K=true;n.func_77659_a(world,user,Hand.MAIN_HAND);ck(counts[0]==3,"client query");world.field_72995_K=false;
+  legendary.checkSpawns=(s,p,a)->{throw new IllegalStateException("fixture");};try{SpawnChecks.run(user,true);}catch(IllegalStateException expected){}ck(SpawnChecks.players(players)==players,"scope not restored on exception");
+  for(int mode=0;mode<9;mode++){
+   BattleController b=new BattleController();PixelmonWrapper holder=new PixelmonWrapper(),target=new PixelmonWrapper();holder.bc=target.bc=b;b.active.add(holder);b.active.add(target);b.turnList.add(holder);
+   EjectPack pack=new EjectPack();holder.item=pack;
+   if(mode==1)holder.part.reserve=false;if(mode==2)b.simulateMode=true;if(mode==3)holder.alive=false;if(mode==4)holder.part.type=ParticipantType.WildPokemon;if(mode==5)holder.blocked=true;if(mode==6)holder.attack.move.name="Parting Shot";if(mode==8)b.simulateStats=true;
+   pack.onStatDecrease(holder,mode==7?target:holder,1,BattleStatsType.DEFENSE);ck(holder.consumed==0,"pack switched mid-stat loop");
+   pack.onStatDecrease(holder,mode==7?target:holder,1,BattleStatsType.SPECIAL_DEFENSE);EjectPack.flushAll(b);ck(holder.consumed==(mode==0?1:0),"pack eligibility mode "+mode);EjectPack.flushAll(b);ck(holder.consumed==(mode==0?1:0),"pack double consumed");
+  }
+  BattleController b=new BattleController();PixelmonWrapper slow=new PixelmonWrapper(),fast=new PixelmonWrapper();slow.bc=fast.bc=b;b.active.add(slow);b.active.add(fast);b.turnList.add(slow);slow.item=new EjectPack();fast.item=new EjectPack();fast.stats.speedStat=200;
+  ((EjectPack)slow.item).onStatDecrease(slow,slow,1,BattleStatsType.ATTACK);((EjectPack)fast.item).onStatDecrease(fast,fast,1,BattleStatsType.ATTACK);EjectPack.flushAll(b);ck(fast.consumed==1&&slow.consumed==0,"multiple pack speed priority");
+  BattleController killedBattle=new BattleController();PixelmonWrapper killed=new PixelmonWrapper();killed.bc=killedBattle;killed.item=new EjectPack();killedBattle.active.add(killed);((EjectPack)killed.item).onStatDecrease(killed,killed,1,BattleStatsType.DEFENSE);killed.alive=false;EjectPack.flushAll(killedBattle);ck(killed.consumed==0,"pack activated after fainting");
+  BattleController playerBattle=new BattleController();PixelmonWrapper controlled=new PixelmonWrapper();controlled.bc=playerBattle;controlled.part.type=ParticipantType.Player;controlled.item=new EjectPack();playerBattle.active.add(controlled);((EjectPack)controlled.item).onStatDecrease(controlled,controlled,1,BattleStatsType.DEFENSE);EjectPack.flushAll(playerBattle);ck(controlled.consumed==1&&controlled.prepared==1,"player forced switch missing");
+  for(boolean fail:new boolean[]{false,true}){
+   BattleController sim=new BattleController();PixelmonWrapper simulated=new PixelmonWrapper();simulated.bc=sim;simulated.item=new EjectPack();sim.active.add(simulated);
+   var temporary=new EffectBase(){public void weightEffect(PixelmonWrapper p,MoveChoice c,List<MoveChoice>a,List<MoveChoice>d,List<MoveChoice>e,List<MoveChoice>f){
+    ck(AiEffectEvaluation.active(),"AI scope missing");sim.simulateMode=false;sim.sendMessages=false;sim.simulateStats=true;((EjectPack)simulated.item).onStatDecrease(simulated,simulated,1,BattleStatsType.SPECIAL_ATTACK);if(fail)throw new IllegalStateException("fixture");
+   }};
+   try{AiEffectEvaluation.weight(temporary,simulated,null,List.of(),List.of(),List.of(),List.of());ck(!fail,"AI error swallowed");}catch(IllegalStateException ex){ck(fail,"unexpected AI exception");}
+   ck(!AiEffectEvaluation.active()&&!sim.simulateMode&&sim.sendMessages&&!sim.simulateStats,"AI flags or scope leaked");EjectPack.flushAll(sim);ck(simulated.consumed==0,"AI simulation queued an Eject Pack");
+  }
+  java.lang.reflect.Field uf=sun.misc.Unsafe.class.getDeclaredField("theUnsafe");uf.setAccessible(true);sun.misc.Unsafe unsafe=(sun.misc.Unsafe)uf.get(null);
+  PixelmonConfigProxy.general=(GeneralConfig)unsafe.allocateInstance(GeneralConfig.class);PixelmonConfigProxy.graphics=(GraphicsConfig)unsafe.allocateInstance(GraphicsConfig.class);
+  PixelmonConfigProxy.general.bind();PixelmonConfigProxy.graphics.bind();
+  for(String nested:new String[]{"afkHandler","riding","tms"}){java.lang.reflect.Field field=GeneralConfig.class.getDeclaredField(nested);field.setAccessible(true);field.set(PixelmonConfigProxy.general,unsafe.allocateInstance(field.getType()));}
+  java.lang.reflect.Field speed=PixelmonConfigProxy.getGeneral().getRiding().getClass().getDeclaredField("ridingSpeedMultiplier");speed.setAccessible(true);speed.setFloat(PixelmonConfigProxy.getGeneral().getRiding(),1f);
+  java.lang.reflect.Field max=GeneralConfig.class.getDeclaredField("maxLevel");max.setAccessible(true);max.setInt(PixelmonConfigProxy.general,100);
+  ConfigEditor.save("general","maxLevel",new JsonPrimitive(100),new JsonPrimitive(120));
+  ck(PixelmonConfigProxy.getGeneral().getMaxLevel()==120,"native live getter stale");ck(info.pixelmon.repack.org.spongepowered.reference.ValueReference.State.saved.contains("120"),"native save boundary not called");
+  ConfigEditor.save("general","riding.ridingSpeedMultiplier",new JsonPrimitive(1f),new JsonPrimitive(2f));
+  ck(PixelmonConfigProxy.getGeneral().getRiding().getRidingSpeedMultiplier()==2f,"riding consumer getter stale");
+  PixelmonServerConfig.load();ck(PixelmonServerConfig.maxLevel==120&&PixelmonServerConfig.ridingSpeedMultiplier==2f,"native server snapshot stale");PixelmonServerConfig.maxLevel=987;
+  ConfigEditor.save("graphics","renderWildLevels",new JsonPrimitive(false),new JsonPrimitive(true));
+  ck(PixelmonConfigProxy.getGraphics().isRenderWildLevels()&&PixelmonServerConfig.renderWildLevels&&PixelmonServerConfig.maxLevel==987,"graphics cache not live or overwrote server gameplay cache");
+  info.pixelmon.repack.org.spongepowered.reference.ValueReference.State.fail=true;
+  try{ConfigEditor.save("graphics","renderWildLevels",new JsonPrimitive(true),new JsonPrimitive(false));throw new AssertionError("failed save accepted");}catch(java.io.IOException expected){}
+  ck(PixelmonConfigProxy.getGraphics().isRenderWildLevels()&&PixelmonServerConfig.renderWildLevels,"failed save did not rollback");
+ }
+}

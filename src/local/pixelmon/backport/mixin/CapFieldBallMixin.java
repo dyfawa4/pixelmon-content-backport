@@ -32,6 +32,6 @@ public abstract class CapFieldBallMixin extends PokeBallEntity {
     }
     @Redirect(method="func_70227_a",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/comm/ChatHandler;sendChat(Lnet/minecraft/entity/Entity;Ljava/lang/String;[Ljava/lang/Object;)V"))
     private void backport$reason(Entity recipient,String key,Object[] arguments){
-        ChatHandler.sendChat(recipient,backport$forbiddenCap && "pixelmon.pokeballs.boss".equals(key)?CapBallGuard.MESSAGE:key,arguments);
+        ChatHandler.sendChat(recipient,backport$forbiddenCap && "pixelmon.pokeballs.boss".equals(key)?CapBallGuard.FIELD_MESSAGE:key,arguments);
     }
 }

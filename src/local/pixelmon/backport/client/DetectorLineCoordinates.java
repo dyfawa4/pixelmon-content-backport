@@ -13,6 +13,9 @@ public final class DetectorLineCoordinates {
         }
     };
     public static float relative(double position,double camera){return (float)(position-camera);}
+    public static Vector3d origin(Vector3d camera,float lookX,float lookY,float lookZ){
+        return camera.func_72441_c(lookX*2.0,lookY*2.0,lookZ*2.0);
+    }
     public static Vector3d position(Object marker){
         Field[] fields=POSITIONS.get(marker.getClass());
         try{return new Vector3d(fields[0].getDouble(marker),fields[1].getDouble(marker)+0.5,fields[2].getDouble(marker));}

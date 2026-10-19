@@ -7,6 +7,10 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value=TacticalAI.class,remap=false)
 public abstract class NpcTacticalMixin {
+    @Redirect(method="getWeightedAttackChoices",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/attacks/EffectBase;weightEffect(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;Lcom/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice;Ljava/util/List;Ljava/util/List;Ljava/util/List;Ljava/util/List;)V"),require=1)
+    private void backport$scopedEffect(com.pixelmonmod.pixelmon.battles.attacks.EffectBase effect,PixelmonWrapper own,MoveChoice choice,List<MoveChoice> choices,List<MoveChoice> best,List<MoveChoice> opponents,List<MoveChoice> bestOpponents){
+        local.pixelmon.backport.AiEffectEvaluation.weight(effect,own,choice,choices,best,opponents,bestOpponents);
+    }
     @Inject(method="pickBestChoice(Ljava/util/List;Ljava/util/List;)Lcom/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice;",at=@At("HEAD"),cancellable=true)
     private void backport$bestKnown(List<MoveChoice> choices,List<MoveChoice> bestChoices,CallbackInfoReturnable<MoveChoice> cir){
         List<MoveChoice> pool=choices==null?bestChoices:choices;

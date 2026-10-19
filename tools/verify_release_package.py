@@ -25,7 +25,8 @@ def main():
     with zipfile.ZipFile(production) as archive:
         nodes=[name for name in archive.namelist() if name.startswith('data/pixelmon_backport/advancements/legends/') and name.endswith('.json')]
         expected=['data/pixelmon_backport/advancements/legends/capture_493.json']
-        if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'}:expected.append('data/pixelmon_backport/advancements/legends/capture_1026.json')
+        if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0', '1.6.0', '1.6.1'}:expected.append('data/pixelmon_backport/advancements/legends/capture_1026.json')
+        if VERSION == '1.6.1':expected.append('data/pixelmon_backport/advancements/legends/palette_249_drowned.json')
         assert sorted(name for name in nodes if json.loads(archive.read(name))['display']['frame']=='challenge')==sorted(expected)
         if VERSION=='1.3.0':assert all(json.loads(archive.read(name))['display']['hidden'] for name in nodes)
     packages=[('test-maps',9),('gym-test-maps',21 if VERSION in {'1.4.3', '1.4.4', '1.5.0'} else 20 if VERSION in {'1.4.0', '1.4.1', '1.4.2', '1.4.3', '1.4.4', '1.5.0'} else 19)]

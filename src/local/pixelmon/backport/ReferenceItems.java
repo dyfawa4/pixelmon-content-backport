@@ -25,6 +25,7 @@ public final class ReferenceItems {
             case "tera_orb":return new TeraItems.Orb();
             case "clear_amulet":return new Amulet();
             case "covert_cloak":return new Cloak();
+            case "eject_pack":return new EjectPack();
             case "fairy_feather":return new FairyFeather();
             case "utility_umbrella":return new Umbrella();
             case "eternatus_meteorite":return new Meteorite();

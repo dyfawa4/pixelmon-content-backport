@@ -1,0 +1,15 @@
+{
+  "loader": "forge:separate-perspective",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "pixelmon_backport:item/normal_spawn_checker"
+  },
+  "base": {
+    "parent": "pixelmon_backport:item/normal_spawn_checker_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "pixelmon_backport:item/normal_spawn_checker_icon"
+    }
+  }
+}

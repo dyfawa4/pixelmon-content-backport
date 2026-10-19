@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": ["ADA", "ABA", "AAA"],
+  "key": {
+    "A": {"item": "pixelmon:aluminium_ingot"},
+    "D": {"item": "pixelmon:item_finder"},
+    "B": {"type": "pixelmon_backport:poke_ball"}
+  },
+  "result": {
+    "item": "pixelmon_backport:normal_spawn_checker",
+    "count": 1
+  }
+}

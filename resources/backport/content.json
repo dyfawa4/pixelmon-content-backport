@@ -23611,6 +23611,11 @@
       "name": "baxcaliburite",
       "kind": "mega",
       "form": "mega"
+    },
+    {
+      "name": "eject_pack",
+      "kind": "held",
+      "form": null
     }
   ],
   "referenceExtras": {
@@ -23976,7 +23981,6 @@
       "tier3": [
         "pixelmon_backport:clear_amulet",
         "pixelmon_backport:fairy_feather",
-        "pixelmon:eject_pack",
         "pixelmon_backport:utility_umbrella",
         {
           "type": "pixelmon_backport:clear_amulet"
@@ -24070,6 +24074,9 @@
         },
         {
           "type": "pixelmon_backport:utility_umbrella"
+        },
+        {
+          "type": "pixelmon_backport:eject_pack"
         }
       ],
       "ultraSpace": []

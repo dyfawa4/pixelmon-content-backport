@@ -65,8 +65,20 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.archetypes.algorithms.checkspawns.LegendaryCheckSpawns");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.machines.infuser.InfuserScreen");
         weatherTargets.add("com.pixelmonmod.pixelmon.items.PixelmonItem");
+        weatherTargets.add("com.pixelmonmod.pixelmon.items.PaintingItem");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.StatsEffectPost");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.StatsEffect");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.StatsEffectCone");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.StatsEffectTeam");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.archetypes.algorithms.checkspawns.PlayerTrackingCheckSpawns");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBall");
+        weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage.ClientSetPacket");
+        weatherTargets.add("com.pixelmonmod.pixelmon.world.listener.UltraSpaceListener");
+        weatherTargets.add("vectorwing.farmersdelight.setup.Configuration");
+        weatherTargets.add("net.minecraft.entity.effect.LightningBoltEntity");
         weatherTargets.add("net.minecraft.world.gen.feature.LakesFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.TreeFeature");
+        weatherTargets.add("net.minecraft.world.gen.feature.AbstractBigMushroomFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.RandomPatchFeature");
         weatherTargets.add("net.minecraft.entity.Entity");
         weatherTargets.add("net.minecraft.entity.player.PlayerEntity");
@@ -121,6 +133,7 @@ public final class MixinApplicationVerification {
             RaidCaptureParityVerification.verify(jar.getInputStream(jar.getJarEntry(raidPlayer.replace('.','/')+".class")).readAllBytes(),
                 transformer.transformClassBytes(raidPlayer,raidPlayer,jar.getInputStream(jar.getJarEntry(raidPlayer.replace('.','/')+".class")).readAllBytes()));
             for(String name:weatherTargets)verify(transformer,jar,name);
+            SelfStatAiSnapshotVerification.verify(transformer,jar);
             for(String name:new String[]{"com.pixelmonmod.api.loader.DatapackLoader$Impl","com.pixelmonmod.pixelmon.client.models.smd.SmdAnimation","com.pixelmonmod.pixelmon.api.pokemon.species.palette.locator.ModelLocator","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Sharpness","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Bulletproof","com.pixelmonmod.pixelmon.items.TechnicalMoveItem","com.pixelmonmod.pixelmon.api.pokemon.species.moves.Moves","com.pixelmonmod.pixelmon.items.heldItems.BlankTechnicalMachineItem","com.pixelmonmod.pixelmon.api.registries.PixelmonItems","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond","com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.attackModifiers.MultipleHit","com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper","com.pixelmonmod.pixelmon.battles.attacks.Attack","com.pixelmonmod.pixelmon.battles.controller.BattleController","com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats","com.pixelmonmod.pixelmon.api.pokemon.Pokemon","com.pixelmonmod.pixelmon.api.pokemon.stats.Moveset","com.pixelmonmod.pixelmon.api.registries.PixelmonForms","com.pixelmonmod.pixelmon.client.gui.battles.BattleScreen","com.pixelmonmod.pixelmon.client.gui.battles.pokemonOverlays.OpponentElement","com.pixelmonmod.pixelmon.client.gui.battles.pokemonOverlays.AllyElement","com.pixelmonmod.pixelmon.client.gui.battles.pokemonOverlays.RaidElement"}) {
                 verify(transformer,jar,name);
             }
@@ -210,6 +223,28 @@ public final class MixinApplicationVerification {
         if(!explicitClient || !packet)throw new AssertionError("Client selection missing local update or serverbound synchronization");
         System.out.println("PASS static field-wheel client-side linkage and selected-slot synchronization");
     }
+    static void verifyFarmerConfigDefaults(String name,byte[] original,byte[] patched)throws Exception{
+        java.util.function.Function<byte[],Class<?>> load=bytes->new ClassLoader(MixinApplicationVerification.class.getClassLoader()){
+            Class<?> nativeClass(){return defineClass(name,bytes,0,bytes.length);}
+        }.nativeClass();
+        Class<?> before=load.apply(original),after=load.apply(patched);
+        java.util.Set<String> keys=new java.util.HashSet<>();int values=0;
+        for(var field:before.getFields())if(net.minecraftforge.common.ForgeConfigSpec.ConfigValue.class.isAssignableFrom(field.getType())){
+            var oldValue=(net.minecraftforge.common.ForgeConfigSpec.ConfigValue<?>)field.get(null);
+            var newValue=(net.minecraftforge.common.ForgeConfigSpec.ConfigValue<?>)after.getField(field.getName()).get(null);
+            if(!oldValue.getPath().equals(newValue.getPath()))throw new AssertionError("Farmer config path changed "+field.getName());
+            String specName=oldValue.getPath().get(0).equals("client")?"CLIENT_CONFIG":"COMMON_CONFIG";
+            var oldSpec=(net.minecraftforge.common.ForgeConfigSpec)before.getField(specName).get(null);
+            var newSpec=(net.minecraftforge.common.ForgeConfigSpec)after.getField(specName).get(null);
+            var a=(net.minecraftforge.common.ForgeConfigSpec.ValueSpec)oldSpec.getRaw(oldValue.getPath());
+            var b=(net.minecraftforge.common.ForgeConfigSpec.ValueSpec)newSpec.getRaw(newValue.getPath());
+            if(!java.util.Objects.equals(a.getDefault(),b.getDefault())||!java.util.Objects.equals(String.valueOf(a.getRange()),String.valueOf(b.getRange()))||a.needsWorldRestart()!=b.needsWorldRestart())throw new AssertionError("Farmer config behavior changed "+field.getName());
+            String expected="farmersdelight.config."+newValue.getPath().get(newValue.getPath().size()-1);
+            if(!expected.equals(b.getTranslationKey()))throw new AssertionError("Farmer config translation missing "+field.getName());keys.add(expected);values++;
+        }
+        if(keys.size()!=25||values!=31)throw new AssertionError("Farmer config coverage changed "+values+"/"+keys.size());
+        System.out.println("PASS actual native Farmer config initialization: 31 fields / 25 distinct labels, paths/defaults/ranges/restart flags unchanged.");
+    }
     static void verify(IMixinTransformer transformer,JarFile jar,String name)throws Exception{
         byte[] original;
         var entry=jar.getJarEntry(name.replace('.','/')+".class");
@@ -277,6 +312,29 @@ public final class MixinApplicationVerification {
             boolean accessor=false;for(MethodNode m:node.methods)if(m.desc.equals("()Lcom/google/common/collect/ListMultimap;"))for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode&&((FieldInsnNode)i).name.equals("userMap"))accessor=true;
             if(!accessor)throw new AssertionError("Missing native pending learn accessor: "+node.methods.stream().map(m->m.name+m.desc).collect(java.util.stream.Collectors.joining(",")));
             ++calls;
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage.ClientSetPacket")){
+            java.nio.file.Files.createDirectories(java.nio.file.Path.of(".cache/feedback-161"));
+            java.nio.file.Files.write(java.nio.file.Path.of(".cache/feedback-161/original-clientset.class"),original);
+            java.nio.file.Files.write(java.nio.file.Path.of(".cache/feedback-161/patched-clientset.class"),patched);
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.api.pokemon.species.moves.Moves")){
+            java.nio.file.Files.write(java.nio.file.Path.of(".cache/feedback-161/original-moves.class"),original);
+            java.nio.file.Files.write(java.nio.file.Path.of(".cache/feedback-161/patched-moves.class"),patched);
+        }
+        if(name.equals("vectorwing.farmersdelight.setup.Configuration"))verifyFarmerConfigDefaults(name,original,patched);
+        if(name.equals("com.pixelmonmod.pixelmon.world.listener.UltraSpaceListener")){
+            var m=node.methods.stream().filter(x->x.name.equals("onBlockBreak")).findFirst().orElseThrow();
+            long hits=java.util.Arrays.stream(m.instructions.toArray()).filter(i->i instanceof MethodInsnNode&&((MethodInsnNode)i).name.contains("backport$markMiningBolt")).count();
+            if(hits!=1)throw new AssertionError("Native mining bolt must be tagged exactly once");
+        }
+        if(name.equals("net.minecraft.entity.effect.LightningBoltEntity")){
+            var m=node.methods.stream().filter(x->x.name.equals("func_70071_h_")).findFirst().orElseThrow();
+            int forge=-1,hook=-1,pos=0;for(var i:m.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;if(c.name.equals("onEntityStruckByLightning"))forge=pos;if(c.name.contains("backport$afterActualStrike"))hook=pos;}pos++;}
+            if(forge<0||hook<=forge)throw new AssertionError("Canceled Forge strike could award advancement");
+            var wrapper=node.methods.stream().filter(x->x.name.contains("backport$afterActualStrike")).findFirst().orElseThrow();
+            int nativeHit=-1,award=-1;pos=0;for(var i:wrapper.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;if(c.name.equals("func_241841_a"))nativeHit=pos;if(c.owner.equals("local/pixelmon/backport/UltraPlantAchievement")&&c.name.equals("struck"))award=pos;}pos++;}
+            if(nativeHit<0||award<=nativeHit)throw new AssertionError("Award precedes actual strike callback");
         }
         if(calls<1)throw new AssertionError("No injected hook "+name);
         if(name.equals("net.minecraft.world.gen.feature.template.Template")){

@@ -1,0 +1,7 @@
+{
+  "source_jar": "Pixelmon-9.13-1.9.jar",
+  "source_entry": "assets/pixelmon/textures/items/helditems/eject_pack.png",
+  "sha256": "a6e6c9318d3ebfa019ab3059ea41a1f2706017d989c0bb184c05244b7759034f",
+  "resource": "assets/pixelmon_backport/textures/item/eject_pack.png",
+  "note": "Unmodified supplied Pixelmon item texture; battle code independently adapted for legacy API."
+}

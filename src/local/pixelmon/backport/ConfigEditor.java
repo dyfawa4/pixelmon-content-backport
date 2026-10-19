@@ -77,7 +77,8 @@ public final class ConfigEditor {
                 if(!live.setAndSave(config))throw new java.io.IOException("原生配置保存失败");
             }
         }catch(Exception e){entry.field.set(entry.owner,old);throw e;}
-        return entry.restart?"已保存；此项需要重启游戏或服务器":"已保存；按原生读取时机生效（生成内容与已有战斗可能需要重新创建）";
+        if(group.equals("graphics")&&!entry.restart)ConfigLiveUpdate.graphics();
+        return entry.restart?"已保存；此项需要重启游戏或服务器":"已保存并更新当前配置；实时读取项立即生效，生成／战斗初始化项在下一次创建时生效";
     }
     public static JsonObject page(String group,String search,int page){
         return page(group,search,page,8);
