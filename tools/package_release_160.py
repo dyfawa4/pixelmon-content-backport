@@ -141,7 +141,9 @@ def main():
         assert not any(n.startswith(('.git/', '.cache/', 'dist/')) or n.endswith(('.jar', '.class', '.log')) for n in z.namelist())
         for name in ('src/local/pixelmon/backport/Erosion.java', 'resources/backport/content.json',
                      'docs/GRENINJA_1.6.0.md', 'tools/package_release_160.py'):
-            assert z.read(name) == (ROOT / name).read_bytes()
+            committed = subprocess.check_output(['git', 'show', args.source_ref + ':' + name], cwd=ROOT)
+            assert z.read(name) == committed, ('source archive differs from commit', name)
+            assert committed.replace(b'\r\n', b'\n') == (ROOT / name).read_bytes().replace(b'\r\n', b'\n'), ('uncommitted source', name)
     artifacts = [core, DIST / 'Pixelmon-Backport-1.6.0.zip', source_zip,
                  DIST / 'Pixelmon-Backport-offline-test-1.6.0.zip', DIST / 'Pixelmon-Backport-test-mods-1.6.0.zip']
     artifacts += [DIST / ('Pixelmon-Backport-' + s) for s, _ in maps]
