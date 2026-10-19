@@ -72,7 +72,8 @@ def main():
     data = core.read_bytes()
     check_core(data)
     source = DIST / f'Pixelmon-Backport-source-{VERSION}.zip'
-    subprocess.run(['git', 'archive', '--format=zip', f'--output={source}', ref], cwd=ROOT, check=True)
+    subprocess.run(['git', '-c', 'core.autocrlf=false', '-c', 'core.eol=lf',
+                    'archive', '--format=zip', f'--output={source}', ref], cwd=ROOT, check=True)
     verify_source(source, ref)
 
     package = DIST / f'Pixelmon-Backport-{VERSION}.zip'
