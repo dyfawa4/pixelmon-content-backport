@@ -25,6 +25,24 @@ $taskCompileLines+=@($taskSources | ForEach-Object {'"'+$_.Replace('\','/')+'"'}
 if($LASTEXITCODE -ne 0){throw 'Test compilation failed'}
 & $taskBuild.java -ea -cp $taskCP MixinApplicationVerification $PixelmonJar @taskDetector @taskCompass @taskNature @taskTweaks @taskOptional @taskForgeClient
 if($LASTEXITCODE -ne 0){throw 'Mixin verification failed'}
+& $taskBuild.java -ea -cp $taskCP FossilMachineVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Fossil machine checkpoint synchronization and Cap wording regression failed'}
+& $taskBuild.java -ea -cp $taskCP BattleMechanicsAudit $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Battle rule regression failed'}
+& $taskBuild.java -ea -cp $taskCP Version160Verification
+if($LASTEXITCODE -ne 0){throw '1.6.0 raid selection and quest palette regression failed'}
+& $taskBuild.java -ea -cp $taskCP TeraSnapshotVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Tera snapshot native single-type synchronization failed'}
+& $taskBuild.java -ea -cp $taskCP ConfigInterfaceVerification
+if($LASTEXITCODE -ne 0){throw 'Chinese configuration input and search failed'}
+& $taskBuild.java -ea -cp $taskCP MegaFollowupVerification
+if($LASTEXITCODE -ne 0){throw 'Mega signature and editor import policies failed'}
+& $taskBuild.java -ea -cp $taskCP NativeVariantModelVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Native Mega model parsing failed'}
+python -X utf8 (Join-Path $PSScriptRoot 'tools/verify_smooth_mega_variants.py')
+if($LASTEXITCODE -ne 0){throw 'Smooth Mega visual scope / rig regression failed'}
+& $taskBuild.java -ea -cp $taskCP ErosionVerification
+if($LASTEXITCODE -ne 0){throw 'Erosion, individual extra-turn clocks and configuration persistence failed'}
 & $taskBuild.java -ea -cp $taskCP GymLookupStaticVerification
 if($LASTEXITCODE -ne 0){throw 'Gym lookup static verification failed'}
 & $taskBuild.java -ea -cp $taskCP TeraVisualVerification
@@ -124,6 +142,9 @@ if($LASTEXITCODE -ne 0){throw 'Gender/compass/reward/chance hotfix checks failed
 & $taskBuild.java -ea -cp $taskCP RayquazaMegaAdvancementVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Rayquaza Mega achievement completion checks failed'}
 & $taskBuild.java -ea -cp $taskCP MegaBossAvatarVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Mega avatar verification failed'}
+& $taskBuild.java -ea -cp $taskCP ZaMegaVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'ZA Mega routes and official ability verification failed'}
 if($LASTEXITCODE -ne 0){throw 'All Mega Boss avatar resource checks failed'}
 & $taskBuild.java -ea -cp $taskCP RaidCapExclusionVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Cap exclusion from Max/Tera dens failed'}

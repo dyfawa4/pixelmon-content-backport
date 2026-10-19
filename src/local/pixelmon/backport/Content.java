@@ -74,7 +74,12 @@ public final class Content {
                 if ("new".equals(patch.get("mode").getAsString())) continue;
                 data.put(existing.getKey(), mergeSpecies(original, incoming));
             }
+            for(JsonElement value:data.values())ZaMegaData.normalize(value.getAsJsonObject());
             PermanentAsh.addForm(data);
+            for(JsonElement value:data.values()){
+                JsonObject species=value.getAsJsonObject();if(species.get("dex").getAsInt()!=658)continue;
+                addNinjaLearning(species);
+            }
             CapPikachu.addForm(data);
             CapSpecies.add(data);
             for(JsonElement value:data.values())LegendaryEvolutionData.normalize(value.getAsJsonObject());
@@ -96,6 +101,7 @@ public final class Content {
             for (JsonElement value : data.values()) names.add(value.getAsJsonObject().get("attackName").getAsString());
             List<JsonElement> additions=new ArrayList<>();for(JsonElement move:DATA.getAsJsonArray("moves"))additions.add(move);
             for(JsonElement move:CapSpecies.DATA.getAsJsonArray("moves"))additions.add(move);
+            additions.add(MODERN_MOVES.getAsJsonObject("Ninja Training"));
             for (JsonElement move : additions) {
                 String name = move.getAsJsonObject().get("attackName").getAsString();
                 if (!names.contains(name)) data.put(new ResourceLocation("pixelmon", "backport_" + name.toLowerCase(Locale.ROOT).replace(' ', '_')), copy(move));
@@ -122,6 +128,12 @@ public final class Content {
                 }
             }
         } else if ("abilities".equals(type)) {
+            for(String name:new String[]{"MegaSol","Dragonize","AuraFortify","PiercingDrill","Updraft","FlamingMane","SpicySpray"}){
+                if(data.values().stream().noneMatch(v->v.toString().contains("$"+name+"\""))){
+                    JsonObject ability=new JsonObject();ability.addProperty("className","local.pixelmon.backport.ZaAbilities$"+name);
+                    data.put(new ResourceLocation("pixelmon","backport_"+name.toLowerCase(Locale.ROOT)),ability);
+                }
+            }
             for (String name : new String[]{"TeraShift", "TeraShell", "PoisonPuppeteer", "TeraformZero", "EmbodyAspect"}) {
                 boolean exists = data.values().stream().anyMatch(v -> v.toString().contains(name));
                 if (!exists) {
@@ -130,6 +142,20 @@ public final class Content {
                     data.put(new ResourceLocation("pixelmon", "backport_" + name.toLowerCase(Locale.ROOT)), ability);
                 }
             }
+        }
+    }
+    public static void addNinjaLearning(JsonObject species){
+        if(species.get("dex").getAsInt()!=658)return;
+        PermanentAsh.addMegaForm(species);
+        JsonObject inherited=null;
+        for(JsonElement row:species.getAsJsonArray("forms"))if(row.getAsJsonObject().get("name").getAsString().isEmpty())inherited=row.getAsJsonObject().getAsJsonObject("moves");
+        for(JsonElement row:species.getAsJsonArray("forms")){
+            JsonObject form=row.getAsJsonObject();String name=form.get("name").getAsString();
+            if(!name.equals("ash")&&!name.equals(PermanentAsh.FORM)&&!name.equals(PermanentAsh.MEGA))continue;
+            JsonObject moves=form.getAsJsonObject("moves");
+            // Explicit tutor-only data would replace the native whole-object inheritance.
+            if(moves==null){moves=inherited==null?new JsonObject():copy(inherited).getAsJsonObject();form.add("moves",moves);}
+            JsonArray training=new JsonArray();training.add("Ninja Training");appendUnique(moves,"tutorMoves",training);
         }
     }
     public static JsonObject mergeSpecies(JsonObject original, JsonObject incoming) {
@@ -178,7 +204,7 @@ public final class Content {
         JsonArray source=TERA_LEARNING.getAsJsonArray(dex);
         for(JsonElement valueForm:species.getAsJsonArray("forms")){
             JsonObject form=valueForm.getAsJsonObject();String name=form.get("name").getAsString();
-            boolean base=name.isEmpty() || name.equals("base");if(!source.contains(new JsonPrimitive(name)) && !(base && source.contains(new JsonPrimitive("base"))))continue;
+            boolean base=name.isEmpty() || name.equals("base");boolean ash=species.get("dex").getAsInt()==658&&(name.equals("ash")||name.equals(PermanentAsh.FORM)||name.equals(PermanentAsh.MEGA));if(!source.contains(new JsonPrimitive(name)) && !((base||ash) && source.contains(new JsonPrimitive("base"))))continue;
             // A missing move object inherits the base form in the native loader.
             // Materialize that inheritance before adding a move; otherwise regional
             // variants would lose their entire native learnset and retain only Tera Blast.

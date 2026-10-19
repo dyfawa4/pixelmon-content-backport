@@ -12,6 +12,8 @@ Minecraft、Forge、Pixelmon 旧版本体及参考定制版完整 JAR 是用户�
 
 官方来源：[Pixelmon](https://reforged.gg/)、[Pixelmon Wiki](https://pixelmonmod.com/wiki/)、[Minecraft Forge](https://files.minecraftforge.net/)、[Minecraft](https://www.minecraft.net/)。本项目不是 Pixelmon 官方发布。
 
+1.6.0 的新增 Mega 模型／动画／贴图来自用户补充的 `Pixelmon-9.13-1.9.jar`，仅导入清单列明的形态资源，不打包其代码或 Atlantis API。进化石图标复用安装的 Pixelmon 本体像素素材及配色，保留原始 PNG 字节、16×16 画布和原生留白；来源和哈希见 `resources/backport/za-mega-stone-sources.json`。32 张新增 Mega 头像沿用下述 PokemonWorkshop 素材和相同许可，记录见 `resources/backport/za-mega-avatar-sources.json`。这些上游素材均保留原作者权利，不因本项目代码使用 MIT 而改变。
+
 太晶化外观回迁使用官方 Pixelmon 1.21.1 9.4.1（Modrinth 版本 `tY57GRtu`）的 19 种太晶冠冕。原始路径为 `assets/pixelmon/textures/hat/tera_jewel/`；保留网格坐标、法线、UV 与原始 PNG 字节，仅将静态骨架合并为旧版可稳定读取的单根骨架。逐文件来源、原始/转换后哈希和面数见 `resources/backport/tera_visual_sources.json`，转换工具为 `tools/convert_tera_visuals.py`。这些冠冕与贴图保留 Pixelmon 及原作者权利，不在本项目 MIT 代码许可范围内。身体结晶遮罩 `textures/tera/facets.png` 由本项目工具生成；渲染与同步代码为本项目实现，未打包高版本反编译代码。
 
 2026-10-17 的材质修正进一步参考同一官方版本 `assets/pixelmon/shaders/core/terrastalization.*`、`stellar.*` 的逐三角面明暗、闪烁及边缘反光思路，并参考宝可梦朱／紫官网的太晶化外观说明。参考文件哈希与链接见 `resources/backport/tera_material_reference.json`。旧版使用本项目的固定管线三角面适配实现，没有将高版本 Java 类或无法直接运行的 ShaderInstance 着色器打入正式 JAR；相关上游参考内容仍保留原作者权利。原先生成的 `facets.png` 仍保留在资源中，当前身体渲染不再读取该 UV 图案，避免细长部位产生拉伸条纹。
@@ -22,3 +24,7 @@ Minecraft、Forge、Pixelmon 旧版本体及参考定制版完整 JAR 是用户�
 
 
 1.5.0 主菜单背景由用户提供并指定使用，为 Minecraft 村庄与戴帽皮卡丘截图；原画面中的 Minecraft／Pixelmon 等上游素材权利保持不变。文件为 `resources/assets/pixelmon_backport/textures/gui/journey_background.png`。
+
+2026-10-19 根据用户实机反馈，撤下 Navas 方块风格模型／动画／贴图，恢复用户提供的 Pixelmon 旧模型和普通／闪光材质；包内不再分发这些 Navas 视觉资源。变体仍沿用既有 PokemonWorkshop 像素头像及相应署名许可。当前引用及哈希见 `resources/backport/za-variant-assets.json`，恢复边界见 [旧模型恢复记录](docs/旧模型恢复与测试场补齐_2026-10-19.md)。
+
+本次平滑变体基于原用户提供模型派生：米立龙只调整原鱼体与匹配骨架的排列，玛机雅娜只调整材质坐标以取用原图集已有颜色；原 PNG 字节不改。属于原模型的适配衍生，保留原上游权利，未新增方块模型资源。派生文件及哈希见 `resources/backport/za-variant-assets.json`。

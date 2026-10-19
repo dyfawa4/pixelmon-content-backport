@@ -1,0 +1,101 @@
+package fixture;
+import java.util.*;
+import com.pixelmonmod.pixelmon.Pixelmon;
+import com.pixelmonmod.pixelmon.api.battles.AttackCategory;
+import com.pixelmonmod.pixelmon.api.events.battles.AttackEvent;
+import com.pixelmonmod.pixelmon.api.pokemon.Element;
+import com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Protosynthesis;
+import com.pixelmonmod.pixelmon.battles.attacks.*;
+import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;
+import com.pixelmonmod.pixelmon.battles.status.*;
+import local.pixelmon.backport.*;
+
+/** Production rule methods, isolated surrounding services and explicit negative cases. */
+public class BattleCases {
+    static void require(boolean ok,String label){if(!ok)throw new AssertionError(label);}
+    static class PoisonMove extends EffectBase {
+        public void applyEffect(PixelmonWrapper user,PixelmonWrapper target){target.addStatus(new StatusBase(StatusType.Poison),user);}
+    }
+    public static void run(){
+        var source=new PixelmonWrapper();source.species.dex=1025;source.ability=new BackportAbilities.PoisonPuppeteer();var target=new PixelmonWrapper();
+        Confusion.target=null;BattleMechanics.apply(new PoisonMove(),source,target);require(Confusion.target==target,"Move poison must confuse recipient");
+        Confusion.target=null;target.addStatus(new StatusBase(StatusType.Poison),source);require(Confusion.target==null,"Item/ability poison outside move effect must not trigger");
+        new BackportAbilities.PoisonPuppeteer().onStatusAdded(new StatusBase(StatusType.Poison),source,target);require(Confusion.target==null,"Poisoning Pecharunt must not retaliate");
+        BattleMechanics.statusAdded(new StatusBase(StatusType.Poison),target,source,false);require(Confusion.target==null,"Rejected status must not trigger");
+        try{BattleMechanics.apply(new EffectBase(){public void applyEffect(PixelmonWrapper u,PixelmonWrapper t){throw new IllegalStateException();}},source,target);}catch(IllegalStateException expected){}
+        target.addStatus(new StatusBase(StatusType.Poison),source);require(Confusion.target==null,"Exception must clear move source context");
+        source.ability=new com.pixelmonmod.pixelmon.api.pokemon.ability.AbstractAbility();BattleMechanics.apply(new PoisonMove(),source,target);require(Confusion.target==null,"Suppressed/wrong ability must not trigger");
+        System.out.println("PASS B01 move-source poison, recipient, rejected/ability/item/suppressed and exception cleanup boundaries");
+
+        target.status.clear();var ally=new PixelmonWrapper();target.team.add(target);target.team.add(ally);
+        var noise=new BackportEffects.PsychicNoise();noise.applyEffect(source,target);
+        require(target.status.size()==1&&ally.status.isEmpty(),"Psychic Noise must remain single-target");
+        var block=(BackportEffects.BriefHealBlock)target.status.get(0);require(!block.isTeamStatus(),"Switch must clear the volatile");
+        block.applyRepeatedEffect(target);noise.applyEffect(source,target);require(target.status.size()==1,"Refresh must not duplicate");
+        block.applyRepeatedEffect(target);require(!target.status.isEmpty(),"Refreshed block must last another turn");block.applyRepeatedEffect(target);require(target.status.isEmpty(),"Block must expire after two turns");
+        System.out.println("PASS B02 single-target, switch scope, independent ally, refresh and two-turn expiry");
+
+        var tera=new PixelmonWrapper();tera.species.dex=1024;tera.battle.attackStage=2;
+        var star=new BackportEffects.TeraStarstorm();star.applyEffectStart(tera,target);require(tera.attack.category==AttackCategory.PHYSICAL,"Boosted 80 Attack must beat 100 Special");
+        tera.battle.attackStage=-2;star.applyEffectStart(tera,target);require(tera.attack.category==AttackCategory.SPECIAL,"Negative stages must count");
+        tera.stats.attack=100;tera.battle.attackStage=0;star.applyEffectStart(tera,target);require(tera.attack.category==AttackCategory.SPECIAL,"Ties choose special");
+        tera.stats.attack=80;tera.battle.attackStage=2;var blast=new BackportEffects.TeraBlast();blast.applyEffectStart(tera,target);require(tera.attack.category==AttackCategory.PHYSICAL,"Both moves share category rule");
+        System.out.println("PASS B03 shared adaptive category, positive/negative stages and ties");
+
+        BattleMechanics.beginMove(tera);blast.applyEffectAfterAllTargets(tera);require(tera.battle.drops==0,"Miss/protect/immune cannot lower stats");
+        blast.applyEffect(tera,target);blast.applyEffect(tera,target);blast.applyEffectAfterAllTargets(tera);blast.applyEffectAfterAllTargets(tera);require(tera.battle.drops==2,"Multiple connected hits lower each stat once");
+        BattleMechanics.connected(tera);BattleMechanics.beginMove(tera);blast.applyEffectAfterAllTargets(tera);require(tera.battle.drops==2,"Next move must clear stale hit state");
+        System.out.println("PASS B04 failed targets, connected hit including substitute path, exactly-once and next-move cleanup");
+
+        target.held=new ReferenceItems.Cloak();require(ReferenceItems.blocksSecondary(noise,source,target),"Cloak blocks Psychic Noise");
+        require(ReferenceItems.blocksSecondary(new BackportEffects.AlluringVoice(),source,target),"Cloak blocks Alluring Voice");
+        require(!ReferenceItems.blocksSecondary(noise,target,target),"Do not block self effects");
+        require(!ReferenceItems.blocksSecondary(new PoisonMove(),source,target),"Do not block primary status moves");
+        System.out.println("PASS B05 cloak blocks guaranteed target secondaries, preserves self/primary effects");
+
+        tera.priority=3;require(Tera.floorPower(tera,tera.attack,20)==60,"Temporary priority must preserve floor");
+        tera.attack.move.priority=1;require(Tera.floorPower(tera,tera.attack,20)==20,"Native priority move excluded");tera.attack.move.priority=0;
+        System.out.println("PASS B06 base versus dynamic priority");
+
+        target.ability=new BackportAbilities.TeraShell();var event=new AttackEvent.TypeEffectiveness();event.user=source;event.target=target;event.multiplier=2;
+        new Backport().typeEffectiveness(event);require(event.multiplier==.5,"Shell full health");
+        source.ignoreAbility=true;event.multiplier=2;new Backport().typeEffectiveness(event);require(event.multiplier==2,"Attacker-aware ability query");
+        source.ignoreAbility=false;event.multiplier=0;new Backport().typeEffectiveness(event);require(event.multiplier==0,"Preserve immunity");
+        System.out.println("PASS B07 attacker context and original type immunity");
+
+        source.held=new ReferenceItems.Umbrella();source.bc.globalStatusController.weather=new Sunny();var proto=new Protosynthesis();source.ability=proto;
+        UmbrellaHooks.refreshAbility(source);require(proto.boosted,"Umbrella must preserve Protosynthesis sun");
+        source.bc.globalStatusController.weather=null;UmbrellaHooks.refreshAbility(source);require(!proto.boosted,"Actual weather removal still deactivates");
+        source.bc.globalStatusController.weather=new Sunny();require(UmbrellaHooks.backport$filter(source,source.bc.globalStatusController.weather)==null,"Other consumers retain umbrella filtering");
+        System.out.println("PASS B08 real field for Protosynthesis, filtered weather for ordinary consumers");
+        source.held=new com.pixelmonmod.pixelmon.items.HeldItem();source.ability=new ZaAbilities.MegaSol();
+        var rain=new Rainy();source.bc.globalStatusController.weather=rain;
+        require(UmbrellaHooks.backport$moveWeather(source.bc.globalStatusController,source) instanceof Sunny,"Mega Sol own moves must use sun during rain");
+        require(source.bc.globalStatusController.weather==rain,"Mega Sol must not replace shared weather");
+        require(UmbrellaHooks.backport$moveWeather(source.bc.globalStatusController,target)==rain,"Mega Sol must not leak to opponent/ally moves");
+        source.ability=new com.pixelmonmod.pixelmon.api.pokemon.ability.AbstractAbility();
+        require(UmbrellaHooks.backport$moveWeather(source.bc.globalStatusController,source)==rain,"Suppressed Mega Sol still active");
+        System.out.println("PASS ZA Mega Sol move-local sunlight, unchanged shared weather, actor isolation and ability suppression");
+
+        require(BattleMechanics.changedMaxHP(100,200,300)==200,"Preserve damage, not ratio");require(BattleMechanics.changedMaxHP(200,200,300)==300,"Full HP remains full");
+        require(BattleMechanics.changedMaxHP(0,200,300)==0,"Never revive fainted Pokemon");require(BattleMechanics.changedMaxHP(1,300,100)==1,"Minimum living HP");
+        System.out.println("PASS B09 form damage preservation, full/fainted/minimum boundaries");
+
+        int[] expected={46,46,48,48,48,49,49,51,51,51,52,52,52,54,54,55};
+        for(int r=85;r<=100;r++)require(DamageRules.calculate(50,80,100,100,false,1,1,r,1.5,1)==expected[r-85],"Golden damage roll "+r);
+        require(DamageRules.calculate(50,80,100,100,true,1,1,100,1,1)==28,"Spread rounds before random");
+        require(DamageRules.calculate(50,80,100,100,false,1.5,1.5,85,1.5,2)==206,"Weather critical random STAB and effectiveness order");
+        require(DamageRules.calculate(50,80,100,100,false,1,1,100,1,0)==0,"Immunity remains zero");
+        source.held=new com.pixelmonmod.pixelmon.items.HeldItem();target.held=new com.pixelmonmod.pixelmon.items.HeldItem();source.targets.clear();source.targets.add(target);source.bc.globalStatusController.weather=null;source.attack.movePower=80;
+        Pixelmon.events=0;int damage=BattleDamage.finish(source.attack,source,target,50,100,100,1.5,1,1,.85);
+        require(damage==46&&source.held.calls==1&&target.held.calls==1&&Pixelmon.events==1,"Production adapter native hooks execute exactly once");
+        Pixelmon.scale=.2;damage=BattleDamage.finish(source.attack,source,target,50,100,100,1.5,1,1,.85);require(damage==9,"Raid/external damage event preserved");Pixelmon.scale=1;
+        Pixelmon.events=0;source.held.calls=0;target.held.calls=0;
+        damage=source.attack.doDamageCalc(source,target,1);require(damage==46&&Pixelmon.events==2&&source.held.calls==1&&target.held.calls==1,"Actual transformed native damage method, STAB and item hooks once");
+        source.attack.type=Element.FIRE;source.attack.effectiveness=2;source.bc.globalStatusController.weather=new Sunny();
+        damage=source.attack.doDamageCalc(source,target,1.5);require(damage==206,"Actual native captured stats, weather/crit/STAB/type order");
+        source.bc.simulateMode=true;source.bc.globalStatusController.weather=null;source.attack.effectiveness=1;require(source.attack.doDamageCalc(source,target,1)==55,"Native AI maximum roll retained");
+        System.out.println("PASS B10 16 golden rolls, spread/weather/critical/type/immunity, production item and raid event boundaries");
+    }
+}
+

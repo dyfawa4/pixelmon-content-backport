@@ -22,5 +22,6 @@ public abstract class FormAdvancementMixin {
     @Inject(method="setForm(Lcom/pixelmonmod/pixelmon/api/pokemon/species/Stats;)V",at=@At("RETURN"))
     private void backport$afterForm(Stats form,CallbackInfo ci){
         LegendAdvancements.formChanged((Pokemon)(Object)this,backport$formHistory.pop());
+        local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);
     }
 }

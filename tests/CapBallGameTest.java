@@ -51,7 +51,7 @@ public final class CapBallGameTest {
     @Mod.EventBusSubscriber(modid="backport_tera_visual_test",value=net.minecraftforge.api.distmarker.Dist.CLIENT)
     public static class Client {
         static int messages,closing;
-        @SubscribeEvent public static void chat(net.minecraftforge.client.event.ClientChatReceivedEvent e){if(enabled()&&e.getMessage().getString().contains("不能用大师球、起源球、公园球捕捉小智版皮卡丘"))messages++;}
+        @SubscribeEvent public static void chat(net.minecraftforge.client.event.ClientChatReceivedEvent e){if(enabled()&&e.getMessage().getString().contains("不能用大师球、起源球、公园球捕捉戴帽子的皮卡丘"))messages++;}
         @SubscribeEvent public static void tick(TickEvent.ClientTickEvent e){
             if(e.phase!=TickEvent.Phase.END||!enabled()||!Files.isRegularFile(RESULT)||++closing!=60)return;
             try{var report=new JsonParser().parse(Files.readString(RESULT)).getAsJsonObject();report.addProperty("clientRejectionMessages",messages);report.addProperty("passed",report.get("serverPassed").getAsBoolean()&&messages==12);Files.writeString(RESULT,new GsonBuilder().setPrettyPrinting().create().toJson(report));System.out.println("CAP_BALL_GAME_FINAL_PASS="+report.get("passed"));}catch(Exception error){error.printStackTrace();}

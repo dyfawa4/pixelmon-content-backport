@@ -2,7 +2,7 @@
 
 原生数据与回迁补丁使用实际Content.mergeSpecies合并；逐一检查所有Mega形态的性别与普通、闪光、特殊材质头像引用。检查PNG尺寸、透明背景和实际资源，不能替代游戏内人工验收。
 
-Mega形态：77；性别/材质引用：225；自定义独立头像：60。
+Mega形态：96；性别/材质引用：263；自定义独立头像：98。
 
 | 编号 | 宝可梦 | 形态 | 性别资源组 | 材质 | 检查结果 |
 |---|---|---|---|---|---|
@@ -156,9 +156,13 @@ Mega形态：77；性别/材质引用：225；自定义独立头像：60。
 | 354 | Banette | mega | ALL | none | 32×32 / 实际资源存在 |
 | 354 | Banette | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 354 | Banette | mega | ALL | witch | 32×32 / 实际资源存在 |
+| 358 | Chimecho | mega | ALL | none | 32×32 / 实际资源存在 |
+| 358 | Chimecho | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 359 | Absol | mega | ALL | none | 32×32 / 实际资源存在 |
 | 359 | Absol | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 359 | Absol | mega | ALL | valentine | 32×32 / 实际资源存在 |
+| 359 | Absol | megaz | ALL | none | 32×32 / 实际资源存在 |
+| 359 | Absol | megaz | ALL | shiny | 32×32 / 实际资源存在 |
 | 362 | Glalie | mega | ALL | none | 32×32 / 实际资源存在 |
 | 362 | Glalie | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 373 | Salamence | mega | ALL | none | 32×32 / 实际资源存在 |
@@ -173,14 +177,20 @@ Mega形态：77；性别/材质引用：225；自定义独立头像：60。
 | 384 | Rayquaza | mega | ALL | none | 32×32 / 实际资源存在 |
 | 384 | Rayquaza | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 384 | Rayquaza | mega | ALL | alter | 32×32 / 实际资源存在 |
+| 398 | Staraptor | mega | ALL | none | 32×32 / 实际资源存在 |
+| 398 | Staraptor | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 428 | Lopunny | mega | ALL | none | 32×32 / 实际资源存在 |
 | 428 | Lopunny | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 428 | Lopunny | mega | ALL | summer | 32×32 / 实际资源存在 |
 | 445 | Garchomp | mega | ALL | none | 32×32 / 实际资源存在 |
 | 445 | Garchomp | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 445 | Garchomp | megaz | ALL | none | 32×32 / 实际资源存在 |
+| 445 | Garchomp | megaz | ALL | shiny | 32×32 / 实际资源存在 |
 | 448 | Lucario | mega | ALL | none | 32×32 / 实际资源存在 |
 | 448 | Lucario | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 448 | Lucario | mega | ALL | online | 32×32 / 实际资源存在 |
+| 448 | Lucario | megaz | ALL | none | 32×32 / 实际资源存在 |
+| 448 | Lucario | megaz | ALL | shiny | 32×32 / 实际资源存在 |
 | 460 | Abomasnow | mega | ALL | none | 32×32 / 实际资源存在 |
 | 460 | Abomasnow | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 475 | Gallade | mega | ALL | none | 32×32 / 实际资源存在 |
@@ -188,6 +198,8 @@ Mega形态：77；性别/材质引用：225；自定义独立头像：60。
 | 475 | Gallade | mega | ALL | strike | 32×32 / 实际资源存在 |
 | 478 | Froslass | mega | ALL | none | 32×32 / 实际资源存在 |
 | 478 | Froslass | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 485 | Heatran | mega | ALL | none | 32×32 / 实际资源存在 |
+| 485 | Heatran | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 491 | Darkrai | mega | ALL | none | 32×32 / 实际资源存在 |
 | 491 | Darkrai | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 500 | Emboar | mega | ALL | none | 32×32 / 实际资源存在 |
@@ -205,6 +217,8 @@ Mega形态：77；性别/材质引用：225；自定义独立头像：60。
 | 609 | Chandelure | mega | ALL | none | 32×32 / 实际资源存在 |
 | 609 | Chandelure | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 609 | Chandelure | mega | ALL | rainbow | 32×32 / 实际资源存在 |
+| 623 | Golurk | mega | ALL | none | 32×32 / 实际资源存在 |
+| 623 | Golurk | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 652 | Chesnaught | mega | ALL | none | 32×32 / 实际资源存在 |
 | 652 | Chesnaught | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 655 | Delphox | mega | ALL | none | 32×32 / 实际资源存在 |
@@ -215,6 +229,8 @@ Mega形态：77；性别/材质引用：225；自定义独立头像：60。
 | 668 | Pyroar | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 670 | Floette | mega | ALL | none | 32×32 / 实际资源存在 |
 | 670 | Floette | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 678 | Meowstic | mega | ALL | none | 32×32 / 实际资源存在 |
+| 678 | Meowstic | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 687 | Malamar | mega | ALL | none | 32×32 / 实际资源存在 |
 | 687 | Malamar | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 689 | Barbaracle | mega | ALL | none | 32×32 / 实际资源存在 |
@@ -227,7 +243,29 @@ Mega形态：77；性别/材质引用：225；自定义独立头像：60。
 | 718 | Zygarde | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 719 | Diancie | mega | ALL | none | 32×32 / 实际资源存在 |
 | 719 | Diancie | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 740 | Crabominable | mega | ALL | none | 32×32 / 实际资源存在 |
+| 740 | Crabominable | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 768 | Golisopod | mega | ALL | none | 32×32 / 实际资源存在 |
+| 768 | Golisopod | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 780 | Drampa | mega | ALL | none | 32×32 / 实际资源存在 |
 | 780 | Drampa | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 801 | Magearna | mega | ALL | none | 32×32 / 实际资源存在 |
+| 801 | Magearna | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 801 | Magearna | megaoriginal | ALL | none | 32×32 / 实际资源存在 |
+| 801 | Magearna | megaoriginal | ALL | shiny | 32×32 / 实际资源存在 |
+| 807 | Zeraora | mega | ALL | none | 32×32 / 实际资源存在 |
+| 807 | Zeraora | mega | ALL | shiny | 32×32 / 实际资源存在 |
 | 870 | Falinks | mega | ALL | none | 32×32 / 实际资源存在 |
 | 870 | Falinks | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 952 | Scovillain | mega | ALL | none | 32×32 / 实际资源存在 |
+| 952 | Scovillain | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 970 | Glimmora | mega | ALL | none | 32×32 / 实际资源存在 |
+| 970 | Glimmora | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 978 | Tatsugiri | mega | ALL | none | 32×32 / 实际资源存在 |
+| 978 | Tatsugiri | mega | ALL | shiny | 32×32 / 实际资源存在 |
+| 978 | Tatsugiri | megadroopy | ALL | none | 32×32 / 实际资源存在 |
+| 978 | Tatsugiri | megadroopy | ALL | shiny | 32×32 / 实际资源存在 |
+| 978 | Tatsugiri | megastretchy | ALL | none | 32×32 / 实际资源存在 |
+| 978 | Tatsugiri | megastretchy | ALL | shiny | 32×32 / 实际资源存在 |
+| 998 | Baxcalibur | mega | ALL | none | 32×32 / 实际资源存在 |
+| 998 | Baxcalibur | mega | ALL | shiny | 32×32 / 实际资源存在 |

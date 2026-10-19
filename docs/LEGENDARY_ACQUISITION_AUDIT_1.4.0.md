@@ -1,6 +1,6 @@
 # 1.4.0 神兽获得成就逐项代码回归
 
-原生及回迁资源实际枚举，记录日期2026-10-13。共106个传奇/幻之/究极异兽种类覆盖；本体22项物种条件、回迁112项物种/形态路由逐条检查。保留原ID/已得进度。
+原生及回迁资源实际枚举，记录日期2026-10-13。共106个传奇/幻之/究极异兽种类覆盖；本体22项物种条件、回迁116项物种/形态路由逐条检查。保留原ID/已得进度。
 
 代码共同入口：捕捉后最终入库、进化完成、巢穴实际入库、完成孵化、交换/赠送实际存储、登录已拥有补查；同行栏与PC使用同一真实所有者/存储对象验证，不固定槽位，不伪造球或捕捉统计。成就记录均为代码/资源接入检查，不宣称游戏内获得已经验收。形态专属任务只接受对应形态，普通/伽勒尔三鸟分开；临时战斗变形不伪造实际获得。伪装百变怪只按还原后物种，“乔装打扮”还需真实捕捉资格。
 
@@ -118,6 +118,10 @@
 | 144 galarian | Articuno | capture_144_galarian | 代码通过：最终真实形态；同行/PC共用，不借用外观 |
 | 145 galarian | Zapdos | capture_145_galarian | 代码通过：最终真实形态；同行/PC共用，不借用外观 |
 | 146 galarian | Moltres | capture_146_galarian | 代码通过：最终真实形态；同行/PC共用，不借用外观 |
+| 801  | Magearna | capture_801 | 代码通过：最终真实形态；同行/PC共用，不借用外观 |
+| 801 mega | Magearna | capture_801 | 代码通过：最终真实形态；同行/PC共用，不借用外观 |
+| 801 original_color | Magearna | capture_801_original_color | 代码通过：最终真实形态；同行/PC共用，不借用外观 |
+| 801 megaoriginal | Magearna | capture_801_original_color | 代码通过：最终真实形态；同行/PC共用，不借用外观 |
 | 377 | Regirock | pixelmon:legendaries/regirock_capture_trigger | 代码通过：统一SPEC/LEGENDARY实际获得重放；三鸟仅普通形态 |
 | 385 | Jirachi | pixelmon:legendaries/jirachi_capture_trigger | 代码通过：统一SPEC/LEGENDARY实际获得重放；三鸟仅普通形态 |
 | 380 | Latias | pixelmon:legendaries/latias_capture_trigger | 代码通过：统一SPEC/LEGENDARY实际获得重放；三鸟仅普通形态 |

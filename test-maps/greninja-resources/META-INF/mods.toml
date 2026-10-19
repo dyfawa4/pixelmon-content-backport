@@ -1,0 +1,14 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+[[mods]]
+modId="backport_greninja_test"
+version="1.6.0"
+displayName="轻快之旅 忍蛙与配置专项测试"
+description='''Optional disposable Greninja test world. No fixtures are created in ordinary saves.'''
+[[dependencies.backport_greninja_test]]
+modId="pixelmon_backport"
+mandatory=true
+versionRange="[1.6.0,1.7.0)"
+ordering="AFTER"
+side="BOTH"

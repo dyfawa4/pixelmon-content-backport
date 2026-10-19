@@ -52,6 +52,16 @@ public class Legendary144Cases {
         check(earned("form_889_crowned")&&earned("form_888_crowned"),"1.4.3 all-party native Crowned double award not reproduced");
         System.out.println("REPRODUCED native PCBox capture omission -> party recovery, and Crowned initialization of active shield + reserve sword.");
     }
+    public static void palettes(){
+        for(var value:SpecialPaletteAdvancements.DATA){var row=value.getAsJsonObject();int dex=row.get("dex").getAsInt();String form=row.get("form").getAsString(),palette=row.get("palette").getAsString(),key=row.get("id").getAsString();
+            setup();var p=box(dex,form,4,29);p.palette.name=palette;endTick();check(earned(key)&&earned("root")&&earned("forms"),"Owned PC palette did not unlock exact achievement");
+            setup();p=box(dex,form,0,0);endTick();check(!earned(key),"Ordinary palette unlocked special achievement");
+            p.palette.name=palette;p.shiny=true;AcquisitionQueue.stored(p);endTick();check(!earned(key),"Shiny photo exclusion lost");
+            p.shiny=false;var copy=new Pokemon(dex,form);copy.palette.name=palette;copy.storage=p.storage;copy.position=p.position;SpecialPaletteAdvancements.acquired(player,copy);check(!earned(key),"Unstored copied Pokemon awarded");
+            p.egg=true;AcquisitionQueue.stored(p);endTick();check(!earned(key),"Egg palette awarded");
+        }
+        System.out.println("PASS 12 production quest palette achievements through native PC insert and owner lookup; normal/shiny/egg/copy negatives and first-child root completion.");
+    }
     public static void fixed(){
         setup();for(int i=0;i<6;i++)party(25,i);endTick();resetAwards();
         var caught=box(888,"hero",4,29);
@@ -105,8 +115,24 @@ public class Legendary144Cases {
         // Original 128-object tick budget stays bounded, then drains remaining entries.
         for(int i=0;i<130;i++)box(480,"",i/30,i%30);resetAwards();endTick();check(player.nativeLegend==128,"Queue budget not respected");endTick();check(player.nativeLegend==130,"Queue tail dropped");
         System.out.println("PASS "+routes+" real backport species/form acquisition routes through native PCBox insertion; full party, last box, login, bounds, duplicates and ownership negatives.");
+        magearnaCases();
         crownedCases();
         transformationCases();
+    }
+    static void magearnaCases(){
+        for(String form:List.of("","original_color","mega","megaoriginal")){
+            setup();var p=box(801,form,0,0);endTick();
+            boolean original=form.equals("original_color")||form.equals("megaoriginal");
+            check(earned(original?"capture_801_original_color":"capture_801"),"Magearna form achievement missing "+form);
+            check(!earned(original?"capture_801":"capture_801_original_color"),"Magearna color achievement leaked "+form);
+            check(!earned("capture_719"),"Same-title Diancie achievement leaked");
+            resetAwards();var login=new net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent();login.player=player;queue.login(login);endTick();
+            check(earned(original?"capture_801_original_color":"capture_801"),"Magearna existing PC login backfill lost");
+            setup();p=box(801,form,0,0);p.egg=true;endTick();check(!earned("capture_801")&&!earned("capture_801_original_color"),"Magearna egg awarded");
+        }
+        setup();box(801,"",0,0);endTick();box(801,"original_color",0,1);endTick();
+        check(earned("capture_801")&&earned("capture_801_original_color"),"Two Magearna achievements do not coexist");
+        System.out.println("PASS Magearna normal/original and Mega origins: separate achievements, PC acquisition/login backfill, egg negatives, both retained; existing Diancie ID unchanged.");
     }
     static void crownedCases(){
         setup();CrownedAdvancements.clear();var shield=party(889,0);var sword=party(888,1);endTick();resetAwards();

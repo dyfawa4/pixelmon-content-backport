@@ -1,0 +1,472 @@
+{
+  "reference": "[阿宇定制ZA]太晶修复Pixelmon-9.13-1.9.jar",
+  "reference_sha256": "2b92a485d56292882b5bf9c0c6be8667cc0411737a0f03c28ba551f65f5f517b",
+  "comparison": "native Pixelmon plus current content patches; presence audit, not gameplay acceptance",
+  "reference_new_mega_forms": 26,
+  "missing_reference_forms": [],
+  "catalog_source": "https://github.com/smogon/pokemon-showdown/blob/master/data/pokedex.ts",
+  "catalog_sha256": "5e572601f4700f99835845eee5cd3e53362e43d885e2753fcc32418f636b83ed",
+  "catalog_note": "Third-party battle simulator catalogue; do not treat proposed abilities as official ZA rules. Magearna original-color variant listed separately.",
+  "forms": [
+    {
+      "dex": 26,
+      "name": "Raichu-Mega-X",
+      "form": "megax",
+      "present": true,
+      "in_reference": false,
+      "variant": false
+    },
+    {
+      "dex": 26,
+      "name": "Raichu-Mega-Y",
+      "form": "megay",
+      "present": true,
+      "in_reference": false,
+      "variant": false
+    },
+    {
+      "dex": 36,
+      "name": "Clefable-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 71,
+      "name": "Victreebel-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 121,
+      "name": "Starmie-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 149,
+      "name": "Dragonite-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 154,
+      "name": "Meganium-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 160,
+      "name": "Feraligatr-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 227,
+      "name": "Skarmory-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 358,
+      "name": "Chimecho-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 359,
+      "name": "Absol-Mega-Z",
+      "form": "megaz",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 398,
+      "name": "Staraptor-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 445,
+      "name": "Garchomp-Mega-Z",
+      "form": "megaz",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 448,
+      "name": "Lucario-Mega-Z",
+      "form": "megaz",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 478,
+      "name": "Froslass-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 485,
+      "name": "Heatran-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 491,
+      "name": "Darkrai-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false
+    },
+    {
+      "dex": 500,
+      "name": "Emboar-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 530,
+      "name": "Excadrill-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 545,
+      "name": "Scolipede-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 560,
+      "name": "Scrafty-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 604,
+      "name": "Eelektross-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 609,
+      "name": "Chandelure-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 623,
+      "name": "Golurk-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 652,
+      "name": "Chesnaught-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 655,
+      "name": "Delphox-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 658,
+      "name": "Greninja-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 668,
+      "name": "Pyroar-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 670,
+      "name": "Floette-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 678,
+      "name": "Meowstic-M-Mega",
+      "form": "mmega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "native gender retained; both genders share the supplied Mega appearance"
+    },
+    {
+      "dex": 678,
+      "name": "Meowstic-F-Mega",
+      "form": "fmega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "native gender retained; both genders share the supplied Mega appearance"
+    },
+    {
+      "dex": 687,
+      "name": "Malamar-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 689,
+      "name": "Barbaracle-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 691,
+      "name": "Dragalge-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 701,
+      "name": "Hawlucha-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 718,
+      "name": "Zygarde-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 740,
+      "name": "Crabominable-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 768,
+      "name": "Golisopod-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 780,
+      "name": "Drampa-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 801,
+      "name": "Magearna-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "Smooth derived appearance accepted by user on 2026-10-19; full Mega actual-stat audit remains queued",
+      "visual_complete": true,
+      "visual_candidate_ready": true,
+      "visual_accepted": "2026-10-19"
+    },
+    {
+      "dex": 801,
+      "name": "Magearna-Original-Mega",
+      "form": "originalmega",
+      "present": true,
+      "in_reference": false,
+      "variant": true,
+      "visual_complete": true,
+      "status": "Smooth derived appearance accepted by user on 2026-10-19; full Mega actual-stat audit remains queued",
+      "runtime_form": "megaoriginal",
+      "visual_candidate_ready": true,
+      "visual_accepted": "2026-10-19"
+    },
+    {
+      "dex": 807,
+      "name": "Zeraora-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 870,
+      "name": "Falinks-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": true,
+      "variant": false
+    },
+    {
+      "dex": 952,
+      "name": "Scovillain-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 970,
+      "name": "Glimmora-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    },
+    {
+      "dex": 978,
+      "name": "Tatsugiri-Curly-Mega",
+      "form": "curlymega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "Smooth derived appearance accepted by user on 2026-10-19; full Mega actual-stat audit remains queued",
+      "visual_complete": true,
+      "runtime_form": "mega",
+      "visual_candidate_ready": true,
+      "visual_accepted": "2026-10-19"
+    },
+    {
+      "dex": 978,
+      "name": "Tatsugiri-Droopy-Mega",
+      "form": "droopymega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "Smooth derived appearance accepted by user on 2026-10-19; full Mega actual-stat audit remains queued",
+      "visual_complete": true,
+      "runtime_form": "megadroopy",
+      "visual_candidate_ready": true,
+      "visual_accepted": "2026-10-19"
+    },
+    {
+      "dex": 978,
+      "name": "Tatsugiri-Stretchy-Mega",
+      "form": "stretchymega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "Smooth derived appearance accepted by user on 2026-10-19; full Mega actual-stat audit remains queued",
+      "visual_complete": true,
+      "runtime_form": "megastretchy",
+      "visual_candidate_ready": true,
+      "visual_accepted": "2026-10-19"
+    },
+    {
+      "dex": 998,
+      "name": "Baxcalibur-Mega",
+      "form": "mega",
+      "present": true,
+      "in_reference": false,
+      "variant": false,
+      "status": "imported; native registry/spawn/Boss drops checked"
+    }
+  ],
+  "model_candidates": [
+    {
+      "name": "Mega Garchomp Z",
+      "author": "Mariokart07",
+      "license": "CC Attribution (Sketchfab metadata)",
+      "url": "https://sketchfab.com/3d-models/mega-garchomp-z-za-2824a13bd75943099d3d32d5f79537dc",
+      "download": "Official download API requires authentication (401); no asset obtained."
+    },
+    {
+      "name": "Shiny Mega Garchomp Z",
+      "author": "Mariokart07",
+      "license": "CC Attribution (Sketchfab metadata)",
+      "url": "https://sketchfab.com/3d-models/shiny-mega-garchomp-z-za-7c6c59398f6b4d58b7e8d1cfd57f47c5",
+      "download": "Not obtained."
+    }
+  ],
+  "additional_reference": "Pixelmon-9.13-1.9.jar",
+  "additional_reference_sha256": "842d8107691b7ac5f0e93963c024ccb6a54eb7d967b9dd9a6a20805f3764746f",
+  "added_mega_groups": 16,
+  "native_validation": "ZA_MEGA_NATIVE_PASS: 16 registered forms, seven ability classes, native spawn pools and exclusive stone drops; Mega Ash Protean, signature and PP=5",
+  "pending_visuals": [],
+  "handoff": "docs/完成总结与起床验收_2026-10-19.md",
+  "pending_manual_acceptance": [
+    "Greninja Mega water-shuriken appearance",
+    "Mega stone unified Shift tooltip and editor import",
+    "Nihil Light battle behavior",
+    "Survival den spawner operation"
+  ],
+  "variant_assets": "backport/za-variant-assets.json"
+}

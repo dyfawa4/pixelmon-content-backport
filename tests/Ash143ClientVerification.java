@@ -73,7 +73,7 @@ public final class Ash143ClientVerification {
                 mon.getAbility().tookDamageUser(1,own,target,attack);same(mon);own.evolution=null;target.pokemon.heal();
                 own.attack=attack;int start=battle.battleTurn;AshWaterBoost.start(own);
                 require(AshWaterBoost.power(own,attack,20)==30,"Boost not applied");
-                for(int i=1;i<=3;i++){battle.endTurn();require(battle.battleTurn==start+i,"Native turn counter mismatch");require(AshWaterBoost.power(own,attack,20)==(i==3?20:30),"Native three-turn expiry mismatch");}
+                for(int i=1;i<=5;i++){battle.endTurn();require(battle.battleTurn==start+i,"Native turn counter mismatch");require(AshWaterBoost.power(own,attack,20)==(i==5?20:30),"Native five-turn expiry mismatch");}
                 mon.setHealth(0);mon.getAbility().onSelfFaint(own,target);same(mon);mon.heal();
                 mon.getAbility().applyEndOfBattleEffect(own);same(mon);battle.endBattleWithoutXP();same(mon);
                 Pokemon restored=PokemonFactory.create(mon.writeToNBT(new CompoundNBT()));same(restored);
@@ -117,7 +117,7 @@ public final class Ash143ClientVerification {
                 }else if(state==6 && ++ticks>20){
                     require(!(mc.field_71462_r instanceof ChooseStarterScreen),"Starter UI replaced summary");
                     try(NativeImage image=ScreenShotHelper.func_198052_a(mc.func_228018_at_().func_198105_m(),mc.func_228018_at_().func_198083_n(),mc.func_147110_a())){image.func_209270_a(Paths.get("ash143-summary.png"));}
-                    result("PASS controlled native KO/form/faint/heal/end-battle/PC/NBT/world-reentry; native three endTurn expiry; start/end battle packet text; lucky registered/category pools; summary screenshot");state=7;ticks=0;
+                    result("PASS controlled native KO/form/faint/heal/end-battle/PC/NBT/world-reentry; native five endTurn expiry; start/end battle packet text; lucky registered/category pools; summary screenshot");state=7;ticks=0;
                 }else if(state==7 && ++ticks>15){state=-2;mc.func_71400_g();}
             }catch(Throwable failure){failure.printStackTrace();state=-1;result("FAIL client "+failure);}
         }

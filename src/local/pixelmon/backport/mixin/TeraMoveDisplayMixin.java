@@ -16,6 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** Route native UI reads through battle-local display data, never mutate a move. */
 @Mixin(targets="com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.ChooseAttack$MoveButton",remap=false)
 public abstract class TeraMoveDisplayMixin {
+    @Redirect(method={"func_230431_b_","func_231044_a_"},at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/attacks/Attack;getDisabled()Z"),require=4)
+    private boolean backport$bonusSetupDisabled(Attack a){PixelmonClientData user=backport$user();return a.getDisabled()||(local.pixelmon.backport.NinjaTraining.move(a)&&user!=null&&local.pixelmon.backport.ErosionClient.bonus(user.pokemonUUID));}
     @Inject(method="func_230431_b_",at=@At("RETURN"))
     private void backport$burstBorder(MatrixStack matrix,int mouseX,int mouseY,float partial,CallbackInfo ci){if(local.pixelmon.backport.BurstClient.move(attack))local.pixelmon.backport.BurstClient.moveOutline(matrix,(net.minecraft.client.gui.widget.Widget)(Object)this,id);}
     @Shadow public int id;
@@ -25,6 +27,8 @@ public abstract class TeraMoveDisplayMixin {
     @Unique private PixelmonClientData backport$user(){return ClientProxy.battleManager==null?null:ClientProxy.battleManager.getCurrentPokemon();}
     @Inject(method="setupAttack",at=@At("RETURN"))
     private void backport$power(ClientBattleManager bm,PixelmonClientData user,CallbackInfo ci){displayedPower=BattleInfoCompat.movePower(attack,user,displayedPower);}
+    @Inject(method="setupAttack",at=@At("HEAD"))
+    private void backport$ordinaryRaidMove(ClientBattleManager bm,PixelmonClientData user,CallbackInfo ci){local.pixelmon.backport.TeraRaidGimmicks.clear(bm);}
     @Redirect(method="func_230431_b_",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/attacks/Attack;getType()Lcom/pixelmonmod/pixelmon/api/pokemon/Element;"))
     private Element backport$iconType(Attack move){return BattleInfoCompat.moveType(move,backport$user());}
     @Redirect(method="func_230431_b_",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/attacks/Attack;getAttackCategory()Lcom/pixelmonmod/pixelmon/api/battles/AttackCategory;"))

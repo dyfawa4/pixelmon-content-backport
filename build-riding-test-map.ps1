@@ -12,12 +12,13 @@ python -X utf8 (Join-Path $PSScriptRoot 'tools/create_riding_test_map.py')
 if($LASTEXITCODE -ne 0){throw 'Riding world metadata failed'}
 $taskPackage=(New-Item -ItemType Directory -Force -Path (Join-Path $taskStage 'package')).FullName
 $taskMods=(New-Item -ItemType Directory -Force -Path (Join-Path $taskPackage 'mods')).FullName
-$taskHelper=Join-Path $taskMods 'backport-riding-test-1.16.5-1.5.0.jar'
+$taskVersion=([regex]::Match((Get-Content -LiteralPath (Join-Path $PSScriptRoot 'resources/META-INF/mods.toml') -Raw),'(?m)^version="([^"]+)"')).Groups[1].Value
+$taskHelper=Join-Path $taskMods "backport-riding-test-1.16.5-$taskVersion.jar"
 & $taskJar cf $taskHelper -C $taskClasses . -C (Join-Path $PSScriptRoot 'test-maps/riding-resources') .
 Copy-Item -LiteralPath $taskBuild.jar -Destination $taskMods
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'test-maps/riding-saves-v150') -Destination (Join-Path $taskPackage 'saves') -Recurse
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'RIDING_TEST_MAP.md') -Destination (Join-Path $taskPackage 'README.md')
-$taskOutput=Join-Path $PSScriptRoot ('dist/Pixelmon-Backport-riding-test-map-1.5.0-'+$Revision+'.zip')
+$taskOutput=Join-Path $PSScriptRoot ("dist/Pixelmon-Backport-riding-test-map-$taskVersion-"+$Revision+'.zip')
 if(Test-Path -LiteralPath $taskOutput){throw 'Choose another revision; existing test archive is preserved'}
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::CreateFromDirectory($taskPackage,$taskOutput,[System.IO.Compression.CompressionLevel]::Optimal,$false)

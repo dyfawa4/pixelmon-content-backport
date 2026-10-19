@@ -1,0 +1,21 @@
+{
+  "id": "Backport Mega Tatsugiri droopy",
+  "spawnInfos": [
+    {
+      "spec": "species:Tatsugiri form:megadroopy",
+      "stringLocationTypes": [
+        "Land"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "lakes",
+          "minecraft:river"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.3
+    }
+  ]
+}

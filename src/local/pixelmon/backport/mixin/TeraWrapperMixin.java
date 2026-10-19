@@ -12,11 +12,17 @@ import com.pixelmonmod.pixelmon.battles.attacks.Attack;
 import java.util.List;
 import java.util.ArrayList;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import com.pixelmonmod.pixelmon.battles.controller.BattleController;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(value=PixelmonWrapper.class,remap=false)
 public abstract class TeraWrapperMixin {
+    @Unique private String backport$usedKey;
+    @Unique private Object[] backport$usedArgs;
+    @Redirect(method="useAttack(Z)V",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/controller/BattleController;sendToAll(Ljava/lang/String;[Ljava/lang/Object;)V"),require=1,allow=1)
+    private void backport$deferUsedMessage(BattleController battle,String key,Object[] args){if(local.pixelmon.backport.AshWaterBoost.eligible(self())&&!self().usingZ&&self().attack!=null&&"Water Shuriken".equals(self().attack.getMove().getAttackName())){backport$usedKey=key;backport$usedArgs=args;}else battle.sendToAll(key,args);}
     @Redirect(method="useItem",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/items/PixelmonItem;useFromBag(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;Lnet/minecraft/item/ItemStack;I)Z"))
     private boolean backport$successfulItem(com.pixelmonmod.pixelmon.items.PixelmonItem item,PixelmonWrapper user,PixelmonWrapper target,net.minecraft.item.ItemStack stack,int info){
         boolean used=item.useFromBag(user,target,stack,info);if(used)local.pixelmon.backport.GymChallenge.committed(user,stack);return used;
@@ -25,11 +31,11 @@ public abstract class TeraWrapperMixin {
     private void backport$medicine(CallbackInfo ci){if(local.pixelmon.backport.NpcMedicine.use(self()))ci.cancel();}
     private PixelmonWrapper self(){return (PixelmonWrapper)(Object)this;}
     @Inject(method="setHeldItem",at=@At("RETURN"))
-    private void backport$weatherAfterItem(HeldItem item,CallbackInfo ci){PixelmonWrapper p=self();if(p.bc!=null && !p.bc.simulateMode)p.getBattleAbility().onWeatherChange(p,UmbrellaHooks.backport$weather(p.bc.globalStatusController,p));}
+    private void backport$weatherAfterItem(HeldItem item,CallbackInfo ci){UmbrellaHooks.refreshAbility(self());}
     @Inject(method="isItemRemovable",at=@At("HEAD"),cancellable=true)
     private void backport$keepMask(PixelmonWrapper user,CallbackInfoReturnable<Boolean> cir){if(self().getSpecies().getDex()==1017 && self().getHeldItem() instanceof Backport.Mask)cir.setReturnValue(false);}
     @Inject(method="<init>(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;)V",at=@At("RETURN"))
-    private void backport$copy(PixelmonWrapper original,CallbackInfo ci){Tera.copy(original,self());local.pixelmon.backport.AshWaterBoost.copy(original,self());}
+    private void backport$copy(PixelmonWrapper original,CallbackInfo ci){Tera.copy(original,self());local.pixelmon.backport.AshWaterBoost.copy(original,self());local.pixelmon.backport.Erosion.copy(original,self());}
     @Inject(method="megaEvolve",at=@At("HEAD"),cancellable=true)
     private void backport$tera(CallbackInfoReturnable<Boolean> cir){if(Tera.selected(self()))cir.setReturnValue(Tera.activate(self()));}
     @Inject(method="setAttack(Lcom/pixelmonmod/pixelmon/battles/attacks/Attack;Ljava/util/List;Z)V",at=@At("RETURN"))
@@ -51,9 +57,11 @@ public abstract class TeraWrapperMixin {
     @Inject(method="useAttack(Z)V",at=@At("RETURN"))
     private void backport$spent(boolean affectPP,CallbackInfo ci){Tera.consumeBoost(self());Tera.enforceType(self());}
     @Inject(method="useAttack(Z)V",at=@At("HEAD"))
-    private void backport$beginMove(boolean affectPP,CallbackInfo ci){Tera.beginMove(self());}
+    private void backport$beginMove(boolean affectPP,CallbackInfo ci){backport$usedKey=null;backport$usedArgs=null;Tera.beginMove(self());local.pixelmon.backport.BattleMechanics.beginMove(self());}
     @Inject(method="useAttack(Z)V",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/ability/Ability;startMove(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;)V"))
     private void backport$ashWaterBeforeAttack(boolean affectPP,CallbackInfo ci){local.pixelmon.backport.AshWaterBoost.start(self());}
+    @Inject(method="useAttack(Z)V",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;manageTargetingFaintedPokemon()V",shift=At.Shift.AFTER))
+    private void backport$erosionTarget(boolean affectPP,CallbackInfo ci){local.pixelmon.backport.Erosion.start(self());if(backport$usedKey!=null){self().bc.sendToAll(backport$usedKey,backport$usedArgs);backport$usedKey=null;backport$usedArgs=null;}}
     @Inject(method="resetOnSwitch",at=@At("RETURN"))
     private void backport$clearAshWater(CallbackInfo ci){local.pixelmon.backport.AshWaterBoost.clear(self());}
 }

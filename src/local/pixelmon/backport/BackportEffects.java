@@ -15,10 +15,18 @@ import com.pixelmonmod.pixelmon.enums.heldItems.EnumHeldItems;
 public final class BackportEffects {
     private BackportEffects(){}
     public static void register(){
-        for(Class<? extends EffectBase> type:new Class[]{AlluringVoice.class,BurningBulwark.class,DragonCheer.class,ElectroShot.class,FickleBeam.class,HardPress.class,IvyCudgel.class,PsychicNoise.class,SupercellSlam.class,SyrupBomb.class,TeraStarstorm.class,TeraBlast.class,UpperHand.class,MightyCleave.class,BurstField.class}) {
+        for(Class<? extends EffectBase> type:new Class[]{AlluringVoice.class,BurningBulwark.class,DragonCheer.class,ElectroShot.class,FickleBeam.class,HardPress.class,IvyCudgel.class,PsychicNoise.class,SupercellSlam.class,SyrupBomb.class,TeraStarstorm.class,TeraBlast.class,UpperHand.class,MightyCleave.class,BurstField.class,NinjaTraining.class}) {
             String key="Backport"+type.getSimpleName();
             Class<?> present=EffectTypeAdapter.EFFECTS.putIfAbsent(key,type);
             if(present!=null && present!=type)throw new IllegalStateException("Effect id collision: "+key);
+        }
+    }
+    public static class NinjaTraining extends SpecialAttackBase {
+        @Override public AttackResult applyEffectStart(PixelmonWrapper user,PixelmonWrapper target){return local.pixelmon.backport.NinjaTraining.allowed(user)?AttackResult.proceed:AttackResult.failed;}
+        @Override public AttackResult applyEffectDuring(PixelmonWrapper user,PixelmonWrapper target){
+            if(!local.pixelmon.backport.NinjaTraining.allowed(user))return AttackResult.failed;
+            user.getBattleStats().modifyStat(2,BattleStatsType.SPECIAL_ATTACK,user,true);
+            local.pixelmon.backport.NinjaTraining.grant(user);return AttackResult.proceed;
         }
     }
     public static class BurstField extends SpecialAttackBase {
@@ -30,7 +38,7 @@ public final class BackportEffects {
             return AttackResult.proceed;
         }
     }
-    public static class AlluringVoice extends SpecialAttackBase {
+    public static class AlluringVoice extends SpecialAttackBase implements BattleMechanics.TargetSecondary {
         @Override public void applyEffect(PixelmonWrapper user,PixelmonWrapper target){
             if(checkChance() && target.getBattleStats().isRaisedThisTurn())Confusion.confuse(user,target);
         }
@@ -94,14 +102,17 @@ public final class BackportEffects {
             if(user.attack.getMove().getMakesContact() && !(user.getBattleAbility() instanceof com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.LongReach) && user.getUsableHeldItem().getHeldItemType()!=EnumHeldItems.protectivePads)Burn.burn(target,user,null,false);
         }
     }
-    public static class PsychicNoise extends SpecialAttackBase {
+    public static class PsychicNoise extends SpecialAttackBase implements BattleMechanics.TargetSecondary {
         @Override public void applyEffect(PixelmonWrapper user,PixelmonWrapper target){
-            if(target.isAlive() && !target.hasStatus(StatusType.HealBlock))target.addTeamStatus(new BriefHealBlock(),user);
+            if(!target.isAlive() || !checkChance())return;
+            for(StatusBase status:target.getStatuses())if(status instanceof BriefHealBlock){((BriefHealBlock)status).turns=2;return;}
+            if(!target.hasStatus(StatusType.HealBlock))target.addStatus(new BriefHealBlock(),user);
         }
     }
     public static class BriefHealBlock extends HealBlock {
         private int turns=2;
-        @Override public void applyRepeatedEffect(PixelmonWrapper pokemon){if(--turns<=0)pokemon.removeTeamStatus(this);}
+        @Override public boolean isTeamStatus(){return false;}
+        @Override public void applyRepeatedEffect(PixelmonWrapper pokemon){if(--turns<=0)pokemon.removeStatus(this);}
         @Override public StatusBase copy(){BriefHealBlock copy=new BriefHealBlock();copy.turns=turns;return copy;}
     }
     public static class SyrupBomb extends StatusBase {
@@ -121,13 +132,14 @@ public final class BackportEffects {
         @Override public AttackResult applyEffectStart(PixelmonWrapper user,PixelmonWrapper target){
             if(Tera.active(user)){
                 user.attack.overrideType(Tera.state(user).type);
-                user.attack.overrideAttackCategory(user.getBattleStats().getStatWithMod(BattleStatsType.ATTACK)>user.getBattleStats().getStatWithMod(BattleStatsType.SPECIAL_ATTACK)?AttackCategory.PHYSICAL:AttackCategory.SPECIAL);
+                user.attack.overrideAttackCategory(BattleMechanics.adaptiveCategory(user));
                 if(Tera.state(user).type==Element.MYSTERY)user.attack.setOverridePower(100);
             }
             return AttackResult.proceed;
         }
+        @Override public void applyEffect(PixelmonWrapper user,PixelmonWrapper target){BattleMechanics.connected(user);}
         @Override public void applyEffectAfterAllTargets(PixelmonWrapper user){
-            if(Tera.active(user) && Tera.state(user).type==Element.MYSTERY){
+            if(BattleMechanics.consumeConnection(user) && user.isAlive() && Tera.active(user) && Tera.state(user).type==Element.MYSTERY){
                 user.getBattleStats().modifyStat(-1,BattleStatsType.ATTACK,user,true);
                 user.getBattleStats().modifyStat(-1,BattleStatsType.SPECIAL_ATTACK,user,true);
             }
@@ -138,7 +150,7 @@ public final class BackportEffects {
         @Override public AttackResult applyEffectStart(PixelmonWrapper user,PixelmonWrapper target){
             if(valid(user)){
                 user.attack.overrideType(Element.MYSTERY);
-                user.attack.overrideAttackCategory(user.getStats().getAttack()>user.getStats().getSpecialAttack()?AttackCategory.PHYSICAL:AttackCategory.SPECIAL);
+                user.attack.overrideAttackCategory(BattleMechanics.adaptiveCategory(user));
             }
             return AttackResult.proceed;
         }

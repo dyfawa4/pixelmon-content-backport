@@ -37,6 +37,7 @@ public final class TeraVerification {
             close(Tera.stab(u,Element.FIRE,1.5),type==Element.MYSTERY||type==Element.FIRE?2:1.5,"Original STAB "+type);
             if(type!=Element.MYSTERY)close(Tera.stab(u,type,1),type==Element.FIRE||type==Element.FLYING?2:1.5,"Tera STAB "+type);
             PixelmonWrapper cloned=u.copy();require(Tera.active(cloned),"AI copy "+type);
+            require(!Tera.select(cloned),"AI clone cannot commit live participant selection "+type);
             Tera.end(b);require(!Tera.active(u) && !Tera.used(u.getParticipant()),"End cleanup "+type);++cases;
         }
         BattleController b=battle(mon(6));PixelmonWrapper u=b.participants.get(0).allPokemon[0];Tera.changeType(u.pokemon,Element.FIRE);Tera.select(u);u.megaEvolve();
@@ -57,9 +58,10 @@ public final class TeraVerification {
             Tera.end(b);require(p.getForm().isForm(mask),"Mask restored "+mask);++cases;
         }
         b=battle(mon(1024));u=b.participants.get(0).allPokemon[0];u.getBattleAbility().applySwitchInEffect(u);
-        require(u.getForm().isForm("terastal"),"Tera Shift");require(u.hasFullHealth(),"Tera Shift HP ratio");
+        require(u.getForm().isForm("terastal"),"Tera Shift");require(u.hasFullHealth(),"Tera Shift full HP");
         b.globalStatusController.addGlobalStatus(u,new Rainy());b.globalStatusController.addGlobalStatus(u,new ElectricTerrain(5));
-        require(Tera.select(u) && u.megaEvolve(),"Terapagos Tera");require(u.getForm().isForm("stellar"),"Stellar form");require(u.hasFullHealth(),"Stellar HP ratio");
+        u.setHealth(u.getMaxHealth()-20);int lost=u.getMaxHealth()-u.getHealth();
+        require(Tera.select(u) && u.megaEvolve(),"Terapagos Tera");require(u.getForm().isForm("stellar"),"Stellar form");require(u.getMaxHealth()-u.getHealth()==lost,"Stellar transformation preserves lost HP");
         require(b.globalStatusController.getWeatherIgnoreAbility()==null,"Zero removed weather");require(b.globalStatusController.getTerrain() instanceof NoTerrain,"Zero removed terrain");
         u.attack=new Attack("Tera Starstorm");new BackportEffects.TeraStarstorm().applyEffectStart(u,b.participants.get(1).allPokemon[0]);require(u.attack.getType()==Element.MYSTERY,"Starstorm Stellar");require(u.getTargets(u.attack).size()==2,"Starstorm AOE");
         u.setHealth(u.getMaxHealth()/2);double ratio=u.getHealth()/(double)u.getMaxHealth();

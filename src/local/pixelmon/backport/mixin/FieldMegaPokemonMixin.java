@@ -19,6 +19,8 @@ public abstract class FieldMegaPokemonMixin {
     private void backport$speciesAcquired(CallbackInfo ci){local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);}
     @Inject(method="setEggCycles",at=@At("RETURN"))
     private void backport$hatched(CallbackInfo ci){local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);}
+    @Inject(method="setPalette(Lcom/pixelmonmod/pixelmon/api/pokemon/species/palette/PaletteProperties;)Z",at=@At("RETURN"))
+    private void backport$paletteAcquired(com.pixelmonmod.pixelmon.api.pokemon.species.palette.PaletteProperties palette,CallbackInfoReturnable<Boolean> cir){if(cir.getReturnValue())local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);}
     @Inject(method="writeToNBT",at=@At("RETURN"))
     private void backport$saveField(CompoundNBT nbt,CallbackInfoReturnable<CompoundNBT> ci){FieldMega.saved((Pokemon)(Object)this,ci.getReturnValue());}
     @Inject(method="readFromNBT",at=@At("RETURN"))

@@ -50,6 +50,14 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.quests.actions.actions.EndDialogueAction");
         for(String riding:new String[]{"entities.pixelmon.PixelmonEntity","entities.pixelmon.movement.PixelmonMovementGround","entities.pixelmon.movement.PixelmonMovementFlying","comm.packetHandlers.RidingMovementPacket","comm.packetHandlers.RidingVerticalMovementPacket","client.keybindings.MovementHandler","client.keybindings.OldMovementHandler","client.render.entity.renderers.AbstractPokemonRenderer"})weatherTargets.add("com.pixelmonmod.pixelmon."+riding);
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.pixelmon.AbstractMovesEntity");
+        weatherTargets.add("com.pixelmonmod.pixelmon.blocks.tileentity.FossilMachineTileEntity");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.status.HealBlock");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.status.ProtectVariation");
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.battles.ClientBattleManager");
+        weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.battles.ChooseAttackPacket");
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.keybindings.OptionsKey");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.LearnMoveController");
+        for(String residual:new String[]{"Sandstorm","Hail","GrassyTerrain","Terrain"})weatherTargets.add("com.pixelmonmod.pixelmon.battles.status."+residual);
         for(String riding:new String[]{"net.minecraft.network.play.ServerPlayNetHandler","net.minecraft.client.entity.player.ClientPlayerEntity","net.minecraft.client.renderer.entity.PlayerRenderer","net.minecraft.client.renderer.ActiveRenderInfo"})weatherTargets.add(riding);
             weatherTargets.add("com.pixelmonmod.pixelmon.entities.npcs.NPCShopkeeper");
         weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.pokedex.RequestSpawnDataPacket");
@@ -113,7 +121,7 @@ public final class MixinApplicationVerification {
             RaidCaptureParityVerification.verify(jar.getInputStream(jar.getJarEntry(raidPlayer.replace('.','/')+".class")).readAllBytes(),
                 transformer.transformClassBytes(raidPlayer,raidPlayer,jar.getInputStream(jar.getJarEntry(raidPlayer.replace('.','/')+".class")).readAllBytes()));
             for(String name:weatherTargets)verify(transformer,jar,name);
-            for(String name:new String[]{"com.pixelmonmod.api.loader.DatapackLoader$Impl","com.pixelmonmod.pixelmon.client.models.smd.SmdAnimation","com.pixelmonmod.pixelmon.api.pokemon.species.palette.locator.ModelLocator","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Sharpness","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Bulletproof","com.pixelmonmod.pixelmon.items.TechnicalMoveItem","com.pixelmonmod.pixelmon.api.pokemon.species.moves.Moves","com.pixelmonmod.pixelmon.items.heldItems.BlankTechnicalMachineItem","com.pixelmonmod.pixelmon.api.registries.PixelmonItems","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond","com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.attackModifiers.MultipleHit","com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper","com.pixelmonmod.pixelmon.battles.attacks.Attack","com.pixelmonmod.pixelmon.battles.controller.BattleController","com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats","com.pixelmonmod.pixelmon.api.registries.PixelmonForms","com.pixelmonmod.pixelmon.client.gui.battles.BattleScreen"}) {
+            for(String name:new String[]{"com.pixelmonmod.api.loader.DatapackLoader$Impl","com.pixelmonmod.pixelmon.client.models.smd.SmdAnimation","com.pixelmonmod.pixelmon.api.pokemon.species.palette.locator.ModelLocator","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Sharpness","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.Bulletproof","com.pixelmonmod.pixelmon.items.TechnicalMoveItem","com.pixelmonmod.pixelmon.api.pokemon.species.moves.Moves","com.pixelmonmod.pixelmon.items.heldItems.BlankTechnicalMachineItem","com.pixelmonmod.pixelmon.api.registries.PixelmonItems","com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond","com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.attackModifiers.MultipleHit","com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper","com.pixelmonmod.pixelmon.battles.attacks.Attack","com.pixelmonmod.pixelmon.battles.controller.BattleController","com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats","com.pixelmonmod.pixelmon.api.pokemon.Pokemon","com.pixelmonmod.pixelmon.api.pokemon.stats.Moveset","com.pixelmonmod.pixelmon.api.registries.PixelmonForms","com.pixelmonmod.pixelmon.client.gui.battles.BattleScreen","com.pixelmonmod.pixelmon.client.gui.battles.pokemonOverlays.OpponentElement","com.pixelmonmod.pixelmon.client.gui.battles.pokemonOverlays.AllyElement","com.pixelmonmod.pixelmon.client.gui.battles.pokemonOverlays.RaidElement"}) {
                 verify(transformer,jar,name);
             }
         }
@@ -265,6 +273,11 @@ public final class MixinApplicationVerification {
             }
             if(!before || !reset || !node.interfaces.contains("local/pixelmon/backport/client/TeraBonePose"))throw new AssertionError("Missing actual skinning-pose capture before reset");
         }
+        if(name.equals("com.pixelmonmod.pixelmon.api.pokemon.LearnMoveController")){
+            boolean accessor=false;for(MethodNode m:node.methods)if(m.desc.equals("()Lcom/google/common/collect/ListMultimap;"))for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode&&((FieldInsnNode)i).name.equals("userMap"))accessor=true;
+            if(!accessor)throw new AssertionError("Missing native pending learn accessor: "+node.methods.stream().map(m->m.name+m.desc).collect(java.util.stream.Collectors.joining(",")));
+            ++calls;
+        }
         if(calls<1)throw new AssertionError("No injected hook "+name);
         if(name.equals("net.minecraft.world.gen.feature.template.Template")){
             boolean placed=false,converted=false;
@@ -282,22 +295,38 @@ public final class MixinApplicationVerification {
             if(!cleanup||!now||!add||oldRead)throw new AssertionError("Lootr must retire worlds and read loaded chunks, keeping insertion without blocking");
         }
         if(name.equals("com.pixelmonmod.pixelmon.battles.attacks.Attack")){
+            java.nio.file.Files.createDirectories(java.nio.file.Path.of(".cache/battle-audit-151"));
+            java.nio.file.Files.write(java.nio.file.Path.of(".cache/battle-audit-151/transformed-attack.class"),patched);
+            boolean rounding=false,weather=false;
+            for(MethodNode m:node.methods)for(AbstractInsnNode i:m.instructions)if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;
+                rounding|=m.name.equals("doDamageCalc")&&c.name.contains("backport$roundedDamage");
+                weather|=m.name.equals("modifyMoveStats")&&c.name.contains("backport$deferWeather");}
+            if(!rounding||!weather)throw new AssertionError("Damage rounding and weather stage adapter not injected");
             for(MethodNode m:node.methods)if(m.name.equals("modifyMoveStats")){
                 int nativeAbility=-1,boost=-1,pos=0;
                 for(AbstractInsnNode i:m.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;
-                    if(c.name.equals("modifyPowerAndAccuracyUser")&&c.owner.endsWith("/Ability"))nativeAbility=pos;
+                    if((c.name.equals("modifyPowerAndAccuracyUser")&&c.owner.endsWith("/Ability"))||c.name.contains("backport$ashBasePower"))nativeAbility=pos;
                     if(c.name.contains("backport$power"))boost=pos;}pos++;}
                 if(nativeAbility<0||boost<=nativeAbility)throw new AssertionError("Water boost applied before native Battle Bond power adjustment");
             }
+            boolean retainedNativeAbility=false;
+            for(MethodNode m:node.methods)if(m.name.contains("backport$ashBasePower"))for(AbstractInsnNode i:m.instructions)if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;retainedNativeAbility|=c.name.equals("modifyPowerAndAccuracyUser")&&c.owner.endsWith("/Ability");}
+            if(!retainedNativeAbility)throw new AssertionError("Ash Mega base power adapter lost native ability callback");
         }
         if(name.equals("com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper")){
+            boolean sourceHook=false;
+            for(MethodNode m:node.methods)if(m.name.equals("addStatus"))for(AbstractInsnNode i:m.instructions)if(i instanceof MethodInsnNode)sourceHook|=((MethodInsnNode)i).name.contains("backport$statusSource");
+            if(!sourceHook)throw new AssertionError("Successful status source hook not injected");
             for(MethodNode m:node.methods)if(m.name.equals("useAttack")&&m.desc.equals("(Z)V")){
-                int boost=-1,abilityStart=-1,pos=0;
+                int boost=-1,abilityStart=-1,retarget=-1,erosion=-1,attackUse=-1,pos=0;
                 for(AbstractInsnNode i:m.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;
                     if(c.name.contains("backport$ashWaterBeforeAttack"))boost=pos;
                     if(c.name.equals("startMove")&&c.owner.endsWith("/Ability"))abilityStart=pos;}pos++;}
                 if(boost<0||abilityStart<=boost)throw new AssertionError("Water boost starts after the attack begins");
+                pos=0;for(AbstractInsnNode i:m.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;if(c.name.equals("manageTargetingFaintedPokemon"))retarget=pos;if(c.name.contains("backport$erosionTarget"))erosion=pos;if(c.name.equals("use")&&c.owner.endsWith("/Attack"))attackUse=pos;}pos++;}
+                if(retarget<0||erosion<=retarget||attackUse<=erosion)throw new AssertionError("Erosion must recompute the actual target before damage");
             }
+            for(MethodNode m:node.methods)if(m.name.contains("backport$erosionTarget")){int apply=-1,message=-1,pos=0;for(AbstractInsnNode i:m.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;if(c.owner.endsWith("/Erosion")&&c.name.equals("start"))apply=pos;if(c.name.equals("sendToAll"))message=pos;if(c.name.equals("turnTick")||c.name.equals("endTurn"))throw new AssertionError("Erosion refresh advances a turn");}pos++;}if(apply<0||message<=apply)throw new AssertionError("Erosion announcement must precede the used-move message");}
         }
         if(name.equals("com.pixelmonmod.pixelmon.client.DefaultServerList"))MultiplayerRegressionVerification.executePatched(patched);
         System.out.println("PASS transformed and verified "+name);

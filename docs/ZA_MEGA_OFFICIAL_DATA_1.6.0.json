@@ -1,0 +1,1035 @@
+{
+  "source": "Official Japanese Pokemon Pokedex embedded public data",
+  "retrieved": "2026-10-18",
+  "forms": [
+    {
+      "dex": 26,
+      "code": "0026-2",
+      "name": "メガライチュウＸ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 23,
+          "name": "エレキメイカー",
+          "exp": "登場　したときに　エレキフィールドを　はりめぐらせる。",
+          "native": "ElectricSurge"
+        }
+      ],
+      "types": [
+        5,
+        0
+      ],
+      "height": "1.2",
+      "weight": "38.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0026-2"
+    },
+    {
+      "dex": 26,
+      "code": "0026-3",
+      "name": "メガライチュウＹ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 144,
+          "name": "ノーガード",
+          "exp": "ノーガード戦法に　よって　お互いの　出す　技が　かならず　当たる　ようになる。",
+          "native": "NoGuard"
+        }
+      ],
+      "types": [
+        5,
+        0
+      ],
+      "height": "1.0",
+      "weight": "26.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0026-3"
+    },
+    {
+      "dex": 36,
+      "code": "0036-1",
+      "name": "メガピクシー",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 213,
+          "name": "マジックミラー",
+          "exp": "相手に　だされた　変化技を　受けずに　そのまま　返す　ことが　できる。",
+          "native": "MagicBounce"
+        }
+      ],
+      "types": [
+        18,
+        10
+      ],
+      "height": "1.7",
+      "weight": "42.3",
+      "source": "https://zukan.pokemon.co.jp/detail/0036-1"
+    },
+    {
+      "dex": 71,
+      "code": "0071-1",
+      "name": "メガウツボット",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 134,
+          "name": "とびだすなかみ",
+          "exp": "相手に　倒されたとき　ＨＰの　残りの　ぶんだけ　相手に　ダメージを　あたえる。",
+          "native": "InnardsOut"
+        }
+      ],
+      "types": [
+        4,
+        8
+      ],
+      "height": "4.5",
+      "weight": "125.5",
+      "source": "https://zukan.pokemon.co.jp/detail/0071-1"
+    },
+    {
+      "dex": 121,
+      "code": "0121-1",
+      "name": "メガスターミー",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 116,
+          "name": "ちからもち",
+          "exp": "物理攻撃の　威力が　２倍になる。",
+          "native": "HugePower"
+        }
+      ],
+      "types": [
+        3,
+        11
+      ],
+      "height": "2.3",
+      "weight": "80.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0121-1"
+    },
+    {
+      "dex": 149,
+      "code": "0149-1",
+      "name": "メガカイリュー",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 298,
+          "name": "マルチスケイル",
+          "exp": "ＨＰが　満タンの　ときに　受ける　ダメージが　少なくなる。",
+          "native": "Multiscale"
+        }
+      ],
+      "types": [
+        15,
+        10
+      ],
+      "height": "2.2",
+      "weight": "290.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0149-1"
+    },
+    {
+      "dex": 154,
+      "code": "0154",
+      "name": "メガニウム",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 82,
+          "name": "しんりょく",
+          "exp": "ＨＰが　減ったとき　くさタイプの　技の　威力が　上がる。",
+          "native": "Overgrow"
+        }
+      ],
+      "types": [
+        4,
+        0
+      ],
+      "height": "1.8",
+      "weight": "100.5",
+      "source": "https://zukan.pokemon.co.jp/detail/0154"
+    },
+    {
+      "dex": 154,
+      "code": "0154-1",
+      "name": "メガメガニウム",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 294,
+          "name": "メガソーラー",
+          "exp": "天気が　にほんばれ状態でなくても　にほんばれ状態として　技を使うことができる。",
+          "native": null
+        }
+      ],
+      "types": [
+        4,
+        18
+      ],
+      "height": "2.4",
+      "weight": "201.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0154-1"
+    },
+    {
+      "dex": 160,
+      "code": "0160-1",
+      "name": "メガオーダイル",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 295,
+          "name": "ドラゴンスキン",
+          "exp": "ノーマルタイプの技がドラゴンタイプになり　威力が１．２倍になる。",
+          "native": null
+        }
+      ],
+      "types": [
+        3,
+        15
+      ],
+      "height": "2.3",
+      "weight": "108.8",
+      "source": "https://zukan.pokemon.co.jp/detail/0160-1"
+    },
+    {
+      "dex": 227,
+      "code": "0227-1",
+      "name": "メガエアームド",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 89,
+          "name": "すじがねいり",
+          "exp": "相手の　技を　引き受ける　特性や　技の　影響を　無視　できる。",
+          "native": null
+        }
+      ],
+      "types": [
+        17,
+        10
+      ],
+      "height": "1.7",
+      "weight": "40.4",
+      "source": "https://zukan.pokemon.co.jp/detail/0227-1"
+    },
+    {
+      "dex": 358,
+      "code": "0358-1",
+      "name": "メガチリーン",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 187,
+          "name": "ふゆう",
+          "exp": "地面から　浮くことによって　じめんタイプの　技を　受けない。",
+          "native": "Levitate"
+        }
+      ],
+      "types": [
+        11,
+        17
+      ],
+      "height": "1.2",
+      "weight": "8.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0358-1"
+    },
+    {
+      "dex": 359,
+      "code": "0359-1",
+      "name": "メガアブソル",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 213,
+          "name": "マジックミラー",
+          "exp": "相手に　だされた　変化技を　受けずに　そのまま　返す　ことが　できる。",
+          "native": "MagicBounce"
+        }
+      ],
+      "types": [
+        16,
+        0
+      ],
+      "height": "1.2",
+      "weight": "49.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0359-1"
+    },
+    {
+      "dex": 359,
+      "code": "0359-2",
+      "name": "メガアブソルＺ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 282,
+          "name": "きれあじ",
+          "exp": "相手を　切る技の　威力が　上がる。",
+          "native": null
+        }
+      ],
+      "types": [
+        16,
+        14
+      ],
+      "height": "1.2",
+      "weight": "49.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0359-2"
+    },
+    {
+      "dex": 398,
+      "code": "0398-1",
+      "name": "メガムクホーク",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 8,
+          "name": "あまのじゃく",
+          "exp": "能力の　変化が　逆転して　上がるときに　下がり　下がるときに　上がる。",
+          "native": "Contrary"
+        }
+      ],
+      "types": [
+        7,
+        10
+      ],
+      "height": "1.9",
+      "weight": "50.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0398-1"
+    },
+    {
+      "dex": 445,
+      "code": "0445-1",
+      "name": "メガガブリアス",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 95,
+          "name": "すなのちから",
+          "exp": "天気が　すなあらしの　とき　いわタイプと　じめんタイプと　はがねタイプの　威力が　上がる。",
+          "native": "SandForce"
+        }
+      ],
+      "types": [
+        15,
+        9
+      ],
+      "height": "1.9",
+      "weight": "95.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0445-1"
+    },
+    {
+      "dex": 445,
+      "code": "0445-2",
+      "name": "メガガブリアスＺ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 187,
+          "name": "ふゆう",
+          "exp": "地面から　浮くことによって　じめんタイプの　技を　受けない。",
+          "native": "Levitate"
+        }
+      ],
+      "types": [
+        15,
+        0
+      ],
+      "height": "1.9",
+      "weight": "99.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0445-2"
+    },
+    {
+      "dex": 448,
+      "code": "0448-1",
+      "name": "メガルカリオ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 120,
+          "name": "てきおうりょく",
+          "exp": "自分と　おなじ　タイプの　技の　威力が　上がる。",
+          "native": "Adaptability"
+        }
+      ],
+      "types": [
+        7,
+        17
+      ],
+      "height": "1.3",
+      "weight": "57.5",
+      "source": "https://zukan.pokemon.co.jp/detail/0448-1"
+    },
+    {
+      "dex": 448,
+      "code": "0448-2",
+      "name": "メガルカリオＺ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 302,
+          "name": "はどうのぼうご",
+          "exp": "接触技で受けるダメージが半減する。",
+          "native": null
+        }
+      ],
+      "types": [
+        7,
+        17
+      ],
+      "height": "1.3",
+      "weight": "49.4",
+      "source": "https://zukan.pokemon.co.jp/detail/0448-2"
+    },
+    {
+      "dex": 478,
+      "code": "0478-1",
+      "name": "メガユキメノコ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 235,
+          "name": "ゆきふらし",
+          "exp": "登場　したときに　天気を　ゆきに　する。",
+          "native": "SnowWarning"
+        }
+      ],
+      "types": [
+        6,
+        14
+      ],
+      "height": "2.6",
+      "weight": "29.6",
+      "source": "https://zukan.pokemon.co.jp/detail/0478-1"
+    },
+    {
+      "dex": 485,
+      "code": "0485-1",
+      "name": "メガヒードラン",
+      "form_name": "",
+      "abilities": [],
+      "types": [
+        2,
+        17
+      ],
+      "height": "2.8",
+      "weight": "570.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0485-1"
+    },
+    {
+      "dex": 491,
+      "code": "0491-1",
+      "name": "メガダークライ",
+      "form_name": "",
+      "abilities": [],
+      "types": [
+        16,
+        0
+      ],
+      "height": "3.0",
+      "weight": "240.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0491-1"
+    },
+    {
+      "dex": 500,
+      "code": "0500-1",
+      "name": "メガエンブオー",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 35,
+          "name": "かたやぶり",
+          "exp": "相手の　特性に　ジャマされる　ことなく　相手に　技を　出すことが　できる。",
+          "native": "MoldBreaker"
+        }
+      ],
+      "types": [
+        2,
+        7
+      ],
+      "height": "1.8",
+      "weight": "180.3",
+      "source": "https://zukan.pokemon.co.jp/detail/0500-1"
+    },
+    {
+      "dex": 530,
+      "code": "0530-1",
+      "name": "メガドリュウズ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 296,
+          "name": "かんつうドリル",
+          "exp": "接触技を使う時　相手の守りの効果を無視して　本来の１／４のダメージを与える。　相手の守りの効果以外は発動される。",
+          "native": null
+        }
+      ],
+      "types": [
+        9,
+        17
+      ],
+      "height": "0.9",
+      "weight": "60.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0530-1"
+    },
+    {
+      "dex": 545,
+      "code": "0545-1",
+      "name": "メガペンドラー",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 68,
+          "name": "シェルアーマー",
+          "exp": "硬い　殻に　守られ　相手の　攻撃が　急所に　当たらない。",
+          "native": "ShellArmour"
+        }
+      ],
+      "types": [
+        12,
+        8
+      ],
+      "height": "3.2",
+      "weight": "230.5",
+      "source": "https://zukan.pokemon.co.jp/detail/0545-1"
+    },
+    {
+      "dex": 560,
+      "code": "0560-1",
+      "name": "メガズルズキン",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 13,
+          "name": "いかく",
+          "exp": "登場　したとき　威嚇して　相手を　萎縮させ　相手の　攻撃を　下げて　しまう。",
+          "native": "Intimidate"
+        }
+      ],
+      "types": [
+        16,
+        7
+      ],
+      "height": "1.1",
+      "weight": "31.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0560-1"
+    },
+    {
+      "dex": 604,
+      "code": "0604-1",
+      "name": "メガシビルドン",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 300,
+          "name": "うなぎのぼり",
+          "exp": "地面にいないことになり　じめんタイプの技　まきびし　どくびし　ねばねばネット状態が効かない。　攻撃で相手を倒すと　自分の最も高い能力が１段階上がる。",
+          "native": null
+        }
+      ],
+      "types": [
+        5,
+        0
+      ],
+      "height": "3.0",
+      "weight": "180.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0604-1"
+    },
+    {
+      "dex": 609,
+      "code": "0609-1",
+      "name": "メガシャンデラ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 97,
+          "name": "すりぬけ",
+          "exp": "相手の　壁や　身代わりを　すりぬけて　攻撃　できる。",
+          "native": "Infiltrator"
+        }
+      ],
+      "types": [
+        14,
+        2
+      ],
+      "height": "2.5",
+      "weight": "69.6",
+      "source": "https://zukan.pokemon.co.jp/detail/0609-1"
+    },
+    {
+      "dex": 623,
+      "code": "0623-1",
+      "name": "メガゴルーグ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 249,
+          "name": "ふかしのこぶし",
+          "exp": "相手に　接触する　技なら　守りの　効果を　無視して　攻撃することが　できる。",
+          "native": null
+        }
+      ],
+      "types": [
+        9,
+        14
+      ],
+      "height": "4.0",
+      "weight": "330.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0623-1"
+    },
+    {
+      "dex": 652,
+      "code": "0652-1",
+      "name": "メガブリガロン",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 203,
+          "name": "ぼうだん",
+          "exp": "相手の　弾や　爆弾などの　技を　防ぐことが　できる。",
+          "native": "Bulletproof"
+        }
+      ],
+      "types": [
+        4,
+        7
+      ],
+      "height": "1.6",
+      "weight": "90.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0652-1"
+    },
+    {
+      "dex": 655,
+      "code": "0655-1",
+      "name": "メガマフォクシー",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 187,
+          "name": "ふゆう",
+          "exp": "地面から　浮くことによって　じめんタイプの　技を　受けない。",
+          "native": "Levitate"
+        }
+      ],
+      "types": [
+        2,
+        11
+      ],
+      "height": "1.5",
+      "weight": "39.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0655-1"
+    },
+    {
+      "dex": 658,
+      "code": "0658-1",
+      "name": "メガゲッコウガ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 299,
+          "name": "へんげんじざい",
+          "exp": "戦闘に　出るたび　１回だけ　自分が　出す　技と　同じ　タイプに　変化する。",
+          "native": "Protean"
+        }
+      ],
+      "types": [
+        3,
+        16
+      ],
+      "height": "1.5",
+      "weight": "40.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0658-1"
+    },
+    {
+      "dex": 668,
+      "code": "0668-2",
+      "name": "メガカエンジシ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 301,
+          "name": "ほのおのたてがみ",
+          "exp": "ほのおタイプの技の威力が１．５倍になる。",
+          "native": null
+        }
+      ],
+      "types": [
+        2,
+        1
+      ],
+      "height": "1.5",
+      "weight": "93.3",
+      "source": "https://zukan.pokemon.co.jp/detail/0668-2"
+    },
+    {
+      "dex": 670,
+      "code": "0670-2",
+      "name": "メガフラエッテ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 176,
+          "name": "フェアリーオーラ",
+          "exp": "全員の　フェアリータイプの　技が　強くなる。",
+          "native": "FairyAura"
+        }
+      ],
+      "types": [
+        18,
+        0
+      ],
+      "height": "0.2",
+      "weight": "100.8",
+      "source": "https://zukan.pokemon.co.jp/detail/0670-2"
+    },
+    {
+      "dex": 678,
+      "code": "0678-2",
+      "name": "メガニャオニクス",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 135,
+          "name": "トレース",
+          "exp": "登場　したとき　相手の　特性を　トレースして　同じ　特性に　なる。",
+          "native": "Trace"
+        }
+      ],
+      "types": [
+        11,
+        0
+      ],
+      "height": "0.8",
+      "weight": "10.1",
+      "source": "https://zukan.pokemon.co.jp/detail/0678-2"
+    },
+    {
+      "dex": 687,
+      "code": "0687-1",
+      "name": "メガカラマネロ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 8,
+          "name": "あまのじゃく",
+          "exp": "能力の　変化が　逆転して　上がるときに　下がり　下がるときに　上がる。",
+          "native": "Contrary"
+        }
+      ],
+      "types": [
+        16,
+        11
+      ],
+      "height": "2.9",
+      "weight": "69.8",
+      "source": "https://zukan.pokemon.co.jp/detail/0687-1"
+    },
+    {
+      "dex": 689,
+      "code": "0689-1",
+      "name": "メガガメノデス",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 34,
+          "name": "かたいツメ",
+          "exp": "相手に　接触する　技の　威力が　高くなる。",
+          "native": "ToughClaws"
+        }
+      ],
+      "types": [
+        13,
+        7
+      ],
+      "height": "2.2",
+      "weight": "100.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0689-1"
+    },
+    {
+      "dex": 691,
+      "code": "0691-1",
+      "name": "メガドラミドロ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 64,
+          "name": "さいせいりょく",
+          "exp": "手持ちに　引っ込むと　ＨＰが　少し　回復する。",
+          "native": "Regenerator"
+        }
+      ],
+      "types": [
+        8,
+        15
+      ],
+      "height": "2.1",
+      "weight": "100.3",
+      "source": "https://zukan.pokemon.co.jp/detail/0691-1"
+    },
+    {
+      "dex": 701,
+      "code": "0701-1",
+      "name": "メガルチャブル",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 144,
+          "name": "ノーガード",
+          "exp": "ノーガード戦法に　よって　お互いの　出す　技が　かならず　当たる　ようになる。",
+          "native": "NoGuard"
+        }
+      ],
+      "types": [
+        7,
+        10
+      ],
+      "height": "1.0",
+      "weight": "25.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0701-1"
+    },
+    {
+      "dex": 718,
+      "code": "0718-3",
+      "name": "メガジガルデ",
+      "form_name": "",
+      "abilities": [],
+      "types": [
+        15,
+        9
+      ],
+      "height": "7.7",
+      "weight": "610.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0718-3"
+    },
+    {
+      "dex": 740,
+      "code": "0740-1",
+      "name": "メガケケンカニ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 122,
+          "name": "てつのこぶし",
+          "exp": "パンチを　使う　技の　威力が　上がる。",
+          "native": "IronFist"
+        }
+      ],
+      "types": [
+        7,
+        6
+      ],
+      "height": "2.6",
+      "weight": "252.8",
+      "source": "https://zukan.pokemon.co.jp/detail/0740-1"
+    },
+    {
+      "dex": 768,
+      "code": "0768-1",
+      "name": "メガグソクムシャ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 34,
+          "name": "かたいツメ",
+          "exp": "相手に　接触する　技の　威力が　高くなる。",
+          "native": "ToughClaws"
+        }
+      ],
+      "types": [
+        12,
+        17
+      ],
+      "height": "2.3",
+      "weight": "148.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0768-1"
+    },
+    {
+      "dex": 780,
+      "code": "0780-1",
+      "name": "メガジジーロン",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 48,
+          "name": "ぎゃくじょう",
+          "exp": "相手の　攻撃で　ＨＰが　半分に　なると　特攻が　上がる。",
+          "native": "Berserk"
+        }
+      ],
+      "types": [
+        1,
+        15
+      ],
+      "height": "3.0",
+      "weight": "240.5",
+      "source": "https://zukan.pokemon.co.jp/detail/0780-1"
+    },
+    {
+      "dex": 801,
+      "code": "0801-2",
+      "name": "メガマギアナ",
+      "form_name": "",
+      "abilities": [],
+      "types": [
+        17,
+        18
+      ],
+      "height": "1.3",
+      "weight": "248.1",
+      "source": "https://zukan.pokemon.co.jp/detail/0801-2"
+    },
+    {
+      "dex": 801,
+      "code": "0801-3",
+      "name": "メガマギアナ",
+      "form_name": "５００ねんまえのいろ",
+      "abilities": [],
+      "types": [
+        17,
+        18
+      ],
+      "height": "1.3",
+      "weight": "248.1",
+      "source": "https://zukan.pokemon.co.jp/detail/0801-3"
+    },
+    {
+      "dex": 807,
+      "code": "0807-1",
+      "name": "メガゼラオラ",
+      "form_name": "",
+      "abilities": [],
+      "types": [
+        5,
+        0
+      ],
+      "height": "1.5",
+      "weight": "44.5",
+      "source": "https://zukan.pokemon.co.jp/detail/0807-1"
+    },
+    {
+      "dex": 870,
+      "code": "0870-1",
+      "name": "メガタイレーツ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 210,
+          "name": "まけんき",
+          "exp": "相手に　能力を　下げられると　攻撃が　ぐーんと　上がる。",
+          "native": "Defiant"
+        }
+      ],
+      "types": [
+        7,
+        0
+      ],
+      "height": "1.6",
+      "weight": "99.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0870-1"
+    },
+    {
+      "dex": 952,
+      "code": "0952-1",
+      "name": "メガスコヴィラン",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 297,
+          "name": "とびだすハバネロ",
+          "exp": "技のダメージを受けると　相手をやけど状態にする。",
+          "native": null
+        }
+      ],
+      "types": [
+        4,
+        2
+      ],
+      "height": "1.2",
+      "weight": "22.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0952-1"
+    },
+    {
+      "dex": 970,
+      "code": "0970-1",
+      "name": "メガキラフロル",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 120,
+          "name": "てきおうりょく",
+          "exp": "自分と　おなじ　タイプの　技の　威力が　上がる。",
+          "native": "Adaptability"
+        }
+      ],
+      "types": [
+        13,
+        8
+      ],
+      "height": "2.8",
+      "weight": "77.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0970-1"
+    },
+    {
+      "dex": 978,
+      "code": "0978-3",
+      "name": "メガシャリタツ",
+      "form_name": "そったすがた",
+      "abilities": [],
+      "types": [
+        15,
+        3
+      ],
+      "height": "0.6",
+      "weight": "24.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0978-3"
+    },
+    {
+      "dex": 978,
+      "code": "0978-4",
+      "name": "メガシャリタツ",
+      "form_name": "たれたすがた",
+      "abilities": [],
+      "types": [
+        15,
+        3
+      ],
+      "height": "0.6",
+      "weight": "24.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0978-4"
+    },
+    {
+      "dex": 978,
+      "code": "0978-5",
+      "name": "メガシャリタツ",
+      "form_name": "のびたすがた",
+      "abilities": [],
+      "types": [
+        15,
+        3
+      ],
+      "height": "0.6",
+      "weight": "24.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0978-5"
+    },
+    {
+      "dex": 998,
+      "code": "0998-1",
+      "name": "メガセグレイブ",
+      "form_name": "",
+      "abilities": [
+        {
+          "id": 264,
+          "name": "ねつこうかん",
+          "exp": "ほのおタイプの　技を　受けると　攻撃が　上がる。　やけど状態に　ならない。",
+          "native": null
+        }
+      ],
+      "types": [
+        15,
+        6
+      ],
+      "height": "2.1",
+      "weight": "315.0",
+      "source": "https://zukan.pokemon.co.jp/detail/0998-1"
+    }
+  ]
+}

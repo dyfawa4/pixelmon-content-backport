@@ -51,5 +51,7 @@ if(-not $taskVersionMatch.Success){throw 'Missing addon release version in mods.
 $taskOutput=Join-Path $taskDist ('pixelmon-content-backport-1.16.5-'+$taskVersionMatch.Groups[1].Value+'.jar')
 & $taskJar cfm $taskOutput (Join-Path $PSScriptRoot 'resources/META-INF/MANIFEST.MF') -C $taskClasses . -C (Join-Path $PSScriptRoot 'resources') .
 if($LASTEXITCODE -ne 0){throw 'Packaging failed'}
+$taskDigest=(Get-FileHash -LiteralPath $taskOutput -Algorithm SHA256).Hash.ToLowerInvariant()
+Set-Content -LiteralPath ($taskOutput+'.sha256') -Encoding ascii -Value ($taskDigest+'  '+[IO.Path]::GetFileName($taskOutput))
 Set-Content -LiteralPath (Join-Path $taskCache 'last-build.json') -Encoding UTF8 -Value (@{classes=$taskClasses;classpath=$taskClasspath;java=$taskJava;jar=$taskOutput}|ConvertTo-Json)
 Write-Output "Release build: $taskOutput"

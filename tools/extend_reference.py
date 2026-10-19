@@ -7,12 +7,7 @@ decoded exactly as its own SmdModel/SmdAnimation readers do, into native BMD.
 import copy, io, json, pathlib, re, struct, zipfile
 from convert_content import ROOT, NS, Bmd, align_animation, dump, asset
 
-def run(reference, old_path, output):
-    data=json.loads((output/'backport/content.json').read_text(encoding='utf-8'))
-    patches={p['species']['dex']:p for p in data['patches']}
-    reference=zipfile.ZipFile(reference);old=zipfile.ZipFile(old_path)
-    def species(z):return {v['dex']:v for n in z.namelist() if n.startswith('data/pixelmon/species/') and n.endswith('.json') for v in [json.loads(z.read(n))]}
-    rs,os=species(reference),species(old)
+def asset_converter(reference, output, item_names=()):
     exported={}; warnings=[]
     def normalize_bone_names(blob,source):
         # The native 1.16 Bone.addVertex rejects the exporter's dummy name.
@@ -120,7 +115,16 @@ def run(reference, old_path, output):
             item=evo.get('item',{}).get('itemID','')
             if item.split(':')[-1] in item_names:evo['item']['itemID']=item.replace('pixelmon:',NS+':')
         return result
+    return convert, exported, warnings
+
+def run(reference, old_path, output):
+    data=json.loads((output/'backport/content.json').read_text(encoding='utf-8'))
+    patches={p['species']['dex']:p for p in data['patches']}
+    reference=zipfile.ZipFile(reference);old=zipfile.ZipFile(old_path)
+    def species(z):return {v['dex']:v for n in z.namelist() if n.startswith('data/pixelmon/species/') and n.endswith('.json') for v in [json.loads(z.read(n))]}
+    rs,os=species(reference),species(old)
     item_names=[n.split('/')[-1][:-5] for n in reference.namelist() if n.startswith('assets/pixelmon/models/item/') and n not in old.namelist() and n.endswith('.json')]
+    convert,exported,warnings=asset_converter(reference,output,item_names)
     extra_forms=[];connections=[]
     for dex,source in sorted(rs.items()):
         original=os.get(dex)

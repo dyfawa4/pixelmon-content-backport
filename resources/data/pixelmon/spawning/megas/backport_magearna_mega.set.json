@@ -1,0 +1,23 @@
+{
+  "id": "Backport Mega Magearna",
+  "spawnInfos": [
+    {
+      "spec": "species:Magearna form:mega",
+      "stringLocationTypes": [
+        "Land"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "roofed"
+        ],
+        "times": [
+          "DAY"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.1
+    }
+  ]
+}

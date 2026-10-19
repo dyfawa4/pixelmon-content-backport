@@ -88,5 +88,34 @@
         "allowedPokemon": []
       }
     ]
+  },
+  "Ninja Training": {
+    "attackName": "Ninja Training",
+    "attackType": "NORMAL",
+    "attackCategory": "STATUS",
+    "basePower": 0,
+    "ppBase": 5,
+    "ppMax": 8,
+    "accuracy": -1,
+    "makesContact": false,
+    "effects": [
+      {
+        "effectTypeID": "BackportNinjaTraining",
+        "persists": false,
+        "modifiers": []
+      }
+    ],
+    "animations": [
+      "leapForward"
+    ],
+    "targetingInfo": {
+      "hitsAll": false,
+      "hitsOppositeFoe": false,
+      "hitsAdjacentFoe": false,
+      "hitsExtendedFoe": false,
+      "hitsSelf": true,
+      "hitsAdjacentAlly": false,
+      "hitsExtendedAlly": false
+    }
   }
 }

@@ -1,0 +1,32 @@
+package fixture;
+import java.util.*;
+import local.pixelmon.backport.ZaMoves;
+import local.pixelmon.backport.client.EditorImport;
+import com.pixelmonmod.pixelmon.api.pokemon.*;
+import com.pixelmonmod.pixelmon.api.pokemon.stats.Moveset;
+import com.pixelmonmod.pixelmon.battles.attacks.Attack;
+import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;
+public final class MegaCases {
+ static void check(boolean b,String label){if(!b)throw new AssertionError(label);}
+ static void close(double x,double y){check(Math.abs(x-y)<1e-8,"Type chart "+x+" != "+y);}
+ public static void run(){
+  Attack nihil=new Attack("Nihil Light"),ordinary=new Attack("Dragon Pulse");
+  for(List<Element> types:List.of(List.of(Element.FAIRY),List.of(Element.FAIRY,Element.STEEL),List.of(Element.FAIRY,Element.DRAGON))){
+   List<Element> copy=new ArrayList<>(types);List<Element> adjusted=ZaMoves.defensiveTypes(nihil,types);
+   check(types.equals(copy),"Mutated shared target types");check(!adjusted.contains(Element.FAIRY),"Fairy immunity retained");
+   close(Element.getTotalEffectiveness(adjusted,Element.DRAGON,false),types.contains(Element.STEEL)?.5:types.contains(Element.DRAGON)?2:1);
+   close(Element.getTotalEffectiveness(types,Element.DRAGON,true),types.contains(Element.STEEL)?4:types.contains(Element.DRAGON)?1:2);
+   check(ZaMoves.defensiveTypes(ordinary,types)==types,"Ordinary Dragon move changed");
+  }
+  nihil.type=Element.FIRE;List<Element> fairy=List.of(Element.FAIRY);check(ZaMoves.defensiveTypes(nihil,fairy)==fairy,"Converted non-Dragon move immunity changed");
+  PixelmonWrapper p=new PixelmonWrapper();Attack core=new Attack("Core Enforcer");core.pp=11;core.ppLevel=3;p.permanent.add(core);p.permanent.add(ordinary);p.attack=core;
+  ZaMoves.mega(p);Attack changed=p.getMoveset().get(0);check(changed.getMove().getAttackName().equals("Nihil Light")&&p.attack==changed,"Selected signature not changed");
+  check(changed.getMaxPP()==16&&changed.pp==11&&p.permanent.get(0)==core,"PP ups / persistent moves mutated");
+  ZaMoves.mega(p);check(p.getMoveset().get(0)==changed,"Repeated conversion");changed.pp-=2;ZaMoves.end(p);check(core.pp==9&&p.attack==core&&p.getMoveset()==p.permanent,"Restoration/used PP");ZaMoves.end(p);check(core.pp==9,"Double PP deduction");
+  p.temporaryMoveset=new Moveset();p.temporaryMoveset.add(core);Moveset previous=p.temporaryMoveset;ZaMoves.mega(p);ZaMoves.end(p);check(p.temporaryMoveset==previous,"Existing temporary moves lost");
+  p.bc.simulateMode=true;ZaMoves.mega(p);check(p.temporaryMoveset==previous,"AI simulation changes real state");p.bc.simulateMode=false;p.species.dex=6;ZaMoves.mega(p);check(p.temporaryMoveset==previous,"Other species converted");
+  UUID id=UUID.randomUUID();Pokemon edited=new Pokemon(id),detached=new Pokemon(id),other=new Pokemon(UUID.randomUUID());List<Pokemon> party=Arrays.asList(null,other,edited,null,null,null);
+  check(EditorImport.slot(detached,party)==2,"Detached network Pokemon slot");check(EditorImport.slot(edited,party)==2,"Identity slot");
+  check(EditorImport.slot(new Pokemon(UUID.randomUUID()),party)==-1&&EditorImport.slot(null,party)==-1&&EditorImport.slot(edited,null)==-1,"Unknown import must not replace default slot");
+ }
+}

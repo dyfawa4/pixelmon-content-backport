@@ -1,0 +1,21 @@
+{
+  "id": "Backport Mega Meowstic",
+  "spawnInfos": [
+    {
+      "spec": "species:Meowstic form:mega",
+      "stringLocationTypes": [
+        "Land"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "roofed",
+          "birches"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.3
+    }
+  ]
+}

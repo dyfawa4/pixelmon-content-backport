@@ -1,0 +1,22 @@
+{
+  "id": "Backport Mega Crabominable",
+  "spawnInfos": [
+    {
+      "spec": "species:Crabominable form:mega",
+      "stringLocationTypes": [
+        "Land"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "minecraft:snowy_beach",
+          "byg:snowy_black_beach",
+          "byg:snowy_rocky_black_beach"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.3
+    }
+  ]
+}

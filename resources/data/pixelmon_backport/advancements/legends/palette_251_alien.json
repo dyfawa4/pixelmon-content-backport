@@ -1,0 +1,24 @@
+{
+  "parent": "pixelmon_backport:legends/forms",
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:251s,palette:\"alien\",form:\"\",gender:2b}"
+    },
+    "title": {
+      "text": "天外来客"
+    },
+    "description": {
+      "text": "获得任务书中对应特殊材质的时拉比，并存入自己的队伍或电脑。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

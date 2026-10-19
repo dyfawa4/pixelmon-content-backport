@@ -8,9 +8,9 @@ public final class BackportAbilities {
     public static class TeraShift extends AbstractAbility {
         @Override public void applySwitchInEffect(PixelmonWrapper pokemon) {
             if(pokemon.getSpecies().getDex()!=1024 || !pokemon.getForm().isForm("normal"))return;
-            float ratio=pokemon.getHealthPercent()/100f;boolean full=pokemon.hasFullHealth();
+            int hp=pokemon.getHealth(),max=pokemon.getMaxHealth();
             pokemon.setForm("terastal");pokemon.recalculateMaxHP();
-            pokemon.setHealth(full?pokemon.getMaxHealth():Math.round(pokemon.getMaxHealth()*ratio));
+            pokemon.setHealth(BattleMechanics.changedMaxHP(hp,max,pokemon.getMaxHealth()));
             pokemon.bc.modifyStats(pokemon);pokemon.updateBattleDamage(pokemon.getHealth());
         }
         @Override public boolean canBeDisabled(){return false;}
@@ -36,9 +36,8 @@ public final class BackportAbilities {
         }
     }
     public static class PoisonPuppeteer extends AbstractAbility {
-        @Override public void onStatusAdded(StatusBase status,PixelmonWrapper user,PixelmonWrapper target){
-            if(user!=target && user.getSpecies().getDex()==1025 && (status.type==StatusType.Poison || status.type==StatusType.PoisonBadly)) Confusion.confuse(user,target);
-        }
+        // Native onStatusAdded belongs to the recipient. The successful move
+        // source is dispatched by BattleStatusSourceMixin instead.
         @Override public boolean canBeCopied(){return false;}
     }
     public static class TeraformZero extends AbstractAbility {

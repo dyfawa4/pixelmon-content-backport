@@ -1,0 +1,138 @@
+{
+  "26": {
+    "megax": "ElectricSurge",
+    "megay": "NoGuard"
+  },
+  "36": {
+    "mega": "MagicBounce"
+  },
+  "71": {
+    "mega": "InnardsOut"
+  },
+  "121": {
+    "mega": "HugePower"
+  },
+  "149": {
+    "mega": "Multiscale"
+  },
+  "154": {
+    "mega": "MegaSol"
+  },
+  "160": {
+    "mega": "Dragonize"
+  },
+  "227": {
+    "mega": "Stalwart"
+  },
+  "358": {
+    "mega": "Levitate"
+  },
+  "359": {
+    "mega": "MagicBounce",
+    "megaz": "Sharpness"
+  },
+  "398": {
+    "mega": "Contrary"
+  },
+  "445": {
+    "mega": "SandForce",
+    "megaz": "Levitate"
+  },
+  "448": {
+    "mega": "Adaptability",
+    "megaz": "AuraFortify"
+  },
+  "478": {
+    "mega": "SnowWarning"
+  },
+  "485": {
+    "mega": null
+  },
+  "491": {
+    "mega": null
+  },
+  "500": {
+    "mega": "MoldBreaker"
+  },
+  "530": {
+    "mega": "PiercingDrill"
+  },
+  "545": {
+    "mega": "ShellArmour"
+  },
+  "560": {
+    "mega": "Intimidate"
+  },
+  "604": {
+    "mega": "Updraft"
+  },
+  "609": {
+    "mega": "Infiltrator"
+  },
+  "623": {
+    "mega": "UnseenFist"
+  },
+  "652": {
+    "mega": "Bulletproof"
+  },
+  "655": {
+    "mega": "Levitate"
+  },
+  "658": {
+    "mega": "Protean"
+  },
+  "668": {
+    "mega": "FlamingMane"
+  },
+  "670": {
+    "mega": "FairyAura"
+  },
+  "678": {
+    "mega": "Trace"
+  },
+  "687": {
+    "mega": "Contrary"
+  },
+  "689": {
+    "mega": "ToughClaws"
+  },
+  "691": {
+    "mega": "Regenerator"
+  },
+  "701": {
+    "mega": "NoGuard"
+  },
+  "718": {
+    "mega": null
+  },
+  "740": {
+    "mega": "IronFist"
+  },
+  "768": {
+    "mega": "ToughClaws"
+  },
+  "780": {
+    "mega": "Berserk"
+  },
+  "801": {
+    "mega": null
+  },
+  "807": {
+    "mega": null
+  },
+  "870": {
+    "mega": "Defiant"
+  },
+  "952": {
+    "mega": "SpicySpray"
+  },
+  "970": {
+    "mega": "Adaptability"
+  },
+  "978": {
+    "mega": null
+  },
+  "998": {
+    "mega": "ThermalExchange"
+  }
+}

@@ -13,6 +13,8 @@ public final class ItemHelp {
     }catch(IOException e){throw new ExceptionInInitializerError(e);}}
     private ItemHelp(){}
     public static List<ITextComponent> details(ItemStack stack){
+        if(stack.func_77973_b() instanceof com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem)return MegaStoneHelp.details(stack);
+        if(stack.func_77973_b() instanceof com.pixelmonmod.pixelmon.items.SpawnDenItem||stack.func_77973_b() instanceof TeraDenItem)return java.util.Arrays.asList(new TranslationTextComponent("pixelmon.backport.den_spawner.use"),new TranslationTextComponent("pixelmon.backport.den_spawner.consume"));
         if(stack.func_77973_b().getRegistryName()==null)return Collections.emptyList();
         String id=stack.func_77973_b().getRegistryName().toString();JsonElement found=DATA.get(id);
         if(id.equals("pixelmon:dragoninite") || id.equals("pixelmon:dragonitite"))found=DATA.get("pixelmon_backport:dragoninite");

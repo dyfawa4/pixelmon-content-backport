@@ -49,6 +49,13 @@ def main():
   ident=f'capture_{dex}_galarian'
   write(target/(ident+'.json'),advancement(title,f'成功捕捉{name}。普通地区形态的捕捉不计入，生成或赠送也不视为捕捉完成。',sprite_icon(species,dex,assets,'galarian'),'gen8'))
   catalog['capturesByForm'][str(dex)]={'galarian':{'id':ident,'category':'gen8','title':title,'form':'galarian'}}
+ # Native Magearna colors have separate acquisition milestones; Mega retains
+ # the origin route and cannot award the other color's achievement.
+ normal=catalog['captures']['801']
+ original=dict(normal,id='capture_801_original_color',title='闭月羞花',form='original_color')
+ catalog['capturesByForm']['801']={'':dict(normal,form=''),'mega':dict(normal,form='mega'),'original_color':original,'megaoriginal':dict(original,form='megaoriginal')}
+ write(target/'capture_801.json',advancement('沉鱼落雁','成功获得普通颜色的玛机雅娜。',sprite_icon(species,801,assets),'gen7'))
+ write(target/'capture_801_original_color.json',advancement('闭月羞花','成功获得原始颜色的玛机雅娜。',sprite_icon(species,801,assets,'original_color'),'gen7'))
  write(path,catalog);write(ROOT/'docs/ADVANCEMENT_CATALOGUE_1.3.0.json',catalog)
  print('Generated',len(rows),'special-form, two Zygarde, two Urshifu and three Galarian-bird achievements with verified native sprites.')
 if __name__=='__main__':main()

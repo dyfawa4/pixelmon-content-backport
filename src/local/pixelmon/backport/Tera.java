@@ -30,6 +30,7 @@ public final class Tera {
     }
     private static final Map<PixelmonWrapper,State> STATES=Collections.synchronizedMap(new WeakHashMap<>());
     private static final Map<BattleParticipant,UUID> USED=Collections.synchronizedMap(new WeakHashMap<>());
+    private static final Set<PixelmonWrapper> COPIES=Collections.newSetFromMap(new WeakHashMap<>());
     public static Element type(Pokemon p){
         int dex=p.getSpecies().getDex();
         if(dex==1024)return Element.MYSTERY;
@@ -70,12 +71,13 @@ public final class Tera {
     public static boolean selected(PixelmonWrapper p){State s=state(p);return s!=null && s.selected;}
     public static boolean used(BattleParticipant p){return USED.containsKey(p);}
     public static boolean eligible(PixelmonWrapper p){
-        return p.bc!=null && !p.bc.battleEnded && TeraRaids.charged(p) && p.isAlive() && p.onBattlefield && !active(p)
+        return p.bc!=null && !COPIES.contains(p) && !p.bc.simulateMode && !p.bc.battleEnded && TeraRaids.charged(p) && p.isAlive() && p.onBattlefield && !active(p)
             && !used(p.getParticipant()) && !p.isMega && p.isDynamax==0 && !p.usingZ
             && !p.getForm().getName().contains("mega") && !p.getForm().isForm("ultra")
             && p.getParticipant().evolution==null && p.getParticipant().dynamax==null && !p.getParticipant().usedZ;
     }
     public static boolean select(PixelmonWrapper p){
+        if(COPIES.contains(p) || p.bc==null || p.bc.simulateMode)return false;
         if(selected(p)){state(p).selected=false;p.willEvolve=false;return true;}
         if(!eligible(p))return false;
         for(PixelmonWrapper member:p.getParticipant().allPokemon){State s=state(member);if(s!=null && s.selected){s.selected=false;member.willEvolve=false;}}
@@ -92,8 +94,8 @@ public final class Tera {
         State s=state(p);s.selected=false;s.active=true;p.willEvolve=false;USED.put(p.getParticipant(),p.getPokemonUUID());
         if(!p.bc.simulateMode && p.entity!=null)s.visualStart=p.entity.field_70170_p.func_82737_E();
         if(p.getSpecies().getDex()==1024){
-            float hp=p.getHealthPercent()/100f;boolean full=p.hasFullHealth();
-            p.setForm("stellar");p.recalculateMaxHP();p.setHealth(full?p.getMaxHealth():Math.round(p.getMaxHealth()*hp));
+            int hp=p.getHealth(),max=p.getMaxHealth();
+            p.setForm("stellar");p.recalculateMaxHP();p.setHealth(BattleMechanics.changedMaxHP(hp,max,p.getMaxHealth()));
             p.bc.modifyStats(p);p.updateBattleDamage(p.getHealth());
             // Teraform Zero happens on transformation, not every switch-in.
             com.pixelmonmod.pixelmon.battles.status.Weather weather=p.bc.globalStatusController.getWeatherIgnoreAbility();
@@ -116,7 +118,7 @@ public final class Tera {
         p.getBattleStats().modifyStat(1,stat,p,announce);
     }
     public static void enforceType(PixelmonWrapper p){State s=state(p);if(s!=null && s.active)p.type=new ArrayList<>(s.type==Element.MYSTERY?s.base:Collections.singletonList(s.type));}
-    public static void copy(PixelmonWrapper original,PixelmonWrapper copy){State s=state(original);if(s!=null)STATES.put(copy,new State(s));}
+    public static void copy(PixelmonWrapper original,PixelmonWrapper copy){COPIES.add(copy);State s=state(original);if(s!=null)STATES.put(copy,new State(s));}
     public static double stab(PixelmonWrapper p,Element move,double nativeMultiplier){
         State s=state(p);if(s==null || !s.active)return nativeMultiplier;
         boolean original=s.base.contains(move),adapt=p.getBattleAbility() instanceof Adaptability;
@@ -140,6 +142,7 @@ public final class Tera {
         p.setHealth(hp==0?0:Math.max(1,(int)Math.round(p.getMaxHealth()*(double)hp/Math.max(1,max))));
     }
     public static void end(BattleController bc){
+        BattleMechanics.end(bc);
         TeraNetwork.sync(bc,true);
         for(BattleParticipant participant:bc.participants){
             USED.remove(participant);
@@ -152,9 +155,10 @@ public final class Tera {
                 p.willEvolve=false;
             }
         }
+        STATES.keySet().removeIf(p->p.bc==bc);COPIES.removeIf(p->p.bc==bc);
     }
     public static int floorPower(PixelmonWrapper p,Attack a,int power){
-        if(!active(p) || power<=0 || power>=60 || p.priority>0 || a.getMove().getPriority(p)>0)return power;
+        if(!active(p) || power<=0 || power>=60 || a.getMove().getPriority(p)>0)return power;
         State s=state(p);if(s.type==Element.MYSTERY){if(s.spent.contains(a.getType()) && p.getSpecies().getDex()!=1024)return power;}else if(s.type!=a.getType())return power;
         // The native effects supply variable power and multi-hit exclusions.
         String name=a.getMove().getAttackName();

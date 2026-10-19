@@ -1,0 +1,101 @@
+{
+  "source": "Installed native Pixelmon stone palette variants; upstream rights retained. Distinct new registry names and evolution rules are unchanged.",
+  "items": [
+    {
+      "item": "chimechite",
+      "source": "assets/pixelmon/textures/items/helditems/medichamite.png",
+      "sha256": "309278508a42ae0d65a7dc690f670a6286500103530198956b71ec27cf406ef5",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "absolite_z",
+      "source": "assets/pixelmon/textures/items/helditems/absolite.png",
+      "sha256": "d28de7326d195bbb6514f62c86abb05726869ada88d0aec116f330985bcdde29",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "staraptite",
+      "source": "assets/pixelmon/textures/items/helditems/pidgeotite.png",
+      "sha256": "a0a8c718ffda00f87ee55a4e34af052f10dd2c80f259552563afdda20432acd7",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "garchompite_z",
+      "source": "assets/pixelmon/textures/items/helditems/garchompite.png",
+      "sha256": "3e6e9e3a6a1ce987d5ca26b4b28d151f8b1968568f7fd76cad4016e2279199f4",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "lucarionite_z",
+      "source": "assets/pixelmon/textures/items/helditems/lucarionite.png",
+      "sha256": "1f2b61310277d7c627ad5aa79c165a9f6cae2c11ec9b6c1092e9851e614cc96e",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "heatranite",
+      "source": "assets/pixelmon/textures/items/helditems/cameruptite.png",
+      "sha256": "6548548fad2f7b001a98528a568348595f4bf1180d9a1db7fd5384a8c7209de8",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "golurkite",
+      "source": "assets/pixelmon/textures/items/helditems/steelixite.png",
+      "sha256": "816b58109575c9aaed2ead4c823e3b64aadfde07fa0d9666d606f545b108b081",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "meowsticite",
+      "source": "assets/pixelmon/textures/items/helditems/gardevoirite.png",
+      "sha256": "28edcb55b4d40d4a33210135ef369f8306e3468f4434bd7b8811ec3c6c9264b9",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "crabominite",
+      "source": "assets/pixelmon/textures/items/helditems/abomasite.png",
+      "sha256": "af2a22e55f9e0c91a714130a092424ea3993225ede56d47087b5d30d91b11e73",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "golisopodite",
+      "source": "assets/pixelmon/textures/items/helditems/scizorite.png",
+      "sha256": "ba54797b8559d8339e843dcabaa7bc7f1fa866801ca786566ebebe0b5d50a9aa",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "magearnite",
+      "source": "assets/pixelmon/textures/items/helditems/diancite.png",
+      "sha256": "b750f9785cdd24f7de3631735de3cc28ca53b916f365f1459f51f1ed5b829a63",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "zeraorite",
+      "source": "assets/pixelmon/textures/items/helditems/manectite.png",
+      "sha256": "341d3334dbcdb79b341be72f557d1cf3cfa46d62a7f916f3ce61087a95680c2f",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "scovillainite",
+      "source": "assets/pixelmon/textures/items/helditems/sceptilite.png",
+      "sha256": "6d7f463debc54c6b3dc71a03d852bb629faba5a68cd0adcedc93cea1ccc13151",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "glimmorite",
+      "source": "assets/pixelmon/textures/items/helditems/tyranitarite.png",
+      "sha256": "991023628ec88075b4acbced2e1a114a8f18a6cecd152131e905bc4209f66707",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "tatsugirinite",
+      "source": "assets/pixelmon/textures/items/helditems/swampertite.png",
+      "sha256": "e341e6b1c7eaaa6354337fa860eac9610030baf5fcd71e7841ab41b456d20d73",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    },
+    {
+      "item": "baxcaliburite",
+      "source": "assets/pixelmon/textures/items/helditems/glalitite.png",
+      "sha256": "6a5bc0ad4a52d8efad55839b5863c03fa49a7c5e8b20633e8e7bdfab834c63b9",
+      "operation": "reuse native PNG bytes unchanged; 16x16 canvas, native 12x12 visible stone; shared native palette artwork"
+    }
+  ]
+}

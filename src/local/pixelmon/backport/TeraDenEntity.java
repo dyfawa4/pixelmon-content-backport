@@ -43,6 +43,8 @@ public final class TeraDenEntity extends DenEntity {
     @Override protected void func_70088_a(){super.func_70088_a();field_70180_af.func_187214_a(TYPE,0);field_70180_af.func_187214_a(PALETTE,"none");}
     public int teraType(){return field_70180_af.func_187225_a(TYPE);}
     public String palette(){return field_70180_af.func_187225_a(PALETTE);}
+    /** Shared by our crystal beam and detector guidance, without spawning preview entities. */
+    public boolean hasChallenge(){RaidData data=getServerData();return !isDecoration()&&data!=null&&data.getStars()>=1&&data.getStars()<=6&&data.getSpecies()!=null&&data.getForm()!=null;}
     public void configure(Pokemon pokemon,int stars,int teraType,int day){
         if(stars<1 || stars>6)throw new IllegalArgumentException("Den stars");
         refreshed=day;setLastRollDay(day);type(teraType);field_70180_af.func_187227_b(PALETTE,pokemon.getPalette().getName());

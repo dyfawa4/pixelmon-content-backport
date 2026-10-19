@@ -45,6 +45,15 @@ public final class GreninjaFormDataVerification {
             boolean same=false;for(JsonElement f:merged.getAsJsonArray("forms"))if(f.equals(nativeForm))same=true;
             require(same,"Native Greninja form overwritten: "+name);
         }
+        Content.addNinjaLearning(merged);Content.applyTeraLearning(merged);
+        for(var row:merged.getAsJsonArray("forms")){
+            var f=row.getAsJsonObject();String name=f.get("name").getAsString();if(!name.equals("ash")&&!name.equals(PermanentAsh.FORM)&&!name.equals(PermanentAsh.MEGA))continue;
+            var moves=f.getAsJsonObject("moves");require(moves.getAsJsonArray("levelUpMoves").size()>=11,"Ash lost native inherited levels");
+            require(moves.getAsJsonArray("tutorMoves").contains(new JsonPrimitive("Ninja Training")),"Ash signature tutor missing");
+            require(moves.getAsJsonArray("tmMoves9").contains(new JsonPrimitive("Tera Blast")),"Ash Tera Blast TM missing");
+            boolean reminder=false;for(var level:moves.getAsJsonArray("levelUpMoves"))if(level.getAsJsonObject().getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")))reminder=true;
+            require(reminder,"Ash cannot relearn Tera Blast");
+        }
         // Retain the actual native appearance adapters. Remove unrelated fields
         // that require a running sound/particle/item registry, not appearance data.
         for(JsonElement f:merged.getAsJsonArray("forms")){

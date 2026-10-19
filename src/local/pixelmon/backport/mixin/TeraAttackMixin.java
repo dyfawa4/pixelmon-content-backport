@@ -10,6 +10,16 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 
 @Mixin(value=Attack.class,remap=false)
 public abstract class TeraAttackMixin {
+    @Redirect(method="getTypeEffectiveness",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/Element;getTotalEffectiveness(Ljava/util/List;Lcom/pixelmonmod/pixelmon/api/pokemon/Element;Z)F"))
+    private float backport$nihilFairy(java.util.List<Element> types,Element attacking,boolean inverse){
+        // In inverse battles Fairy already takes Dragon damage; keep that chart.
+        return Element.getTotalEffectiveness(inverse?types:local.pixelmon.backport.ZaMoves.defensiveTypes((Attack)(Object)this,types),attacking,inverse);
+    }
+    @Redirect(method="modifyMoveStats",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/ability/Ability;modifyPowerAndAccuracyUser(IILcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;Lcom/pixelmonmod/pixelmon/battles/attacks/Attack;)[I"))
+    private int[] backport$ashBasePower(Ability ability,int power,int accuracy,PixelmonWrapper user,PixelmonWrapper target,Attack attack){
+        if(local.pixelmon.backport.AshWaterBoost.eligible(user)&&!user.usingZ&&"Water Shuriken".equals(attack.getMove().getAttackName()))power=20;
+        return ability.modifyPowerAndAccuracyUser(power,accuracy,user,target,attack);
+    }
     @Inject(method="getTypeEffectiveness",at=@At("RETURN"),cancellable=true)
     private void backport$burst(PixelmonWrapper user,PixelmonWrapper target,CallbackInfoReturnable<Double> cir){cir.setReturnValue(local.pixelmon.backport.BurstTerrain.effectiveness(user,target,(Attack)(Object)this,cir.getReturnValue()));}
     @Redirect(method="doDamageCalc",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/ability/Ability;modifyStab(D)D"))

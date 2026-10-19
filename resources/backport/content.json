@@ -108,7 +108,10 @@
               }
             ],
             "megaItems": [
-              "pixelmon:raichunite_x"
+              "pixelmon_backport:raichunite_x"
+            ],
+            "megas": [
+              "megax"
             ]
           },
           {
@@ -196,7 +199,10 @@
               }
             ],
             "megaItems": [
-              "pixelmon:raichunite_y"
+              "pixelmon_backport:raichunite_y"
+            ],
+            "megas": [
+              "megay"
             ]
           }
         ]
@@ -873,6 +879,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:clefablite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -942,6 +954,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:victreebelite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -1257,7 +1275,7 @@
             },
             "battleStats": {
               "hp": 60,
-              "attack": 140,
+              "attack": 100,
               "defense": 105,
               "specialAttack": 130,
               "specialDefense": 105,
@@ -1322,6 +1340,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:starminite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -2024,6 +2048,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:dragoninite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -2099,6 +2129,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:meganiumite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -2168,6 +2204,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:feraligite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -3103,6 +3145,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:skarmorite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -6336,6 +6384,380 @@
     {
       "mode": "merge",
       "species": {
+        "name": "Chimecho",
+        "dex": 358,
+        "generation": 3,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "Levitate"
+              ]
+            },
+            "battleStats": {
+              "hp": 75,
+              "attack": 50,
+              "defense": 110,
+              "specialAttack": 135,
+              "specialDefense": 120,
+              "speed": 65
+            },
+            "types": [
+              "PSYCHIC",
+              "STEEL"
+            ],
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/358_chimecho/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/358_chimecho/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/358_chimecho/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/358_chimecho/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/358_chimecho/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/358_chimecho/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/358_chimecho/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:chimechite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:chimechite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Absol",
+        "dex": 359,
+        "generation": 3,
+        "forms": [
+          {
+            "name": "megaz",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "MagicBounce"
+              ]
+            },
+            "battleStats": {
+              "hp": 65,
+              "attack": 154,
+              "defense": 60,
+              "specialAttack": 75,
+              "specialDefense": 60,
+              "speed": 151
+            },
+            "types": [
+              "DARK",
+              "GHOST"
+            ],
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/359_absol/all/megaz/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/359_absol/all/megaz/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/359_absol/all/megaz/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/359_absol/all/megaz/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/359_absol/all/megaz/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/359_absol/all/megaz/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/359_absol/all/megaz/none/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:absolite_z"
+            ],
+            "megas": [
+              "megaz"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:absolite_z"
+            ],
+            "megas": [
+              "megaz"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Staraptor",
+        "dex": 398,
+        "generation": 4,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "Intimidate"
+              ]
+            },
+            "battleStats": {
+              "hp": 85,
+              "attack": 140,
+              "defense": 100,
+              "specialAttack": 60,
+              "specialDefense": 90,
+              "speed": 110
+            },
+            "types": [
+              "FIGHTING",
+              "FLYING"
+            ],
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/398_staraptor/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/398_staraptor/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/398_staraptor/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/398_staraptor/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/398_staraptor/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/398_staraptor/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/398_staraptor/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:staraptite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:staraptite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Garchomp",
+        "dex": 445,
+        "generation": 4,
+        "forms": [
+          {
+            "name": "megaz",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "SandForce"
+              ]
+            },
+            "battleStats": {
+              "hp": 108,
+              "attack": 130,
+              "defense": 85,
+              "specialAttack": 141,
+              "specialDefense": 85,
+              "speed": 151
+            },
+            "types": [
+              "DRAGON"
+            ],
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/445_garchomp/all/megaz/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/445_garchomp/all/megaz/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/445_garchomp/all/megaz/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/445_garchomp/all/megaz/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/445_garchomp/all/megaz/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/445_garchomp/all/megaz/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/445_garchomp/all/megaz/none/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:garchompite_z"
+            ],
+            "megas": [
+              "megaz"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:garchompite_z"
+            ],
+            "megas": [
+              "megaz"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Lucario",
+        "dex": 448,
+        "generation": 4,
+        "forms": [
+          {
+            "name": "megaz",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "Adaptability"
+              ]
+            },
+            "battleStats": {
+              "hp": 70,
+              "attack": 100,
+              "defense": 70,
+              "specialAttack": 164,
+              "specialDefense": 70,
+              "speed": 151
+            },
+            "types": [
+              "FIGHTING",
+              "STEEL"
+            ],
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/448_lucario/all/megaz/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/448_lucario/all/megaz/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/448_lucario/all/megaz/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/448_lucario/all/megaz/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/448_lucario/all/megaz/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/448_lucario/all/megaz/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/448_lucario/all/megaz/none/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:lucarionite_z"
+            ],
+            "megas": [
+              "megaz"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:lucarionite_z"
+            ],
+            "megas": [
+              "megaz"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
         "name": "Rhyperior",
         "dex": 464,
         "generation": 4,
@@ -6922,6 +7344,83 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:froslassite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Heatran",
+        "dex": 485,
+        "generation": 4,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "FlashFire"
+              ]
+            },
+            "battleStats": {
+              "hp": 91,
+              "attack": 120,
+              "defense": 106,
+              "specialAttack": 175,
+              "specialDefense": 141,
+              "speed": 67
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/485_heatran/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/485_heatran/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/485_heatran/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/485_heatran/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/485_heatran/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/485_heatran/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/485_heatran/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:heatranite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:heatranite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -6965,7 +7464,7 @@
               "defense": 130,
               "specialAttack": 165,
               "specialDefense": 130,
-              "speed": 80
+              "speed": 85
             },
             "types": [
               "DARK"
@@ -7006,7 +7505,10 @@
               }
             ],
             "megaItems": [
-              "pixelmon:darkranite"
+              "pixelmon_backport:darkranite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -7467,6 +7969,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:emboarite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -7538,6 +8046,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:excadrite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -7609,6 +8123,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:scolipite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -8069,6 +8589,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:scraftinite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -8385,6 +8911,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:eelektrossite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -8755,7 +9287,81 @@
               }
             ],
             "megaItems": [
-              "pixelmon:chandelurite"
+              "pixelmon_backport:chandelurite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Golurk",
+        "dex": 623,
+        "generation": 5,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "IronFist"
+              ]
+            },
+            "battleStats": {
+              "hp": 89,
+              "attack": 159,
+              "defense": 105,
+              "specialAttack": 70,
+              "specialDefense": 105,
+              "speed": 55
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/623_golurk/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/623_golurk/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/623_golurk/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/623_golurk/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/623_golurk/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/623_golurk/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/623_golurk/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:golurkite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:golurkite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -9936,6 +10542,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:chesnaughtite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -10297,6 +10909,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:delphoxite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -10610,7 +11228,7 @@
                     "name": "none",
                     "texture": "pixelmon_backport:reference/pokemon/658_greninja/all/mega/none/texture.png",
                     "sprite": "pixelmon_backport:reference/pokemon/658_greninja/all/mega/none/sprite.png",
-                    "emissive": "pixelmon_backport:reference/pokemon/658_greninja/all/mega/none/emissive.png",
+                    "emissive": "pixelmon:empty.png",
                     "particle": "",
                     "modelLocator": {
                       "factoryType": "NORMAL",
@@ -10623,11 +11241,17 @@
                     "name": "shiny",
                     "texture": "pixelmon_backport:reference/pokemon/658_greninja/all/mega/shiny/texture.png",
                     "sprite": "pixelmon_backport:reference/pokemon/658_greninja/all/mega/shiny/sprite.png",
-                    "emissive": "pixelmon_backport:reference/pokemon/658_greninja/all/mega/shiny/emissive.png",
+                    "emissive": "pixelmon:empty.png",
                     "particle": "arcanery:shiny"
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:greninjite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -10937,6 +11561,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:pyroarite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -11008,6 +11638,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:floettite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -12730,6 +13366,77 @@
     {
       "mode": "merge",
       "species": {
+        "name": "Meowstic",
+        "dex": 678,
+        "generation": 6,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "Prankster"
+              ]
+            },
+            "battleStats": {
+              "hp": 74,
+              "attack": 48,
+              "defense": 76,
+              "specialAttack": 143,
+              "specialDefense": 101,
+              "speed": 124
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/678_meowstic/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/678_meowstic/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/678_meowstic/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/678_meowstic/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/678_meowstic/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/678_meowstic/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/678_meowstic/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:meowsticite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:meowsticite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
         "name": "Malamar",
         "dex": 687,
         "generation": 6,
@@ -13097,6 +13804,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:malamarite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -13172,6 +13885,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:barbaracite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -13243,6 +13962,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:dragalgite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -13663,6 +14388,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:hawluchaite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -13776,6 +14507,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:zygardite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -14376,6 +15113,152 @@
     {
       "mode": "merge",
       "species": {
+        "name": "Crabominable",
+        "dex": 740,
+        "generation": 7,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "IronFist"
+              ]
+            },
+            "battleStats": {
+              "hp": 97,
+              "attack": 157,
+              "defense": 122,
+              "specialAttack": 62,
+              "specialDefense": 107,
+              "speed": 33
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/740_crabominable/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/740_crabominable/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/740_crabominable/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/740_crabominable/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/740_crabominable/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/740_crabominable/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/740_crabominable/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:crabominite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:crabominite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Golisopod",
+        "dex": 768,
+        "generation": 7,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "EmergencyExit"
+              ]
+            },
+            "battleStats": {
+              "hp": 75,
+              "attack": 150,
+              "defense": 175,
+              "specialAttack": 70,
+              "specialDefense": 120,
+              "speed": 40
+            },
+            "types": [
+              "BUG",
+              "STEEL"
+            ],
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/768_golisopod/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/768_golisopod/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/768_golisopod/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/768_golisopod/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/768_golisopod/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/768_golisopod/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/768_golisopod/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:golisopodite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:golisopodite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
         "name": "Drampa",
         "dex": 780,
         "generation": 7,
@@ -14437,6 +15320,255 @@
                     "emissive": "pixelmon_backport:reference/pokemon/780_drampa/all/mega/shiny/emissive.png",
                     "particle": "arcanery:shiny"
                   }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:drampanite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Magearna",
+        "dex": 801,
+        "generation": 7,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "SoulHeart"
+              ]
+            },
+            "battleStats": {
+              "hp": 80,
+              "attack": 125,
+              "defense": 115,
+              "specialAttack": 170,
+              "specialDefense": 115,
+              "speed": 95
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/801_magearna/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/801_magearna/mega/sprite_none.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/801_magearna/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/801_magearna/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/801_magearna/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/801_magearna/mega/sprite_shiny.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/801_magearna/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/801_magearna/all/mega/none/model.pqc"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:magearnite"
+            ],
+            "megas": [
+              "mega"
+            ],
+            "defaultBaseForm": ""
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:magearnite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "megaoriginal",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "SoulHeart"
+              ]
+            },
+            "battleStats": {
+              "hp": 80,
+              "attack": 125,
+              "defense": 115,
+              "specialAttack": 170,
+              "specialDefense": 115,
+              "speed": 95
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/801_magearna/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/801_magearna/megaoriginal/sprite_none.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/801_magearna/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:smooth_variants/801_magearna/megaoriginal/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/801_magearna/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/801_magearna/megaoriginal/sprite_shiny.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/801_magearna/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:smooth_variants/801_magearna/megaoriginal/shiny/model.pqc"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:magearnite"
+            ],
+            "megas": [
+              "megaoriginal"
+            ],
+            "defaultBaseForm": "original_color"
+          },
+          {
+            "name": "original_color",
+            "megaItems": [
+              "pixelmon_backport:magearnite"
+            ],
+            "megas": [
+              "megaoriginal"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Zeraora",
+        "dex": 807,
+        "generation": 7,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "VoltAbsorb"
+              ]
+            },
+            "battleStats": {
+              "hp": 88,
+              "attack": 157,
+              "defense": 75,
+              "specialAttack": 147,
+              "specialDefense": 80,
+              "speed": 153
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/807_zeraora/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/807_zeraora/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/807_zeraora/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/807_zeraora/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/807_zeraora/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/807_zeraora/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/807_zeraora/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:zeraorite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:zeraorite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "dex": 840,
+        "name": "Applin",
+        "generation": 8,
+        "forms": [
+          {
+            "name": "",
+            "evolutions": [
+              {
+                "item": {
+                  "itemID": "pixelmon_backport:syrupy_apple"
+                },
+                "to": "Dipplin",
+                "conditions": [],
+                "evoType": "interact",
+                "moves": [
+                  "Double Hit"
                 ]
               }
             ]
@@ -15098,6 +16230,12 @@
                   }
                 ]
               }
+            ],
+            "megaItems": [
+              "pixelmon_backport:falinksite"
+            ],
+            "megas": [
+              "mega"
             ]
           }
         ]
@@ -15989,6 +17127,77 @@
     {
       "mode": "merge",
       "species": {
+        "name": "Scovillain",
+        "dex": 952,
+        "generation": 9,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "Chlorophyll"
+              ]
+            },
+            "battleStats": {
+              "hp": 65,
+              "attack": 138,
+              "defense": 85,
+              "specialAttack": 138,
+              "specialDefense": 85,
+              "speed": 75
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/952_scovillain/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/952_scovillain/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/952_scovillain/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/952_scovillain/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/952_scovillain/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/952_scovillain/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/952_scovillain/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:scovillainite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:scovillainite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
         "name": "Cyclizar",
         "dex": 967,
         "generation": 9,
@@ -16144,6 +17353,362 @@
               "tmMoves1": [],
               "tmMoves": []
             }
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Glimmora",
+        "dex": 970,
+        "generation": 9,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "Corrosion"
+              ]
+            },
+            "battleStats": {
+              "hp": 83,
+              "attack": 90,
+              "defense": 105,
+              "specialAttack": 150,
+              "specialDefense": 96,
+              "speed": 101
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/970_glimmora/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/970_glimmora/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/970_glimmora/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/970_glimmora/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/970_glimmora/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/970_glimmora/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/970_glimmora/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:glimmorite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:glimmorite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Tatsugiri",
+        "dex": 978,
+        "generation": 9,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "StormDrain"
+              ]
+            },
+            "battleStats": {
+              "hp": 68,
+              "attack": 65,
+              "defense": 90,
+              "specialAttack": 135,
+              "specialDefense": 125,
+              "speed": 92
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/978_tatsugiri/mega/sprite_none.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/978_tatsugiri/mega/sprite_shiny.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/none/model.pqc"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:tatsugirinite"
+            ],
+            "megas": [
+              "mega"
+            ],
+            "defaultBaseForm": "curly"
+          },
+          {
+            "name": "curly",
+            "megaItems": [
+              "pixelmon_backport:tatsugirinite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "droopy",
+            "megaItems": [
+              "pixelmon_backport:tatsugirinite"
+            ],
+            "megas": [
+              "megadroopy"
+            ]
+          },
+          {
+            "name": "stretchy",
+            "megaItems": [
+              "pixelmon_backport:tatsugirinite"
+            ],
+            "megas": [
+              "megastretchy"
+            ]
+          },
+          {
+            "name": "megadroopy",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "StormDrain"
+              ]
+            },
+            "battleStats": {
+              "hp": 68,
+              "attack": 65,
+              "defense": 90,
+              "specialAttack": 135,
+              "specialDefense": 125,
+              "speed": 92
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/978_tatsugiri/megadroopy/sprite_none.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:smooth_variants/978_tatsugiri/megadroopy/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/978_tatsugiri/megadroopy/sprite_shiny.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:smooth_variants/978_tatsugiri/megadroopy/model.pqc"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:tatsugirinite"
+            ],
+            "megas": [
+              "megadroopy"
+            ],
+            "defaultBaseForm": "droopy"
+          },
+          {
+            "name": "megastretchy",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "StormDrain"
+              ]
+            },
+            "battleStats": {
+              "hp": 68,
+              "attack": 65,
+              "defense": 90,
+              "specialAttack": 135,
+              "specialDefense": 125,
+              "speed": 92
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/978_tatsugiri/megastretchy/sprite_none.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:smooth_variants/978_tatsugiri/megastretchy/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:za_variants/978_tatsugiri/megastretchy/sprite_shiny.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/978_tatsugiri/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:smooth_variants/978_tatsugiri/megastretchy/model.pqc"
+                      ]
+                    }
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:tatsugirinite"
+            ],
+            "megas": [
+              "megastretchy"
+            ],
+            "defaultBaseForm": "stretchy"
+          }
+        ]
+      }
+    },
+    {
+      "mode": "merge",
+      "species": {
+        "name": "Baxcalibur",
+        "dex": 998,
+        "generation": 9,
+        "forms": [
+          {
+            "name": "mega",
+            "tags": [
+              "temp"
+            ],
+            "abilities": {
+              "abilities": [
+                "ThermalExchange"
+              ]
+            },
+            "battleStats": {
+              "hp": 115,
+              "attack": 175,
+              "defense": 117,
+              "specialAttack": 105,
+              "specialDefense": 101,
+              "speed": 87
+            },
+            "genderProperties": [
+              {
+                "gender": "ALL",
+                "palettes": [
+                  {
+                    "name": "none",
+                    "texture": "pixelmon_backport:reference/pokemon/998_baxcalibur/all/mega/none/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/998_baxcalibur/all/mega/none/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/998_baxcalibur/all/mega/none/emissive.png",
+                    "particle": "",
+                    "modelLocator": {
+                      "factoryType": "NORMAL",
+                      "pqc": [
+                        "pixelmon_backport:reference/pokemon/998_baxcalibur/all/mega/none/model.pqc"
+                      ]
+                    }
+                  },
+                  {
+                    "name": "shiny",
+                    "texture": "pixelmon_backport:reference/pokemon/998_baxcalibur/all/mega/shiny/texture.png",
+                    "sprite": "pixelmon_backport:reference/pokemon/998_baxcalibur/all/mega/shiny/sprite.png",
+                    "emissive": "pixelmon_backport:reference/pokemon/998_baxcalibur/all/mega/shiny/emissive.png",
+                    "particle": "arcanery:shiny"
+                  }
+                ]
+              }
+            ],
+            "megaItems": [
+              "pixelmon_backport:baxcaliburite"
+            ],
+            "megas": [
+              "mega"
+            ]
+          },
+          {
+            "name": "",
+            "megaItems": [
+              "pixelmon_backport:baxcaliburite"
+            ],
+            "megas": [
+              "mega"
+            ]
           }
         ]
       }
@@ -20772,32 +22337,6 @@
           }
         ]
       }
-    },
-    {
-      "mode": "merge",
-      "species": {
-        "dex": 840,
-        "name": "Applin",
-        "generation": 8,
-        "forms": [
-          {
-            "name": "",
-            "evolutions": [
-              {
-                "item": {
-                  "itemID": "pixelmon_backport:syrupy_apple"
-                },
-                "to": "Dipplin",
-                "conditions": [],
-                "evoType": "interact",
-                "moves": [
-                  "Double Hit"
-                ]
-              }
-            ]
-          }
-        ]
-      }
     }
   ],
   "moves": [
@@ -20812,7 +22351,12 @@
       "makesContact": false,
       "effects": [
         {
-          "modifiers": [],
+          "modifiers": [
+            {
+              "type": "Chance",
+              "value": 100.0
+            }
+          ],
           "persists": false,
           "effectTypeID": "BackportAlluringVoice"
         }
@@ -21340,7 +22884,12 @@
       "makesContact": false,
       "effects": [
         {
-          "modifiers": [],
+          "modifiers": [
+            {
+              "type": "Chance",
+              "value": 100.0
+            }
+          ],
           "persists": false,
           "effectTypeID": "BackportPsychicNoise"
         }
@@ -21730,32 +23279,37 @@
       "attackType": "DRAGON",
       "attackCategory": "SPECIAL",
       "basePower": 200,
-      "ppBase": 99,
-      "ppMax": 99,
+      "ppBase": 10,
+      "ppMax": 16,
       "accuracy": 100,
-      "makesContact": true,
+      "makesContact": false,
       "effects": [
         {
           "modifiers": [],
           "persists": false,
           "effectTypeID": "IgnoreDefense"
-        },
-        {
-          "modifiers": [],
-          "persists": false,
-          "effectTypeID": "AlwaysHit"
         }
       ],
       "animations": [
-        "leapForward"
+        {
+          "id": "stationary",
+          "effects": {
+            "0": {
+              "id": "beam",
+              "texture": "NORMAL",
+              "scale": 0.3,
+              "variation": 0.1
+            }
+          }
+        }
       ],
       "targetingInfo": {
-        "hitsAll": false,
+        "hitsAll": true,
         "hitsOppositeFoe": true,
         "hitsAdjacentFoe": true,
         "hitsExtendedFoe": false,
         "hitsSelf": false,
-        "hitsAdjacentAlly": true,
+        "hitsAdjacentAlly": false,
         "hitsExtendedAlly": false
       },
       "z": [],
@@ -21975,6 +23529,86 @@
     },
     {
       "name": "zygardite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "chimechite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "absolite_z",
+      "kind": "mega",
+      "form": "megaz"
+    },
+    {
+      "name": "staraptite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "garchompite_z",
+      "kind": "mega",
+      "form": "megaz"
+    },
+    {
+      "name": "lucarionite_z",
+      "kind": "mega",
+      "form": "megaz"
+    },
+    {
+      "name": "heatranite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "golurkite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "meowsticite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "crabominite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "golisopodite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "magearnite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "zeraorite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "scovillainite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "glimmorite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "tatsugirinite",
+      "kind": "mega",
+      "form": "mega"
+    },
+    {
+      "name": "baxcaliburite",
       "kind": "mega",
       "form": "mega"
     }

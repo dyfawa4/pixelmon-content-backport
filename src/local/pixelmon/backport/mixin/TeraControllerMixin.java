@@ -14,7 +14,9 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 @Mixin(value=BattleController.class,remap=false)
 public abstract class TeraControllerMixin {
     @Inject(method="endTurn",at=@At("RETURN"))
-    private void backport$ashWaterExpires(CallbackInfo ci){local.pixelmon.backport.AshWaterBoost.expire((BattleController)(Object)this);}
+    private void backport$ashWaterExpires(CallbackInfo ci){local.pixelmon.backport.AshWaterBoost.expire((BattleController)(Object)this);local.pixelmon.backport.Erosion.expire((BattleController)(Object)this);local.pixelmon.backport.ErosionNetwork.sync((BattleController)(Object)this,null);}
+    @Inject(method="endBattle(Lcom/pixelmonmod/pixelmon/api/battles/BattleEndCause;Ljava/util/HashMap;)Ljava/util/HashMap;",at=@At("HEAD"))
+    private void backport$restoreErosion(BattleEndCause cause,HashMap<BattleParticipant,BattleResults> result,CallbackInfoReturnable<HashMap<BattleParticipant,BattleResults>> cir){local.pixelmon.backport.Erosion.end((BattleController)(Object)this);}
     @Inject(method="isEvolving",at=@At("HEAD"))
     private void backport$deadEvolution(org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable<Boolean> cir){local.pixelmon.backport.BattleEvolutionGuard.recover((BattleController)(Object)this);}
     @Inject(method="update",at=@At("RETURN"))
@@ -24,7 +26,7 @@ public abstract class TeraControllerMixin {
     @Inject(method="isTeamDefeated",at=@At("HEAD"),cancellable=true)
     private void backport$waitForRevive(BattleParticipant p,CallbackInfoReturnable<Boolean> cir){TeraRaidParticipant raid=TeraRaids.get((BattleController)(Object)this);if(raid!=null && raid.team!=p.team && raid.pendingRevives())cir.setReturnValue(false);}
     @Inject(method="addSpectator",at=@At("RETURN"))
-    private void backport$spectator(com.pixelmonmod.pixelmon.battles.controller.participants.Spectator spectator,CallbackInfo ci){TeraNetwork.sync((BattleController)(Object)this,false);}
+    private void backport$spectator(com.pixelmonmod.pixelmon.battles.controller.participants.Spectator spectator,CallbackInfo ci){TeraNetwork.sync((BattleController)(Object)this,false);local.pixelmon.backport.ErosionNetwork.sync((BattleController)(Object)this,null);}
     @Inject(method="endBattle(Lcom/pixelmonmod/pixelmon/api/battles/BattleEndCause;Ljava/util/HashMap;)Ljava/util/HashMap;",at=@At("RETURN"))
-    private void backport$cleanup(BattleEndCause cause,HashMap<BattleParticipant,BattleResults> result,CallbackInfoReturnable<HashMap<BattleParticipant,BattleResults>> cir){Tera.end((BattleController)(Object)this);local.pixelmon.backport.GymChallenge.end((BattleController)(Object)this);local.pixelmon.backport.AshWaterBoost.end((BattleController)(Object)this);}
+    private void backport$cleanup(BattleEndCause cause,HashMap<BattleParticipant,BattleResults> result,CallbackInfoReturnable<HashMap<BattleParticipant,BattleResults>> cir){Tera.end((BattleController)(Object)this);local.pixelmon.backport.GymChallenge.end((BattleController)(Object)this);local.pixelmon.backport.AshWaterBoost.end((BattleController)(Object)this);local.pixelmon.backport.NinjaTraining.end((BattleController)(Object)this);}
 }

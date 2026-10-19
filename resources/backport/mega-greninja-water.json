@@ -1,0 +1,15 @@
+{
+  "source": "Pixelmon-9.13-1.9.jar",
+  "source_model_sha256": "73ff03f8be572b6e6f93cbeceb15c97f355548db27f6fbd63bf5819b7d654e78",
+  "model_sha256": "9c39cea35ed1998f64416a971437b64448b12c825db6faa806f753feacbdaf2d",
+  "water_faces": 336,
+  "unchanged_body_faces": 5630,
+  "bone": 85,
+  "operation": "water outline x0.72, thickness x5 plus continuous center lens; area-weighted smooth normals and uniform existing atlas water blue; remove dark bands and flat hub; valid transparent emissive; no raster edits",
+  "unchanged": [
+    "body geometry",
+    "rig and skin weights",
+    "animations",
+    "battle moves and abilities"
+  ]
+}

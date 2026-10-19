@@ -1,0 +1,136 @@
+{
+  "appearances": [
+    {
+      "id": "palette_251_alien",
+      "title": "天外来客",
+      "quest": "3BEA8D490C9938B9",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 251,
+      "species": "Celebi",
+      "palette": "alien",
+      "form": "",
+      "gender": 2
+    },
+    {
+      "id": "palette_249_drowned",
+      "title": "万籁俱寂",
+      "quest": "531AB69605DCA378",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 249,
+      "species": "Lugia",
+      "palette": "drowned",
+      "form": "",
+      "gender": 2
+    },
+    {
+      "id": "palette_251_valentine",
+      "title": "美若天仙",
+      "quest": "6804A2BD24A840A0",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 251,
+      "species": "Celebi",
+      "palette": "valentine",
+      "form": "",
+      "gender": 2
+    },
+    {
+      "id": "palette_245_spirit",
+      "title": "幽魂观音",
+      "quest": "121340127043B5A7",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 245,
+      "species": "Suicune",
+      "palette": "spirit",
+      "form": "",
+      "gender": 2
+    },
+    {
+      "id": "palette_894_spirit",
+      "title": "幽魂追风",
+      "quest": "24CF924EA134BEA6",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 894,
+      "species": "Regieleki",
+      "palette": "spirit",
+      "form": "",
+      "gender": 2
+    },
+    {
+      "id": "palette_488_spirit",
+      "title": "幽魂捧月",
+      "quest": "5335013FA083DF52",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 488,
+      "species": "Cresselia",
+      "palette": "spirit",
+      "form": "",
+      "gender": 1
+    },
+    {
+      "id": "palette_383_meta",
+      "title": "山摇地动",
+      "quest": "1BF0DA87C6B82124",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 383,
+      "species": "Groudon",
+      "palette": "meta",
+      "form": "",
+      "gender": 2
+    },
+    {
+      "id": "palette_384_alter",
+      "title": "天打雷劈",
+      "quest": "402B9581427A4F6A",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 384,
+      "species": "Rayquaza",
+      "palette": "alter",
+      "form": "",
+      "gender": 2
+    },
+    {
+      "id": "palette_492_christmas_land",
+      "title": "今天来过平安夜",
+      "quest": "13CED89778AF5E27",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 492,
+      "species": "Shaymin",
+      "palette": "christmas",
+      "form": "land",
+      "gender": 2
+    },
+    {
+      "id": "palette_492_christmas_sky",
+      "title": "今天来过圣诞节",
+      "quest": "1E93AA33AFA982CF",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 492,
+      "species": "Shaymin",
+      "palette": "christmas",
+      "form": "sky",
+      "gender": 2
+    },
+    {
+      "id": "palette_488_rainbow",
+      "title": "五彩缤纷",
+      "quest": "33E613AABB50138B",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 488,
+      "species": "Cresselia",
+      "palette": "rainbow",
+      "form": "",
+      "gender": 1
+    },
+    {
+      "id": "palette_250_rainbow",
+      "title": "虹销雨霁",
+      "quest": "52225BDF74C7D3E0",
+      "chapter": "5280BD560935AC78.snbt",
+      "dex": 250,
+      "species": "Ho-Oh",
+      "palette": "rainbow",
+      "form": "",
+      "gender": 2
+    }
+  ]
+}

@@ -1,0 +1,388 @@
+{
+  "repository": "https://github.com/PokemonWorkshop/GameDataPacks",
+  "commit": "d430fb553df98ccde5f9f90ece78e36b07d8083c",
+  "credits": "Z-A Icon Sprites: Batin, ezerart, Luis779; compilation/alignment: Aelysya. See META-INF/MEGA_AVATAR_CREDITS.txt and original project.",
+  "license": "Pokemon Studio Public License (Attribution, NonCommercial, ShareAlike)",
+  "targets": [
+    {
+      "dex": 358,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/358_chimecho/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0358_30.png",
+      "source_sha256": "b8da8e266393773a000cd06f94d4d194ed051fce730b48f64c94c61d11af47f6",
+      "resource_sha256": "a6b995fb73b65d4ea696e8dec65d8b62dcc9c867e0dc61269ce2259f7985e7b7",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 358,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/358_chimecho/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0358s_30.png",
+      "source_sha256": "6f95264fca5f85c05e4b438cd11d0394cc5a42f7b975908317760275e14e95d5",
+      "resource_sha256": "563654ecf1f234ae2226d86610ce782fefe714adcc4b7df269dd4b2bb2713ccd",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 359,
+      "form": "megaz",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/359_absol/all/megaz/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0359_31.png",
+      "source_sha256": "d627b7edf9324c07c3b11c77fbb417ea593be606f1b681a5305eae3b2047ad7b",
+      "resource_sha256": "2665e59a880577c2200fd43bcde7a8ec468519cf7c9a3fb3be67fce46693cdff",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 359,
+      "form": "megaz",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/359_absol/all/megaz/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0359s_31.png",
+      "source_sha256": "34b33095d8a6211f1d5fe2f98560ab19ce0698bcbd3b43017490d9f21b4dca87",
+      "resource_sha256": "fa3a599ba7f97ec845ff4631762150c0e9befa7d3985199bf49a5459f655240a",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 398,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/398_staraptor/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0398_30.png",
+      "source_sha256": "905f113ac1800dddc7e7d6055c2982fe937e268fcfdf16208f967ecadab89289",
+      "resource_sha256": "a44ca302a15ab93cf5799e65995975f7e94b12efb34e6880569cac31f8cfcaa3",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 398,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/398_staraptor/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0398s_30.png",
+      "source_sha256": "beb7c945d467d61be05e5323de5f45bbfc2bdcac5850083149af35118f1652b0",
+      "resource_sha256": "894c6c5a10cb6aefcd50a74ca91c1a649d3f127cbf6fcaad7c40dc58d83c9829",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 445,
+      "form": "megaz",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/445_garchomp/all/megaz/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0445_31.png",
+      "source_sha256": "836b2dd37b71991e0e26e901553c4bb5ee2cc9f87094ee725baac35426667cc8",
+      "resource_sha256": "ab95cf93a75ba396fceae64fb8191f2da8dfb7ab57ef730d6731d2080c1686f5",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 445,
+      "form": "megaz",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/445_garchomp/all/megaz/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0445s_31.png",
+      "source_sha256": "5c04f12715905fcb8366af078e1e885df2635e74d7610cf3c107193bc6143a13",
+      "resource_sha256": "24ee79a25dbe24ec814aaaa9bdc3ce69e14743c37efa15077a8eaa2510808547",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 448,
+      "form": "megaz",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/448_lucario/all/megaz/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0448_31.png",
+      "source_sha256": "a9f4bc4ee9c2c07d7c13c1b69aa7f2a459e23fa6f54f91fce50932452426e76a",
+      "resource_sha256": "fea528379f26cffb42561d5adc5948d271ac5c60a31a5b64f7c2ec1eab606348",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 448,
+      "form": "megaz",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/448_lucario/all/megaz/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0448s_31.png",
+      "source_sha256": "b237fa1c989c17d13812106dc3b7237709013e5acd3a20fe1bc559e992176a36",
+      "resource_sha256": "1cb33e5656c4b6a5696aa6ec0d8f28d76f67caa919d8d75ee6ee3487e8a86910",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 485,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/485_heatran/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0485_30.png",
+      "source_sha256": "2c2f21862f301715720bbc894bf2fe0cd764f9ad0edb7534e2c7962e313af275",
+      "resource_sha256": "cb6a286bfc0dd92634b84ccc0731a880f580cdad519b9a23bb16a945fc3a5a6f",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 485,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/485_heatran/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0485s_30.png",
+      "source_sha256": "e31732c7195fdc31200a0e58f3438ef4be8daafcce2ad9d5a40cfd04855cfbb3",
+      "resource_sha256": "0184318487c33c627a63bd2d78ab0d098980e0ab476c1d03b2a4763ca24c49de",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 623,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/623_golurk/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0623_30.png",
+      "source_sha256": "e3ed34585ad54a24dc541c4cf4f9ae1ce01715efd49de944aef07d6a50d048fe",
+      "resource_sha256": "d09e46a480bd2f0dfb7e4cdff073a8dc2c21e7daaf0789f3e106381b63b3e51e",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 623,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/623_golurk/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0623s_30.png",
+      "source_sha256": "e049b6ab248bf47b936c3ff8574169e3c1bb39d226e9e2e5dfdde95205bd3f99",
+      "resource_sha256": "83cabb640135786637c4aa5dd3da613e4e5f3561b75ade1a25f9c8ee7c5b59bf",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 678,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/678_meowstic/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0678_30.png",
+      "source_sha256": "1a62c7e8ad750e8160a17e3ec1e52184555bc0f5ddbd753a512d215e541ebef3",
+      "resource_sha256": "cbbd20b9b701d8e7b6128925fdd17145250d3761069d612948b4fa48bdf5c5b8",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 678,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/678_meowstic/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0678s_30.png",
+      "source_sha256": "180a0016bba430ea8b88e468d5493dbadc3396af360318e0261afbefa93aa1e9",
+      "resource_sha256": "140220f0f067577ac6c5db13883d462092f66d8b49d627fc39ff161473ff368f",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 740,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/740_crabominable/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0740_30.png",
+      "source_sha256": "1cd705ac2f8b8aebd4350f0340f86fc68d2f5b33a9092031408ab849e0718acb",
+      "resource_sha256": "7b74deabe96dd70536936e716f7b9269b4505fba8820c2296fb8238a96745e2d",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 740,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/740_crabominable/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0740s_30.png",
+      "source_sha256": "d3bb362a90dddca1f82a35baa52b0dffacc3410369c1f4ff8a16ce5df5c4fcd2",
+      "resource_sha256": "5f84b8c9f885dbe0f58f46152bdb75aabd5f7a9d69e3fa9167323980fa3c32ea",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 768,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/768_golisopod/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0768_30.png",
+      "source_sha256": "f0d759e0fb0b03c4ba068049f79e5d5ee643a8308ee2c1e31ac4689e33b13277",
+      "resource_sha256": "cbce506271c7e7099658dd2e7a9d1be17f840eb757ef1c8695607c7b3de356ae",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 768,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/768_golisopod/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0768s_30.png",
+      "source_sha256": "fc72b25ea3abbab3cda93b38ef3f94a3fb420e7edc8ab244f282044280998c30",
+      "resource_sha256": "97121e7df3de44a31e10fedd4ada3ef70b1df2c413e9935b036486049c7f326c",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 807,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/807_zeraora/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0807_30.png",
+      "source_sha256": "5073948bd20467547ede4e714019f9afeefc71edeba9ed9601211944ade09288",
+      "resource_sha256": "45394214aefa2366cbbddf9571914bfd364e9b3586d2fe4162c279d2f80cba6a",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 807,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/807_zeraora/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0807s_30.png",
+      "source_sha256": "333a6892fd6989fae8be7205bfbee26f52e8daf0b93761bb9539487ae59c810e",
+      "resource_sha256": "2906dde69e9905387e84242784f6231a692a4c3aa5ba129865236c95f30a410f",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 952,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/952_scovillain/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0952_30.png",
+      "source_sha256": "9158c9a0c3407016063629b12a74ed18cadeab161da2d9628278151c7fb0323d",
+      "resource_sha256": "1381594c8ebf232761fb0b1ad26baf249544ac6e9b4425f06962f3092bbb67c8",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 952,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/952_scovillain/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0952s_30.png",
+      "source_sha256": "9d9f827ebfc1a59d5ed794c9cc5149f96e0d65d992c480b379c2af9fc5bb2af7",
+      "resource_sha256": "8dde63c1c0b5e5a508150dbf35f6ba24206eec6ef5477a66cfee41109856264d",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 970,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/970_glimmora/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0970_30.png",
+      "source_sha256": "e0782ba8ceb377a21b1113139c7ea771eb30ea8c282a8b06ee39d32b88732863",
+      "resource_sha256": "5e443ab0cee4b20519749c882ebc08f88ed42c5d0a77c2318b48b50bbee1e002",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 970,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/970_glimmora/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0970s_30.png",
+      "source_sha256": "7297b55a87e812e2c4209c5f1b1bcc1eb46249427d309cf55d6de823cc2dd19e",
+      "resource_sha256": "248749ac3309f358fa609039c54b47153ae6bf08694be2ced7396b8c2cf6a696",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 998,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/998_baxcalibur/all/mega/none/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0998_30.png",
+      "source_sha256": "67c27d56b6a6a25208c19c13755e26b7fdc48feab1d51d831633aa197986b61c",
+      "resource_sha256": "c1bf9e7ce4f71994f2fc1e0c8146a6f178a4ad35729b73a129f84a0db2d0e362",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 998,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/998_baxcalibur/all/mega/shiny/sprite.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0998s_30.png",
+      "source_sha256": "70a76a00630ae2d81defd42cb6679a9c2abe2130f55adca1d11353175afea88e",
+      "resource_sha256": "cc543f2bdc172770d02217cb58866e877a61084d28fd0bc7cc1b4a35cbbfef31",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 801,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/za_variants/801_magearna/mega/sprite_none.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0801_30.png",
+      "source_sha256": "e06897137b19ccd9ff46f145430a2e42c4a97842be17b03ed0ed5b298a374c76",
+      "resource_sha256": "378c5bf56f33356ae288cfd43886797e74f123f6ac0a9e9feff354f60b20b77a",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 801,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/za_variants/801_magearna/mega/sprite_shiny.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0801s_30.png",
+      "source_sha256": "24ce2bb2be73a552793216e19e4e6a4f81b65072b5b647a7254863a7283ce629",
+      "resource_sha256": "f157fab087012171a98f1d077ab4939c78ffaa038b0164d779fcbf02bd8a2c78",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 801,
+      "form": "megaoriginal",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/za_variants/801_magearna/megaoriginal/sprite_none.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0801_31.png",
+      "source_sha256": "3f5c0181327118b354b492f9914d5bccc1d8963918155bf7997c0ebed02ef389",
+      "resource_sha256": "d614e86689c2d3885c6830d0e6fe83071b65d2c9db251674ca0ad31a7babeace",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 801,
+      "form": "megaoriginal",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/za_variants/801_magearna/megaoriginal/sprite_shiny.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0801s_30.png",
+      "source_sha256": "24ce2bb2be73a552793216e19e4e6a4f81b65072b5b647a7254863a7283ce629",
+      "resource_sha256": "f157fab087012171a98f1d077ab4939c78ffaa038b0164d779fcbf02bd8a2c78",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 978,
+      "form": "mega",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/za_variants/978_tatsugiri/mega/sprite_none.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0978_30.png",
+      "source_sha256": "3706d329823c6f547015b90e0549ed1f957e9e2da7d9262ce2158a971b9e5a23",
+      "resource_sha256": "e6d9ddc38167c05190ec51ef1bd392901af1b7fd2cfb33ba1196e0958eba0391",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 978,
+      "form": "mega",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/za_variants/978_tatsugiri/mega/sprite_shiny.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0978s_30.png",
+      "source_sha256": "355602e71542dcd5d32218dcdda29b3486bd6d17435542e0f9563cd3c36ce813",
+      "resource_sha256": "84b9e2cfc128be72b24578da72f2281ccf97d0d6034485625caf4cb23829ec47",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 978,
+      "form": "megadroopy",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/za_variants/978_tatsugiri/megadroopy/sprite_none.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0978_31.png",
+      "source_sha256": "34d94e35b35fdf057c8747720091a7f59e4e6c06e64ba73730cf36a15005ecdf",
+      "resource_sha256": "93c2ae8e0831b7ade9251f1b5e43a13c5d31938e534e248dcbbed16983340cec",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 978,
+      "form": "megadroopy",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/za_variants/978_tatsugiri/megadroopy/sprite_shiny.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0978s_30.png",
+      "source_sha256": "355602e71542dcd5d32218dcdda29b3486bd6d17435542e0f9563cd3c36ce813",
+      "resource_sha256": "84b9e2cfc128be72b24578da72f2281ccf97d0d6034485625caf4cb23829ec47",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 978,
+      "form": "megastretchy",
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/za_variants/978_tatsugiri/megastretchy/sprite_none.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0978_32.png",
+      "source_sha256": "e6dc308d64ea6ae50cb18842a76be53e5fef5e627999307ad0562507db8b2db4",
+      "resource_sha256": "b9aecf7c244e06a99b162207368fe5a5c104ec1ef508d00df63522282495999d",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    },
+    {
+      "dex": 978,
+      "form": "megastretchy",
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/za_variants/978_tatsugiri/megastretchy/sprite_shiny.png",
+      "url": "https://raw.githubusercontent.com/PokemonWorkshop/GameDataPacks/d430fb553df98ccde5f9f90ece78e36b07d8083c/Gen%209/Legends%20Z-A/graphics/pokedex/pokeicon/0978s_30.png",
+      "source_sha256": "355602e71542dcd5d32218dcdda29b3486bd6d17435542e0f9563cd3c36ce813",
+      "resource_sha256": "84b9e2cfc128be72b24578da72f2281ccf97d0d6034485625caf4cb23829ec47",
+      "operation": "first 32x32 frame, exact RGBA pixels, no resizing or redraw"
+    }
+  ]
+}

@@ -14,17 +14,17 @@ public final class AshMoveDisplay {
     private AshMoveDisplay(){}
     public static boolean eligible(Pokemon pokemon,ImmutableAttack move){
         return pokemon!=null && pokemon.getSpecies().getDex()==658 && PermanentAsh.isAsh(pokemon.getForm())
-            && pokemon.getAbility() instanceof BattleBond && move!=null && "Water Shuriken".equals(move.getAttackName());
+            && move!=null && "Water Shuriken".equals(move.getAttackName());
     }
     public static String description(String locale){
-        if("zh_cn".equals(locale))return "优先攻击，固定3击，每击基础威力20。使出前强化自身：水系威力提升50%，持续3回合，包含当回合。重复只刷新，不叠加。";
-        if("en_us".equals(locale))return "Strikes first, exactly 3 times at 20 base power each. Before attacking, strengthens itself: Water power +50% for 3 turns including this turn. Reuse refreshes without stacking.";
+        if("zh_cn".equals(locale))return "优先攻击，固定3击，每击基础威力20。使出前强化自身：水系威力提升50%，持续5回合，包含当回合。重复只刷新，不叠加，并给对方附着蚀。";
+        if("en_us".equals(locale))return "Strikes first, exactly 3 times at 20 base power each. Before attacking, strengthens itself: Water power +50% for 5 turns including this turn. Reuse refreshes without stacking. Also inflicts Erosion on the target.";
         return null;
     }
     public static String message(String key,String locale){
         if("pixelmon_backport.battle.ash_water_boost".equals(key)){
-            if("zh_cn".equals(locale))return "%s强化了自身！水系攻击威力提升50%，持续三回合！";
-            if("en_us".equals(locale))return "%s strengthened itself! Its Water attacks gain 50% power for three turns!";
+            if("zh_cn".equals(locale))return "%s强化了自身！水系攻击威力提升50%，持续五回合！";
+            if("en_us".equals(locale))return "%s strengthened itself! Its Water attacks gain 50% power for five turns!";
         }
         if("pixelmon_backport.battle.ash_water_boost_end".equals(key)){
             if("zh_cn".equals(locale))return "%s的水系伤害加成结束了！";

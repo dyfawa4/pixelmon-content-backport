@@ -1,0 +1,23 @@
+{
+  "id": "Backport Mega Golurk",
+  "spawnInfos": [
+    {
+      "spec": "species:Golurk form:mega",
+      "stringLocationTypes": [
+        "Land"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "minecraft:desert_hills"
+        ],
+        "times": [
+          "NIGHT"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.3
+    }
+  ]
+}

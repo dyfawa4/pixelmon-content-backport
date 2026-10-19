@@ -61,15 +61,17 @@ public final class AshWaterBoostVerification {
         check(power(ash,fire,90)==90&&power(ash,status,20)==20,"Non-Water/status boosted");
         Object teammate=actor(bc,"ash",true);check(power(teammate,shuriken,20)==20,"Boost leaked to teammate/opponent");
         for(String form:new String[]{"base","mega"}){Object normal=actor(bc,form,true);field(normal,"attack",shuriken);call("start",normal);check(power(normal,shuriken,20)==20,"Ordinary/Mega form boosted");}
-        Object wrong=actor(bc,"ash",false);field(wrong,"attack",shuriken);call("start",wrong);check(power(wrong,shuriken,20)==20,"Wrong ability boosted");
+        for(String form:new String[]{"ash","ash_permanent","mega_ash"}){Object changed=actor(battle.getConstructor().newInstance(),form,false);field(changed,"attack",shuriken);call("start",changed);check(power(changed,shuriken,20)==30,"Ash origin lost boost after ability change: "+form);call("clear",changed);}
         field(bc,"battleTurn",8);clock("expire",bc);check(power(ash,shuriken,20)==30,"Expired after one turn");
         field(bc,"battleTurn",9);clock("expire",bc);check(power(ash,shuriken,20)==30,"Expired after two turns");
-        field(bc,"battleTurn",10);clock("expire",bc);check(power(ash,shuriken,20)==20,"Survived third completed turn");
+        field(bc,"battleTurn",10);clock("expire",bc);check(power(ash,shuriken,20)==30,"Expired after three turns");
+        field(bc,"battleTurn",11);clock("expire",bc);check(power(ash,shuriken,20)==30,"Expired after four turns");
+        field(bc,"battleTurn",12);clock("expire",bc);check(power(ash,shuriken,20)==20,"Survived fifth completed turn");
         check(Collections.frequency(messages(bc),"pixelmon_backport.battle.ash_water_boost_end")==1,"Expiry message missing/duplicated");clock("expire",bc);
         check(Collections.frequency(messages(bc),"pixelmon_backport.battle.ash_water_boost_end")==1,"Repeated expiry message");
-        call("start",ash);field(bc,"battleTurn",11);call("start",ash);check(power(ash,shuriken,20)==30,"Repeated use stacks");
-        field(bc,"battleTurn",13);clock("expire",bc);check(power(ash,shuriken,20)==30,"Refresh failed to extend");
-        field(bc,"battleTurn",14);clock("expire",bc);check(power(ash,shuriken,20)==20,"Refreshed effect never expires");
+        call("start",ash);field(bc,"battleTurn",13);call("start",ash);check(power(ash,shuriken,20)==30,"Repeated use stacks");
+        field(bc,"battleTurn",17);clock("expire",bc);check(power(ash,shuriken,20)==30,"Refresh failed to extend");
+        field(bc,"battleTurn",18);clock("expire",bc);check(power(ash,shuriken,20)==20,"Refreshed effect never expires");
         Object permanent=actor(bc,"ash_permanent",true);field(permanent,"attack",shuriken);call("start",permanent);check(power(permanent,shuriken,20)==30,"Permanent Ash form omitted");
         call("clear",permanent);check(power(permanent,shuriken,20)==20,"Switch retains boost");
         field(permanent,"usingZ",true);call("start",permanent);check(power(permanent,shuriken,20)==20,"Z move starts regular move buff");field(permanent,"usingZ",false);
@@ -83,7 +85,7 @@ public final class AshWaterBoostVerification {
         helper.getMethod("copy",wrapper,wrapper).invoke(null,ash,copy1);
         helper.getMethod("copy",wrapper,wrapper).invoke(null,ash,copy2);
         field(bc,"simulateMode",true);check(power(copy1,shuriken,20)==30,"Shared-controller AI copy lost boost");
-        field(bc,"simulateMode",false);field(bc,"battleTurn",17);clock("expire",bc);
+        field(bc,"simulateMode",false);field(bc,"battleTurn",23);clock("expire",bc);
         check(Collections.frequency(messages(bc),"pixelmon_backport.battle.ash_water_boost_end")==endsBefore+1,"AI copies duplicate the live expiry announcement");
         Object freshCopy=actor(bc,"ash",true);helper.getMethod("copy",wrapper,wrapper).invoke(null,ash,freshCopy);
         field(freshCopy,"attack",shuriken);field(bc,"simulateMode",true);call("start",freshCopy);
@@ -103,6 +105,6 @@ public final class AshWaterBoostVerification {
                 for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode&&i.getOpcode()==Opcodes.PUTFIELD&&((FieldInsnNode)i).name.equals("bc"))sharedController=true;
         check(sharedController,"Native AI copy controller contract changed");
         for(String key:new String[]{"pixelmon_backport.battle.ash_water_boost","pixelmon_backport.battle.ash_water_boost_end"})for(String lang:new String[]{"en_us","zh_cn"})check(json("assets/pixelmon_backport/lang/"+lang+".json").getAsJsonObject().has(key),"Missing battle message "+key);
-        System.out.println("PASS production Ash Water boost: current attack, own actor isolation, ordinary/form/ability/Z exclusions, three-turn expiry, refresh without stacking, switch/faint/end cleanup, AI clone isolation and bilingual end messages.");
+        System.out.println("PASS production Ash Water boost: current attack, own actor isolation, ordinary/form/ability/Z exclusions, five-turn expiry, refresh without stacking, switch/faint/end cleanup, AI clone isolation and bilingual end messages.");
     }
 }

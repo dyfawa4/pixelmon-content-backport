@@ -56,7 +56,7 @@ public final class TeraRaidClient {
                 triangle(vertices,transform,ax,.8f,az,bx,.8f,bz,0,2.1f,0,(int)(r*shade),(int)(g*shade),(int)(bl*shade));
                 triangle(vertices,transform,bx,.8f,bz,ax,.8f,az,0,.08f,0,(int)(r*.5),(int)(g*.5),(int)(bl*.5));
             }
-            matrix.func_227865_b_();super.render(raw,yaw,partial,matrix,buffer,light);
+            matrix.func_227865_b_();if(den.hasChallenge())super.render(raw,yaw,partial,matrix,buffer,light);
         }
         private static void triangle(IVertexBuilder v,Matrix4f m,float ax,float ay,float az,float bx,float by,float bz,float cx,float cy,float cz,int r,int g,int b){
             v.func_227888_a_(m,ax,ay,az).func_225586_a_(r,g,b,230).func_181675_d();v.func_227888_a_(m,bx,by,bz).func_225586_a_(r,g,b,230).func_181675_d();v.func_227888_a_(m,cx,cy,cz).func_225586_a_(r,g,b,230).func_181675_d();

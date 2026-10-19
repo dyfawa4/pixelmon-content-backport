@@ -1,0 +1,24 @@
+{
+  "id": "Backport Mega Baxcalibur",
+  "spawnInfos": [
+    {
+      "spec": "species:Baxcalibur form:mega",
+      "stringLocationTypes": [
+        "Land"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "freezing forests",
+          "freezing mountains"
+        ],
+        "times": [
+          "NIGHT"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.2
+    }
+  ]
+}

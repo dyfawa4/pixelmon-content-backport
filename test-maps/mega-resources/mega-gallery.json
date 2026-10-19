@@ -1,0 +1,427 @@
+{
+  "revision": 2,
+  "entries": [
+    {
+      "dex": 26,
+      "form": "megax",
+      "label": "雷丘 · Mega X",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 26,
+      "form": "megay",
+      "label": "雷丘 · Mega Y",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 36,
+      "form": "mega",
+      "label": "皮可西 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 71,
+      "form": "mega",
+      "label": "大食花 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 121,
+      "form": "mega",
+      "label": "宝石海星 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 149,
+      "form": "mega",
+      "label": "快龙 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 154,
+      "form": "mega",
+      "label": "大竺葵 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 160,
+      "form": "mega",
+      "label": "大力鳄 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 227,
+      "form": "mega",
+      "label": "盔甲鸟 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 358,
+      "form": "mega",
+      "label": "风铃铃 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 359,
+      "form": "megaz",
+      "label": "阿勃梭鲁 · Mega Z",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 398,
+      "form": "mega",
+      "label": "姆克鹰 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 445,
+      "form": "megaz",
+      "label": "烈咬陆鲨 · Mega Z",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 448,
+      "form": "megaz",
+      "label": "路卡利欧 · Mega Z",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 478,
+      "form": "mega",
+      "label": "雪妖女 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 485,
+      "form": "mega",
+      "label": "席多蓝恩 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 491,
+      "form": "mega",
+      "label": "达克莱伊 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 500,
+      "form": "mega",
+      "label": "炎武王 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 530,
+      "form": "mega",
+      "label": "龙头地鼠 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 545,
+      "form": "mega",
+      "label": "蜈蚣王 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 560,
+      "form": "mega",
+      "label": "头巾混混 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 604,
+      "form": "mega",
+      "label": "麻麻鳗鱼王 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 609,
+      "form": "mega",
+      "label": "水晶灯火灵 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 623,
+      "form": "mega",
+      "label": "泥偶巨人 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 652,
+      "form": "mega",
+      "label": "布里卡隆 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 655,
+      "form": "mega",
+      "label": "妖火红狐 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 658,
+      "form": "mega",
+      "label": "甲贺忍蛙 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 668,
+      "form": "mega",
+      "label": "火炎狮 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 670,
+      "form": "mega",
+      "label": "花叶蒂 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 678,
+      "form": "mega",
+      "label": "超能妙喵 · Mega·雄性",
+      "boss": true,
+      "palette": "none",
+      "gender": "MALE"
+    },
+    {
+      "dex": 678,
+      "form": "mega",
+      "label": "超能妙喵 · Mega·雌性",
+      "boss": true,
+      "palette": "none",
+      "gender": "FEMALE"
+    },
+    {
+      "dex": 687,
+      "form": "mega",
+      "label": "乌贼王 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 689,
+      "form": "mega",
+      "label": "龟足巨铠 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 691,
+      "form": "mega",
+      "label": "毒藻龙 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 701,
+      "form": "mega",
+      "label": "摔角鹰人 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 718,
+      "form": "mega",
+      "label": "基格尔德 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 740,
+      "form": "mega",
+      "label": "好胜毛蟹 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 768,
+      "form": "mega",
+      "label": "具甲武者 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 780,
+      "form": "mega",
+      "label": "老翁龙 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 801,
+      "form": "mega",
+      "label": "玛机雅娜 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 801,
+      "form": "megaoriginal",
+      "label": "玛机雅娜 · Mega·原始颜色",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 807,
+      "form": "mega",
+      "label": "捷拉奥拉 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 870,
+      "form": "mega",
+      "label": "列阵兵 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 952,
+      "form": "mega",
+      "label": "狠辣椒 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 970,
+      "form": "mega",
+      "label": "晶光花 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 978,
+      "form": "mega",
+      "label": "米立龙 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 978,
+      "form": "megadroopy",
+      "label": "米立龙 · Mega·下垂姿势",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 978,
+      "form": "megastretchy",
+      "label": "米立龙 · Mega·平挺姿势",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 998,
+      "form": "mega",
+      "label": "戟脊龙 · Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 801,
+      "form": "",
+      "label": "玛机雅娜 · 普通颜色（未进化）",
+      "boss": false,
+      "palette": "none"
+    },
+    {
+      "dex": 801,
+      "form": "original_color",
+      "label": "玛机雅娜 · 原始颜色（未进化）",
+      "boss": false,
+      "palette": "none"
+    },
+    {
+      "dex": 978,
+      "form": "curly",
+      "label": "米立龙 · 上弓姿势（未进化）",
+      "boss": false,
+      "palette": "none"
+    },
+    {
+      "dex": 978,
+      "form": "droopy",
+      "label": "米立龙 · 下垂姿势（未进化）",
+      "boss": false,
+      "palette": "none"
+    },
+    {
+      "dex": 978,
+      "form": "stretchy",
+      "label": "米立龙 · 平挺姿势（未进化）",
+      "boss": false,
+      "palette": "none"
+    },
+    {
+      "dex": 658,
+      "form": "mega_ash",
+      "label": "甲贺忍蛙 · 小智版Mega",
+      "boss": true,
+      "palette": "none"
+    },
+    {
+      "dex": 801,
+      "form": "mega",
+      "label": "玛机雅娜 · Mega·闪光",
+      "boss": true,
+      "palette": "shiny"
+    },
+    {
+      "dex": 801,
+      "form": "megaoriginal",
+      "label": "玛机雅娜 · 原始颜色Mega·闪光",
+      "boss": true,
+      "palette": "shiny"
+    },
+    {
+      "dex": 978,
+      "form": "mega",
+      "label": "米立龙 · 上弓Mega·闪光",
+      "boss": true,
+      "palette": "shiny"
+    },
+    {
+      "dex": 978,
+      "form": "megadroopy",
+      "label": "米立龙 · 下垂Mega·闪光",
+      "boss": true,
+      "palette": "shiny"
+    },
+    {
+      "dex": 978,
+      "form": "megastretchy",
+      "label": "米立龙 · 平挺Mega·闪光",
+      "boss": true,
+      "palette": "shiny"
+    }
+  ]
+}

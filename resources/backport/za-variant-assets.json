@@ -1,0 +1,654 @@
+{
+  "source": "Pixelmon-9.13-1.9.jar",
+  "source_sha256": "842d8107691b7ac5f0e93963c024ccb6a54eb7d967b9dd9a6a20805f3764746f",
+  "operation": "Preserve accepted smooth source visuals; derive missing variants using UV material selection and fish/rig arrangement edits only",
+  "visual_policy": "Distinct smooth variant candidates implemented; original PNG bytes preserved; manual appearance acceptance pending",
+  "models": [
+    {
+      "dex": 801,
+      "form": "mega",
+      "origin": "",
+      "shared_original_visual": true,
+      "files": [
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/1.bmd",
+          "sha256": "0182d9adb2e5d6454c2a3b00d513fceaf21546e0c3a5515a8b97d8f5c9713550"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/idle.bmd",
+          "sha256": "e2d0094d06fb3af5bcbb7224355d381b4f886b1c56f0d22858800fdd358dede2"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/walk.bmd",
+          "sha256": "72e3035cd9b3b6cb00dd0c5fa2f96a7a27e8410bd3cee27d885d11b3ee5ef8fa"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/model.pqc",
+          "sha256": "eb6d5107d0dfd43da54c254ba84f3035133b61cb2c12816338509506c1386930"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/texture.png",
+          "sha256": "6508b83962176abb4ff3e49abd01e31af6ca9cabb7787e2e69bb889c2d8dc1b2"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/emissive.png",
+          "sha256": "ee45aef84a93a29268644bfad19c1071e570ba7a2c9e3c795b5b18bef6c15f53"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/shiny/texture.png",
+          "sha256": "9e5e2ff719a6cc437a6b5ccf3fe148d79dbf7afc3a0090252c20580fb07deee4"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/shiny/emissive.png",
+          "sha256": "ee45aef84a93a29268644bfad19c1071e570ba7a2c9e3c795b5b18bef6c15f53"
+        }
+      ]
+    },
+    {
+      "dex": 801,
+      "form": "megaoriginal",
+      "origin": "original_color",
+      "shared_original_visual": false,
+      "files": [
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/1.bmd",
+          "sha256": "0182d9adb2e5d6454c2a3b00d513fceaf21546e0c3a5515a8b97d8f5c9713550"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/idle.bmd",
+          "sha256": "e2d0094d06fb3af5bcbb7224355d381b4f886b1c56f0d22858800fdd358dede2"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/walk.bmd",
+          "sha256": "72e3035cd9b3b6cb00dd0c5fa2f96a7a27e8410bd3cee27d885d11b3ee5ef8fa"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/model.pqc",
+          "sha256": "eb6d5107d0dfd43da54c254ba84f3035133b61cb2c12816338509506c1386930"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/texture.png",
+          "sha256": "6508b83962176abb4ff3e49abd01e31af6ca9cabb7787e2e69bb889c2d8dc1b2"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/none/emissive.png",
+          "sha256": "ee45aef84a93a29268644bfad19c1071e570ba7a2c9e3c795b5b18bef6c15f53"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/shiny/texture.png",
+          "sha256": "9e5e2ff719a6cc437a6b5ccf3fe148d79dbf7afc3a0090252c20580fb07deee4"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/801_magearna/all/mega/shiny/emissive.png",
+          "sha256": "ee45aef84a93a29268644bfad19c1071e570ba7a2c9e3c795b5b18bef6c15f53"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/801_magearna/megaoriginal/none/model.bmd",
+          "sha256": "993557693c5aef36a381c119da80fd5fb7aa947a6341e816fae59897165b794a"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/801_magearna/megaoriginal/none/model.pqc",
+          "sha256": "6dbb2ac8040e567456024dde52c2c2c4d3f57ce65971b7c361dd3013f065fd34"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/801_magearna/megaoriginal/shiny/model.bmd",
+          "sha256": "bae2b06fd2b4083287ba7dab0963f65a762119f295667a20c574271c2f75cb1e"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/801_magearna/megaoriginal/shiny/model.pqc",
+          "sha256": "20d9fe16ae90b0395aa8c7bac532d31d113b615d0ab3f7eea98f6b7b9a0069c8"
+        }
+      ]
+    },
+    {
+      "dex": 978,
+      "form": "mega",
+      "origin": "curly",
+      "shared_original_visual": true,
+      "files": [
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/1.bmd",
+          "sha256": "0211f152a0c00bf7232453cdca8f495239a79f7ab28e18492d648f50d362d148"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/idle.bmd",
+          "sha256": "c828dc91451113285305d7b19ee9db246e45a5da5443164efc1debf860762ced"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/walk.bmd",
+          "sha256": "aa37b9cf773077316b72eb0db189e930bb538a6bd071896f8b8af3cce9d7ac41"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/model.pqc",
+          "sha256": "037c5b1361afc4b74e65446cc54d9d2d3225f2a2054f6d13b0c897bf4c0f5b32"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/texture.png",
+          "sha256": "f105219d5cbf2712a15110faccc5ad62701021e12cf6949659a6a9ce5dd4810a"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/emissive.png",
+          "sha256": "c47c65f9736cccf12ba8ce029309862e66a5214ef53d6dc6ec068e612f0f13ba"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/shiny/texture.png",
+          "sha256": "acdf384a08d8c289e14ac02198a9e414275f4a5d7f573be501bc485bf540632f"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/shiny/emissive.png",
+          "sha256": "c47c65f9736cccf12ba8ce029309862e66a5214ef53d6dc6ec068e612f0f13ba"
+        }
+      ]
+    },
+    {
+      "dex": 978,
+      "form": "megadroopy",
+      "origin": "droopy",
+      "shared_original_visual": false,
+      "files": [
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/1.bmd",
+          "sha256": "0211f152a0c00bf7232453cdca8f495239a79f7ab28e18492d648f50d362d148"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/idle.bmd",
+          "sha256": "c828dc91451113285305d7b19ee9db246e45a5da5443164efc1debf860762ced"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/walk.bmd",
+          "sha256": "aa37b9cf773077316b72eb0db189e930bb538a6bd071896f8b8af3cce9d7ac41"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/model.pqc",
+          "sha256": "037c5b1361afc4b74e65446cc54d9d2d3225f2a2054f6d13b0c897bf4c0f5b32"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/texture.png",
+          "sha256": "f105219d5cbf2712a15110faccc5ad62701021e12cf6949659a6a9ce5dd4810a"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/emissive.png",
+          "sha256": "c47c65f9736cccf12ba8ce029309862e66a5214ef53d6dc6ec068e612f0f13ba"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/shiny/texture.png",
+          "sha256": "acdf384a08d8c289e14ac02198a9e414275f4a5d7f573be501bc485bf540632f"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/shiny/emissive.png",
+          "sha256": "c47c65f9736cccf12ba8ce029309862e66a5214ef53d6dc6ec068e612f0f13ba"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megadroopy/1.bmd",
+          "sha256": "d353208e97b84fb3f476f7b8695688b94c4225cb189f5c27d35eae26a3703eb2"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megadroopy/idle.bmd",
+          "sha256": "747ba01f303ac30d3e1c4dc0582b9ae7dd5bd89862197f664b24912dc51de170"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megadroopy/model.pqc",
+          "sha256": "e4e182ee744838a59b5033cef53ecbf931ef1ff7d82abd44081e76c389f15331"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megadroopy/walk.bmd",
+          "sha256": "8ebecdad00f4d924e85ddc41e10ac3352039e8df603458b9b165a901628be5e8"
+        }
+      ]
+    },
+    {
+      "dex": 978,
+      "form": "megastretchy",
+      "origin": "stretchy",
+      "shared_original_visual": false,
+      "files": [
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/1.bmd",
+          "sha256": "0211f152a0c00bf7232453cdca8f495239a79f7ab28e18492d648f50d362d148"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/idle.bmd",
+          "sha256": "c828dc91451113285305d7b19ee9db246e45a5da5443164efc1debf860762ced"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/walk.bmd",
+          "sha256": "aa37b9cf773077316b72eb0db189e930bb538a6bd071896f8b8af3cce9d7ac41"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/model.pqc",
+          "sha256": "037c5b1361afc4b74e65446cc54d9d2d3225f2a2054f6d13b0c897bf4c0f5b32"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/texture.png",
+          "sha256": "f105219d5cbf2712a15110faccc5ad62701021e12cf6949659a6a9ce5dd4810a"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/none/emissive.png",
+          "sha256": "c47c65f9736cccf12ba8ce029309862e66a5214ef53d6dc6ec068e612f0f13ba"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/shiny/texture.png",
+          "sha256": "acdf384a08d8c289e14ac02198a9e414275f4a5d7f573be501bc485bf540632f"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/reference/pokemon/978_tatsugiri/all/mega/shiny/emissive.png",
+          "sha256": "c47c65f9736cccf12ba8ce029309862e66a5214ef53d6dc6ec068e612f0f13ba"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megastretchy/1.bmd",
+          "sha256": "36f9ce0ec065137e4a0b1cc910b7d057d552fee64675c4342d2be62659e2aee0"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megastretchy/idle.bmd",
+          "sha256": "fd5734bb2c7bc9d8825ab926eb9d5ceefbe0f607cd9193c07617c0e13f4839bd"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megastretchy/model.pqc",
+          "sha256": "4859deb4e8a90fd80d89d32abfeb20f006a2039db3b895a8d421fe484379f3bb"
+        },
+        {
+          "resource": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megastretchy/walk.bmd",
+          "sha256": "cc856b793706ad3015a70bcc71f97cf51dbc7542bc464fab818ab648c7f4b8ab"
+        }
+      ]
+    }
+  ],
+  "derived_variants": {
+    "magearna": [
+      {
+        "palette": "none",
+        "edited_faces": 1320,
+        "operation": "UV-only silver/white gear and lower gown; exact original positions, normals, skeleton, weights and animations",
+        "swatches": {
+          "236": {
+            "uv": [
+              0.9793532338308458,
+              0.19112562427967728
+            ],
+            "rgb": [
+              228,
+              228,
+              228
+            ]
+          },
+          "231": {
+            "uv": [
+              0.9793532338308458,
+              0.19112562427967728
+            ],
+            "rgb": [
+              228,
+              228,
+              228
+            ]
+          },
+          "160": {
+            "uv": [
+              0.5027363184079602,
+              0.1757587399154822
+            ],
+            "rgb": [
+              183,
+              184,
+              184
+            ]
+          },
+          "169": {
+            "uv": [
+              0.5027363184079602,
+              0.1757587399154822
+            ],
+            "rgb": [
+              183,
+              184,
+              184
+            ]
+          },
+          "217": {
+            "uv": [
+              0.9599502487562189,
+              0.20457164809834805
+            ],
+            "rgb": [
+              217,
+              217,
+              217
+            ]
+          },
+          "188": {
+            "uv": [
+              0.5111940298507462,
+              0.1765270841336919
+            ],
+            "rgb": [
+              183,
+              186,
+              186
+            ]
+          },
+          "207": {
+            "uv": [
+              0.950497512437811,
+              0.20495582020745295
+            ],
+            "rgb": [
+              206,
+              207,
+              207
+            ]
+          },
+          "221": {
+            "uv": [
+              0.9654228855721393,
+              0.20572416442566266
+            ],
+            "rgb": [
+              221,
+              221,
+              221
+            ]
+          },
+          "164": {
+            "uv": [
+              0.5027363184079602,
+              0.1757587399154822
+            ],
+            "rgb": [
+              183,
+              184,
+              184
+            ]
+          },
+          "183": {
+            "uv": [
+              0.5027363184079602,
+              0.1757587399154822
+            ],
+            "rgb": [
+              183,
+              184,
+              184
+            ]
+          },
+          "179": {
+            "uv": [
+              0.5027363184079602,
+              0.1757587399154822
+            ],
+            "rgb": [
+              183,
+              184,
+              184
+            ]
+          },
+          "198": {
+            "uv": [
+              0.9977611940298508,
+              0.1607760276603919
+            ],
+            "rgb": [
+              192,
+              195,
+              195
+            ]
+          },
+          "193": {
+            "uv": [
+              0.9783582089552239,
+              0.20495582020745295
+            ],
+            "rgb": [
+              192,
+              193,
+              193
+            ]
+          },
+          "226": {
+            "uv": [
+              0.9753731343283583,
+              0.20457164809834805
+            ],
+            "rgb": [
+              227,
+              227,
+              227
+            ]
+          },
+          "174": {
+            "uv": [
+              0.5027363184079602,
+              0.1757587399154822
+            ],
+            "rgb": [
+              183,
+              184,
+              184
+            ]
+          }
+        },
+        "folder": "assets/pixelmon_backport/textures/smooth_variants/801_magearna/megaoriginal/none"
+      },
+      {
+        "palette": "shiny",
+        "edited_faces": 1320,
+        "operation": "UV-only silver/white gear and lower gown; exact original positions, normals, skeleton, weights and animations",
+        "swatches": {
+          "236": {
+            "uv": [
+              0.22761194029850745,
+              0.8922397233960815
+            ],
+            "rgb": [
+              133,
+              131,
+              130
+            ]
+          },
+          "228": {
+            "uv": [
+              0.22761194029850745,
+              0.8922397233960815
+            ],
+            "rgb": [
+              133,
+              131,
+              130
+            ]
+          },
+          "116": {
+            "uv": [
+              0.3808457711442786,
+              0.893776411832501
+            ],
+            "rgb": [
+              120,
+              121,
+              120
+            ]
+          },
+          "131": {
+            "uv": [
+              0.3808457711442786,
+              0.893776411832501
+            ],
+            "rgb": [
+              120,
+              121,
+              120
+            ]
+          },
+          "206": {
+            "uv": [
+              0.22761194029850745,
+              0.8922397233960815
+            ],
+            "rgb": [
+              133,
+              131,
+              130
+            ]
+          },
+          "161": {
+            "uv": [
+              0.3808457711442786,
+              0.893776411832501
+            ],
+            "rgb": [
+              120,
+              121,
+              120
+            ]
+          },
+          "191": {
+            "uv": [
+              0.22761194029850745,
+              0.8922397233960815
+            ],
+            "rgb": [
+              133,
+              131,
+              130
+            ]
+          },
+          "213": {
+            "uv": [
+              0.22761194029850745,
+              0.8922397233960815
+            ],
+            "rgb": [
+              133,
+              131,
+              130
+            ]
+          },
+          "123": {
+            "uv": [
+              0.3808457711442786,
+              0.893776411832501
+            ],
+            "rgb": [
+              120,
+              121,
+              120
+            ]
+          },
+          "153": {
+            "uv": [
+              0.3808457711442786,
+              0.893776411832501
+            ],
+            "rgb": [
+              120,
+              121,
+              120
+            ]
+          },
+          "146": {
+            "uv": [
+              0.3808457711442786,
+              0.893776411832501
+            ],
+            "rgb": [
+              120,
+              121,
+              120
+            ]
+          },
+          "176": {
+            "uv": [
+              0.22761194029850745,
+              0.8922397233960815
+            ],
+            "rgb": [
+              133,
+              131,
+              130
+            ]
+          },
+          "168": {
+            "uv": [
+              0.3808457711442786,
+              0.893776411832501
+            ],
+            "rgb": [
+              120,
+              121,
+              120
+            ]
+          },
+          "221": {
+            "uv": [
+              0.22761194029850745,
+              0.8922397233960815
+            ],
+            "rgb": [
+              133,
+              131,
+              130
+            ]
+          },
+          "138": {
+            "uv": [
+              0.3808457711442786,
+              0.893776411832501
+            ],
+            "rgb": [
+              120,
+              121,
+              120
+            ]
+          }
+        },
+        "folder": "assets/pixelmon_backport/textures/smooth_variants/801_magearna/megaoriginal/shiny"
+      }
+    ],
+    "tatsugiri": [
+      {
+        "form": "megadroopy",
+        "lead_fish": "red",
+        "group_translation": {
+          "a": [
+            0.5019620023667812,
+            0.0,
+            0.0
+          ],
+          "b": [
+            -0.2525320015847683,
+            0.0,
+            0.0
+          ],
+          "c": [
+            -0.24943000078201294,
+            0.0,
+            0.0
+          ]
+        },
+        "operation": "Translate existing smooth fish and matching model/animation attachment roots together; keep platform, topology, texture, normals, UV and weights",
+        "folder": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megadroopy"
+      },
+      {
+        "form": "megastretchy",
+        "lead_fish": "yellow",
+        "group_translation": {
+          "a": [
+            0.24943000078201294,
+            0.0,
+            0.0
+          ],
+          "b": [
+            -0.5019620023667812,
+            0.0,
+            0.0
+          ],
+          "c": [
+            0.2525320015847683,
+            0.0,
+            0.0
+          ]
+        },
+        "operation": "Translate existing smooth fish and matching model/animation attachment roots together; keep platform, topology, texture, normals, UV and weights",
+        "folder": "assets/pixelmon_backport/textures/smooth_variants/978_tatsugiri/megastretchy"
+      }
+    ]
+  }
+}

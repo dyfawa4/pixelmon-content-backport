@@ -3,12 +3,12 @@ loaderVersion="[36,)"
 license="MIT"
 [[mods]]
 modId="backport_npc_quest_test"
-version="1.5.0"
-displayName="1.5.0 NPC任务专项测试地图"
+version="1.6.0"
+displayName="1.6.0 NPC任务专项测试地图"
 description='''Private interactive NPC quest map fixtures. Does not alter normal worlds or submit objectives automatically.'''
 [[dependencies.backport_npc_quest_test]]
 modId="pixelmon_backport"
 mandatory=true
-versionRange="[1.5.0,1.6.0)"
+versionRange="[1.6.0,1.7.0)"
 ordering="AFTER"
 side="BOTH"

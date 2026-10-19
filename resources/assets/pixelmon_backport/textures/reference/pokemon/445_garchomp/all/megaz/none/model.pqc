@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/reference/pokemon/445_garchomp/all/megaz/none/1.bmd
+$anim idle pixelmon_backport:textures/reference/pokemon/445_garchomp/all/megaz/none/idle.bmd
+$anim walk pixelmon_backport:textures/reference/pokemon/445_garchomp/all/megaz/none/walk.bmd
+$scale 10

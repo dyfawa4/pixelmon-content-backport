@@ -5,6 +5,21 @@
   "compatibilityLevel": "JAVA_11",
   "plugin": "local.pixelmon.backport.mixin.BackportMixinPlugin",
   "mixins": [
+    "NinjaActionMixin",
+    "NinjaResidualTargetsMixin",
+    "NinjaTerrainClockMixin",
+    "NinjaChoiceMixin",
+    "NinjaSelectionMixin",
+    "NinjaReminderMixin",
+    "AshShurikenPPMixin",
+    "AshShurikenStateMixin",
+    "NinjaLearnAccess",
+    "ErosionStatsMixin",
+    "ErosionHealthMixin",
+    "FossilMachineProgressMixin",
+    "BattleStatusSourceMixin",
+    "HealBlockScopeMixin",
+    "BattleDamageMixin",
     "TeraVisualEntityMixin",
     "NpcQuestItemMixin",
     "NpcQuestSubmitMixin",
@@ -56,6 +71,7 @@
     "TeraRaidDataMixin",
     "TeraRaidParticipantMixin",
     "TeraRaidGovernorMixin",
+    "TeraRaidChoiceMixin",
     "TeraRaidCatchMixin",
     "RaidAcquisitionMixin",
     "BurstCaptureMixin",
@@ -116,9 +132,11 @@
     "BattleMotionLivingMixin",
     "BattleMotionPacketMixin",
     "LuckySpeciesMixin",
-    "CrownedBattleAdvancementMixin"
+    "CrownedBattleAdvancementMixin",
+    "PiercingDrillMixin"
   ],
   "client": [
+    "PixelmonOptionsMixin",
     "JourneyMainMenuMixin",
     "RidingClientInputMixin",
     "RidingJumpBarMixin",
@@ -152,7 +170,11 @@
     "AnimationMatrixMixin",
     "ModelFactoryMixin",
     "TeraScreenMixin",
+    "ErosionOpponentBadgeMixin",
+    "ErosionAllyBadgeMixin",
+    "ErosionRaidBadgeMixin",
     "TeraGimmickSelectionMixin",
+    "TeraRaidClientGimmickMixin",
     "TeraMoveDisplayMixin",
     "BurstBagDisplayMixin",
     "BurstRaidDisplayMixin",
@@ -182,7 +204,9 @@
     "NpcDialogueDisplayMixin",
     "NpcDialogueChoiceMixin",
     "AshMoveDisplayMixin",
-    "AshBattleMessageMixin"
+    "AshBattleMessageMixin",
+    "MegaStoneTooltipMixin",
+    "EditorImportMixin"
   ],
   "injectors": {
     "defaultRequire": 1

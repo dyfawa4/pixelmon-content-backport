@@ -1,0 +1,24 @@
+{
+  "id": "Backport Mega Scovillain",
+  "spawnInfos": [
+    {
+      "spec": "species:Scovillain form:mega",
+      "stringLocationTypes": [
+        "Land"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "arid",
+          "mesas"
+        ],
+        "times": [
+          "DAY"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.3
+    }
+  ]
+}

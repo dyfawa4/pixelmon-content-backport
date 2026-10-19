@@ -42,6 +42,7 @@ public final class BackportMixinPlugin implements IMixinConfigPlugin {
                 MethodInsnNode call=(MethodInsnNode)n;if(!GLOBAL.equals(call.owner))continue;
                 String hook=call.name.equals("getWeather")?"backport$weather":call.name.equals("hasStatus")?"backport$hasStatus":call.name.equals("getGlobalStatus") && call.desc.startsWith("(L")?"backport$status":null;
                 if(hook==null)continue;
+                if(target.contains(".battles.attacks."))hook=hook.equals("backport$weather")?"backport$moveWeather":hook.equals("backport$hasStatus")?"backport$moveHasStatus":hook.equals("backport$status")?"backport$moveStatus":hook;
                 if(target.endsWith("AlwaysHit") && call.name.equals("getWeather"))hook="backport$targetWeather";
                 m.instructions.insertBefore(call,new VarInsnNode(Opcodes.ALOAD,holder));
                 call.desc="(L"+GLOBAL+";"+call.desc.substring(1,call.desc.indexOf(')'))+"L"+WRAPPER+";"+call.desc.substring(call.desc.indexOf(')'));

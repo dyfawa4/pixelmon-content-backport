@@ -1,0 +1,36 @@
+package fixture;
+import com.pixelmonmod.pixelmon.blocks.tileentity.FossilMachineTileEntity;
+import com.pixelmonmod.pixelmon.enums.items.EnumFossils;
+import com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBall;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraft.util.math.BlockPos;
+
+public class FossilCases {
+    static void require(boolean ok,String label){if(!ok)throw new AssertionError(label);}
+    static FossilMachineTileEntity machine(World world,int x){var t=new FossilMachineTileEntity();t.field_145850_b=world;t.field_174879_c=new BlockPos(x);return t;}
+    static void seed(FossilMachineTileEntity t){t.currentFossil=EnumFossils.HELIX;t.fossilProgress=1599;t.isShiny=true;t.pokeball=new PokeBall("great_ball");}
+    public static void nativeStall(){
+        var server=new ServerWorld();var world=new World();world.field_72995_K=true;var a=machine(server,1);var b=machine(world,1);seed(a);seed(b);
+        for(int i=0;i<3300;i++){a.func_73660_a();b.func_73660_a();}
+        require(a.pokemonOccupied&&a.pokemonProgress==3200&&a.completionRate==100,"Native actual revival completes");
+        require(!b.pokemonOccupied&&b.completionRate==33,"Native client stalls at phase boundary");
+        require(server.chunks.packets==0,"Native progress notifications never queue a tile packet");
+    }
+    public static void fixedCases(){
+        var server=new ServerWorld();var world=new World();world.field_72995_K=true;var a=machine(server,1);var b=machine(world,1);seed(a);seed(b);
+        var other=machine(server,2);var otherClient=machine(world,2);other.currentFossil=EnumFossils.HELIX;other.fossilProgress=100;otherClient.currentFossil=EnumFossils.HELIX;otherClient.fossilProgress=100;
+        server.chunks.server.put(a.field_174879_c,a);server.chunks.client.put(a.field_174879_c,b);server.chunks.server.put(other.field_174879_c,other);server.chunks.client.put(other.field_174879_c,otherClient);
+        a.func_73660_a();b.func_73660_a();require(!a.pokemonOccupied,"First phase timing unchanged");
+        a.func_73660_a();server.chunks.flush();b.func_73660_a();require(a.pokemonOccupied&&b.pokemonOccupied&&b.completionRate==33,"Phase switch synchronized through native packet/NBT");
+        require(!otherClient.pokemonOccupied&&otherClient.fossilProgress==100,"Adjacent machine untouched");
+        for(int i=0;i<3198;i++){a.func_73660_a();server.chunks.flush();b.func_73660_a();}
+        require(a.pokemonProgress==3199,"Not completed early");a.func_73660_a();server.chunks.flush();b.func_73660_a();require(a.pokemonProgress==3200,"Original final tick retained");
+        a.func_73660_a();server.chunks.flush();b.func_73660_a();require(a.completionRate==100&&b.completionRate==100,"Final display reaches 100%");
+        require(b.isShiny&&b.currentPokemon.equals("Omanyte")&&b.pokeball.getName().equals("great_ball"),"Native species, shiny and ball NBT preserved");
+        require(server.chunks.packets==8&&a.dirty==8,"Only phase switch and original 10 percent checkpoints synchronize");
+        var reload=machine(world,3);reload.onDataPacket(null,a.func_189518_D_());require(reload.pokemonOccupied&&reload.completionRate==100,"Reload packet reconstructs completed display");
+        var fresh=machine(server,4);var freshClient=machine(world,4);server.chunks.server.put(fresh.field_174879_c,fresh);server.chunks.client.put(fresh.field_174879_c,freshClient);
+        for(int i=0;i<100;i++){fresh.func_73660_a();server.chunks.flush();}require(fresh.completionRate==0&&fresh.dirty==0&&server.chunks.packets==8,"Idle machine does not spam synchronization");
+    }
+}

@@ -32,6 +32,7 @@ public final class DetectorTargets {
         input.forEach(snapshot::add);
         for(Entity entity:snapshot){
             if(entity==null || entity.field_70128_L || entity.field_70170_p!=world)continue;
+            if(entity instanceof local.pixelmon.backport.TeraDenEntity&&!((local.pixelmon.backport.TeraDenEntity)entity).hasChallenge())continue;
             BlockPos pos=entity.func_233580_cy_();
             if(world.func_217354_b(pos.func_177958_n()>>4,pos.func_177952_p()>>4)
                 && world.func_73045_a(entity.func_145782_y())==entity)active.add(entity);

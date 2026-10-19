@@ -2,6 +2,7 @@ package local.pixelmon.backport;
 
 import com.google.gson.*;
 import java.util.Map;
+import java.math.BigDecimal;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -30,6 +31,32 @@ public final class MagearnaSpawns {
             structures.add("mansion");
             condition.add("structures", structures);
             changed = true;
+        }
+        // Equal conditions keep the original species encounter weight intact;
+        // only its conditional form distribution becomes 80% / 20%.
+        JsonArray infos=set.getAsJsonArray("spawnInfos");
+        int count=infos.size();
+        for(int i=0;i<count;i++){
+            if(!infos.get(i).isJsonObject())continue;
+            JsonObject normal=infos.get(i).getAsJsonObject();
+            if(!normal.has("spec")||!normal.get("spec").isJsonPrimitive()||!normal.has("condition")
+                ||!normal.get("spec").getAsString().matches("(?i)species:Magearna(?:\\s.*)?")
+                ||normal.get("spec").getAsString().matches("(?is).*\\bform\\s*:.*")||!normal.has("rarity"))continue;
+            String spec=normal.get("spec").getAsString().trim()+" form:original_color";
+            JsonObject originalColor=null;
+            JsonObject signature=new JsonParser().parse(normal.toString()).getAsJsonObject();signature.remove("spec");signature.remove("rarity");
+            for(JsonElement row:infos)if(row.isJsonObject()){
+                JsonObject candidate=row.getAsJsonObject();
+                if(!candidate.has("spec")||!candidate.get("spec").getAsString().equals(spec)||!candidate.has("rarity"))continue;
+                JsonObject other=new JsonParser().parse(candidate.toString()).getAsJsonObject();other.remove("spec");other.remove("rarity");
+                if(signature.equals(other)){originalColor=candidate;break;}
+            }
+            BigDecimal total=normal.get("rarity").getAsBigDecimal();
+            if(originalColor!=null)total=total.add(originalColor.get("rarity").getAsBigDecimal());
+            if(originalColor==null){originalColor=new JsonParser().parse(normal.toString()).getAsJsonObject();originalColor.addProperty("spec",spec);infos.add(originalColor);}
+            normal.addProperty("rarity",total.multiply(new BigDecimal("0.8")).stripTrailingZeros());
+            originalColor.addProperty("rarity",total.multiply(new BigDecimal("0.2")).stripTrailingZeros());
+            changed=true;
         }
         if (changed) data.put(RULE, set);
     }

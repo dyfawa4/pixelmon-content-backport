@@ -67,11 +67,15 @@ class Bmd:
             for _ in range(read('h')[0]):
                 idx=read('h')[0]; frame[idx]=read('6f')
             self.frames.append(frame);self.rest.update(frame)
+        self.materials=[]
         for _ in range(read('h')[0]):
-            while read('H')[0]: pass
+            chars=[]
+            while (c:=read('H')[0]):chars.append(chr(c))
+            self.materials.append(''.join(chars))
         self.faces=[]
         for _ in range(read('h')[0]):
-            read('B'); vs=[]
+            material=read('B')[0];assert material<len(self.materials),'Native BMD material index outside table'
+            vs=[]
             for _ in range(3):
                 rigid=read('h')[0]; coords=read('8f')
                 weights=[read('hf') for _ in range(read('B')[0])]

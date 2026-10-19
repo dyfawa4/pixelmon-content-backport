@@ -78,7 +78,15 @@ public final class CapSpawnVerification {
         JsonObject condition=expected.getAsJsonArray("spawnInfos").get(0).getAsJsonObject().getAsJsonObject("condition");
         require(condition.getAsJsonArray("stringBiomes").toString().equals("[\"roofed\"]"),"Native biome root cause changed");
         condition.remove("stringBiomes");JsonArray structures=new JsonArray();structures.add("mansion");condition.add("structures",structures);
-        require(data.get(key).equals(expected),"Only biome restriction and mansion guard may change; timer/rarity/level/indoors/day/floor must remain native");
+        JsonObject base=expected.getAsJsonArray("spawnInfos").get(0).getAsJsonObject(),originalColor=base.deepCopy();
+        var weight=base.get("rarity").getAsBigDecimal();base.addProperty("rarity",weight.multiply(new java.math.BigDecimal("0.8")).stripTrailingZeros());
+        originalColor.addProperty("rarity",weight.multiply(new java.math.BigDecimal("0.2")).stripTrailingZeros());originalColor.addProperty("spec",originalColor.get("spec").getAsString()+" form:original_color");expected.getAsJsonArray("spawnInfos").add(originalColor);
+        require(data.get(key).equals(expected),"Only mansion/biome and 80/20 form split may change; timer/total rarity/level/indoors/day/floor must remain native");
+        var actual=data.get(key).getAsJsonObject().getAsJsonArray("spawnInfos");
+        require(actual.size()==2,"Wrong Magearna form pool size");
+        double normalWeight=actual.get(0).getAsJsonObject().get("rarity").getAsDouble(),originalWeight=actual.get(1).getAsJsonObject().get("rarity").getAsDouble();
+        require(Math.abs(originalWeight/(normalWeight+originalWeight)-.2)<1e-12,"Original color must be exactly 20% of Magearna weight");
+        for(JsonElement info:actual)require(!info.getAsJsonObject().getAsJsonObject("condition").has("stringBiomes")&&info.getAsJsonObject().getAsJsonObject("condition").getAsJsonArray("structures").get(0).getAsString().equals("mansion"),"A Magearna form is still tied to a biome");
         require(original.toString().equals(originalText),"Shared native JSON was mutated");
         for(var entry:data.entrySet())if(!entry.getKey().equals(key))require(entry.getValue().toString().equals(before.get(entry.getKey())),"Unrelated spawn rule changed: "+entry.getKey());
         String once=data.toString();Content.apply("pixelmon","spawning",data);require(once.equals(data.toString()),"Reload duplicated rules");
@@ -90,6 +98,6 @@ public final class CapSpawnVerification {
         MethodNode mansion=method(resource("local/pixelmon/backport/MagearnaSpawns"),"mansion");
         require(call(mansion,"net/minecraft/world/server/ServerWorld","func_217354_b")&&call(mansion,"net/minecraft/world/gen/feature/structure/StructureManager","func_235010_a_")&&call(mansion,"net/minecraft/world/gen/feature/structure/StructureStart","func_75069_d")&&field(mansion,"net/minecraft/world/gen/feature/structure/Structure","field_236368_d_"),"Loaded native mansion reference/validity lookup missing");
         require(call(method(resource("local/pixelmon/backport/Content"),"apply"),"local/pixelmon/backport/MagearnaSpawns","merge"),"Rule patch not connected to native loader");
-        System.out.println("PASS actual native Magearna spawn pool: only roofed restriction replaced with mansion structure; native daytime/indoors/birch floor/level/legendary timer/rarity retained, all other spawn rules unchanged, reload idempotent, missing rules/foreign contexts preserved; species-scoped native cross-chunk mansion reference bridge.");
+        System.out.println("PASS actual native Magearna pool: 80% normal / 20% original color, total encounter weight unchanged; both use mansion structure in every biome; native time/indoors/floor/level/legendary interval retained, unrelated rules untouched, reload idempotent, disabled/foreign pools preserved; cross-chunk mansion reference bridge.");
     }
 }

@@ -872,6 +872,36 @@
         "title": "烈焰黑翼",
         "form": "galarian"
       }
+    },
+    "801": {
+      "": {
+        "id": "capture_801",
+        "category": "gen7",
+        "title": "沉鱼落雁",
+        "species": "Magearna",
+        "form": ""
+      },
+      "mega": {
+        "id": "capture_801",
+        "category": "gen7",
+        "title": "沉鱼落雁",
+        "species": "Magearna",
+        "form": "mega"
+      },
+      "original_color": {
+        "id": "capture_801_original_color",
+        "category": "gen7",
+        "title": "闭月羞花",
+        "species": "Magearna",
+        "form": "original_color"
+      },
+      "megaoriginal": {
+        "id": "capture_801_original_color",
+        "category": "gen7",
+        "title": "闭月羞花",
+        "species": "Magearna",
+        "form": "megaoriginal"
+      }
     }
   }
 }

@@ -24,6 +24,7 @@ public final class LegendAdvancements {
     }
     public static void capture(ServerPlayerEntity player,Pokemon pokemon){
         if(!AcquisitionAdvancements.ownedStored(player,pokemon))return;
+        SpecialPaletteAdvancements.acquired(player,pokemon);
         int dex=pokemon.getSpecies().getDex();
         if(dex==658 && pokemon.getAbility() instanceof com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond){
             award(player,"root");award(player,"gen6");award(player,"capture_658_bond");

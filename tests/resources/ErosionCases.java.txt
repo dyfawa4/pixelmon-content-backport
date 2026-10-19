@@ -1,0 +1,62 @@
+package fixture;
+import local.pixelmon.backport.*;
+import com.pixelmonmod.pixelmon.battles.controller.BattleController;
+import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;
+import com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType;
+public class ErosionCases {
+    static void check(boolean value,String text){if(!value)throw new AssertionError(text);}
+    public static void run()throws Exception {
+        check(BackportConfig.erosionReduction()==20&&BackportConfig.erosionTurns()==5,"Latest requested defaults");
+        for(int level:new int[]{1,50,100})for(int base:new int[]{1,10,20,100,255})for(int nature:new int[]{-1,0,1}){
+            int reduced=Math.max(1,base-20);
+            float raw=(float)Math.floor((31+2f*reduced+252/4f)*level/100f+5);
+            int expected=(int)(raw*(nature<0?.9f:nature>0?1.1f:1f));
+            check(ErosionMath.stat(base,20,31,252,level,false,nature)==Math.max(1,expected),"Stat arithmetic");
+        }
+        check(ErosionMath.stat(1,20,31,252,100,true,0)==1,"Original fixed HP");
+        check(ErosionMath.stat(10,20,31,252,100,true,0)==206,"Reduced base one is not Shedinja");
+        check(ErosionMath.ratio(0,341,301)==0&&ErosionMath.ratio(1,341,301)==1,"Faint and live minimum");
+        BattleController b=new BattleController();PixelmonWrapper user=new PixelmonWrapper(b),target=new PixelmonWrapper(b);user.targets.add(target);
+        Erosion.start(user);check(Erosion.remaining(target)==5&&target.max==364&&target.hp==182,"Immediate HP/clock");check(b.battleTurn==10&&b.turn==0,"Applying erosion must not advance a turn");
+        for(BattleStatsType type:BattleStatsType.values())check(Erosion.stat(target,type,404)==(type==BattleStatsType.HP?364:259),"Six base reductions "+type);
+        int hp=target.hp;Erosion.start(user);check(target.max==364&&target.hp==hp,"No duplicate HP loss/stack");
+        target.onBattlefield=false;b.battleTurn=14;Erosion.expire(b);check(Erosion.remaining(target)==1,"Benched last round");
+        target.onBattlefield=true;Erosion.start(user);check(Erosion.remaining(target)==5,"Refresh");
+        b.battleTurn=19;Erosion.expire(b);check(!Erosion.active(target)&&target.max==404&&target.hp==202,"Ratio expiry on fifth round");
+        Erosion.start(user);target.hp=0;b.battleTurn+=5;Erosion.expire(b);check(target.hp==0&&target.max==404,"Does not revive");
+        target.hp=202;Erosion.apply(target);int changed=target.hp;PixelmonWrapper copy=new PixelmonWrapper(b);Erosion.copy(target,copy);Erosion.apply(copy);check(copy.hp==202&&target.hp==changed,"Copy cannot modify real HP");
+        b.simulateMode=true;Erosion.end(b);check(Erosion.active(target),"Simulation cannot end real debuff");b.simulateMode=false;
+        Erosion.end(b);check(!Erosion.active(target)&&target.max==404&&!Erosion.active(copy),"Battle end cleanup");
+        user.pokemon.form.ash=false;Erosion.start(user);check(!Erosion.active(target),"Ordinary Greninja unchanged");
+        BackportConfig.Values settings=new BackportConfig.Values();ConfigEditor.validateObject(settings);settings.erosionReduction=0;
+        try{ConfigEditor.validateObject(settings);throw new AssertionError("Range rejected");}catch(IllegalArgumentException expected){}
+        settings.erosionReduction=20;settings.erosionTurns=21;try{ConfigEditor.validateObject(settings);throw new AssertionError("Duration range rejected");}catch(IllegalArgumentException expected){}
+        for(int others:new int[]{1,3,5}){
+            BattleController battle=new BattleController();PixelmonWrapper ninja=new PixelmonWrapper(battle);battle.turnList.add(ninja);
+            java.util.List<PixelmonWrapper> untouched=new java.util.ArrayList<>();
+            for(int i=0;i<others;i++){PixelmonWrapper other=new PixelmonWrapper(battle);other.takenTurn=true;untouched.add(other);battle.turnList.add(other);Erosion.apply(other);AshWaterBoost.start(other);}
+            PixelmonWrapper bench=new PixelmonWrapper(battle);bench.onBattlefield=false;untouched.add(bench);Erosion.apply(bench);AshWaterBoost.start(bench);
+            Erosion.apply(ninja);AshWaterBoost.start(ninja);check(AshWaterBoost.remaining(ninja)==5,"Water duration before extra");
+            NinjaTraining.grant(ninja);check(NinjaTraining.afterAction(battle,ninja),"Suspend native outer update for extra selection");
+            check(Erosion.remaining(ninja)==4&&AshWaterBoost.remaining(ninja)==4,"Settle own first turn before extra move selection");
+            check(NinjaTraining.consumePause(battle)&&!NinjaTraining.consumePause(battle),"Pause consumed once");
+            check(NinjaTraining.bonus(ninja)&&!NinjaTraining.allowed(ninja),"No recursive setup in extra turn");
+            ninja.willEvolve=true;ninja.wait=false;check(NinjaTraining.evolve(battle)&&ninja.isDynamax==1&&ninja.dynamaxTurns==3,"Bonus permits native Dynamax activation");
+            NinjaTraining.grant(ninja);check(!NinjaTraining.afterAction(battle,ninja),"Finish one extra action");
+            check(ninja.ticks==1&&ninja.ends==1&&battle.battleTurn==10&&battle.turn==0,"Only own native clock, no global advancement");
+            check(ninja.dynamaxTurns==3,"New bonus Dynamax is not charged for the already completed first turn");
+            check(Erosion.remaining(ninja)==4&&AshWaterBoost.remaining(ninja)==4,"Own custom timers advance once");
+            for(PixelmonWrapper other:untouched)check(other.ticks==0&&other.ends==0&&Erosion.remaining(other)==5&&AshWaterBoost.remaining(other)==5,"Partner/opponent/bench clocks frozen");
+            check(!NinjaTraining.bonus(ninja)&&NinjaTraining.allowed(ninja),"Normal next action re-enabled");
+            Erosion.end(battle);AshWaterBoost.end(battle);NinjaTraining.end(battle);
+        }
+        com.google.gson.JsonPrimitive twenty=new com.google.gson.JsonPrimitive(20),twentyOne=new com.google.gson.JsonPrimitive(21);
+        ConfigEditor.save("backport","erosionReduction",twenty,twentyOne);
+        check(BackportConfig.erosionReduction()==21,"Validated config becomes live");
+        BackportConfig.values().erosionReduction=99;BackportConfig.load();check(BackportConfig.erosionReduction()==21,"Configuration actually persisted/reloaded");
+        try{ConfigEditor.save("backport","erosionReduction",twenty,twenty);throw new AssertionError("Stale edit rejected");}catch(IllegalStateException expected){}
+        try{ConfigEditor.save("backport","erosionReduction",twentyOne,new com.google.gson.JsonPrimitive(1.5));throw new AssertionError("Fractional base reduction rejected");}catch(IllegalArgumentException expected){}
+        try{ConfigEditor.save("backport","../arbitrary",twentyOne,twenty);throw new AssertionError("Unknown path rejected");}catch(IllegalArgumentException expected){}
+        ConfigEditor.save("backport","erosionReduction",twentyOne,twenty);
+    }
+}

@@ -1,0 +1,24 @@
+{
+  "parent": "pixelmon_backport:legends/forms",
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:894s,palette:\"spirit\",form:\"\",gender:2b}"
+    },
+    "title": {
+      "text": "幽魂追风"
+    },
+    "description": {
+      "text": "获得任务书中对应特殊材质的雷吉艾勒奇，并存入自己的队伍或电脑。"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

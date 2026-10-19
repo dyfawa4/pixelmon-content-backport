@@ -1,0 +1,38 @@
+package com.pixelmonmod.pixelmon.battles.controller.participants;
+import com.pixelmonmod.pixelmon.api.pokemon.*;
+import com.pixelmonmod.pixelmon.api.pokemon.stats.*;
+import com.pixelmonmod.pixelmon.battles.attacks.*;
+import com.pixelmonmod.pixelmon.battles.controller.BattleController;
+public class PixelmonWrapper {
+    public BattleController bc;
+    public Pokemon pokemon=new Pokemon();
+    public boolean onBattlefield=true,usingZ,ally,takenTurn,willEvolve,willTryFlee,wait;
+    public int hp=202,max=404,isDynamax,dynamaxTurns,ticks,ends;
+    public net.minecraft.item.ItemStack willUseItemInStack;
+    public Attack attack=new Attack();
+    public java.util.List<PixelmonWrapper> targets=new java.util.ArrayList<>();
+    public Moveset moves=new Moveset();
+    public PixelmonWrapper(BattleController b){bc=b;moves.add(attack);}
+    public boolean isAlive(){return hp>0;}
+    public boolean isAlly(PixelmonWrapper p){return p==this||p.ally;}
+    public PermanentStats getStats(){return new PermanentStats();}
+    public Nature getNature(){return new Nature();}
+    public com.pixelmonmod.pixelmon.api.pokemon.species.Species getSpecies(){return pokemon.getSpecies();}
+    public com.pixelmonmod.pixelmon.api.pokemon.species.Stats getForm(){return pokemon.getForm();}
+    public int getPokemonLevelNum(){return 100;}
+    public int getMaxHealth(){return max;}
+    public int getHealth(){return hp;}
+    public void setHealth(int h){hp=h;}
+    public void recalculateMaxHP(){max=local.pixelmon.backport.Erosion.stat(this,BattleStatsType.HP,404);}
+    public String getNickname(){return "target";}
+    public BattleParticipant getParticipant(){return new BattleParticipant();}
+    public Moveset getMoveset(){return moves;}
+    public java.util.ArrayList<PixelmonWrapper> getTargets(Attack a){return new java.util.ArrayList<>(targets);}
+    public void setAttack(Attack a,java.util.List<PixelmonWrapper> t,boolean mega){attack=a;targets=t;wait=false;}
+    public java.util.UUID getPokemonUUID(){return new java.util.UUID(0,System.identityHashCode(this));}
+    public void turnTick(){ticks++;}
+    public void endTurn(){ends++;}
+    public float getHealthPercent(){return hp*100f/max;}
+    public boolean dynamax(boolean end,float percent){isDynamax=0;return true;}
+    public boolean megaEvolve(){isDynamax=1;dynamaxTurns=3;return true;}
+}

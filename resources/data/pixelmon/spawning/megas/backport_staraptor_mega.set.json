@@ -1,0 +1,21 @@
+{
+  "id": "Backport Mega Staraptor",
+  "spawnInfos": [
+    {
+      "spec": "species:Staraptor form:mega",
+      "stringLocationTypes": [
+        "Air"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "mountainous",
+          "mountainous forests"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.3
+    }
+  ]
+}

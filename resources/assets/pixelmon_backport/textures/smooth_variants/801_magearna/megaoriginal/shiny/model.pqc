@@ -1,0 +1,4 @@
+$body pixelmon_backport:textures/smooth_variants/801_magearna/megaoriginal/shiny/model.bmd
+$anim idle pixelmon_backport:textures/reference/pokemon/801_magearna/all/mega/none/idle.bmd
+$anim walk pixelmon_backport:textures/reference/pokemon/801_magearna/all/mega/none/walk.bmd
+$scale 0.3

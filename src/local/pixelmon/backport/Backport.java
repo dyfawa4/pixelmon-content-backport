@@ -63,6 +63,8 @@ public final class Backport {
         @Override public void func_150895_a(net.minecraft.item.ItemGroup group,net.minecraft.util.NonNullList<net.minecraft.item.ItemStack> stacks){if(item("dragoninite")==this)super.func_150895_a(group,stacks);}
     }
     public Backport() {
+        BackportConfig.load();
+        NinjaLearning learning=new NinjaLearning();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(learning);Pixelmon.EVENT_BUS.register(learning);
         net.minecraftforge.common.crafting.CraftingHelper.register(MasterBallIngredient.ID,MasterBallIngredient.SERIALIZER);
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -112,10 +114,10 @@ public final class Backport {
     }
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public void typeEffectiveness(AttackEvent.TypeEffectiveness event) {
-        if(event.target.getBattleAbility() instanceof BackportAbilities.TeraShell
+        if(event.target.getBattleAbility(event.user) instanceof BackportAbilities.TeraShell
             && event.getAttack().getAttackCategory()!=AttackCategory.STATUS
             && !event.getAttack().getActualMove().getAttackName().equals("Struggle")) {
-            BackportAbilities.TeraShell shell=(BackportAbilities.TeraShell)event.target.getBattleAbility();
+            BackportAbilities.TeraShell shell=(BackportAbilities.TeraShell)event.target.getBattleAbility(event.user);
             if(shell.resists(event.user,event.target) && event.getMultiplier()>.5) event.setEffectiveness(Effectiveness.Not);
         }
     }

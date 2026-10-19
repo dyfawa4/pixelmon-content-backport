@@ -1,0 +1,23 @@
+{
+  "id": "Backport Mega Zeraora",
+  "spawnInfos": [
+    {
+      "spec": "species:Zeraora form:mega",
+      "stringLocationTypes": [
+        "Land"
+      ],
+      "spawnSpecificBossRate": 1,
+      "condition": {
+        "stringBiomes": [
+          "minecraft:savanna_plateau"
+        ],
+        "times": [
+          "AFTERNOON"
+        ]
+      },
+      "interval": "megaBoss",
+      "typeID": "pokemon",
+      "rarity": 0.1
+    }
+  ]
+}

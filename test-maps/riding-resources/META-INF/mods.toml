@@ -3,12 +3,12 @@ loaderVersion="[36,)"
 license="MIT"
 [[mods]]
 modId="backport_riding_test"
-version="1.5.0"
+version="1.6.0"
 displayName="轻快之旅 乘骑专项测试地图"
 description='''Opt-in riding test world. Does not prepare fixtures in ordinary worlds.'''
 [[dependencies.backport_riding_test]]
 modId="pixelmon_backport"
 mandatory=true
-versionRange="[1.5.0,1.6.0)"
+versionRange="[1.6.0,1.7.0)"
 ordering="AFTER"
 side="BOTH"

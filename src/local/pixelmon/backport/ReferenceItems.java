@@ -39,7 +39,7 @@ public final class ReferenceItems {
     public static class Cloak extends HeldItem {public Cloak(){super(EnumHeldItems.other,new Item.Properties());}}
     public static class Umbrella extends HeldItem {
         public Umbrella(){super(EnumHeldItems.other,new Item.Properties());}
-        @Override public void applySwitchInEffect(PixelmonWrapper p){p.getBattleAbility().onWeatherChange(p,UmbrellaHooks.backport$filter(p,p.bc.globalStatusController.getWeather()));}
+        @Override public void applySwitchInEffect(PixelmonWrapper p){UmbrellaHooks.refreshAbility(p);}
     }
     public static class Meteorite extends HeldItem {public Meteorite(){super(EnumHeldItems.other,new Item.Properties());}}
     public static class FairyFeather extends HeldItem {
@@ -47,7 +47,7 @@ public final class ReferenceItems {
         @Override public double preProcessDamagingAttackUser(PixelmonWrapper user,PixelmonWrapper target,Attack attack,double damage){return attack.getType()==Element.FAIRY?damage*1.2:damage;}
     }
     public static boolean blocksSecondary(EffectBase e,PixelmonWrapper user,PixelmonWrapper target){
-        if(user==target || !(target.getUsableHeldItem() instanceof Cloak) || !e.isChance() || e instanceof EntryHazard)return false;
+        if(user==target || !(target.getUsableHeldItem() instanceof Cloak) || (!e.isChance() && !(e instanceof BattleMechanics.TargetSecondary)) || e instanceof EntryHazard)return false;
         return !(e instanceof StatsEffect && ((StatsEffect)e).isUser);
     }
     public static class Nectar extends PixelmonItem {

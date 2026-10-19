@@ -1,0 +1,380 @@
+{
+  "source": "Pixelmon-9.13-1.9.jar",
+  "sha256": "842d8107691b7ac5f0e93963c024ccb6a54eb7d967b9dd9a6a20805f3764746f",
+  "forms": [
+    {
+      "dex": 358,
+      "species": "Chimecho",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "chimechite",
+      "source_abilities": {
+        "abilities": [
+          "Levitate"
+        ]
+      }
+    },
+    {
+      "dex": 359,
+      "species": "Absol",
+      "form": "megaz",
+      "base_forms": [
+        ""
+      ],
+      "stone": "absolite_z",
+      "source_abilities": {
+        "abilities": [
+          "MagicBounce"
+        ]
+      }
+    },
+    {
+      "dex": 398,
+      "species": "Staraptor",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "staraptite",
+      "source_abilities": {
+        "abilities": [
+          "Intimidate"
+        ]
+      }
+    },
+    {
+      "dex": 445,
+      "species": "Garchomp",
+      "form": "megaz",
+      "base_forms": [
+        ""
+      ],
+      "stone": "garchompite_z",
+      "source_abilities": {
+        "abilities": [
+          "SandForce"
+        ]
+      }
+    },
+    {
+      "dex": 448,
+      "species": "Lucario",
+      "form": "megaz",
+      "base_forms": [
+        ""
+      ],
+      "stone": "lucarionite_z",
+      "source_abilities": {
+        "abilities": [
+          "Adaptability"
+        ]
+      }
+    },
+    {
+      "dex": 485,
+      "species": "Heatran",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "heatranite",
+      "source_abilities": {
+        "abilities": [
+          "FlashFire"
+        ]
+      }
+    },
+    {
+      "dex": 623,
+      "species": "Golurk",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "golurkite",
+      "source_abilities": {
+        "abilities": [
+          "IronFist"
+        ]
+      }
+    },
+    {
+      "dex": 678,
+      "species": "Meowstic",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "meowsticite",
+      "source_abilities": {
+        "abilities": [
+          "Prankster"
+        ]
+      }
+    },
+    {
+      "dex": 740,
+      "species": "Crabominable",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "crabominite",
+      "source_abilities": {
+        "abilities": [
+          "IronFist"
+        ]
+      }
+    },
+    {
+      "dex": 768,
+      "species": "Golisopod",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "golisopodite",
+      "source_abilities": {
+        "abilities": [
+          "EmergencyExit"
+        ]
+      }
+    },
+    {
+      "dex": 801,
+      "species": "Magearna",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "magearnite",
+      "source_abilities": {
+        "abilities": [
+          "SoulHeart"
+        ]
+      }
+    },
+    {
+      "dex": 807,
+      "species": "Zeraora",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "zeraorite",
+      "source_abilities": {
+        "abilities": [
+          "VoltAbsorb"
+        ]
+      }
+    },
+    {
+      "dex": 952,
+      "species": "Scovillain",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "scovillainite",
+      "source_abilities": {
+        "abilities": [
+          "Chlorophyll"
+        ]
+      }
+    },
+    {
+      "dex": 970,
+      "species": "Glimmora",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "glimmorite",
+      "source_abilities": {
+        "abilities": [
+          "Corrosion"
+        ]
+      }
+    },
+    {
+      "dex": 978,
+      "species": "Tatsugiri",
+      "form": "mega",
+      "base_forms": [
+        "curly",
+        "droopy",
+        "stretchy"
+      ],
+      "stone": "tatsugirinite",
+      "source_abilities": {
+        "abilities": [
+          "StormDrain"
+        ]
+      }
+    },
+    {
+      "dex": 998,
+      "species": "Baxcalibur",
+      "form": "mega",
+      "base_forms": [
+        ""
+      ],
+      "stone": "baxcaliburite",
+      "source_abilities": {
+        "abilities": [
+          "ThermalExchange"
+        ]
+      }
+    }
+  ],
+  "assets": 157,
+  "warnings": [
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/358_chimecho/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/358_chimecho/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/358_chimecho/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/359_absol/all/megaz/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/359_absol/all/megaz/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/359_absol/all/megaz/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/398_staraptor/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/398_staraptor/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/398_staraptor/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/445_garchomp/all/megaz/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/445_garchomp/all/megaz/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/445_garchomp/all/megaz/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/448_lucario/all/megaz/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/448_lucario/all/megaz/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/448_lucario/all/megaz/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/485_heatran/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/485_heatran/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/485_heatran/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/623_golurk/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/623_golurk/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/623_golurk/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/678_meowstic/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/678_meowstic/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/678_meowstic/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/740_crabominable/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/740_crabominable/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/740_crabominable/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/768_golisopod/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/768_golisopod/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/768_golisopod/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/801_magearna/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/801_magearna/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/801_magearna/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/807_zeraora/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/807_zeraora/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/807_zeraora/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/952_scovillain/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/952_scovillain/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/952_scovillain/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/970_glimmora/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/970_glimmora/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/970_glimmora/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/978_tatsugiri/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/978_tatsugiri/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/978_tatsugiri/all/mega/none/walk.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/998_baxcalibur/all/mega/none/1.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/998_baxcalibur/all/mega/none/idle.zhikemeng"
+    },
+    {
+      "renamed_export_anchor": "assets/pixelmon/textures/pokemon/998_baxcalibur/all/mega/none/walk.zhikemeng"
+    }
+  ],
+  "stone_style": "Native Pixelmon 16x16 stone icons with native transparent margin; reuse original palette artwork without editing or scaling."
+}

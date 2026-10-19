@@ -1,0 +1,145 @@
+{
+  "source": "https://github.com/smogon/pokemon-showdown/blob/master/data/pokedex.ts",
+  "corrections": [
+    {
+      "dex": 121,
+      "form": "mega",
+      "before": {
+        "hp": 60,
+        "attack": 140,
+        "defense": 105,
+        "specialAttack": 130,
+        "specialDefense": 105,
+        "speed": 120
+      },
+      "after": {
+        "hp": 60,
+        "attack": 100,
+        "defense": 105,
+        "specialAttack": 130,
+        "specialDefense": 105,
+        "speed": 120
+      }
+    },
+    {
+      "dex": 358,
+      "form": "mega",
+      "before": {
+        "hp": 85,
+        "attack": 140,
+        "defense": 100,
+        "specialAttack": 60,
+        "specialDefense": 90,
+        "speed": 110
+      },
+      "after": {
+        "hp": 75,
+        "attack": 50,
+        "defense": 110,
+        "specialAttack": 135,
+        "specialDefense": 120,
+        "speed": 65
+      }
+    },
+    {
+      "dex": 398,
+      "form": "mega",
+      "before": {
+        "hp": 75,
+        "attack": 50,
+        "defense": 110,
+        "specialAttack": 135,
+        "specialDefense": 120,
+        "speed": 65
+      },
+      "after": {
+        "hp": 85,
+        "attack": 140,
+        "defense": 100,
+        "specialAttack": 60,
+        "specialDefense": 90,
+        "speed": 110
+      }
+    },
+    {
+      "dex": 491,
+      "form": "mega",
+      "before": {
+        "hp": 70,
+        "attack": 120,
+        "defense": 130,
+        "specialAttack": 165,
+        "specialDefense": 130,
+        "speed": 80
+      },
+      "after": {
+        "hp": 70,
+        "attack": 120,
+        "defense": 130,
+        "specialAttack": 165,
+        "specialDefense": 130,
+        "speed": 85
+      }
+    },
+    {
+      "dex": 623,
+      "form": "mega",
+      "before": {
+        "hp": 89,
+        "attack": 159,
+        "defense": 108,
+        "specialAttack": 70,
+        "specialDefense": 105,
+        "speed": 55
+      },
+      "after": {
+        "hp": 89,
+        "attack": 159,
+        "defense": 105,
+        "specialAttack": 70,
+        "specialDefense": 105,
+        "speed": 55
+      }
+    },
+    {
+      "dex": 740,
+      "form": "mega",
+      "before": {
+        "hp": 74,
+        "attack": 157,
+        "defense": 122,
+        "specialAttack": 62,
+        "specialDefense": 107,
+        "speed": 33
+      },
+      "after": {
+        "hp": 97,
+        "attack": 157,
+        "defense": 122,
+        "specialAttack": 62,
+        "specialDefense": 107,
+        "speed": 33
+      }
+    },
+    {
+      "dex": 998,
+      "form": "mega",
+      "before": {
+        "hp": 115,
+        "attack": 175,
+        "defense": 117,
+        "specialAttack": 105,
+        "specialDefense": 101,
+        "speed": 81
+      },
+      "after": {
+        "hp": 115,
+        "attack": 175,
+        "defense": 117,
+        "specialAttack": 105,
+        "specialDefense": 101,
+        "speed": 87
+      }
+    }
+  ]
+}

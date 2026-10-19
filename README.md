@@ -4,9 +4,17 @@
 
 这是一个独立的附加模组：在保留旧版重铸本体与整合包的基础上，加入新种类、ZA Mega 形态、携带道具、进化物品和中文资料，并提供太晶战斗、独立太晶巢穴及对应获取渠道。适合希望继续使用 1.16.5，同时体验更多新内容的玩家。
 
-`1.5.0 正式版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
+`1.6.0 正式版` · `Minecraft 1.16.5` · `Forge 36.2.42` · `Java 11`
 
-**[最新版本：1.5.0](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.5.0)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
+**[最新版本：1.6.0](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.6.0)** · **[完整玩法手册](HANDBOOK.md)** · **[测试地图指南](TEST_MAPS.md)**
+
+## 1.6.0 大更新
+
+战斗伤害与状态规则重构；小智忍蛙飞水手里剑固定三击、基础 PP 5、水系强化五回合，并在攻击前施加“蚀”：六项种族值各减 20，持续五回合，可共存、换下保留。新增一般属性招式“忍者的修养”，特攻 +2 并额外行动，只有使用者的个人计时推进。详细效果、HP 比例和学习规则见 **[忍蛙完整说明](docs/GRENINJA_1.6.0.md)**。
+
+补入 16 组缺失 ZA Mega 模型及进化石、Boss 掉落和正确来源形态；全体 Mega 石统一说明与原生图标比例。恢复中文配置，修复太晶／自由者空指针、巢穴机制误选和化石 33% 显示。巢穴生成器支持生存一次性使用；新增 12 项任务材质成就，林地府邸玛机雅娜有 20% 为原始颜色，新增“闭月羞花”。
+
+原计划 1.5.1 全部合并，不单独发布。**[详细更新](docs/RELEASE_1.6.0.md)** · **[验证范围](docs/VALIDATION_1.6.0.md)** · **[ZA 补全记录](docs/ZA_MEGA_COVERAGE_1.6.0.md)**
 
 ---
 
@@ -65,27 +73,29 @@ FTB“发现结构”任务补齐模组结构类型注册 ID 的识别，沿用�
 
 各物品的适用条件、配方、掉落和操作步骤，见 [完整玩法与获取手册](HANDBOOK.md)。
 
-## 1.5.0 下载与安装
+## 1.6.0 下载与安装
 
 | 下载 | 用途 |
 | :--- | :--- |
-| `pixelmon-content-backport-1.16.5-1.5.0.jar` | 单独安装补丁 |
-| `Pixelmon-Backport-1.5.0.zip` | 功能包：模组 JAR、完整手册与安装说明 |
-| `Pixelmon-Backport-test-maps-1.5.0.zip` | 原七张功能地图，加骑乘、捕捉成就与合体两张独立地图 |
-| `Pixelmon-Backport-gym-test-maps-1.5.0.zip` | 十八张城市、徽章展示和岩石城版本地图，共21张；最新岩石城为已验收快照 |
-| `Pixelmon-Backport-cap-test-map-1.5.0.zip` | 智皮卡专项手动测试地图 |
-| `Pixelmon-Backport-Cap-Pikachu-1.5.0.md` | 智皮卡与智皮卡Z详细玩法 |
-| `Pixelmon-Backport-source-1.5.0.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
-| `Pixelmon-Backport-Handbook-1.5.0.md` | 单独阅读或分享完整玩法说明 |
-| `Pixelmon-Backport-Greninja-1.5.0.md` | 忍蛙技能更新、三回合规则与新成就 |
-| `Pixelmon-Backport-offline-test-1.5.0.zip` | 同版本模组、14 张干净地图、任务书覆盖与说明 |
-| `SHA256SUMS-1.5.0.txt` | 校验全部发布文件（离线包另附独立 SHA-256） |
+| `pixelmon-content-backport-1.16.5-1.6.0.jar` | 单独安装补丁 |
+| `Pixelmon-Backport-1.6.0.zip` | 功能包：模组 JAR、完整手册与安装说明 |
+| `Pixelmon-Backport-test-maps-1.6.0.zip` | 原七张功能地图，加骑乘、捕捉成就与合体两张独立地图 |
+| `Pixelmon-Backport-gym-test-maps-1.6.0.zip` | 十八张城市、徽章展示和岩石城版本地图，共21张；最新岩石城为已验收快照 |
+| `Pixelmon-Backport-cap-test-map-1.6.0.zip` | 智皮卡专项手动测试地图 |
+| `Pixelmon-Backport-Cap-Pikachu-1.6.0.md` | 智皮卡与智皮卡Z详细玩法 |
+| `Pixelmon-Backport-source-1.6.0.zip` | 完整源码、资源、构建工具、测试与地图初始文件 |
+| `Pixelmon-Backport-Handbook-1.6.0.md` | 单独阅读或分享完整玩法说明 |
+| `Pixelmon-Backport-Greninja-1.6.0.md` | 忍蛙三击／PP 5、蚀六维 -20、追加行动和学习规则 |
+| `Pixelmon-Backport-offline-test-1.6.0.zip` | 同版本核心及可选辅助模组、16 张干净地图、任务书覆盖与说明 |
+| `Pixelmon-Backport-greninja-test-map-1.6.0.zip` | 忍蛙专项测试图，100 级跃起目标 |
+| `Pixelmon-Backport-mega-test-map-1.6.0.zip` | 60 个 Mega／来源形态展示位 |
+| `SHA256SUMS-1.6.0.txt` | 校验全部发布文件（离线包另附独立 SHA-256） |
 
-上述文件可从 [1.5.0 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.5.0) 下载，也可由构建脚本生成到 `dist/`。
+上述文件可从 [1.6.0 Release](https://github.com/dyfawa4/pixelmon-content-backport/releases/tag/v1.6.0) 下载，也可由构建脚本生成到 `dist/`。
 
 1. 准备 Minecraft **1.16.5**、Forge **36.2.42**、**Java 11** 和旧版 Pixelmon 重铸本体。已验证文件名为 9.1.13、内部版本为 9.1.12 的本体。
 2. 关闭游戏与服务器，备份存档；升级时移除旧版回迁功能模组，只保留一份。
-3. 解压功能包，将 `mods/pixelmon-content-backport-1.16.5-1.5.0.jar` 放入实际游戏实例的 `mods` 目录，然后启动游戏。多人游戏中，服务器和所有客户端使用相同版本。
+3. 解压功能包，将 `mods/pixelmon-content-backport-1.16.5-1.6.0.jar` 放入实际游戏实例的 `mods` 目录，然后启动游戏。多人游戏中，服务器和所有客户端使用相同版本。
 4. 如需道具查询，安装 JEI **1.16.5 / 7.x**；如需测试地图，按 [地图指南](TEST_MAPS.md) 安装独立地图包。
 
 本版已集成JEI连接及巢穴捕捉动画修复，移除旧的 `pixelmon-jei-fix` 和 `pixelmon-raid-catch-fix` 独立补丁，保留JEI依赖。
@@ -125,3 +135,5 @@ FTB“发现结构”任务补齐模组结构类型注册 ID 的识别，沿用�
 这是面向旧版引擎的内容适配，不是 Pixelmon 官方发行。程序验证范围与实玩待查项见版本验证记录，其他本体版本和所有整合包组合尚未逐一验证。统一太晶冠冕、研究任务、官方异步团战与完整欢呼等内容仍未包含，具体规则以手册为准。
 
 参考素材来自官方 Pixelmon 9.4.1 与用户提供的定制 ZA 素材；本项目感谢原作者的工作。
+
+1.6.0 补入用户另提供的 `Pixelmon-9.13-1.9.jar` 中 16 组 Mega 模型，进化石复用 Pixelmon 原生尺寸与配色的像素素材，头像继续使用 PokemonWorkshop/GameDataPacks。来源、特性核对与平滑外观适配见 [ZA 补全记录](docs/ZA_MEGA_COVERAGE_1.6.0.md)；上游素材不属于本项目 MIT 代码许可。
