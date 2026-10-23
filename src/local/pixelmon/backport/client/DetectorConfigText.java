@@ -5,6 +5,21 @@ import net.minecraft.client.Minecraft;
 /** Use the compiled catalog even when the language loader omits a foreign namespace. */
 public final class DetectorConfigText {
     private DetectorConfigText(){}
+    public static String entryValue(Object entry,String raw){
+        try{
+            var field=entry.getClass().getDeclaredField("this$0");field.setAccessible(true);
+            Object screen=field.get(entry);
+            return screen instanceof DetectorListContext?((DetectorListContext)screen).backport$listText(raw):raw;
+        }catch(ReflectiveOperationException failure){return raw;}
+    }
+    public static String listValue(Object holder,String raw){
+        try{
+            String key=(String)Class.forName("com.mrcrayfish.configured.api.IConfigValue").getMethod("getTranslationKey").invoke(holder);
+            if(!"pixelmondetector.config.pokeLootFilter".equals(key)&&!"pixelmondetector.config.bossFilter".equals(key))return raw;
+            String translated=text(key+".value."+raw);
+            return translated==null?raw:translated;
+        }catch(ReflectiveOperationException failure){return raw;}
+    }
     public static String text(String key){
         if(key!=null && key.startsWith("farmersdelight.config."))return FarmersDelightConfigText.text(key);
         if(key==null || !key.startsWith("pixelmondetector.config."))return null;

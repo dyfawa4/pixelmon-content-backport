@@ -10,8 +10,7 @@ public abstract class FieldMegaPokemonMixin {
     @ModifyVariable(method="setGender(Lcom/pixelmonmod/pixelmon/api/pokemon/species/gender/Gender;)V",at=@At("HEAD"),argsOnly=true)
     private com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender backport$capMale(com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender gender){
         Pokemon pokemon=(Pokemon)(Object)this;
-        return pokemon.getSpecies()!=null && pokemon.getSpecies().getDex()==local.pixelmon.backport.CapSpecies.DEX
-            ?com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender.MALE:gender;
+        return local.pixelmon.backport.AddedLegendGender.gender(pokemon,gender);
     }
     @Inject(method="setStorage",at=@At("RETURN"))
     private void backport$acquired(CallbackInfo ci){local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);}
@@ -19,10 +18,10 @@ public abstract class FieldMegaPokemonMixin {
     private void backport$speciesAcquired(CallbackInfo ci){local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);}
     @Inject(method="setEggCycles",at=@At("RETURN"))
     private void backport$hatched(CallbackInfo ci){local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);}
-    @Inject(method="setPalette(Lcom/pixelmonmod/pixelmon/api/pokemon/species/palette/PaletteProperties;)Z",at=@At("RETURN"))
-    private void backport$paletteAcquired(com.pixelmonmod.pixelmon.api.pokemon.species.palette.PaletteProperties palette,CallbackInfoReturnable<Boolean> cir){if(cir.getReturnValue())local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);}
+    @Inject(method="setPalette(Ljava/lang/String;Z)Z",at=@At("RETURN"))
+    private void backport$paletteAcquired(String palette,boolean sync,CallbackInfoReturnable<Boolean> cir){if(cir.getReturnValue())local.pixelmon.backport.AcquisitionQueue.stored((Pokemon)(Object)this);}
     @Inject(method="writeToNBT",at=@At("RETURN"))
     private void backport$saveField(CompoundNBT nbt,CallbackInfoReturnable<CompoundNBT> ci){FieldMega.saved((Pokemon)(Object)this,ci.getReturnValue());}
     @Inject(method="readFromNBT",at=@At("RETURN"))
-    private void backport$loadField(CompoundNBT nbt,CallbackInfo ci){FieldMega.restore((Pokemon)(Object)this);local.pixelmon.backport.CapPikachu.sync((Pokemon)(Object)this);}
+    private void backport$loadField(CompoundNBT nbt,CallbackInfo ci){FieldMega.restore((Pokemon)(Object)this);local.pixelmon.backport.CapPikachu.sync((Pokemon)(Object)this);local.pixelmon.backport.AddedLegendGender.loaded((Pokemon)(Object)this);}
 }

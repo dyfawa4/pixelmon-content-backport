@@ -11,7 +11,9 @@ public final class BackportAbilities {
             int hp=pokemon.getHealth(),max=pokemon.getMaxHealth();
             pokemon.setForm("terastal");pokemon.recalculateMaxHP();
             pokemon.setHealth(BattleMechanics.changedMaxHP(hp,max,pokemon.getMaxHealth()));
-            pokemon.bc.modifyStats(pokemon);pokemon.updateBattleDamage(pokemon.getHealth());
+            // This argument is damage dealt, not the resulting HP. A form change
+            // must synchronize the new maximum without animating a full-HP hit.
+            pokemon.bc.modifyStats(pokemon);pokemon.updateBattleDamage(0);
         }
         @Override public boolean canBeDisabled(){return false;}
         @Override public boolean canBeCopied(){return false;}

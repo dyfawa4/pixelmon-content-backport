@@ -1121,8 +1121,10 @@
         858
       ],
       "biomes": [
-        "minecraft:desert",
-        "minecraft:desert_hills"
+        "minecraft:small_end_islands",
+        "minecraft:end_midlands",
+        "minecraft:end_highlands",
+        "minecraft:end_barrens"
       ],
       "architectureRevision": 9
     },

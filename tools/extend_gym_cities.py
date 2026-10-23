@@ -21,7 +21,7 @@ THEMES = {
 }
 NATIVE_BADGES = dict(electric='bolt_badge', fire='fire_badge', ice='ice_badge', dragon='dragon_badge', ground='jimen_badge', steel='mineral_badge', ghost='ghost_badge', fairy='fairy_badge_galar', grass='grass_badge', water='water_badge')
 MEGA_ANCHORS=dict(electric=181,fire=6,ice=362,dragon=373,ground=445,steel=376,ghost=94,fairy=282,grass=3,water=9,poison=94,dark=229,fighting=448,flying=18,normal=115,bug=212,psychic=65,rock=142)
-BIOMES = dict(normal=['plains','sunflower_plains'],fighting=['mountains','wooded_mountains'],poison=['swamp','swamp_hills'],flying=['gravelly_mountains','modified_gravelly_mountains'],psychic=['desert','desert_hills'],bug=['jungle','jungle_hills','bamboo_jungle','bamboo_jungle_hills'],rock=['mountain_edge','stone_shore','desert_lakes'],dark=['dark_forest','dark_forest_hills'])
+BIOMES = dict(normal=['plains','sunflower_plains'],fighting=['mountains','wooded_mountains'],poison=['swamp','swamp_hills'],flying=['gravelly_mountains','modified_gravelly_mountains'],psychic=['small_end_islands','end_midlands','end_highlands','end_barrens'],bug=['jungle','jungle_hills','bamboo_jungle','bamboo_jungle_hills'],rock=['mountain_edge','stone_shore','desert_lakes'],dark=['dark_forest','dark_forest_hills'])
 for theme,definition in THEMES.items():definition['biomes']=['minecraft:'+b for b in BIOMES[theme]]
 
 def write_json(path, value):
@@ -268,6 +268,8 @@ def main():
         path=RES/f'assets/pixelmon_backport/lang/{language}.json';data=json.loads(path.read_text(encoding='utf-8'))
         for theme, definition in THEMES.items():data[f'item.pixelmon_backport.{theme}_gym_badge']=definition['badge'] if language=='zh_cn' else theme.title()+' Gym Badge'
         write_json(path,data)
+    from add_center_music_blocks import apply as restore_music
+    restore_music(args.pixelmon)
     print(f'Generated {len(THEMES)} complete themed city libraries, {count} structure pieces, {len(signatures)} native gym NPC signatures and eight badge models.')
 
 if __name__=='__main__':main()

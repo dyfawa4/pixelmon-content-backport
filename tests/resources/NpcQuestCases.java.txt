@@ -81,11 +81,14 @@ public final class NpcQuestCases {
             check(ok==(x+y>=need),"Random availability "+i);
             check(xstack.func_190916_E()+ystack.func_190916_E()==x+y-(ok?need:0)&&wrong.func_190916_E()==64,"Random exact and atomic debit "+i);
         }
-        // Execute the actual transformed Objective.receive, including native action dispatch and packets.
+        // Native events now recheck the full owned stock; repeated partial crafting is insufficient.
+        player.field_71071_by.field_70462_a.clear();player.field_71071_by.field_184439_c.clear();
+        ItemStack owned=ball("level_ball",4);player.field_71071_by.field_70462_a.add(owned);
         data=new QuestData(player);ItemObjective craft=new ItemObjective("ITEM_CRAFT");Arguments ca=itemArgs(BALL,5,tag("level_ball"));QuestProgress p=goal(data,craft,ca,5);Objective o=p.stage.objectives.get(0);Action reward=p.stage.actions.get(0);
-        check(o.receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",4)),"Batch craft event received");
-        check(p.getObjectiveQuantityComplete(0)==4&&!p.done&&reward.calls==0,"Batch output counts units rather than events");
-        o.receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",64));check(p.done&&reward.calls==1&&p.backport$remaining()[0]==0,"Batch count saturates at target and native reward once");
+        for(int n=0;n<20;n++)o.receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",64));
+        check(p.getObjectiveQuantityComplete(0)==0&&!p.done&&reward.calls==0,"Craft event cannot replace missing owned items or accumulate partial credit");
+        owned.func_190920_e(5);o.receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",1));
+        check(p.done&&reward.calls==1&&p.backport$remaining()[0]==0&&owned.func_190916_E()==5,"Full stock completes native stage once without collection debit");
         o.receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",64));check(reward.calls==1,"Duplicate event no extra reward");
         data=new QuestData(player);ItemObjective has=new ItemObjective("ITEM_HAS",true,true);p=goal(data,has,itemArgs(BALL,8,tag("level_ball")),8);o=p.stage.objectives.get(0);
         List<ItemStack> held=Arrays.asList(ball("level_ball",3),ball("level_ball",4));
@@ -99,13 +102,47 @@ public final class NpcQuestCases {
         stage.objectives.get(0).receive("NPC_GIVE",stage,data,p,0,npc);check(a.func_190916_E()==8&&p.isObjectiveComplete(0)&&!p.done,"First submission retained while waiting for other goal");
         stage.objectives.get(0).receive("NPC_GIVE",stage,data,p,0,npc);check(a.func_190916_E()==8,"Repeated first submission not charged again");
         stage.objectives.get(1).receive("NPC_GIVE",stage,data,p,1,npc);check(p.done&&b.func_190916_E()==7&&reward.calls==1,"AND hand-ins native reward exactly once");
-        // Periodic readiness must not manufacture unrelated craft/capture/harvest progress.
+        // Existing and custom material goals, including migrated quest paths, share ownership rules.
         data=new QuestData(player);StorageProxy.party.data=data;p=goal(data,new ItemObjective("ITEM_CRAFT"),itemArgs(BALL,5,tag("level_ball")),5);p.quest.filename="celebi.json";
         NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.START,player));check(!p.done,"No START phase progress");
         NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(p.done&&a.func_190916_E()==8,"Existing stock prepares built-in delivery goal without deduction");
-        QuestProgress custom=goal(data,new ItemObjective("ITEM_CRAFT"),itemArgs(BALL,5,tag("level_ball")),5);NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(!custom.done,"Custom genuine craft objective is not converted into possession");
-        QuestProgress capture=goal(data,new ItemObjective("APRICORN_HARVEST"),itemArgs(BALL,5,tag("level_ball")),5);capture.quest.filename="celebi.json";NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(!capture.done,"Occurrence objectives never retroactively fabricated");
-        data=new QuestData(player);p=goal(data,new ItemObjective("ITEM_CRAFT"),itemArgs(BALL,-1,tag("level_ball")),-1);p.stage.objectives.get(0).receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",1));check(p.done&&p.getObjectiveTotalQuantity(0)==1,"Legacy missing quantity recovered without stage reset");
+        for(String kind:List.of("ITEM_CRAFT","ITEM_SMELT","ITEM_PICKUP","APRICORN_HARVEST")){
+            QuestProgress custom=goal(data,new ItemObjective(kind),itemArgs(BALL,5,tag("level_ball")),5);
+            custom.quest.filename="old/custom/renamed_quest.json";
+            NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));
+            check(custom.done&&custom.stage.actions.get(0).calls==1&&a.func_190916_E()==8,"All material types accept existing stock: "+kind);
+            NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));
+            check(custom.stage.actions.get(0).calls==1,"Repeated polls give one reward: "+kind);
+            QuestProgress shortGoal=goal(data,new ItemObjective(kind),itemArgs(BALL,9,tag("level_ball")),9);
+            for(int n=0;n<5;n++)NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));
+            check(!shortGoal.done&&shortGoal.getObjectiveQuantityComplete(0)==0,"Wrong ball stacks cannot fill shortage: "+kind);
+        }
+        QuestProgress drop=goal(data,new ItemObjective("ITEM_DROP"),itemArgs(BALL,5,tag("level_ball")),5);
+        NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(!drop.done,"Actual drop occurrence remains event-based");
+        QuestProgress legacy=goal(data,new ItemObjective("ITEM_CRAFT"),itemArgs(BALL,5,tag("level_ball")),5);legacy.backport$remaining()[0]=3;
+        a.func_190920_e(4);NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(!legacy.done&&legacy.backport$remaining()[0]==3,"Legacy partial progress still requires full owned quantity");
+        a.func_190920_e(5);NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));check(legacy.done&&legacy.backport$remaining()[0]==0,"Legacy partial progress completes without restarting quest");
+        // Real pick_apricorns stage: seven independent colors, pre-owned and split stacks.
+        data=new QuestData(player);StorageProxy.party.data=data;Stage apricorns=new Stage();
+        String[] colors={"red","yellow","blue","green","pink","white","black"};
+        Item[] fruit=new Item[7];player.field_71071_by.field_70462_a.clear();player.field_71071_by.field_184439_c.clear();
+        for(int i=0;i<7;i++){
+            fruit[i]=new Item("pixelmon:"+colors[i]+"_apricorn");
+            apricorns.objectives.add(new Objective(new ItemObjective("APRICORN_HARVEST"),itemArgs(fruit[i],10,null),i));
+            player.field_71071_by.field_70462_a.add(stack(fruit[i],4));
+            player.field_71071_by.field_184439_c.add(stack(fruit[i],i==6?5:6));
+        }
+        apricorns.actions.add(new Action(0,1,2,3,4,5,6));
+        p=new QuestProgress(data,apricorns,10,10,10,10,10,10,10);p.quest.filename="blue/pick_apricorns.json";data.progress.add(p);
+        NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));
+        check(!p.done&&p.isObjectiveComplete(0)&&!p.isObjectiveComplete(6),"Color-specific shortage remains required");
+        for(int n=0;n<5;n++)NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));
+        check(p.getObjectiveQuantityComplete(6)==0,"Nine apricorns cannot accumulate repeated poll credit");
+        player.field_71071_by.field_184439_c.get(6).func_190920_e(6);
+        NpcQuestEvents.poll(new TickEvent.PlayerTickEvent(TickEvent.Phase.END,player));
+        check(p.done&&apricorns.actions.get(0).calls==1,"All seven colors complete collection exactly once");
+        check(player.field_71071_by.field_70462_a.get(0).func_190916_E()==4,"Collection stage does not consume stock");
+        player.field_71071_by.field_70462_a.add(ball("level_ball",1));data=new QuestData(player);p=goal(data,new ItemObjective("ITEM_CRAFT"),itemArgs(BALL,-1,tag("level_ball")),-1);p.stage.objectives.get(0).receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",1));check(p.done&&p.getObjectiveTotalQuantity(0)==1,"Legacy missing quantity recovered without stage reset");
         data=new QuestData(player);p=goal(data,new ItemObjective("ITEM_CRAFT"),ca,5);p.stage.conditions=false;p.stage.objectives.get(0).receive("ITEM_CRAFT",p.stage,data,p,0,ball("level_ball",64));check(!p.done&&p.getObjectiveQuantityComplete(0)==0,"Native stage conditions remain enforced");
         check(NpcQuestConditions.date(LocalDate.of(2027,1,10),LocalDate.of(2026,9,10),LocalDate.of(2027,1,31)),"Cross-year January seasonal date");
         check(NpcQuestConditions.date(LocalDate.of(2028,9,10),LocalDate.of(2026,9,10),LocalDate.of(2027,1,31)),"Recurring season and inclusive first day");

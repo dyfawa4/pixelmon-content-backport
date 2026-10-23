@@ -6,6 +6,7 @@ import com.pixelmonmod.pixelmon.api.util.helpers.RandomHelper;
 import net.minecraftforge.eventbus.api.*;
 
 public final class CapSpawns {
+    public static boolean eligible(net.minecraft.world.server.ServerWorld world,net.minecraft.util.math.BlockPos pos){return world!=null&&pos!=null&&world.func_234923_W_().equals(net.minecraft.world.World.field_234918_g_)&&world.func_217354_b(pos.func_177958_n()>>4,pos.func_177952_p()>>4)&&new net.minecraft.util.ResourceLocation("minecraft:plains").equals(world.func_226691_t_(pos).getRegistryName())&&world.func_204610_c(pos).func_206888_e()&&world.func_204610_c(pos.func_177984_a()).func_206888_e()&&village(world,pos);}
     /** Native structure references cover village pieces beyond the start chunk. */
     public static boolean village(net.minecraft.world.server.ServerWorld world,net.minecraft.util.math.BlockPos pos){
         if(world==null || pos==null || !world.func_217354_b(pos.func_177958_n()>>4,pos.func_177952_p()>>4))return false;
@@ -17,8 +18,7 @@ public final class CapSpawns {
         var location=event.action.spawnLocation.location;var world=location.world;var pos=location.pos;
         // Check the actual final spawn location as well as the datapack condition.
         if(!(world instanceof net.minecraft.world.server.ServerWorld)
-            || !new net.minecraft.util.ResourceLocation("minecraft:plains").equals(world.func_226691_t_(pos).getRegistryName())
-            || !village((net.minecraft.world.server.ServerWorld)world,pos)
+            || !eligible((net.minecraft.world.server.ServerWorld)world,pos)
             || !RandomHelper.getRandomChance((float)BurstPolicy.spawnRetention(PixelmonConfigProxy.getSpawning().getLegendarySpawnChance())))event.setCanceled(true);
     }
 }

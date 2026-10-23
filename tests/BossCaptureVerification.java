@@ -24,7 +24,7 @@ public final class BossCaptureVerification {
             var text=Version13StaticVerification.resource("assets/pixelmon_backport/lang/"+lang+".json");
             String field=text.get("pixelmon.backport.cap.field_capture_blocked").getAsString();
             String warning=text.get("pixelmon.backport.cap.capture_warning").getAsString();
-            if(lang.equals("zh_cn")?(!field.contains("任何精灵球")||!field.contains("场外")||!warning.contains("只能在战斗中")):(!field.contains("any Poke Ball")||!field.contains("outside battle")||!warning.contains("only be caught in battle")))throw new AssertionError("Cap field warning scope "+lang);
+            if(lang.equals("zh_cn")?(!field.contains("无法场外捕捉")||!warning.contains("%s")||!warning.contains("2倍")||!warning.contains("原生倍率乘0.5")||!warning.contains("只能在战斗中")):(!field.contains("only be caught in battle")||!warning.contains("%s")||!warning.contains("2x")||!warning.contains("0.5x their native")))throw new AssertionError("Cap preferred ball warning scope "+lang);
         }
         Map<String,String>s=new LinkedHashMap<>();
         add(s,API+"api.pokemon.boss.BossTier","public class BossTier {public String id;public Boolean isBoss;public BossTier(String s){id=s;}public boolean isBoss(){throw new AssertionError();}public boolean isNotBoss(){throw new AssertionError();}}");
@@ -67,6 +67,9 @@ public final class BossCaptureVerification {
         s.compute("net.minecraft.entity.player.ServerPlayerEntity",(k,v)->v.replace("public int messages,packets;","public int messages,packets;public String lastKey;").replace("if(b || !((net.minecraft.util.text.TranslationTextComponent)c).key.equals(\"gui.choosebag.nopokeballs\"))throw new AssertionError();messages++;","lastKey=((net.minecraft.util.text.TranslationTextComponent)c).key;if(b || !(lastKey.equals(\"gui.choosebag.nopokeballs\")||lastKey.equals(\"pixelmon.backport.cap.forbidden_ball\")))throw new AssertionError();messages++;"));
         s.put("fixture.BossCaptureCases",Files.readString(Path.of("tests/resources/BossCaptureCases.java.txt")));
         s.put("fixture.CapBallGuardCases",Files.readString(Path.of("tests/resources/CapBallGuardCases.java.txt")));
+        s.put("fixture.ClientCaptureReadinessCases",Files.readString(Path.of("tests/resources/ClientCaptureReadinessCases.java.txt")));
+        CapPreferenceSupport.prepare(s);
+        s.compute("net.minecraft.entity.player.ServerPlayerEntity",(k,v)->v.replace("lastKey.equals(\"pixelmon.backport.cap.forbidden_ball\")","(lastKey.equals(\"pixelmon.backport.cap.forbidden_ball\")||lastKey.equals(\"pixelmon.backport.cap.capture_warning\"))"));
         Path dir=Files.createTempDirectory(Path.of(".cache"),"boss-capture-");List<String> options=new ArrayList<>(List.of("--release","11","-proc:none","-encoding","UTF-8","-cp",System.getProperty("java.class.path"),"-d",dir.toString()));
         for(var row:s.entrySet()){var p=dir.resolve(row.getKey().replace('.','/')+".java");Files.createDirectories(p.getParent());Files.writeString(p,row.getValue());options.add(p.toString());}
         if(ToolProvider.getSystemJavaCompiler().run(null,null,null,options.toArray(new String[0]))!=0)throw new AssertionError("Boss fixture compilation failed");
@@ -94,10 +97,21 @@ public final class BossCaptureVerification {
         for(var p:Version13StaticVerification.resource("backport/content.json").getAsJsonArray("patches"))if(p.getAsJsonObject().get("mode").getAsString().equals("new"))newSpecies++;
         if(newSpecies<9)throw new AssertionError("Missing current backported species audit");
         Map<String,byte[]> production=new HashMap<>();for(String name:List.of("local.pixelmon.backport.BossCaptureGuard","local.pixelmon.backport.client.BossCaptureClient","local.pixelmon.backport.CapBallGuard"))production.put(name,write(Version13StaticVerification.node(name.replace('.','/'))));
-        var burst=Version13StaticVerification.node("local/pixelmon/backport/BurstCapture");burst.methods.removeIf(m->!m.name.equals("forbidden"));production.put("local.pixelmon.backport.BurstCapture",write(burst));
+        production.put("local.pixelmon.backport.BurstCapture",CapPreferenceSupport.burst());
+        production.put("local.pixelmon.backport.CapBallPreference",CapPreferenceSupport.preference());
+        for(boolean patched:new boolean[]{false,true}){
+        if(patched){
+            var actual=node(Files.readAllBytes(Path.of(".cache/fixes-162/patched-client-battle-manager.class")));
+            Path path=dir.resolve((API+"client.gui.battles.ClientBattleManager").replace('.','/')+".class");var stub=node(Files.readAllBytes(path));int copied=0;
+            for(var method:actual.methods)if(method.name.equals("canCatchOpponent")||method.name.contains("backport$captureDataReady")){
+                stub.methods.removeIf(m->m.name.equals(method.name)&&m.desc.equals(method.desc));stub.methods.add(method);copied++;
+            }
+            if(copied!=2)throw new AssertionError("Actual capture readiness injection absent or duplicated");Files.write(path,write(stub));
+        }
         try(var loader=new URLClassLoader(new URL[]{dir.toUri().toURL()},BossCaptureVerification.class.getClassLoader()){
             protected Class<?> loadClass(String n,boolean resolve)throws ClassNotFoundException{synchronized(getClassLoadingLock(n)){Class<?> c=findLoadedClass(n);String base=n.contains("$")?n.substring(0,n.indexOf('$')):n;if(c==null&&s.containsKey(base))c=findClass(n);if(c==null&&production.containsKey(n)){byte[] b=production.get(n);c=defineClass(n,b,0,b.length);}if(c==null)c=super.loadClass(n,false);if(resolve)resolveClass(c);return c;}}
-        }){loader.loadClass("fixture.BossCaptureCases").getMethod("run",String.class).invoke(null,String.join(",",tiers));loader.loadClass("fixture.CapBallGuardCases").getMethod("run").invoke(null);}
+        }){loader.loadClass("fixture.BossCaptureCases").getMethod("run",String.class).invoke(null,String.join(",",tiers));loader.loadClass("fixture.CapBallGuardCases").getMethod("run").invoke(null);loader.loadClass("fixture.ClientCaptureReadinessCases").getMethod("run",boolean.class).invoke(null,patched);}
+        }
         System.out.println("PASS native BossTier identity/client canCatchOpponent and shipped bag guards: all native/custom wild Boss tiers, stale category and forged selection; ordinary wild/medicine/raids/players/NPC/reserve/removed/ended/simulation unchanged, no item/action consumption. No game initialized.");
         System.out.println("PASS new-species coverage audit: "+newSpecies+" added species share native Boss identity, no dex/name/color allowlist; future species use the same guard.");
     }

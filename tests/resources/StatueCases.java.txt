@@ -1,0 +1,46 @@
+// FILE: net/minecraft/entity/Entity.java
+package net.minecraft.entity;public class Entity {}
+// FILE: net/minecraft/entity/ai/attributes/Attribute.java
+package net.minecraft.entity.ai.attributes;public class Attribute {}
+// FILE: net/minecraft/entity/ai/attributes/Attributes.java
+package net.minecraft.entity.ai.attributes;public class Attributes {public static final Attribute field_233821_d_=new Attribute();}
+// FILE: net/minecraft/entity/passive/horse/AbstractHorseEntity.java
+package net.minecraft.entity.passive.horse;public class AbstractHorseEntity extends net.minecraft.entity.Entity {public boolean missing;public double func_110215_cj(){if(missing)throw new IllegalArgumentException("Can't find attribute minecraft:horse.jump_strength");return .7;}public double func_233637_b_(net.minecraft.entity.ai.attributes.Attribute a){return .2;}}
+// FILE: net/minecraft/util/text/ITextComponent.java
+package net.minecraft.util.text;public interface ITextComponent {String getString();}
+// FILE: net/minecraft/util/text/StringTextComponent.java
+package net.minecraft.util.text;public class StringTextComponent implements ITextComponent {String text;public StringTextComponent(String s){text=s;}public String getString(){return text;}}
+// FILE: net/minecraft/util/text/TranslationTextComponent.java
+package net.minecraft.util.text;public class TranslationTextComponent implements ITextComponent {public static String lang="zh_cn";public String key;public TranslationTextComponent(String s){key=s;}public TranslationTextComponent(String s,Object... args){key=s;}public String getString(){if(key.equals("pixelmon.snorlax.name"))return lang.equals("zh_cn")?"卡比兽":"Snorlax";if(key.equals("entity.pixelmon_backport.statue"))return "宝可梦雕像";return key;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/species/Species.java
+package com.pixelmonmod.pixelmon.api.pokemon.species;public class Species {public String getName(){return "Snorlax";}public String getTranslationKey(){return "pixelmon.snorlax.name";}}
+// FILE: com/pixelmonmod/pixelmon/entities/pixelmon/AbstractBaseEntity.java
+package com.pixelmonmod.pixelmon.entities.pixelmon;public class AbstractBaseEntity extends net.minecraft.entity.passive.horse.AbstractHorseEntity {public com.pixelmonmod.pixelmon.api.pokemon.species.Species species=new com.pixelmonmod.pixelmon.api.pokemon.species.Species();public AbstractBaseEntity(){missing=true;}public com.pixelmonmod.pixelmon.api.pokemon.species.Species getSpecies(){return species;}public String getPokemonName(){return species.getName();}public net.minecraft.util.text.ITextComponent func_200200_C_(){throw new AssertionError();}}
+// FILE: com/pixelmonmod/pixelmon/entities/pixelmon/StatueEntity.java
+package com.pixelmonmod.pixelmon.entities.pixelmon;public class StatueEntity extends AbstractBaseEntity {public String label="作者的卡比兽";}
+// FILE: mcp/mobius/waila/api/IEntityAccessor.java
+package mcp.mobius.waila.api;public interface IEntityAccessor {net.minecraft.entity.Entity getEntity();}
+// FILE: mcp/mobius/waila/api/IPluginConfig.java
+package mcp.mobius.waila.api;public interface IPluginConfig {boolean get(net.minecraft.util.ResourceLocation key);}
+// FILE: mcp/mobius/waila/api/IEntityComponentProvider.java
+package mcp.mobius.waila.api;public interface IEntityComponentProvider {}
+// FILE: snownee/jade/JadePlugin.java
+package snownee.jade;public class JadePlugin {public static final net.minecraft.util.ResourceLocation HORSE_STAT=new net.minecraft.util.ResourceLocation("jade:horse_stat");}
+// FILE: snownee/jade/Jade.java
+package snownee.jade;public class Jade {public static final java.text.DecimalFormat dfCommas=new java.text.DecimalFormat("0.00");}
+// FILE: snownee/jade/addon/vanilla/HorseProvider.java
+package snownee.jade.addon.vanilla;public class HorseProvider {public void appendBody(java.util.List<net.minecraft.util.text.ITextComponent> text,mcp.mobius.waila.api.IEntityAccessor entity,mcp.mobius.waila.api.IPluginConfig config){throw new AssertionError();}}
+// FILE: StatueCases.java
+import com.pixelmonmod.pixelmon.entities.pixelmon.*;import snownee.jade.addon.vanilla.HorseProvider;import net.minecraft.util.text.*;
+public class StatueCases {
+ static void check(boolean b,String why){if(!b)throw new AssertionError(why);}
+ public static void original(){var statue=new StatueEntity();check(statue.func_200200_C_().getString().equals("Snorlax"),"English default name reproduced");boolean failed=false;try{new HorseProvider().appendBody(new java.util.ArrayList<>(),()->statue,k->true);}catch(IllegalArgumentException e){failed=e.getMessage().contains("horse.jump_strength");}check(failed,"native Jade horse stat exception reproduced");}
+ public static void fixed(){
+  var statue=new StatueEntity();var name=statue.func_200200_C_();check(name instanceof TranslationTextComponent&&name.getString().equals("卡比兽"),"Chinese deferred name");TranslationTextComponent.lang="en_us";check(name.getString().equals("Snorlax"),"same name follows language change");check(statue.label.equals("作者的卡比兽"),"custom display label unchanged");TranslationTextComponent.lang="zh_cn";statue.species=null;check(statue.func_200200_C_().getString().equals("宝可梦雕像"),"not-yet-synced species fallback");
+  var lines=new java.util.ArrayList<ITextComponent>();var provider=new HorseProvider();provider.appendBody(lines,()->statue,k->true);check(lines.isEmpty(),"statue not queried for horse jump stat");var pokemon=new AbstractBaseEntity();provider.appendBody(lines,()->pokemon,k->true);check(lines.isEmpty(),"other Pixelmon horse inheritance also safe");check(pokemon.func_200200_C_().getString().equals("Snorlax"),"non-statue naming unchanged");
+  provider.appendBody(lines,()->new net.minecraft.entity.passive.horse.AbstractHorseEntity(),k->true);check(lines.size()==2,"real horse retains jump and speed stats");lines.clear();provider.appendBody(lines,()->new net.minecraft.entity.passive.horse.AbstractHorseEntity(),k->false);check(lines.isEmpty(),"native horse option remains respected");
+ }
+}
+
+// FILE: net/minecraft/util/ResourceLocation.java
+package net.minecraft.util;public class ResourceLocation {String id;public ResourceLocation(String id){this.id=id;}public String toString(){return id;}}

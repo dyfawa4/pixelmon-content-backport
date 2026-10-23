@@ -14,6 +14,7 @@ public final class GymAcePolicy {
         }catch(IOException e){throw new IllegalStateException("Gym ace catalogue",e);}
     }
     private GymAcePolicy(){}
+    public static boolean specialPoisonAce(UUID trainer){return new Random(trainer.getLeastSignificantBits()^trainer.getMostSignificantBits()^0x41c718f2L).nextInt(100)<90;}
     public static boolean strong(int dex,int total,boolean legendary,boolean usable){
         if(!legendary || !usable || Arrays.asList(789,790,772,891,803,808).contains(dex))return false;
         return total>=600 || dex==892 && total>=550 || dex==639 && total>=580;

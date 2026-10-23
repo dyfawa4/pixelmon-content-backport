@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "H",
+    "A"
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:honey_block"
+    },
+    "A": {
+      "item": "minecraft:golden_apple"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:syrupy_apple",
+    "count": 1
+  }
+}

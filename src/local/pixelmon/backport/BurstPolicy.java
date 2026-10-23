@@ -12,7 +12,7 @@ public final class BurstPolicy {
     }
     public static double catchBonus(double nativeBonus,boolean enabled,boolean forbidden){
         if(forbidden)return 0;
-        return enabled && nativeBonus>0 && Double.isFinite(nativeBonus)?nativeBonus+1:nativeBonus;
+        return enabled && nativeBonus>0 && Double.isFinite(nativeBonus)?nativeBonus+2:nativeBonus;
     }
     public static double spawnChance(double configured){return Math.max(0,Math.min(1,configured)-.4);}
     // Native legendary attempts have already passed their configured chance.

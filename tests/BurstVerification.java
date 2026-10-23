@@ -40,7 +40,7 @@ public final class BurstVerification {
             close(BurstPolicy.effectiveness(m,false,true,true,false,true),m);
             close(BurstPolicy.effectiveness(m,true,true,true,true,true),m==0||m==1?m:m*1.25);
         }
-        close(BurstPolicy.catchBonus(2,true,false),3);close(BurstPolicy.catchBonus(0,true,false),0);
+        close(BurstPolicy.catchBonus(2,true,false),4);close(BurstPolicy.catchBonus(0,true,false),0);
         close(BurstPolicy.catchBonus(2,false,false),2);close(BurstPolicy.catchBonus(999,true,true),0);
         JsonObject nativePikachu;int metagrossRate;Set<String> nativeAttacks=new HashSet<>();
         try(ZipFile jar=new ZipFile(args[0])){
@@ -68,7 +68,7 @@ public final class BurstVerification {
             check(nativeAttacks.contains(move.getAsString()),"Additional move cannot resolve in actual native registry: "+move);
         }
         JsonObject main=CapSpecies.DATA.getAsJsonArray("moves").get(0).getAsJsonObject(),z=main.getAsJsonArray("z").get(0).getAsJsonObject();
-        check(main.get("basePower").getAsInt()==120 && main.get("accuracy").getAsInt()==100,"Signature stats");
+        check(main.get("basePower").getAsInt()==50 && main.get("accuracy").getAsInt()==100,"Signature stats");
         check(z.get("basePower").getAsInt()==185 && z.get("attackName").getAsString().equals("Origin of Thunder") && z.getAsJsonArray("allowedPokemon").get(0).getAsString().equals("CapPikachu"),"Z stats/name/eligibility");
         JsonObject spawn=resource("data/pixelmon/spawning/legendaries/cappikachu.set.json").getAsJsonArray("spawnInfos").get(0).getAsJsonObject();
         check(spawn.get("interval").getAsString().equals("legendary") && spawn.getAsJsonObject("condition").getAsJsonArray("stringBiomes").toString().equals("[\"minecraft:plains\"]") && spawn.getAsJsonObject("condition").getAsJsonArray("structures").toString().equals("[\"village\"]"),"Spawn location/clock broadened or unsupported native village key");
@@ -85,7 +85,7 @@ public final class BurstVerification {
         for(MethodNode method:outline.methods)if(method.name.equals("outline"))for(AbstractInsnNode i:method.instructions)if(i instanceof MethodInsnNode){width|=((MethodInsnNode)i).name.equals("func_230998_h_");height|=((MethodInsnNode)i).name.equals("func_238483_d_");}
         check(width && height,"Border uses sprite-only dimensions rather than the complete native button");
         ClassNode capRead=Version13StaticVerification.node("local/pixelmon/backport/CapPikachu");for(MethodNode method:capRead.methods)if(method.name.equals("sync"))for(AbstractInsnNode i:method.instructions)if(i instanceof FieldInsnNode)check(!((FieldInsnNode)i).name.equals("pikashunium_z"),"Ordinary Pikachu still responds to crystal");
-        boolean guard=false;for(MethodNode method:Version13StaticVerification.node("local/pixelmon/backport/mixin/CapGuaranteedCaptureMixin").methods)for(AbstractInsnNode i:method.instructions)if(i instanceof MethodInsnNode && ((MethodInsnNode)i).name.equals("forbidden"))guard=true;check(guard,"ALWAYS_CAPTURE bypass is unguarded");
+        boolean guard=false,standard=false;for(MethodNode method:Version13StaticVerification.node("local/pixelmon/backport/mixin/CapGuaranteedCaptureMixin").methods)for(AbstractInsnNode i:method.instructions){if(i instanceof MethodInsnNode&&((MethodInsnNode)i).owner.equals("local/pixelmon/backport/CapBallPreference")&&((MethodInsnNode)i).name.equals("cap"))guard=true;if(i instanceof FieldInsnNode&&((FieldInsnNode)i).name.equals("GEN_8"))standard=true;}check(guard&&standard,"Cap ALWAYS_CAPTURE must route through the standard calculation");
         System.out.println("PASS independent native species/720 stats/full learnset, plains-village legendary clock and 70%-40pp=30%, native Z signature, inherited indefinite terrain, both sides/neutral/immunity/zero-bonus boundaries, all ally/terrain-linked move borders, full native move/bag/raid item frames and guaranteed-capture guard; no game initialized.");
     }
 }

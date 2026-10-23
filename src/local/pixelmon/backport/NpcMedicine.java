@@ -14,9 +14,15 @@ import net.minecraft.item.ItemStack;
 /** Finite native medicines, used through the normal item turn instead of an extra heal/attack. */
 public final class NpcMedicine {
     private NpcMedicine(){}
-    private static final class Bag {int heals=2,revives=1,lastTurn=-1;ItemStack planned;UUID target;}
+    private static final class Bag {int heals=2,revives=1,lastTurn=-1;boolean leader;ItemStack planned;UUID target;}
     private static final Map<BattleParticipant,Bag> BAGS=Collections.synchronizedMap(new WeakHashMap<>());
-    public static void prepare(TrainerParticipant p){BAGS.put(p,new Bag());}
+    public static void prepare(TrainerParticipant p){Bag bag=new Bag();bag.leader=GymCities.isLeader(p.trainer)||AuthorBossTeams.is(p.trainer);BAGS.put(p,bag);}
+    public static double value(PixelmonWrapper member,PixelmonWrapper own){
+        double score=0;for(var attack:member.getMoveset())if(attack.getAttackCategory()!=AttackCategory.STATUS)
+            for(PixelmonWrapper enemy:own.getOpponentPokemon())score=Math.max(score,attack.getMove().getBasePower()*Element.getTotalEffectiveness(enemy.type,attack.getType()));
+        double bulk=member.getMaxHealth()/300.0;
+        return score*(1+Math.min(1,bulk)*.2)+(member.pokemon.getPersistentData().func_74767_n(GymAcePolicy.MARKER)?45:0);
+    }
     public static boolean plan(PixelmonWrapper p){
         return plan(p,null);
     }
@@ -26,24 +32,54 @@ public final class NpcMedicine {
             || bag.lastTurn==p.bc.battleTurn || p.bc.rules.hasClause("bagclause"))return false;
         List<MoveChoice> threats=NpcTactics.threats(p);
         if(NpcTactics.finishFirst(p,choice,threats))return false;
-        double incoming=NpcTactics.incoming(p,threats);
+        // A last survivor can spend this item before falling and keep the team in battle.
+        // Do not apply the normal safe-window/HP gates or let self-healing consume this chance.
+        if(bag.leader&&Arrays.stream(p.getParticipant().allPokemon).filter(PixelmonWrapper::isAlive).count()==1){
+            if(bag.revives>0){
+                PixelmonWrapper fallen=null;double best=Double.NEGATIVE_INFINITY;boolean ace=false;
+                for(var member:p.getParticipant().allPokemon)if(!member.isAlive()&&!member.onBattlefield){
+                    boolean marked=member.pokemon.getPersistentData().func_74767_n(GymAcePolicy.MARKER);double score=value(member,p);
+                    if(fallen==null||marked&&!ace||marked==ace&&score>best){fallen=member;best=score;ace=marked;}
+                }
+                if(fallen!=null)return queue(p,bag,fallen,new ItemStack(PixelmonItems.max_revive));
+            }
+            if(bag.heals>0&&p.getHealthDeficit()>0)return queue(p,bag,p,new ItemStack(PixelmonItems.max_potion));
+            return false;
+        }
+        double incoming;
+        try(var item=NpcTurnKnowledge.preview(p,null)){incoming=NpcTactics.incoming(p,NpcTactics.threats(p));}
+        double future=NpcTurnKnowledge.active(p.bc)?NpcTactics.incoming(p,NpcTactics.threats(p,true)):incoming;
         PixelmonWrapper target=null;ItemStack medicine=null;
         boolean status=p.getStatuses().stream().anyMatch(s->Arrays.asList("Sleep","Freeze","Paralysis","Burn","Poison","PoisonBad").contains(s.type.toString()));
-        boolean canActFirst=choice!=null && !MoveChoice.canOutspeed(threats,p,choice.createList());
-        if(bag.heals>0 && (p.getHealthPercent()<=35 && p.getHealthDeficit()>=50 || status && p.getHealthPercent()<=80)
+        boolean canActFirst=choice!=null && choice.isAttack() && !MoveChoice.canOutspeed(threats,p,choice.createList());
+        boolean window=NpcTurnKnowledge.active(p.bc)&&incoming<p.getHealth()*.15&&future>=p.getHealth()*.65&&p.getHealthPercent()<65;
+        if(bag.heals>0 && ((p.getHealthPercent()<=35||window) && p.getHealthDeficit()>=50 || !bag.leader&&status && p.getHealthPercent()<=80)
             && !(choice!=null && NpcMoves.recovery(choice.attack)) && NpcSwitchPolicy.healingBuysAction(p.getMaxHealth(),incoming,canActFirst)){
-            target=p;medicine=new ItemStack(PixelmonItems.full_restore);
+            ItemStack candidate=new ItemStack(bag.leader?PixelmonItems.max_potion:PixelmonItems.full_restore);
+            var healed=NpcMedicineForecast.project(p,candidate,-1);
+            // Unscoped trainers retain native observed-move knowledge; its target
+            // references are the live wrapper rather than our detached copy.
+            var riskTarget=NpcTurnKnowledge.active(p.bc)?healed:p;
+            double immediate;
+            try(var item=NpcTurnKnowledge.preview(riskTarget,null)){immediate=NpcTactics.medicineDamage(riskTarget,NpcTactics.threats(riskTarget));}
+            double following=NpcTurnKnowledge.active(p.bc)?NpcTactics.medicineDamage(healed,NpcTactics.threats(healed,true)):immediate;
+            if(healed.getHealth()>immediate&&healed.getHealth()-immediate>following*(canActFirst?.15:1.05)){
+                target=p;medicine=candidate;
+            }
         }else if(bag.revives>0 && p.getHealthPercent()>55 && incoming<p.getHealth()*.65){
-            double best=-1;
+            double best=-1,reserve=0;int alive=0;
+            for(PixelmonWrapper member:p.getParticipant().allPokemon)if(member.isAlive()){alive++;reserve=Math.max(reserve,value(member,p));}
             for(PixelmonWrapper member:p.getParticipant().allPokemon)if(!member.isAlive() && !member.onBattlefield){
-                double value=member.pokemon.getPersistentData().func_74767_n(NpcMoves.ACE)?30:0;
-                for(var attack:member.getMoveset())if(attack.getAttackCategory()!=AttackCategory.STATUS)
-                    for(PixelmonWrapper enemy:p.getOpponentPokemon())value=Math.max(value,attack.getMove().getBasePower()*Element.getTotalEffectiveness(enemy.type,attack.getType()));
+                double value=value(member,p);
                 if(value>best){best=value;target=member;}
             }
-            if(target!=null)medicine=new ItemStack(GymCities.isLeader(((TrainerParticipant)p.getParticipant()).trainer)?PixelmonItems.max_revive:PixelmonItems.revive);
+            if(target!=null&&(!bag.leader||NpcRevivePolicy.worthwhile(p.getHealth(),Math.max(incoming,future*.35),alive,best,reserve)))medicine=new ItemStack(bag.leader?PixelmonItems.max_revive:PixelmonItems.revive);
+            else target=null;
         }
         if(target==null)return false;
+        return queue(p,bag,target,medicine);
+    }
+    private static boolean queue(PixelmonWrapper p,Bag bag,PixelmonWrapper target,ItemStack medicine){
         Tera.cancelSelection(p);p.willUseItemPokemon=target.getPokemonUUID();p.willUseItemInStack=medicine;p.willUseItemInStackInfo=-1;
         p.willEvolve=false;p.usingZ=false;bag.planned=medicine;bag.target=target.getPokemonUUID();
         bag.lastTurn=p.bc.battleTurn;return true;

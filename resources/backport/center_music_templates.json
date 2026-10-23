@@ -1,0 +1,890 @@
+{
+  "pixelmon:gyms/dragon/gym_dragon_pokecenter": {
+    "position": [
+      11,
+      9,
+      13
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/dragon/gym_dragon_pokemart": {
+    "position": [
+      10,
+      7,
+      10
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/dragon/gym_dragon_tcg_shop": {
+    "position": [
+      5,
+      2,
+      4
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon:gyms/electric/gym_electric_pokecenter": {
+    "position": [
+      10,
+      4,
+      13
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/electric/gym_electric_pokemart": {
+    "position": [
+      10,
+      5,
+      10
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/electric/gym_electric_tcg_shop": {
+    "position": [
+      5,
+      2,
+      4
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon:gyms/fairy/gym_fairy_pokecenter": {
+    "position": [
+      11,
+      6,
+      13
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/fairy/gym_fairy_pokemart": {
+    "position": [
+      11,
+      5,
+      10
+    ],
+    "size": [
+      6,
+      7,
+      6
+    ]
+  },
+  "pixelmon:gyms/fairy/gym_fairy_tcg_shop": {
+    "position": [
+      5,
+      2,
+      4
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon:gyms/fire/gym_fire_pokecenter": {
+    "position": [
+      10,
+      8,
+      14
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/fire/gym_fire_pokemart": {
+    "position": [
+      11,
+      8,
+      10
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/fire/gym_fire_tcg_shop": {
+    "position": [
+      5,
+      2,
+      4
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon:gyms/ghost/gym_ghost_pokecenter": {
+    "position": [
+      11,
+      9,
+      12
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/ghost/gym_ghost_pokemart": {
+    "position": [
+      9,
+      10,
+      9
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/ghost/gym_ghost_tcg_shop": {
+    "position": [
+      4,
+      3,
+      4
+    ],
+    "size": [
+      4,
+      5,
+      4
+    ]
+  },
+  "pixelmon:gyms/grass/gym_grass_pokecenter": {
+    "position": [
+      12,
+      8,
+      13
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/grass/gym_grass_pokemart": {
+    "position": [
+      11,
+      5,
+      10
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/grass/gym_grass_tcg_shop": {
+    "position": [
+      5,
+      3,
+      4
+    ],
+    "size": [
+      4,
+      4,
+      4
+    ]
+  },
+  "pixelmon:gyms/ground/gym_ground_pokecenter": {
+    "position": [
+      11,
+      9,
+      13
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/ground/gym_ground_pokemart": {
+    "position": [
+      11,
+      6,
+      10
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/ground/gym_ground_tcg_shop": {
+    "position": [
+      4,
+      4,
+      4
+    ],
+    "size": [
+      4,
+      4,
+      4
+    ]
+  },
+  "pixelmon:gyms/ice/gym_ice_pokecenter": {
+    "position": [
+      12,
+      8,
+      11
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/ice/gym_ice_pokemart": {
+    "position": [
+      11,
+      7,
+      9
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/ice/gym_ice_tcg_shop": {
+    "position": [
+      4,
+      4,
+      4
+    ],
+    "size": [
+      4,
+      4,
+      4
+    ]
+  },
+  "pixelmon:gyms/steel/gym_steel_pokecenter": {
+    "position": [
+      9,
+      8,
+      19
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/steel/gym_steel_pokemart": {
+    "position": [
+      7,
+      5,
+      7
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/steel/gym_steel_tcg_shop": {
+    "position": [
+      14,
+      6,
+      10
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/water/gym_water_pokecenter": {
+    "position": [
+      14,
+      9,
+      23
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:gyms/water/gym_water_pokemart": {
+    "position": [
+      21,
+      9,
+      15
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon:poke_center": {
+    "position": [
+      9,
+      2,
+      5
+    ],
+    "size": [
+      6,
+      3,
+      6
+    ]
+  },
+  "pixelmon:village/desert/desert_mart": {
+    "position": [
+      5,
+      4,
+      7
+    ],
+    "size": [
+      6,
+      5,
+      6
+    ]
+  },
+  "pixelmon:village/desert/desert_pokecenter": {
+    "position": [
+      5,
+      3,
+      7
+    ],
+    "size": [
+      6,
+      5,
+      6
+    ]
+  },
+  "pixelmon:village/desert/desert_tcg_shop_a": {
+    "position": [
+      5,
+      4,
+      6
+    ],
+    "size": [
+      5,
+      6,
+      5
+    ]
+  },
+  "pixelmon:village/desert/desert_tcg_shop_b": {
+    "position": [
+      4,
+      2,
+      5
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon:village/plains/plains_mart": {
+    "position": [
+      5,
+      4,
+      7
+    ],
+    "size": [
+      6,
+      5,
+      6
+    ]
+  },
+  "pixelmon:village/plains/plains_pokecenter": {
+    "position": [
+      5,
+      4,
+      7
+    ],
+    "size": [
+      6,
+      5,
+      6
+    ]
+  },
+  "pixelmon:village/plains/plains_tcg_shop_a": {
+    "position": [
+      5,
+      4,
+      5
+    ],
+    "size": [
+      5,
+      6,
+      5
+    ]
+  },
+  "pixelmon:village/plains/plains_tcg_shop_b": {
+    "position": [
+      4,
+      2,
+      5
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon:village/savanna/savanna_mart": {
+    "position": [
+      5,
+      4,
+      7
+    ],
+    "size": [
+      6,
+      5,
+      6
+    ]
+  },
+  "pixelmon:village/savanna/savanna_pokecenter": {
+    "position": [
+      5,
+      3,
+      7
+    ],
+    "size": [
+      6,
+      5,
+      6
+    ]
+  },
+  "pixelmon:village/savanna/savanna_tcg_shop_a": {
+    "position": [
+      5,
+      3,
+      5
+    ],
+    "size": [
+      5,
+      5,
+      5
+    ]
+  },
+  "pixelmon:village/savanna/savanna_tcg_shop_b": {
+    "position": [
+      4,
+      2,
+      5
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon:village/snowy/snowy_mart": {
+    "position": [
+      5,
+      4,
+      7
+    ],
+    "size": [
+      6,
+      6,
+      6
+    ]
+  },
+  "pixelmon:village/snowy/snowy_pokecenter": {
+    "position": [
+      5,
+      4,
+      7
+    ],
+    "size": [
+      6,
+      6,
+      6
+    ]
+  },
+  "pixelmon:village/snowy/snowy_tcg_shop_a": {
+    "position": [
+      5,
+      5,
+      5
+    ],
+    "size": [
+      5,
+      6,
+      5
+    ]
+  },
+  "pixelmon:village/snowy/snowy_tcg_shop_b": {
+    "position": [
+      4,
+      2,
+      5
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon:village/taiga/taiga_mart": {
+    "position": [
+      5,
+      4,
+      7
+    ],
+    "size": [
+      6,
+      6,
+      6
+    ]
+  },
+  "pixelmon:village/taiga/taiga_pokecenter": {
+    "position": [
+      5,
+      4,
+      7
+    ],
+    "size": [
+      6,
+      5,
+      6
+    ]
+  },
+  "pixelmon:village/taiga/taiga_tcg_shop_a": {
+    "position": [
+      6,
+      5,
+      5
+    ],
+    "size": [
+      5,
+      7,
+      5
+    ]
+  },
+  "pixelmon:village/taiga/taiga_tcg_shop_b": {
+    "position": [
+      4,
+      2,
+      5
+    ],
+    "size": [
+      4,
+      3,
+      4
+    ]
+  },
+  "pixelmon_backport:gyms/bug/gym_bug_pokecenter": {
+    "position": [
+      14,
+      4,
+      5
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/bug/gym_bug_pokemart": {
+    "position": [
+      15,
+      4,
+      16
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/bug/gym_bug_tcg_shop": {
+    "position": [
+      5,
+      2,
+      3
+    ],
+    "size": [
+      4,
+      5,
+      4
+    ]
+  },
+  "pixelmon_backport:gyms/dark/gym_dark_pokecenter": {
+    "position": [
+      8,
+      4,
+      11
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/dark/gym_dark_pokemart": {
+    "position": [
+      5,
+      2,
+      3
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/dark/gym_dark_tcg_shop": {
+    "position": [
+      5,
+      2,
+      3
+    ],
+    "size": [
+      4,
+      5,
+      4
+    ]
+  },
+  "pixelmon_backport:gyms/fighting/gym_fighting_pokecenter": {
+    "position": [
+      8,
+      4,
+      11
+    ],
+    "size": [
+      6,
+      6,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/fighting/gym_fighting_pokemart": {
+    "position": [
+      3,
+      2,
+      9
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/fighting/gym_fighting_tcg_shop": {
+    "position": [
+      5,
+      2,
+      3
+    ],
+    "size": [
+      4,
+      5,
+      4
+    ]
+  },
+  "pixelmon_backport:gyms/flying/gym_flying_pokecenter": {
+    "position": [
+      8,
+      4,
+      11
+    ],
+    "size": [
+      6,
+      7,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/flying/gym_flying_pokemart": {
+    "position": [
+      10,
+      13,
+      10
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/flying/gym_flying_tcg_shop": {
+    "position": [
+      4,
+      2,
+      4
+    ],
+    "size": [
+      4,
+      6,
+      4
+    ]
+  },
+  "pixelmon_backport:gyms/normal/gym_normal_pokecenter": {
+    "position": [
+      19,
+      2,
+      15
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/normal/gym_normal_pokemart": {
+    "position": [
+      17,
+      4,
+      15
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/normal/gym_normal_tcg_shop": {
+    "position": [
+      5,
+      2,
+      3
+    ],
+    "size": [
+      4,
+      7,
+      4
+    ]
+  },
+  "pixelmon_backport:gyms/poison/gym_poison_pokecenter": {
+    "position": [
+      15,
+      2,
+      19
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/poison/gym_poison_pokemart": {
+    "position": [
+      4,
+      4,
+      10
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/poison/gym_poison_tcg_shop": {
+    "position": [
+      25,
+      2,
+      13
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/psychic/gym_psychic_pokecenter": {
+    "position": [
+      16,
+      2,
+      12
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/psychic/gym_psychic_pokemart": {
+    "position": [
+      15,
+      4,
+      17
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/psychic/gym_psychic_tcg_shop": {
+    "position": [
+      5,
+      2,
+      2
+    ],
+    "size": [
+      4,
+      7,
+      4
+    ]
+  },
+  "pixelmon_backport:gyms/rock/gym_rock_pokecenter": {
+    "position": [
+      19,
+      2,
+      12
+    ],
+    "size": [
+      6,
+      8,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/rock/gym_rock_pokemart": {
+    "position": [
+      17,
+      4,
+      15
+    ],
+    "size": [
+      6,
+      6,
+      6
+    ]
+  },
+  "pixelmon_backport:gyms/rock/gym_rock_tcg_shop": {
+    "position": [
+      5,
+      2,
+      3
+    ],
+    "size": [
+      4,
+      7,
+      4
+    ]
+  }
+}

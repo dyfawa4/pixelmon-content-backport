@@ -1,0 +1,72 @@
+// FILE: net/minecraft/util/ResourceLocation.java
+package net.minecraft.util; public final class ResourceLocation {final String id;public ResourceLocation(String id){this.id=id;}public String toString(){return id;}public boolean equals(Object o){return o instanceof ResourceLocation&&id.equals(o.toString());}public int hashCode(){return id.hashCode();}}
+// FILE: net/minecraft/nbt/CompoundNBT.java
+package net.minecraft.nbt; public final class CompoundNBT {final java.util.Map<String,Object> data=new java.util.HashMap<>();public void func_74757_a(String k,boolean v){data.put(k,v);}public boolean func_74767_n(String k){return Boolean.TRUE.equals(data.get(k));}public void func_74778_a(String k,String v){data.put(k,v);}}
+// FILE: net/minecraft/item/Item.java
+package net.minecraft.item; public class Item {final net.minecraft.util.ResourceLocation id;public Item(String s){id=new net.minecraft.util.ResourceLocation(s);}public net.minecraft.util.ResourceLocation getRegistryName(){return id;}}
+// FILE: net/minecraft/item/Items.java
+package net.minecraft.item; public class Items {public static final Item field_190931_a=new Item("minecraft:air");}
+// FILE: net/minecraft/item/ItemStack.java
+package net.minecraft.item; public class ItemStack {Item item;public ItemStack(Item i){item=i;}public boolean func_190926_b(){return item==null||item==Items.field_190931_a;}public Item func_77973_b(){return item;}}
+// FILE: net/minecraftforge/registries/ForgeRegistries.java
+package net.minecraftforge.registries; public class ForgeRegistries {public static class Items implements Iterable<net.minecraft.item.Item> {public final java.util.Map<net.minecraft.util.ResourceLocation,net.minecraft.item.Item> data=new java.util.LinkedHashMap<>();public net.minecraft.item.Item getValue(net.minecraft.util.ResourceLocation id){return data.get(id);}public java.util.Iterator<net.minecraft.item.Item> iterator(){return data.values().iterator();}public void add(net.minecraft.item.Item i){data.put(i.getRegistryName(),i);}}public static final Items ITEMS=new Items();}
+// FILE: com/pixelmonmod/pixelmon/items/heldItems/MegaStoneItem.java
+package com.pixelmonmod.pixelmon.items.heldItems;public class MegaStoneItem extends net.minecraft.item.Item {public int dex;public MegaStoneItem(String s,int d){super(s);dex=d;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/Element.java
+package com.pixelmonmod.pixelmon.api.pokemon; public enum Element {NORMAL,FIRE,WATER,ELECTRIC,GRASS,ICE,FIGHTING,POISON,GROUND,FLYING,PSYCHIC,BUG,ROCK,GHOST,DRAGON,DARK,STEEL,FAIRY,MYSTERY}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/species/Stats.java
+package com.pixelmonmod.pixelmon.api.pokemon.species;import java.util.*;import com.google.gson.*;import com.pixelmonmod.pixelmon.api.pokemon.Element;public class Stats {String name;List<Element> types=new ArrayList<>();List<Object> evolutions=new ArrayList<>();public boolean legendary,mythical;public Stats(JsonObject j,Stats base){name=j.get("name").getAsString();if(j.has("types"))for(JsonElement t:j.getAsJsonArray("types"))types.add(Element.valueOf(t.getAsString()));else if(base!=null)types.addAll(base.types);if(j.has("evolutions"))j.getAsJsonArray("evolutions").forEach(e->evolutions.add(e));if(j.has("tags"))for(JsonElement t:j.getAsJsonArray("tags")){legendary|=t.getAsString().equals("legendary");mythical|=t.getAsString().equals("mythical");}else if(base!=null){legendary=base.legendary;mythical=base.mythical;}}public String getName(){return name;}public List<Element> getTypes(){return types;}public List<Object> getEvolutions(){return evolutions;}public Stats getTags(){return this;}public boolean isLegendary(){return legendary;}public boolean isMythical(){return mythical;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/species/Species.java
+package com.pixelmonmod.pixelmon.api.pokemon.species;import java.util.*;import com.google.gson.*;public class Species {int dex;String name;List<Stats> forms=new ArrayList<>();public Species(JsonObject j){dex=j.get("dex").getAsInt();name=j.get("name").getAsString();for(JsonElement e:j.getAsJsonArray("forms"))forms.add(new Stats(e.getAsJsonObject(),forms.isEmpty()?null:forms.get(0)));}public int getDex(){return dex;}public String getName(){return name;}public Stats getDefaultForm(){return forms.get(0);}public List<Stats> getForms(){return forms;}}
+// FILE: com/pixelmonmod/pixelmon/api/registries/PixelmonSpecies.java
+package com.pixelmonmod.pixelmon.api.registries;import java.util.*;import com.pixelmonmod.pixelmon.api.pokemon.species.Species;public class PixelmonSpecies {public static final Map<Integer,Species> ALL=new TreeMap<>();public static Collection<Species> getAll(){return ALL.values();}public static Species fromNationalDex(int id){return ALL.get(id);}}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/Attack.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class Attack {String move;public Attack(String s){move=s;}public Attack getMove(){return this;}public String getAttackName(){return move;}}
+// FILE: com/pixelmonmod/pixelmon/api/battles/attack/AttackRegistry.java
+package com.pixelmonmod.pixelmon.api.battles.attack;public class AttackRegistry {public static java.util.Optional<String> getAttackBase(String n){return java.util.Optional.of(n);}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/Pokemon.java
+package com.pixelmonmod.pixelmon.api.pokemon;import java.util.*;import com.pixelmonmod.pixelmon.api.pokemon.species.*;import com.pixelmonmod.pixelmon.battles.attacks.Attack;import net.minecraft.item.*;public class Pokemon {Species species;Stats form;ItemStack held=new ItemStack(null);List<Attack> moves=new ArrayList<>();net.minecraft.nbt.CompoundNBT data=new net.minecraft.nbt.CompoundNBT();public boolean trained,healed;public Pokemon(Species s){species=s;form=s.getDefaultForm();}public Species getSpecies(){return species;}public Stats getForm(){return form;}public void setForm(String n){form=species.getForms().stream().filter(f->f.getName().equals(n)).findFirst().orElseThrow();}public void setLevelNum(int n){}public void initialize(){}public void rerollMoveset(){for(String n:List.of("Tackle","Protect","Rest","Toxic"))moves.add(new Attack(n));}public void setHeldItem(ItemStack s){held=s;}public ItemStack getHeldItem(){return held;}public List<Attack> getMoveset(){return moves;}public net.minecraft.nbt.CompoundNBT getPersistentData(){return data;}public void heal(){healed=true;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/PokemonFactory.java
+package com.pixelmonmod.pixelmon.api.pokemon;public class PokemonFactory {public static Pokemon create(com.pixelmonmod.pixelmon.api.pokemon.species.Species s){return new Pokemon(s);}}
+// FILE: com/pixelmonmod/pixelmon/api/registries/PixelmonItems.java
+package com.pixelmonmod.pixelmon.api.registries;public class PixelmonItems {public static final net.minecraft.item.Item leftovers=new net.minecraft.item.Item("pixelmon:leftovers"),life_orb=new net.minecraft.item.Item("pixelmon:life_orb");}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class PixelmonWrapper {public static boolean canMegaEvolve(net.minecraft.item.ItemStack s,com.pixelmonmod.pixelmon.api.pokemon.species.Species species,String form){return s.func_77973_b() instanceof com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem&&((com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem)s.func_77973_b()).dex==species.getDex();}}
+// FILE: local/pixelmon/backport/NpcMoves.java
+package local.pixelmon.backport;public class NpcMoves {public static final String ACE="ace";public static void configure(com.pixelmonmod.pixelmon.api.pokemon.Pokemon p,java.util.UUID uuid){}}
+// FILE: local/pixelmon/backport/NpcGimmicks.java
+package local.pixelmon.backport;public class NpcGimmicks {public static final String PROFILE="profile";}
+// FILE: local/pixelmon/backport/NpcTraining.java
+package local.pixelmon.backport;public class NpcTraining {public static void prepare(com.pixelmonmod.pixelmon.api.pokemon.Pokemon p){p.trained=true;}}
+// FILE: local/pixelmon/backport/CapSpecies.java
+package local.pixelmon.backport;public class CapSpecies {public static final int DEX=1026;}
+// FILE: AuthorBossCases.java
+import java.util.*;import java.nio.file.*;import com.google.gson.*;import local.pixelmon.backport.*;import com.pixelmonmod.pixelmon.api.pokemon.*;import com.pixelmonmod.pixelmon.api.pokemon.species.*;import com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies;import net.minecraft.item.*;import net.minecraftforge.registries.ForgeRegistries;import com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem;
+public class AuthorBossCases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ public static void run(String input)throws Exception{
+  for(JsonElement e:new JsonParser().parse(Files.readString(Path.of(input))).getAsJsonArray()){
+   JsonObject row=e.getAsJsonObject();Species species=new Species(row);PixelmonSpecies.ALL.put(species.getDex(),species);
+   JsonObject base=row.getAsJsonArray("forms").get(0).getAsJsonObject();if(base.has("megaItems"))for(JsonElement m:base.getAsJsonArray("megaItems"))ForgeRegistries.ITEMS.add(new MegaStoneItem("pixelmon:"+m.getAsString().replace("pixelmon:",""),species.getDex()));
+  }
+  for(String id:List.of("legend_plate","blue_orb","pikashunium_z"))ForgeRegistries.ITEMS.add(new Item("pixelmon:"+id));
+  List<String> themes=new ArrayList<>(AuthorBossPolicy.TYPES.keySet());themes.addAll(List.of("paradox","ultra"));Set<String> necrozmaForms=new HashSet<>();int teams=0;
+  for(String theme:themes)for(int seed=0;seed<160;seed++){
+   List<Pokemon> team=AuthorBossTeams.roster(theme,new Random(seed));check(team.size()==6,"Six members "+theme);Set<Integer> seen=new HashSet<>();int legends=0;
+   for(Pokemon p:team){int dex=p.getSpecies().getDex();check(dex>0&&seen.add(dex),"No placeholder/duplicate species");check(p.trained&&p.healed&&!p.getHeldItem().func_190926_b(),"Every member receives training/healing/held item");
+    if(theme.equals("paradox")){check(AuthorBossTeams.PARADOX.contains(dex),"End paradox only");continue;}
+    if(theme.equals("ultra")){check(AuthorBossTeams.ULTRA.contains(dex)&&dex!=803,"Ultra selection excludes Poipole");if(dex==800)necrozmaForms.add(p.getForm().getName());continue;}
+    boolean match=p.getForm().getTypes().stream().anyMatch(t->AuthorBossPolicy.TYPES.get(theme).contains(t.name()));
+    check(match||(theme.equals("plains")&&AuthorBossTeams.legendary(p.getSpecies())),"Theme purity "+theme+" #"+dex);
+    if(match&&AuthorBossTeams.legendary(p.getSpecies()))legends++;
+   }
+   if(!theme.equals("paradox")&&!theme.equals("ultra"))check(legends>=2,"Two corresponding legendary members "+theme);
+   if(theme.equals("plains"))check(team.stream().anyMatch(p->p.getSpecies().getDex()==493&&p.getHeldItem().func_77973_b().getRegistryName().toString().equals("pixelmon:legend_plate")),"Legend Plate Arceus");
+   if(theme.equals("ocean"))check(team.stream().anyMatch(p->p.getSpecies().getDex()==382&&p.getForm().getName().equals("primal")&&p.getHeldItem().func_77973_b().getRegistryName().toString().equals("pixelmon:blue_orb")),"Primal Kyogre");
+   if(theme.equals("badlands"))check(team.stream().anyMatch(p->p.getSpecies().getDex()==1026&&p.getHeldItem().func_77973_b().getRegistryName().toString().equals("pixelmon:pikashunium_z")&&p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals("Ten Million Volts"))),"Cap Pikachu with held Z and signature");
+   teams++;
+  }
+  check(necrozmaForms.containsAll(List.of("","dawn","dusk","ultra")),"All Necrozma forms possible");
+  System.out.println("PASS "+teams+" production roster builds against supplied species metadata; six distinct trained members, biome types/two legends, fixed forms/held items, Paradox-only End, Ultra exclusions and all Necrozma forms. World/real stats services isolated.");
+ }
+}

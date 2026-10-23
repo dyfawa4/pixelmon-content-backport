@@ -11,6 +11,11 @@ public final class NpcSwitchPolicyVerification {
         assert NpcSwitchPolicy.healingBuysAction(150,90,true):"Faster heal can repay before next hit";
         assert NpcSwitchPolicy.healingBuysAction(300,90,false):"Safe slower recovery rejected";
         assert !NpcSwitchPolicy.healingBuysAction(90,90,true):"Fatal item turn accepted";
+        assert NpcSwitchPolicy.adjustment(25,90,300,100,0,300,0,25,200)<0:"Fodder preserved by exposing healthy ace";
+        assert NpcSwitchPolicy.adjustment(25,90,300,100,0,300,0,200,25)>40:"Valuable ace rescue rejected";
+        assert NpcSwitchPolicy.adjustment(25,90,300,0,0,300,0,25,200)>60:"Safe immunity switch rejected";
+        assert NpcSwitchPolicy.adjustment(25,90,200,0,0,300,100,25,200)<0:"Entry hazard sacrifice ignored";
+        assert NpcSwitchPolicy.adjustment(25,90,60,200,0,300,0,25,200)<0:"Reserve thrown into lethal attack";
         System.out.println("PASS native switch survival score boundaries; no battles initialized");
     }
 }

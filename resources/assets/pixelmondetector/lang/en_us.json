@@ -54,5 +54,20 @@
   "pixelmondetector.config.category.draws": "Draws",
   "pixelmondetector.config.file.common": "Common",
   "pixelmondetector.config.file.client": "Client",
-  "pixelmondetector.config.file.server": "Server"
+  "pixelmondetector.config.file.server": "Server",
+  "pixelmondetector.config.button.edit": "Edit",
+  "pixelmondetector.config.pokeLootFilter.value.pokeball": "pokeball",
+  "pixelmondetector.config.pokeLootFilter.value.ultraball": "ultraball",
+  "pixelmondetector.config.pokeLootFilter.value.masterball": "masterball",
+  "pixelmondetector.config.pokeLootFilter.value.beastball": "beastball",
+  "pixelmondetector.config.pokeLootFilter.value.special": "special",
+  "pixelmondetector.config.pokeLootFilter.value.hidden": "hidden",
+  "pixelmondetector.config.bossFilter.value.common": "common",
+  "pixelmondetector.config.bossFilter.value.uncommon": "uncommon",
+  "pixelmondetector.config.bossFilter.value.rare": "rare",
+  "pixelmondetector.config.bossFilter.value.epic": "epic",
+  "pixelmondetector.config.bossFilter.value.legendary": "legendary",
+  "pixelmondetector.config.bossFilter.value.ultimate": "ultimate",
+  "pixelmondetector.config.bossFilter.value.drowned": "drowned",
+  "pixelmondetector.config.bossFilter.value.haunted": "haunted"
 }

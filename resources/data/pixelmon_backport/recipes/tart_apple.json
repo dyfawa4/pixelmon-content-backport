@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " W ",
+    "WAW",
+    " W "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:nether_wart"
+    },
+    "A": {
+      "item": "minecraft:golden_apple"
+    }
+  },
+  "result": {
+    "item": "pixelmon:tart_apple",
+    "count": 1
+  }
+}

@@ -17,8 +17,10 @@ import net.minecraft.util.text.TranslationTextComponent;
 
 /** Adapt native objectives, counters, stages and rewards without replacing saved quest identities. */
 public final class NpcQuestLogic {
-    private static final Set<String> COUNTED = Set.of("ITEM_CRAFT", "ITEM_SMELT", "ITEM_PICKUP", "ITEM_DROP", "APRICORN_HARVEST");
+    private static final Set<String> POSSESSION = Set.of("ITEM_CRAFT", "ITEM_SMELT", "ITEM_PICKUP", "APRICORN_HARVEST");
     private NpcQuestLogic() {}
+
+    public static boolean possession(String id) { return POSSESSION.contains(id); }
 
     public static List<ItemStack> inventory(PlayerInventory inventory) {
         List<ItemStack> stacks = new ArrayList<>(inventory.field_70462_a);
@@ -31,6 +33,13 @@ public final class NpcQuestLogic {
         int damage = a.value(2, p);
         String name = a.value(3, p);
         CompoundNBT nbt = a.value(4, p);
+        if (possession(id)) {
+            // An event is only a prompt to recheck ownership. Repeated partial outputs must
+            // not accumulate credit, and old saves need no quest or stage replacement.
+            return p.getParent().getPlayer() != null && NpcQuestItems.count(
+                    inventory(p.getParent().getPlayer().field_71071_by), item, damage, name, nbt)
+                    >= Math.max(1, (Integer)a.value(1, p));
+        }
         if (id.equals("ITEM_HAS") || id.equals("ITEM_HAS_NOT")) {
             Object value = c.get(0);
             if (!(value instanceof Iterable<?>)) return false;
@@ -78,8 +87,8 @@ public final class NpcQuestLogic {
         String id = objective.getInternalObjective().identifier();
         int units = 1;
         if (objective.getInternalObjective() instanceof ItemObjective) {
-            if (id.equals("ITEM_HAS") || id.equals("ITEM_HAS_NOT")) units = Math.max(1, p.getObjectiveTotalQuantity(index) - p.getObjectiveQuantityComplete(index));
-            else if (COUNTED.contains(id) && context.length > 0 && context[0] instanceof ItemStack)
+            if (id.equals("ITEM_HAS") || id.equals("ITEM_HAS_NOT") || possession(id)) units = Math.max(1, p.getObjectiveTotalQuantity(index) - p.getObjectiveQuantityComplete(index));
+            else if (id.equals("ITEM_DROP") && context.length > 0 && context[0] instanceof ItemStack)
                 units = Math.max(1, ((ItemStack)context[0]).func_190916_E());
         }
         if (units == 1) { p.completeObjective(index); return; }

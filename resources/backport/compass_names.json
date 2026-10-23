@@ -127,7 +127,8 @@
     "pixelmon_backport:ultra_forest_tera_den": "究极森林太晶巢穴",
     "pixelmon_backport:ultra_jungle_tera_den": "究极丛林太晶巢穴",
     "pixelmon_backport:ultra_plant_tera_den": "究极植物世界太晶巢穴",
-    "bettermineshafts:mineshaft": "废弃矿井"
+    "bettermineshafts:mineshaft": "废弃矿井",
+    "pixelmon_backport:author_gym": "作者道馆"
   },
   "biome": {
     "minecraft:badlands": "恶地",

@@ -64,6 +64,7 @@ public final class NpcGimmicks {
     }
     public static void augment(TrainerParticipant participant){
         NPCTrainer npc=participant.trainer;
+        if(npc.getPersistentData().func_74767_n("BackportAuthorTrainer"))return;
         if(!enabled(npc) || !GymCities.isLeader(npc))return;
         Element theme=GymCities.theme(npc);
         if(participant.allPokemon.length==0)return;
@@ -88,6 +89,12 @@ public final class NpcGimmicks {
         }
         if(candidates.isEmpty())throw new IllegalStateException("No registered legal mature ace for "+theme);
         var selected=candidates.get(new Random(npc.func_110124_au().getLeastSignificantBits()).nextInt(candidates.size()));
+        if(theme==Element.POISON){
+            boolean special=GymAcePolicy.specialPoisonAce(npc.func_110124_au());
+            var preferred=new ArrayList<com.mojang.datafixers.util.Pair<com.pixelmonmod.pixelmon.api.pokemon.species.Species,com.pixelmonmod.pixelmon.api.pokemon.species.Stats>>();
+            for(var candidate:candidates)if((candidate.getFirst().getDex()==890)==special)preferred.add(candidate);
+            if(!preferred.isEmpty())selected=preferred.get(new Random(npc.func_110124_au().getLeastSignificantBits()).nextInt(preferred.size()));
+        }
         int index=replaceLegacyCrossTheme?participant.allPokemon.length-1:participant.allPokemon.length<6?participant.allPokemon.length:participant.allPokemon.length-1;
         Pokemon source=participant.allPokemon[Math.min(index,participant.allPokemon.length-1)].pokemon;
         Pokemon ace=PokemonFactory.create(selected.getFirst());ace.setForm(selected.getSecond());ace.setLevelNum(source.getPokemonLevel());ace.initialize();ace.rerollMoveset();
@@ -97,7 +104,11 @@ public final class NpcGimmicks {
         ace.getPersistentData().func_74757_a(GymAcePolicy.MARKER,true);ace.getPersistentData().func_74757_a(NpcMoves.ACE,true);
         if(theme==Element.POISON && ace.getSpecies().getDex()==890)ace.setHeldItem(new ItemStack(Backport.REGISTERED.get("eternatus_meteorite").get()));
         NpcMoves.configure(ace,npc.func_110124_au());npc.getPokemonStorage().set(index,ace);
-        participant.allPokemon=Arrays.copyOf(participant.allPokemon,Math.max(participant.allPokemon.length,index+1));participant.allPokemon[index]=new PixelmonWrapper(participant,ace,index);
+        participant.allPokemon=Arrays.copyOf(participant.allPokemon,Math.max(participant.allPokemon.length,index+1));
+        PixelmonWrapper added=new PixelmonWrapper(participant,ace,index);
+        // Native constructors only attach the participant. Preparation can also
+        // run after native startBattle has attached the original roster.
+        added.bc=participant.bc;participant.allPokemon[index]=added;
         npc.getPersistentData().func_74757_a("BackportNpcRoster",true);npc.getPersistentData().func_74768_a("BackportNpcRosterVersion",2);
     }
     private static boolean aceEligible(Pokemon pokemon,Element theme){return aceEligible(pokemon.getSpecies(),pokemon.getForm(),theme);}
@@ -149,6 +160,7 @@ public final class NpcGimmicks {
     }
     /** A legal Mega user and a distinct Z user provide options; native rules decide which can be spent. */
     public static void armTeam(TrainerParticipant participant){
+        if(participant.trainer.getPersistentData().func_74767_n("BackportAuthorTrainer"))return;
         if(!GymCities.isLeader(participant.trainer))return;
         boolean hasMega=Arrays.stream(participant.allPokemon).anyMatch(p->PixelmonWrapper.canMegaEvolve(p.pokemon.getHeldItem(),p.getSpecies(),p.getForm().getName()));
         if(!hasMega && Arrays.stream(participant.allPokemon).noneMatch(p->!megaItems(p.pokemon).isEmpty())){
@@ -166,7 +178,8 @@ public final class NpcGimmicks {
                 pokemon.getPersistentData().func_74757_a(NpcMoves.ACE,true);NpcMoves.configure(pokemon,participant.trainer.func_110124_au());
                 participant.trainer.getPokemonStorage().set(index,pokemon);
                 participant.allPokemon=Arrays.copyOf(participant.allPokemon,Math.max(participant.allPokemon.length,index+1));
-                participant.allPokemon[index]=new PixelmonWrapper(participant,pokemon,index);
+                PixelmonWrapper added=new PixelmonWrapper(participant,pokemon,index);
+                added.bc=participant.bc;participant.allPokemon[index]=added;
             }
         }
         PixelmonWrapper mega=null;
@@ -207,35 +220,55 @@ public final class NpcGimmicks {
         }
         return best;
     }
+    private static final ThreadLocal<MoveChoice> ACTIVE_MOVE=new ThreadLocal<>();
     public static boolean spent(BattleParticipant p){return Tera.used(p) || p.evolution!=null || p.dynamax!=null || p.ultraBurst!=null || p.usedZ;}
     public static Choice decide(PixelmonWrapper p,Attack attack){
         if(!(p.getParticipant() instanceof TrainerParticipant) || !enabled(((TrainerParticipant)p.getParticipant()).trainer)
             || p.bc==null || p.bc.simulateMode || p.bc.isRaid() || !p.isAlive() || !p.onBattlefield || Tera.used(p.getParticipant())
             || attack==null)return Choice.NONE;
         List<PixelmonWrapper> enemies=p.getOpponentPokemon();if(enemies.isEmpty())return Choice.NONE;
+        boolean author=((TrainerParticipant)p.getParticipant()).trainer.getPersistentData().func_74767_n("BackportAuthorTrainer");
+        boolean authorMega=author&&Arrays.stream(p.getParticipant().allPokemon).anyMatch(m->m.isAlive()&&PixelmonWrapper.canMegaEvolve(m.pokemon.getHeldItem(),m.getSpecies(),m.getForm().getName()));
         boolean queuedTera=false,queuedNative=false,queuedZ=false;
         for(PixelmonWrapper member:p.getParticipant().allPokemon)if(member!=p){queuedTera|=Tera.selected(member);queuedNative|=member.willEvolve || member.usingZ;queuedZ|=member.usingZ;}
         double incoming=0,after=0,pressure=0;Element tera=Tera.type(p.pokemon);
         for(PixelmonWrapper enemy:enemies){
             for(Attack a:NpcTactics.knownMoves(p,enemy))if(a.getAttackCategory()!=AttackCategory.STATUS){
                 double power=Math.max(40,a.getMove().getBasePower());
-                incoming=Math.max(incoming,power*Element.getTotalEffectiveness(p.type,a.getType()));
-                after=Math.max(after,power*Element.getTotalEffectiveness(tera==Element.MYSTERY?p.type:Collections.singletonList(tera),a.getType()));
+                incoming=Math.max(incoming,power*LightningOath.effectiveness(enemy,p,a,Element.getTotalEffectiveness(p.type,a.getType())));
+                after=Math.max(after,power*LightningOath.effectiveness(enemy,p,a,Element.getTotalEffectiveness(tera==Element.MYSTERY?p.type:Collections.singletonList(tera),a.getType())));
             }
-            pressure=Math.max(pressure,attack.getMove().getBasePower()*Element.getTotalEffectiveness(enemy.type,attack.getType()));
+            pressure=Math.max(pressure,attack.getMove().getBasePower()*LightningOath.effectiveness(p,enemy,attack,Element.getTotalEffectiveness(enemy.type,attack.getType())));
         }
         boolean status=attack.getAttackCategory()==AttackCategory.STATUS;
-        if((!status && pressure<=0) || (incoming<80 && enemies.stream().allMatch(e->e.getHealthPercent()<25)))return Choice.NONE;
+        double immediate=0,defended=0;
+        if(NpcTurnKnowledge.active(p.bc)){
+            immediate=NpcTactics.incoming(p,NpcTactics.threats(p));defended=NpcTactics.defensiveRisk(p,tera);
+        }
+        if((!status && pressure<=0) || (!author && incoming<80 && enemies.stream().allMatch(e->e.getHealthPercent()<25)))return Choice.NONE;
         Choice best=Choice.NONE;double score=30;
         double teraScore=(incoming-after)*.65+(!status && attack.getType()==tera?40:0);
-        if(!queuedNative && Tera.eligible(p) && teraScore>score){best=Choice.TERA;score=teraScore;}
-        double megaScore=45+Math.min(30,incoming*.1);
+        if(immediate>0)teraScore+=Math.max(-80,Math.min(150,(immediate-defended)/Math.max(1,p.getMaxHealth())*150));
+        if(immediate>=p.getHealth()&&defended<p.getHealth())teraScore+=150;
+        if(!authorMega && !queuedNative && Tera.eligible(p) && teraScore>score){best=Choice.TERA;score=teraScore;}
+        double megaScore=45+Math.min(30,incoming*.1)+(author?80:0);
         if(!queuedTera && !queuedNative && (!status || incoming>=80) && p.bc.oldGen.isYes() && p.getParticipant().evolution==null && p.getParticipant().ultraBurst==null && p.getParticipant().canMegaEvolve() && (p.canMegaEvolve() || p.canUltraBurst()) && megaScore>score){best=Choice.MEGA;score=megaScore;}
         // Respect native generation rules and Mega's precedence over Dynamax with a compatible stone.
-        double maxScore=incoming*.3+(p.getHealthPercent()>40 && p.getHealthPercent()<85?25:0);
-        if(!status && !queuedTera && !queuedNative && p.getParticipant().dynamax==null && p.getParticipant().canDynamax() && (p.canDynamax() || p.canGigantamax())
+        double maxScore=incoming*.3+(p.getHealthPercent()>40 && p.getHealthPercent()<85?25:0)+(immediate>=p.getHealth()&&immediate<p.getHealth()*1.5?100:0);
+        if(!authorMega && !status && !queuedTera && !queuedNative && p.getParticipant().dynamax==null && p.getParticipant().canDynamax() && (p.canDynamax() || p.canGigantamax())
             && !(p.bc.oldGen.isYes() && (p.canMegaEvolve() || p.canUltraBurst())) && maxScore>score){best=Choice.DYNAMAX;score=maxScore;}
-        if(!status && !queuedTera && !queuedZ && !p.getParticipant().usedZ && p.bc.oldGen.isYes() && p.getParticipant().canMegaEvolve() && attack.getMove().hasZMove(p.pokemon) && pressure*.45>score)best=Choice.Z;
+        if(!status && !queuedTera && !queuedNative && !queuedZ && !p.getParticipant().usedZ && p.bc.oldGen.isYes() && p.getParticipant().canMegaEvolve() && attack.getMove().hasZMove(p.pokemon)){
+            var z=attack.getMove().getZMove(p.pokemon,false);double zScore=pressure*.45;
+            if(z!=null){
+                double ratio=Math.max(1,z.basePower/(double)Math.max(1,attack.getMove().getBasePower()));
+                for(var enemy:enemies){
+                    double estimated=pressure; // Native move selection already compares legality and actual target damage.
+                    var planned=ACTIVE_MOVE.get();if(planned!=null&&planned.user==p&&planned.result!=null&&planned.targets.contains(enemy))estimated=Math.max(planned.result.damage,planned.result.fullDamage);
+                    if(estimated<enemy.getHealth()&&estimated*ratio>=enemy.getHealth())zScore+=100;
+                }
+            }
+            if(zScore>score)best=Choice.Z;
+        }
         return best;
     }
     public static void plan(PixelmonWrapper p,MoveChoice choice){
@@ -249,9 +282,10 @@ public final class NpcGimmicks {
         if(NpcMedicine.plan(p,move))return;
         if(Tera.used(p.getParticipant()))return;
         // Save the limited resource when an ordinary attack already finishes first.
-        if(NpcTactics.finishFirst(p,move,NpcTactics.threats(p)))return;
+        boolean author=p.getParticipant() instanceof TrainerParticipant&&((TrainerParticipant)p.getParticipant()).trainer.getPersistentData().func_74767_n("BackportAuthorTrainer");
+        if(!author&&NpcTactics.finishFirst(p,move,NpcTactics.threats(p)))return;
         if(move.result!=null && move.result.result==com.pixelmonmod.pixelmon.battles.controller.log.AttackResult.failed)return;
-        Choice choice=decide(p,move.attack);
+        Choice choice;ACTIVE_MOVE.set(move);try{choice=decide(p,move.attack);}finally{ACTIVE_MOVE.remove();}
         switch(choice){case TERA:Tera.select(p);break;case MEGA:case DYNAMAX:p.willEvolve=true;break;case Z:p.usingZ=true;break;default:break;}
     }
 }

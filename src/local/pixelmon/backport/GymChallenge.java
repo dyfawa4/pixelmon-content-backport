@@ -12,17 +12,24 @@ public final class GymChallenge {
     public static final int PLAYER_ITEMS=GymItemAllowance.TOTAL;
     private static final Map<BattleController,Map<BattleParticipant,GymItemAllowance>> USED=Collections.synchronizedMap(new WeakHashMap<>());
     private static boolean revival(net.minecraft.item.ItemStack stack){return stack!=null && stack.func_77973_b() instanceof com.pixelmonmod.pixelmon.items.ReviveItem;}
+    public static boolean author(BattleController battle){
+        return battle!=null&&!battle.simulateMode&&battle.participants.stream().anyMatch(p->p instanceof TrainerParticipant&&AuthorBossTeams.is(((TrainerParticipant)p).trainer));
+    }
+    public static boolean medicineDenied(BattleController battle,BattleParticipant participant,net.minecraft.item.ItemStack stack){
+        return participant instanceof PlayerParticipant&&stack!=null
+            &&BattleMedicines.medicine(stack)&&author(battle);
+    }
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public void before(com.pixelmonmod.pixelmon.api.events.npc.NPCEvent.StartBattle event){
         TrainerParticipant trainer=event.getNPCParticipant();
         if(!event.isCanceled() && trainer!=null && NpcGimmicks.enabled(trainer.trainer) && event.player!=null)
-            event.player.func_146105_b(new net.minecraft.util.text.TranslationTextComponent("pixelmon.backport.gym.challenge.before"),false);
+            event.player.func_146105_b(new net.minecraft.util.text.TranslationTextComponent(AuthorBossTeams.is(trainer.trainer)?"pixelmon.backport.author.challenge.rules":"pixelmon.backport.gym.challenge.before"),false);
     }
     public static void prepare(TrainerParticipant trainer){
         BattleController battle=trainer.bc;if(battle==null || battle.simulateMode)return;
         boolean first=!USED.containsKey(battle);USED.computeIfAbsent(battle,b->new IdentityHashMap<>());
         for(BattleParticipant p:battle.participants)for(PixelmonWrapper member:p.allPokemon)member.enableReturnHeldItem();
-        if(first)battle.sendToAll("pixelmon.backport.gym.challenge.rules",PLAYER_ITEMS,3);
+        if(first)battle.sendToAll(author(battle)?"pixelmon.backport.author.challenge.rules":"pixelmon.backport.gym.challenge.rules",PLAYER_ITEMS,3);
     }
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public void choose(com.pixelmonmod.pixelmon.api.events.battles.BagItemEvent.SelectItem.Pre event){
@@ -36,9 +43,11 @@ public final class GymChallenge {
             // In doubles, the last allowance may already be queued by a teammate.
             for(PixelmonWrapper member:participant.controlledPokemon)if(member.willUseItemInStack!=null){pending++;if(revival(member.willUseItemInStack))pendingRevivals++;}
             GymItemAllowance.Denial denial=allowance.denial(revival(event.getFoundItem()),pending,pendingRevivals);
-            if(denial==GymItemAllowance.Denial.NONE)return;
+            boolean forbidden=medicineDenied(battle,participant,event.getFoundItem());
+            if(!forbidden&&denial==GymItemAllowance.Denial.NONE)return;
             event.setCanceled(true); // BagPacket returns before setUseItem changes wait/action state.
-            String message=denial==GymItemAllowance.Denial.REVIVAL?"pixelmon.backport.gym.challenge.revive_limit"
+            String message=forbidden?"pixelmon.backport.author.challenge.no_medicine":denial==GymItemAllowance.Denial.REVIVAL?"pixelmon.backport.gym.challenge.revive_limit"
+                :denial==GymItemAllowance.Denial.RESTORE?"pixelmon.backport.gym.challenge.restore_limit"
                 :allowance.used()>=PLAYER_ITEMS?"pixelmon.backport.gym.challenge.limit":"pixelmon.backport.gym.challenge.reserved";
             event.getPlayer().func_146105_b(new net.minecraft.util.text.TranslationTextComponent(message,participant.getDisplayName(),PLAYER_ITEMS),false);
             if(battle.isWaiting()){
@@ -55,12 +64,15 @@ public final class GymChallenge {
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public void use(UseBattleItemEvent event){
         PixelmonWrapper user=event.getUser();if(event.isCanceled() || user==null || user.bc==null || user.bc.simulateMode)return;
+        if(medicineDenied(user.bc,user.getParticipant(),event.getStack())){
+            event.setCanceled(true);user.bc.sendToAll("pixelmon.backport.author.challenge.no_medicine");return;
+        }
         Map<BattleParticipant,GymItemAllowance> uses=USED.get(user.bc);
         if(uses!=null && user.getParticipant() instanceof PlayerParticipant){
             GymItemAllowance allowance=uses.computeIfAbsent(user.getParticipant(),p->new GymItemAllowance());
             GymItemAllowance.Denial denial=allowance.denial(revival(event.getStack()),0,0);
             if(denial!=GymItemAllowance.Denial.NONE){
-                event.setCanceled(true);user.bc.sendToAll(denial==GymItemAllowance.Denial.REVIVAL?"pixelmon.backport.gym.challenge.revive_limit":"pixelmon.backport.gym.challenge.limit",user.getParticipant().getDisplayName(),PLAYER_ITEMS);
+                event.setCanceled(true);user.bc.sendToAll(denial==GymItemAllowance.Denial.REVIVAL?"pixelmon.backport.gym.challenge.revive_limit":denial==GymItemAllowance.Denial.RESTORE?"pixelmon.backport.gym.challenge.restore_limit":"pixelmon.backport.gym.challenge.limit",user.getParticipant().getDisplayName(),PLAYER_ITEMS);
             }
         }
     }
@@ -68,7 +80,7 @@ public final class GymChallenge {
         Map<BattleParticipant,GymItemAllowance> uses=USED.get(user.bc);
         if(uses==null || user.bc.simulateMode || !(user.getParticipant() instanceof PlayerParticipant))return;
         GymItemAllowance allowance=uses.computeIfAbsent(user.getParticipant(),p->new GymItemAllowance());allowance.successfulUse(revival(stack));
-        user.bc.sendToAll("pixelmon.backport.gym.challenge.remaining",user.getParticipant().getDisplayName(),allowance.remaining(),allowance.remainingRevivals());
+        user.bc.sendToAll("pixelmon.backport.gym.challenge.remaining",user.getParticipant().getDisplayName(),allowance.remaining(),allowance.remainingRevivals(),allowance.remainingRestores());
     }
     public static void end(BattleController battle){
         if(USED.remove(battle)==null || battle.simulateMode)return;

@@ -21,7 +21,8 @@ public final class GymAceVerification {
                 if(nativeEntry!=null)try(var in=jar.getInputStream(nativeEntry)){species=new JsonParser().parse(new InputStreamReader(in,java.nio.charset.StandardCharsets.UTF_8)).getAsJsonObject();}
                 else{
                     File[] files=new File("resources/data/pixelmon/species").listFiles((dir,name)->name.startsWith(String.format("%03d_",dex)) && name.endsWith(".json"));
-                    check(files!=null && files.length==1,"Unresolved backport ace species "+dex);try(var reader=new FileReader(files[0])){species=new JsonParser().parse(reader).getAsJsonObject();}
+                    if(files!=null && files.length==1){try(var reader=new FileReader(files[0])){species=new JsonParser().parse(reader).getAsJsonObject();}}
+                    else {species=null;JsonObject content=JsonParser.parseString(java.nio.file.Files.readString(java.nio.file.Path.of("resources/backport/content.json"))).getAsJsonObject();for(var patch:content.getAsJsonArray("patches")){var candidate=patch.getAsJsonObject().getAsJsonObject("species");if(candidate.get("dex").getAsInt()==dex)species=candidate;}check(species!=null,"Unresolved backport ace species "+dex);}
                 }
                 JsonObject base=species.getAsJsonArray("forms").get(0).getAsJsonObject(),form=base;
                 if(row.has("form")){form=null;for(var f:species.getAsJsonArray("forms"))if(row.get("form").getAsString().equals(f.getAsJsonObject().get("name").getAsString()))form=f.getAsJsonObject();}

@@ -32,8 +32,9 @@ public final class HotfixAdditionsVerification {
         ClassNode drops=resource("local/pixelmon/backport/CapDrops");MethodNode ensure=method(drops,"ensure");
         require(call(ensure,"com/pixelmonmod/pixelmon/api/pokemon/item/pokeball/PokeBall","getBallItem")&&call(ensure,"net/minecraft/item/ItemStack","<init>"),"Missing actual ball/crystal item constructors");
         for(MethodNode m:drops.methods)for(AbstractInsnNode i:m.instructions.toArray())if(i instanceof MethodInsnNode){MethodInsnNode c=(MethodInsnNode)i;
-            require(!c.owner.contains("Random")&&!c.name.equals("func_70441_a")&&!c.name.equals("register"),"Death loot is probabilistic or grants inventory separately");
+            require(!c.name.equals("func_70441_a")&&!c.name.equals("register"),"Death loot grants inventory separately");
         }
+        require(call(method(drops,"prizeBall"),"java/util/Random","nextBoolean")&&call(ensure,"net/minecraft/nbt/CompoundNBT","func_74779_i")&&call(ensure,"net/minecraft/nbt/CompoundNBT","func_74778_a"),"50/50 ball prize must be cached for repeated reward queries");
         ClassNode sync=resource("local/pixelmon/backport/CapPikachu");require(sync.methods.stream().anyMatch(m->m.name.equals("sync")&&call(m,"com/pixelmonmod/pixelmon/api/pokemon/Pokemon","setGender")),"Legacy female Cap normalization missing");
         ClassNode capSetter=resource("local/pixelmon/backport/mixin/FieldMegaPokemonMixin");require(method(capSetter,"backport$capMale").desc.contains("/Gender;"),"Explicit gender setters can bypass Cap male-only restriction");
         require("恶地极巨巢穴".equals(CompassNames.lookup("structure","pixelmon:badlands_den")),"Screenshot Badlands Den untranslated");
@@ -49,6 +50,6 @@ public final class HotfixAdditionsVerification {
         }
         require(Math.abs(BurstPolicy.spawnChance(.7)-.3)<1e-9&&BurstPolicy.spawnChance(.4)==0,"Displayed chance differs from actual reduction");
         for(String lang:new String[]{"zh_cn","en_us"}){JsonObject rows=json("assets/pixelmon_backport/lang/"+lang+".json");for(String key:new String[]{"pixelmon_backport.spawns.global","pixelmon_backport.spawns.weights","pixelmon_backport.spawns.cap_chance"})require(rows.has(key),"Missing chance/weight distinction "+key);}
-        System.out.println("PASS native male-only/read normalization, gender setter guard; all installed compass interface keys and 107 structure/208 biome Chinese names with unknown-name fallback; actual death-loot query/ownership/event path and deterministic native rewards; real native candidate map and 70%-40pp=30% display.");
+        System.out.println("PASS native male-only/read normalization, gender setter guard; compass localization; death-loot query/ownership/event path and cached50/50 prize ball; real native candidate map and 70%-40pp=30% display.");
     }
 }

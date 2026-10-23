@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:player_head",
+      "nbt": "{SkullOwner:{Id:[I;1548022045,1403537939,-1436487089,-1224009984],Name:\"BackportAuthor\",Properties:{textures:[{Value:\"e30=\"}]}}}"
+    },
+    "title": {
+      "translate": "advancement.pixelmon_backport.defeat_author"
+    },
+    "description": {
+      "translate": "advancement.pixelmon_backport.defeat_author.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

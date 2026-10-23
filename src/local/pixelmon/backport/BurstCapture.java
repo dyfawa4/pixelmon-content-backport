@@ -16,20 +16,19 @@ public final class BurstCapture {
             if(!(participant instanceof com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant))continue;
             var player=((com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant)participant).player;
             if(player==null)continue;
-            boolean cap=false;
+            Pokemon cap=null;
             for(var opponent:battle.participants)if(opponent.team!=participant.team && opponent instanceof com.pixelmonmod.pixelmon.battles.controller.participants.WildPixelmonParticipant)
-                for(var target:opponent.allPokemon)if(target.pokemon!=null && target.pokemon.getSpecies().getDex()==CapSpecies.DEX)cap=true;
-            if(cap && WARNED.computeIfAbsent(battle,key->new java.util.HashSet<>()).add(player.func_110124_au()))
-                player.func_146105_b(new net.minecraft.util.text.TranslationTextComponent("pixelmon.backport.cap.capture_warning"),false);
+                for(var target:opponent.allPokemon)if(CapBallPreference.cap(target.pokemon))cap=target.pokemon;
+            if(cap!=null && WARNED.computeIfAbsent(battle,key->new java.util.HashSet<>()).add(player.func_110124_au()))CapBallPreference.announce(player,cap);
         }
     }
     @net.minecraftforge.eventbus.api.SubscribeEvent(priority=net.minecraftforge.eventbus.api.EventPriority.LOWEST)
     public void capture(com.pixelmonmod.pixelmon.api.events.CaptureEvent.StartCapture event){
-        if(event.getPokeBall()!=null && forbidden(event.getPokeBall().getBallType(),event.getPokemon().getPokemon()))event.setCanceled(true);
+        if(event.getPokemon()!=null&&CapBallPreference.cap(event.getPokemon().getPokemon())
+            &&(event.getPokeBall()==null||event.getPokeBall().getMode()!=com.pixelmonmod.pixelmon.entities.pokeballs.PokeBallMode.BATTLE||forbidden(event.getPokeBall().getBallType(),event.getPokemon().getPokemon())))event.setCanceled(true);
     }
     public static boolean forbidden(PokeBall ball,Pokemon pokemon){
-        return ball!=null && pokemon!=null && pokemon.getSpecies().getDex()==CapSpecies.DEX
-            && (ball.is(PokeBallRegistry.MASTER_BALL) || ball.is(PokeBallRegistry.PARK_BALL) || ball.is(PokeBallRegistry.ORIGIN_BALL));
+        return CapBallPreference.forbidden(ball,pokemon);
     }
     public static boolean active(ServerPlayerEntity player,Pokemon target){
         if(player==null || target==null || target.isEgg() || target.isUncatchable())return false;
@@ -42,6 +41,7 @@ public final class BurstCapture {
         return false;
     }
     public static double bonus(ServerPlayerEntity player,Pokemon target,PokeBall ball,double nativeBonus){
+        if(CapBallPreference.cap(target))return CapBallPreference.multiplier(ball,target,nativeBonus);
         return BurstPolicy.catchBonus(nativeBonus,active(player,target),forbidden(ball,target));
     }
     public static java.util.List<String> outlinedBalls(com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant participant){
@@ -62,9 +62,9 @@ public final class BurstCapture {
         for(PokeBall ball:PokeBallRegistry.getAll()){
             // Native raid calculations also accept a null projectile. Read-only:
             // no capture events, RNG, inventory changes, or turn consumption.
-            var logic=ball.getLogic();double bonus=logic.getCatchBonus(ball,null,player,target,mode);
-            int rate=logic.modifyCaptureRate(ball,null,target,target.getForm().getCatchRate());
-            if(BurstDisplayPolicy.ball(bonus,rate,forbidden(ball,target),ball.isGuaranteedCatch()))names.add(ball.getName());
+            var logic=ball.getLogic();double nativeBonus=CapBallPreference.preferred(ball,target)||forbidden(ball,target)?0:logic.getCatchBonus(ball,null,player,target,mode);double bonus=bonus(player,target,ball,nativeBonus);
+            int rate=CapBallPreference.preferred(ball,target)?target.getForm().getCatchRate():logic.modifyCaptureRate(ball,null,target,target.getForm().getCatchRate());
+            if(BurstDisplayPolicy.ball(bonus,rate,forbidden(ball,target),(!CapBallPreference.cap(target)&&ball.isGuaranteedCatch())))names.add(ball.getName());
         }
         return names;
     }

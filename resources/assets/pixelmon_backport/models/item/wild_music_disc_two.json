@@ -1,0 +1,6 @@
+{
+  "parent": "pixelmon:item/pixelmon_item",
+  "textures": {
+    "layer0": "pixelmon_backport:item/wild_music_disc_two"
+  }
+}

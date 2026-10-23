@@ -19,7 +19,10 @@ public final class AppearanceAdvancements {
         return AcquisitionAdvancements.ownedStored(player,pokemon);
     }
     public static void rainbowConverted(ServerPlayerEntity player,Pokemon pokemon){
-        if(rainbow(pokemon) && stored(player,pokemon))PixelmonAdvancements.SPEC_TRIGGER.trigger(player,pokemon);
+        if(rainbow(pokemon) && stored(player,pokemon)){
+            PixelmonAdvancements.SPEC_TRIGGER.trigger(player,pokemon);
+            SpecialPaletteAdvancements.acquired(player,pokemon);
+        }
     }
     public static void zombieConverted(ServerPlayerEntity player,Pokemon pokemon){
         if(zombie(pokemon) && stored(player,pokemon))PixelmonAdvancements.SPEC_TRIGGER.trigger(player,pokemon);

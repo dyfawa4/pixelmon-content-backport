@@ -16,6 +16,7 @@ public final class AshWaterBoost {
     public static boolean eligible(PixelmonWrapper p){return p!=null&&p.bc!=null&&!p.bc.battleEnded&&p.isAlive()
         &&p.getSpecies().getDex()==658&&PermanentAsh.isAsh(p.getForm());}
     public static void start(PixelmonWrapper p){
+        if(!GreninjaEnhancement.enabled())return;
         if(!eligible(p)||p.attack==null||p.usingZ||!p.attack.getMove().getAttackName().equals("Water Shuriken"))return;
         UNTIL.put(p,p.bc.battleTurn+BackportConfig.ashWaterTurns());
         if(!p.bc.simulateMode&&!COPIES.contains(p))p.bc.sendToAll("pixelmon_backport.battle.ash_water_boost",p.getNickname());

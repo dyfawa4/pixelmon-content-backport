@@ -22,7 +22,7 @@ public final class BurstRaidCapture {
         if(!eligible.isEmpty())PENDING.put(event.getRaid(),eligible);
     }
     public static void apply(RaidData raid,ServerPlayerEntity player,Pokemon target,PokeBall ball,CaptureValues values){
-        if(raid==null || player==null || target==null || values==null)return;
+        if(raid==null || player==null || target==null || values==null || CapBallPreference.cap(target))return;
         Set<UUID> pending=PENDING.get(raid);var capture=raid.getPlayer(player);
         if(pending!=null && pending.contains(player.func_110124_au()) && capture!=null && capture.canCatch && capture.possibleCatch==target)
             values.setBallBonus(BurstPolicy.catchBonus(values.getBallBonus(),true,BurstCapture.forbidden(ball,target)));

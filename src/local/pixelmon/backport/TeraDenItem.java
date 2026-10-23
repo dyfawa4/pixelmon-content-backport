@@ -18,7 +18,7 @@ public final class TeraDenItem extends PixelmonItem {
             && !com.pixelmonmod.pixelmon.api.util.helpers.PlayerHelper.hasPermission((net.minecraft.entity.player.ServerPlayerEntity)player,"pixelmon.denspawner.use"))return ActionResult.func_226251_d_(stack);
         BlockRayTraceResult hit=func_219968_a(world,player,RayTraceContext.FluidMode.NONE);
         if(hit.func_216346_c()!=RayTraceResult.Type.BLOCK)return ActionResult.func_226250_c_(stack);
-        if(!world.field_72995_K){BlockPos pos=hit.func_216350_a().func_177972_a(hit.func_216354_b());TeraDenEntity den=new TeraDenEntity(world);den.func_226286_f_(pos.func_177958_n()+.5,pos.func_177956_o(),pos.func_177952_p()+.5);den.roll((int)(world.func_72820_D()/24000));if(world.func_217376_c(den)&&!player.field_71075_bZ.field_75098_d)stack.func_190918_g(1);}
+        if(!world.field_72995_K){BlockPos pos=hit.func_216350_a().func_177972_a(hit.func_216354_b());TeraDenEntity den=new TeraDenEntity(world);den.func_226286_f_(pos.func_177958_n()+.5,pos.func_177956_o(),pos.func_177952_p()+.5);den.roll((int)(world.func_72820_D()/24000));if(world.func_217376_c(den)){world.func_184133_a(null,player.func_233580_cy_(),SoundEvents.field_187604_bf,SoundCategory.BLOCKS,.5f,1f);if(!player.field_71075_bZ.field_75098_d)stack.func_190918_g(1);}}
         return ActionResult.func_226249_b_(stack);
     }
 }

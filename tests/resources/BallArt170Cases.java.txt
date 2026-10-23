@@ -1,0 +1,63 @@
+// FILE: net/minecraft/util/ResourceLocation.java
+package net.minecraft.util;public class ResourceLocation {String id;public ResourceLocation(String s){id=s;}public ResourceLocation(String n,String p){id=n+":"+p;}public String func_110624_b(){return id.split(":")[0];}public String func_110623_a(){return id.split(":")[1];}public String toString(){return id;}public boolean equals(Object o){return o instanceof ResourceLocation&&id.equals(o.toString());}public int hashCode(){return id.hashCode();}}
+// FILE: net/minecraft/client/renderer/model/ModelResourceLocation.java
+package net.minecraft.client.renderer.model;public class ModelResourceLocation extends net.minecraft.util.ResourceLocation {public ModelResourceLocation(String n,String v){super(n+"#"+v);}}
+// FILE: net/minecraft/client/renderer/model/IBakedModel.java
+package net.minecraft.client.renderer.model;public interface IBakedModel {}
+// FILE: net/minecraftforge/client/event/ModelBakeEvent.java
+package net.minecraftforge.client.event;public class ModelBakeEvent {java.util.Map<net.minecraft.util.ResourceLocation,net.minecraft.client.renderer.model.IBakedModel> registry;public ModelBakeEvent(Object a,java.util.Map<net.minecraft.util.ResourceLocation,net.minecraft.client.renderer.model.IBakedModel> r,Object b){registry=r;}public java.util.Map<net.minecraft.util.ResourceLocation,net.minecraft.client.renderer.model.IBakedModel> getModelRegistry(){return registry;}}
+// FILE: net/minecraftforge/client/event/ModelRegistryEvent.java
+package net.minecraftforge.client.event;public class ModelRegistryEvent {}
+// FILE: net/minecraft/client/renderer/texture/AtlasTexture.java
+package net.minecraft.client.renderer.texture;public class AtlasTexture {public static final net.minecraft.util.ResourceLocation field_110575_b=new net.minecraft.util.ResourceLocation("minecraft","blocks");public net.minecraft.util.ResourceLocation func_229223_g_(){return field_110575_b;}}
+// FILE: net/minecraftforge/client/event/TextureStitchEvent.java
+package net.minecraftforge.client.event;public class TextureStitchEvent {public static class Pre {public net.minecraft.client.renderer.texture.AtlasTexture getMap(){return new net.minecraft.client.renderer.texture.AtlasTexture();}public void addSprite(net.minecraft.util.ResourceLocation r){}}}
+// FILE: net/minecraftforge/client/model/ModelLoader.java
+package net.minecraftforge.client.model;public class ModelLoader {public static void addSpecialModel(net.minecraft.util.ResourceLocation r){}}
+// FILE: com/pixelmonmod/pixelmon/client/models/items/PokeBallItemModel.java
+package com.pixelmonmod.pixelmon.client.models.items;public class PokeBallItemModel implements net.minecraft.client.renderer.model.IBakedModel {public net.minecraft.client.renderer.model.IBakedModel model;public PokeBallItemModel(net.minecraft.client.renderer.model.IBakedModel b){model=b;}public static class OverrideList {public static java.util.Map<Object,Object> MODELS=new java.util.HashMap<>();}}
+// FILE: local/pixelmon/backport/Content.java
+package local.pixelmon.backport;public class Content {public static final String NS="pixelmon_backport";public static com.google.gson.JsonObject read(String p){try{return new com.google.gson.JsonParser().parse(java.nio.file.Files.readString(java.nio.file.Path.of("resources",p))).getAsJsonObject();}catch(Exception e){throw new AssertionError(e);}}}
+// FILE: BallArt170Cases.java
+import java.util.*;
+import com.google.gson.*;
+import com.pixelmonmod.pixelmon.client.models.items.PokeBallItemModel;
+import com.pixelmonmod.pixelmon.client.models.items.PokeBallLidItemModel;
+import local.pixelmon.backport.*;
+import local.pixelmon.backport.client.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.model.*;
+import net.minecraftforge.client.event.ModelBakeEvent;
+
+/** Update legacy advancement icons without replacing the shared NBT ball wrappers. */
+public final class BallArt170Cases {
+    static void check(boolean ok,String why){if(!ok)throw new AssertionError(why);}
+    static IBakedModel model(){return new IBakedModel(){};}
+    public static void run()throws Exception{
+        Map<ResourceLocation,IBakedModel> models=new HashMap<>();
+        IBakedModel shared=model(),lid=model();
+        models.put(new ModelResourceLocation("pixelmon:poke_ball","inventory"),shared);
+        models.put(new ModelResourceLocation("pixelmon:poke_ball_lid","inventory"),lid);
+        for(String name:BallItemArt.FILES){
+            models.put(new ModelResourceLocation("pixelmon:"+name,"inventory"),model());
+            models.put(new ResourceLocation(Content.NS,"item/ball_parts/"+name),model());
+            JsonObject json=Content.read("assets/pixelmon_backport/models/item/ball_parts/"+name+".json");
+            check(json.getAsJsonObject("textures").get("layer0").getAsString().equals(Content.NS+":items/pokeballs/"+name),"Old static ball art: "+name);
+        }
+        BallItemArtModels.bake(new ModelBakeEvent(null,models,null));
+        for(String name:BallItemArt.FILES)if(!name.equals("poke_ball")&&!name.equals("poke_ball_lid"))
+            check(models.get(new ModelResourceLocation("pixelmon:"+name,"inventory"))==models.get(new ResourceLocation(Content.NS,"item/ball_parts/"+name)),"Legacy ball model unchanged: "+name);
+        check(models.get(new ModelResourceLocation("pixelmon:poke_ball","inventory")) instanceof PokeBallItemModel,"Shared ball NBT wrapper lost");
+        check(models.get(new ModelResourceLocation("pixelmon:poke_ball_lid","inventory")) instanceof PokeBallLidItemModel,"Shared lid NBT wrapper lost");
+        check(((PokeBallItemModel)models.get(new ModelResourceLocation("pixelmon:poke_ball","inventory"))).model==models.get(new ResourceLocation(Content.NS,"item/ball_parts/poke_ball")),"Shared fallback art old");
+        check(((PokeBallLidItemModel)models.get(new ModelResourceLocation("pixelmon:poke_ball_lid","inventory"))).model==models.get(new ResourceLocation(Content.NS,"item/ball_parts/poke_ball_lid")),"Shared lid fallback art old");
+        for(int i=0;i<100;i++)check("b站端忆制作".equals(TitleMessages.next()),"Splash must remain the author credit");
+        for(var e:Content.read("backport/content.json").getAsJsonObject("referenceExtras").getAsJsonObject("drops/pokechestdrops").entrySet())
+            check(!e.getValue().toString().contains("pixelmon_backport:metal_alloy"),"Alloy remains in chest pool");
+        check(Content.read("backport/spawn-npc-names.json").get("OldFisherman").getAsString().equals("老渔夫"),"Fisherman rename");
+        System.out.println("PASS production model-bake handler with isolated render registry: owned legacy ball/lid/part models updated, shared NBT wrappers retained; splash choices and alloy chest source removal. No game launched.");
+    }
+}
+
+// FILE: com/pixelmonmod/pixelmon/client/models/items/PokeBallLidItemModel.java
+package com.pixelmonmod.pixelmon.client.models.items;public class PokeBallLidItemModel implements net.minecraft.client.renderer.model.IBakedModel {public net.minecraft.client.renderer.model.IBakedModel model;public PokeBallLidItemModel(net.minecraft.client.renderer.model.IBakedModel b){model=b;}public static class OverrideList {public static java.util.Map<Object,Object> MODELS=new java.util.HashMap<>();}}

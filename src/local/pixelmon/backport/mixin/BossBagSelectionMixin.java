@@ -10,7 +10,11 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 public abstract class BossBagSelectionMixin {
     @Inject(method="func_231160_c_",at=@At("HEAD"))
     private void backport$restoreBagCategory(CallbackInfo ci){BossCaptureClient.prepare(ClientProxy.battleManager);}
-    @Inject(method="click",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/client/gui/battles/ClientBattleManager;getBagItems(Lcom/pixelmonmod/pixelmon/api/battles/BagSection;)Ljava/util/List;"),cancellable=true)
+    @Inject(method="click",at={
+        @At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/client/gui/battles/ClientBattleManager;canCatchOpponent()Z"),
+        @At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/client/gui/battles/ClientBattleManager;getBagItems(Lcom/pixelmonmod/pixelmon/api/battles/BagSection;)Ljava/util/List;"),
+        @At(value="INVOKE",target="Ljava/util/ArrayList;clear()V")
+    },cancellable=true)
     private void backport$recheckBall(int width,int height,double x,double y,CallbackInfo ci){
         if(BossCaptureClient.click(ClientProxy.battleManager))ci.cancel();
     }

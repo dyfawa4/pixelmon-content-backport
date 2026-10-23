@@ -108,7 +108,7 @@ public final class LegendAdvancements {
             || !AcquisitionAdvancements.ownedStored(player,pokemon))return;
         // The native cube changes Power Construct Zygarde directly and does
         // not emit a capture or assembly event. Award the completed base form.
-        if(pokemon.getSpecies().getDex()==718){capture(player,pokemon);return;}
+        if(pokemon.getSpecies().getDex()==718){capture(player,pokemon);ZygardeAdvancements.field(pokemon,player);return;}
         if(pokemon.getSpecies().getDex()==888 || pokemon.getSpecies().getDex()==889){CrownedAdvancements.field(pokemon);return;}
         // The field marker is installed after permission checks and event
         // cancellation, before the native animation actually changes the form.

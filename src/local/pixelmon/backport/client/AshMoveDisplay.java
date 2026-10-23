@@ -17,6 +17,10 @@ public final class AshMoveDisplay {
             && move!=null && "Water Shuriken".equals(move.getAttackName());
     }
     public static String description(String locale){
+        if(!local.pixelmon.backport.GreninjaEnhancement.enabled()){
+            if("zh_cn".equals(locale))return "优先攻击，固定3击，每击基础威力20，并在攻击前给对方附着蚀。";
+            if("en_us".equals(locale))return "Strikes first, exactly 3 times at 20 base power each. Inflicts Erosion on the target before attacking.";
+        }
         if("zh_cn".equals(locale))return "优先攻击，固定3击，每击基础威力20。使出前强化自身：水系威力提升50%，持续5回合，包含当回合。重复只刷新，不叠加，并给对方附着蚀。";
         if("en_us".equals(locale))return "Strikes first, exactly 3 times at 20 base power each. Before attacking, strengthens itself: Water power +50% for 5 turns including this turn. Reuse refreshes without stacking. Also inflicts Erosion on the target.";
         return null;

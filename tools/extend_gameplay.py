@@ -91,8 +91,9 @@ def run(old_path,upstream_path,output):
     for name,(biomes,times,legend,extra) in adaptations.items():
         assert set(biomes)<=categories|registered_biomes
         info={'spec':'species:'+name,'stringLocationTypes':['Land'],'minLevel':70,'maxLevel':70,'typeID':'pokemon','condition':{'stringBiomes':biomes,'times':times,**extra},'rarity':.5 if legend else .1}
+        if name=='Terapagos':info['stringLocationTypes']=['Land','Underground']
         value={'id':'Backport_'+name,'spawnInfos':[info]}
-        if legend:value.update(tags=['mythical' if name=='Pecharunt' else 'legendary'],interval='legendary')
+        if legend:info['tags']=['mythical' if name=='Pecharunt' else 'legendary']
         path=f'data/pixelmon/spawning/{"legendaries" if legend else "standard"}/backport_{name.lower()}.set.json'
         dump(output/path,value);sets.append({'name':name,'source':'pack adaptation of research-only source','data':value})
     # Only complete, enabled species become visible to the Pokédex.
@@ -104,8 +105,9 @@ def run(old_path,upstream_path,output):
     data.setdefault('referenceExtras',{}).pop('drops/raiddrops',None)
     chest=data['referenceExtras'].setdefault('drops/pokechestdrops',{}).setdefault('tier3',[])
     # Eternatus Meteorite uses the owner's expensive crafting route, not loot.
-    chest[:]=[row for row in chest if row.get('type')!=NS+':eternatus_meteorite']
-    obtainable=['clear_amulet','covert_cloak','fairy_feather','masterpiece_teacup','unremarkable_teacup','syrupy_apple','metal_alloy','pink_nectar','purple_nectar','red_nectar','yellow_nectar','gimmighoul_coin','teal_mask','wellspring_mask','hearthflame_mask','cornerstone_mask','utility_umbrella']
+    craft_only={'eternatus_meteorite','metal_alloy','pink_nectar','purple_nectar','red_nectar','yellow_nectar'}
+    chest[:]=[row for row in chest if (row.get('type') if isinstance(row,dict) else row) not in {NS+':'+name for name in craft_only}]
+    obtainable=['clear_amulet','covert_cloak','fairy_feather','masterpiece_teacup','unremarkable_teacup','syrupy_apple','gimmighoul_coin','teal_mask','wellspring_mask','hearthflame_mask','cornerstone_mask','utility_umbrella']
     for name in obtainable:
         row={'type':f'{NS}:{name}'}
         if row not in chest:chest.append(row)
@@ -115,6 +117,8 @@ def run(old_path,upstream_path,output):
         row={'type':'pixelmon:tm_gen9','nbt':{'tm':tm}}
         if row not in chest:chest.append(row)
     dump(output/'backport/content.json',data)
+    for nectar,flower in {'pink_nectar':'minecraft:pink_tulip','red_nectar':'minecraft:red_tulip','purple_nectar':'pixelmon:ultra_desert_cactus','yellow_nectar':'minecraft:dandelion'}.items():
+        dump(output/f'data/{NS}/recipes/{nectar}.json',{'type':'minecraft:crafting_shaped','pattern':[' H ','HFH',' H '],'key':{'H':{'item':'minecraft:honey_bottle'},'F':{'item':flower}},'result':{'item':NS+':'+nectar,'count':1}})
     for name in NAMES:
         asset=f'assets/pixelmon/textures/item/tera_shards/{name}_tera_shard.png'
         dest=output/f'assets/{NS}/textures/item/{name}_tera_shard.png';dest.parent.mkdir(parents=True,exist_ok=True);dest.write_bytes(new.read(asset))
@@ -163,6 +167,8 @@ def run(old_path,upstream_path,output):
             x['pixelmon.backport.tera.type.'+name]=CHINESE[i] if zh else name.title()
             x[f'item.{NS}.{name}_tera_shard']=CHINESE[i]+'太晶碎片' if zh else name.title()+' Tera Shard'
         dump(p,x)
+    from extend_exploration_crafting import apply as exploration_crafting
+    exploration_crafting(output)
     dump(ROOT/'.cache/gameplay-conversion.json',{'spawns':sets,'biomeSubstitutions':mappings,'legacySurvivalOrbRecipe':True})
     print('Generated',len(sets),'spawn sets,',len(NAMES),'shards, starter additions and Tera translations')
 if __name__=='__main__':

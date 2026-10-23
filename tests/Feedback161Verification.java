@@ -45,7 +45,7 @@ public final class Feedback161Verification {
         for(String part:Files.readString(Path.of("tests/resources/Feedback161Cases.java.txt")).split("(?m)^// FILE: ")){
             if(part.isBlank())continue;int end=part.indexOf('\n');Path p=dir.resolve(part.substring(0,end).trim());Files.createDirectories(p.getParent());Files.writeString(p,part.substring(end+1));options.add(p.toString());
         }
-        for(String source:new String[]{"StorageSnapshot","TeraRevival","client/StoragePacketGuard"})options.add("src/local/pixelmon/backport/"+source+".java");
+        for(String source:new String[]{"StorageSnapshot","TeraRevival","client/StoragePacketGuard","client/PCStorageSync","mixin/PCStorageAccess","client/DetectorConfigText","client/DetectorListContext","client/DetectorConfigCatalog"})options.add("src/local/pixelmon/backport/"+source+".java");
         check(ToolProvider.getSystemJavaCompiler().run(null,null,null,options.toArray(new String[0]))==0,"Feedback fixture compile");
         String packet="com/pixelmonmod/pixelmon/comm/packetHandlers/clientStorage/newStorage/ClientSetPacket";
         Path packetFile=dir.resolve(packet+".class");ClassNode stub=node(Files.readAllBytes(packetFile));stub.methods.removeIf(m->m.name.equals("original")||m.name.equals("fixed"));
@@ -57,6 +57,16 @@ public final class Feedback161Verification {
             }
         }
         ClassWriter writer=new ClassWriter(0);stub.accept(writer);Files.write(packetFile,writer.toByteArray());
+        String pcPacket="com/pixelmonmod/pixelmon/comm/packetHandlers/clientStorage/newStorage/pc/ClientInitializePCPacket";
+        Path pcFile=dir.resolve(pcPacket+".class");ClassNode pcStub=node(Files.readAllBytes(pcFile));pcStub.methods.removeIf(m->m.name.equals("original")||m.name.equals("fixed"));
+        for(String version:new String[]{"original","patched"}){
+            ClassNode n=node(Files.readAllBytes(Path.of(".cache/fixes-170/"+version+"-pcinit.class")));
+            for(var m:n.methods)if(m.name.equals("handlePacket")||version.equals("patched")&&m.name.contains("backport$")){
+                if(m.name.equals("handlePacket")){m.name=version.equals("original")?"original":"fixed";m.access=Opcodes.ACC_PUBLIC;}
+                pcStub.methods.add(m);
+            }
+        }
+        ClassWriter pcWriter=new ClassWriter(0);pcStub.accept(pcWriter);Files.write(pcFile,pcWriter.toByteArray());
         String moves="com/pixelmonmod/pixelmon/api/pokemon/species/moves/Moves";
         Path movesFile=dir.resolve(moves+".class");ClassNode moveStub=node(Files.readAllBytes(movesFile));moveStub.methods.removeIf(m->m.name.equals("original")||m.name.equals("fixed"));
         for(String version:new String[]{"original","patched"}){
@@ -68,7 +78,7 @@ public final class Feedback161Verification {
         }
         ClassWriter mw=new ClassWriter(0);moveStub.accept(mw);Files.write(movesFile,mw.toByteArray());
         List<URL> urls=new ArrayList<>();urls.add(dir.toUri().toURL());for(String p:System.getProperty("java.class.path").split(File.pathSeparator))urls.add(Path.of(p).toUri().toURL());
-        try(URLClassLoader loader=new URLClassLoader(urls.toArray(new URL[0]),ClassLoader.getPlatformClassLoader())){loader.loadClass("Feedback161Cases").getMethod("run").invoke(null);}
+        try(URLClassLoader loader=new URLClassLoader(urls.toArray(new URL[0]),ClassLoader.getPlatformClassLoader())){loader.loadClass("Feedback161Cases").getMethod("run").invoke(null);loader.loadClass("PCSync170Cases").getMethod("run").invoke(null);loader.loadClass("DetectorText170Cases").getMethod("run").invoke(null);}
         System.out.println("PASS native original empty-slot delta reproduces MissingNo / wrong-UUID hybrid; patched packet retains real data and recovers only from full snapshots; owned storage authorization/rate limits; AI/player Tera revival success/canceled/missing-owner/missing-storage/failed-spawn/end/simulation/idempotence; compact beam, NPC labels and 85 owned ball art paths. No game launched.");
     }
 }

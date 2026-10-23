@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public final class SpawnCheckItem extends PixelmonItem {
     private final boolean legendary;
-    public SpawnCheckItem(boolean legendary){super(new Item.Properties().func_200916_a(ItemGroup.field_78040_i).func_200917_a(1));this.legendary=legendary;}
+    public SpawnCheckItem(boolean legendary){super(new Item.Properties().func_200916_a(ItemGroup.field_78040_i).func_200917_a(1).func_208103_a(legendary?Rarity.EPIC:Rarity.COMMON));this.legendary=legendary;}
     @Override public ActionResult<ItemStack> func_77659_a(World world,PlayerEntity player,Hand hand){
         ItemStack stack=player.func_184586_b(hand);
         if(world.field_72995_K)return ActionResult.func_226250_c_(stack);

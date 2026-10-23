@@ -10,11 +10,26 @@ import net.minecraft.util.ResourceLocation;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.*;
+import java.util.function.BiConsumer;
 
-/** Replace only the panorama; native title, widgets, layout and callbacks render normally. */
+/** Supplied background and title art with the native widgets and splash animation. */
 @Mixin(value=MainMenuScreen.class,remap=false)
 public abstract class JourneyMainMenuMixin {
     @Unique private static final ResourceLocation backport$background=new ResourceLocation("pixelmon_backport","textures/gui/journey_background.png");
+    @Unique private static final ResourceLocation backport$title=new ResourceLocation("pixelmon_backport","textures/gui/journey_title.png");
+
+    @Redirect(method="func_230430_a_",at=@At(value="INVOKE",target="Lnet/minecraft/client/gui/screen/MainMenuScreen;func_238459_a_(IILjava/util/function/BiConsumer;)V"),require=2)
+    private void backport$title(MainMenuScreen menu,int x,int y,BiConsumer<Integer,Integer> nativeLogo,MatrixStack matrix,int mouseX,int mouseY,float partial){
+        Screen screen=(Screen)(Object)this;
+        int width=Math.min(320,Math.max(1,screen.field_230708_k_-24));
+        int height=Math.max(1,Math.round(width*577f/3113f));
+        Minecraft.func_71410_x().func_110434_K().func_110577_a(backport$title);
+        AbstractGui.func_238466_a_(matrix,(screen.field_230708_k_-width)/2,24,width,height,0,0,3113,577,3113,577);
+    }
+
+    // The supplied logo already includes JAVA EDITION.
+    @Redirect(method="func_230430_a_",at=@At(value="INVOKE",target="Lnet/minecraft/client/gui/screen/MainMenuScreen;func_238463_a_(Lcom/mojang/blaze3d/matrix/MatrixStack;IIFFIIII)V"),require=1)
+    private void backport$edition(MatrixStack matrix,int x,int y,float u,float v,int width,int height,int textureWidth,int textureHeight){}
 
     @Redirect(method="func_230430_a_",at=@At(value="INVOKE",target="Lnet/minecraft/client/renderer/RenderSkybox;func_217623_a(FF)V"))
     private void backport$background(RenderSkybox panorama,float delta,float alpha,MatrixStack matrix,int mouseX,int mouseY,float partial){

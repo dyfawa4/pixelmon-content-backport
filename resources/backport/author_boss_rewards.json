@@ -1,0 +1,637 @@
+{
+  "fixed_master_balls": 1,
+  "money_min": 500000,
+  "money_max": 1000000,
+  "extra_draws": 5,
+  "replacement": false,
+  "entries": [
+    {
+      "image": 1,
+      "row": 1,
+      "column": 1,
+      "item": "metalbarrels:diamond_barrel",
+      "count": 3,
+      "display_zh": "钻石储物桶"
+    },
+    {
+      "image": 1,
+      "row": 1,
+      "column": 2,
+      "item": "metalbarrels:netherite_barrel",
+      "count": 1,
+      "display_zh": "下界合金储物桶"
+    },
+    {
+      "image": 1,
+      "row": 1,
+      "column": 3,
+      "item": "pixelmon:azure_flute",
+      "count": 1,
+      "display_zh": "天界之笛"
+    },
+    {
+      "image": 1,
+      "row": 1,
+      "column": 4,
+      "item": "pixelmon_backport:tera_den_spawner",
+      "count": 1,
+      "display_zh": "太晶巢穴生成器"
+    },
+    {
+      "image": 1,
+      "row": 1,
+      "column": 5,
+      "item": "minecraft:enchanted_golden_apple",
+      "count": 1,
+      "display_zh": "附魔金苹果"
+    },
+    {
+      "image": 1,
+      "row": 1,
+      "column": 6,
+      "item": "minecraft:rabbit_stew",
+      "count": 1,
+      "display_zh": "兔肉煲"
+    },
+    {
+      "image": 1,
+      "row": 1,
+      "column": 7,
+      "item": "pixelmon:max_soup",
+      "count": 1,
+      "display_zh": "极巨汤"
+    },
+    {
+      "image": 1,
+      "row": 1,
+      "column": 8,
+      "item": "minecraft:enchanted_book",
+      "count": 1,
+      "enchantment": "minecraft:mending",
+      "enchantment_level": 1,
+      "display_zh": "经验修补附魔书"
+    },
+    {
+      "image": 1,
+      "row": 1,
+      "column": 9,
+      "item": "pixelmon:super_rod",
+      "count": 1,
+      "display_zh": "厉害钓竿"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 1,
+      "item": "pixelmon:lens_gold",
+      "count": 1,
+      "display_zh": "Ras的金色镜片"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 2,
+      "item": "pixelmon:exp_all",
+      "count": 1,
+      "display_zh": "学习装置"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 3,
+      "item": "pixelmon:dynamax_candy",
+      "count": 1,
+      "display_zh": "极巨糖果"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 4,
+      "item": "pixelmon:gold_hourglass",
+      "count": 1,
+      "display_zh": "Isi的金沙漏"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 5,
+      "item": "pixelmon_backport:legendary_spawn_checker",
+      "count": 1,
+      "display_zh": "传说宝可梦刷新检查器"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 6,
+      "item": "pixelmon_backport:normal_spawn_checker",
+      "count": 1,
+      "display_zh": "普通宝可梦刷新检查器"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 7,
+      "item": "minecraft:netherite_helmet",
+      "count": 1,
+      "display_zh": "下界合金头盔"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 8,
+      "item": "minecraft:netherite_chestplate",
+      "count": 1,
+      "display_zh": "下界合金胸甲"
+    },
+    {
+      "image": 1,
+      "row": 2,
+      "column": 9,
+      "item": "minecraft:netherite_leggings",
+      "count": 1,
+      "display_zh": "下界合金护腿"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 1,
+      "item": "minecraft:netherite_boots",
+      "count": 1,
+      "display_zh": "下界合金靴子"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 2,
+      "item": "minecraft:totem_of_undying",
+      "count": 1,
+      "display_zh": "不死图腾"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 3,
+      "item": "minecraft:trident",
+      "count": 1,
+      "display_zh": "三叉戟"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 4,
+      "item": "waystones:waystone",
+      "count": 3,
+      "display_zh": "传送石碑"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 5,
+      "item": "ironchest:diamond_chest",
+      "count": 1,
+      "display_zh": "钻石箱子"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 6,
+      "item": "bountifulbaubles:mixed_dragon_scale",
+      "count": 1,
+      "display_zh": "混合龙鳞"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 7,
+      "item": "bountifulbaubles:shield_cobalt",
+      "count": 1,
+      "display_zh": "十字盾"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 8,
+      "item": "pixelmon:poke_ball",
+      "count": 1,
+      "ball": "gs_ball",
+      "display_zh": "GS球"
+    },
+    {
+      "image": 1,
+      "row": 3,
+      "column": 9,
+      "item": "pixelmon:poke_ball",
+      "count": 1,
+      "ball": "master_ball",
+      "display_zh": "大师球"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 1,
+      "item": "pixelmon:rare_candy",
+      "count": 3,
+      "display_zh": "神奇糖果"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 2,
+      "item": "pixelmon:rare_soda",
+      "count": 1,
+      "display_zh": "奇迹汽水"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 3,
+      "item": "pixelmon:ultra_rare_soda",
+      "count": 1,
+      "display_zh": "奇妙汽水"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 4,
+      "item": "pixelmon:perilous_soup",
+      "count": 1,
+      "display_zh": "危险之汤"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 5,
+      "item": "pixelmon:macho_brace",
+      "count": 1,
+      "display_zh": "强制锻炼器"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 6,
+      "item": "pixelmon:big_root",
+      "count": 1,
+      "display_zh": "大根茎"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 7,
+      "item": "pixelmon:red_orb",
+      "count": 1,
+      "display_zh": "朱红色宝珠"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 8,
+      "item": "pixelmon:blue_orb",
+      "count": 1,
+      "display_zh": "靛蓝色宝珠"
+    },
+    {
+      "image": 1,
+      "row": 4,
+      "column": 9,
+      "item": "pixelmon_backport:teal_mask",
+      "count": 1,
+      "display_zh": "碧草面具"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 1,
+      "item": "pixelmon_backport:wellspring_mask",
+      "count": 1,
+      "display_zh": "水井面具"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 2,
+      "item": "pixelmon_backport:hearthflame_mask",
+      "count": 1,
+      "display_zh": "火灶面具"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 3,
+      "item": "pixelmon_backport:cornerstone_mask",
+      "count": 1,
+      "display_zh": "础石面具"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 4,
+      "item": "pixelmon_backport:clear_amulet",
+      "count": 1,
+      "display_zh": "清净坠饰"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 5,
+      "item": "pixelmon_backport:eternatus_meteorite",
+      "count": 1,
+      "display_zh": "无极陨星"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 6,
+      "item": "pixelmon_backport:utility_umbrella",
+      "count": 1,
+      "display_zh": "万能伞"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 7,
+      "item": "pixelmon_backport:eject_pack",
+      "count": 1,
+      "display_zh": "避难背包"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 8,
+      "item": "pixelmon:wishing_star",
+      "count": 1,
+      "display_zh": "许愿星"
+    },
+    {
+      "image": 1,
+      "row": 5,
+      "column": 9,
+      "item": "pixelmon:common_pokestop",
+      "count": 1,
+      "display_zh": "普通宝可梦补给站"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 1,
+      "item": "ironfurnaces:netherite_furnace",
+      "count": 1,
+      "display_zh": "下界合金熔炉"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 2,
+      "item": "pixelmon:incinium_z",
+      "count": 1,
+      "display_zh": "炽焰咆哮虎Z"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 3,
+      "item": "pixelmon:marshadium_z",
+      "count": 1,
+      "display_zh": "玛夏多Z"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 4,
+      "item": "pixelmon:kommonium_z",
+      "count": 1,
+      "display_zh": "杖尾鳞甲龙Z"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 5,
+      "item": "pixelmon:lycanium_z",
+      "count": 1,
+      "display_zh": "鬃岩狼人Z"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 6,
+      "item": "pixelmon:snorlium_z",
+      "count": 1,
+      "display_zh": "卡比兽Z"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 7,
+      "item": "pixelmon:primarium_z",
+      "count": 1,
+      "display_zh": "西狮海壬Z"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 8,
+      "item": "pixelmon:lunalium_z",
+      "count": 1,
+      "display_zh": "露奈雅拉Z"
+    },
+    {
+      "image": 1,
+      "row": 6,
+      "column": 9,
+      "item": "pixelmon:solganium_z",
+      "count": 1,
+      "display_zh": "索尔迦雷欧Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 1,
+      "item": "pixelmon:pikashunium_z",
+      "count": 1,
+      "display_zh": "智皮卡Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 2,
+      "item": "pixelmon:pikanium_z",
+      "count": 1,
+      "display_zh": "皮卡丘Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 3,
+      "item": "pixelmon:mimikium_z",
+      "count": 1,
+      "display_zh": "谜拟丘Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 4,
+      "item": "pixelmon:ultranecrozium_z",
+      "count": 1,
+      "display_zh": "究极奈克洛Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 5,
+      "item": "pixelmon:tapunium_z",
+      "count": 1,
+      "display_zh": "卡璞Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 6,
+      "item": "pixelmon:mewnium_z",
+      "count": 1,
+      "display_zh": "梦幻Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 7,
+      "item": "pixelmon:aloraichium_z",
+      "count": 1,
+      "display_zh": "阿罗雷Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 8,
+      "item": "pixelmon:decidium_z",
+      "count": 1,
+      "display_zh": "狙射树枭Z"
+    },
+    {
+      "image": 1,
+      "row": 7,
+      "column": 9,
+      "item": "pixelmon:eevium_z",
+      "count": 1,
+      "display_zh": "伊布Z"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 1,
+      "item": "pixelmon:adamant_orb",
+      "count": 1,
+      "display_zh": "金刚宝珠"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 2,
+      "item": "pixelmon:lustrous_orb",
+      "count": 1,
+      "display_zh": "白玉宝珠"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 3,
+      "item": "pixelmon:griseous_orb",
+      "count": 1,
+      "display_zh": "白金宝珠"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 4,
+      "item": "pixelmon:adamant_crystal",
+      "count": 1,
+      "display_zh": "大金刚宝玉"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 5,
+      "item": "pixelmon:lustrous_globe",
+      "count": 1,
+      "display_zh": "大白宝玉"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 6,
+      "item": "pixelmon:griseous_core",
+      "count": 1,
+      "display_zh": "大白金宝玉"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 7,
+      "item": "pixelmon:prison_bottle",
+      "count": 1,
+      "display_zh": "惩戒之壶"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 8,
+      "item": "pixelmon:booster_energy",
+      "count": 1,
+      "display_zh": "驱劲能量"
+    },
+    {
+      "image": 2,
+      "row": 1,
+      "column": 9,
+      "item": "pixelmon:rusted_shield",
+      "count": 1,
+      "display_zh": "腐朽的盾"
+    },
+    {
+      "image": 2,
+      "row": 2,
+      "column": 1,
+      "item": "pixelmon:rusted_sword",
+      "count": 1,
+      "display_zh": "腐朽的剑"
+    },
+    {
+      "image": 3,
+      "row": 1,
+      "column": 1,
+      "item": "pixelmon:dna_splicers",
+      "count": 1,
+      "display_zh": "基因之楔"
+    },
+    {
+      "image": 3,
+      "row": 1,
+      "column": 2,
+      "item": "pixelmon:meteorite",
+      "count": 1,
+      "display_zh": "陨石"
+    },
+    {
+      "image": 3,
+      "row": 1,
+      "column": 3,
+      "item": "pixelmon:whipped_dream",
+      "count": 1,
+      "display_zh": "泡沫奶油"
+    },
+    {
+      "image": 3,
+      "row": 1,
+      "column": 4,
+      "item": "pixelmon:sachet",
+      "count": 1,
+      "display_zh": "香袋"
+    },
+    {
+      "image": 3,
+      "row": 1,
+      "column": 5,
+      "item": "pixelmon:reins_of_unity",
+      "count": 1,
+      "display_zh": "牵绊缰绳"
+    }
+  ]
+}

@@ -20,7 +20,7 @@ public final class GymThemePaths {
         for(int i=0;i<TYPES.length;i++)if(TYPES[i].equalsIgnoreCase(value) || CHINESE[i].equals(value) || (CHINESE[i]+"系").equals(value))return TYPES[i];
         return null;
     }
-    public static String chinese(String type){for(int i=0;i<TYPES.length;i++)if(TYPES[i].equals(type))return CHINESE[i];return type;}
+    public static String chinese(String type){if(type.equals("any"))return "任意";for(int i=0;i<TYPES.length;i++)if(TYPES[i].equals(type))return CHINESE[i];return type;}
     public static String classify(Iterable<String> pieces){
         Set<String> mains=new HashSet<>();
         for(String piece:pieces){Matcher m=MAIN.matcher(piece);while(m.find())if(m.group(1).equals(m.group(2)) && normalize(m.group(1))!=null)mains.add(m.group(1));}

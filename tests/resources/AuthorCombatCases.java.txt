@@ -1,0 +1,163 @@
+// FILE: net/minecraft/world/World.java
+package net.minecraft.world;public class World implements net.minecraft.world.IWorld {public boolean field_72995_K;public GameRules rules=new GameRules();public GameRules func_82736_K(){return rules;}public java.util.Map<net.minecraft.util.math.BlockPos,net.minecraft.block.BlockState> blocks=new java.util.HashMap<>();public boolean func_180501_a(net.minecraft.util.math.BlockPos p,net.minecraft.block.BlockState state,int flags){blocks.put(p,state);return true;}}
+// FILE: net/minecraft/world/server/ServerWorld.java
+package net.minecraft.world.server;public class ServerWorld extends net.minecraft.world.World {public boolean loaded=true;public boolean func_175667_e(net.minecraft.util.math.BlockPos p){return loaded;}public net.minecraft.block.BlockState func_180495_p(net.minecraft.util.math.BlockPos p){return blocks.getOrDefault(p,net.minecraft.block.Blocks.field_150350_a.func_176223_P());}public net.minecraft.server.MinecraftServer server=new net.minecraft.server.MinecraftServer();public net.minecraft.server.MinecraftServer func_73046_m(){return server;}public java.util.List<net.minecraft.entity.player.ServerPlayerEntity> func_217369_A(){return new java.util.ArrayList<>(server.players.data.values());}}
+// FILE: net/minecraft/server/MinecraftServer.java
+package net.minecraft.server;public class MinecraftServer {public net.minecraft.server.management.PlayerList players=new net.minecraft.server.management.PlayerList();public net.minecraft.server.management.PlayerList func_184103_al(){return players;}}
+// FILE: net/minecraft/server/management/PlayerList.java
+package net.minecraft.server.management;public class PlayerList {public java.util.Map<java.util.UUID,net.minecraft.entity.player.ServerPlayerEntity> data=new java.util.HashMap<>();public net.minecraft.entity.player.ServerPlayerEntity func_177451_a(java.util.UUID id){return data.get(id);}}
+// FILE: net/minecraft/util/math/BlockPos.java
+package net.minecraft.util.math;public class BlockPos {public final int x,y,z;public BlockPos(){this(0,0,0);}public BlockPos(int x,int y,int z){this.x=x;this.y=y;this.z=z;}public BlockPos func_177982_a(int a,int b,int c){return new BlockPos(x+a,y+b,z+c);}public int func_177958_n(){return x;}public int func_177956_o(){return y;}public int func_177952_p(){return z;}public boolean equals(Object o){return o instanceof BlockPos&&x==((BlockPos)o).x&&y==((BlockPos)o).y&&z==((BlockPos)o).z;}public int hashCode(){return java.util.Objects.hash(x,y,z);}}
+// FILE: net/minecraft/entity/Entity.java
+package net.minecraft.entity;public class Entity {public net.minecraft.world.World field_70170_p;public java.util.UUID id=java.util.UUID.randomUUID();public void func_70106_y(){field_70128_L=true;}public boolean inside=true,field_70128_L;public int field_70173_aa;public double x,y=1,z;public net.minecraft.network.datasync.EntityDataManager field_70180_af=new net.minecraft.network.datasync.EntityDataManager();public net.minecraft.nbt.CompoundNBT nbt=new net.minecraft.nbt.CompoundNBT();public net.minecraft.nbt.CompoundNBT getPersistentData(){return nbt;}public double func_70068_e(Entity e){return (x-e.x)*(x-e.x)+(y-e.y)*(y-e.y)+(z-e.z)*(z-e.z);}public java.util.UUID func_110124_au(){return id;}public net.minecraft.util.math.vector.Vector3d func_174824_e(float partial){return new net.minecraft.util.math.vector.Vector3d(x,y+1.62,z);}public net.minecraft.util.math.AxisAlignedBB func_174813_aQ(){return new net.minecraft.util.math.AxisAlignedBB(x-.3,y,z-.3,x+.3,y+1.8,z+.3);}public net.minecraft.util.math.BlockPos func_233580_cy_(){return new net.minecraft.util.math.BlockPos((int)Math.floor(x),(int)Math.floor(y),(int)Math.floor(z));}}
+// FILE: net/minecraft/entity/LivingEntity.java
+package net.minecraft.entity;public class LivingEntity extends Entity {public float field_70746_aG,forward,field_70733_aJ;public int field_110158_av;public boolean field_82175_bq,sprinting;private int func_82166_i(){return 6;}protected void func_82168_bl(){throw new AssertionError();}public void func_70659_e(float speed){field_70746_aG=speed;}public void func_191989_p(float input){forward=input;}public void func_70636_d(){}public boolean func_70051_ag(){return sprinting;}public void func_70031_b(boolean b){sprinting=b;}public net.minecraft.entity.ai.EntitySenses senses=new net.minecraft.entity.ai.EntitySenses();public net.minecraft.entity.ai.EntitySenses func_70635_at(){return senses;}public void func_184609_a(net.minecraft.util.Hand hand){field_82175_bq=true;field_110158_av=0;}public boolean alive=true,spectator;public boolean func_70089_S(){return alive;}public boolean func_175149_v(){return spectator;}}
+// FILE: net/minecraft/entity/player/PlayerEntity.java
+package net.minecraft.entity.player;public class PlayerEntity extends net.minecraft.entity.LivingEntity {public java.util.List<net.minecraft.util.text.ITextComponent> messages=new java.util.ArrayList<>();public void func_146105_b(net.minecraft.util.text.ITextComponent s,boolean action){messages.add(s);}public boolean creative;public boolean func_184812_l_(){return creative;}}
+// FILE: net/minecraft/entity/player/ServerPlayerEntity.java
+package net.minecraft.entity.player;public class ServerPlayerEntity extends PlayerEntity {}
+// FILE: net/minecraft/util/text/ITextComponent.java
+package net.minecraft.util.text;public interface ITextComponent {}
+// FILE: net/minecraft/util/text/StringTextComponent.java
+package net.minecraft.util.text;public class StringTextComponent implements ITextComponent {public StringTextComponent(String s){}}
+// FILE: net/minecraft/world/server/ServerBossInfo.java
+package net.minecraft.world.server;public class ServerBossInfo {public boolean visible;public float health;public java.util.Set<net.minecraft.entity.player.ServerPlayerEntity> players=new java.util.HashSet<>();public void func_186760_a(net.minecraft.entity.player.ServerPlayerEntity p){players.add(p);}public void func_186761_b(net.minecraft.entity.player.ServerPlayerEntity p){players.remove(p);}public java.util.Collection<net.minecraft.entity.player.ServerPlayerEntity> func_186757_c(){return players;}public void func_186758_d(boolean b){visible=b;}public void func_186735_a(float f){health=f;}}
+// FILE: net/minecraft/pathfinding/PathNavigator.java
+package net.minecraft.pathfinding;public class PathNavigator {public int clears;public void func_75499_g(){clears++;}}
+// FILE: net/minecraft/util/EntityPredicates.java
+package net.minecraft.util;public class EntityPredicates {public static final java.util.function.Predicate<net.minecraft.entity.Entity> field_188444_d=e->!(e instanceof net.minecraft.entity.player.PlayerEntity)||!((net.minecraft.entity.player.PlayerEntity)e).creative&&!((net.minecraft.entity.player.PlayerEntity)e).spectator;}
+// FILE: net/minecraft/entity/CreatureEntity.java
+package net.minecraft.entity;public class CreatureEntity extends MobEntity {public java.util.Map<net.minecraft.inventory.EquipmentSlotType,net.minecraft.item.ItemStack> gear=new java.util.EnumMap<>(net.minecraft.inventory.EquipmentSlotType.class);public void func_184201_a(net.minecraft.inventory.EquipmentSlotType slot,net.minecraft.item.ItemStack item){gear.put(slot,item);}public void func_70691_i(float f){func_70606_j(health+f);}public boolean func_70652_k(Entity target){attacks++;lastHit=(LivingEntity)target;return true;}public LivingEntity target,lastHit;public int attacks;public float health=300;public net.minecraft.pathfinding.PathNavigator nav=new net.minecraft.pathfinding.PathNavigator();public void func_70624_b(LivingEntity e){target=e;}public LivingEntity func_70638_az(){return target;}public net.minecraft.pathfinding.PathNavigator func_70661_as(){return nav;}public void func_213395_q(boolean b){}public void func_70071_h_(){if(target instanceof net.minecraft.entity.player.ServerPlayerEntity&&target.func_70089_S()&&!target.func_175149_v()&&!((net.minecraft.entity.player.PlayerEntity)target).creative){attacks++;lastHit=target;}}public float func_110143_aJ(){return health;}public double func_233637_b_(net.minecraft.entity.ai.attributes.Attribute a){return 300;}public float func_110138_aP(){return (float)func_233637_b_(net.minecraft.entity.ai.attributes.Attributes.field_233818_a_);}public void func_70606_j(float f){health=Math.max(0,Math.min(func_110138_aP(),f));}public boolean func_70097_a(net.minecraft.util.DamageSource source,float amount){health-=amount;return true;}}
+// FILE: net/minecraft/entity/ai/goal/MeleeAttackGoal.java
+package net.minecraft.entity.ai.goal;public class MeleeAttackGoal {protected final net.minecraft.entity.CreatureEntity field_75441_b;protected int field_234037_i_;public MeleeAttackGoal(net.minecraft.entity.CreatureEntity b,double speed,boolean memory){field_75441_b=b;}protected boolean func_234040_h_(){throw new AssertionError();}protected void func_234039_g_(){throw new AssertionError();}public MeleeAttackGoal(net.minecraft.entity.CreatureEntity boss){field_75441_b=boss;}public void func_75251_c(){throw new AssertionError("Native method not installed");}}
+// FILE: local/pixelmon/backport/AuthorBossArenas.java
+package local.pixelmon.backport;public class AuthorBossArenas {
+ private static final java.util.Map<net.minecraft.world.server.ServerWorld,java.util.List<java.lang.ref.WeakReference<net.minecraft.entity.Entity>>> WATCHED=new java.util.WeakHashMap<>();
+ public static boolean active;public static int restores,recalls;
+ public static net.minecraft.util.math.BlockPos center(net.minecraft.entity.Entity e){return new net.minecraft.util.math.BlockPos(0,0,0);}
+ public static boolean inside(net.minecraft.entity.Entity b,net.minecraft.util.math.BlockPos p){return true;}
+ public static boolean combatInside(net.minecraft.entity.Entity b,net.minecraft.entity.player.ServerPlayerEntity p){throw new AssertionError();}
+ public static boolean eligible(net.minecraft.entity.Entity b,net.minecraft.entity.player.ServerPlayerEntity p){throw new AssertionError();}
+ public static java.util.List<net.minecraft.entity.player.ServerPlayerEntity> combatPlayers(net.minecraft.entity.Entity e){throw new AssertionError();}
+ public static boolean inCombat(net.minecraft.entity.player.ServerPlayerEntity p){throw new AssertionError();}
+ public void sendOut(com.pixelmonmod.pixelmon.api.events.PokemonSendOutEvent.Pre e){throw new AssertionError();}
+ public static void watch(net.minecraft.entity.Entity e){}
+ public static void active(net.minecraft.entity.Entity e,net.minecraft.entity.player.ServerPlayerEntity p){active=true;e.nbt.func_74757_a("AuthorArenaActive",true);WATCHED.put((net.minecraft.world.server.ServerWorld)e.field_70170_p,java.util.List.of(new java.lang.ref.WeakReference<>(e)));}
+ public static void restoreCombatRoom(net.minecraft.entity.Entity e){restores++;AuthorBossFeature.build(e.field_70170_p,center(e),true);}
+ public static void recallPokemon(java.util.List<net.minecraft.entity.player.ServerPlayerEntity> p){recalls+=p.size();}
+ public static void open(net.minecraft.entity.Entity e){active=false;e.nbt.func_74757_a("AuthorArenaActive",false);}
+}
+// FILE: local/pixelmon/backport/AuthorCombatBoss.java
+package local.pixelmon.backport;public class AuthorCombatBoss extends net.minecraft.entity.CreatureEntity {
+ private static final net.minecraft.network.datasync.DataParameter<Integer> ROOM_PLAYERS=new net.minecraft.network.datasync.DataParameter<>();
+ private final net.minecraft.world.server.ServerBossInfo bar=new net.minecraft.world.server.ServerBossInfo();public java.util.UUID challenger;private boolean first=true;private int recoveryTicks;public int resets;public boolean withinReach(net.minecraft.entity.LivingEntity e){throw new AssertionError();}private void equip(){throw new AssertionError();}private void recover(){throw new AssertionError();}
+ public AuthorCombatBoss(){field_70180_af.func_187214_a(ROOM_PLAYERS,1);}
+ public void begin(net.minecraft.entity.player.ServerPlayerEntity p){throw new AssertionError("Production method not installed");}
+ public void func_70071_h_(){throw new AssertionError("Production method not installed");}
+ public boolean func_70097_a(net.minecraft.util.DamageSource s,float a){throw new AssertionError();}
+ private void scale(int n){throw new AssertionError();}
+ protected net.minecraft.util.ActionResultType func_230254_b_(net.minecraft.entity.player.PlayerEntity p,net.minecraft.util.Hand h){throw new AssertionError();}
+ public void click(net.minecraft.entity.player.ServerPlayerEntity p){func_230254_b_(p,net.minecraft.util.Hand.MAIN_HAND);}
+ public void reset(){resets++;challenger=null;target=null;field_70180_af.func_187227_b(ROOM_PLAYERS,1);health=300;AuthorBossArenas.open(this);AuthorBossArenas.restoreCombatRoom(this);bar.visible=false;}
+}
+// FILE: net/minecraft/world/IWorld.java
+package net.minecraft.world;public interface IWorld {boolean func_180501_a(net.minecraft.util.math.BlockPos p,net.minecraft.block.BlockState s,int flags);}
+// FILE: net/minecraft/nbt/CompoundNBT.java
+package net.minecraft.nbt;public class CompoundNBT {java.util.Map<String,Boolean> data=new java.util.HashMap<>();public void func_74757_a(String key,boolean b){data.put(key,b);}public boolean func_74767_n(String key){return Boolean.TRUE.equals(data.get(key));}}
+// FILE: net/minecraft/util/Hand.java
+package net.minecraft.util;public enum Hand {MAIN_HAND}
+// FILE: net/minecraft/util/ActionResultType.java
+package net.minecraft.util;public enum ActionResultType {SUCCESS}
+// FILE: net/minecraft/util/DamageSource.java
+package net.minecraft.util;public class DamageSource {net.minecraft.entity.Entity source;public DamageSource(net.minecraft.entity.Entity e){source=e;}public net.minecraft.entity.Entity func_76346_g(){return source;}}
+// FILE: net/minecraft/entity/ai/attributes/Attribute.java
+package net.minecraft.entity.ai.attributes;public class Attribute {}
+// FILE: net/minecraft/entity/ai/attributes/Attributes.java
+package net.minecraft.entity.ai.attributes;public class Attributes {public static final Attribute field_233818_a_=new Attribute();}
+// FILE: net/minecraft/network/datasync/DataParameter.java
+package net.minecraft.network.datasync;public class DataParameter<T> {}
+// FILE: net/minecraft/network/datasync/EntityDataManager.java
+package net.minecraft.network.datasync;public class EntityDataManager {java.util.Map<DataParameter<?>,Object> values=new java.util.HashMap<>();public <T>void func_187214_a(DataParameter<T> p,T value){values.put(p,value);}public <T>void func_187227_b(DataParameter<T> p,T value){values.put(p,value);}public <T>T func_187225_a(DataParameter<T> p){return (T)values.get(p);}}
+// FILE: net/minecraft/util/ResourceLocation.java
+package net.minecraft.util;public class ResourceLocation {public String id;public ResourceLocation(String s){id=s;}public String toString(){return id;}}
+// FILE: net/minecraft/block/Block.java
+package net.minecraft.block;public class Block implements net.minecraftforge.registries.IForgeRegistryEntry<Block> {public String id;public Block(String s){id=s;}public BlockState func_176223_P(){return new BlockState(this);}}
+// FILE: net/minecraft/block/BlockState.java
+package net.minecraft.block;public class BlockState {public Block block;public BlockState(Block b){block=b;}public Block func_177230_c(){return block;}}
+// FILE: net/minecraft/block/Blocks.java
+package net.minecraft.block;public class Blocks {public static final Block field_150350_a=new Block("minecraft:air"),field_150359_w=new Block("minecraft:glass"),field_180398_cJ=new Block("minecraft:sea_lantern");}
+// FILE: net/minecraftforge/registries/ForgeRegistries.java
+package net.minecraftforge.registries;public class ForgeRegistries {public static class Registry implements IForgeRegistry<net.minecraft.block.Block> {public java.util.Map<String,net.minecraft.block.Block> entries=new java.util.HashMap<>();public net.minecraft.block.Block getValue(net.minecraft.util.ResourceLocation id){return entries.computeIfAbsent(id.toString(),net.minecraft.block.Block::new);}}public static final IForgeRegistry<net.minecraft.block.Block> BLOCKS=new Registry();}
+// FILE: local/pixelmon/backport/AuthorBossFeature.java
+package local.pixelmon.backport;public class AuthorBossFeature {public static void upgrade(net.minecraft.world.server.ServerWorld w,net.minecraft.util.math.BlockPos p,boolean physical){throw new AssertionError();}public static void build(net.minecraft.world.IWorld w,net.minecraft.util.math.BlockPos p,boolean melee){throw new AssertionError();}}
+// FILE: com/pixelmonmod/pixelmon/api/events/PokemonSendOutEvent.java
+package com.pixelmonmod.pixelmon.api.events;public class PokemonSendOutEvent {public net.minecraft.entity.player.ServerPlayerEntity player;public net.minecraft.entity.player.ServerPlayerEntity getPlayer(){return player;}public static class Pre extends PokemonSendOutEvent {public boolean canceled;public Pre(net.minecraft.entity.player.ServerPlayerEntity p){player=p;}public void setCanceled(boolean b){canceled=b;}}}
+// FILE: AuthorCombatCases.java
+import net.minecraft.world.server.ServerWorld;import net.minecraft.entity.player.ServerPlayerEntity;import net.minecraft.entity.ai.goal.MeleeAttackGoal;import net.minecraft.util.math.BlockPos;import net.minecraft.util.DamageSource;import local.pixelmon.backport.*;import com.pixelmonmod.pixelmon.api.events.PokemonSendOutEvent;
+public class AuthorCombatCases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ static AuthorCombatBoss boss(ServerWorld w){AuthorCombatBoss b=new AuthorCombatBoss();b.field_70170_p=w;return b;}
+ static ServerPlayerEntity player(ServerWorld w){ServerPlayerEntity p=new ServerPlayerEntity();p.field_70170_p=w;w.server.players.data.put(p.id,p);return p;}
+ static String block(ServerWorld w,int x,int y,int z){return w.blocks.get(new BlockPos(x,y,z)).block.id;}
+ public static void retired(){ServerWorld w=new ServerWorld();var b=boss(w);b.challenger=java.util.UUID.randomUUID();AuthorBossArenas.active=true;b.func_70071_h_();check(b.field_70128_L&&b.challenger==null&&!AuthorBossArenas.active,"legacy PVP entity retired and arena unlocked");}
+ public static void baseline(){ServerWorld w=new ServerWorld();ServerPlayerEntity p=player(w);p.creative=true;AuthorCombatBoss b=boss(w);b.begin(p);new MeleeAttackGoal(b).func_75251_c();check(b.challenger!=null&&b.target==null,"Native reset clears target but retains old challenge");p.creative=false;for(int i=0;i<40;i++)b.func_70071_h_();check(b.attacks==0&&b.challenger!=null,"Reported idle boss after creative to survival reproduced");System.out.println("PASS original boss remains idle after native creative-target clear and switching to survival reproduced.");}
+ public static void fixed(){
+  ServerWorld w=new ServerWorld();ServerPlayerEntity p=player(w);p.creative=true;AuthorCombatBoss b=boss(w);b.begin(p);check(b.challenger==null&&!p.messages.isEmpty(),"Creative challenge rejected with hint");p.creative=false;
+  b.click(p);check(b.challenger==null,"Right click does not begin combat");
+  b.func_70071_h_();check(b.challenger==null,"Entering room does not begin combat");
+  w.blocks.put(new BlockPos(0,2,0),new net.minecraft.block.Block("minecraft:obsidian").func_176223_P());
+  check(!b.func_70097_a(new DamageSource(p),100)&&b.health==300&&b.challenger.equals(p.id),"First hit starts at full health and does no damage");
+  check(block(w,0,2,0).equals("minecraft:air"),"Premade obstruction removed before combat");check(block(w,0,0,0).equals("minecraft:green_wool"),"Cheap green wool floor");check(block(w,0,7,0).equals("minecraft:sea_lantern"),"Central roof light");for(int x:new int[]{-4,4})for(int z:new int[]{-4,4}){check(block(w,x,6,z).equals("minecraft:air"),"No protruding corner light");check(block(w,x,7,z).equals("minecraft:sea_lantern"),"Flush roof corner light");}AuthorBossFeature.build(w,new BlockPos(24,0,0),false);check(block(w,24,0,0).equals("minecraft:white_wool"),"Trainer cheap wool floor");
+  p.creative=true;new MeleeAttackGoal(b).func_75251_c();check(b.target==null,"Native goal removes creative target");p.creative=false;b.func_70071_h_();check(b.target==p&&b.attacks==1,"Valid challenge reacquired before AI");
+  b.func_70097_a(new DamageSource(p),150);check(b.health==150,"Live combat damage");
+  ServerPlayerEntity other=player(w);b.func_70071_h_();check(b.func_110138_aP()==600&&b.health==300,"Second room player scales by remaining ratio");
+  ServerPlayerEntity outside=player(w);outside.x=6;b.func_70071_h_();check(b.func_110138_aP()==600,"Wall/outside player excluded");outside.x=0;outside.y=7;b.func_70071_h_();check(b.func_110138_aP()==600,"Roof excluded");outside.y=1;outside.creative=true;b.func_70071_h_();check(b.func_110138_aP()==600,"Creative excluded");outside.creative=false;outside.spectator=true;b.func_70071_h_();check(b.func_110138_aP()==600,"Spectator excluded");outside.spectator=false;outside.field_70170_p=new ServerWorld();b.func_70071_h_();check(b.func_110138_aP()==600,"Other dimension excluded");
+  ServerPlayerEntity three=player(w),four=player(w);b.func_70071_h_();check(b.func_110138_aP()==1200&&b.health==600,"Four players exceed vanilla1024 without clamp");
+  p.x=100;b.func_70071_h_();check(b.challenger!=null&&b.target!=p&&b.func_110138_aP()==900&&b.health==450,"Original player teleport leaves remaining fight intact");
+  var active=new PokemonSendOutEvent.Pre(other);new AuthorBossArenas().sendOut(active);check(active.canceled,"Pokemon sendout blocked in active room");
+  var away=new PokemonSendOutEvent.Pre(p);new AuthorBossArenas().sendOut(away);check(!away.canceled,"Outside sendout unchanged");
+  check(!b.func_70097_a(new DamageSource(p),100)&&b.health==450,"Outside player cannot damage boss");
+  other.alive=false;b.func_70071_h_();check(b.challenger!=null&&b.func_110138_aP()==600,"One death leaves fight alive");
+  w.server.players.data.remove(three.id);b.func_70071_h_();check(b.challenger.equals(four.id)&&b.func_110138_aP()==300,"One disconnect leaves last fighter");
+  w.blocks.put(new BlockPos(0,2,0),new net.minecraft.block.Block("minecraft:obsidian").func_176223_P());four.x=100;b.func_70071_h_();check(b.challenger==null&&b.health==300&&!AuthorBossArenas.active,"Last teleport resets boss");check(block(w,0,2,0).equals("minecraft:air"),"Last departure restores room");
+  other.alive=true;var idle=new PokemonSendOutEvent.Pre(other);new AuthorBossArenas().sendOut(idle);check(!idle.canceled,"Idle room does not block Pokemon");
+ }
+ public static void combatDetails()throws Exception {
+  ServerWorld w=new ServerWorld();var p=player(w);var b=boss(w);b.func_70071_h_();
+  check(b.gear.size()==5,"existing saved boss upgraded after NBT load");for(var slot:new net.minecraft.inventory.EquipmentSlotType[]{net.minecraft.inventory.EquipmentSlotType.HEAD,net.minecraft.inventory.EquipmentSlotType.CHEST,net.minecraft.inventory.EquipmentSlotType.LEGS,net.minecraft.inventory.EquipmentSlotType.FEET})check(b.gear.get(slot).ench.get(net.minecraft.enchantment.Enchantments.field_180310_c)==2,"all four armor Protection II");check(b.gear.get(net.minecraft.inventory.EquipmentSlotType.MAINHAND).ench.get(net.minecraft.enchantment.Enchantments.field_185302_k)==5,"Sharpness V retained");
+  var nativeMob=new net.minecraft.entity.MobEntity();nativeMob.func_70659_e(.1f);check(Math.abs(nativeMob.field_70746_aG*nativeMob.forward-.01)<.000001,"native mob double scaling reproduced");b.func_70659_e(.1f);check(Math.abs(b.field_70746_aG*b.forward-.1)<.000001,"player walk acceleration and full forward input");b.func_70659_e(.13f);check(Math.abs(b.field_70746_aG*b.forward-.13)<.000001,"player sprint acceleration and full forward input");b.func_70659_e(0);check(b.forward==0,"idle movement remains stopped");
+  p.x=3.3;check(b.withinReach(p),"three blocks to near hitbox face");p.x=3.301;check(!b.withinReach(p),"outside survival reach");p.x=0;p.y=5.0;check(b.withinReach(p),"eye to elevated hitbox within three");p.y=5.7;check(!b.withinReach(p),"vertical reach enforced");p.y=1;b.senses.visible=false;check(!b.withinReach(p),"walls block melee");b.senses.visible=true;
+  check(!b.func_70652_k(p),"idle boss cannot attack");b.begin(p);b.health=250;
+  var goal=new AuthorMeleeGoal(b);var attack=goal.getClass().getDeclaredMethod("func_190102_a",net.minecraft.entity.LivingEntity.class,double.class);attack.setAccessible(true);
+  var legacy=new ServerWorld();var center=new BlockPos(24,0,0);AuthorBossFeature.build(legacy,center,false);var oldFloor=net.minecraftforge.registries.ForgeRegistries.BLOCKS.getValue(new net.minecraft.util.ResourceLocation("minecraft:chiseled_quartz_block")).func_176223_P();legacy.blocks.put(center,oldFloor);for(int x:new int[]{-4,4})for(int z:new int[]{-4,4}){legacy.blocks.put(center.func_177982_a(x,6,z),net.minecraft.block.Blocks.field_180398_cJ.func_176223_P());legacy.blocks.put(center.func_177982_a(x,7,z),net.minecraftforge.registries.ForgeRegistries.BLOCKS.getValue(new net.minecraft.util.ResourceLocation("minecraft:stone_bricks")).func_176223_P());}legacy.loaded=false;AuthorBossFeature.upgrade(legacy,center,false);check(block(legacy,24,0,0).equals("minecraft:chiseled_quartz_block"),"unloaded legacy room never forced");legacy.loaded=true;AuthorBossFeature.upgrade(legacy,center,false);check(block(legacy,24,0,0).equals("minecraft:white_wool")&&block(legacy,28,6,4).equals("minecraft:air")&&block(legacy,28,7,4).equals("minecraft:sea_lantern"),"legacy owned room upgrade wool and inset light");
+  int hits=b.attacks;p.x=3.301;attack.invoke(goal,p,0d);check(b.attacks==hits&&!b.field_82175_bq,"distant target neither hit nor swing");p.x=1;attack.invoke(goal,p,100d);check(b.attacks==hits+1&&b.field_82175_bq,"within range swing and hit");attack.invoke(goal,p,0d);check(b.attacks==hits+1,"native cooldown preserved");b.func_70636_d();check(b.field_70733_aJ>0,"native arm swing progresses into renderer");for(int i=0;i<6;i++)b.func_70636_d();check(!b.field_82175_bq&&b.field_70733_aJ==0,"native arm swing completes");
+  var recover=b.getClass().getDeclaredMethod("recover");recover.setAccessible(true);for(int i=0;i<79;i++)recover.invoke(b);check(b.health==250,"no early passive healing");recover.invoke(b);check(b.health==251,"one HP every80ticks");w.rules.enabled=false;for(int i=0;i<160;i++)recover.invoke(b);check(b.health==251,"naturalRegeneration false disables heal");w.rules.enabled=true;b.health=299.5f;for(int i=0;i<80;i++)recover.invoke(b);check(b.health==300,"healing clamped to dynamic maximum");b.health=200;b.challenger=null;for(int i=0;i<80;i++)recover.invoke(b);check(b.health==200,"idle does not run active regen");
+ }
+
+}
+
+// FILE: net/minecraftforge/registries/IForgeRegistryEntry.java
+package net.minecraftforge.registries;public interface IForgeRegistryEntry<T> {}
+// FILE: net/minecraftforge/registries/IForgeRegistry.java
+package net.minecraftforge.registries;public interface IForgeRegistry<T extends IForgeRegistryEntry<T>> {T getValue(net.minecraft.util.ResourceLocation id);}
+
+// FILE: net/minecraft/entity/MobEntity.java
+package net.minecraft.entity;public class MobEntity extends LivingEntity {public void func_70659_e(float f){throw new AssertionError("native mob setter not installed");}}
+// FILE: net/minecraft/entity/ai/EntitySenses.java
+package net.minecraft.entity.ai;public class EntitySenses {public boolean visible=true;public boolean func_75522_a(net.minecraft.entity.Entity target){return visible;}}
+// FILE: net/minecraft/util/math/vector/Vector3d.java
+package net.minecraft.util.math.vector;public class Vector3d {public final double field_72450_a,field_72448_b,field_72449_c;public Vector3d(double x,double y,double z){field_72450_a=x;field_72448_b=y;field_72449_c=z;}}
+// FILE: net/minecraft/util/math/AxisAlignedBB.java
+package net.minecraft.util.math;public class AxisAlignedBB {public final double field_72340_a,field_72338_b,field_72339_c,field_72336_d,field_72337_e,field_72334_f;public AxisAlignedBB(double a,double b,double c,double d,double e,double f){field_72340_a=a;field_72338_b=b;field_72339_c=c;field_72336_d=d;field_72337_e=e;field_72334_f=f;}}
+// FILE: net/minecraft/inventory/EquipmentSlotType.java
+package net.minecraft.inventory;public enum EquipmentSlotType {MAINHAND,HEAD,CHEST,LEGS,FEET}
+// FILE: net/minecraft/enchantment/Enchantment.java
+package net.minecraft.enchantment;public class Enchantment {}
+// FILE: net/minecraft/enchantment/Enchantments.java
+package net.minecraft.enchantment;public class Enchantments {public static final Enchantment field_180310_c=new Enchantment(),field_185302_k=new Enchantment();}
+// FILE: net/minecraft/item/ItemStack.java
+package net.minecraft.item;public class ItemStack {public String id;public java.util.Map<net.minecraft.enchantment.Enchantment,Integer> ench=new java.util.HashMap<>();public ItemStack(String id){this.id=id;}public void func_77966_a(net.minecraft.enchantment.Enchantment e,int level){ench.put(e,level);}}
+// FILE: local/pixelmon/backport/AuthorBossTeams.java
+package local.pixelmon.backport;public class AuthorBossTeams {public static net.minecraft.item.ItemStack item(String id){return new net.minecraft.item.ItemStack(id);}}
+// FILE: net/minecraft/world/GameRules.java
+package net.minecraft.world;public class GameRules {public boolean enabled=true;public static final RuleKey<BooleanValue> field_223606_i=new RuleKey<>();public static class RuleKey<T>{}public static class BooleanValue {}public boolean func_223586_b(RuleKey<BooleanValue> key){return enabled;}}

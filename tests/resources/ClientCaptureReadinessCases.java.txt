@@ -1,0 +1,56 @@
+package fixture;
+import com.pixelmonmod.pixelmon.client.gui.battles.*;
+import com.pixelmonmod.pixelmon.api.pokemon.boss.BossTier;
+import com.pixelmonmod.pixelmon.api.battles.*;
+import com.pixelmonmod.pixelmon.battles.controller.participants.ParticipantType;
+import local.pixelmon.backport.client.BossCaptureClient;
+
+public class ClientCaptureReadinessCases {
+    static void check(boolean b,String why){if(!b)throw new AssertionError(why);}
+    static PixelmonClientData shown(String tier){var p=new PixelmonClientData();p.bossTier=new BossTier(tier);return p;}
+    static void complete(ClientBattleManager b){
+        b.battleSetup=new ParticipantType[][]{{ParticipantType.Player},{ParticipantType.WildPokemon}};
+        b.displayedEnemyPokemon=new PixelmonClientData[]{shown("notboss")};b.bagSection=BagSection.POKEBALLS;b.mode=BattleMode.BAG;b.messages=0;
+    }
+    public static void run(boolean patched){
+        int crashes=0;
+        for(int kind=0;kind<12;kind++){
+            var b=new ClientBattleManager();complete(b);
+            switch(kind){
+                case 0:b.battleSetup=null;break;
+                case 1:b.battleSetup=new ParticipantType[0][];break;
+                case 2:b.battleSetup=new ParticipantType[][]{{ParticipantType.Player}};break;
+                case 3:b.battleSetup[1]=null;break;
+                case 4:b.battleSetup[1][0]=null;break;
+                case 5:b.displayedEnemyPokemon=null;break;
+                case 6:b.displayedEnemyPokemon=new PixelmonClientData[0];break;
+                case 7:b.displayedEnemyPokemon[0]=null;break;
+                case 8:b.displayedEnemyPokemon[0].bossTier=null;break;
+                case 9:b.battleSetup[1]=new ParticipantType[]{ParticipantType.WildPokemon,ParticipantType.WildPokemon};break;
+                case 10:b.battleSetup[1]=new ParticipantType[]{ParticipantType.WildPokemon,ParticipantType.WildPokemon};b.displayedEnemyPokemon=new PixelmonClientData[]{shown("rare"),null};break;
+                case 11:b.battleSetup[1]=new ParticipantType[]{ParticipantType.Trainer,null};break;
+            }
+            check(!BossCaptureClient.ready(b),"Partial data marked ready "+kind);
+            try{boolean result=b.canCatchOpponent();if(patched)check(!result,"Partial native capture permitted "+kind);}
+            catch(NullPointerException|ArrayIndexOutOfBoundsException ex){if(patched)throw new AssertionError("Transformed native crash "+kind,ex);crashes++;}
+            check(!BossCaptureClient.blocked(b),"Pending mistaken for forbidden "+kind);
+            BossCaptureClient.prepare(b);check(b.bagSection==null&&b.messages==0&&b.mode==BattleMode.BAG,"Init pending changed messages/mode "+kind);
+            b.bagSection=BagSection.POKEBALLS;check(BossCaptureClient.click(b),"Pending click not canceled "+kind);
+            check(b.bagSection==null&&b.messages==0&&b.mode==BattleMode.BAG,"Pending click emitted forbidden warning "+kind);
+            // Medicines and other categories remain usable during display synchronization.
+            b.bagSection=BagSection.HEALING;BossCaptureClient.prepare(b);check(!BossCaptureClient.click(b)&&b.bagSection==BagSection.HEALING,"Healing blocked "+kind);
+            // Display arrival must immediately recover; no persistent disabled flag.
+            complete(b);check(BossCaptureClient.ready(b)&&b.canCatchOpponent(),"Ready state did not recover "+kind);
+            BossCaptureClient.prepare(b);check(b.bagSection==BagSection.POKEBALLS&&!BossCaptureClient.click(b),"Ordinary capture stayed blocked "+kind);
+            b.displayedEnemyPokemon[0].bossTier=new BossTier("rare");check(!b.canCatchOpponent()&&BossCaptureClient.click(b)&&b.messages==1&&b.mode==BattleMode.MAIN_MENU,"Known Boss restriction lost "+kind);
+            // End/new battle clears data; the previous opponent must not be reused.
+            b.battleSetup=null;b.bagSection=BagSection.POKEBALLS;int messages=b.messages;BossCaptureClient.prepare(b);check(!BossCaptureClient.ready(b)&&b.bagSection==null&&b.messages==messages,"Stale battle data retained "+kind);
+        }
+        check(!BossCaptureClient.ready(null)&&!BossCaptureClient.blocked(null)&&!BossCaptureClient.click(null),"Null manager boundary");BossCaptureClient.prepare(null);
+        var mixed=new ClientBattleManager();complete(mixed);mixed.battleSetup[1]=new ParticipantType[]{ParticipantType.Trainer,ParticipantType.WildPokemon};mixed.displayedEnemyPokemon=new PixelmonClientData[]{null,shown("notboss")};
+        check(BossCaptureClient.ready(mixed)&&mixed.canCatchOpponent(),"Non-wild empty display slot overblocked");
+        mixed.battleSetup[1]=new ParticipantType[]{ParticipantType.Trainer};mixed.displayedEnemyPokemon=null;check(BossCaptureClient.ready(mixed)&&!mixed.canCatchOpponent(),"Trainer rule changed");
+        if(!patched)check(crashes==9,"Original native failure matrix changed "+crashes);
+        System.out.println(patched?"PASS actual transformed canCatchOpponent: 12 pending states, no NPE/bounds failure or false warning; synchronization recovery, lifecycle reset, medicines and native Boss/trainer rules retained":"REPRODUCED actual native canCatchOpponent: 9 null/bounds crashes; fixed helper safely handles all 12 pending states before original native access");
+    }
+}

@@ -22,8 +22,8 @@ public abstract class TeraRaidLobbyMixin extends Screen {
     @Inject(method="func_230430_a_",at=@At("RETURN"))
     private void backport$instructions(MatrixStack m,int x,int y,float partial,CallbackInfo ci){
         if(den()==null)return;int cx=field_230708_k_/2;
-        func_238471_a_(m,field_230712_o_,"太晶团战 · 300 秒",cx,7,0xffffff);
-        func_238471_a_(m,field_230712_o_,"使用 3 次招式充能；倒下后等待复活",cx,19,0xffffff);
+        func_238471_a_(m,field_230712_o_,"太晶团战·300秒",cx,7,0xffffff);
+        func_238471_a_(m,field_230712_o_,"使用3次招式充能；倒下后等待复活",cx,19,0xffffff);
         func_238471_a_(m,field_230712_o_,"胜利：属性碎片、太晶爆发光盘与星级奖励",cx,31,0xffffff);
     }
 }

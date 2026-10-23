@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "pixelmon:poke_ball",
+      "nbt": "{PokeBallID:\"ultra_ball\"}"
+    },
+    "title": {
+      "translate": "advancement.pixelmon_backport.defeat_boss_rare"
+    },
+    "description": {
+      "translate": "advancement.pixelmon_backport.defeat_boss_rare.desc"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

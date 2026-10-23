@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "pixelmon:ultra_deep_kelp"
+  },
+  "result": "minecraft:dried_kelp_block",
+  "experience": 0.1,
+  "cookingtime": 600
+}

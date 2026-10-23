@@ -13,6 +13,10 @@ public final class SpawnChecks {
     public static List<ServerPlayerEntity> players(List<ServerPlayerEntity> original){
         ServerPlayerEntity p=VIEWER.get();return p==null?original:Collections.singletonList(p);
     }
+    public static List<ServerPlayerEntity> players(List<ServerPlayerEntity> original,net.minecraft.command.CommandSource source){
+        List<ServerPlayerEntity> scoped=players(original);if(scoped!=original)return scoped;
+        return source!=null&&source.func_197022_f() instanceof ServerPlayerEntity?Collections.singletonList((ServerPlayerEntity)source.func_197022_f()):original;
+    }
     public static boolean run(ServerPlayerEntity player,boolean legendary){
         if(PixelmonSpawning.coordinator==null)return false;
         AbstractSpawner spawner=PixelmonSpawning.coordinator.getSpawner(legendary?"legendary":player.func_200200_C_().getString());

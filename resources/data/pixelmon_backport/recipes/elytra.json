@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MRM",
+    "MBM",
+    "M M"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:phantom_membrane"
+    },
+    "R": {
+      "item": "pixelmon:reins_of_unity"
+    },
+    "B": {
+      "type": "pixelmon_backport:master_ball"
+    }
+  },
+  "result": {
+    "item": "minecraft:elytra",
+    "count": 1
+  }
+}

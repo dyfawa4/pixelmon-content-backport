@@ -1,0 +1,310 @@
+// FILE: net/minecraft/nbt/CompoundNBT.java
+package net.minecraft.nbt;public class CompoundNBT {public java.util.Map<String,Boolean> values=new java.util.HashMap<>();public boolean func_74767_n(String k){return Boolean.TRUE.equals(values.get(k));}}
+// FILE: net/minecraft/item/Item.java
+package net.minecraft.item;public class Item {public String id;public Item(String s){id=s;}}
+// FILE: net/minecraft/item/ItemStack.java
+package net.minecraft.item;public class ItemStack {Item item;public ItemStack(Item i){item=i;}public Item func_77973_b(){return item;}public String func_200301_q(){return item.id;}}
+// FILE: com/pixelmonmod/pixelmon/items/medicine/MedicineItem.java
+package com.pixelmonmod.pixelmon.items.medicine;public class MedicineItem extends net.minecraft.item.Item implements local.pixelmon.backport.mixin.MedicineMethodsAccess {
+ public final com.pixelmonmod.pixelmon.items.IMedicine[] healMethods;private int friendshipDecreaseNormal,friendshipDecreaseHigh;
+ public com.pixelmonmod.pixelmon.items.IMedicine[] backport$methods(){return healMethods;}
+ public MedicineItem(String s){this(s,s.equals("full_restore")?new com.pixelmonmod.pixelmon.items.IMedicine[]{new MedicinePotion(l->300),(l,f)->((com.pixelmonmod.pixelmon.api.pokemon.stats.links.WrapperLink)l).removeStatuses(com.pixelmonmod.pixelmon.battles.status.StatusType.Poison)}:new com.pixelmonmod.pixelmon.items.IMedicine[]{new MedicinePotion(l->300)});}
+ public MedicineItem(String s,com.pixelmonmod.pixelmon.items.IMedicine... effects){super(s);healMethods=effects;}
+ public MedicineItem setFriendshipDecrease(int normal,int high){friendshipDecreaseNormal=normal;friendshipDecreaseHigh=high;return this;}
+ public boolean useMedicine(com.pixelmonmod.pixelmon.api.pokemon.stats.links.PokemonLink l,int info){throw new AssertionError("native medicine not installed");}
+}
+// FILE: com/pixelmonmod/pixelmon/items/ReviveItem.java
+package com.pixelmonmod.pixelmon.items;public class ReviveItem extends com.pixelmonmod.pixelmon.items.medicine.MedicineItem {public ReviveItem(com.pixelmonmod.pixelmon.items.IMedicine... effects){super("native-revival",effects);}public ReviveItem(String s){super(s,s.equals("revival_herb")?new com.pixelmonmod.pixelmon.items.medicine.MedicinePotion(l->l.getMaxHealth(true)):new com.pixelmonmod.pixelmon.items.medicine.MedicineRevive(l->s.equals("revive")?l.getMaxHealth(true)/2:l.getMaxHealth(true)));}}
+// FILE: com/pixelmonmod/pixelmon/api/registries/PixelmonItems.java
+package com.pixelmonmod.pixelmon.api.registries;public class PixelmonItems {public static final com.pixelmonmod.pixelmon.items.medicine.MedicineItem full_restore=new com.pixelmonmod.pixelmon.items.medicine.MedicineItem("full_restore"),max_potion=new com.pixelmonmod.pixelmon.items.medicine.MedicineItem("max_potion");public static final com.pixelmonmod.pixelmon.items.ReviveItem revive=create_revive(),max_revive=create_max_revive(),revival_herb=(com.pixelmonmod.pixelmon.items.ReviveItem)create_revival_herb();public static com.pixelmonmod.pixelmon.items.ReviveItem create_revive(){throw new AssertionError();}public static com.pixelmonmod.pixelmon.items.ReviveItem create_max_revive(){throw new AssertionError();}public static com.pixelmonmod.pixelmon.items.medicine.MedicineItem create_revival_herb(){throw new AssertionError();}}
+// FILE: com/pixelmonmod/pixelmon/api/battles/AttackCategory.java
+package com.pixelmonmod.pixelmon.api.battles;public enum AttackCategory {STATUS,PHYSICAL,SPECIAL}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/Element.java
+package com.pixelmonmod.pixelmon.api.pokemon;public enum Element {NORMAL;public static double getTotalEffectiveness(java.util.List<Element> types,Element attack){return 1;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/Pokemon.java
+package com.pixelmonmod.pixelmon.api.pokemon;public class Pokemon {public com.pixelmonmod.pixelmon.battles.status.StatusBase status=new com.pixelmonmod.pixelmon.battles.status.NoStatus();public com.pixelmonmod.pixelmon.battles.status.StatusBase getStatus(){return status;}public void setStatus(com.pixelmonmod.pixelmon.battles.status.StatusBase s){status=s;}net.minecraft.nbt.CompoundNBT data=new net.minecraft.nbt.CompoundNBT();public net.minecraft.nbt.CompoundNBT getPersistentData(){return data;}}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/ImmutableAttack.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class ImmutableAttack {public java.util.List<Object> effects=new java.util.ArrayList<>();String name;public int priority;public int getPriority(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){return priority;}public int power;public ImmutableAttack(String s,int p){name=s;power=p;}public String getAttackName(){return name;}public int getBasePower(){return power;}}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/Attack.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class Attack {ImmutableAttack move;public boolean persist;public boolean isMax;public void saveAttack(){}public void restoreAttack(){}public boolean use(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper user,com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper target,com.pixelmonmod.pixelmon.battles.controller.log.MoveResults r){if(target.statuses.stream().anyMatch(s->s instanceof com.pixelmonmod.pixelmon.battles.status.ProtectVariation)){r.result=com.pixelmonmod.pixelmon.battles.controller.log.AttackResult.failed;r.damage=r.fullDamage=0;}else{r.fullDamage=move.power;r.damage=Math.min(target.getHealth(),move.power);}return true;}public int pp=10;public boolean getDisabled(){return false;}public Attack deepCopy(){Attack a=new Attack(move);a.pp=pp;a.persist=persist;return a;}public Attack(ImmutableAttack m){move=m;}public Attack(String n,int p){this(new ImmutableAttack(n,p));}public ImmutableAttack getMove(){return move;}public com.pixelmonmod.pixelmon.api.battles.AttackCategory getAttackCategory(){return move.power==0?com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS:com.pixelmonmod.pixelmon.api.battles.AttackCategory.PHYSICAL;}public com.pixelmonmod.pixelmon.api.pokemon.Element getType(){return com.pixelmonmod.pixelmon.api.pokemon.Element.NORMAL;}public boolean doesPersist(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){return persist;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/BattleStage.java
+package com.pixelmonmod.pixelmon.battles.controller;public enum BattleStage {PICKACTION,DOACTION}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/BattleController.java
+package com.pixelmonmod.pixelmon.battles.controller;public class BattleController {public int battleTurn;public boolean simulateMode,battleEnded,raid;public BattleStage stage=BattleStage.PICKACTION;public java.util.List<com.pixelmonmod.pixelmon.battles.controller.participants.BattleParticipant> participants=new java.util.ArrayList<>();public Rules rules=new Rules();public static class Rules {public boolean hasClause(String s){return false;}}public BattleStage getStage(){return stage;}public boolean isRaid(){return raid;}public void sendToAll(String s,Object... args){}}
+// FILE: com/pixelmonmod/pixelmon/entities/npcs/NPCTrainer.java
+package com.pixelmonmod.pixelmon.entities.npcs;public class NPCTrainer {public boolean enabled=true,leader=true,author;}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/BattleParticipant.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class BattleParticipant {public boolean wait;public com.pixelmonmod.pixelmon.battles.controller.BattleController bc;public PixelmonWrapper[] allPokemon=new PixelmonWrapper[0];public java.util.List<PixelmonWrapper> controlledPokemon=new java.util.ArrayList<>();public boolean getWait(){throw new AssertionError("native wait not installed");}public PixelmonWrapper getPokemonFromParty(java.util.UUID uuid){return java.util.Arrays.stream(allPokemon).filter(p->p.id.equals(uuid)).findFirst().orElse(null);}public String getDisplayName(){return "test";}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/PlayerParticipant.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class PlayerParticipant extends BattleParticipant {}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/TrainerParticipant.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class TrainerParticipant extends BattleParticipant {public com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer trainer=new com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer();}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class PixelmonWrapper {public int speed=50;public boolean ash;public com.pixelmonmod.pixelmon.api.pokemon.ability.Ability ability;public com.pixelmonmod.pixelmon.api.pokemon.ability.Ability getBattleAbility(){return ability;}public com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats getBattleStats(){return new com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStats();}public Object entity;public PixelmonWrapper(){}public PixelmonWrapper(PixelmonWrapper p){id=p.id;participant=p.participant;bc=p.bc;hp=p.hp;max=p.max;onBattlefield=p.onBattlefield;pokemon=p.pokemon;opponents=p.opponents;for(var a:p.moves)moves.add(a.deepCopy());for(var st:p.statuses)statuses.add(new com.pixelmonmod.pixelmon.battles.status.StatusBase(st.type));}public void setHealth(int h){hp=h;}public Stats getStats(){return new Stats();}public Object getNature(){return null;}public Object getForm(){return null;}public int getPokemonLevelNum(){return 100;}public static class Stats {public void setLevelStats(Object n,Object f,int l){}}public java.util.UUID id=java.util.UUID.randomUUID(),newPokemonUUID,willUseItemPokemon;public BattleParticipant participant;public com.pixelmonmod.pixelmon.battles.controller.BattleController bc;public boolean wait,onBattlefield=true,isSwitching,takenTurn,willEvolve,usingZ,skip,switchedThisTurn,hasBeenInBattle;public int willUseItemInStackInfo;public double hp=100,max=100;public int calls;public Runnable decision;public com.pixelmonmod.pixelmon.battles.attacks.Attack attack,selectedAttack,lastAttack;public java.util.List<PixelmonWrapper> targets=new java.util.ArrayList<>(),opponents=new java.util.ArrayList<>();public java.util.List<com.pixelmonmod.pixelmon.battles.attacks.Attack> moves=new java.util.ArrayList<>();public com.pixelmonmod.pixelmon.api.pokemon.Pokemon pokemon=new com.pixelmonmod.pixelmon.api.pokemon.Pokemon();public java.util.List<com.pixelmonmod.pixelmon.api.pokemon.Element> type=java.util.List.of(com.pixelmonmod.pixelmon.api.pokemon.Element.NORMAL);public net.minecraft.item.ItemStack willUseItemInStack;public boolean isAlly(PixelmonWrapper p){return participant==p.participant;}public boolean isAlive(){return hp>0;}public boolean skipsTurn(){return skip;}public java.util.UUID getPokemonUUID(){return id;}public BattleParticipant getParticipant(){return participant;}public java.util.List<com.pixelmonmod.pixelmon.battles.attacks.Attack> getMoveset(){return moves;}public java.util.ArrayList<PixelmonWrapper> getOpponentPokemon(){return new java.util.ArrayList<>(opponents);}public int getHealth(){return (int)hp;}public int getMaxHealth(){return (int)max;}public float getHealthPercent(float h){return h/(float)max*100;}public java.util.ArrayList<PixelmonWrapper> getTeamPokemonExcludeSelf(){return new java.util.ArrayList<>();}public void setAttack(com.pixelmonmod.pixelmon.battles.attacks.Attack a,java.util.List<PixelmonWrapper> t,boolean b){attack=a;selectedAttack=a;targets=t;}public com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase ai=new com.pixelmonmod.pixelmon.battles.controller.ai.TacticalAI();public com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase getBattleAI(){return ai;}public double getHealthPercent(){return hp/max*100;}public double getHealthDeficit(){return max-hp;}public String getNickname(){return "test";}public java.util.List<com.pixelmonmod.pixelmon.battles.status.StatusBase> statuses=new java.util.ArrayList<>();public java.util.List<com.pixelmonmod.pixelmon.battles.status.StatusBase> getStatuses(){return statuses;}public void selectAIAction(){if(local.pixelmon.backport.NpcTurnKnowledge.defer(this))return;calls++;if(decision!=null)decision.run();}}
+// FILE: com/pixelmonmod/pixelmon/battles/status/StatusBase.java
+package com.pixelmonmod.pixelmon.battles.status;public class StatusBase extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {public StatusBase copy(){return new StatusBase(type);}public StatusType type;public StatusBase(){this(StatusType.Poison);}public StatusBase(StatusType t){type=t;}public boolean isStatus(StatusType t){return type==t;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice.java
+package com.pixelmonmod.pixelmon.battles.controller.ai;public class MoveChoice {public com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper user;public com.pixelmonmod.pixelmon.battles.attacks.Attack attack;public java.util.List<com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper> targets=new java.util.ArrayList<>();public java.util.UUID switchPokemon;public boolean finish;public int tier=3;public com.pixelmonmod.pixelmon.battles.controller.log.MoveResults result;public boolean isOffensiveMove(){return attack!=null&&attack.getAttackCategory()!=com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS;}public float weight;public void raiseWeight(float w){weight+=w;}public void raiseTier(int t){tier=Math.max(tier,t);}public void lowerTier(int t){tier=Math.min(tier,t);}public MoveChoice(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,com.pixelmonmod.pixelmon.battles.attacks.Attack a){user=p;attack=a;}public MoveChoice(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,com.pixelmonmod.pixelmon.battles.attacks.Attack a,java.util.List<com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper> t){this(p,a);targets=t;}public boolean isAttack(){return attack!=null;}public java.util.List<MoveChoice> createList(){return java.util.List.of(this);}public static boolean canOutspeed(java.util.List<MoveChoice> t,com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,java.util.List<MoveChoice> c){float priority=c.isEmpty()||c.get(0).result==null?0:c.get(0).result.priority;return t.stream().anyMatch(m->m.result!=null&&(m.result.priority>priority||m.result.priority==priority&&m.user.speed>p.speed));}}
+// FILE: local/pixelmon/backport/NpcGimmicks.java
+package local.pixelmon.backport;public class NpcGimmicks {public static boolean enabled(com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer n){return n.enabled;}}
+// FILE: local/pixelmon/backport/GymCities.java
+package local.pixelmon.backport;public class GymCities {public static boolean isLeader(com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer n){return n.leader;}}
+// FILE: local/pixelmon/backport/AuthorBossTeams.java
+package local.pixelmon.backport;public class AuthorBossTeams {public static boolean is(com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer n){return n.author;}}
+// FILE: local/pixelmon/backport/GymAcePolicy.java
+package local.pixelmon.backport;public class GymAcePolicy {public static final String MARKER="ace";}
+// FILE: local/pixelmon/backport/GymChallenge.java
+package local.pixelmon.backport;public class GymChallenge {public static boolean author(com.pixelmonmod.pixelmon.battles.controller.BattleController b){throw new AssertionError();}public static boolean medicineDenied(com.pixelmonmod.pixelmon.battles.controller.BattleController b,com.pixelmonmod.pixelmon.battles.controller.participants.BattleParticipant p,net.minecraft.item.ItemStack s){throw new AssertionError();}}
+// FILE: local/pixelmon/backport/NpcTactics.java
+package local.pixelmon.backport;public class NpcTactics {public static java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> directThreats(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,boolean future){throw new AssertionError();}public static double forecastRisk(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> t){throw new AssertionError();}public static double forecastIncoming(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> t){throw new AssertionError();}public static boolean forecastFinish(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice c,java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> t){throw new AssertionError();}public static double damage,futureDamage;public static boolean forecasting;public static java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> threats(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,boolean next){forecasting=next;return java.util.Collections.emptyList();}public static java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> threats(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){forecasting=false;return java.util.Collections.emptyList();}public static double medicineDamage(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> list){return forecasting?futureDamage:damage;}public static double incoming(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> list){return forecasting?futureDamage:damage;}public static boolean finishFirst(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice c,java.util.List<com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice> list){return c!=null&&c.finish;}}
+// FILE: local/pixelmon/backport/NpcMoves.java
+package local.pixelmon.backport;public class NpcMoves {public static boolean recovery(com.pixelmonmod.pixelmon.battles.attacks.Attack a){return a!=null&&a.getMove().getAttackName().equals("Recover");}}
+// FILE: local/pixelmon/backport/Tera.java
+package local.pixelmon.backport;public class Tera {public static void cancelSelection(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/stats/links/WrapperLink.java
+package com.pixelmonmod.pixelmon.api.pokemon.stats.links;public class WrapperLink extends PokemonLink {public com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper target;public WrapperLink(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){target=p;}public void setHealth(int h){target.setHealth(h);}public void update(com.pixelmonmod.pixelmon.comm.EnumUpdateType... t){}public void updateStats(){}public void updateLevelUp(com.pixelmonmod.pixelmon.comm.PixelmonStatsData d){}public void sendMessage(String s,Object... a){}public net.minecraft.entity.player.ServerPlayerEntity getPlayerOwner(){return null;}public com.pixelmonmod.pixelmon.entities.pixelmon.PixelmonEntity getEntity(){return null;}public boolean removeStatuses(com.pixelmonmod.pixelmon.battles.status.StatusType... t){return target.statuses.removeIf(s->java.util.Arrays.asList(t).contains(s.type));}}
+// FILE: com/pixelmonmod/pixelmon/api/events/battles/UseBattleItemEvent.java
+package com.pixelmonmod.pixelmon.api.events.battles;public class UseBattleItemEvent {com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper target;net.minecraft.item.ItemStack stack;public UseBattleItemEvent(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper a,com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper t,net.minecraft.item.ItemStack s,int i){target=t;stack=s;}public net.minecraft.item.ItemStack getStack(){return stack;}public com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper getTarget(){return target;}}
+// FILE: com/pixelmonmod/pixelmon/Pixelmon.java
+package com.pixelmonmod.pixelmon;public class Pixelmon {public static Bus EVENT_BUS=new Bus();public static class Bus {public boolean post(Object event){return false;}}}
+// FILE: NpcTurnCases.java
+import java.util.*;import com.pixelmonmod.pixelmon.items.*;import com.pixelmonmod.pixelmon.items.heldItems.*;import com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic.*;import com.pixelmonmod.pixelmon.battles.status.ProtectVariation;import com.pixelmonmod.pixelmon.items.EtherItem;import com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.SkillLink;import local.pixelmon.backport.mixin.NpcAdvancedMixin;import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;import com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.attackModifiers.MultipleHit;import com.pixelmonmod.pixelmon.battles.status.StatusBase;import com.pixelmonmod.pixelmon.items.medicine.MedicineItem;import com.pixelmonmod.pixelmon.battles.controller.log.AttackResult;import com.pixelmonmod.pixelmon.battles.controller.log.MoveResults;import local.pixelmon.backport.*;import com.pixelmonmod.pixelmon.battles.controller.*;import com.pixelmonmod.pixelmon.battles.controller.participants.*;import com.pixelmonmod.pixelmon.battles.attacks.*;import com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice;import com.pixelmonmod.pixelmon.api.registries.PixelmonItems;import net.minecraft.item.*;import com.pixelmonmod.pixelmon.api.battles.AttackCategory;
+public class NpcTurnCases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ static PixelmonWrapper mon(BattleController b,BattleParticipant p){p.bc=b;if(!b.participants.contains(p))b.participants.add(p);var m=new PixelmonWrapper();m.bc=b;m.participant=p;p.controlledPokemon.add(m);p.allPokemon=Arrays.copyOf(p.allPokemon,p.allPokemon.length+1);p.allPokemon[p.allPokemon.length-1]=m;return m;}
+ static PixelmonWrapper battle(){var b=new BattleController();var t=new TrainerParticipant();var p=new PlayerParticipant();var own=mon(b,t);var enemy=mon(b,p);own.opponents.add(enemy);enemy.opponents.add(own);return own;}
+ public static void forecast(){
+  var own=battle();own.hp=150;own.max=300;var enemy=own.opponents.get(0);enemy.hp=10;enemy.max=300;enemy.attack=null;enemy.willUseItemInStack=new ItemStack(PixelmonItems.max_potion);enemy.willUseItemPokemon=enemy.id;enemy.moves.add(new Attack("Unknown next turn",100));
+  NpcMedicine.prepare((TrainerParticipant)own.participant);NpcTactics.damage=0;NpcTactics.futureDamage=130;
+  own.decision=()->{var strike=new MoveChoice(own,new Attack("Hit",90));strike.targets=List.of(enemy);strike.result=new MoveResults();strike.result.damage=120;check(!NpcTactics.forecastFinish(own,strike,List.of()),"Post-potion HP removes false finishing attack");check(NpcTurnKnowledge.health(enemy)==300&&enemy.hp==10,"Native potion projection never heals live target");check(NpcTurnKnowledge.moves(enemy).isEmpty(),"Using item is not an attack this turn");boolean was=NpcTurnKnowledge.future(own.bc,true);try{check(NpcTurnKnowledge.moves(enemy).size()==1,"Next-turn potential damage considers complete moveset");}finally{NpcTurnKnowledge.future(own.bc,was);}check(NpcTurnKnowledge.moves(enemy).isEmpty(),"Future view cannot leak into submitted action");check(NpcMedicine.plan(own,null),"Free item turn used to heal before next-turn danger");};
+  own.selectAIAction();own.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(own.bc);check(own.willUseItemInStack.func_77973_b()==PixelmonItems.max_potion&&enemy.hp==10&&own.hp==150,"Planning did not spend items/change either HP");
+  check(NpcTurnKnowledge.health(enemy)==10&&NpcTurnKnowledge.moves(enemy)==null,"Forecast snapshot cleaned after planning");
+  NpcTactics.futureDamage=0;NpcTactics.damage=0;
+ }
+ public static void damage(){var own=battle();var enemy=own.opponents.get(0);var a=new MoveChoice(enemy,new Attack("A",100));a.targets=List.of(own);a.result=new MoveResults();a.result.damage=40;a.result.fullDamage=50;var alt=new MoveChoice(enemy,new Attack("B",120));alt.targets=List.of(own);alt.result=new MoveResults();alt.result.damage=60;check(NpcTactics.forecastIncoming(own,List.of(a,alt))==60,"One opponent alternatives do not double-count damage");var second=mon(own.bc,new PlayerParticipant());var both=new MoveChoice(second,new Attack("C",100));both.targets=List.of(own);both.result=new MoveResults();both.result.damage=30;check(NpcTactics.forecastIncoming(own,List.of(a,alt,both))==90,"Doubles attackers aggregate predicted damage");both.result.result=AttackResult.failed;check(NpcTactics.forecastIncoming(own,List.of(a,alt,both))==60,"Failed/immunity result cannot create damage");}
+ public static void arrivals(){
+  for(int mode=0;mode<3;mode++){var own=battle();var party=own.opponents.get(0).participant;var old=party.controlledPokemon.get(0);var next=mon(own.bc,party);party.controlledPokemon.remove(next);next.onBattlefield=false;next.wait=true;old.newPokemonUUID=next.id;old.attack=new Attack("Old action must not leak",100);next.moves.add(new Attack("New moves",100));
+   final int test=mode;own.decision=()->{check(party.controlledPokemon.get(0)==next&&next.onBattlefield&&!old.onBattlefield,"Native planner sees submitted arrival in actual target slot");check(NpcTurnKnowledge.moves(next).isEmpty(),"Projected switch-in has no attack this turn");check(old.newPokemonUUID.equals(next.id)&&next.wait==false,"No real switch or input consumption");own.targets=List.of(next);next.takenTurn=true;next.hasBeenInBattle=true;if(test==1)throw new IllegalStateException("preview failure");};
+   if(mode==2){next.hp=0;own.decision=()->check(party.controlledPokemon.get(0)==old,"Invalid/fainted switch target not projected");}
+   own.selectAIAction();own.bc.stage=BattleStage.DOACTION;try{NpcTurnKnowledge.ready(own.bc);check(mode!=1,"Expected planning failure");}catch(IllegalStateException e){check(mode==1,"Unexpected planning error");}
+   check(party.controlledPokemon.get(0)==old&&old.onBattlefield&&!next.onBattlefield&&next.wait&&!next.takenTurn&&!next.hasBeenInBattle,"Every preview flag and slot restored even on exception");check(mode==2||own.targets.equals(List.of(old)),"Selected attack keeps original target slot for real switch and interception");check(NpcTurnKnowledge.moves(next)==null,"No hidden arrival scope leaks after planning");
+  }
+  var own=battle();var party=own.opponents.get(0).participant;var a=party.controlledPokemon.get(0);var b=mon(own.bc,party);var x=mon(own.bc,party);var y=mon(own.bc,party);party.controlledPokemon.remove(x);party.controlledPokemon.remove(y);x.onBattlefield=false;y.onBattlefield=false;a.newPokemonUUID=x.id;b.newPokemonUUID=y.id;own.decision=()->{check(party.controlledPokemon.equals(List.of(x,y)),"Both doubles slots projected together");own.targets=List.of(x,y);};own.selectAIAction();own.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(own.bc);check(party.controlledPokemon.equals(List.of(a,b))&&own.targets.equals(List.of(a,b)),"Doubles slots and spread target references restored");
+ }
+ static void conditionResponses(){
+  for(String name:List.of("Sucker Punch","Thunderclap","Unnamed conditional attack"))for(boolean status:new boolean[]{false,true}){
+   var own=battle();var enemy=own.opponents.get(0);enemy.attack=new Attack(name,70);enemy.attack.getMove().priority=1;enemy.attack.getMove().effects.add(new SuckerPunch());enemy.targets=List.of(own);
+   own.decision=()->{var chosen=new Attack(status?"Calm Mind":"Strike",status?0:80);try(var preview=NpcTurnKnowledge.preview(own,chosen)){var hits=NpcTactics.directThreats(own,false);check(NpcTactics.forecastIncoming(own,hits)==(status?0:70),"Conditional attacking requirement shared by "+name);try(var item=NpcTurnKnowledge.preview(own,null)){check(NpcTactics.forecastIncoming(own,NpcTactics.directThreats(own,false))==0,"Nested medicine/switch preview defeats conditional move");}check(NpcTurnKnowledge.offensive(own)==(status?0:1),"Nested preview restores action");}};own.selectAIAction();own.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(own.bc);check(NpcTurnKnowledge.offensive(own)==-1&&own.attack==null,"Conditional scope cleared");
+  }
+  var own=battle();var enemy=own.opponents.get(0);enemy.attack=new Attack("Guard",0);enemy.attack.getMove().priority=4;enemy.attack.getMove().effects.add(new ProtectVariation());enemy.targets=List.of(enemy);own.decision=()->{var hit=new MoveChoice(own,new Attack("Hit",80),List.of(enemy));hit.result=new MoveResults();hit.result.damage=80;var hp=enemy.hp;NpcIntentResponse.weight(own,List.of(hit));check(hit.result.result==AttackResult.failed&&enemy.statuses.isEmpty()&&enemy.hp==hp,"Pending protection forecast detached and native damage re-evaluated");};own.selectAIAction();own.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(own.bc);
+  for(boolean attacking:new boolean[]{false,true}){
+   var actor=battle();var foe=actor.opponents.get(0);foe.hp=foe.max=300;actor.hp=actor.max=300;foe.attack=new Attack(attacking?"Tackle":"Swords Dance",attacking?70:0);foe.targets=List.of(actor);actor.decision=()->{var attack=new Attack("Focus Punch",150);attack.getMove().priority=-3;attack.getMove().effects.add(new FocusPunch());var hit=NpcIntentResponse.raw(actor.ai,actor,attack,foe);try(var scope=NpcTurnKnowledge.preview(actor,attack)){NpcIntentResponse.conditional(actor.ai,hit);}check((hit.result.result==AttackResult.failed)==attacking,"Focus Punch checks known damaging interruption");var reflect=new Attack("Counter",0);reflect.getMove().priority=-5;reflect.getMove().effects.add(new DamageReflect(){{multiplier=2;}public boolean isCorrectCategory(AttackCategory c){return c==AttackCategory.PHYSICAL;}});var counter=NpcIntentResponse.raw(actor.ai,actor,reflect,foe);try(var scope=NpcTurnKnowledge.preview(actor,reflect)){NpcIntentResponse.conditional(actor.ai,counter);}check(attacking?counter.result.fullDamage==140:counter.result.result==AttackResult.failed,"Reflect uses current category and survives incoming hit");};actor.selectAIAction();actor.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(actor.bc);
+  }
+ }
+ static final class SwitchProbe extends NpcAdvancedMixin {}
+ static void switchBridge(){try{
+  var own=battle();own.hp=25;own.max=300;own.moves.add(new Attack("Minor",25));var reserve=mon(own.bc,own.participant);reserve.onBattlefield=false;own.participant.controlledPokemon.remove(reserve);reserve.hp=reserve.max=300;reserve.moves.add(new Attack("Main",200));reserve.pokemon.getPersistentData().values.put(GymAcePolicy.MARKER,true);
+  var probe=new SwitchProbe();var cls=NpcAdvancedMixin.class;var callback=CallbackInfoReturnable.class;
+  var start=cls.getDeclaredMethod("backport$start",PixelmonWrapper.class,callback);var survival=cls.getDeclaredMethod("backport$survival",PixelmonWrapper.class,List.class,callback);var reward=cls.getDeclaredMethod("backport$rewardSafeSwitch",MoveChoice.class,float.class);var end=cls.getDeclaredMethod("backport$end",PixelmonWrapper.class,callback);for(var m:List.of(start,survival,reward,end))m.setAccessible(true);
+  start.invoke(probe,own,new CallbackInfoReturnable<MoveChoice>("start",true));own.bc.simulateMode=true;NpcTactics.damage=90;
+  var hit=new MoveChoice(own.opponents.get(0),new Attack("Hit",90),List.of(own));hit.result=new MoveResults();hit.result.damage=hit.result.fullDamage=90;survival.invoke(probe,own,List.of(own.opponents.get(0)),new CallbackInfoReturnable<List<MoveChoice>>("base",true,List.of(hit)));
+  own.participant.controlledPokemon.set(0,reserve);reserve.hp=200;NpcTactics.damage=100;hit.targets=List.of(reserve);hit.result.damage=hit.result.fullDamage=100;
+  survival.invoke(probe,own,List.of(own.opponents.get(0)),new CallbackInfoReturnable<List<MoveChoice>>("switched",true,List.of(hit)));
+  var choice=new MoveChoice(own,null);choice.switchPokemon=reserve.id;reward.invoke(probe,choice,60f);check(choice.weight<0,"Native outgoing argument resolves incoming slot and penalizes exposing ace plus entry damage");
+  end.invoke(probe,own,new CallbackInfoReturnable<MoveChoice>("end",true));own.participant.controlledPokemon.set(0,own);own.bc.simulateMode=false;NpcTactics.damage=0;
+ }catch(ReflectiveOperationException e){throw new AssertionError(e);}}
+ static void directDamage(){
+  var own=battle();var enemy=own.opponents.get(0);own.hp=20;own.max=300;enemy.attack=new Attack("Committed heavy hit",400);enemy.targets=List.of(own);var submitted=enemy.attack;
+  own.decision=()->{
+   var hits=NpcTactics.directThreats(own,false);check(hits.size()==1&&hits.get(0).attack.getMove().getAttackName().equals("Committed heavy hit"),"Submitted move evaluated despite empty native best-choice shortlist");check(NpcTactics.forecastIncoming(own,hits)==400,"Native raw damage survives current-HP clipping");check(NpcTactics.forecastRisk(own,hits)>own.getMaxHealth(),"Reject heal into known lethal upper damage");check(enemy.attack==submitted&&enemy.targets.equals(List.of(own)),"Native damage preview preserves committed input");
+   var copy=new PixelmonWrapper(own);copy.id=UUID.randomUUID();own.participant.controlledPokemon.set(0,copy);try{check(NpcTactics.directThreats(copy,false).size()==1,"Submitted targeted attack follows native target slot for switch/medicine preview");enemy.moves.add(new Attack("Future coverage",70));var future=NpcTactics.directThreats(copy,true);check(future.size()==1&&NpcTactics.forecastIncoming(copy,future)==70,"Next-turn forecast evaluates detached target instead of empty live-target shortlist");}finally{own.participant.controlledPokemon.set(0,own);}
+   var average=hits.get(0);average.result.damage=100;average.result.fullDamage=100;average.attack.getMove().effects.add(new MultipleHit());check(NpcTactics.forecastRisk(own,hits)>180,"Random five-hit upper bound instead of average hit count");enemy.ability=new SkillLink();check(NpcTactics.forecastRisk(own,hits)==118,"Skill Link already simulates five hits, no double scaling");enemy.ability=null;enemy.ash=true;average.attack=new Attack("Water Shuriken",100);average.attack.getMove().effects.add(new MultipleHit());check(NpcTactics.forecastRisk(own,hits)==118,"Ash fixed-three-hit preview not treated as random five-hit move");average.result=null;check(Double.isInfinite(NpcTactics.forecastRisk(own,hits)),"Unresolved offensive forecast cannot spend finite medicine");
+  };own.selectAIAction();own.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(own.bc);check(!own.bc.simulateMode,"Damage preview simulation scope restored");
+ }
+ static void medicineViews(){
+  for(boolean bench:new boolean[]{false,true}){
+   var own=battle();var player=own.opponents.get(0);var reserve=mon(own.bc,player.participant);player.participant.controlledPokemon.remove(reserve);reserve.onBattlefield=false;
+   player.hp=20;reserve.hp=10;var target=bench?reserve:player;target.statuses.add(new StatusBase());target.pokemon.setStatus(new StatusBase());target.moves.add(new Attack("Coverage",70));
+   var item=new ItemStack(PixelmonItems.full_restore);player.willUseItemInStack=item;player.willUseItemPokemon=target.id;player.willUseItemInStackInfo=-1;var committed=new Attack("Old move",50);player.attack=committed;
+   own.decision=()->{var visible=player.participant.controlledPokemon.get(0);var treated=player.participant.getPokemonFromParty(target.id);check(treated!=target&&treated.getHealth()==treated.getMaxHealth()&&treated.getStatuses().isEmpty(),"Post-medicine HP and status on detached correct member");check(bench?visible==player&&visible.hp==20:visible==treated,"Bench medicine never heals active member in preview");check(NpcTurnKnowledge.moves(visible).isEmpty(),"Item spends current action");player.attack=null;player.willUseItemInStack=null;player.wait=true;own.targets=List.of(visible);};
+   own.selectAIAction();own.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(own.bc);
+   check(player.participant.controlledPokemon.get(0)==player&&player.participant.getPokemonFromParty(target.id)==target,"All roster references restored");check(target.hp==(bench?10:20)&&target.statuses.size()==1&&target.pokemon.getStatus().type.toString().equals("Poison"),"Planning cannot heal or cure live Pokemon");check(player.attack==committed&&player.willUseItemInStack==item&&!player.wait&&own.targets.equals(List.of(player)),"Real submitted action preserved and NPC target rebound");
+   var ether=new ItemStack(new EtherItem());var copy=NpcMedicineForecast.project(target,ether,0);check(copy.moves.get(0).pp==20&&target.moves.get(0).pp==10&&!own.bc.simulateMode,"PP effect detached and simulation flag restored");
+  }
+ }
+ static void revivalViews(){
+  for(var item:List.of(PixelmonItems.revive,PixelmonItems.max_revive,PixelmonItems.revival_herb)){
+   var own=battle();var player=own.opponents.get(0);var reserve=mon(own.bc,player.participant);player.participant.controlledPokemon.remove(reserve);reserve.onBattlefield=false;reserve.hp=0;reserve.max=300;player.hp=27;
+   var stack=new ItemStack(item);player.willUseItemInStack=stack;player.willUseItemPokemon=reserve.id;
+   own.decision=()->{var projected=player.participant.getPokemonFromParty(reserve.id);check(projected!=reserve&&projected.getHealth()==(item==PixelmonItems.revive?150:300),"Native revival effect amount "+item.id);check(player.participant.controlledPokemon.get(0)==player&&player.hp==27,"Revival targets the bench, not the active member");check(NpcTurnKnowledge.moves(player).isEmpty(),"Revival consumes the submitted action");};
+   own.selectAIAction();own.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(own.bc);
+   check(reserve.hp==0&&player.hp==27&&player.participant.getPokemonFromParty(reserve.id)==reserve&&player.willUseItemInStack==stack,"Revival preview cannot revive live roster or consume submitted item");
+   ((TrainerParticipant)own.participant).trainer.author=true;
+   check(GymChallenge.medicineDenied(own.bc,player.participant,stack),"Author bans every native revival medicine "+item.id);
+   check(!GymChallenge.medicineDenied(own.bc,own.participant,stack),"NPC medication remains allowed");
+   ((TrainerParticipant)own.participant).trainer.author=false;check(!GymChallenge.medicineDenied(own.bc,player.participant,stack),"Ordinary gym revival allowance retained");
+  }
+ }
+ static void medicineBans(){
+  var own=battle();var enemy=own.opponents.get(0);((TrainerParticipant)own.participant).trainer.author=true;
+  for(Item item:List.of(PixelmonItems.revive,PixelmonItems.max_revive,PixelmonItems.revival_herb,PixelmonItems.full_restore,PixelmonItems.max_potion,new EtherItem(),new ElixirItem(),new BattleItem(),new SacredAshItem(),new BerryItem(),new BerryJuiceItem(),new WhiteHerbItem(),new MentalHerbItem())){
+   check(GymChallenge.medicineDenied(own.bc,enemy.participant,new ItemStack(item)),"All player bag medicines blocked "+item.id);
+   check(!GymChallenge.medicineDenied(own.bc,own.participant,new ItemStack(item)),"NPC medicines allowed "+item.id);
+  }
+  check(!GymChallenge.medicineDenied(own.bc,enemy.participant,new ItemStack(new Item("ordinary-held-item"))),"Non-medicine item is not prohibited");
+ }
+ public static void run(){
+  conditionResponses();switchBridge();directDamage();medicineViews();revivalViews();medicineBans();arrivals();damage();forecast();
+  var bonusOwn=battle();var actor=bonusOwn.opponents.get(0);bonusOwn.selectAIAction();bonusOwn.bc.stage=BattleStage.DOACTION;NinjaTraining.BONUS.put(bonusOwn.bc,actor);actor.wait=true;NpcTurnKnowledge.ready(bonusOwn.bc);check(bonusOwn.calls==0,"Bonus player input does not trigger opponent selection");actor.wait=false;NpcTurnKnowledge.ready(bonusOwn.bc);bonusOwn.selectAIAction();check(bonusOwn.calls==0,"Bonus action grants no extra NPC action");NinjaTraining.BONUS.remove(bonusOwn.bc);NpcTurnKnowledge.ready(bonusOwn.bc);check(bonusOwn.calls==1&&!bonusOwn.wait,"Normal pending action resumes after bonus without deadlock");bonusOwn.bc.battleTurn++;bonusOwn.bc.stage=BattleStage.PICKACTION;bonusOwn.selectAIAction();bonusOwn.bc.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(bonusOwn.bc);check(bonusOwn.calls==2,"Next global turn re-arms selection");NpcTurnKnowledge.end(bonusOwn.bc);
+  var own=battle();var b=own.bc;var enemy=own.opponents.get(0);enemy.wait=true;own.selectAIAction();check(own.wait&&own.calls==0,"NPC defers before player input");b.stage=BattleStage.DOACTION;NpcTurnKnowledge.ready(b);check(own.calls==0,"waiting player blocks decision");
+  enemy.attack=new Attack("Selected coverage",80);enemy.targets=List.of(own);enemy.wait=false;
+  final var fOwn=own;final var fB=b;final var fEnemy=enemy;
+  own.decision=()->{check(NpcTurnKnowledge.moves(fEnemy).get(0).getMove().getAttackName().equals("Selected coverage"),"reads exact submitted move");var c=new MoveChoice(fEnemy,fEnemy.attack);c.targets=List.of(fOwn);check(NpcTurnKnowledge.restrict(fB,List.of(c)).size()==1,"correct target retained");c.targets=List.of(fEnemy);check(NpcTurnKnowledge.restrict(fB,List.of(c)).isEmpty(),"wrong doubles target excluded");};NpcTurnKnowledge.ready(b);check(own.calls==1&&!own.wait&&NpcTurnKnowledge.moves(enemy)==null,"single decision and scope cleanup");NpcTurnKnowledge.ready(b);check(own.calls==1,"does not re-decide every tick");
+  for(int kind=0;kind<3;kind++){b.battleTurn++;b.stage=BattleStage.PICKACTION;own.attack=null;own.selectAIAction();b.stage=BattleStage.DOACTION;enemy.newPokemonUUID=kind==1?UUID.randomUUID():null;enemy.willUseItemInStack=kind==2?new ItemStack(PixelmonItems.max_potion):null;enemy.attack=kind==0?new Attack("Status",0):null;own.decision=()->{var moves=NpcTurnKnowledge.moves(fEnemy);check(moves.isEmpty()||moves.get(0).getAttackCategory()==AttackCategory.STATUS,"non-offensive action not guessed as strongest attack");};NpcTurnKnowledge.ready(b);}
+  enemy.newPokemonUUID=null;enemy.willUseItemInStack=null;var second=mon(b,enemy.participant);second.wait=true;b.battleTurn++;b.stage=BattleStage.PICKACTION;own.selectAIAction();b.stage=BattleStage.DOACTION;int calls=own.calls;NpcTurnKnowledge.ready(b);check(own.calls==calls,"doubles waits for all submitted slots");second.wait=false;NpcTurnKnowledge.ready(b);check(own.calls==calls+1,"doubles resumes after final input");
+  b.stage=BattleStage.PICKACTION;own.selectAIAction();b.battleEnded=true;NpcTurnKnowledge.ready(b);check(!own.wait,"ended battle releases pending wait");b.battleEnded=false;b.simulateMode=true;check(!NpcTurnKnowledge.defer(own),"AI simulation never queues real wait");b.simulateMode=false;((TrainerParticipant)own.participant).trainer.leader=false;check(!NpcTurnKnowledge.defer(own),"ordinary trainer unchanged");((TrainerParticipant)own.participant).trainer.author=true;check(NpcTurnKnowledge.enabled(own),"author enabled");
+  check(GymChallenge.medicineDenied(b,enemy.participant,new ItemStack(PixelmonItems.max_potion)),"author player medicine blocked");check(GymChallenge.medicineDenied(b,enemy.participant,new ItemStack(new EtherItem())),"author PP medicine also blocked");check(!GymChallenge.medicineDenied(b,own.participant,new ItemStack(PixelmonItems.max_potion)),"author NPC medicine allowed");((TrainerParticipant)own.participant).trainer.author=false;check(!GymChallenge.medicineDenied(b,enemy.participant,new ItemStack(PixelmonItems.max_revive)),"ordinary gym player budget retained");
+  own=battle();b=own.bc;NpcMedicine.prepare((TrainerParticipant)own.participant);NpcTactics.damage=5;for(int i=0;i<2;i++){own.hp=20;b.battleTurn++;check(NpcMedicine.plan(own),"leader heal available");check(own.willUseItemInStack.func_77973_b()==PixelmonItems.max_potion,"exact Max Potion, not Full Restore");check(NpcMedicine.use(own)&&own.hp==own.max,"native medicine turn used");}own.hp=20;b.battleTurn++;check(!NpcMedicine.plan(own),"only two potions");
+  own=battle();b=own.bc;var t=(TrainerParticipant)own.participant;var weak=mon(b,t);weak.onBattlefield=false;weak.hp=0;weak.moves.add(new Attack("Weak",25));var ace=mon(b,t);ace.onBattlefield=false;ace.moves.add(new Attack("Strong",120));ace.pokemon.getPersistentData().values.put(GymAcePolicy.MARKER,true);own.moves.add(new Attack("Normal",60));NpcMedicine.prepare(t);check(!NpcMedicine.plan(own),"save revive while stronger ace remains alive");ace.hp=0;b.battleTurn++;check(NpcMedicine.plan(own)&&own.willUseItemPokemon.equals(ace.id),"revive valuable ace rather than first fainted teammate");check(own.willUseItemInStack.func_77973_b()==PixelmonItems.max_revive,"one Max Revive");check(NpcMedicine.use(own)&&ace.hp==ace.max,"Max Revive restores full health");ace.hp=0;b.battleTurn++;check(!NpcMedicine.plan(own),"revive stock exhausted");
+ }
+}
+
+// FILE: com/pixelmonmod/pixelmon/items/IMedicine.java
+package com.pixelmonmod.pixelmon.items;public interface IMedicine {boolean useMedicine(com.pixelmonmod.pixelmon.api.pokemon.stats.links.PokemonLink l,double factor);default boolean useMedicine(com.pixelmonmod.pixelmon.api.pokemon.stats.links.PokemonLink l){return useMedicine(l,1);}}
+// FILE: com/pixelmonmod/pixelmon/items/IHealHP.java
+package com.pixelmonmod.pixelmon.items;public interface IHealHP {int getHealAmount(com.pixelmonmod.pixelmon.api.pokemon.stats.links.PokemonLink l);}
+// FILE: com/pixelmonmod/pixelmon/items/medicine/MedicinePotion.java
+package com.pixelmonmod.pixelmon.items.medicine;public class MedicinePotion implements com.pixelmonmod.pixelmon.items.IMedicine,local.pixelmon.backport.mixin.MedicinePotionAccess {com.pixelmonmod.pixelmon.items.IHealHP healHP;public MedicinePotion(com.pixelmonmod.pixelmon.items.IHealHP h){healHP=h;}public boolean useMedicine(com.pixelmonmod.pixelmon.api.pokemon.stats.links.PokemonLink l,double f){throw new AssertionError();}public com.pixelmonmod.pixelmon.items.IHealHP backport$healing(){return healHP;}}
+// FILE: local/pixelmon/backport/mixin/MedicineMethodsAccess.java
+package local.pixelmon.backport.mixin;public interface MedicineMethodsAccess {com.pixelmonmod.pixelmon.items.IMedicine[] backport$methods();}
+// FILE: local/pixelmon/backport/mixin/MedicinePotionAccess.java
+package local.pixelmon.backport.mixin;public interface MedicinePotionAccess {com.pixelmonmod.pixelmon.items.IHealHP backport$healing();}
+
+// FILE: local/pixelmon/backport/NinjaTraining.java
+package local.pixelmon.backport;public class NinjaTraining {public static final java.util.Map<com.pixelmonmod.pixelmon.battles.controller.BattleController,com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper> BONUS=new java.util.WeakHashMap<>();public static com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper bonus(com.pixelmonmod.pixelmon.battles.controller.BattleController b){return BONUS.get(b);}}
+
+// FILE: com/pixelmonmod/pixelmon/battles/controller/log/AttackResult.java
+package com.pixelmonmod.pixelmon.battles.controller.log;public enum AttackResult {failed,success,charging,hit}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/log/MoveResults.java
+package com.pixelmonmod.pixelmon.battles.controller.log;public class MoveResults {public MoveResults(){}public MoveResults(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){}public float priority,weightMod;public int accuracy=100;public int damage,fullDamage;public AttackResult result=AttackResult.success;}
+
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/PokemonFactory.java
+package com.pixelmonmod.pixelmon.api.pokemon;public class PokemonFactory {public static Pokemon copy(Pokemon p){Pokemon c=new Pokemon();c.status=new com.pixelmonmod.pixelmon.battles.status.StatusBase(p.status.type);return c;}}
+// FILE: com/pixelmonmod/pixelmon/battles/status/StatusType.java
+package com.pixelmonmod.pixelmon.battles.status;public enum StatusType {Poison,NoStatus}
+// FILE: com/pixelmonmod/pixelmon/battles/status/NoStatus.java
+package com.pixelmonmod.pixelmon.battles.status;public class NoStatus extends StatusBase {public static final NoStatus noStatus=new NoStatus();public NoStatus(){super(StatusType.NoStatus);}}
+// FILE: com/pixelmonmod/pixelmon/comm/EnumUpdateType.java
+package com.pixelmonmod.pixelmon.comm;public enum EnumUpdateType {HP,Moveset,Stats}
+// FILE: com/pixelmonmod/pixelmon/comm/PixelmonStatsData.java
+package com.pixelmonmod.pixelmon.comm;public class PixelmonStatsData {}
+// FILE: net/minecraft/entity/player/ServerPlayerEntity.java
+package net.minecraft.entity.player;public class ServerPlayerEntity {}
+// FILE: com/pixelmonmod/pixelmon/entities/pixelmon/PixelmonEntity.java
+package com.pixelmonmod.pixelmon.entities.pixelmon;public class PixelmonEntity {}
+
+// FILE: local/pixelmon/backport/mixin/NpcDamagePreviewAccess.java
+package local.pixelmon.backport.mixin;public interface NpcDamagePreviewAccess {void backport$damage(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,com.pixelmonmod.pixelmon.battles.controller.ai.MoveChoice c);}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/ai/BattleAIBase.java
+package com.pixelmonmod.pixelmon.battles.controller.ai;public class BattleAIBase implements local.pixelmon.backport.mixin.NpcDamagePreviewAccess {public java.util.List<MoveChoice> getBestAttackChoices(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){return java.util.Collections.emptyList();}protected void weightOffensiveMove(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,MoveChoice c){throw new AssertionError();}protected void weightOffensiveMove(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,MoveChoice c,java.util.List<com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper> allies){throw new AssertionError();}public void backport$damage(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p,MoveChoice c){weightOffensiveMove(p,c);}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/ai/TacticalAI.java
+package com.pixelmonmod.pixelmon.battles.controller.ai;public class TacticalAI extends BattleAIBase {}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/BattlePriorityHelper.java
+package com.pixelmonmod.pixelmon.battles.controller;public class BattlePriorityHelper {public static float calculatePriority(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){if(!p.bc.simulateMode)throw new AssertionError("Priority prediction may not trigger live held-item consumption");return p.attack==null?0:p.attack.getMove().priority;}}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/attackModifiers/MultipleHit.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.attackModifiers;public class MultipleHit extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {public int minHits=2,maxHits=5;}
+
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/EffectBase.java
+package com.pixelmonmod.pixelmon.battles.attacks;public class EffectBase {}
+
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/stats/BattleStats.java
+package com.pixelmonmod.pixelmon.api.pokemon.stats;public class BattleStats {public int getSumIncreases(){return 0;}}
+// FILE: com/pixelmonmod/pixelmon/battles/controller/ai/AdvancedAI.java
+package com.pixelmonmod.pixelmon.battles.controller.ai;public class AdvancedAI extends TacticalAI {}
+
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/ability/Ability.java
+package com.pixelmonmod.pixelmon.api.pokemon.ability;public class Ability {}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/ability/abilities/SkillLink.java
+package com.pixelmonmod.pixelmon.api.pokemon.ability.abilities;public class SkillLink extends com.pixelmonmod.pixelmon.api.pokemon.ability.Ability {}
+// FILE: local/pixelmon/backport/AshWaterBoost.java
+package local.pixelmon.backport;public class AshWaterBoost {public static boolean eligible(com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper p){return p.ash;}}
+
+// FILE: com/pixelmonmod/pixelmon/items/PPRestoreItem.java
+package com.pixelmonmod.pixelmon.items;public class PPRestoreItem extends net.minecraft.item.Item {public PPRestoreItem(){super("pp");}}
+// FILE: com/pixelmonmod/pixelmon/items/EtherItem.java
+package com.pixelmonmod.pixelmon.items;public class EtherItem extends PPRestoreItem {public boolean useEther(com.pixelmonmod.pixelmon.api.pokemon.stats.links.WrapperLink l,int info){l.target.moves.get(info).pp+=10;return true;}}
+// FILE: com/pixelmonmod/pixelmon/items/ElixirItem.java
+package com.pixelmonmod.pixelmon.items;public class ElixirItem extends PPRestoreItem {public boolean useElixir(com.pixelmonmod.pixelmon.api.pokemon.stats.links.WrapperLink l){for(var a:l.target.moves)a.pp+=10;return true;}}
+
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/basic/SuckerPunch.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic;public class SuckerPunch extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/basic/FocusPunch.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic;public class FocusPunch extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/basic/DamageReflect.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic;public abstract class DamageReflect extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {public float multiplier;public abstract boolean isCorrectCategory(com.pixelmonmod.pixelmon.api.battles.AttackCategory c);}
+// FILE: com/pixelmonmod/pixelmon/battles/status/ProtectVariation.java
+package com.pixelmonmod.pixelmon.battles.status;public class ProtectVariation extends StatusBase {public StatusBase copy(){return new ProtectVariation();}}
+// FILE: com/pixelmonmod/pixelmon/battles/status/MagicCoat.java
+package com.pixelmonmod.pixelmon.battles.status;public class MagicCoat extends StatusBase {}
+// FILE: com/pixelmonmod/pixelmon/battles/status/Snatch.java
+package com.pixelmonmod.pixelmon.battles.status;public class Snatch extends StatusBase {}
+// FILE: local/pixelmon/backport/BackportEffects.java
+package local.pixelmon.backport;public class BackportEffects {public static class UpperHand extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {}}
+
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/basic/MeFirst.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic;public class MeFirst extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/basic/Pursuit.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic;public class Pursuit extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {}
+// FILE: com/pixelmonmod/pixelmon/battles/status/ProtectVariationTeam.java
+package com.pixelmonmod.pixelmon.battles.status;public class ProtectVariationTeam extends StatusBase {}
+
+// FILE: com/pixelmonmod/pixelmon/battles/status/Taunt.java
+package com.pixelmonmod.pixelmon.battles.status;public class Taunt extends StatusBase {}
+
+// FILE: com/pixelmonmod/pixelmon/battles/status/Encore.java
+package com.pixelmonmod.pixelmon.battles.status;public class Encore extends StatusBase {}
+
+// FILE: com/pixelmonmod/pixelmon/battles/status/Disable.java
+package com.pixelmonmod.pixelmon.battles.status;public class Disable extends StatusBase {}
+
+// FILE: com/pixelmonmod/pixelmon/battles/status/DestinyBond.java
+package com.pixelmonmod.pixelmon.battles.status;public class DestinyBond extends StatusBase {}
+
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/StatsEffect.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks;public class StatsEffect extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {public boolean isUser;public int amount;}
+// FILE: com/pixelmonmod/pixelmon/battles/attacks/specialAttacks/basic/Recover.java
+package com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic;public class Recover extends com.pixelmonmod.pixelmon.battles.attacks.EffectBase {}
+
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/stats/links/PokemonLink.java
+package com.pixelmonmod.pixelmon.api.pokemon.stats.links;public abstract class PokemonLink {
+ public int getHealth(){return ((WrapperLink)this).target.getHealth();}public int getMaxHealth(){return ((WrapperLink)this).target.getMaxHealth();}public int getMaxHealth(boolean original){return getMaxHealth();}
+ public abstract void setHealth(int n);public abstract void update(com.pixelmonmod.pixelmon.comm.EnumUpdateType... t);public abstract void sendMessage(String k,Object... a);
+ public net.minecraft.util.text.ITextComponent getNickname(){return null;}public int getFriendship(){return 70;}public void adjustFriendship(int n){}
+ public com.pixelmonmod.pixelmon.api.pokemon.species.Species getSpecies(){return new com.pixelmonmod.pixelmon.api.pokemon.species.Species();}
+}
+// FILE: com/pixelmonmod/api/registry/RegistryValue.java
+package com.pixelmonmod.api.registry;public class RegistryValue<T> {}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/species/Species.java
+package com.pixelmonmod.pixelmon.api.pokemon.species;public class Species {public boolean is(com.pixelmonmod.api.registry.RegistryValue... values){return false;}}
+// FILE: com/pixelmonmod/pixelmon/api/registries/PixelmonSpecies.java
+package com.pixelmonmod.pixelmon.api.registries;public class PixelmonSpecies {public static final com.pixelmonmod.api.registry.RegistryValue SHEDINJA=new com.pixelmonmod.api.registry.RegistryValue();}
+// FILE: net/minecraft/util/text/ITextComponent.java
+package net.minecraft.util.text;public interface ITextComponent {}
+
+// FILE: com/pixelmonmod/pixelmon/items/BattleItem.java
+package com.pixelmonmod.pixelmon.items;public class BattleItem extends net.minecraft.item.Item {public BattleItem(){super("BattleItem");}}
+
+// FILE: com/pixelmonmod/pixelmon/items/SacredAshItem.java
+package com.pixelmonmod.pixelmon.items;public class SacredAshItem extends net.minecraft.item.Item {public SacredAshItem(){super("SacredAshItem");}}
+
+// FILE: com/pixelmonmod/pixelmon/items/heldItems/BerryItem.java
+package com.pixelmonmod.pixelmon.items.heldItems;public class BerryItem extends net.minecraft.item.Item {public BerryItem(){super("BerryItem");}}
+
+// FILE: com/pixelmonmod/pixelmon/items/heldItems/BerryJuiceItem.java
+package com.pixelmonmod.pixelmon.items.heldItems;public class BerryJuiceItem extends net.minecraft.item.Item {public BerryJuiceItem(){super("BerryJuiceItem");}}
+
+// FILE: com/pixelmonmod/pixelmon/items/heldItems/WhiteHerbItem.java
+package com.pixelmonmod.pixelmon.items.heldItems;public class WhiteHerbItem extends net.minecraft.item.Item {public WhiteHerbItem(){super("WhiteHerbItem");}}
+
+// FILE: com/pixelmonmod/pixelmon/items/heldItems/MentalHerbItem.java
+package com.pixelmonmod.pixelmon.items.heldItems;public class MentalHerbItem extends net.minecraft.item.Item {public MentalHerbItem(){super("MentalHerbItem");}}

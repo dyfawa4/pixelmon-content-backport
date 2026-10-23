@@ -1,0 +1,78 @@
+// FILE: net/minecraft/nbt/CompoundNBT.java
+package net.minecraft.nbt; public class CompoundNBT {private final java.util.Map<String,Object> v=new java.util.HashMap<>();public boolean func_74767_n(String k){return Boolean.TRUE.equals(v.get(k));}public void func_74757_a(String k,boolean b){v.put(k,b);}public String func_74779_i(String k){return (String)v.getOrDefault(k,"");}public void func_74778_a(String k,String s){v.put(k,s);}public void func_82580_o(String k){v.remove(k);}}
+// FILE: net/minecraft/entity/Entity.java
+package net.minecraft.entity; public class Entity {public boolean field_70128_L;private final net.minecraft.nbt.CompoundNBT n=new net.minecraft.nbt.CompoundNBT();public net.minecraft.nbt.CompoundNBT getPersistentData(){return n;}public net.minecraft.util.math.vector.Vector3d func_213303_ch(){return new net.minecraft.util.math.vector.Vector3d(1,2,3);}}
+// FILE: net/minecraft/entity/player/ServerPlayerEntity.java
+package net.minecraft.entity.player;public class ServerPlayerEntity extends net.minecraft.entity.Entity {public final java.util.UUID id=java.util.UUID.randomUUID();public int items,ground,room=100,packets,advancements;public java.math.BigDecimal balance=java.math.BigDecimal.ZERO;public java.util.UUID func_110124_au(){return id;}public java.util.Random func_70681_au(){return new java.util.Random(7);}public void func_146105_b(net.minecraft.util.text.ITextComponent t,boolean b){} }
+// FILE: net/minecraft/item/ItemStack.java
+package net.minecraft.item;public class ItemStack {public final int count;public ItemStack(int c){count=c;}}
+// FILE: net/minecraft/util/text/ITextComponent.java
+package net.minecraft.util.text;public interface ITextComponent {}
+// FILE: net/minecraft/util/text/StringTextComponent.java
+package net.minecraft.util.text;public class StringTextComponent implements ITextComponent {public StringTextComponent(String s){}}
+// FILE: net/minecraft/util/text/TranslationTextComponent.java
+package net.minecraft.util.text;public class TranslationTextComponent implements ITextComponent {public TranslationTextComponent(String s){}}
+// FILE: com/pixelmonmod/pixelmon/enums/EnumEncounterMode.java
+package com.pixelmonmod.pixelmon.enums;public enum EnumEncounterMode {Once,Always}
+// FILE: com/pixelmonmod/pixelmon/entities/npcs/NPCTrainer.java
+package com.pixelmonmod.pixelmon.entities.npcs;public class NPCTrainer extends net.minecraft.entity.Entity {public boolean author=true;public int hp=0,heals,winMoney=42;public com.pixelmonmod.pixelmon.enums.EnumEncounterMode mode=com.pixelmonmod.pixelmon.enums.EnumEncounterMode.Always;public void healAllPokemon(){hp=100;heals++;}public void setEncounterMode(com.pixelmonmod.pixelmon.enums.EnumEncounterMode m){mode=m;}public void updateDrops(net.minecraft.item.ItemStack[] d){} }
+// FILE: com/pixelmonmod/pixelmon/battles/controller/participants/TrainerParticipant.java
+package com.pixelmonmod.pixelmon.battles.controller.participants;public class TrainerParticipant {public com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer trainer;public TrainerParticipant(com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer t){trainer=t;}}
+// FILE: com/pixelmonmod/pixelmon/api/events/npc/NPCEvent.java
+package com.pixelmonmod.pixelmon.api.events.npc;public class NPCEvent {public static class EndBattle {public com.pixelmonmod.pixelmon.battles.controller.participants.TrainerParticipant p;public EndBattle(com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer n){p=new com.pixelmonmod.pixelmon.battles.controller.participants.TrainerParticipant(n);}public com.pixelmonmod.pixelmon.battles.controller.participants.TrainerParticipant getNPCParticipant(){return p;}}}
+// FILE: com/pixelmonmod/pixelmon/api/events/BeatTrainerEvent.java
+package com.pixelmonmod.pixelmon.api.events;public class BeatTrainerEvent {public com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer trainer;public net.minecraft.entity.player.ServerPlayerEntity player;public BeatTrainerEvent(com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer n,net.minecraft.entity.player.ServerPlayerEntity p){trainer=n;player=p;}}
+// FILE: local/pixelmon/backport/AuthorBossTeams.java
+package local.pixelmon.backport;public class AuthorBossTeams {public static boolean is(com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer n){return n.author;}}
+// FILE: local/pixelmon/backport/AuthorBossArenas.java
+package local.pixelmon.backport;public class AuthorBossArenas {private static void gate(net.minecraft.entity.Entity n,boolean b){}public static void open(net.minecraft.entity.Entity n){n.getPersistentData().func_74757_a("AuthorArenaActive",false);n.getPersistentData().func_82580_o("AuthorArenaOwner");}public void end(com.pixelmonmod.pixelmon.api.events.npc.NPCEvent.EndBattle e){}public void beat(com.pixelmonmod.pixelmon.api.events.BeatTrainerEvent e){} }
+// FILE: local/pixelmon/backport/AuthorBossPolicy.java
+package local.pixelmon.backport;public class AuthorBossPolicy {public static int money(java.util.Random r){return 600000;}}
+// FILE: local/pixelmon/backport/AuthorVictory.java
+package local.pixelmon.backport;public class AuthorVictory {public static void earned(net.minecraft.entity.player.ServerPlayerEntity p){p.advancements++;}}
+// FILE: local/pixelmon/backport/AuthorBossRewards.java
+package local.pixelmon.backport;public class AuthorBossRewards {private static java.util.List<net.minecraft.item.ItemStack> prizes(net.minecraft.entity.player.ServerPlayerEntity p){return java.util.List.of(new net.minecraft.item.ItemStack(1),new net.minecraft.item.ItemStack(3),new net.minecraft.item.ItemStack(1),new net.minecraft.item.ItemStack(1));}private static void money(net.minecraft.entity.player.ServerPlayerEntity p){}public static void trainer(net.minecraft.entity.player.ServerPlayerEntity p,com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer n){} }
+// FILE: com/pixelmonmod/pixelmon/api/economy/BankAccount.java
+package com.pixelmonmod.pixelmon.api.economy;public interface BankAccount {boolean add(java.math.BigDecimal amount);}
+// FILE: com/pixelmonmod/pixelmon/api/economy/BankAccountProxy.java
+package com.pixelmonmod.pixelmon.api.economy;public class BankAccountProxy {public static java.util.Optional<BankAccount> getBankAccount(net.minecraft.entity.player.ServerPlayerEntity p){return java.util.Optional.of(amount->{p.balance=p.balance.add(amount);return true;});}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/boss/DropSet.java
+package com.pixelmonmod.pixelmon.api.pokemon.boss;public class DropSet {public static class Drop {public void give(net.minecraft.entity.player.ServerPlayerEntity p){throw new AssertionError();}public void drop(net.minecraft.entity.player.ServerPlayerEntity p,net.minecraft.util.math.vector.Vector3d v){throw new AssertionError();}}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/boss/BossTier.java
+package com.pixelmonmod.pixelmon.api.pokemon.boss;public class BossTier {public boolean isBoss(){return false;}}
+// FILE: com/pixelmonmod/pixelmon/entities/pixelmon/drops/DroppedItem.java
+package com.pixelmonmod.pixelmon.entities.pixelmon.drops;public class DroppedItem {public net.minecraft.item.ItemStack item;public int id;public com.pixelmonmod.pixelmon.api.pokemon.boss.DropSet.Drop drop;public com.pixelmonmod.pixelmon.api.pokemon.boss.BossTier rarity=new com.pixelmonmod.pixelmon.api.pokemon.boss.BossTier();public DroppedItem(net.minecraft.item.ItemStack s,int i){item=s;id=i;}}
+// FILE: com/pixelmonmod/pixelmon/entities/pixelmon/drops/DropItemQuery.java
+package com.pixelmonmod.pixelmon.entities.pixelmon.drops;public class DropItemQuery {public java.util.UUID playerUUID;public java.util.ArrayList<DroppedItem> droppedItemList;public net.minecraft.util.math.vector.Vector3d position;public DropItemQuery(net.minecraft.util.math.vector.Vector3d v,java.util.UUID id,java.util.ArrayList<DroppedItem> list){position=v;playerUUID=id;droppedItemList=list;}}
+// FILE: com/pixelmonmod/pixelmon/entities/pixelmon/drops/DropItemQueryList.java
+package com.pixelmonmod.pixelmon.entities.pixelmon.drops;public class DropItemQueryList {public static java.util.List<DropItemQuery> queryList=new java.util.ArrayList<>();public static void takeItem(net.minecraft.entity.player.ServerPlayerEntity p,int id){}public static void takeAllItems(net.minecraft.entity.player.ServerPlayerEntity p){}public static void removeQuery(net.minecraft.entity.player.ServerPlayerEntity p){}public static void dropAllItems(net.minecraft.entity.player.ServerPlayerEntity p){}}
+// FILE: com/pixelmonmod/pixelmon/api/util/helpers/DropItemHelper.java
+package com.pixelmonmod.pixelmon.api.util.helpers;public class DropItemHelper {public static void giveItemStack(net.minecraft.entity.player.ServerPlayerEntity p,net.minecraft.item.ItemStack s,boolean b){if(p.room>=s.count){p.items+=s.count;p.room-=s.count;}else p.ground+=s.count;}public static void dropItemOnGround(net.minecraft.util.math.vector.Vector3d v,net.minecraft.entity.player.ServerPlayerEntity p,net.minecraft.item.ItemStack s,boolean a,boolean b){p.ground+=s.count;}}
+// FILE: com/pixelmonmod/pixelmon/api/config/GeneralConfig.java
+package com.pixelmonmod.pixelmon.api.config;public class GeneralConfig {public Drops getDrops(){return new Drops();}public static class Drops {public boolean isDeleteUnwantedDrops(){return false;}}}
+// FILE: com/pixelmonmod/pixelmon/api/config/PixelmonConfigProxy.java
+package com.pixelmonmod.pixelmon.api.config;public class PixelmonConfigProxy {public static GeneralConfig getGeneral(){return new GeneralConfig();}}
+// FILE: com/pixelmonmod/pixelmon/comm/data/PixelmonPacket.java
+package com.pixelmonmod.pixelmon.comm.data;public class PixelmonPacket {}
+// FILE: com/pixelmonmod/pixelmon/comm/packetHandlers/itemDrops/ItemDropMode.java
+package com.pixelmonmod.pixelmon.comm.packetHandlers.itemDrops;public enum ItemDropMode {Boss,Trainer}
+// FILE: com/pixelmonmod/pixelmon/comm/packetHandlers/itemDrops/ItemDropPacket.java
+package com.pixelmonmod.pixelmon.comm.packetHandlers.itemDrops;public class ItemDropPacket extends com.pixelmonmod.pixelmon.comm.data.PixelmonPacket {public ItemDropMode mode;public ItemDropPacket(ItemDropMode m,net.minecraft.util.text.TranslationTextComponent t,java.util.List<com.pixelmonmod.pixelmon.entities.pixelmon.drops.DroppedItem> d){mode=m;}}
+// FILE: com/pixelmonmod/pixelmon/api/util/helpers/NetworkHelper.java
+package com.pixelmonmod.pixelmon.api.util.helpers;public class NetworkHelper {public static void sendPacket(com.pixelmonmod.pixelmon.comm.data.PixelmonPacket m,net.minecraft.entity.player.ServerPlayerEntity p){if(((com.pixelmonmod.pixelmon.comm.packetHandlers.itemDrops.ItemDropPacket)m).mode!=com.pixelmonmod.pixelmon.comm.packetHandlers.itemDrops.ItemDropMode.Boss)throw new AssertionError("Not Boss screen");p.packets++;}}
+// FILE: AuthorSettlementCases.java
+import com.pixelmonmod.pixelmon.enums.EnumEncounterMode;import net.minecraft.entity.player.ServerPlayerEntity;import com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer;import com.pixelmonmod.pixelmon.entities.pixelmon.drops.*;import com.pixelmonmod.pixelmon.api.events.*;import com.pixelmonmod.pixelmon.api.events.npc.NPCEvent;import local.pixelmon.backport.*;
+public class AuthorSettlementCases {
+ static void check(boolean b,String why){if(!b)throw new AssertionError(why);}
+ static NPCTrainer room(ServerPlayerEntity p){var n=new NPCTrainer();n.getPersistentData().func_74778_a("AuthorArenaOwner",p.id.toString());n.getPersistentData().func_74757_a("AuthorArenaActive",true);return n;}
+ public static void run(){var a=new ServerPlayerEntity();var b=new ServerPlayerEntity();var wrong=new ServerPlayerEntity();var handlers=new AuthorBossArenas();var n=room(a);
+  AuthorBossRewards.trainer(b,room(b));var other=DropItemQueryList.queryList.get(0);
+  handlers.end(new NPCEvent.EndBattle(n));check(n.hp==0&&n.heals==0&&n.getPersistentData().func_74779_i("AuthorArenaOwner").equals(a.id.toString())&&!n.getPersistentData().func_74767_n("AuthorArenaActive"),"End must preserve loss/owner until native settlement");
+  handlers.beat(new BeatTrainerEvent(n,wrong));check(wrong.balance.signum()==0&&wrong.packets==0,"Wrong owner cannot claim");handlers.beat(new BeatTrainerEvent(n,a));check(a.balance.intValueExact()==600000&&a.packets==1&&a.advancements==1&&n.winMoney==0&&n.mode==EnumEncounterMode.Once,"Victory delivery/Once/advance");check(DropItemQueryList.queryList.size()==2&&DropItemQueryList.queryList.get(0)==other,"Other player's pending native loot retained");
+  handlers.beat(new BeatTrainerEvent(n,a));check(a.balance.intValueExact()==600000&&a.packets==1&&a.advancements==1,"No duplicate reward on repeated callback");
+  DropItemQueryList.takeItem(wrong,0);check(wrong.items==0&&DropItemQueryList.queryList.size()==2,"Query owner isolation");DropItemQueryList.takeItem(a,99);check(a.items==0,"Invalid ID does not claim another item");DropItemQueryList.takeItem(a,0);DropItemQueryList.takeItem(a,0);check(a.items==1,"Specific item once");a.room=0;DropItemQueryList.takeAllItems(a);check(a.items==1&&a.ground==5&&DropItemQueryList.queryList.size()==1&&DropItemQueryList.queryList.get(0)==other,"Native remaining claim and full-bag fallback isolated");DropItemQueryList.takeAllItems(a);check(a.ground==5,"Double take-all no duplicate");
+  DropItemQueryList.dropAllItems(b);check(b.ground==6&&DropItemQueryList.queryList.isEmpty(),"Native close/drop returns remaining drops at boss position");
+  var c=new ServerPlayerEntity();AuthorBossRewards.trainer(c,room(c));AuthorBossRewards.trainer(c,room(c));check(c.items==6&&DropItemQueryList.queryList.size()==1,"Previous same-player query delivered before new IDs can collide");DropItemQueryList.takeAllItems(c);check(c.items==12&&DropItemQueryList.queryList.isEmpty(),"Both same-player victories fully claimable");
+  var normal=room(a);normal.author=false;handlers.end(new NPCEvent.EndBattle(normal));handlers.beat(new BeatTrainerEvent(normal,a));check(normal.mode==EnumEncounterMode.Always&&a.packets==1,"Ordinary gym settlement unchanged");var dead=room(a);dead.field_70128_L=true;handlers.beat(new BeatTrainerEvent(dead,a));check(a.packets==1,"Removed NPC not rewarded");
+ }
+}

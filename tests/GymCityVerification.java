@@ -126,10 +126,20 @@ public final class GymCityVerification {
         for(var entry:GymCities.FEATURES.entrySet()){
             GymConfig config=(GymConfig)entry.getValue().field_236269_c_;
             boolean found=false;
-            for(int seed=1;seed<=32 && !found;seed++){
-                GymStructure.Start start=new GymStructure.Start((GymStructure)PixelmonStructures.GYMS.get(),0,0,MutableBoundingBox.func_78887_a(),0,seed);
-                start.generatePieces(world.func_241828_r(),world.func_72863_F().func_201711_g(),world.func_184163_y(),0,0,world.func_226691_t_(BlockPos.field_177992_a),config);
+            boolean psychic=EndGymCities.psychic(config);
+            ServerWorld naturalWorld=psychic?server.func_71218_a(net.minecraft.world.World.field_234920_i_):world;
+            require(naturalWorld!=null,"Missing generation dimension "+entry.getKey());
+            int assembled=0;
+            for(int seed=1;seed<=(psychic?16384:32) && !found;seed++){
+                int x=psychic?128+17*(seed-1):0,z=psychic?128+13*(seed-1):0;
+                var generator=naturalWorld.func_72863_F().func_201711_g();
+                if(psychic){boolean wide=true;for(int dx:new int[]{-80,0,80})for(int dz:new int[]{-80,0,80})if(wide&&generator.func_222532_b(x*16+dx,z*16+dz,net.minecraft.world.gen.Heightmap.Type.WORLD_SURFACE_WG)<50)wide=false;if(!wide)continue;}
+                ++assembled;
+                GymStructure.Start start=new GymStructure.Start((GymStructure)PixelmonStructures.GYMS.get(),x,z,MutableBoundingBox.func_78887_a(),0,psychic?assembled:seed);
+                start.generatePieces(naturalWorld.func_241828_r(),generator,naturalWorld.func_184163_y(),x,z,generator.func_202090_b().func_225526_b_(x*4,15,z*4),config);
+                if(psychic && start.func_186161_c().isEmpty())continue; // Whole unsupported starts are intentionally rejected.
                 require(start.func_186161_c().size()>=12,"New natural city is a shell "+entry.getKey());
+                if(psychic)require(EndGymCities.complete(naturalWorld.func_72863_F().func_201711_g(),start.func_186161_c()),"Accepted psychic city lacks complete island support");
                 found=start.func_186161_c().get(0).toString().contains("gyms/"+entry.getKey()+"/");
             }
             require(found,"Native generation failed new city "+entry.getKey());naturalTypes.add(entry.getKey());

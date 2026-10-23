@@ -25,6 +25,7 @@ public final class TeraRaidClient {
     @Mod.EventBusSubscriber(modid=Content.NS,value=Dist.CLIENT,bus=Mod.EventBusSubscriber.Bus.MOD)
     public static final class Setup {
         @SubscribeEvent public static void setup(FMLClientSetupEvent event){RenderingRegistry.registerEntityRenderingHandler(Backport.TERA_DEN.get(),CrystalRenderer::new);}
+        @SubscribeEvent public static void colors(net.minecraftforge.client.event.ColorHandlerEvent.Item event){event.getItemColors().func_199877_a((stack,tint)->0x70deeb,Backport.item("tera_raid_music_disc"));event.getItemColors().func_199877_a((stack,tint)->0x55ccff,Backport.item("ash_greninjite"));}
     }
     @SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedOutEvent event){status=null;}
     @SubscribeEvent public static void draw(net.minecraftforge.client.event.GuiScreenEvent.DrawScreenEvent.Post event){

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SMS",
+    "WWW"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "M": {
+      "item": "pixelmon:lemonade"
+    },
+    "W": {
+      "item": "minecraft:wheat"
+    }
+  },
+  "result": {
+    "item": "pixelmon:whipped_dream",
+    "count": 1
+  }
+}

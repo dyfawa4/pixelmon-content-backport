@@ -9,13 +9,18 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.api.distmarker.Dist;
 @Mod.EventBusSubscriber(modid=Content.NS,value=Dist.CLIENT,bus=Mod.EventBusSubscriber.Bus.MOD)
 public final class BallItemArtModels {
-    private static boolean part(String name){return name.endsWith("_base")||name.endsWith("_disc");}
-    @SubscribeEvent public static void register(ModelRegistryEvent event){for(String name:BallItemArt.FILES)if(part(name))ModelLoader.addSpecialModel(new ResourceLocation(Content.NS,"item/ball_parts/"+name));}
+    @SubscribeEvent public static void register(ModelRegistryEvent event){for(String name:BallItemArt.FILES)ModelLoader.addSpecialModel(new ResourceLocation(Content.NS,"item/ball_parts/"+name));}
     @SubscribeEvent(priority=EventPriority.LOWEST) public static void bake(ModelBakeEvent event){
-        for(String name:BallItemArt.FILES)if(part(name)){
+        // Advancement icons also use legacy items and untagged shared items.
+        // Recreate the native NBT wrappers with an owned fallback, preserving ball identity.
+        for(String name:BallItemArt.FILES){
             var key=new ModelResourceLocation("pixelmon:"+name,"inventory");
             var model=event.getModelRegistry().get(new ResourceLocation(Content.NS,"item/ball_parts/"+name));
-            if(event.getModelRegistry().containsKey(key)&&model!=null)event.getModelRegistry().put(key,model);
+            if(event.getModelRegistry().containsKey(key)&&model!=null){
+                if(name.equals("poke_ball"))model=new com.pixelmonmod.pixelmon.client.models.items.PokeBallItemModel(model);
+                if(name.equals("poke_ball_lid"))model=new com.pixelmonmod.pixelmon.client.models.items.PokeBallLidItemModel(model);
+                event.getModelRegistry().put(key,model);
+            }
         }
         com.pixelmonmod.pixelmon.client.models.items.PokeBallItemModel.OverrideList.MODELS.clear();
     }

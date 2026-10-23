@@ -21,7 +21,7 @@ public abstract class TeraAttackMixin {
         return ability.modifyPowerAndAccuracyUser(power,accuracy,user,target,attack);
     }
     @Inject(method="getTypeEffectiveness",at=@At("RETURN"),cancellable=true)
-    private void backport$burst(PixelmonWrapper user,PixelmonWrapper target,CallbackInfoReturnable<Double> cir){cir.setReturnValue(local.pixelmon.backport.BurstTerrain.effectiveness(user,target,(Attack)(Object)this,cir.getReturnValue()));}
+    private void backport$burst(PixelmonWrapper user,PixelmonWrapper target,CallbackInfoReturnable<Double> cir){Attack move=(Attack)(Object)this;cir.setReturnValue(local.pixelmon.backport.BurstTerrain.effectiveness(user,target,move,local.pixelmon.backport.LightningOath.effectiveness(user,target,move,cir.getReturnValue())));}
     @Redirect(method="doDamageCalc",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/ability/Ability;modifyStab(D)D"))
     private double backport$stab(Ability ability,double nativeStab,PixelmonWrapper user,PixelmonWrapper target,double crit){return Tera.stab(user,((Attack)(Object)this).getType(),ability.modifyStab(nativeStab));}
     @Inject(method="doDamageCalc",at=@At("RETURN"))

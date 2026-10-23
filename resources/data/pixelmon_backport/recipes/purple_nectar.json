@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " H ",
+    "HFH",
+    " H "
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:honey_bottle"
+    },
+    "F": {
+      "item": "pixelmon:ultra_desert_cactus"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:purple_nectar",
+    "count": 1
+  }
+}

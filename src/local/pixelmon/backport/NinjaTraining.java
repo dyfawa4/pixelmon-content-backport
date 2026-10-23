@@ -21,7 +21,7 @@ public final class NinjaTraining {
     public static boolean move(Attack a){return a!=null&&MOVE.equals(a.getMove().getAttackName());}
     public static boolean bonus(PixelmonWrapper p){return p!=null&&BONUS.get(p.bc)==p;}
     public static boolean allowed(PixelmonWrapper p){return p!=null&&eligible(p.pokemon)&&!bonus(p);}
-    public static void grant(PixelmonWrapper p){if(!p.bc.simulateMode&&!Erosion.isCopy(p)&&allowed(p)&&p.isAlive())GRANTED.add(p);}
+    public static void grant(PixelmonWrapper p){if(GreninjaEnhancement.enabled()&&!p.bc.simulateMode&&!Erosion.isCopy(p)&&allowed(p)&&p.isAlive())GRANTED.add(p);}
     public static PixelmonWrapper bonus(BattleController b){return BONUS.get(b);}
     public static boolean personalTick(PixelmonWrapper p){return ticking==p;}
     public static PixelmonWrapper personalActor(BattleController b){return ticking!=null&&ticking.bc==b?ticking:null;}

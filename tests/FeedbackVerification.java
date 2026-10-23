@@ -83,7 +83,16 @@ public final class FeedbackVerification {
         for(int slot=0;slot<6;slot++)npc.getPokemonStorage().set(slot,null);
         own.getPersistentData().func_74757_a(NpcGimmicks.PROFILE,true);npc.getPokemonStorage().set(0,own);
         TrainerParticipant ours=new TrainerParticipant(npc,1);
-        BattleController b=new BattleController(new BattleParticipant[]{ours},new BattleParticipant[]{new WildPixelmonParticipant(enemy)},new BattleRules());b.sendMessages=false;NpcGimmicks.prepare(ours);
+        BattleController b=new BattleController(new BattleParticipant[]{ours},new BattleParticipant[]{new WildPixelmonParticipant(enemy)},new BattleRules());b.sendMessages=false;
+        // This white-box fixture calls getMove directly, without entering the
+        // native selectAIAction/startBattle loop which normally binds wrappers.
+        for(var side:b.participants)for(var member:side.allPokemon)member.bc=b;
+        NpcGimmicks.prepare(ours);
+        // Equal bosses scale from PlayerParticipant, absent from this isolated
+        // wild-opponent fixture. Native startup otherwise scales the trainer to
+        // level 1, invalidating HP/damage test preconditions. Match both sides to
+        // the specified opponent level without modifying the stored Pokemon.
+        for(var side:b.participants)for(var member:side.allPokemon){member.setTempLevel(enemy.getPokemonLevel());member.setHealth(member.getMaxHealth());}
         ours.setBattleAI(npc.getBattleAIMode().createAI(ours));b.modifyStats();return b;
     }
     static void select(PixelmonWrapper p,Attack attack,NpcGimmicks.Choice expected){

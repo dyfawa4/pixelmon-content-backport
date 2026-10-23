@@ -56,6 +56,10 @@ public final class BattleInfoCompat {
         if(target==null || attack==null || attack.getAttackCategory()==AttackCategory.STATUS)return 1;
         Element type=moveType(attack,user);TeraNetwork.Snapshot s=state();
         if(type==Element.MYSTERY)return s!=null && s.active.containsKey(target.pokemonUUID)?2:1;
-        return Element.getTotalEffectiveness(defense(target),type,inverse);
+        double value=Element.getTotalEffectiveness(defense(target),type,inverse);
+        boolean oath=LightningOathClient.active(target.pokemonUUID)||user!=null&&user.species.getDex()==CapSpecies.DEX&&"Ten Million Volts".equals(attack.getActualMove().getAttackName())&&(ClientProxy.battleManager==null||!ClientProxy.battleManager.showZMoves);
+        if(type==Element.ELECTRIC&&oath)value=LightningOath.multiplier(value);
+        if(s!=null&&user!=null&&s.burst.containsKey(user.pokemonUUID)){int flags=s.burst.get(user.pokemonUUID);if((flags&16)!=0&&(flags&1)!=0&&type==Element.ELECTRIC&&value!=1&&value>0)value*=1.25;}
+        return value;
     }
 }

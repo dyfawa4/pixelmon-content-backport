@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "LML",
+    "LLL"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:string"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    },
+    "M": {
+      "item": "pixelmon:balm_mushroom"
+    }
+  },
+  "result": {
+    "item": "pixelmon:sachet",
+    "count": 1
+  }
+}

@@ -14,10 +14,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.TickEvent;
 
-/** Periodic state checks are separate from occurrence-based capture/battle/harvest goals. */
+/** Material objectives accept existing stock, regardless of its source or quest filename. */
 public final class NpcQuestEvents {
-    private static final Set<String> STOCK_PREPARATION = Set.of("craft_poke_ball.json", "craft_great_ball.json", "craft_ultra_ball.json",
-            "craft_healer.json", "craft_pc.json", "find_master_ball.json", "celebi.json");
     private NpcQuestEvents() {}
 
     public static void poll(TickEvent.PlayerTickEvent event) throws InvalidQuestArgsException {
@@ -31,8 +29,6 @@ public final class NpcQuestEvents {
             if (p.isComplete() || p.isFailed()) continue;
             Stage stage = p.getCurrentStage();
             if (stage == null || stage.getParsedObjectives() == null) continue;
-            String filename = p.getQuestFilename().replace('\\','/');
-            filename = filename.substring(filename.lastIndexOf('/') + 1);
             for (int index = 0; index < stage.getParsedObjectives().size(); index++) {
                 if (p.getCurrentStage() != stage) break;
                 Objective o = stage.getParsedObjectives().get(index);
@@ -42,7 +38,7 @@ public final class NpcQuestEvents {
                 if (!a.isAllSet(p)) continue;
                 if (id.equals("ITEM_HAS") || id.equals("ITEM_HAS_NOT")) {
                     o.receive(id, stage, data, p, index, inventory);
-                } else if (STOCK_PREPARATION.contains(filename) && (id.equals("ITEM_CRAFT") || id.equals("ITEM_PICKUP"))) {
+                } else if (NpcQuestLogic.possession(id)) {
                     Item item = a.value(0,p); int damage = a.value(2,p);
                     String name = a.value(3,p); CompoundNBT nbt = a.value(4,p);
                     int total = NpcQuestItems.count(inventory,item,damage,name,nbt);

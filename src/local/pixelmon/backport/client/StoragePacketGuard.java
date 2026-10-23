@@ -11,17 +11,34 @@ import net.minecraft.network.PacketBuffer;
 @net.minecraftforge.fml.common.Mod.EventBusSubscriber(modid=Content.NS,value=net.minecraftforge.api.distmarker.Dist.CLIENT)
 public final class StoragePacketGuard {
     private static long last=Long.MIN_VALUE;
+    private static Object session;
+    private static final LinkedHashMap<String,StorageSnapshot.Request> pending=new LinkedHashMap<>();
     private StoragePacketGuard(){}
-    @net.minecraftforge.eventbus.api.SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedOutEvent event){last=Long.MIN_VALUE;}
-    private static void recover(UUID id,StoragePosition pos){
-        var world=Minecraft.func_71410_x().field_71441_e;if(world==null)return;
-        long now=world.func_82737_E();if(last!=Long.MIN_VALUE && now>=last && now-last<10)return;
-        last=now;TeraNetwork.CHANNEL.sendToServer(new StorageSnapshot.Request(id,pos.box,pos.order));
+    @net.minecraftforge.eventbus.api.SubscribeEvent public static void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedOutEvent event){reset(null);}
+    private static void reset(Object world){session=world;last=Long.MIN_VALUE;pending.clear();}
+    @net.minecraftforge.eventbus.api.SubscribeEvent public static void tick(net.minecraftforge.event.TickEvent.ClientTickEvent event){
+        if(event.phase==net.minecraftforge.event.TickEvent.Phase.END)pump();
+    }
+    public static void recover(UUID id,StoragePosition pos){
+        var world=Minecraft.func_71410_x().field_71441_e;
+        if(world!=session)reset(world);
+        if(world==null||id==null||pos==null||pos.box < -1||pos.order<0||pos.order>=(pos.box==-1?6:30))return;
+        String key=id+":"+pos.box;
+        if(pending.size()<256||pending.containsKey(key))pending.putIfAbsent(key,new StorageSnapshot.Request(id,pos.box,0));
+        pump();
+    }
+    private static void pump(){
+        var world=Minecraft.func_71410_x().field_71441_e;
+        if(world!=session)reset(world);
+        if(world==null||pending.isEmpty())return;
+        long now=world.func_82737_E();if(last!=Long.MIN_VALUE&&now>=last&&now-last<10)return;
+        var iterator=pending.entrySet().iterator();var request=iterator.next().getValue();iterator.remove();
+        last=now;TeraNetwork.CHANNEL.sendToServer(request);
     }
     public static boolean guard(UUID id,StoragePosition pos,PacketBuffer data,EnumUpdateType[] types){
         if(data==null)return false; // A real server deletion remains a deletion.
         var storage=com.pixelmonmod.pixelmon.client.storage.ClientStorageManager.getStorage(id,pos);
-        if(storage==null)return false;
+        if(storage==null){recover(id,pos);return true;}
         if(data.readableBytes()<16){recover(id,pos);return true;}
         int index=data.readerIndex();UUID incoming=new UUID(data.getLong(index),data.getLong(index+8));
         Pokemon existing=storage.get(pos);

@@ -5,7 +5,7 @@ package net.minecraft.world;public class World {public long time=1000;public lon
 // FILE: net/minecraft/client/world/ClientWorld.java
 package net.minecraft.client.world;public class ClientWorld extends net.minecraft.world.World {}
 // FILE: net/minecraft/client/Minecraft.java
-package net.minecraft.client;public class Minecraft {public net.minecraft.client.world.ClientWorld field_71441_e=new net.minecraft.client.world.ClientWorld();static Minecraft instance=new Minecraft();public static Minecraft func_71410_x(){return instance;}}
+package net.minecraft.client;public class Minecraft {public net.minecraft.client.world.ClientWorld field_71441_e=new net.minecraft.client.world.ClientWorld();public net.minecraft.client.GameSettings field_71474_y=new net.minecraft.client.GameSettings();public net.minecraft.client.entity.player.ClientPlayerEntity field_71439_g=new net.minecraft.client.entity.player.ClientPlayerEntity();static Minecraft instance=new Minecraft();public static Minecraft func_71410_x(){return instance;}}
 // FILE: net/minecraft/entity/Entity.java
 package net.minecraft.entity;public class Entity {public net.minecraft.world.World field_70170_p=new net.minecraft.world.World();}
 // FILE: net/minecraft/entity/LivingEntity.java
@@ -35,11 +35,11 @@ package com.pixelmonmod.pixelmon.api.storage;public class PartyStorage extends P
 // FILE: com/pixelmonmod/pixelmon/api/storage/PlayerPartyStorage.java
 package com.pixelmonmod.pixelmon.api.storage;public class PlayerPartyStorage extends PartyStorage {}
 // FILE: com/pixelmonmod/pixelmon/api/storage/PCStorage.java
-package com.pixelmonmod.pixelmon.api.storage;public class PCStorage extends PokemonStorage {public int getBoxCount(){return 2;}}
+package com.pixelmonmod.pixelmon.api.storage;public class PCStorage extends PokemonStorage implements local.pixelmon.backport.mixin.PCStorageAccess {public boolean shouldSendUpdates;public java.util.UUID playerUUID;public PCBox[] boxes;int last;public PCStorage(){this(java.util.UUID.randomUUID(),2);}public PCStorage(java.util.UUID id,int n){uuid=id;boxes=new PCBox[n];values=new com.pixelmonmod.pixelmon.api.pokemon.Pokemon[n*30];for(int i=0;i<n;i++)boxes[i]=new PCBox(this,i);}public int getBoxCount(){return boxes.length;}public PCBox[] getBoxes(){return boxes.clone();}public PCBox getBox(int i){return boxes[i];}public int getLastBox(){return last;}public void setLastBox(int n){last=n;}public void backport$boxes(PCBox[] b){boxes=b;values=java.util.Arrays.copyOf(values,b.length*30);}}
 // FILE: com/pixelmonmod/pixelmon/api/storage/StorageProxy.java
 package com.pixelmonmod.pixelmon.api.storage;public class StorageProxy {public static PlayerPartyStorage party=new PlayerPartyStorage();public static PCStorage pc=new PCStorage();public static PlayerPartyStorage getParty(net.minecraft.entity.player.ServerPlayerEntity p){return party;}public static PCStorage getPCForPlayer(net.minecraft.entity.player.ServerPlayerEntity p){return pc;}}
 // FILE: com/pixelmonmod/pixelmon/client/storage/ClientStorageManager.java
-package com.pixelmonmod.pixelmon.client.storage;public class ClientStorageManager {public static com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage party=new com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage();public static com.pixelmonmod.pixelmon.api.storage.PokemonStorage getStorage(java.util.UUID id,com.pixelmonmod.pixelmon.api.storage.StoragePosition pos){return party;}}
+package com.pixelmonmod.pixelmon.client.storage;public class ClientStorageManager {public static com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage party=new com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage();public static java.util.HashMap<java.util.UUID,com.pixelmonmod.pixelmon.api.storage.PCStorage> pcs=new java.util.HashMap<>();public static com.pixelmonmod.pixelmon.api.storage.PCStorage openPC;public static com.pixelmonmod.pixelmon.api.storage.PokemonStorage getStorage(java.util.UUID id,com.pixelmonmod.pixelmon.api.storage.StoragePosition pos){return pos.box==-1?party:pcs.get(id);}}
 // FILE: com/pixelmonmod/pixelmon/Pixelmon.java
 package com.pixelmonmod.pixelmon;public class Pixelmon {public static org.apache.logging.log4j.Logger LOGGER=org.apache.logging.log4j.LogManager.getLogger();public static Bus EVENT_BUS=new Bus();public static class Bus {public boolean cancel;public int pre,post;public boolean post(Object o){if(o instanceof com.pixelmonmod.pixelmon.api.events.SpawnPixelmonEntityForBattleEvent.Pre){pre++;return cancel;}post++;return false;}}}
 // FILE: com/pixelmonmod/pixelmon/api/events/SpawnPixelmonEntityForBattleEvent.java
@@ -79,6 +79,7 @@ public class Feedback161Cases {
   var matching=pokemon(1000);matching.uuid=original.uuid;matching.hp=42;apply(packet(matching,EnumUpdateType.HP),true);check(original.hp==42,"Legitimate HP delta lost");
   apply(packet(groudon,EnumUpdateType.CLIENT),true);check(party.values[2].species.dex==383&&party.values[2].hp==369&&party.values[2].level==100,"Full real snapshot did not recover correct species");
   var bad=pokemon(0);apply(packet(bad,EnumUpdateType.CLIENT),true);check(party.values[2].species.dex==383,"Full invalid sentinel replaced real Pokemon");
+  for(int reconnect=0;reconnect<3;reconnect++){party.values[2]=null;apply(packet(groudon,EnumUpdateType.HP),false);check(party.values[2].species.dex==0,"Old client can recreate persistent-looking zero after reconnect");apply(packet(groudon,EnumUpdateType.HP),true);check(party.values[2].species.dex==0,"Delta must not invent a species to repair cached zero");apply(packet(groudon,EnumUpdateType.CLIENT),true);check(party.values[2].species.dex==383&&party.values[2].uuid.equals(groudon.uuid),"Authoritative snapshot replaces pre-existing zero on reconnect");}
   ClientSetPacket deletion=new ClientSetPacket();deletion.storageUUID=party.uuid;deletion.position=new StoragePosition(-1,2);deletion.fixed(null);check(party.values[2]==null,"Real deletion blocked");
   ServerPlayerEntity sender=new ServerPlayerEntity();var serverParty=StorageProxy.party;var pc=StorageProxy.pc;StorageSnapshot.send(sender,UUID.randomUUID(),-1,0);check(serverParty.sent==0,"Foreign storage readable");StorageSnapshot.send(sender,serverParty.uuid,-1,0);check(serverParty.sent==6,"Own party not fully synced");StorageSnapshot.send(sender,serverParty.uuid,-1,0);check(serverParty.sent==6,"Server rate limit missing");sender.field_70170_p.time+=20;StorageSnapshot.send(sender,pc.uuid,2,0);check(pc.sent==0,"Invalid box readable");StorageSnapshot.send(sender,pc.uuid,1,0);check(pc.sent==30,"Own box recovery not bounded to 30");StorageSnapshot.send(null,serverParty.uuid,-1,0);
   for(int mode=0;mode<9;mode++){
@@ -93,3 +94,71 @@ public class Feedback161Cases {
 package com.pixelmonmod.pixelmon.enums.technicalmoves;public interface ITechnicalMove {String getAttackName();}
 // FILE: com/pixelmonmod/pixelmon/api/pokemon/species/moves/Moves.java
 package com.pixelmonmod.pixelmon.api.pokemon.species.moves;public class Moves {public boolean original(java.util.Set<? extends com.pixelmonmod.pixelmon.enums.technicalmoves.ITechnicalMove> t,String a){return false;}public boolean fixed(java.util.Set<? extends com.pixelmonmod.pixelmon.enums.technicalmoves.ITechnicalMove> t,String a){return false;}}
+
+// FILE: net/minecraft/client/entity/player/ClientPlayerEntity.java
+package net.minecraft.client.entity.player;public class ClientPlayerEntity {public java.util.UUID uuid=java.util.UUID.randomUUID();public java.util.UUID func_110124_au(){return uuid;}}
+// FILE: net/minecraftforge/event/TickEvent.java
+package net.minecraftforge.event;public class TickEvent {public enum Phase {START,END}public static class ClientTickEvent {public Phase phase;public ClientTickEvent(Phase p){phase=p;}}}
+// FILE: com/pixelmonmod/pixelmon/api/storage/PCBox.java
+package com.pixelmonmod.pixelmon.api.storage;public class PCBox {String name,wallpaper;public boolean hasChangedClientSide;public PCStorage pc;int number;public PCBox(PCStorage s,int n){pc=s;number=n;}public void setName(String n){name=n;}public String getName(){return name;}public void setWallpaper(String n){wallpaper=n;}public String getWallpaper(){return wallpaper;}}
+// FILE: com/pixelmonmod/pixelmon/comm/packetHandlers/clientStorage/newStorage/pc/ClientInitializePCPacket.java
+package com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage.pc;public class ClientInitializePCPacket {public com.pixelmonmod.pixelmon.api.storage.PCStorage storage;public void original(net.minecraftforge.fml.network.NetworkEvent.Context c){}public void fixed(net.minecraftforge.fml.network.NetworkEvent.Context c){}}
+// FILE: PCSync170Cases.java
+import java.util.*;import com.pixelmonmod.pixelmon.api.storage.*;import com.pixelmonmod.pixelmon.client.storage.ClientStorageManager;import com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage.pc.ClientInitializePCPacket;import local.pixelmon.backport.client.StoragePacketGuard;import local.pixelmon.backport.*;import net.minecraft.client.Minecraft;import net.minecraftforge.event.TickEvent;
+public class PCSync170Cases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ static ClientInitializePCPacket packet(UUID id,int size){var p=new ClientInitializePCPacket();p.storage=new PCStorage(id,size);return p;}
+ static void tick(long n){Minecraft.func_71410_x().field_71441_e.time+=n;StoragePacketGuard.tick(new TickEvent.ClientTickEvent(TickEvent.Phase.END));}
+ public static void run(){
+  StoragePacketGuard.logout(null);var client=Minecraft.func_71410_x();var id=client.field_71439_g.uuid;
+  ClientStorageManager.openPC=null;ClientStorageManager.pcs.clear();var initial=packet(id,2);initial.original(null);var screen=ClientStorageManager.openPC;
+  var real=Feedback161Cases.pokemon(383);screen.set(new StoragePosition(0,4),real);
+  packet(id,2).original(null);
+  check(ClientStorageManager.openPC==screen&&ClientStorageManager.pcs.get(id)!=screen,"Original stale object bug no longer reproduces");
+  var caught=Feedback161Cases.pokemon(1000);ClientStorageManager.pcs.get(id).set(new StoragePosition(0,8),caught);
+  check(screen.get(new StoragePosition(0,8))==null,"Original PC missing new capture not reproduced");
+  // Reset and use the actual transformed initialize method with production merge service.
+  ClientStorageManager.openPC=null;ClientStorageManager.pcs.clear();initial=packet(id,2);initial.fixed(null);screen=ClientStorageManager.openPC;var box=screen.getBox(0);
+  screen.set(new StoragePosition(0,4),real);var next=packet(id,2);next.storage.getBox(0).setName("迁移盒");next.storage.getBox(0).setWallpaper("new");next.fixed(null);
+  check(ClientStorageManager.pcs.get(id)==screen&&ClientStorageManager.openPC==screen&&screen.getBox(0)==box,"Screen/map/box identity diverged");
+  check(screen.get(new StoragePosition(0,4))==real&&box.getName().equals("迁移盒")&&box.getWallpaper().equals("new")&&!box.hasChangedClientSide,"Metadata reset lost cache or did not update metadata");
+  ClientStorageManager.pcs.get(id).set(new StoragePosition(0,8),caught);check(screen.get(new StoragePosition(0,8))==caught,"Fresh PC entry invisible");
+  ClientStorageManager.pcs.get(id).set(new StoragePosition(0,4),null);check(screen.get(new StoragePosition(0,4))==null,"Real deletion retained");
+  packet(id,3).fixed(null);check(ClientStorageManager.pcs.get(id)==screen&&screen.getBoxCount()==3&&screen.getBox(0)==box&&screen.get(new StoragePosition(0,8))==caught,"PC expansion lost references/contents");
+  var foreign=packet(UUID.randomUUID(),2);foreign.fixed(null);check(ClientStorageManager.openPC==screen,"Unrelated PC initialization hijacked current screen");
+  // Every queued distinct box must eventually be requested despite global throttling.
+  StoragePacketGuard.logout(null);TeraNetwork.CHANNEL.requests=0;
+  for(int i=0;i<12;i++)StoragePacketGuard.recover(id,new StoragePosition(i,5));
+  check(TeraNetwork.CHANNEL.requests==1,"Requests burst past cooldown");
+  for(int i=0;i<11;i++){tick(9);int before=TeraNetwork.CHANNEL.requests;tick(1);check(TeraNetwork.CHANNEL.requests==before+1,"Queued box request dropped");}
+  check(TeraNetwork.CHANNEL.requests==12,"Not all boxes recovered");
+  StoragePacketGuard.recover(id,new StoragePosition(25,0));StoragePacketGuard.logout(null);tick(20);check(TeraNetwork.CHANNEL.requests==12,"Logout retained stale request");
+  System.out.println("PASS native repeated initialization reproduces stale PC/cache; transformed initialization keeps map/screen/box identity and metadata, fresh entries/deletions/resize/foreign PC; recovery queue drains 12 distinct boxes and clears on logout.");
+ }
+}
+
+// FILE: net/minecraft/client/GameSettings.java
+package net.minecraft.client;public class GameSettings {public String field_74363_ab="zh_cn";}
+// FILE: com/mrcrayfish/configured/api/IConfigValue.java
+package com.mrcrayfish.configured.api;public interface IConfigValue {String getTranslationKey();}
+// FILE: DetectorText170Cases.java
+import local.pixelmon.backport.client.*;import net.minecraft.client.Minecraft;import com.mrcrayfish.configured.api.IConfigValue;
+public class DetectorText170Cases {
+ public static class Holder implements IConfigValue {String key;Holder(String k){key=k;}public String getTranslationKey(){return key;}}
+ static class Screen implements DetectorListContext {Object h;Screen(Object v){h=v;}public String backport$listText(String raw){return DetectorConfigText.listValue(h,raw);}}
+ static class Entry {Object this$0;Entry(Object outer){this$0=outer;}}
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ public static void run(){
+  var loot=new Holder("pixelmondetector.config.pokeLootFilter");var boss=new Holder("pixelmondetector.config.bossFilter");
+  for(String key:new String[]{"pokeball","ultraball","masterball","beastball","special","hidden"}){
+   String text=DetectorConfigText.entryValue(new Entry(new Screen(loot)),key);check(!key.equals(text),"Raw chest row untranslated "+key);
+   check(DetectorConfigText.listValue(new Holder("othermod.config.pokeLootFilter"),key).equals(key),"Foreign values altered");
+  }
+  for(String key:new String[]{"common","uncommon","rare","epic","legendary","ultimate","haunted","drowned"})check(!DetectorConfigText.listValue(boss,key).equals(key),"Boss row untranslated "+key);
+  check(DetectorConfigText.listValue(loot,"custom-value").equals("custom-value"),"Unknown value lost");
+  check(DetectorConfigText.text("pixelmondetector.config.button.edit").equals("编辑"),"Literal Edit untranslated");
+  Minecraft.func_71410_x().field_71474_y.field_74363_ab="en_us";
+  check(DetectorConfigText.listValue(loot,"masterball").equals("masterball"),"English locale changed");
+  System.out.println("PASS Configured list render-context translations: all six loot filters and eight Boss filters; unknown/foreign values and English locale preserved.");
+ }
+}

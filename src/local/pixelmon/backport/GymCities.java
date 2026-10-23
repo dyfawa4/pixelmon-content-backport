@@ -22,8 +22,9 @@ public final class GymCities {
             String type=entry.getKey(),source=entry.getValue().getAsJsonObject().get("source").getAsString();
             net.minecraft.util.ResourceLocation poolId=new net.minecraft.util.ResourceLocation("pixelmon_backport","gyms/"+(type.equals("dark")?"natural/dark":type)+"/start_pool");
             net.minecraft.world.gen.feature.jigsaw.JigsawPattern pool=net.minecraft.world.gen.feature.jigsaw.JigsawPatternRegistry.func_244094_a(new net.minecraft.world.gen.feature.jigsaw.JigsawPattern(poolId,new net.minecraft.util.ResourceLocation("minecraft:empty"),Collections.emptyList()));
+            // Retain the original city expansion budget in every dimension.
             int size=60;
-            var config=new com.pixelmonmod.pixelmon.world.structure.type.GymConfig(()->pool,size,true);
+            var config=new com.pixelmonmod.pixelmon.world.structure.type.GymConfig(()->pool,size,!type.equals("psychic"));
             var feature=com.pixelmonmod.pixelmon.world.structure.PixelmonStructures.GYMS.get().func_236391_a_(config);
             net.minecraft.util.registry.WorldGenRegistries.func_243664_a(net.minecraft.util.registry.WorldGenRegistries.field_243654_f,new net.minecraft.util.ResourceLocation("pixelmon_backport",type+"_gym"),feature);
             FEATURES.put(type,feature);
@@ -61,6 +62,7 @@ public final class GymCities {
         return role.isEmpty()?npc.isGymLeader:role.equals("leader");
     }
     public static void initialize(NPCTrainer npc){
+        if(npc.getPersistentData().func_74767_n("BackportAuthorTrainer"))return;
         CompoundNBT data=npc.getPersistentData();
         Element theme=theme(npc);
         if(isLeader(npc))npc.winMoney=GymRewardPolicy.LEADER_PRIZE;

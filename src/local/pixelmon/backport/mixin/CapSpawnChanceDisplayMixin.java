@@ -21,7 +21,7 @@ public abstract class CapSpawnChanceDisplayMixin {
         // SelectionAlgorithm keys are SpawnInfoPokemon.toString(), which uses
         // the server's translated species name, rather than the registry name.
         String localized=new TranslationTextComponent("pixelmon.cappikachu",Locale.ROOT+"").getString();
-        if(spawner!=PixelmonSpawning.legendarySpawner || !event.shouldShowChance || !candidates.entrySet().stream().anyMatch(e->
+        if(!CapSpawns.eligible(source.func_197023_e(),new net.minecraft.util.math.BlockPos(source.func_197036_d()))||spawner!=PixelmonSpawning.legendarySpawner || !event.shouldShowChance || !candidates.entrySet().stream().anyMatch(e->
             (CapSpecies.NAME.equalsIgnoreCase(e.getKey()) || localized.equals(e.getKey()) || "pixelmon.cappikachu".equals(e.getKey()))
             && e.getValue()!=null && e.getValue()>0))return;
         double global=PixelmonConfigProxy.getSpawning().getLegendarySpawnChance();

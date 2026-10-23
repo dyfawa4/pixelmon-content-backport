@@ -15,17 +15,22 @@ import com.pixelmonmod.pixelmon.enums.heldItems.EnumHeldItems;
 public final class BackportEffects {
     private BackportEffects(){}
     public static void register(){
-        for(Class<? extends EffectBase> type:new Class[]{AlluringVoice.class,BurningBulwark.class,DragonCheer.class,ElectroShot.class,FickleBeam.class,HardPress.class,IvyCudgel.class,PsychicNoise.class,SupercellSlam.class,SyrupBomb.class,TeraStarstorm.class,TeraBlast.class,UpperHand.class,MightyCleave.class,BurstField.class,NinjaTraining.class}) {
+        for(Class<? extends EffectBase> type:new Class[]{AlluringVoice.class,BurningBulwark.class,DragonCheer.class,ElectroShot.class,FickleBeam.class,HardPress.class,IvyCudgel.class,PsychicNoise.class,SupercellSlam.class,SyrupBomb.class,TeraStarstorm.class,TeraBlast.class,UpperHand.class,MightyCleave.class,BurstField.class,NinjaTraining.class,LightningOath.class}) {
             String key="Backport"+type.getSimpleName();
             Class<?> present=EffectTypeAdapter.EFFECTS.putIfAbsent(key,type);
             if(present!=null && present!=type)throw new IllegalStateException("Effect id collision: "+key);
         }
     }
+    public static class LightningOath extends SpecialAttackBase {
+        @Override public void applyEffect(PixelmonWrapper user,PixelmonWrapper target){if(local.pixelmon.backport.LightningOath.signature(user,user.attack))local.pixelmon.backport.LightningOath.apply(user,target);}
+    }
     public static class NinjaTraining extends SpecialAttackBase {
         @Override public AttackResult applyEffectStart(PixelmonWrapper user,PixelmonWrapper target){return local.pixelmon.backport.NinjaTraining.allowed(user)?AttackResult.proceed:AttackResult.failed;}
         @Override public AttackResult applyEffectDuring(PixelmonWrapper user,PixelmonWrapper target){
             if(!local.pixelmon.backport.NinjaTraining.allowed(user))return AttackResult.failed;
+            if(!AuthorChallenge.buff(user))return AttackResult.failed;
             user.getBattleStats().modifyStat(2,BattleStatsType.SPECIAL_ATTACK,user,true);
+            local.pixelmon.backport.NinjaNextPriority.grant(user);
             local.pixelmon.backport.NinjaTraining.grant(user);return AttackResult.proceed;
         }
     }
@@ -70,6 +75,11 @@ public final class BackportEffects {
     }
     public static class UpperHand extends SpecialAttackBase {
         @Override public AttackResult applyEffectStart(PixelmonWrapper user,PixelmonWrapper target){
+            int known=NpcTurnKnowledge.offensive(target);
+            if(user.bc.simulateMode&&known>=0){
+                float priority=com.pixelmonmod.pixelmon.battles.controller.BattlePriorityHelper.calculatePriority(target);
+                return known==1&&priority>0&&priority<4?AttackResult.proceed:AttackResult.failed;
+            }
             return target.attack!=null && target.attack.getAttackCategory()!=AttackCategory.STATUS && !target.hasMoved() && target.priority>0 && target.priority<4 ? AttackResult.proceed:AttackResult.failed;
         }
     }

@@ -52,7 +52,7 @@ public abstract class CompassTeraSearchMixin {
     }
     @Redirect(method="doWork",at=@At(value="INVOKE",target="Lnet/minecraft/world/gen/feature/structure/Structure;func_236392_a_(Lnet/minecraft/world/gen/settings/StructureSeparationSettings;JLnet/minecraft/util/SharedSeedRandom;II)Lnet/minecraft/util/math/ChunkPos;"))
     private ChunkPos backport$nativeDenCandidate(Structure<?> requested,StructureSeparationSettings settings,long seed,SharedSeedRandom random,int x,int z){
-        return (requested instanceof TeraDenLocator.TypedDen?((TeraDenLocator.TypedDen)requested).nativeDen():requested).func_236392_a_(settings,seed,random,x,z);
+        return (requested instanceof TeraDenLocator.TypedDen?((TeraDenLocator.TypedDen)requested).nativeDen():requested instanceof local.pixelmon.backport.GymLocator.TypedGym?local.pixelmon.backport.GymLocator.nativeGym():requested).func_236392_a_(settings,seed,random,x,z);
     }
     @Redirect(method="doWork",at=@At(value="INVOKE",target="Lnet/minecraft/world/gen/feature/structure/StructureManager;func_235013_a_(Lnet/minecraft/util/math/SectionPos;Lnet/minecraft/world/gen/feature/structure/Structure;Lnet/minecraft/world/IStructureReader;)Lnet/minecraft/world/gen/feature/structure/StructureStart;"))
     private StructureStart<?> backport$verifyRealDen(StructureManager manager,SectionPos pos,Structure<?> requested,IStructureReader chunk){

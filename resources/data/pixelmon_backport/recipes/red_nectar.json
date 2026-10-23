@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " H ",
+    "HFH",
+    " H "
+  ],
+  "key": {
+    "H": {
+      "item": "minecraft:honey_bottle"
+    },
+    "F": {
+      "item": "minecraft:red_tulip"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:red_nectar",
+    "count": 1
+  }
+}

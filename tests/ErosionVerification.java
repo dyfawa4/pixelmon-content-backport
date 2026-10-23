@@ -41,6 +41,7 @@ public final class ErosionVerification {
         add(sources,"local.pixelmon.backport.ErosionNetwork","public class ErosionNetwork {public static int packets;public static void sync("+P+"battles.controller.BattleController b,"+W+" p){packets++;}}");
         add(sources,"local.pixelmon.backport.NinjaResiduals","public class NinjaResiduals {public static void apply("+W+" p){}}");
         add(sources,"net.minecraftforge.fml.loading.FMLPaths","public enum FMLPaths {CONFIGDIR;public java.nio.file.Path get(){return java.nio.file.Path.of(System.getProperty(\"fixture.configDir\"));}}");
+        add(sources,"local.pixelmon.backport.GreninjaEnhancement","public class GreninjaEnhancement {public static boolean enabled(){return true;}} ");
         sources.put("fixture.ErosionCases",Files.readString(Path.of("tests/resources/ErosionCases.java.txt")));
         Path root=Files.createTempDirectory(Path.of(".cache/erosion-160"),"fixture-");List<String> compile=new ArrayList<>(List.of("--release","11","-proc:none","-encoding","UTF-8","-cp",System.getProperty("java.class.path"),"-d",root.toString()));
         System.setProperty("fixture.configDir",root.resolve("config").toString());

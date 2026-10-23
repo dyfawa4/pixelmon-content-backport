@@ -60,8 +60,8 @@ public final class ZaMegaVerification {
         JsonObject mega=form(greninja,"mega"),ash=form(greninja,PermanentAsh.MEGA);
         for(JsonObject f:List.of(mega,ash))for(JsonElement g:f.getAsJsonArray("genderProperties"))for(JsonElement palette:g.getAsJsonObject().getAsJsonArray("palettes"))check("pixelmon:empty.png".equals(palette.getAsJsonObject().get("emissive").getAsString()),"Empty or inherited Mega Greninja emissive texture");
         try(JarFile nativeJar=new JarFile(args[0])){check(nativeJar.getJarEntry("assets/pixelmon/textures/empty.png")!=null,"Missing native transparent texture");}
-        check(mega.get("battleStats").equals(ash.get("battleStats"))&&mega.get("abilities").equals(ash.get("abilities")),"Ash Mega has fake stats/ability");
-        for(String n:new String[]{"ash",PermanentAsh.FORM})check(form(greninja,n).getAsJsonArray("megas").contains(new JsonPrimitive(PermanentAsh.MEGA)),"Ash Mega eligibility lost "+n);
+        check(mega.get("battleStats").equals(ash.get("battleStats"))&&ash.getAsJsonObject("abilities").getAsJsonArray("abilities").get(0).getAsString().equals("Drizzle"),"Ash Mega has fake stats/ability");
+        for(String n:new String[]{"ash",PermanentAsh.FORM})check(form(greninja,n).getAsJsonArray("megas").size()==0,"Ash Mega eligibility lost "+n);
         check(ash.getAsJsonObject("moves").getAsJsonArray("tutorMoves").contains(new JsonPrimitive("Ninja Training")),"Ash Mega lost training");
         check(ash.getAsJsonObject("moves").getAsJsonArray("tmMoves9").contains(new JsonPrimitive("Tera Blast")),"Ash Mega lost Tera Blast");
         all.put(658,greninja);

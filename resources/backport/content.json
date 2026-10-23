@@ -23998,39 +23998,6 @@
           "type": "pixelmon_backport:unremarkable_teacup"
         },
         {
-          "type": "pixelmon_backport:syrupy_apple"
-        },
-        {
-          "type": "pixelmon_backport:metal_alloy"
-        },
-        {
-          "type": "pixelmon_backport:pink_nectar"
-        },
-        {
-          "type": "pixelmon_backport:purple_nectar"
-        },
-        {
-          "type": "pixelmon_backport:red_nectar"
-        },
-        {
-          "type": "pixelmon_backport:yellow_nectar"
-        },
-        {
-          "type": "pixelmon_backport:gimmighoul_coin"
-        },
-        {
-          "type": "pixelmon_backport:teal_mask"
-        },
-        {
-          "type": "pixelmon_backport:wellspring_mask"
-        },
-        {
-          "type": "pixelmon_backport:hearthflame_mask"
-        },
-        {
-          "type": "pixelmon_backport:cornerstone_mask"
-        },
-        {
           "type": "pixelmon:tm_gen9",
           "nbt": {
             "tm": 207

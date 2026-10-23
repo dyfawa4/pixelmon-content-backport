@@ -59,7 +59,22 @@ public final class DetectorConfigCatalog {
         Map.entry("pixelmondetector.config.category.draws","探测显示"),
         Map.entry("pixelmondetector.config.file.common","通用配置"),
         Map.entry("pixelmondetector.config.file.client","客户端配置"),
-        Map.entry("pixelmondetector.config.file.server","服务端配置")
+        Map.entry("pixelmondetector.config.file.server","服务端配置"),
+        Map.entry("pixelmondetector.config.button.edit","编辑"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.pokeball","精灵球箱"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.ultraball","高级球箱"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.masterball","大师球箱"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.beastball","究极球箱"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.special","特殊奖励箱"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.hidden","隐藏奖励箱"),
+        Map.entry("pixelmondetector.config.bossFilter.value.common","普通"),
+        Map.entry("pixelmondetector.config.bossFilter.value.uncommon","罕见"),
+        Map.entry("pixelmondetector.config.bossFilter.value.rare","稀有"),
+        Map.entry("pixelmondetector.config.bossFilter.value.epic","史诗"),
+        Map.entry("pixelmondetector.config.bossFilter.value.legendary","传说"),
+        Map.entry("pixelmondetector.config.bossFilter.value.ultimate","究极"),
+        Map.entry("pixelmondetector.config.bossFilter.value.drowned","溺水"),
+        Map.entry("pixelmondetector.config.bossFilter.value.haunted","幽灵")
     );
     private static final Map<String,String> EN=Map.ofEntries(
         Map.entry("pixelmondetector.config.allowDetector","Allow detector"),
@@ -117,7 +132,22 @@ public final class DetectorConfigCatalog {
         Map.entry("pixelmondetector.config.category.draws","Draws"),
         Map.entry("pixelmondetector.config.file.common","Common"),
         Map.entry("pixelmondetector.config.file.client","Client"),
-        Map.entry("pixelmondetector.config.file.server","Server")
+        Map.entry("pixelmondetector.config.file.server","Server"),
+        Map.entry("pixelmondetector.config.button.edit","Edit"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.pokeball","pokeball"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.ultraball","ultraball"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.masterball","masterball"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.beastball","beastball"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.special","special"),
+        Map.entry("pixelmondetector.config.pokeLootFilter.value.hidden","hidden"),
+        Map.entry("pixelmondetector.config.bossFilter.value.common","common"),
+        Map.entry("pixelmondetector.config.bossFilter.value.uncommon","uncommon"),
+        Map.entry("pixelmondetector.config.bossFilter.value.rare","rare"),
+        Map.entry("pixelmondetector.config.bossFilter.value.epic","epic"),
+        Map.entry("pixelmondetector.config.bossFilter.value.legendary","legendary"),
+        Map.entry("pixelmondetector.config.bossFilter.value.ultimate","ultimate"),
+        Map.entry("pixelmondetector.config.bossFilter.value.drowned","drowned"),
+        Map.entry("pixelmondetector.config.bossFilter.value.haunted","haunted")
     );
     public static String get(String key,String locale){return ("zh_cn".equals(locale)?ZH:"en_us".equals(locale)?EN:Map.<String,String>of()).get(key);}
 }

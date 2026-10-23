@@ -1,8 +1,7 @@
-﻿[CmdletBinding()]
+﻿[CmdletBinding(SupportsShouldProcess=$true,ConfirmImpact='Medium')]
 param([switch]$Execute,[string]$PlanPath='')
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
-if($Execute){throw 'Permanent deletion is disabled. This utility is preview-only.'}
 $taskRoot=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..')).TrimEnd('\')
 if($taskRoot -ne 'D:\游戏\宝可梦\重铸内容回迁'){throw 'This local cleanup plan is only for the reviewed project path.'}
 $taskCache=Join-Path $taskRoot '.cache'
@@ -17,7 +16,12 @@ try {
     if(-not $PlanPath.StartsWith($taskCache+'\',[StringComparison]::OrdinalIgnoreCase)){throw 'Plan must be inside this project cache.'}
     $taskPlan=Get-Content -LiteralPath $PlanPath -Encoding UTF8 -Raw | ConvertFrom-Json
     if([IO.Path]::GetFullPath($taskPlan.reviewedRoot).TrimEnd('\') -ne $taskRoot){throw 'Plan root differs from the reviewed source root.'}
-    $taskExternal='D:\游戏\宝可梦\.发布缓存'
+    $taskApproval='6e32fc04ffcbc51736559ba61fc98141d6b63afde6c69318dd156d34ae32f605'
+    $taskPlanTargets=@($taskPlan.targets)
+    $taskHash=[Security.Cryptography.SHA256]::Create()
+    try {$taskActual=[BitConverter]::ToString($taskHash.ComputeHash([Text.Encoding]::UTF8.GetBytes(($taskPlanTargets -join "`n")))).Replace('-','').ToLowerInvariant()}
+    finally {$taskHash.Dispose()}
+    if($taskPlanTargets.Count -ne 704 -or $taskActual -ne $taskApproval){throw 'Target list differs from the 704 entries reviewed by the user.'}
     $taskBuild=Get-Content -LiteralPath (Join-Path $taskCache 'last-build.json') -Encoding UTF8 -Raw | ConvertFrom-Json
     $taskClasses=[IO.Path]::GetFullPath($taskBuild.classes)
     if($taskClasses -notmatch ('^'+[regex]::Escape($taskCache)+'\\build-[a-fA-F0-9]{32}\\classes$')){throw 'Current build classes are outside the expected cache.'}
@@ -45,7 +49,8 @@ try {
         $taskFinal=[IO.Path]::GetFullPath($taskTarget).TrimEnd('\')
         $taskParent=Split-Path $taskFinal -Parent
         $taskLeaf=Split-Path $taskFinal -Leaf
-        $taskAllowed=($taskFinal -eq $taskExternal) -or ($taskFinal -in $taskAllowedRoot) -or ($taskParent -eq $taskCache -and $taskLeaf -notin $taskKeepCache) -or ($taskParent -eq (Join-Path $taskRoot 'dist') -and $taskLeaf -notin $taskKeepDist)
+        if(-not $taskFinal.StartsWith($taskRoot+'\',[StringComparison]::OrdinalIgnoreCase)){throw ('Refused target outside this project: '+$taskFinal)}
+        $taskAllowed=($taskFinal -in $taskAllowedRoot) -or ($taskParent -eq $taskCache -and $taskLeaf -notin $taskKeepCache) -or ($taskParent -eq (Join-Path $taskRoot 'dist') -and $taskLeaf -notin $taskKeepDist -and $taskLeaf -notlike '*1.4.4*')
         if(-not $taskAllowed){throw ('Refused unapproved deletion target: '+$taskFinal)}
         foreach($taskSource in $taskSources){if($taskFinal -eq $taskSource -or $taskSource.StartsWith($taskFinal+'\',[StringComparison]::OrdinalIgnoreCase)){throw ('Refused source/runtime deletion: '+$taskFinal)}}
         Assert-NoReparseAncestor $taskFinal
@@ -81,7 +86,30 @@ try {
     Write-Host ('Reviewed obsolete entries: '+$taskTargets.Count)
     Write-Host ('Complete deletion list: '+$taskList)
     Write-Host 'Keep: source, Git history, latest JAR/offline ZIP, current build and manual-latest client.'
-    Write-Host 'PREVIEW ONLY. No files deleted. Permanent deletion is disabled in this utility.'
+    if(-not $Execute){Write-Host 'PREVIEW ONLY. No files deleted. Use -Execute for the approved cleanup.';return}
+    $taskDeleted=[Collections.Generic.List[string]]::new()
+    $taskBefore=(Get-PSDrive -Name D).Free
+    $taskFailure=$null
+    $taskSourceVerified=$false
+    try {
+        foreach($taskTarget in $taskTargets){
+            if(-not(Test-Path -LiteralPath $taskTarget)){continue}
+            Assert-NoReparseAncestor $taskTarget
+            $taskCurrent=Get-Item -LiteralPath $taskTarget -Force
+            if($taskCurrent.PSIsContainer -and @(Get-ChildItem -LiteralPath $taskTarget -Recurse -Force -Attributes ReparsePoint).Count){throw ('Target now contains a link/junction: '+$taskTarget)}
+            if($PSCmdlet.ShouldProcess($taskTarget,'Permanently delete reviewed obsolete cache')){
+                Remove-Item -LiteralPath $taskTarget -Recurse -Force -Confirm:$false -ErrorAction Stop
+                $taskDeleted.Add($taskTarget)
+                if($taskDeleted.Count%40 -eq 0){Write-Host ('Removed entries: '+$taskDeleted.Count)}
+            }
+        }
+        Test-ReviewedSource
+        $taskSourceVerified=$true
+    } catch {$taskFailure=$_.Exception.Message}
+    $taskResult=@{completedAt=(Get-Date -Format 'yyyy-MM-dd HH:mm:ss');targetListSHA256=$taskApproval;deletedEntries=$taskDeleted.Count;deletedPaths=$taskDeleted.ToArray();freedBytes=((Get-PSDrive -Name D).Free-$taskBefore);whatIf=[bool]$WhatIfPreference;sourceIntegrityChecked=$taskSourceVerified;error=$taskFailure}
+    if(-not $WhatIfPreference){$taskResult | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $taskCache 'cleanup-result.json') -Encoding UTF8}
+    Write-Host ('Cleanup finished. Removed entries: '+$taskDeleted.Count+'; source integrity checked: '+$taskSourceVerified)
+    if($taskFailure){throw $taskFailure}
 } catch {
     Write-Host ('STOPPED: '+$_.Exception.Message) -ForegroundColor Red
     Write-Host ('Details: '+$taskLog)

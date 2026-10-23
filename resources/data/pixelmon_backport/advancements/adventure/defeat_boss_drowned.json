@@ -1,0 +1,24 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "pixelmon:poke_ball",
+      "nbt": "{PokeBallID:\"origin_ball\"}"
+    },
+    "title": {
+      "translate": "advancement.pixelmon_backport.defeat_boss_drowned"
+    },
+    "description": {
+      "translate": "advancement.pixelmon_backport.defeat_boss_drowned.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

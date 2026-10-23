@@ -1,0 +1,57 @@
+// FILE: net/minecraft/util/math/BlockPos.java
+package net.minecraft.util.math;public class BlockPos {public final int x,y,z;public BlockPos(int a,int b,int c){x=a;y=b;z=c;}public int func_177956_o(){return y;}}
+// FILE: net/minecraft/util/math/MutableBoundingBox.java
+package net.minecraft.util.math;public class MutableBoundingBox {public int field_78897_a,field_78896_c,field_78893_d,field_78892_f;public MutableBoundingBox(int x,int z,int xx,int zz){field_78897_a=x;field_78896_c=z;field_78893_d=xx;field_78892_f=zz;}public static MutableBoundingBox func_78887_a(){return new MutableBoundingBox(Integer.MAX_VALUE,Integer.MAX_VALUE,Integer.MIN_VALUE,Integer.MIN_VALUE);}public void func_78888_b(MutableBoundingBox b){field_78897_a=Math.min(field_78897_a,b.field_78897_a);field_78896_c=Math.min(field_78896_c,b.field_78896_c);field_78893_d=Math.max(field_78893_d,b.field_78893_d);field_78892_f=Math.max(field_78892_f,b.field_78892_f);}}
+// FILE: net/minecraft/world/biome/provider/EndBiomeProvider.java
+package net.minecraft.world.biome.provider;public class EndBiomeProvider {}
+// FILE: net/minecraft/world/biome/Biome.java
+package net.minecraft.world.biome;public class Biome {public enum Category {THEEND,PLAINS}public Category category=Category.THEEND;public Category func_201856_r(){return category;}}
+// FILE: net/minecraft/world/gen/Heightmap.java
+package net.minecraft.world.gen;public class Heightmap {public enum Type {WORLD_SURFACE_WG}}
+// FILE: net/minecraft/world/gen/ChunkGenerator.java
+package net.minecraft.world.gen;public class ChunkGenerator {public Object provider=new net.minecraft.world.biome.provider.EndBiomeProvider();public java.util.function.BiPredicate<Integer,Integer> solid=(x,z)->true;public java.util.function.ToIntBiFunction<Integer,Integer> bottom=(x,z)->35;public int queries;public int func_222532_b(int x,int z,Heightmap.Type type){return solid.test(x,z)?61:0;}public Object func_202090_b(){return provider;}public Column func_230348_a_(int x,int z){queries++;return new Column(solid.test(x,z),bottom.applyAsInt(x,z));}public static class Column {boolean solid;int bottom;Column(boolean b,int low){solid=b;bottom=low;}public State func_180495_p(net.minecraft.util.math.BlockPos p){return new State(solid&&p.y>=bottom&&p.y<=60);}}public static class State {boolean solid;State(boolean b){solid=b;}public Material func_185904_a(){return new Material(solid);}}public static class Material {boolean solid;Material(boolean b){solid=b;}public boolean func_76220_a(){return solid;}}}
+// FILE: net/minecraft/world/gen/feature/jigsaw/JigsawPattern.java
+package net.minecraft.world.gen.feature.jigsaw;public class JigsawPattern {public enum PlacementBehaviour {RIGID,TERRAIN_MATCHING}}
+// FILE: net/minecraft/world/gen/feature/jigsaw/JigsawPiece.java
+package net.minecraft.world.gen.feature.jigsaw;public class JigsawPiece {public JigsawPattern.PlacementBehaviour projection=JigsawPattern.PlacementBehaviour.RIGID;public JigsawPattern.PlacementBehaviour func_214854_c(){return projection;}}
+// FILE: net/minecraft/world/gen/feature/structure/StructurePiece.java
+package net.minecraft.world.gen.feature.structure;public class StructurePiece {public net.minecraft.util.math.MutableBoundingBox bounds;public net.minecraft.util.math.MutableBoundingBox func_74874_b(){return bounds;}}
+// FILE: net/minecraft/world/gen/feature/structure/AbstractVillagePiece.java
+package net.minecraft.world.gen.feature.structure;public class AbstractVillagePiece extends StructurePiece {public net.minecraft.world.gen.feature.jigsaw.JigsawPiece element=new net.minecraft.world.gen.feature.jigsaw.JigsawPiece();public net.minecraft.world.gen.feature.jigsaw.JigsawPiece func_214826_b(){return element;}public int floor=60;public String name="template[pixelmon_backport:gyms/psychic/house]";public net.minecraft.util.math.BlockPos func_214828_c(){return new net.minecraft.util.math.BlockPos(bounds.field_78897_a,floor,bounds.field_78896_c);}public int func_214830_d(){return 1;}public String toString(){return name;}}
+// FILE: com/pixelmonmod/pixelmon/world/structure/type/GymConfig.java
+package com.pixelmonmod.pixelmon.world.structure.type;public class GymConfig {public String pool="pixelmon_backport:gyms/psychic/start_pool";public java.util.function.Supplier<Pool> func_242810_c(){return ()->new Pool(pool);}public static class Pool {String value;Pool(String s){value=s;}public Object func_214947_b(){return value;}}}
+// FILE: EndCityCases.java
+import java.util.*;import com.pixelmonmod.pixelmon.world.structure.type.GymConfig;import local.pixelmon.backport.*;import net.minecraft.world.gen.*;import net.minecraft.world.biome.*;import net.minecraft.world.gen.feature.structure.*;import net.minecraft.util.math.*;
+public class EndCityCases {
+ static void check(boolean b,String m){if(!b)throw new AssertionError(m);}
+ public static void run(){
+  ChunkGenerator generator=new ChunkGenerator();Biome biome=new Biome();
+  check(EndGymCities.eligible(generator,biome,128,128),"Native End provider, outer island");
+  check(!EndGymCities.eligible(generator,biome,0,0),"Native center excluded before assembly");
+  generator.provider=new Object();check(!EndGymCities.eligible(generator,biome,128,128),"Overworld provider cannot generate relocated city");generator.provider=new net.minecraft.world.biome.provider.EndBiomeProvider();
+  biome.category=Biome.Category.PLAINS;check(!EndGymCities.eligible(generator,biome,128,128),"Wrong biome category");biome.category=Biome.Category.THEEND;
+  List<StructurePiece> pieces=new ArrayList<>();
+  for(int i=0;i<24;i++){var p=new AbstractVillagePiece();p.bounds=new MutableBoundingBox(2048+(i%6)*8,2048+(i/6)*8,2055+(i%6)*8,2055+(i/6)*8);p.name="template[pixelmon_backport:gyms/psychic/gym_psychic_"+(i==0?"gym":i==1?"pokecenter":i==2?"pokemart":i<=10?"house_a":i<=18?"road_a":"clutter_a")+"]";pieces.add(p);}
+  var gym=(AbstractVillagePiece)pieces.get(0);gym.name="template[pixelmon_backport:gyms/psychic/gym_psychic]";
+  check(EndGymCities.complete(generator,pieces),"Complete supported native piece list accepted");
+  generator.bottom=(x,z)->x%2==0?58:35;check(EndGymCities.complete(generator,pieces),"Uneven island underside does not require one common horizontal support plane");generator.bottom=(x,z)->35;
+  generator.solid=(x,z)->x!=2065||z!=2067;check(!EndGymCities.complete(generator,pieces),"One void column rejects complete city");generator.solid=(x,z)->true;
+  ((AbstractVillagePiece)pieces.get(5)).floor=63;check(EndGymCities.complete(generator,pieces),"Native entrance/NPC vertical offset remains supported by the island");((AbstractVillagePiece)pieces.get(5)).floor=60;
+  ((AbstractVillagePiece)pieces.get(5)).floor=70;check(!EndGymCities.complete(generator,pieces),"Individual raised foundation cannot float above a supported bounding rectangle");((AbstractVillagePiece)pieces.get(5)).floor=60;
+  var npc=new AbstractVillagePiece();npc.name="template[pixelmon:npc/trainer]";npc.floor=90;npc.bounds=new MutableBoundingBox(2049,2049,2050,2050);pieces.add(npc);check(EndGymCities.complete(generator,pieces),"NPC standing on an upper floor is not a terrain foundation");pieces.remove(npc);
+  var lamp=new AbstractVillagePiece();lamp.name="template[pixelmon_backport:gyms/psychic/gym_psychic_light_a]";lamp.floor=90;lamp.bounds=new MutableBoundingBox(2049,2049,2050,2050);pieces.add(lamp);check(EndGymCities.complete(generator,pieces),"Rooftop lamp is supported by its building, not a separate terrain foundation");pieces.remove(lamp);
+  var distant=new AbstractVillagePiece();distant.name="template[pixelmon:npc/trainer]";distant.floor=60;distant.bounds=new MutableBoundingBox(2100,2100,2101,2101);pieces.add(distant);
+  generator.solid=(x,z)->x!=2087||z!=2091;check(EndGymCities.complete(generator,pieces),"Empty corner outside all actual templates does not invalidate a complete city");
+  generator.solid=(x,z)->x!=2100||z!=2100;check(!EndGymCities.complete(generator,pieces),"Standalone decoration/NPC footprint cannot extend into void");generator.solid=(x,z)->true;pieces.remove(distant);
+  check(!EndGymCities.complete(generator,pieces.subList(0,11)),"Incomplete jigsaw assembly rejected");
+  var projectedRoad=(AbstractVillagePiece)pieces.get(11);projectedRoad.floor=90;projectedRoad.element.projection=net.minecraft.world.gen.feature.jigsaw.JigsawPattern.PlacementBehaviour.TERRAIN_MATCHING;
+  check(EndGymCities.complete(generator,pieces),"Native terrain-matching road uses the per-column terrain floor, not its attachment Y");
+  generator.solid=(x,z)->x!=2089||z!=2057;check(!EndGymCities.complete(generator,pieces),"Projected road still cannot cross void");generator.solid=(x,z)->true;projectedRoad.floor=60;projectedRoad.element.projection=net.minecraft.world.gen.feature.jigsaw.JigsawPattern.PlacementBehaviour.RIGID;
+  var road=(AbstractVillagePiece)pieces.get(11);String roadName=road.name;road.name="template[pixelmon_backport:gyms/psychic/gym_psychic_road_terminator_a]";
+  check(!EndGymCities.complete(generator,pieces),"Road terminators cannot substitute for a full street district");road.name=roadName;
+  var home=(AbstractVillagePiece)pieces.get(3);String homeName=home.name;home.name="template[pixelmon_backport:gyms/psychic/gym_psychic_grunt_e]";
+  check(!EndGymCities.complete(generator,pieces),"NPC count cannot substitute for missing residential blocks");home.name=homeName;
+  gym.name="house";check(!EndGymCities.complete(generator,pieces),"City missing its gym rejected");
+  check(EndGymCities.psychic(new GymConfig()),"Configured psychic pool recognized");
+ }
+}

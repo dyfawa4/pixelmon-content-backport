@@ -24,7 +24,7 @@ public abstract class CapFieldBallMixin extends PokeBallEntity {
     @Redirect(method="func_70227_a",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/boss/BossTier;isBoss()Z"))
     private boolean backport$rejectLikeBoss(BossTier tier){
         if(tier.isBoss())return true;
-        backport$forbiddenCap=CapBallGuard.fieldBlocked(getBallType(),pixelmon);
+        backport$forbiddenCap=getMode()!=com.pixelmonmod.pixelmon.entities.pokeballs.PokeBallMode.BATTLE&&CapBallGuard.fieldBlocked(getBallType(),pixelmon);
         // Native impact clears dropItem before reaching its Boss branch. Restore
         // only the eligibility this rejected physical projectile had on entry.
         if(backport$forbiddenCap)dropItem=backport$returnBall;
@@ -32,6 +32,9 @@ public abstract class CapFieldBallMixin extends PokeBallEntity {
     }
     @Redirect(method="func_70227_a",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/comm/ChatHandler;sendChat(Lnet/minecraft/entity/Entity;Ljava/lang/String;[Ljava/lang/Object;)V"))
     private void backport$reason(Entity recipient,String key,Object[] arguments){
+        // Preference hints belong only to generation and battle entry. A
+        // rejected field projectile is refunded by the native branch silently.
+        if(backport$forbiddenCap&&"pixelmon.pokeballs.boss".equals(key))return;
         ChatHandler.sendChat(recipient,backport$forbiddenCap && "pixelmon.pokeballs.boss".equals(key)?CapBallGuard.FIELD_MESSAGE:key,arguments);
     }
 }

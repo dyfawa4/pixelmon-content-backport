@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "M",
+    "B",
+    "W"
+  ],
+  "key": {
+    "M": {
+      "item": "minecraft:milk_bucket"
+    },
+    "B": {
+      "tag": "pixelmon:berries"
+    },
+    "W": {
+      "item": "minecraft:bowl"
+    }
+  },
+  "result": {
+    "item": "pixelmon:berry_juice",
+    "count": 1
+  }
+}

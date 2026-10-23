@@ -16,6 +16,8 @@ public final class BackportJeiPlugin implements IModPlugin {
         return result;
     }
     @Override public ResourceLocation getPluginUid(){return new ResourceLocation(Content.NS,"item_sources");}
+    @Override public void registerCategories(mezz.jei.api.registration.IRecipeCategoryRegistration registry){LootSourceJei.categories(registry);}
+    @Override public void registerRecipeCatalysts(mezz.jei.api.registration.IRecipeCatalystRegistration registry){LootSourceJei.catalysts(registry);}
     @Override public void registerRecipes(IRecipeRegistration registry){
         java.util.Set<net.minecraft.item.Item> seen=java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
         Backport.REGISTERED.forEach((name,item)->{
@@ -30,7 +32,7 @@ public final class BackportJeiPlugin implements IModPlugin {
             registry.addIngredientInfo(stack,VanillaTypes.ITEM,details.toArray(new ITextComponent[0]));
         }
         for(java.util.Map.Entry<String,com.google.gson.JsonElement> entry:ItemHelp.DATA.entrySet()){
-            if(!entry.getKey().startsWith("pixelmon:"))continue;
+            if(!entry.getKey().startsWith("pixelmon:")&&!entry.getKey().startsWith("minecraft:"))continue;
             net.minecraft.item.Item item=net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getKey()));
             if(item==null || item==net.minecraft.item.Items.field_190931_a || !seen.add(item))continue;
             ItemStack stack=new ItemStack(item);java.util.List<ITextComponent> details=information(stack);
@@ -38,6 +40,7 @@ public final class BackportJeiPlugin implements IModPlugin {
         }
     }
     @Override public void onRuntimeAvailable(mezz.jei.api.runtime.IJeiRuntime runtime){
+        LootSourceJei.attach(runtime);
         if(Backport.item("dragoninite")!=Backport.REGISTERED.get("dragoninite").get())runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM,java.util.Collections.singletonList(new ItemStack(Backport.REGISTERED.get("dragoninite").get())));
     }
 }

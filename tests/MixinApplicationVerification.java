@@ -18,6 +18,14 @@ public final class MixinApplicationVerification {
         Constructor<?> ctor=Class.forName("org.spongepowered.asm.mixin.transformer.MixinTransformer").getDeclaredConstructor();ctor.setAccessible(true);
         IMixinTransformer transformer=(IMixinTransformer)ctor.newInstance();
         java.util.List<String> weatherTargets=new java.util.ArrayList<>();
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.boss.BossTier");
+        weatherTargets.add("com.pixelmonmod.pixelmon.blocks.tileentity.HealerTileEntity");
+        weatherTargets.add("net.minecraft.loot.LootTableManager");
+        weatherTargets.add("net.minecraft.client.resources.ClientLanguageMap");
+        weatherTargets.add("net.minecraft.command.impl.LocateCommand");
+        weatherTargets.add("net.minecraft.client.renderer.tileentity.SkullTileEntityRenderer");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic.SuckerPunch");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.models.smd.Bone");
         for(String target:new String[]{"com.pixelmonmod.pixelmon.entities.pixelmon.AbstractClientEntity","com.pixelmonmod.pixelmon.client.models.smd.DeformVertex","com.pixelmonmod.pixelmon.client.models.smd.ValveStudioModel","com.pixelmonmod.pixelmon.client.render.entity.layers.PokemonShimLayer"})weatherTargets.add(target);
         for(String ability:new String[]{"Chlorophyll","SwiftSwim","SolarPower","DrySkin","RainDish","Hydration","LeafGuard","Forecast","FlowerGift"})weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.ability.abilities."+ability);
@@ -30,6 +38,7 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidData");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidRandomizer");
         weatherTargets.add("com.pixelmonmod.pixelmon.entities.DenEntity");
+        weatherTargets.add("com.pixelmonmod.pixelmon.entities.pixelmon.AbstractBaseEntity");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.BattleController");
         weatherTargets.add("com.pixelmonmod.pixelmon.items.SpawnDenItem");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.raids.RaidStartScreen");
@@ -65,6 +74,8 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.archetypes.algorithms.checkspawns.LegendaryCheckSpawns");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.machines.infuser.InfuserScreen");
         weatherTargets.add("com.pixelmonmod.pixelmon.items.PixelmonItem");
+        weatherTargets.add("com.pixelmonmod.pixelmon.items.PokeBallItem");
+        weatherTargets.add("com.pixelmonmod.pixelmon.items.ApricornItem");
         weatherTargets.add("com.pixelmonmod.pixelmon.items.PaintingItem");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.StatsEffectPost");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.StatsEffect");
@@ -73,13 +84,22 @@ public final class MixinApplicationVerification {
         weatherTargets.add("com.pixelmonmod.pixelmon.api.spawning.archetypes.algorithms.checkspawns.PlayerTrackingCheckSpawns");
         weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBall");
         weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage.ClientSetPacket");
+        weatherTargets.add("com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage.pc.ClientInitializePCPacket");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.storage.PCStorage");
+        weatherTargets.add("com.pixelmonmod.pixelmon.items.medicine.MedicineItem");
+        weatherTargets.add("com.pixelmonmod.pixelmon.items.medicine.MedicinePotion");
         weatherTargets.add("com.pixelmonmod.pixelmon.world.listener.UltraSpaceListener");
         weatherTargets.add("vectorwing.farmersdelight.setup.Configuration");
         weatherTargets.add("net.minecraft.entity.effect.LightningBoltEntity");
         weatherTargets.add("net.minecraft.world.gen.feature.LakesFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.TreeFeature");
+        weatherTargets.add("net.minecraft.world.gen.feature.ChorusPlantFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.AbstractBigMushroomFeature");
         weatherTargets.add("net.minecraft.world.gen.feature.RandomPatchFeature");
+        weatherTargets.add("net.minecraft.world.IBlockReader");
+        weatherTargets.add("net.minecraft.item.crafting.RecipeManager");
+        weatherTargets.add("net.minecraft.item.MusicDiscItem");
+        weatherTargets.add("com.pixelmonmod.pixelmon.client.music.BattleMusic");
         weatherTargets.add("net.minecraft.entity.Entity");
         weatherTargets.add("net.minecraft.entity.player.PlayerEntity");
         weatherTargets.add("net.minecraft.entity.LivingEntity");
@@ -87,12 +107,18 @@ public final class MixinApplicationVerification {
         weatherTargets.add("net.minecraft.client.entity.player.ClientPlayerEntity");
         weatherTargets.add("com.pixelmonmod.pixelmon.api.advancements.triggers.LegendaryCaptureTrigger$Instance");
         weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.catching.CaptureMethods$1");
+        weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.catching.CaptureMethods$6");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.screens.bag.ItemMenuButton");
         weatherTargets.add("com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.screens.bag.ChooseBag");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.raids.RaidGovernor");
         weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.participants.RaidPixelmonParticipant");
+        weatherTargets.add("com.pixelmonmod.pixelmon.battles.controller.participants.PlayerParticipant");
         for(String status:new String[]{"Freeze","Sunny","Rainy","EntryHazard"})weatherTargets.add("com.pixelmonmod.pixelmon.battles.status."+status);
         try(JarFile jar=new JarFile(args[0])) {
+            String tooltipBall="com.pixelmonmod.pixelmon.items.PokeBallItem",greetingTrainer="com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer";
+            TooltipFeedbackVerification.verify(jar,
+                transformer.transformClassBytes(tooltipBall,tooltipBall,jar.getInputStream(jar.getJarEntry(tooltipBall.replace('.','/')+".class")).readAllBytes()),
+                transformer.transformClassBytes(greetingTrainer,greetingTrainer,jar.getInputStream(jar.getJarEntry(greetingTrainer.replace('.','/')+".class")).readAllBytes()));
             java.util.Map<String,byte[]> questPatched=new java.util.LinkedHashMap<>();
             for(String target:new String[]{"com.pixelmonmod.pixelmon.quests.objectives.objectives.player.ItemObjective","com.pixelmonmod.pixelmon.quests.objectives.objectives.entity.NPCObjective","com.pixelmonmod.pixelmon.quests.objectives.Objective","com.pixelmonmod.pixelmon.quests.QuestProgress","com.pixelmonmod.pixelmon.quests.listeners.ItemListeners","com.pixelmonmod.pixelmon.quests.objectives.objectives.meta.DateObjective","com.pixelmonmod.pixelmon.quests.objectives.objectives.world.WorldTimeObjective","com.pixelmonmod.pixelmon.quests.objectives.objectives.world.StructureObjective"}) {
                 verify(transformer,jar,target);
@@ -141,6 +167,8 @@ public final class MixinApplicationVerification {
         for(int i=1;i<args.length;i++)try(JarFile optional=new JarFile(args[i])){
             if(optional.getJarEntry("net/minecraft/world/gen/feature/template/Template.class")!=null){
                 verify(transformer,optional,"net.minecraft.client.Minecraft");
+                verify(transformer,optional,"net.minecraft.client.util.Splashes");
+                verify(transformer,optional,"net.minecraft.client.gui.screen.MainMenuScreen");
                 verify(transformer,optional,"net.minecraft.client.gui.screen.ConnectingScreen");
                 verify(transformer,optional,"net.minecraft.world.gen.feature.template.Template");
                 verify(transformer,optional,"net.minecraft.world.server.ServerChunkProvider");
@@ -155,9 +183,18 @@ public final class MixinApplicationVerification {
             if(optional.getJarEntry("dev/ftb/mods/ftbquests/client/FTBQuestsClient.class")!=null)verify(transformer,optional,"dev.ftb.mods.ftbquests.client.FTBQuestsClient");
             if(optional.getJarEntry("dev/ftb/mods/ftbquests/quest/task/StructureTask.class")!=null)verify(transformer,optional,"dev.ftb.mods.ftbquests.quest.task.StructureTask");
             if(optional.getJarEntry("com/chaosthedude/naturescompass/util/BiomeUtils.class")!=null)verify(transformer,optional,"com.chaosthedude.naturescompass.util.BiomeUtils");
+            if(optional.getJarEntry("snownee/jade/addon/vanilla/HorseProvider.class")!=null){
+                verify(transformer,optional,"snownee.jade.addon.vanilla.HorseProvider");
+                try(JarFile pixelmon=new JarFile(args[0])){
+                    String base="com.pixelmonmod.pixelmon.entities.pixelmon.AbstractBaseEntity",horse="snownee.jade.addon.vanilla.HorseProvider";
+                    byte[] before=pixelmon.getInputStream(pixelmon.getJarEntry(base.replace('.','/')+".class")).readAllBytes();
+                    byte[] horseBefore=optional.getInputStream(optional.getJarEntry(horse.replace('.','/')+".class")).readAllBytes();
+                    StatueDisplayVerification.verify(before,transformer.transformClassBytes(base,base,before),horseBefore,transformer.transformClassBytes(horse,horse,horseBefore));
+                }
+            }
             if(optional.getJarEntry("com/strangeone101/pixeltweaks/integration/jei/category/InfuserRecipeCategory.class")!=null)verify(transformer,optional,"com.strangeone101.pixeltweaks.integration.jei.category.InfuserRecipeCategory");
             if(optional.getJarEntry("pixelmondetector/marker/PKMarker.class")!=null){verify(transformer,optional,"pixelmondetector.marker.PKMarker");verify(transformer,optional,"pixelmondetector.entities.EntityFinder");verify(transformer,optional,"pixelmondetector.marker.MarkerManager");verify(transformer,optional,"pixelmondetector.config.PDConfig$Common");}
-            if(optional.getJarEntry("com/mrcrayfish/configured/impl/ForgeValue.class")!=null){verify(transformer,optional,"com.mrcrayfish.configured.impl.ForgeValue");verify(transformer,optional,"com.mrcrayfish.configured.impl.ForgeFolderEntry");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ConfigScreen");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ConfigScreen$ConfigItem");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ModConfigSelectionScreen");}
+            if(optional.getJarEntry("com/mrcrayfish/configured/impl/ForgeValue.class")!=null){verify(transformer,optional,"com.mrcrayfish.configured.client.screen.EditListScreen");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.EditListScreen$StringEntry");verify(transformer,optional,"com.mrcrayfish.configured.impl.ForgeValue");verify(transformer,optional,"com.mrcrayfish.configured.impl.ForgeFolderEntry");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ConfigScreen");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ConfigScreen$ConfigItem");verify(transformer,optional,"com.mrcrayfish.configured.client.screen.ModConfigSelectionScreen");}
             if(optional.getJarEntry("com/chaosthedude/explorerscompass/util/StructureSearchWorker.class")!=null){verify(transformer,optional,"com.chaosthedude.explorerscompass.util.StructureSearchWorker");verify(transformer,optional,"com.chaosthedude.explorerscompass/util/StructureUtils".replace('/','.'));}
         }
         verifyFieldClientSelection();
@@ -251,6 +288,54 @@ public final class MixinApplicationVerification {
         try(InputStream in=entry==null?MixinApplicationVerification.class.getClassLoader().getResourceAsStream(name.replace('.','/')+".class"):jar.getInputStream(entry)){if(in==null)throw new IllegalStateException("Missing native target "+name);original=in.readAllBytes();}
         byte[] patched=transformer.transformClassBytes(name,name,original);
         ClassNode node=new ClassNode();new ClassReader(patched).accept(node,0);int calls=0;
+        if(name.equals("com.pixelmonmod.pixelmon.entities.pokeballs.EmptyPokeBallEntity")){
+            var stored=node.methods.stream().filter(m->m.name.equals("storeCapture")).findFirst().orElseThrow();int hooks=0,reset=-1,lastHook=-1,index=0;
+            for(var instruction:stored.instructions){if(instruction instanceof MethodInsnNode){var call=(MethodInsnNode)instruction;if(call.name.equals("setFriendship"))reset=index;if(call.name.contains("backport$friendship")){hooks++;lastHook=index;}}index++;}
+            if(hooks==0||reset>=0&&lastHook<reset)throw new AssertionError("Cap friendship must be checked at native storage returns, after friendship reset");
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.api.pokemon.Pokemon")){
+            var palette=node.methods.stream().filter(m->m.name.equals("setPalette")&&m.desc.equals("(Ljava/lang/String;Z)Z")).findFirst().orElseThrow();
+            boolean acquired=false;for(var instruction:palette.instructions)if(instruction instanceof MethodInsnNode)acquired|=((MethodInsnNode)instruction).name.contains("backport$paletteAcquired");
+            if(!acquired)throw new AssertionError("All native palette setter overloads must reach acquisition queue");
+        }
+        if(name.equals("net.minecraft.client.gui.screen.MainMenuScreen")){
+            var render=node.methods.stream().filter(m->m.name.equals("func_230430_a_")).findFirst().orElseThrow();
+            boolean splash=false;int fade=0,period=0,divisor=0;
+            for(var instruction:render.instructions){
+                if(instruction instanceof FieldInsnNode&&((FieldInsnNode)instruction).name.equals("field_73975_c"))splash=true;
+                if(instruction instanceof LdcInsnNode&&Float.valueOf(1000F).equals(((LdcInsnNode)instruction).cst)&&!splash)fade++;
+                if(instruction instanceof MethodInsnNode){String method=((MethodInsnNode)instruction).name;
+                    if(method.contains("backport$pulsePeriod")){if(!splash)throw new AssertionError("Pulse hook modified menu fade");period++;}
+                    if(method.contains("backport$pulseDivisor")){if(!splash)throw new AssertionError("Pulse divisor modified menu fade");divisor++;}
+                }
+            }
+            if(fade!=1||period!=1||divisor!=1)throw new AssertionError("Vanilla fade/pulse slice changed: "+fade+"/"+period+"/"+divisor);
+            for(var method:node.methods)if(method.name.contains("backport$pulse")){
+                boolean slow=false;for(var i:method.instructions)if(i instanceof LdcInsnNode)slow|=Long.valueOf(2000L).equals(((LdcInsnNode)i).cst)||Float.valueOf(2000F).equals(((LdcInsnNode)i).cst);
+                if(!slow)throw new AssertionError("Splash pulse is not half speed");
+            }
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.api.storage.PCStorage")){
+            var resize=node.methods.stream().filter(m->m.name.equals("backport$boxes")&&m.desc.equals("([Lcom/pixelmonmod/pixelmon/api/storage/PCBox;)V")).findFirst().orElseThrow();
+            boolean assigns=false;for(var i:resize.instructions)if(i instanceof FieldInsnNode){var f=(FieldInsnNode)i;assigns|=f.getOpcode()==org.objectweb.asm.Opcodes.PUTFIELD&&f.name.equals("boxes");}
+            if(!assigns)throw new AssertionError("PC cache resize accessor did not assign native boxes");calls++;
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.client.gui.battles.ClientBattleManager")){
+            java.nio.file.Path capture=java.nio.file.Path.of(".cache/fixes-162");java.nio.file.Files.createDirectories(capture);
+            java.nio.file.Files.write(capture.resolve("original-client-battle-manager.class"),original);
+            java.nio.file.Files.write(capture.resolve("patched-client-battle-manager.class"),patched);
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.client.gui.battles.battleScreens.screens.bag.ChooseBag")){
+            var click=node.methods.stream().filter(m->m.name.equals("click")).findFirst().orElseThrow();int guard=-1,protectedCalls=0,index=0;
+            for(var instruction:click.instructions){if(instruction instanceof MethodInsnNode){var call=(MethodInsnNode)instruction;
+                if(call.name.contains("backport$recheckBall"))guard=index;
+                if(call.name.equals("canCatchOpponent")||call.name.equals("getBagItems")||(call.owner.equals("java/util/ArrayList")&&call.name.equals("clear"))){
+                    if(guard<0||guard>=index)throw new AssertionError("Unprotected capture category/list/reuse action "+call.name);
+                    protectedCalls++;guard=-1;
+                }
+            }index++;}
+            if(protectedCalls!=4)throw new AssertionError("Native capture category/list/reuse routes changed "+protectedCalls);
+        }
         if(name.equals("com.pixelmonmod.pixelmon.entities.pixelmon.drops.DropItemQueryList")){
             int entries=0;for(MethodNode method:node.methods)if(method.name.equals("register")){
                 boolean shared=false;for(AbstractInsnNode instruction:method.instructions)if(instruction instanceof MethodInsnNode&&((MethodInsnNode)instruction).name.contains("backport$sharedRewards"))shared=true;
@@ -313,6 +398,11 @@ public final class MixinApplicationVerification {
             if(!accessor)throw new AssertionError("Missing native pending learn accessor: "+node.methods.stream().map(m->m.name+m.desc).collect(java.util.stream.Collectors.joining(",")));
             ++calls;
         }
+        if(name.endsWith(".ClientInitializePCPacket")){
+            java.nio.file.Files.createDirectories(java.nio.file.Path.of(".cache/fixes-170"));
+            java.nio.file.Files.write(java.nio.file.Path.of(".cache/fixes-170/original-pcinit.class"),original);
+            java.nio.file.Files.write(java.nio.file.Path.of(".cache/fixes-170/patched-pcinit.class"),patched);
+        }
         if(name.equals("com.pixelmonmod.pixelmon.comm.packetHandlers.clientStorage.newStorage.ClientSetPacket")){
             java.nio.file.Files.createDirectories(java.nio.file.Path.of(".cache/feedback-161"));
             java.nio.file.Files.write(java.nio.file.Path.of(".cache/feedback-161/original-clientset.class"),original);
@@ -335,6 +425,15 @@ public final class MixinApplicationVerification {
             var wrapper=node.methods.stream().filter(x->x.name.contains("backport$afterActualStrike")).findFirst().orElseThrow();
             int nativeHit=-1,award=-1;pos=0;for(var i:wrapper.instructions){if(i instanceof MethodInsnNode){var c=(MethodInsnNode)i;if(c.name.equals("func_241841_a"))nativeHit=pos;if(c.owner.equals("local/pixelmon/backport/UltraPlantAchievement")&&c.name.equals("struck"))award=pos;}pos++;}
             if(nativeHit<0||award<=nativeHit)throw new AssertionError("Award precedes actual strike callback");
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.battles.controller.ai.BattleAIBase")){
+            boolean bridge=false;for(MethodNode m:node.methods)if(m.name.equals("backport$damage"))for(AbstractInsnNode i:m.instructions)if(i instanceof MethodInsnNode&&((MethodInsnNode)i).name.equals("weightOffensiveMove")&&((MethodInsnNode)i).desc.equals("(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;Lcom/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice;)V"))bridge=true;
+            if(!bridge)throw new AssertionError("Exact submitted move must reach native damage weighting");
+        }
+        if(name.equals("com.pixelmonmod.pixelmon.items.medicine.MedicineItem")||name.equals("com.pixelmonmod.pixelmon.items.medicine.MedicinePotion")){
+            String method=name.endsWith("MedicineItem")?"backport$methods":"backport$healing",field=name.endsWith("MedicineItem")?"healMethods":"healHP";
+            boolean found=false;for(MethodNode m:node.methods)if(m.name.equals(method))for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode&&i.getOpcode()==org.objectweb.asm.Opcodes.GETFIELD&&((FieldInsnNode)i).name.equals(field))found=true;
+            if(!found)throw new AssertionError("Native read-only healing accessor missing "+name);++calls;
         }
         if(calls<1)throw new AssertionError("No injected hook "+name);
         if(name.equals("net.minecraft.world.gen.feature.template.Template")){

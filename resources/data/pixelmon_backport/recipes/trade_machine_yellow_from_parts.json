@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " M ",
+    "LPR",
+    " D "
+  ],
+  "key": {
+    "M": {
+      "item": "pixelmon:trade_monitor"
+    },
+    "L": {
+      "item": "pixelmon:trade_holder_left"
+    },
+    "P": {
+      "item": "pixelmon:trade_panel"
+    },
+    "R": {
+      "item": "pixelmon:trade_holder_right"
+    },
+    "D": {
+      "tag": "forge:dyes/yellow"
+    }
+  },
+  "result": {
+    "item": "pixelmon:yellow_trade_machine",
+    "count": 1
+  }
+}

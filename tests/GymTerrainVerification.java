@@ -31,6 +31,13 @@ public final class GymTerrainVerification {
             check(GymTerrainProtection.intersects(edge-4,edge-4,edge+2,edge+2,edge+1,edge+1,edge+16,edge+16),"Mushroom cap crossing city boundary missed");
             check(!GymTerrainProtection.intersects(edge-8,edge-8,edge-2,edge-2,edge+1,edge+1,edge+16,edge+16),"Unrelated wild mushroom blocked");
         }
+        boolean chorusGuard=false,branchRadius=false;
+        for(MethodNode m:Version13StaticVerification.node("local/pixelmon/backport/mixin/GymChorusProtectionMixin").methods)for(AbstractInsnNode i:m.instructions){
+            if(i instanceof MethodInsnNode)chorusGuard|=((MethodInsnNode)i).owner.equals("local/pixelmon/backport/GymTerrainProtection");
+            if(i instanceof IntInsnNode)branchRadius|=((IntInsnNode)i).operand==8;
+        }
+        check(chorusGuard&&branchRadius,"Natural chorus guard must cover native eight-block branch reach");
+        for(int edge:new int[]{-17,-1,0,15,16})check(GymTerrainProtection.intersects(edge-8,0,edge+8,0,edge+8,0,edge+24,16),"Chorus branch crossing a city edge");
         System.out.println("PASS red/brown giant mushrooms share native placement guard including cap overlap; player-grown/world-boundary policies retained.");
         System.out.println("PASS planned gym footprint protection before natural lakes/trees/patches; negative-coordinate/cross-chunk edges and untouched surroundings, loaded-reference-only and generation-only boundaries; template water and player saplings unaffected. Natural generation remains manual.");
     }

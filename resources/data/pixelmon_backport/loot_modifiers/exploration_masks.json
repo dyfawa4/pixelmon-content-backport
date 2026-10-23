@@ -1,0 +1,23 @@
+{
+  "type": "pixelmon_backport:exploration_masks",
+  "conditions": [],
+  "chance": 0.07,
+  "chances": {
+    "pixelmon_backport:teal_mask": 0.2
+  },
+  "tables": {
+    "minecraft:chests/jungle_temple": "pixelmon_backport:teal_mask",
+    "minecraft:chests/shipwreck_map": "pixelmon_backport:wellspring_mask",
+    "minecraft:chests/shipwreck_supply": "pixelmon_backport:wellspring_mask",
+    "minecraft:chests/shipwreck_treasure": "pixelmon_backport:wellspring_mask",
+    "minecraft:chests/buried_treasure": "pixelmon_backport:wellspring_mask",
+    "minecraft:chests/underwater_ruin_small": "pixelmon_backport:wellspring_mask",
+    "minecraft:chests/underwater_ruin_big": "pixelmon_backport:wellspring_mask",
+    "minecraft:chests/nether_bridge": "pixelmon_backport:hearthflame_mask",
+    "minecraft:chests/bastion_bridge": "pixelmon_backport:hearthflame_mask",
+    "minecraft:chests/bastion_hoglin_stable": "pixelmon_backport:hearthflame_mask",
+    "minecraft:chests/bastion_other": "pixelmon_backport:hearthflame_mask",
+    "minecraft:chests/bastion_treasure": "pixelmon_backport:hearthflame_mask",
+    "minecraft:chests/desert_pyramid": "pixelmon_backport:cornerstone_mask"
+  }
+}

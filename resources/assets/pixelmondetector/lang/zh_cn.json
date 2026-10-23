@@ -54,5 +54,20 @@
   "pixelmondetector.config.category.draws": "探测显示",
   "pixelmondetector.config.file.common": "通用配置",
   "pixelmondetector.config.file.client": "客户端配置",
-  "pixelmondetector.config.file.server": "服务端配置"
+  "pixelmondetector.config.file.server": "服务端配置",
+  "pixelmondetector.config.button.edit": "编辑",
+  "pixelmondetector.config.pokeLootFilter.value.pokeball": "精灵球箱",
+  "pixelmondetector.config.pokeLootFilter.value.ultraball": "高级球箱",
+  "pixelmondetector.config.pokeLootFilter.value.masterball": "大师球箱",
+  "pixelmondetector.config.pokeLootFilter.value.beastball": "究极球箱",
+  "pixelmondetector.config.pokeLootFilter.value.special": "特殊奖励箱",
+  "pixelmondetector.config.pokeLootFilter.value.hidden": "隐藏奖励箱",
+  "pixelmondetector.config.bossFilter.value.common": "普通",
+  "pixelmondetector.config.bossFilter.value.uncommon": "罕见",
+  "pixelmondetector.config.bossFilter.value.rare": "稀有",
+  "pixelmondetector.config.bossFilter.value.epic": "史诗",
+  "pixelmondetector.config.bossFilter.value.legendary": "传说",
+  "pixelmondetector.config.bossFilter.value.ultimate": "究极",
+  "pixelmondetector.config.bossFilter.value.drowned": "溺水",
+  "pixelmondetector.config.bossFilter.value.haunted": "幽灵"
 }

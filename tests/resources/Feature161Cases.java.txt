@@ -17,7 +17,7 @@ package net.minecraft.util.text;public interface ITextComponent {String getStrin
 // FILE: net/minecraft/util/text/TranslationTextComponent.java
 package net.minecraft.util.text;public class TranslationTextComponent implements ITextComponent {final String s;public TranslationTextComponent(String s,Object... args){this.s=s;}public String getString(){return s;}}
 // FILE: net/minecraft/command/CommandSource.java
-package net.minecraft.command;public class CommandSource {}
+package net.minecraft.command;public class CommandSource {public net.minecraft.entity.Entity entity;public CommandSource(){}public CommandSource(net.minecraft.entity.Entity e){entity=e;}public net.minecraft.entity.Entity func_197022_f(){return entity;}}
 // FILE: net/minecraft/entity/Entity.java
 package net.minecraft.entity;public class Entity {public net.minecraft.util.math.BlockPos func_233580_cy_(){return new net.minecraft.util.math.BlockPos();}}
 // FILE: net/minecraft/entity/player/PlayerEntity.java
@@ -31,7 +31,7 @@ package net.minecraft.item;public class ItemGroup {public static final ItemGroup
 // FILE: net/minecraft/item/ItemStack.java
 package net.minecraft.item;public class ItemStack {public int count=1;}
 // FILE: net/minecraft/item/Item.java
-package net.minecraft.item;public class Item {public static class Properties {public Properties func_200916_a(ItemGroup group){return this;}public Properties func_200917_a(int count){return this;}}}
+package net.minecraft.item;public class Item {public Rarity rarity;public Item(){rarity=Rarity.COMMON;}public Item(Properties p){rarity=p.rarity;}public static class Properties {public Rarity rarity=Rarity.COMMON;public Properties func_208103_a(Rarity r){rarity=r;return this;}public Properties func_200916_a(ItemGroup group){return this;}public Properties func_200917_a(int count){return this;}}}
 // FILE: net/minecraftforge/registries/IForgeRegistryEntry.java
 package net.minecraftforge.registries;public interface IForgeRegistryEntry<T> {}
 // FILE: net/minecraftforge/registries/IForgeRegistry.java
@@ -39,7 +39,7 @@ package net.minecraftforge.registries;public interface IForgeRegistry<T extends 
 // FILE: net/minecraftforge/registries/ForgeRegistries.java
 package net.minecraftforge.registries;public class ForgeRegistries {public static final IForgeRegistry<net.minecraft.util.SoundEvent> SOUND_EVENTS=id->{if(!id.id.equals("minecraft:entity.item_frame.place"))throw new AssertionError("sound");return new net.minecraft.util.SoundEvent();};}
 // FILE: com/pixelmonmod/pixelmon/items/PixelmonItem.java
-package com.pixelmonmod.pixelmon.items;public class PixelmonItem extends net.minecraft.item.Item {public PixelmonItem(net.minecraft.item.Item.Properties p){}}
+package com.pixelmonmod.pixelmon.items;public class PixelmonItem extends net.minecraft.item.Item {public PixelmonItem(net.minecraft.item.Item.Properties p){super(p);}}
 // FILE: com/pixelmonmod/pixelmon/items/HeldItem.java
 package com.pixelmonmod.pixelmon.items;public class HeldItem extends PixelmonItem {public HeldItem(com.pixelmonmod.pixelmon.enums.heldItems.EnumHeldItems e,net.minecraft.item.Item.Properties p){super(p);}}
 // FILE: com/pixelmonmod/pixelmon/enums/heldItems/EnumHeldItems.java
@@ -118,11 +118,14 @@ public class Feature161Cases {
   world.accept=true;world.field_72995_K=true;FramePlacement.spawn(world,frame);ck(world.sounds==1,"client duplicate sound");world.field_72995_K=false;
   ServerPlayerEntity user=new ServerPlayerEntity(),other=new ServerPlayerEntity();other.name="Other";
   List<ServerPlayerEntity> players=List.of(user,other);ck(SpawnChecks.players(players)==players,"ordinary command altered");
+  ck(SpawnChecks.players(players,new net.minecraft.command.CommandSource(user)).equals(List.of(user)),"Player command included another online player's spawn area");
+  ck(SpawnChecks.players(players,new net.minecraft.command.CommandSource(other)).equals(List.of(other)),"Other player's command reused first viewer");
+  ck(SpawnChecks.players(players,new net.minecraft.command.CommandSource())==players&&SpawnChecks.players(players,null)==players,"Console/no-source native scope altered");
   int[] counts={0,0};AbstractSpawner normal=new AbstractSpawner();LegendarySpawner legendary=new LegendarySpawner();
   normal.checkSpawns=(s,p,a)->{ck(s==normal,"normal chose legendary");counts[0]++;};
-  legendary.checkSpawns=(s,p,a)->{ck(s==legendary&&SpawnChecks.players(players).equals(List.of(user)),"legendary wrong viewer");counts[1]++;};
+  legendary.checkSpawns=(s,p,a)->{ck(s==legendary&&SpawnChecks.players(players).equals(List.of(user))&&SpawnChecks.players(players,new net.minecraft.command.CommandSource(other)).equals(List.of(user)),"legendary item viewer lost precedence");counts[1]++;};
   PixelmonSpawning.coordinator.values.put("Tester",normal);PixelmonSpawning.coordinator.values.put("legendary",legendary);
-  SpawnCheckItem n=new SpawnCheckItem(false),l=new SpawnCheckItem(true);user.stack.count=7;
+  SpawnCheckItem n=new SpawnCheckItem(false),l=new SpawnCheckItem(true);ck(l.rarity==net.minecraft.item.Rarity.EPIC&&n.rarity==net.minecraft.item.Rarity.COMMON,"Only legendary checker name uses purple epic rarity");user.stack.count=7;
   n.func_77659_a(world,user,Hand.MAIN_HAND);n.func_77659_a(world,user,Hand.MAIN_HAND);ck(counts[0]==1&&user.cooldown.ends.get(n)==60,"normal cooldown");
   l.func_77659_a(world,user,Hand.OFF_HAND);ck(counts[1]==1&&user.cooldown.ends.get(l)==60,"shared cooldown");
   ck(user.stack.count==7&&SpawnChecks.players(players)==players,"consumption or leaked scope");
@@ -192,3 +195,6 @@ public class Feature161Cases {
   ck(PixelmonConfigProxy.getGraphics().isRenderWildLevels()&&PixelmonServerConfig.renderWildLevels,"failed save did not rollback");
  }
 }
+
+// FILE: net/minecraft/item/Rarity.java
+package net.minecraft.item;public enum Rarity {COMMON,EPIC}

@@ -12,6 +12,9 @@ public abstract class BattleInfoMoveMixin {
     @Shadow private Attack attack;
     @Redirect(method="pmbattleinfo$getEffectivenessColor",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/Element;getTotalEffectiveness(Ljava/util/List;Lcom/pixelmonmod/pixelmon/api/pokemon/Element;Z)F"),require=0)
     private float backport$display(List<Element> types,Element type,boolean inverse){
-        return (float)BattleInfoCompat.multiplier(attack,ClientProxy.battleManager.getCurrentPokemon(),ClientProxy.battleManager.displayedEnemyPokemon[0],inverse);
+        double value=BattleInfoCompat.multiplier(attack,ClientProxy.battleManager.getCurrentPokemon(),ClientProxy.battleManager.displayedEnemyPokemon[0],inverse);
+        // PMBattleInfo compares against EXACTLY 2 and 4; fractional weaknesses otherwise become gray.
+        // Quantize only this color input, keeping damage and numeric previews at their true multiplier.
+        return (float)(value>1?(value>=4?4:2):value);
     }
 }

@@ -1,0 +1,42 @@
+{
+  "music.battle.gym_leader": {
+    "sounds": [
+      {
+        "name": "pixelmon_backport:music/gym_leader",
+        "stream": true
+      }
+    ]
+  },
+  "music.battle.wild": {
+    "sounds": [
+      {
+        "name": "pixelmon_backport:music/wild",
+        "stream": true
+      }
+    ]
+  },
+  "music.disc.max_raid": {
+    "sounds": [
+      {
+        "name": "pixelmon_backport:music/max_raid",
+        "stream": true
+      }
+    ]
+  },
+  "music.battle.tera_raid": {
+    "sounds": [
+      {
+        "name": "pixelmon_backport:music/tera_raid",
+        "stream": true
+      }
+    ]
+  },
+  "music.battle.wild_two": {
+    "sounds": [
+      {
+        "name": "pixelmon_backport:music/wild_two",
+        "stream": true
+      }
+    ]
+  }
+}

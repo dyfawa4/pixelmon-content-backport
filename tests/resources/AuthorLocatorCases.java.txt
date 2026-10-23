@@ -1,0 +1,88 @@
+// FILE: net/minecraft/util/math/BlockPos.java
+package net.minecraft.util.math;public class BlockPos {final int x,y,z;public BlockPos(int x,int y,int z){this.x=x;this.y=y;this.z=z;}public int func_177958_n(){return x;}public int func_177956_o(){return y;}public int func_177952_p(){return z;}public BlockPos func_177982_a(int x,int y,int z){return new BlockPos(this.x+x,this.y+y,this.z+z);}public long func_218275_a(){return ((long)x&67108863L)<<38|((long)z&67108863L)<<12|y&4095L;}public static BlockPos func_218283_e(long n){return new BlockPos((int)(n>>38),(int)(n<<52>>52),(int)(n<<26>>38));}public boolean equals(Object o){return o instanceof BlockPos&&((BlockPos)o).func_218275_a()==func_218275_a();}public int hashCode(){return Long.hashCode(func_218275_a());}}
+// FILE: net/minecraft/util/math/ChunkPos.java
+package net.minecraft.util.math;public class ChunkPos {public final int field_77276_a,field_77275_b;public ChunkPos(int x,int z){field_77276_a=x;field_77275_b=z;}public ChunkPos(BlockPos p){this(p.func_177958_n()>>4,p.func_177952_p()>>4);}public long func_201841_a(){return (field_77276_a&4294967295L)|((long)field_77275_b<<32);}}
+// FILE: net/minecraft/world/World.java
+package net.minecraft.world;public class World {}
+// FILE: net/minecraft/util/RegistryKey.java
+package net.minecraft.util;public class RegistryKey<T> {public ResourceLocation id;public RegistryKey(String id){this.id=new ResourceLocation(id);}public ResourceLocation func_240901_a_(){return id;}}
+// FILE: net/minecraft/util/registry/Registry.java
+package net.minecraft.util.registry;public class Registry<T> {public static final net.minecraft.util.RegistryKey<Registry<net.minecraft.world.biome.Biome>> field_239720_u_=new net.minecraft.util.RegistryKey<>("minecraft:worldgen/biome");}
+// FILE: net/minecraft/util/registry/MutableRegistry.java
+package net.minecraft.util.registry;public class MutableRegistry<T> {public net.minecraft.util.ResourceLocation func_177774_c(T value){return new net.minecraft.util.ResourceLocation(((net.minecraft.world.biome.Biome)value).id);}}
+// FILE: net/minecraft/util/registry/DynamicRegistries.java
+package net.minecraft.util.registry;public class DynamicRegistries {public <E>MutableRegistry<E> func_243612_b(net.minecraft.util.RegistryKey<? extends Registry<E>> key){return new MutableRegistry<>();}}
+// FILE: net/minecraft/world/biome/Biome.java
+package net.minecraft.world.biome;public class Biome {public String id;public Category category;public Biome(String id,Category c){this.id=id;category=c;}public Category func_201856_r(){return category;}public enum Category {PLAINS,MUSHROOM,OCEAN,NETHER,THEEND}}
+// FILE: net/minecraft/world/biome/provider/BiomeProvider.java
+package net.minecraft.world.biome.provider;public class BiomeProvider {public net.minecraft.world.biome.Biome biome=new net.minecraft.world.biome.Biome("minecraft:plains",net.minecraft.world.biome.Biome.Category.PLAINS);public java.util.List<net.minecraft.world.biome.Biome> func_235203_c_(){return java.util.List.of(biome);}public net.minecraft.world.biome.Biome func_225526_b_(int x,int y,int z){return biome;}}
+// FILE: net/minecraft/world/gen/ChunkGenerator.java
+package net.minecraft.world.gen;public class ChunkGenerator {public net.minecraft.world.biome.provider.BiomeProvider provider=new net.minecraft.world.biome.provider.BiomeProvider();public net.minecraft.world.biome.provider.BiomeProvider func_202090_b(){return provider;}}
+// FILE: net/minecraft/world/gen/settings/DimensionGeneratorSettings.java
+package net.minecraft.world.gen.settings;public class DimensionGeneratorSettings {public boolean features=true;public boolean func_236222_c_(){return features;}}
+// FILE: net/minecraft/world/storage/IServerConfiguration.java
+package net.minecraft.world.storage;public interface IServerConfiguration {net.minecraft.world.gen.settings.DimensionGeneratorSettings func_230418_z_();}
+// FILE: net/minecraft/server/MinecraftServer.java
+package net.minecraft.server;public class MinecraftServer {public net.minecraft.world.gen.settings.DimensionGeneratorSettings settings=new net.minecraft.world.gen.settings.DimensionGeneratorSettings();public net.minecraft.world.storage.IServerConfiguration func_240793_aU_(){return ()->settings;}}
+// FILE: net/minecraft/world/storage/WorldSavedData.java
+package net.minecraft.world.storage;public abstract class WorldSavedData {public boolean dirty;public WorldSavedData(String name){}public void func_76185_a(){dirty=true;}public abstract void func_76184_a(net.minecraft.nbt.CompoundNBT n);public abstract net.minecraft.nbt.CompoundNBT func_189551_b(net.minecraft.nbt.CompoundNBT n);}
+// FILE: net/minecraft/world/storage/DimensionSavedDataManager.java
+package net.minecraft.world.storage;public class DimensionSavedDataManager {java.util.Map<String,WorldSavedData> entries=new java.util.HashMap<>();public <T extends WorldSavedData>T func_215752_a(java.util.function.Supplier<T> factory,String id){return (T)entries.computeIfAbsent(id,k->factory.get());}}
+// FILE: net/minecraft/world/server/TicketType.java
+package net.minecraft.world.server;public class TicketType<T> {public static <T>TicketType<T> func_223183_a(String n,java.util.Comparator<T> c,int timeout){return new TicketType<>();}}
+// FILE: net/minecraft/world/chunk/ChunkStatus.java
+package net.minecraft.world.chunk;public class ChunkStatus {public static final ChunkStatus field_222617_m=new ChunkStatus();}
+// FILE: net/minecraft/world/chunk/IChunk.java
+package net.minecraft.world.chunk;public interface IChunk {}
+// FILE: net/minecraft/world/server/ChunkHolder.java
+package net.minecraft.world.server;public class ChunkHolder {public interface IChunkLoadingError {}}
+// FILE: local/pixelmon/backport/mixin/CompassChunkRequestInvoker.java
+package local.pixelmon.backport.mixin;public interface CompassChunkRequestInvoker {java.util.concurrent.CompletableFuture<com.mojang.datafixers.util.Either<net.minecraft.world.chunk.IChunk,net.minecraft.world.server.ChunkHolder.IChunkLoadingError>> backport$requestChunk(int x,int z,net.minecraft.world.chunk.ChunkStatus status,boolean required);}
+// FILE: net/minecraft/world/server/ServerChunkProvider.java
+package net.minecraft.world.server;public class ServerChunkProvider implements local.pixelmon.backport.mixin.CompassChunkRequestInvoker {public net.minecraft.world.gen.ChunkGenerator generator=new net.minecraft.world.gen.ChunkGenerator();public int tickets,requests,lastX,lastZ;public java.util.concurrent.CompletableFuture<com.mojang.datafixers.util.Either<net.minecraft.world.chunk.IChunk,ChunkHolder.IChunkLoadingError>> pending;public net.minecraft.world.gen.ChunkGenerator func_201711_g(){return generator;}public <T>void func_217228_a(TicketType<T> t,net.minecraft.util.math.ChunkPos p,int level,T id){tickets++;}public <T>void func_217222_b(TicketType<T> t,net.minecraft.util.math.ChunkPos p,int level,T id){tickets--;}public java.util.concurrent.CompletableFuture<com.mojang.datafixers.util.Either<net.minecraft.world.chunk.IChunk,ChunkHolder.IChunkLoadingError>> backport$requestChunk(int x,int z,net.minecraft.world.chunk.ChunkStatus s,boolean required){requests++;lastX=x;lastZ=z;return pending=new java.util.concurrent.CompletableFuture<>();}public void complete(){pending.complete(com.mojang.datafixers.util.Either.left(new net.minecraft.world.chunk.IChunk(){}));}}
+// FILE: net/minecraft/world/server/ServerWorld.java
+package net.minecraft.world.server;public class ServerWorld extends net.minecraft.world.World {public String dimension="minecraft:overworld";public long tick,seed=927633L;public boolean loaded=true;public java.util.Map<net.minecraft.util.math.BlockPos,net.minecraft.block.BlockState> blocks=new java.util.HashMap<>();public ServerChunkProvider chunks=new ServerChunkProvider();public net.minecraft.server.MinecraftServer server=new net.minecraft.server.MinecraftServer();public net.minecraft.world.storage.DimensionSavedDataManager data=new net.minecraft.world.storage.DimensionSavedDataManager();public net.minecraft.util.RegistryKey<net.minecraft.world.World> func_234923_W_(){return new net.minecraft.util.RegistryKey<>(dimension);}public net.minecraft.util.registry.DynamicRegistries func_241828_r(){return new net.minecraft.util.registry.DynamicRegistries();}public net.minecraft.world.storage.DimensionSavedDataManager func_217481_x(){return data;}public net.minecraft.server.MinecraftServer func_73046_m(){return server;}public ServerChunkProvider func_72863_F(){return chunks;}public long func_82737_E(){return tick;}public long func_72905_C(){return seed;}public boolean func_175667_e(net.minecraft.util.math.BlockPos p){return loaded;}public net.minecraft.block.BlockState func_180495_p(net.minecraft.util.math.BlockPos p){return blocks.getOrDefault(p,new net.minecraft.block.BlockState(new net.minecraft.block.Block("minecraft:air")));}}
+// FILE: net/minecraft/block/Block.java
+package net.minecraft.block;public class Block implements net.minecraftforge.registries.IForgeRegistryEntry<Block> {public String id;public Block(String id){this.id=id;}}
+// FILE: net/minecraft/block/BlockState.java
+package net.minecraft.block;public class BlockState {net.minecraft.block.Block block;public BlockState(net.minecraft.block.Block b){block=b;}public Block func_177230_c(){return block;}}
+// FILE: net/minecraftforge/registries/IForgeRegistryEntry.java
+package net.minecraftforge.registries;public interface IForgeRegistryEntry<T extends IForgeRegistryEntry<T>> {}
+// FILE: net/minecraftforge/registries/IForgeRegistry.java
+package net.minecraftforge.registries;public interface IForgeRegistry<T extends IForgeRegistryEntry<T>> {net.minecraft.util.ResourceLocation getKey(T value);}
+// FILE: net/minecraftforge/registries/ForgeRegistries.java
+package net.minecraftforge.registries;public class ForgeRegistries {public static final IForgeRegistry<net.minecraft.block.Block> BLOCKS=b->new net.minecraft.util.ResourceLocation(b.id);}
+// FILE: com/pixelmonmod/pixelmon/world/structure/type/GymConfig.java
+package com.pixelmonmod.pixelmon.world.structure.type;public class GymConfig {public static final com.mojang.serialization.Codec<GymConfig> CODEC=null;}
+// FILE: net/minecraft/world/gen/feature/structure/Structure.java
+package net.minecraft.world.gen.feature.structure;public class Structure<T> {}
+// FILE: com/pixelmonmod/pixelmon/world/structure/type/GymStructure.java
+package com.pixelmonmod.pixelmon.world.structure.type;public class GymStructure extends net.minecraft.world.gen.feature.structure.Structure<GymConfig> {public GymStructure(com.mojang.serialization.Codec<GymConfig> c){}public boolean isSuitable(net.minecraft.world.biome.Biome.Category c,String n){return true;}}
+// FILE: local/pixelmon/backport/StrongholdLocator.java
+package local.pixelmon.backport;public class StrongholdLocator {public static long distance(net.minecraft.util.math.BlockPos a,net.minecraft.util.math.BlockPos b){long x=(long)a.func_177958_n()-b.func_177958_n(),z=(long)a.func_177952_p()-b.func_177952_p();return x*x+z*z;}}
+// FILE: com/chaosthedude/explorerscompass/config/ConfigHandler.java
+package com.chaosthedude.explorerscompass.config;public class ConfigHandler {public static General GENERAL=new General();public static class General {public Value maxRadius=new Value(2048),maxSamples=new Value(1000);}public static class Value {public int value;public Value(int value){this.value=value;}public Integer get(){return value;}}}
+// FILE: local/pixelmon/backport/AuthorLocatorCases.java
+package local.pixelmon.backport;
+import net.minecraft.util.math.*;import net.minecraft.world.server.*;
+public class AuthorLocatorCases {
+ static void check(boolean ok,String why){if(!ok)throw new AssertionError(why);}
+ static void block(ServerWorld w,BlockPos p,String id){w.blocks.put(p,new net.minecraft.block.BlockState(new net.minecraft.block.Block(id)));}
+ static void room(ServerWorld w,BlockPos p,boolean physical){block(w,p,physical?"minecraft:green_wool":"minecraft:chiseled_quartz_block");for(int x:new int[]{-6,6})for(int z:new int[]{-6,6}){block(w,p.func_177982_a(x,2,z),"minecraft:stone_bricks");block(w,p.func_177982_a(x,7,z),"minecraft:stone_bricks");}AuthorRoomIndex.get(w).record(p,physical);}
+ public static void run()throws Exception {
+  var trainer=new AuthorBossLocator.RoomAlias(false);var pvp=new AuthorBossLocator.RoomAlias(true);ServerWorld w=new ServerWorld();var origin=new BlockPos(0,64,0);
+  int a=0,b=0;for(int x=-256;x<256;x++)for(int z=-256;z<256;z++){if(AuthorBossPolicy.candidate(w.seed,x,z,true))a++;if(AuthorBossPolicy.candidate(w.seed,x,z,false))b++;}
+  check(a==0&&b==64,"no PVP and exactly one author candidate in each64x64 city region");
+  var scan=new AuthorBossLocator.Search(w,origin,trainer);var next=scan.getClass().getDeclaredMethod("next");next.setAccessible(true);java.util.Set<Long> seen=new java.util.HashSet<>();for(int i=0;i<81;i++)check(seen.add(((ChunkPos)next.invoke(scan)).func_201841_a()),"ring duplicates");check(seen.size()==81,"5x5 chunk ring coverage");scan.close();
+  BlockPos home=new BlockPos(-184,64,264);room(w,home,false);room(w,new BlockPos(200,64,200),true);
+  var saved=AuthorRoomIndex.get(w).func_189551_b(new net.minecraft.nbt.CompoundNBT());var bytes=new java.io.ByteArrayOutputStream();net.minecraft.nbt.CompressedStreamTools.func_74800_a(saved,new java.io.DataOutputStream(bytes));var data=new AuthorRoomIndex();data.func_76184_a(net.minecraft.nbt.CompressedStreamTools.func_74794_a(new java.io.DataInputStream(new java.io.ByteArrayInputStream(bytes.toByteArray()))));check(data.positions(false).get(0).equals(home)&&data.positions(true).size()==1,"binary NBT index roundtrip");
+  check(AuthorRoomIndex.get(new ServerWorld()).positions(false).isEmpty(),"dimension storage isolation");
+  w.server.settings.features=false;check(AuthorBossLocator.available(w,trainer),"existing flat map room remains available");scan=new AuthorBossLocator.Search(w,origin,trainer);check(home.equals(scan.step())&&scan.finished(),"actual intact known trainer room");scan.close();
+  block(w,home,"minecraft:air");scan=new AuthorBossLocator.Search(w,origin,trainer);check(scan.step()==null&&w.chunks.requests==1&&w.chunks.tickets==1,"demolished room not success / async chunk pending");check(scan.step()==null,"never block on unresolved future");w.chunks.complete();scan.step();w.tick+=2;check(scan.step()==null&&scan.finished()&&w.chunks.tickets==0,"demolished room rejected and tickets released");
+  var fresh=new ServerWorld();scan=new AuthorBossLocator.Search(fresh,origin,trainer);for(int i=0;i<100&&!scan.finished()&&fresh.chunks.pending==null;i++)scan.step();check(fresh.chunks.requests==1,"scan requests seed-consistent natural candidate");check(AuthorBossPolicy.candidate(fresh.seed,fresh.chunks.lastX,fresh.chunks.lastZ,false),"feature/shared hash match");
+  BlockPos generated=new BlockPos(fresh.chunks.lastX*16+8,64,fresh.chunks.lastZ*16+8);room(fresh,generated,false);fresh.chunks.complete();scan.step();fresh.tick+=2;check(generated.equals(scan.step())&&fresh.chunks.tickets==0,"newly generated real room located after entity index registration");scan.close();
+  fresh=new ServerWorld();room(fresh,home,false);fresh.loaded=false;scan=new AuthorBossLocator.Search(fresh,origin,trainer);scan.step();check(fresh.chunks.tickets==1,"unloaded known room ticket");scan.close();scan.close();check(fresh.chunks.tickets==0,"cancel releases once");
+  scan=new AuthorBossLocator.Search(fresh,origin,trainer);scan.step();fresh.tick+=301;boolean timeout=false;try{scan.step();}catch(IllegalStateException e){timeout=true;}finally{scan.close();}check(timeout&&fresh.chunks.tickets==0,"game-time timeout works with frozen day and cleans up");
+  fresh=new ServerWorld();fresh.dimension="pixelmon:drowned_world";check(!AuthorBossLocator.available(fresh,trainer)&&!AuthorBossLocator.available(fresh,pvp),"Drowned unavailable");fresh.dimension="minecraft:the_end";check(AuthorBossLocator.available(fresh,trainer)&&!AuthorBossLocator.available(fresh,pvp),"End trainer only");fresh.dimension="minecraft:overworld";check(!AuthorBossLocator.available(fresh,pvp),"no mushroom physical availability");fresh.chunks.generator.provider.biome=new net.minecraft.world.biome.Biome("minecraft:mushroom_fields",net.minecraft.world.biome.Biome.Category.MUSHROOM);check(!AuthorBossLocator.available(fresh,pvp)&&!AuthorBossLocator.available(fresh,trainer),"mushroom has neither retired PVP nor author trainer");
+ }
+}

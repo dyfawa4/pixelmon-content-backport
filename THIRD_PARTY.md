@@ -39,3 +39,8 @@ Minecraft、Forge、Pixelmon 旧版本体及参考定制版完整 JAR 是用户�
 1.6.1 为 Farmer's Delight 1.16.5-0.6.0 增加本项目编写的中文漏译及配置名称／说明。原模组为 vectorwing 的 Farmer's Delight，原模组许可为 MIT；未打包其 Java 类或完整 JAR，原有中文继续由其资源提供。
 
 1.6.1 修订 2 为保证实际材质读取，额外将同一参考模组的全部 85 张精灵球相关 PNG 原字节置于回迁命名空间，并提供本项目的材质 getter 及球盘／底座模型路由。上游素材权利保持不变，全部哈希见上述来源记录；未复制上游 Java 模型实现。
+
+
+## 1.7.0 补充素材
+
+新对战音乐来自用户提供的音频，游戏及曲目权利仍归相应权利人，本项目代码许可不覆盖这些音频。主页透明标题由用户提供，原图保存于 resources/assets/pixelmon_backport/textures/gui/journey_title.png。野生唱片其二参考原生唱片风格使用内置 image_gen 编辑生成，16像素导出和提示词记录见 docs/GENERATED_WILD_DISC_2026-10-23.md；未替换原生其一素材权属。

@@ -12,6 +12,8 @@ public final class BackportMixinPlugin implements IMixinConfigPlugin {
     public void onLoad(String p){} public String getRefMapperConfig(){return null;}
     public boolean shouldApplyMixin(String t,String m){
         if(m.endsWith("RaidCatchClockMixin") && getClass().getClassLoader().getResource("local/raidcatchfix/PixelmonRaidCatchFix.class")!=null)return false;
+        if(t.startsWith("net.blay09.mods.trashslot."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
+        if(t.startsWith("snownee.jade."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
         if(t.startsWith("com.strangeone101.pixeltweaks."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null
             && getClass().getClassLoader().getResource("mezz/jei/api/recipe/category/IRecipeCategory.class")!=null;
         if(t.startsWith("vectorwing.farmersdelight.") || t.startsWith("pixelmondetector.") || t.startsWith("com.mrcrayfish.configured.") || t.startsWith("com.chaosthedude.explorerscompass.") || t.startsWith("com.chaosthedude.naturescompass.") || t.startsWith("noobanidus.mods.lootr.") || t.startsWith("pokelucky.") || t.startsWith("dev.ftb.mods.ftbquests."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
@@ -21,6 +23,19 @@ public final class BackportMixinPlugin implements IMixinConfigPlugin {
     public List<String> getMixins(){return null;}
     public void preApply(String t,ClassNode c,String m,IMixinInfo i){}
     public void postApply(String target,ClassNode c,String mixin,IMixinInfo info){
+        if(mixin.endsWith("DayCareRayTraceMixin")){
+            int patched=0;
+            for(MethodNode method:c.methods)if(method.name.equals("func_217297_a")&&method.desc.equals("(Lnet/minecraft/util/math/RayTraceContext;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/math/BlockRayTraceResult;")){
+                int slot=method.maxLocals++;
+                for(AbstractInsnNode instruction:method.instructions.toArray())if(instruction.getOpcode()==Opcodes.ARETURN){
+                    InsnList hook=new InsnList();hook.add(new VarInsnNode(Opcodes.ASTORE,slot));hook.add(new VarInsnNode(Opcodes.ALOAD,0));hook.add(new VarInsnNode(Opcodes.ALOAD,1));hook.add(new VarInsnNode(Opcodes.ALOAD,2));hook.add(new VarInsnNode(Opcodes.ALOAD,slot));
+                    hook.add(new MethodInsnNode(Opcodes.INVOKESTATIC,"local/pixelmon/backport/DayCareSelection","backport$upper","(Lnet/minecraft/world/IBlockReader;Lnet/minecraft/util/math/RayTraceContext;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/util/math/BlockRayTraceResult;)Lnet/minecraft/util/math/BlockRayTraceResult;",false));method.instructions.insertBefore(instruction,hook);patched++;
+                }
+                method.maxStack=Math.max(method.maxStack,4);
+            }
+            if(patched!=1)throw new IllegalStateException("Daycare ray traversal hook count: "+patched);
+            return;
+        }
         if(!mixin.endsWith("UmbrellaConsumerMixin"))return;
         for(MethodNode m:c.methods){
             int slot=(m.access&Opcodes.ACC_STATIC)!=0?0:1,holder=-1,second=-1,weather=-1;

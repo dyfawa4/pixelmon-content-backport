@@ -45,7 +45,7 @@ public final class FossilMachineVerification {
         if(ToolProvider.getSystemJavaCompiler().run(null,null,null,options.toArray(new String[0]))!=0)throw new AssertionError("Fixture compilation failed");
         install(dir,original);run(dir,"nativeStall");install(dir,fixed);run(dir,"fixedCases");
         var locale=new JsonParser().parse(Files.readString(Path.of("resources/assets/pixelmon_backport/lang/zh_cn.json"))).getAsJsonObject();
-        if(!locale.get("pixelmon.backport.cap.forbidden_ball").getAsString().equals("不能用大师球、起源球、公园球捕捉戴帽子的皮卡丘！"))throw new AssertionError("Cap wording");
+        if(!locale.get("pixelmon.backport.cap.forbidden_ball").getAsString().equals("大师球、起源球和公园球无法捕捉戴帽子的皮卡丘，请换一种精灵球。"))throw new AssertionError("Cap wording");
         System.out.println("PASS fossil native 33% stall reproduced; patched tick and native NBT/update packets progress to 100%, completion timing/ball/shiny/independent machines/reload/idle preserved; cap wording updated.");
     }
     static void install(Path dir,byte[] bytes)throws Exception{

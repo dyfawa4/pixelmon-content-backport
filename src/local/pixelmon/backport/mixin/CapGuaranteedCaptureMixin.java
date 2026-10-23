@@ -9,9 +9,9 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-/** Native ALWAYS_CAPTURE skips the ordinary checks entirely. */
+/** Cap multipliers must also apply to native guaranteed-catch ball logic. */
 @Mixin(targets="com.pixelmonmod.pixelmon.api.pokemon.catching.CaptureMethods$1",remap=false)
 public abstract class CapGuaranteedCaptureMixin {
     @Inject(method="calculateCapture",at=@At("HEAD"),cancellable=true)
-    private void backport$ban(CaptureHealth health,PokeBall ball,PokeBallEntity entity,RaidData raid,ServerPlayerEntity player,Pokemon pokemon,PokeBallMode mode,CallbackInfoReturnable<CaptureValues> cir){if(BurstCapture.forbidden(ball,pokemon))cir.setReturnValue(new CaptureValues(0,0));}
+    private void backport$ban(CaptureHealth health,PokeBall ball,PokeBallEntity entity,RaidData raid,ServerPlayerEntity player,Pokemon pokemon,PokeBallMode mode,CallbackInfoReturnable<CaptureValues> cir){if(local.pixelmon.backport.CapBallPreference.cap(pokemon))cir.setReturnValue(CaptureMethods.GEN_8.calculateCapture(health,ball,entity,raid,player,pokemon,mode));}
 }

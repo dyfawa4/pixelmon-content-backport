@@ -41,14 +41,20 @@ public final class FieldMega {
     }
     public static boolean primalSpecies(Pokemon p){return p!=null && (p.getSpecies().getDex()==382 || p.getSpecies().getDex()==383);}
     public static boolean rayquazaSpecies(Pokemon p){return p!=null && p.getSpecies().getDex()==384;}
+    public static boolean necrozmaSpecies(Pokemon p){return p!=null && p.getSpecies().getDex()==800;}
     public static boolean crownedSpecies(Pokemon p){return p!=null && (p.getSpecies().getDex()==888 || p.getSpecies().getDex()==889);}
     public static boolean constructSpecies(Pokemon p){return p!=null && p.getSpecies().getDex()==718 && (p.getAbility() instanceof com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.PowerConstruct || active(p) && p.getPersistentData().func_74775_l(MARKER).func_74779_i("Ability").equals("PowerConstruct"));}
     public static boolean completeStep(Pokemon p){return p!=null && FieldSequencePolicy.completeStep(p.getSpecies().getDex(),constructSpecies(p),p.getForm().getName());}
     public static boolean chainedStone(Pokemon p){return constructSpecies(p) && p.getForm().isForm("complete") && p.getHeldItemAsItemHeld() instanceof MegaStoneItem;}
-    private static boolean specialSpecies(Pokemon p){return primalSpecies(p)||crownedSpecies(p);}
-    public static boolean transformed(Pokemon p){return p!=null && (p.getForm().getName().startsWith("mega") || primalSpecies(p) && p.getForm().isForm("primal") || crownedSpecies(p) && p.getForm().isForm("crowned"));}
+    public static boolean terapagos(Pokemon p){return p!=null&&p.getSpecies().getDex()==1024;}
+    public static boolean ogerpon(Pokemon p){return p!=null&&p.getSpecies().getDex()==1017;}
+    private static boolean specialSpecies(Pokemon p){return primalSpecies(p)||crownedSpecies(p)||terapagos(p)||ogerpon(p);}
+    public static boolean transformed(Pokemon p){return p!=null && (p.getForm().getName().startsWith("mega") || primalSpecies(p) && p.getForm().isForm("primal") || crownedSpecies(p) && p.getForm().isForm("crowned") || necrozmaSpecies(p) && p.getForm().isForm("ultra"));}
     private static Stats target(Pokemon p,Stats base){
-        if(p.isEgg() || base==null)return null;
+        if(p.isEgg() || base==null || PermanentAsh.blockedOrdinaryStone(p))return null;
+        if(terapagos(p))return p.getSpecies().getForm(base.isForm("normal")?"terastal":base.isForm("terastal")?"stellar":"normal");
+        if(ogerpon(p))return p.getHeldItemAsItemHeld() instanceof Backport.Mask?p.getSpecies().getForm("tera"+((Backport.Mask)p.getHeldItemAsItemHeld()).form):null;
+        if(necrozmaSpecies(p))return com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper.canUltraBurst(p.getSpecies(),p.getHeldItemAsItemHeld(),base)?p.getSpecies().getForm("ultra"):null;
         if(primalSpecies(p)){
             if(base.isForm("primal"))return null;
             return p.getHeldItem().func_77973_b()==(p.getSpecies().getDex()==382?PixelmonItems.blue_orb:PixelmonItems.red_orb)?p.getSpecies().getForm("primal"):null;
@@ -79,14 +85,16 @@ public final class FieldMega {
         PixelmonEntity entity=p.getPixelmonEntity().orElse(null);
         if(entity==null || !entity.func_70089_S() || entity.field_70170_p!=player.field_70170_p || entity.getOwner()!=player || entity.func_70068_e(player)>1024)return "sendout";
         if(entity.battleController!=null || querying(p))return "busy";
-        boolean chaining=FieldSequencePolicy.chain(active(p),constructSpecies(p),p.getForm().getName(),p.getPersistentData().func_74775_l(MARKER).func_74779_i("Target"),p.getHeldItemAsItemHeld() instanceof MegaStoneItem);
+        boolean chaining=terapagos(p)&&active(p)||FieldSequencePolicy.chain(active(p),constructSpecies(p),p.getForm().getName(),p.getPersistentData().func_74775_l(MARKER).func_74779_i("Target"),p.getHeldItemAsItemHeld() instanceof MegaStoneItem);
         if(active(p) && !chaining){restore(p);return "reverted";}
         if(transformed(p))return "already";
         Stats form=target(p);
         if(form==null){
+            if(ogerpon(p))return "mask";
             if(primalSpecies(p))return p.getSpecies().getDex()==382?"blue_orb":"red_orb";
             if(crownedSpecies(p))return p.getSpecies().getDex()==888?"rusted_sword":"rusted_shield";
             if(rayquazaSpecies(p))return "dragon_ascent";
+            if(necrozmaSpecies(p))return p.getForm().isForm("dusk","dawn")?"ultranecrozium_z":"necrozma_fusion";
             return p.getHeldItemAsItemHeld() instanceof MegaStoneItem?"stone":"no_stone";
         }
         boolean completing=constructSpecies(p) && form.isForm("complete");
@@ -98,7 +106,7 @@ public final class FieldMega {
         state.func_74778_a("Target",form.getName());
         p.getPersistentData().func_218657_a(MARKER,state);ACTIVE.add(p);
         new EvolutionQuery(entity,form);
-        return completing?"complete_started":primalSpecies(p)?"primal_started":crownedSpecies(p)?"crowned_started":"started";
+        return terapagos(p)||ogerpon(p)?"form_started":completing?"complete_started":primalSpecies(p)?"primal_started":crownedSpecies(p)?"crowned_started":necrozmaSpecies(p)?"ultra_started":"started";
     }
     public static void restore(Pokemon p){
         if(!active(p))return;
@@ -155,7 +163,7 @@ public final class FieldMega {
                 if(!active(p)){ACTIVE.remove(p);continue;}
                 CompoundNBT state=p.getPersistentData().func_74775_l(MARKER);Stats base=p.getSpecies().getForm(state.func_74779_i("Form"));
                 boolean completing=constructSpecies(p) && state.func_74779_i("Target").equals("complete");
-                Stats compatible=constructSpecies(p) && !completing?p.getSpecies().getForm("complete").getMegaForm(p.getHeldItem().func_77973_b()).orElse(null):target(p,base);
+                Stats compatible=terapagos(p)?p.getSpecies().getForm(state.func_74779_i("Target")):constructSpecies(p) && !completing?p.getSpecies().getForm("complete").getMegaForm(p.getHeldItem().func_77973_b()).orElse(null):target(p,base);
                 boolean stone=compatible!=null && compatible.getName().equals(state.func_74779_i("Target"));
                 if(e==null || !e.func_70089_S() || owner==null || e.getOwner()!=owner || e.field_70170_p!=owner.field_70170_p || p.getHealth()<=0 || !stone || !specialSpecies(p) && !completing && !StorageProxy.getParty(owner).getMegaItem().canMega() || (!p.getForm().getName().equals(state.func_74779_i("Target")) && !querying(p)))restore(p);
             }

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MM",
+    "MM"
+  ],
+  "key": {
+    "M": {
+      "item": "pixelmon:metal_coat"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:metal_alloy",
+    "count": 1
+  }
+}

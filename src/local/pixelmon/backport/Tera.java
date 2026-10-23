@@ -96,7 +96,7 @@ public final class Tera {
         if(p.getSpecies().getDex()==1024){
             int hp=p.getHealth(),max=p.getMaxHealth();
             p.setForm("stellar");p.recalculateMaxHP();p.setHealth(BattleMechanics.changedMaxHP(hp,max,p.getMaxHealth()));
-            p.bc.modifyStats(p);p.updateBattleDamage(p.getHealth());
+            p.bc.modifyStats(p);p.updateBattleDamage(0);
             // Teraform Zero happens on transformation, not every switch-in.
             com.pixelmonmod.pixelmon.battles.status.Weather weather=p.bc.globalStatusController.getWeatherIgnoreAbility();
             if(weather!=null)p.bc.globalStatusController.removeGlobalStatus(weather);

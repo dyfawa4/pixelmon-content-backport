@@ -23,6 +23,7 @@ public class PixelmonWrapper {
     public int getMaxHealth(){return max;}
     public int getHealth(){return hp;}
     public void setHealth(int h){hp=h;}
+    public void update(com.pixelmonmod.pixelmon.comm.EnumUpdateType... types){}
     public void recalculateMaxHP(){max=local.pixelmon.backport.Erosion.stat(this,BattleStatsType.HP,404);}
     public String getNickname(){return "target";}
     public BattleParticipant getParticipant(){return new BattleParticipant();}

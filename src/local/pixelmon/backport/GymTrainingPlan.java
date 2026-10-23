@@ -11,11 +11,7 @@ public final class GymTrainingPlan {
         GymTrainingPlan plan;
         if(room && base[5]<=85){
             plan=new GymTrainingPlan(physicalFocus?"BRAVE":"QUIET","slow-room");
-            plan.ivs[5]=0;plan.evs[0]=252;plan.evs[output]=252;plan.evs[2]=6;
-        }else if(utility>=2 && recovery && base[0]+base[2]+base[4]>=270){
-            boolean defense=base[2]<=base[4];
-            plan=new GymTrainingPlan(defense?(physicalFocus?"IMPISH":"BOLD"):(physicalFocus?"CAREFUL":"CALM"),"defensive-support");
-            plan.evs[0]=252;plan.evs[defense?2:4]=252;plan.evs[defense?4:2]=6;
+            plan.evs[0]=252;plan.evs[output]=252;plan.evs[2]=6;
         }else if(base[5]>=85 || boosting){
             plan=new GymTrainingPlan(physicalFocus?"JOLLY":"TIMID","fast-offense");
             plan.evs[output]=252;plan.evs[5]=252;plan.evs[0]=6;

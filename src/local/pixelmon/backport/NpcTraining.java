@@ -28,12 +28,9 @@ public final class NpcTraining {
             else special+=Math.max(0,attack.getMove().getBasePower())*base[3];
         }
         GymTrainingPlan plan=GymTrainingPlan.choose(base,physical,special,utility,recovery,room,boosting);
-        boolean hiddenPower=pokemon.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals("Hidden Power"));
-        if(hiddenPower)plan.preserveHiddenPower(pokemon.getIVs().getArray());
         pokemon.getEVs().fillFromArray(0,0,0,0,0,0);
         for(int i=0;i<6;i++){
             pokemon.getIVs().setHyperTrained(STATS[i],false);pokemon.getIVs().setStat(STATS[i],plan.ivs[i]);
-            if(hiddenPower && pokemon.getPokemonLevel()>=com.pixelmonmod.pixelmon.api.config.PixelmonConfigProxy.getGeneral().getMaxLevel() && plan.ivs[i]==30)pokemon.getIVs().setHyperTrained(STATS[i],true);
             pokemon.getEVs().setStat(STATS[i],plan.evs[i]);
         }
         pokemon.setMintNature(Nature.valueOf(plan.nature));

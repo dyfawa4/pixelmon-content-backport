@@ -15,6 +15,9 @@ public abstract class PrimalAdvancementMixin {
     private void backport$completedPrimal(CallbackInfo ci){if(!backport$wasPrimal)LegendAdvancements.primal((PixelmonWrapper)(Object)this);}
     @Inject(method="megaEvolve",at=@At("RETURN"))
     private void backport$completedMega(CallbackInfoReturnable<Boolean> cir){
-        if(cir.getReturnValueZ())LegendAdvancements.megaRayquaza((PixelmonWrapper)(Object)this);
+        if(cir.getReturnValueZ()){
+            LegendAdvancements.megaRayquaza((PixelmonWrapper)(Object)this);
+            local.pixelmon.backport.ZygardeAdvancements.mega((PixelmonWrapper)(Object)this);
+        }
     }
 }

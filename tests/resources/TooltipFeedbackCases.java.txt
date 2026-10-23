@@ -1,0 +1,74 @@
+// FILE: net/minecraft/nbt/CompoundNBT.java
+package net.minecraft.nbt;public class CompoundNBT {public java.util.Map<String,Object> values=new java.util.HashMap<>();public boolean func_74764_b(String k){return values.containsKey(k);}public String func_74779_i(String k){return (String)values.getOrDefault(k,"");}public boolean func_74767_n(String k){return Boolean.TRUE.equals(values.get(k));}}
+// FILE: net/minecraft/item/Item.java
+package net.minecraft.item;public class Item {public void func_77624_a(ItemStack s,net.minecraft.world.World w,java.util.List<net.minecraft.util.text.ITextComponent> l,net.minecraft.client.util.ITooltipFlag f){}}
+// FILE: net/minecraft/item/ItemStack.java
+package net.minecraft.item;public class ItemStack {Item item;public net.minecraft.nbt.CompoundNBT tag;public ItemStack(Item i){item=i;}public Item func_77973_b(){return item;}public boolean func_77942_o(){return tag!=null;}public net.minecraft.nbt.CompoundNBT func_77978_p(){return tag;}}
+// FILE: net/minecraft/world/World.java
+package net.minecraft.world;public class World {}
+// FILE: net/minecraft/client/util/ITooltipFlag.java
+package net.minecraft.client.util;public interface ITooltipFlag {}
+// FILE: net/minecraft/util/text/ITextComponent.java
+package net.minecraft.util.text;public interface ITextComponent {String getString();}
+// FILE: net/minecraft/util/text/StringTextComponent.java
+package net.minecraft.util.text;public class StringTextComponent implements ITextComponent {String text;public StringTextComponent(String s){text=s;}public String getString(){return text;}}
+// FILE: net/minecraft/util/text/TextFormatting.java
+package net.minecraft.util.text;public enum TextFormatting {GRAY;public String toString(){return "§7";}}
+// FILE: net/minecraft/client/resources/I18n.java
+package net.minecraft.client.resources;public class I18n {public static java.util.Map<String,String> values=new java.util.HashMap<>();public static boolean func_188566_a(String k){return values.containsKey(k);}public static String func_135052_a(String k,Object... args){return values.getOrDefault(k,k);}}
+// FILE: com/pixelmonmod/pixelmon/api/util/helpers/TextHelper.java
+package com.pixelmonmod.pixelmon.api.util.helpers;public class TextHelper {public static net.minecraft.util.text.ITextComponent colour(String s){return new net.minecraft.util.text.StringTextComponent(s);}}
+// FILE: com/pixelmonmod/pixelmon/client/gui/ScreenHelper.java
+package com.pixelmonmod.pixelmon.client.gui;public class ScreenHelper {public static boolean down;public static boolean isKeyDown(int key){if(key!=340)throw new AssertionError("Native left Shift key");return down;}}
+// FILE: com/pixelmonmod/api/registry/RegistryValue.java
+package com.pixelmonmod.api.registry;public class RegistryValue<T> {T value;public RegistryValue(T v){value=v;}public java.util.Optional<T> getValue(){return java.util.Optional.ofNullable(value);}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/item/pokeball/PokeBall.java
+package com.pixelmonmod.pixelmon.api.pokemon.item.pokeball;public class PokeBall {String name;public PokeBall(String n){name=n;}public String getName(){return name;}public String getTranslationKey(){return "item.pixelmon."+name;}}
+// FILE: com/pixelmonmod/pixelmon/api/pokemon/item/pokeball/PokeBallRegistry.java
+package com.pixelmonmod.pixelmon.api.pokemon.item.pokeball;public class PokeBallRegistry {public static final java.util.Set<String> NAMES=java.util.Set.of("poke_ball","great_ball","ultra_ball","master_ball","origin_ball","park_ball");public static final com.pixelmonmod.api.registry.RegistryValue<PokeBall> POKE_BALL=getPokeBall("poke_ball");public static com.pixelmonmod.api.registry.RegistryValue<PokeBall> getPokeBall(String n){return new com.pixelmonmod.api.registry.RegistryValue<>(NAMES.contains(n)?new PokeBall(n):null);}}
+// FILE: com/pixelmonmod/pixelmon/items/PokeBallPart.java
+package com.pixelmonmod.pixelmon.items;public interface PokeBallPart {public static java.util.Optional<com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBall> getPokeBall(net.minecraft.item.ItemStack s){return java.util.Optional.empty();}}
+// FILE: com/pixelmonmod/pixelmon/items/PixelmonItem.java
+package com.pixelmonmod.pixelmon.items;public class PixelmonItem extends net.minecraft.item.Item {public String getTooltipText(net.minecraft.item.ItemStack s){return "";}public void func_77624_a(net.minecraft.item.ItemStack s,net.minecraft.world.World w,java.util.List<net.minecraft.util.text.ITextComponent> l,net.minecraft.client.util.ITooltipFlag f){}}
+// FILE: com/pixelmonmod/pixelmon/items/PokeBallItem.java
+package com.pixelmonmod.pixelmon.items;public class PokeBallItem extends PixelmonItem implements PokeBallPart {public String getTooltipText(net.minecraft.item.ItemStack s){return "";}public String getTooltipText(String k){return "";}public void func_77624_a(net.minecraft.item.ItemStack s,net.minecraft.world.World w,java.util.List<net.minecraft.util.text.ITextComponent> l,net.minecraft.client.util.ITooltipFlag f){}}
+// FILE: com/pixelmonmod/pixelmon/entities/npcs/registry/TrainerChat.java
+package com.pixelmonmod.pixelmon.entities.npcs.registry;public class TrainerChat {public String opening="原生开场白";}
+// FILE: com/pixelmonmod/pixelmon/entities/npcs/NPCTrainer.java
+package com.pixelmonmod.pixelmon.entities.npcs;public class NPCTrainer {public boolean usingDefaultGreeting;public String greeting="";public net.minecraft.nbt.CompoundNBT data=new net.minecraft.nbt.CompoundNBT();public net.minecraft.nbt.CompoundNBT getPersistentData(){return data;}public com.pixelmonmod.pixelmon.entities.npcs.registry.TrainerChat getChat(String locale){return new com.pixelmonmod.pixelmon.entities.npcs.registry.TrainerChat();}public String getGreeting(String locale){return greeting;}}
+// FILE: local/pixelmon/backport/AuthorBossTeams.java
+package local.pixelmon.backport;public class AuthorBossTeams {public static boolean is(com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer npc){return false;}}
+// FILE: local/pixelmon/backport/NpcLocalization.java
+package local.pixelmon.backport;public class NpcLocalization {public static String translate(String s,String locale){return s;}}
+// FILE: TooltipFeedbackCases.java
+import java.util.*;import java.nio.file.*;import com.google.gson.*;import net.minecraft.item.*;import net.minecraft.util.text.*;import net.minecraft.client.resources.I18n;import com.pixelmonmod.pixelmon.items.*;import com.pixelmonmod.pixelmon.client.gui.ScreenHelper;import com.pixelmonmod.pixelmon.entities.npcs.NPCTrainer;
+public class TooltipFeedbackCases {
+ static void check(boolean b,String s){if(!b)throw new AssertionError(s);}
+ static void language(String dir,String locale)throws Exception{
+  I18n.values.clear();for(Path p:List.of(Path.of("resources/assets/pixelmon_backport/lang/"+locale+".json"),Path.of(dir,locale+".json")))
+   for(var e:new JsonParser().parse(Files.readString(p)).getAsJsonObject().entrySet())I18n.values.put(e.getKey(),e.getValue().getAsString());
+ }
+ static ItemStack ball(String id){var s=new ItemStack(new PokeBallItem());if(id!=null){s.tag=new net.minecraft.nbt.CompoundNBT();s.tag.values.put("PokeBallID",id);}return s;}
+ static String lines(ItemStack s,boolean shift){ScreenHelper.down=shift;var l=new ArrayList<ITextComponent>();s.func_77973_b().func_77624_a(s,null,l,null);return l.stream().map(ITextComponent::getString).reduce("",(a,b)->a+"\n"+b);}
+ public static void before(String dir)throws Exception{
+  language(dir,"zh_cn");check(!lines(ball("park_ball"),false).contains("生存模式无法获得"),"Native folding reproduced");check(lines(ball("park_ball"),true).contains("伙伴公园")&&!lines(ball("park_ball"),true).contains("生存模式无法获得"),"Native-language description overrides old cross-namespace key");
+  var npc=new NPCTrainer();npc.data.values.put("BackportAuthorTrainer",true);check(npc.getGreeting("zh_cn").isEmpty(),"Empty author greeting reproduced");
+ }
+ public static void after(String dir)throws Exception{
+  for(String lang:List.of("zh_cn","en_us")){
+   language(dir,lang);String marker=lang.equals("zh_cn")?"生存模式无法获得":"Unobtainable in Survival mode.";
+   for(String id:List.of("park_ball","origin_ball")){
+    ItemStack s=ball(id);var nbt=new HashMap<>(s.tag.values);check(!lines(s,false).contains(marker)&&lines(s,false).contains(I18n.values.get("gui.tooltip.collapsed")),"Native collapsed hint retained "+id);
+    check(lines(s,true).contains(marker),"Availability visible after native Shift "+id);if(id.equals("park_ball")){String capture=lang.equals("zh_cn")?"必定能够捕捉野生的宝可梦":"Guaranteed to catch wild Pokemon.";check(!lines(s,false).contains(capture),"Guaranteed-catch line retains folding");String expanded=lines(s,true);check(expanded.contains(capture)&&expanded.indexOf(capture)<expanded.indexOf(marker),"Park Ball catch description precedes Survival availability");}check(nbt.equals(s.tag.values),"Tooltip must not mutate ball NBT");
+   }
+   if(lang.equals("zh_cn"))check(lines(ball("origin_ball"),true).contains("必定能够捕捉野生的宝可梦，生存模式无法获得"),"Exact origin wording");
+   for(String id:List.of("poke_ball","great_ball","ultra_ball","master_ball","unknown"))check(!lines(ball(id),true).contains(marker),"Unrelated ball unchanged "+id);
+   check(!lines(ball(null),true).contains(marker),"Untagged ball remains ordinary");
+   ItemStack custom=ball("park_ball");custom.tag.values.put("tooltip","作者自定义说明");check(lines(custom,true).contains("作者自定义说明")&&!lines(custom,true).contains(marker),"Custom NBT tooltip retained");
+  }
+  var npc=new NPCTrainer();npc.data.values.put("BackportAuthorTrainer",true);for(boolean defaults:List.of(false,true)){npc.usingDefaultGreeting=defaults;check(npc.getGreeting("zh_cn").equals("你太弱了，还没有资格挑战我！"),"Existing and default author opening");}
+  npc.data.values.clear();npc.usingDefaultGreeting=false;npc.greeting="自定义普通训练家";check(npc.getGreeting("zh_cn").equals(npc.greeting),"Ordinary custom trainer retained");npc.usingDefaultGreeting=true;check(npc.getGreeting("zh_cn").equals("原生开场白"),"Ordinary native trainer retained");
+  var help=new JsonParser().parse(Files.readString(Path.of("resources/backport/item_help.json"))).getAsJsonObject().getAsJsonArray("pixelmon_backport:metal_alloy");
+  check(help.size()==2&&help.get(0).getAsString().equals("对铝钢龙使用，进化为铝钢桥龙。")&&help.get(1).getAsString().equals("获取：四个金属膜按 2×2 合成一个复合金属。"),"Requested alloy wording only");
+ }
+}

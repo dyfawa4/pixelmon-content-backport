@@ -74,6 +74,7 @@ public final class TeraRaids {
     }
     public static boolean convert(long seed,String dimension,int x,int y,int z){long hash=seed^dimension.hashCode()^((long)x*341873128712L)^((long)y*42317861L)^((long)z*132897987541L);hash^=hash>>>33;hash*=0xff51afd7ed558ccdL;hash^=hash>>>33;return (hash&1)==0;}
     public static class Events {
+        private final java.util.concurrent.ConcurrentLinkedQueue<DenEntity> replacements=new java.util.concurrent.ConcurrentLinkedQueue<>();
         @SubscribeEvent(priority=EventPriority.LOWEST) public void join(EntityJoinWorldEvent e){
             if(e.isCanceled() || e.getWorld().field_72995_K || !(e.getEntity() instanceof DenEntity) || e.getEntity() instanceof TeraDenEntity)return;
             DenEntity den=(DenEntity)e.getEntity();if(den.isDecoration() || den.getPersistentData().func_74764_b("BackportDenKind"))return;
@@ -81,8 +82,22 @@ public final class TeraRaids {
             den.getPersistentData().func_74768_a("BackportDenKind",tera?1:0);
             if(!tera || den.getData().map(RaidData::hasPlayers).orElse(false))return;
             e.setCanceled(true);
-            world.func_73046_m().execute(()->{TeraDenEntity replacement=new TeraDenEntity(world);replacement.func_226286_f_(den.func_226277_ct_(),den.func_226278_cu_(),den.func_226281_cx_());replacement.func_184221_a(den.func_110124_au());replacement.roll((int)(world.func_72820_D()/24000));world.func_217376_c(replacement);});
+            // execute() runs inline on the server thread. A join event can be
+            // inside ChunkManager's entity-list iterator; insert next tick.
+            replacements.add(den);
         }
+        @SubscribeEvent public void replace(net.minecraftforge.event.TickEvent.ServerTickEvent event){
+            if(event.phase!=net.minecraftforge.event.TickEvent.Phase.END)return;
+            var server=net.minecraftforge.fml.server.ServerLifecycleHooks.getCurrentServer();
+            for(int i=0;i<16;i++){
+                DenEntity den=replacements.poll();if(den==null)break;
+                if(server==null||den.field_70170_p.func_73046_m()!=server)continue;
+                ServerWorld world=(ServerWorld)den.field_70170_p;
+                var p=den.func_233580_cy_();if(world.func_72863_F().func_225313_a(p.func_177958_n()>>4,p.func_177952_p()>>4)==null){replacements.add(den);continue;}
+                TeraDenEntity replacement=new TeraDenEntity(world);replacement.func_226286_f_(den.func_226277_ct_(),den.func_226278_cu_(),den.func_226281_cx_());replacement.func_184221_a(den.func_110124_au());replacement.roll((int)(world.func_72820_D()/24000));world.func_217376_c(replacement);
+            }
+        }
+        @SubscribeEvent public void unload(net.minecraftforge.event.world.WorldEvent.Unload event){replacements.removeIf(den->den.field_70170_p==event.getWorld());}
         @SubscribeEvent(priority=EventPriority.LOWEST) public void drops(RaidDropsEvent event){
             TeraRaidParticipant raid=RAIDS.get(event.getRaid());if(raid==null)return;
             event.setDrops(rewards(raid.stars,raid.teraType,event.getPlayer().playerEntity.func_70681_au()));

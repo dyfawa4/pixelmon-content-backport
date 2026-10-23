@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pixelmon:apricorn_log"
+    },
+    {
+      "item": "pixelmon:apricorn_log"
+    },
+    {
+      "tag": "forge:dyes/green"
+    }
+  ],
+  "result": {
+    "item": "pixelmon:green_berry_wood_planks",
+    "count": 8
+  }
+}

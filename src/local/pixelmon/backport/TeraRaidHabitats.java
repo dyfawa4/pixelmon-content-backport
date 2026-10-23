@@ -17,6 +17,12 @@ import net.minecraft.util.registry.Registry;
 /** Same live biome-to-raid registry used by native Max RaidRandomizer. */
 public final class TeraRaidHabitats {
     private TeraRaidHabitats(){}
+    private static final Set<Integer> ULTRA_BEASTS=Set.of(793,794,795,796,797,798,799,803,804,805,806);
+    public static boolean ultraBeast(int dex){return ULTRA_BEASTS.contains(dex);}
+    /** Ordinary Max entries retain their native table; only Ultra Beasts require this extra gate. */
+    public static boolean allowedNative(World world,BlockPos pos,int dex,String form){
+        return !ultraBeast(dex)||new Context(world,pos).allowed(dex+" form:"+(form==null?"":form));
+    }
     public static final class Context {
         public final ResourceLocation biome,dimension;
         private final boolean swamp;
@@ -45,6 +51,9 @@ public final class TeraRaidHabitats {
             if(species.getDex()==550&&form.equals("white_striped"))form="white";
             String key=key(species.getDex(),form);
             if(!explicitEnvironment(species.getDex(),dimension.toString(),swamp))return false;
+            // Older Max tables contain Blacephalon in Overworld plains/flower fields.
+            // Ultra Beasts use their actual Ultra Space habitats, not those legacy entries.
+            if(ULTRA_BEASTS.contains(species.getDex()))return wild(species,form,new HashSet<>());
             if(nativeHere.contains(key))return true;
             if(nativeKnown.contains(key))return false;
             return wild(species,form,new HashSet<>());
@@ -65,7 +74,7 @@ public final class TeraRaidHabitats {
             if(direct)return false;
             for(Species parent:species.getForm(form).getPreEvolutions()){
                 String parentForm=parent.getDefaultForm().getName(),parentKey=key(parent.getDex(),parentForm);
-                if(nativeHere.contains(parentKey) || (!nativeKnown.contains(parentKey)&&wild(parent,parentForm,seen)))return true;
+                if(ULTRA_BEASTS.contains(species.getDex())?wild(parent,parentForm,seen):nativeHere.contains(parentKey) || (!nativeKnown.contains(parentKey)&&wild(parent,parentForm,seen)))return true;
             }
             return false;
         }
@@ -87,6 +96,7 @@ public final class TeraRaidHabitats {
     /** User-requested boundaries override the older native End Eternatus entry. */
     public static boolean explicitEnvironment(int dex,String dimension,boolean swamp){
         if(dex==1026)return false;
+        if(ULTRA_BEASTS.contains(dex))return dimension.equals("pixelmon:ultra_space");
         if(dex==1005)return dimension.equals("minecraft:the_end");
         if(dex==890)return dimension.equals("minecraft:overworld")&&swamp;
         return true;

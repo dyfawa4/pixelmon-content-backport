@@ -12,13 +12,13 @@ public final class GymTrainingVerification {
         var special=GymTrainingPlan.choose(new int[]{90,80,100,130,100,70},1000,10000,1,true,false,false);check(special);
         assert special.nature.equals("MODEST") && special.evs[0]==252 && special.evs[3]==252;
         var wall=GymTrainingPlan.choose(new int[]{255,10,10,75,135,55},0,5000,3,true,false,false);check(wall);
-        assert wall.nature.equals("BOLD") && wall.evs[0]==252 && wall.evs[2]==252;
+        assert wall.nature.equals("MODEST") && wall.evs[0]==252 && wall.evs[3]==252;
         var room=GymTrainingPlan.choose(new int[]{70,55,95,95,110,65},0,9000,1,false,true,false);check(room);
-        assert room.nature.equals("QUIET") && room.ivs[5]==0 && room.evs[5]==0;
+        assert room.nature.equals("QUIET") && room.ivs[5]==31 && room.evs[5]==0;
         var antiRoom=GymTrainingPlan.choose(new int[]{100,100,90,154,90,130},1000,10000,1,false,true,false);check(antiRoom);
         assert antiRoom.nature.equals("TIMID") && antiRoom.ivs[5]==31;
         for(int speed=20;speed<=160;speed+=10)for(int utility=0;utility<=4;utility++)for(boolean physical:new boolean[]{true,false})for(boolean trick:new boolean[]{true,false}){
-            check(GymTrainingPlan.choose(new int[]{80,110,90,120,100,speed},physical?10000:0,physical?0:10000,utility,true,trick,true));
+            var plan=GymTrainingPlan.choose(new int[]{80,110,90,120,100,speed},physical?10000:0,physical?0:10000,utility,true,trick,true);check(plan);assert Arrays.stream(plan.ivs).allMatch(v->v==31);assert plan.evs[physical?1:3]==252;
         }
         for(String[] pair:new String[][]{{"IVStore","MAX_IVS","31"},{"EVStore","MAX_EVS","252"},{"EVStore","MAX_TOTAL_EVS","510"}}){
             var node=Version13StaticVerification.node("com/pixelmonmod/pixelmon/api/pokemon/stats/"+pair[0]);

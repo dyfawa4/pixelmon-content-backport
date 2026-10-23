@@ -26,4 +26,15 @@ public final class RaidSpawnExclusions {
         for(RaidRegistry.Raid row:source)if(row!=null&&allowed(row.getSpecies()))filtered.add(row);
         return filtered;
     }
+    public static Collection<RaidRegistry.Raid> candidates(Collection<RaidRegistry.Raid> source,net.minecraft.world.World world,net.minecraft.util.math.BlockPos pos){
+        Collection<RaidRegistry.Raid> allowed=candidates(source);if(allowed==null)return null;
+        TeraRaidHabitats.Context habitat=null;List<RaidRegistry.Raid> filtered=null;
+        for(RaidRegistry.Raid row:allowed)if(row!=null&&TeraRaidHabitats.ultraBeast(row.getSpecies())){
+            if(habitat==null)habitat=new TeraRaidHabitats.Context(world,pos);
+            if(!habitat.allowed(row.getSpecies()+" form:"+row.getForm())){filtered=new ArrayList<>();break;}
+        }
+        if(filtered==null)return allowed;
+        for(RaidRegistry.Raid row:allowed)if(row!=null&&(!TeraRaidHabitats.ultraBeast(row.getSpecies())||habitat.allowed(row.getSpecies()+" form:"+row.getForm())))filtered.add(row);
+        return filtered;
+    }
 }

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pixelmon_backport:items/pokeballs/ancient_poke_ball"
+  }
+}

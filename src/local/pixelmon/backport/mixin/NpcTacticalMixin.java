@@ -18,7 +18,9 @@ public abstract class NpcTacticalMixin {
         PixelmonWrapper own=pool.get(0).user;
         if(own==null || own.bc==null || own.bc.isRaid() || !(own.getParticipant() instanceof com.pixelmonmod.pixelmon.battles.controller.participants.TrainerParticipant))return;
         var trainer=((com.pixelmonmod.pixelmon.battles.controller.participants.TrainerParticipant)own.getParticipant()).trainer;
-        if(!local.pixelmon.backport.NpcGimmicks.enabled(trainer) || !local.pixelmon.backport.GymCities.isLeader(trainer))return;
+        if(!local.pixelmon.backport.NpcGimmicks.enabled(trainer) || !(local.pixelmon.backport.GymCities.isLeader(trainer)||local.pixelmon.backport.AuthorBossTeams.is(trainer)))return;
+        MoveChoice finisher=local.pixelmon.backport.NpcTactics.finisher(own,pool);
+        if(finisher!=null){cir.setReturnValue(finisher);return;}
         pool.stream().filter(c->c.tier>0 && Float.isFinite(c.weight))
             .max(java.util.Comparator.comparingInt((MoveChoice c)->c.tier).thenComparingDouble(c->c.weight)).ifPresent(cir::setReturnValue);
     }

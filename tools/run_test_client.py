@@ -40,6 +40,11 @@ if a.manual:
     import tomllib
     with zipfile.ZipFile(a.map_helper) as helper_archive:
         helper_meta=tomllib.loads(helper_archive.read('META-INF/mods.toml').decode('utf-8'))
+        if 'pack.mcmeta' not in helper_archive.namelist():
+            p.error(f'Test helper {a.map_helper.name} is missing pack.mcmeta. Rebuild its resource metadata before launching.')
+        helper_pack=json.loads(helper_archive.read('pack.mcmeta'))
+        if helper_pack.get('pack',{}).get('pack_format') != 6:
+            p.error(f'Test helper {a.map_helper.name} needs Minecraft 1.16.5 pack_format 6.')
     def numeric_version(value):
         pieces=[int(v) for v in value.split('.')]
         return tuple((pieces+[0,0,0])[:3])

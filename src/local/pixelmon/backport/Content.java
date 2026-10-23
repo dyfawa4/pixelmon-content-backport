@@ -24,6 +24,9 @@ public final class Content {
     }
     public static void apply(String context, String type, Map<ResourceLocation, JsonElement> data) {
         if (!"pixelmon".equals(context)) return;
+        if("quests".equals(type))DrownedQuestSeason.apply(data);
+        if("drops".equals(type))MaxRaidRewards.apply(data);
+        if("bosstiers".equals(type))DrownedBosses.configure(data);
         if("spawning".equals(type))MagearnaSpawns.merge(data);
         if("npcs".equals(type))NpcLocalization.merge(data);
         if(DATA.has("referenceExtras"))for(Map.Entry<ResourceLocation,JsonElement> entry:data.entrySet()){
@@ -82,7 +85,10 @@ public final class Content {
             }
             CapPikachu.addForm(data);
             CapSpecies.add(data);
-            for(JsonElement value:data.values())LegendaryEvolutionData.normalize(value.getAsJsonObject());
+            for(JsonElement value:data.values()){
+                LegendaryEvolutionData.normalize(value.getAsJsonObject());
+                AddedLegendGender.normalize(value.getAsJsonObject());
+            }
             for(JsonElement value:data.values()){
                 JsonObject species=value.getAsJsonObject();String dex=species.get("dex").getAsString();
                 if("149".equals(dex))for(String alias:new String[]{"dragoninite","dragonitite"})if(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation("pixelmon:"+alias)) instanceof com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem){

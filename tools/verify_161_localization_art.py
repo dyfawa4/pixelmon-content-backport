@@ -20,7 +20,10 @@ def main():
         with zipfile.ZipFile(jar) as z:
             namespaces = {n.split('/')[1] for n in z.namelist() if n.startswith('assets/') and len(n.split('/')) > 2}
             related = {n for n in namespaces if 'delight' in n.lower() or 'farmers' in n.lower()}
-            if related:
+            # A compatibility patch can carry this namespace too; only the
+            # actual declared mod owns the installed version being audited.
+            declared = z.read('META-INF/mods.toml').decode('utf-8-sig') if 'META-INF/mods.toml' in z.namelist() else ''
+            if related and re.search(r'(?m)^\s*modId\s*=\s*[\"\']farmersdelight[\"\']', declared):
                 installed.append((jar, related))
     assert len(installed) == 1 and installed[0][1] == {'farmersdelight'}, installed
     jar = installed[0][0]

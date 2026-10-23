@@ -10,9 +10,14 @@ public final class PokeChestLoot {
     private PokeChestLoot(){}
     public static boolean applies(PokeChestTileEntity chest){return chest!=null && chest.getChestType()==EnumPokeChestType.MASTERBALL && chest.getOwner()==null && !chest.isCustomDrop();}
     public static boolean valid(ItemStack item){return item!=null && !item.func_190926_b() && item.func_190916_E()>0 && item.func_77973_b()!=Items.field_190931_a;}
+    public static boolean tierEligible(ItemStack item){
+        if(!valid(item))return false;
+        ResourceLocation id=item.func_77973_b().getRegistryName();
+        return id==null||!id.func_110624_b().equals(Content.NS)||!Set.of("metal_alloy","pink_nectar","red_nectar","purple_nectar","yellow_nectar","teal_mask","wellspring_mask","hearthflame_mask","cornerstone_mask","syrupy_apple","gimmighoul_coin").contains(id.func_110623_a());
+    }
     public static void cleanTier3(){
         var pool=com.pixelmonmod.pixelmon.entities.npcs.registry.DropItemRegistry.tier3;
-        if(pool==null)return;pool.removeIf(item->!valid(item));if(pool.isEmpty())pool.add(fallback());
+        if(pool==null)return;pool.removeIf(item->!tierEligible(item));if(pool.isEmpty())pool.add(fallback());
     }
     private static ItemStack fallback(){
         Item candy=ForgeRegistries.ITEMS.getValue(new ResourceLocation("pixelmon","rare_candy"));

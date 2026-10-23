@@ -16,6 +16,13 @@ public final class QuestStructures {
                 || !ForgeRegistries.STRUCTURE_FEATURES.containsKey(id)) return false;
         Structure<?> requested = ForgeRegistries.STRUCTURE_FEATURES.getValue(id);
         if (requested == null) return false;
+        if(requested instanceof AuthorBossLocator.RoomAlias){
+            if(((AuthorBossLocator.RoomAlias)requested).physical)return false;
+            for(BlockPos home:AuthorRoomIndex.get(world).positions(false))
+                if(Math.abs(pos.func_177958_n()-home.func_177958_n())<=6&&Math.abs(pos.func_177952_p()-home.func_177952_p())<=6
+                    &&pos.func_177956_o()>=home.func_177956_o()&&pos.func_177956_o()<=home.func_177956_o()+7&&AuthorRoomIndex.intact(world,home,false))return true;
+            return false;
+        }
         Structure<?> actual = requested instanceof GymLocator.TypedGym ? GymLocator.nativeGym()
                 : requested instanceof TeraDenLocator.TypedDen ? ((TeraDenLocator.TypedDen) requested).nativeDen() : requested;
         if (actual == null) return false;

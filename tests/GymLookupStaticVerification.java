@@ -23,11 +23,18 @@ public final class GymLookupStaticVerification {
         check(GymThemePaths.poolTypes("pixelmon_backport:gyms/natural/dark/start_pool").equals(new HashSet<>(Arrays.asList("dark","grass"))),"Mixed natural pool dimensions");
         check(GymThemePaths.poolTypes("pixelmon:gyms/fire/start_pool").equals(Collections.singleton("fire")),"Fire pool dimensions");
         check(GymThemePaths.poolTypes("pixelmon:gyms/fire/house").isEmpty(),"Unknown datapack pool cannot imply a type");
-        ClassNode search=node("local/pixelmon/backport/GymLocator$Search");boolean startsOnly=false;
+        ClassNode search=node("local/pixelmon/backport/GymLocator$StartRequest");boolean startsOnly=false;
         for(MethodNode m:search.methods)for(AbstractInsnNode i:m.instructions){
             if(i instanceof FieldInsnNode){FieldInsnNode f=(FieldInsnNode)i;if(f.owner.equals("net/minecraft/world/chunk/ChunkStatus")){check(f.name.equals("field_222606_b"),"Lookup must not generate FULL cities");startsOnly=true;}}
         }
         check(startsOnly,"Lookup structure-start status missing");
+        boolean async=false,release=false;
+        for(MethodNode m:search.methods)for(AbstractInsnNode i:m.instructions)if(i instanceof MethodInsnNode){
+            var c=(MethodInsnNode)i;
+            check(!c.name.equals("func_217348_a")&&!c.name.equals("func_212849_a_"),"Lookup must never managed-block the server thread");
+            async|=c.name.equals("backport$requestChunk");release|=m.name.equals("close")&&c.name.equals("func_217222_b");
+        }
+        check(async&&release,"Async start request must release its ticket on cancellation");
         ClassNode jei=node("local/pixelmon/backport/client/BackportJeiPlugin");boolean black=false;
         for(MethodNode m:jei.methods)if(m.name.equals("information"))for(AbstractInsnNode i:m.instructions)if(i instanceof FieldInsnNode){FieldInsnNode f=(FieldInsnNode)i;if(f.owner.equals("net/minecraft/util/text/TextFormatting") && f.name.equals("BLACK"))black=true;}
         check(black,"JEI body must be black");

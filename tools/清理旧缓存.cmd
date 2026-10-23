@@ -7,8 +7,9 @@ where pwsh.exe >nul 2>&1
 if errorlevel 1 goto missing
 set "CLEANUP_PWSH=pwsh.exe"
 :launch
-echo PREVIEW ONLY. This launcher does not delete files.
-"%CLEANUP_PWSH%" -NoLogo -NoProfile -NoExit -File "%CLEANUP_PS%"
+echo REAL CLEANUP. Only the 704 reviewed entries inside this project are eligible.
+echo The external release cache is excluded. Source and current release files are protected.
+"%CLEANUP_PWSH%" -NoLogo -NoProfile -NoExit -File "%CLEANUP_PS%" -Execute
 set "CLEANUP_EXIT=%errorlevel%"
 echo PowerShell exited with code %CLEANUP_EXIT%.
 pause

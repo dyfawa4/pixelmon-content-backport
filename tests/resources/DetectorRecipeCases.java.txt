@@ -23,7 +23,7 @@ package net.minecraft.item.crafting;public class Ingredient {public static final
 // FILE: net/minecraft/util/NonNullList.java
 package net.minecraft.util;public class NonNullList<E> extends java.util.ArrayList<E> {}
 // FILE: net/minecraft/inventory/CraftingInventory.java
-package net.minecraft.inventory;public class CraftingInventory {public net.minecraft.item.ItemStack[] stacks=new net.minecraft.item.ItemStack[9];public int func_174922_i(){return 3;}public int func_174923_h(){return 3;}public net.minecraft.item.ItemStack func_70301_a(int i){return stacks[i];}}
+package net.minecraft.inventory;public class CraftingInventory {public int width=3,height=3;public net.minecraft.item.ItemStack[] stacks=new net.minecraft.item.ItemStack[9];public int func_174922_i(){return width;}public int func_174923_h(){return height;}public net.minecraft.item.ItemStack func_70301_a(int i){return stacks[i];}}
 // FILE: net/minecraft/world/World.java
 package net.minecraft.world;public class World {}
 // FILE: net/minecraft/item/crafting/ShapedRecipe.java
@@ -41,7 +41,32 @@ public class DetectorRecipeCases {
  static ItemStack item(String id){return new ItemStack(new Item(id));}
  static ItemStack ball(String id){return PokeBallItem.of(new PokeBall(id),1);}
  static Ingredient ordinary(String id){return new Ingredient(java.util.stream.Stream.empty()){public boolean test(ItemStack s){return s!=null&&!s.func_190926_b()&&s.func_77973_b().getRegistryName().toString().equals(id);}};}
+ static void alloy()throws Exception{
+  var json=new JsonParser().parse(Files.readString(Path.of("resources/data/pixelmon_backport/recipes/metal_alloy.json"))).getAsJsonObject();
+  check(json.get("type").getAsString().equals("minecraft:crafting_shaped"),"Alloy recipe kind");
+  check(json.getAsJsonObject("result").get("item").getAsString().equals("pixelmon_backport:metal_alloy")&&json.getAsJsonObject("result").get("count").getAsInt()==1,"Alloy output/count");
+  var recipe=new ShapedRecipe();recipe.field_77576_b=2;recipe.field_77577_c=2;
+  check(json.getAsJsonArray("pattern").size()==2,"Alloy height");
+  for(var row:json.getAsJsonArray("pattern")){
+   check(row.getAsString().length()==2,"Alloy width");
+   for(char c:row.getAsString().toCharArray()){
+    String id=json.getAsJsonObject("key").getAsJsonObject(""+c).get("item").getAsString();
+    check(id.equals("pixelmon:metal_coat"),"Alloy material must be native metal coat");recipe.field_77574_d.add(ordinary(id));
+   }
+  }
+  for(int width:new int[]{2,3})for(int x=0;x<=width-2;x++)for(int y=0;y<=width-2;y++){
+   var grid=new CraftingInventory();grid.width=width;grid.height=width;Arrays.fill(grid.stacks,ItemStack.field_190927_a);
+   for(int dx=0;dx<2;dx++)for(int dy=0;dy<2;dy++)grid.stacks[(y+dy)*width+x+dx]=item("pixelmon:metal_coat");
+   check(recipe.func_77569_a(grid,null),"Alloy 2x2 placement rejected");
+   int pos=y*width+x;grid.stacks[pos]=ItemStack.field_190927_a;check(!recipe.func_77569_a(grid,null),"Alloy accepts missing coat");
+   grid.stacks[pos]=item("pixelmon:aluminium_ingot");check(!recipe.func_77569_a(grid,null),"Alloy accepts ingot substitution");
+   grid.stacks[pos]=item("pixelmon:metal_coat");
+   if(width==3){int extra=0;while(!grid.stacks[extra].func_190926_b())extra++;grid.stacks[extra]=item("pixelmon:metal_coat");check(!recipe.func_77569_a(grid,null),"Alloy ignores extra material");}
+  }
+  System.out.println("PASS native ShapedRecipe: four metal coats -> one alloy; inventory 2x2 and every workbench offset; missing/wrong/extra material rejected.");
+ }
  public static void run()throws Exception{
+  alloy();
   for(boolean legendary:new boolean[]{false,true}){
    String name=legendary?"legendary_spawn_checker":"normal_spawn_checker",metal=legendary?"pixelmon:silver_ingot":"pixelmon:aluminium_ingot",detector=legendary?"pixelmon_backport:normal_spawn_checker":"pixelmon:item_finder",kind=legendary?"master_ball":"poke_ball";
    var json=new JsonParser().parse(Files.readString(Path.of("resources/data/pixelmon_backport/recipes/"+name+".json"))).getAsJsonObject();

@@ -6,7 +6,7 @@
   "grass": [{"dex":492}],
   "ice": [{"dex":646}],
   "fighting": [{"dex":892,"form":"singlestrike"},{"dex":892,"form":"rapidstrike"}],
-  "poison": [{"dex":890}],
+  "poison": [{"dex":890},{"dex":1025}],
   "ground": [{"dex":383},{"dex":645}],
   "flying": [{"dex":384},{"dex":249},{"dex":717}],
   "psychic": [{"dex":150},{"dex":791},{"dex":792}],

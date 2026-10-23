@@ -4,7 +4,8 @@
     {
       "spec": "species:Terapagos",
       "stringLocationTypes": [
-        "Land"
+        "Land",
+        "Underground"
       ],
       "minLevel": 70,
       "maxLevel": 70,
@@ -18,11 +19,8 @@
         ],
         "maxY": 40
       },
-      "rarity": 0.5
+      "rarity": 0.5,
+      "tags": ["legendary"]
     }
-  ],
-  "tags": [
-    "legendary"
-  ],
-  "interval": "legendary"
+  ]
 }

@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[36,)"
+license="MIT"
+[[mods]]
+modId="ohmygod_greninja"
+version="1.0.0"
+displayName="我的天哪忍蛙大人"
+description='''恢复小智版甲贺忍蛙飞水手里剑的五回合水属性威力强化，以及孤忍自修的额外行动。需要回迁核心 1.7.0，客户端和服务端均须安装。'''
+[[dependencies.ohmygod_greninja]]
+modId="pixelmon_backport"
+mandatory=true
+versionRange="[1.7.0,1.8.0)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.ohmygod_greninja]]
+modId="minecraft"
+mandatory=true
+versionRange="[1.16.5]"
+ordering="NONE"
+side="BOTH"
+[[dependencies.ohmygod_greninja]]
+modId="forge"
+mandatory=true
+versionRange="[36.2.42,37)"
+ordering="NONE"
+side="BOTH"

@@ -1,0 +1,24 @@
+{
+  "parent": "pixelmon_backport:legends/forms",
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:718s,palette:\"none\",form:\"mega\",gender:0b}"
+    },
+    "title": {
+      "translate": "advancement.pixelmon_backport.zygarde_mega"
+    },
+    "description": {
+      "translate": "advancement.pixelmon_backport.zygarde_mega.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

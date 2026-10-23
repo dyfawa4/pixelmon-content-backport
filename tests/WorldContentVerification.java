@@ -77,7 +77,7 @@ public final class WorldContentVerification {
             for(List<SpawnSet> pool:PixelmonSpawning.getAll().values())for(SpawnSet set:pool)require(!set.id.toLowerCase(Locale.ROOT).contains(name.toLowerCase(Locale.ROOT)),"Disabled preview spawned: "+name);
         int rewards=0;
         for(int star=1;star<=6;star++)for(int type=0;type<19;type++){require(TeraRaids.rewards(star,type,new Random(1)).get(0).func_77973_b()==Backport.REGISTERED.get(TeraItems.NAMES[type]+"_tera_shard").get(),"Missing dedicated Tera shards");++rewards;}
-        for(String name:new String[]{"clear_amulet","covert_cloak","fairy_feather","masterpiece_teacup","unremarkable_teacup","syrupy_apple","metal_alloy","pink_nectar","purple_nectar","red_nectar","yellow_nectar","gimmighoul_coin","teal_mask","wellspring_mask","hearthflame_mask","cornerstone_mask","utility_umbrella"})
+        for(String name:new String[]{"clear_amulet","covert_cloak","fairy_feather","masterpiece_teacup","unremarkable_teacup","syrupy_apple","gimmighoul_coin","teal_mask","wellspring_mask","hearthflame_mask","cornerstone_mask","utility_umbrella"})
             require(DropItemRegistry.tier3.stream().anyMatch(s->(Content.NS+":"+name).equals(s.func_77973_b().getRegistryName().toString())),"Missing survival reward "+name);
         for(BackportTechnicalMoves move:BackportTechnicalMoves.values())require(DropItemRegistry.tier3.stream().anyMatch(s->TechnicalMoveItem.getMove(s)==move),"Missing survival TM "+move);
         int megaItems=0;
@@ -123,11 +123,11 @@ public final class WorldContentVerification {
             if(name.equals("tera_blast_disc_single_use")){require(TeraRaids.rewards(1,0,new Random(1)).stream().anyMatch(stack->stack.func_77973_b()==item),"Single-use disc source");++acquisitionItems;continue;}
             if(name.endsWith("_tera_shard")){++acquisitionItems;continue;}
             if(name.endsWith("_gym_badge")){GymCityVerification.badgeSource(name.substring(0,name.length()-10));++acquisitionItems;continue;}
-            if(name.equals("tera_orb") || name.equals("eternatus_meteorite")){
+            if(name.equals("tera_orb") || name.equals("eternatus_meteorite") || name.equals("metal_alloy") || name.endsWith("_nectar")){
                 net.minecraft.item.crafting.IRecipe<?> recipe=ServerLifecycleHooks.getCurrentServer().func_199529_aN().func_215367_a(new ResourceLocation(Content.NS,name)).orElse(null);
                 require(recipe!=null && recipe.func_77571_b().func_77973_b()==item,"Recipe not loaded "+name);
                 for(net.minecraft.item.crafting.Ingredient ingredient:recipe.func_192400_c())require(ingredient.func_193365_a().length>0,"Unresolved recipe ingredient "+name);
-                if(name.equals("eternatus_meteorite"))require(DropItemRegistry.tier3.stream().noneMatch(stack->stack.func_77973_b()==item),"Expensive Meteorite still in chest loot");
+                if(!name.equals("tera_orb"))require(DropItemRegistry.tier3.stream().noneMatch(stack->stack.func_77973_b()==item),"Expensive Meteorite still in chest loot");
             }else require(DropItemRegistry.tier3.stream().anyMatch(stack->stack.func_77973_b()==item),"No survival source for added item "+entry.getValue().getId());
             ++acquisitionItems;
         }

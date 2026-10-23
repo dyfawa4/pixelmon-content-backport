@@ -3,6 +3,8 @@ param([Parameter(Mandatory=$true)][string] $PixelmonJar,[Parameter(Mandatory=$tr
 $ErrorActionPreference='Stop'
 python -X utf8 (Join-Path $PSScriptRoot 'tools/audit_npc_quests.py') --pixelmon-jar $PixelmonJar --output (Join-Path $PSScriptRoot '.cache/npc-quests-145/quest-audit.json')
 if($LASTEXITCODE -ne 0){throw 'NPC quest graph/localization audit failed'}
+python -X utf8 (Join-Path $PSScriptRoot 'tools/audit_npc_intent.py') --pixelmon-jar $PixelmonJar --output (Join-Path $PSScriptRoot '.cache/update-20261021/ai-coverage.json')
+if($LASTEXITCODE -ne 0){throw 'Registered move intent routing inventory failed'}
 $taskBuild=Get-Content -LiteralPath (Join-Path $PSScriptRoot '.cache/last-build.json') -Raw | ConvertFrom-Json
 $taskTests=(New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot '.cache/test-classes')).FullName
 $taskJavac=Join-Path (Split-Path $taskBuild.java) 'javac.exe'
@@ -14,6 +16,13 @@ $taskCompass=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*Ex
 $taskNature=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*NaturesCompass*.jar' | ForEach-Object {$_.FullName})
 $taskTweaks=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter 'PixelTweaks*.jar' | ForEach-Object {$_.FullName})
 $taskOptional=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*.jar' | Where-Object {$_.Name -match 'ftb[-_]|architectury|幸运方块|lootr|configured|FarmersDelight'} | ForEach-Object {$_.FullName})
+$taskJade=@(Get-ChildItem -LiteralPath (Split-Path $PixelmonJar) -Filter '*Jade*.jar')
+if($taskJade.Count -gt 0){
+    # Java 11 Windows command-line encoding cannot represent the emoji in the pack's Jade filename.
+    $taskJadeCopy=Join-Path $PSScriptRoot '.cache/jade-verification.jar'
+    Copy-Item -LiteralPath $taskJade[0].FullName -Destination $taskJadeCopy -Force
+    $taskOptional+=@($taskJadeCopy)
+}
 $taskForgeClient=@(Get-ChildItem -LiteralPath (Join-Path $LibrariesDirectory 'net/minecraftforge/forge') -Recurse -Filter '*36.2.42-client.jar' | ForEach-Object {$_.FullName})
 if($taskForgeClient.Count -ne 1){throw 'Exactly one actual Forge 36.2.42 patched client is required for template placement checks'}
 $taskCP=(@($taskTests,$taskBuild.classes,(Join-Path $PSScriptRoot 'resources'),(Join-Path $PSScriptRoot 'tests/resources'))+$taskAsm+$taskGson+@($taskBuild.classpath)+$taskDetector+$taskCompass+$taskNature+$taskTweaks+$taskOptional) -join [IO.Path]::PathSeparator
@@ -27,6 +36,20 @@ if($LASTEXITCODE -ne 0){throw 'Test compilation failed'}
 if($LASTEXITCODE -ne 0){throw 'Mixin verification failed'}
 & $taskBuild.java -ea -cp $taskCP FossilMachineVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Fossil machine checkpoint synchronization and Cap wording regression failed'}
+& $taskBuild.java -ea -cp $taskCP AuthorBossVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Author boss theme, roster and reward verification failed'}
+& $taskBuild.java -ea -cp $taskCP NpcTurnDecisionVerification
+if($LASTEXITCODE -ne 0){throw 'Submitted-action NPC decisions and medicine regression failed'}
+& $taskBuild.java -ea -cp $taskCP GymRuleTextVerification
+if($LASTEXITCODE -ne 0){throw 'Gym and author medicine announcement formatting failed'}
+& $taskBuild.java -ea -cp $taskCP EndCityVerification
+if($LASTEXITCODE -ne 0){throw 'Outer End complete-city support policy failed'}
+& $taskBuild.java -ea -cp $taskCP AuthorSettlementVerification $PixelmonJar
+if($LASTEXITCODE -ne 0){throw 'Author victory settlement, native loot claims and challenge advancement failed'}
+& $taskBuild.java -ea -cp $taskCP AuthorCombatFeedbackVerification
+if($LASTEXITCODE -ne 0){throw 'Legacy author PVP retirement failed'}
+& $taskBuild.java -ea -cp $taskCP AuthorLocatorVerification
+if($LASTEXITCODE -ne 0){throw 'Author room compass search, persistence and async cleanup failed'}
 & $taskBuild.java -ea -cp $taskCP BattleMechanicsAudit $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Battle rule regression failed'}
 & $taskBuild.java -ea -cp $taskCP Version160Verification
@@ -47,6 +70,8 @@ python -X utf8 (Join-Path $PSScriptRoot 'tools/verify_spawn_checker_models.py')
 if($LASTEXITCODE -ne 0){throw 'Detector model coplanar surface regression failed'}
 & $taskBuild.java -ea -cp $taskCP DetectorRecipeVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Detector native shaped recipe and ball-identity checks failed'}
+& $taskBuild.java -ea -cp $taskCP Update170Verification
+if($LASTEXITCODE -ne 0){throw '1.7.0 legacy ball models and resource regression failed'}
 & $taskBuild.java -ea -cp $taskCP UltraPlantVerification $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Ultra Plant native mining-bolt advancement checks failed'}
 python -X utf8 (Join-Path $PSScriptRoot 'tools/verify_161_localization_art.py') --mods (Split-Path $PixelmonJar)

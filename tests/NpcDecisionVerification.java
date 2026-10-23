@@ -27,6 +27,7 @@ public final class NpcDecisionVerification {
     }
     static PixelmonWrapper wrapper(ServerPlayerEntity player,int own,String move,int enemy,String enemyMove){
         BattleController b=FeedbackVerification.battle(player,FeedbackVerification.mon(own,move),FeedbackVerification.mon(enemy,enemyMove));
+        for(var side:b.participants)for(var member:side.allPokemon)require(member.bc==b,"Every original and appended member must keep the native battle controller");
         return b.participants.get(0).allPokemon[0];
     }
     public static void run(ServerPlayerEntity player){
@@ -74,6 +75,8 @@ public final class NpcDecisionVerification {
         MoveChoice finisher=p.getParticipant().getMove(p);require(finisher.isOffensiveMove() && finisher.tier>=3,"Native AI missed finishing attack");
         require(!NpcMedicine.plan(p,finisher),"Wasted heal instead of fast KO");
         p=wrapper(player,143,"Body Slam",68,"Close Combat");p.setHealth(20);
+        PixelmonWrapper lethalEnemy=p.getOpponentPokemon().get(0);lethalEnemy.getBattleStats().modifyStat(6,BattleStatsType.ATTACK);
+        lethalEnemy.attack=new Attack("Close Combat");p.getBattleAI().registerMove(lethalEnemy);
         require(!NpcMedicine.plan(p),"Wasted potion into certain KO after healing");
         p=wrapper(player,890,"Recover",143,"Tackle");p.setHealth(20);
         MoveChoice recover=new MoveChoice(p,new Attack("Recover"),Collections.singletonList(p));
@@ -90,13 +93,15 @@ public final class NpcDecisionVerification {
         require(p.getMaxHealth()>FeedbackVerification.mon(890,"Tackle").getMaxHealth(),"Native ace wrapper lost special form stats");
         trainedBattle=FeedbackVerification.battle(player,trained,FeedbackVerification.mon(143,"Tackle"));p=trainedBattle.participants.get(0).allPokemon[0];p.setHealth(20);
         // Make this a demonstrably safe recovery turn rather than relying on random
-        // native opponent-memory guesses and IVs for an unobserved Snorlax.
+        // native opponent-memory guesses and IVs for an unobserved Snorlax. This
+        // case tests recovery without a viable reserve; switching is tested below.
+        for(PixelmonWrapper reserve:p.getParticipant().allPokemon)if(reserve!=p)reserve.setHealth(0);
         PixelmonWrapper recoveryEnemy=p.getOpponentPokemon().get(0);
         recoveryEnemy.getBattleStats().modifyStat(-6,BattleStatsType.ATTACK,BattleStatsType.SPECIAL_ATTACK,BattleStatsType.SPEED);
         recoveryEnemy.attack=new Attack("Tackle");p.getBattleAI().registerMove(recoveryEnemy);
         MoveChoice nativeRecovery=p.getParticipant().getMove(p);
         require(p.onBattlefield && p.getParticipant().controlledPokemon.contains(p),"Native switch preview removed the active member");
-        require(NpcMoves.recovery(nativeRecovery.attack),"Native ace AI failed recovery: "+nativeRecovery);
+        require(NpcMoves.recovery(nativeRecovery.attack),"Native ace AI failed recovery: "+nativeRecovery+"; health="+p.getHealth()+"/"+p.getMaxHealth()+"; field="+p.onBattlefield+"; lock="+p.choiceLocked+"; risk="+NpcTactics.incoming(p,NpcTactics.threats(p))+"; moves="+p.getMoveset());
         require(!NpcMedicine.plan(p,nativeRecovery),"Native recovery overridden by medicine");
         contextualTurns(player);counterMatchups(player);
         System.out.println("BACKPORT_NPC_REVIEW_PASS legal saved ace builds="+builds+"; native AI memory, finishing attacks, recovery/item timing, defensive transformation, unchanged levels/IV/EV");

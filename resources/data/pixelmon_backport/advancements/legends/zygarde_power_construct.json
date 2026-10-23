@@ -1,0 +1,24 @@
+{
+  "parent": "pixelmon_backport:legends/forms",
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:718s,palette:\"none\",form:\"fifty_percent\",gender:0b}"
+    },
+    "title": {
+      "translate": "advancement.pixelmon_backport.zygarde_power_construct"
+    },
+    "description": {
+      "translate": "advancement.pixelmon_backport.zygarde_power_construct.desc"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

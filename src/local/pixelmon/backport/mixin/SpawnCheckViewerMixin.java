@@ -11,5 +11,5 @@ import org.spongepowered.asm.mixin.injection.*;
 @Mixin(value=LegendaryCheckSpawns.class,remap=false)
 public abstract class SpawnCheckViewerMixin {
     @Redirect(method="checkSpawns",at=@At(value="INVOKE",target="Lnet/minecraft/server/management/PlayerList;func_181057_v()Ljava/util/List;"))
-    private List<ServerPlayerEntity> backport$ownArea(PlayerList players){return SpawnChecks.players(players.func_181057_v());}
+    private List<ServerPlayerEntity> backport$ownArea(PlayerList players,com.pixelmonmod.pixelmon.api.spawning.AbstractSpawner spawner,net.minecraft.command.CommandSource source,List<String> filters){return SpawnChecks.players(players.func_181057_v(),source);}
 }
