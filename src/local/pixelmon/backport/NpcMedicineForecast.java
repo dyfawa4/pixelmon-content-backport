@@ -19,7 +19,7 @@ public final class NpcMedicineForecast {
         if(!(item instanceof MedicineItem)&&!(item instanceof EtherItem)&&!(item instanceof ElixirItem))return target;
         boolean simulation=target.bc.simulateMode;target.bc.simulateMode=true;
         try{
-            PixelmonWrapper copy=new PixelmonWrapper(target);copy.pokemon=PokemonFactory.copy(target.pokemon);copy.entity=null;
+            PixelmonWrapper copy=NpcSimulationCopy.of(target);
             WrapperLink silent=new WrapperLink(copy){
                 @Override public void setHealth(int health){copy.setHealth(health);}
                 @Override public void update(EnumUpdateType... types){}

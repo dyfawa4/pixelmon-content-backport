@@ -27,10 +27,10 @@ public final class AuthorBossVerification {
   String[][] routes={{"minecraft:the_end","none","end_highlands","paradox"},{"pixelmon:ultra_space","none","ultra_forest","ultra"},{"minecraft:the_nether","nether","nether_wastes","nether"},{"minecraft:overworld","forest","dark_forest","dark_forest"},{"minecraft:overworld","beach","snowy_beach","ocean"},{"minecraft:overworld","mesa","badlands","badlands"},{"minecraft:overworld","extreme_hills","mountains","mountain"},{"minecraft:overworld","savanna","savanna","desert"},{"minecraft:overworld","taiga","snowy_taiga","taiga"},{"minecraft:overworld","icy","snowy_tundra","snow"}};
   for(String[] r:routes)check(r[3].equals(AuthorBossPolicy.theme(r[0],r[1],r[2])),"Theme route "+Arrays.toString(r));
   check(AuthorBossPolicy.damage(1000)==20&&AuthorBossPolicy.damage(7)==7&&AuthorBossPolicy.damage(-1)==0,"Final damage cap");
-  for(int i=0;i<10000;i++){Random r=new Random(i);int money=AuthorBossPolicy.money(r);check(money>=500000&&money<=1000000,"Money bounds");List<Integer>d=AuthorBossPolicy.draw(78,5,r);check(d.size()==5&&new HashSet<>(d).size()==5&&d.stream().allMatch(n->n>=0&&n<78),"Distinct prize rolls");}
+  for(int i=0;i<10000;i++){Random r=new Random(i);int money=AuthorBossPolicy.money(r);check(money>=500000&&money<=1000000,"Money bounds");List<Integer>d=AuthorBossPolicy.draw(81,7,r);check(d.size()==7&&new HashSet<>(d).size()==7&&d.stream().allMatch(n->n>=0&&n<81),"Distinct prize rolls");}
   JsonObject prizes=new JsonParser().parse(Files.readString(Path.of("resources/backport/author_boss_rewards.json"))).getAsJsonObject();
-  check(prizes.get("extra_draws").getAsInt()==5,"Five author-only random rewards");
-  check(prizes.getAsJsonArray("entries").size()==78&&!prizes.get("replacement").getAsBoolean(),"Complete 78-entry pool");
+  check(prizes.get("extra_draws").getAsInt()==7,"Seven author-only random rewards");
+  check(prizes.getAsJsonArray("entries").size()==81&&!prizes.get("replacement").getAsBoolean(),"Complete 81-entry pool");
   int z=0;Set<String> ids=new HashSet<>();
   for(JsonElement value:prizes.getAsJsonArray("entries")){JsonObject e=value.getAsJsonObject();String id=e.has("ball")?"ball:"+e.get("ball").getAsString():e.get("item").getAsString();check(ids.add(id),"Duplicate reward entry "+id);int count=e.get("count").getAsInt();check(count==(Set.of("metalbarrels:diamond_barrel","waystones:waystone","pixelmon:rare_candy").contains(id)?3:1),"Screenshot quantity "+id);if(id.endsWith("_z"))z++;if(id.equals("minecraft:enchanted_book"))check(e.get("enchantment").getAsString().equals("minecraft:mending")&&e.get("enchantment_level").getAsInt()==1,"Mending book NBT");}
   check(z==17,"All exclusive Z crystals");
@@ -46,6 +46,6 @@ public final class AuthorBossVerification {
   check(ToolProvider.getSystemJavaCompiler().run(null,null,null,options.toArray(new String[0]))==0,"Boss fixture compile");
   List<URL> urls=new ArrayList<>();urls.add(dir.toUri().toURL());for(String p:System.getProperty("java.class.path").split(File.pathSeparator))urls.add(Path.of(p).toUri().toURL());
   try(var loader=new URLClassLoader(urls.toArray(new URL[0]),ClassLoader.getPlatformClassLoader())){try{loader.loadClass("AuthorBossCases").getMethod("run",String.class).invoke(null,input.toString());}catch(java.lang.reflect.InvocationTargetException e){throw new AssertionError("Boss roster fixture",e.getCause());}}
-  System.out.println("PASS boss dimension/biome exclusions, 10000 money/distinct-loot rolls, 78 exact screenshot prizes and mending/all17 exclusive Z. World/renderer gameplay remains manual.");
+  System.out.println("PASS boss dimension/biome exclusions, 10000 money/distinct-loot rolls, 81 base prizes and mending/all17 exclusive Z. World/renderer gameplay remains manual.");
  }
 }

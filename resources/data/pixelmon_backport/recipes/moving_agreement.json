@@ -1,0 +1,49 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GLC",
+    "BSF",
+    "HUN"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "L": {
+      "type": "pixelmon_backport:ball_lid"
+    },
+    "C": {
+      "item": "minecraft:crafting_table"
+    },
+    "B": {
+      "tag": "minecraft:beds"
+    },
+    "S": {
+      "item": "minecraft:stone_button"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    },
+    "H": {
+      "item": "minecraft:chest"
+    },
+    "U": [
+      {
+        "item": "pixelmon:iron_base"
+      },
+      {
+        "item": "pixelmon:aluminum_base"
+      },
+      {
+        "item": "pixelmon:platinum_base"
+      }
+    ],
+    "N": {
+      "item": "minecraft:jukebox"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:moving_agreement",
+    "count": 1
+  }
+}

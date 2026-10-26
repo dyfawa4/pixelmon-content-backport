@@ -24,11 +24,12 @@ public final class PCStorageSync {
             box.setName(metadata.getName());box.setWallpaper(metadata.getWallpaper());
             box.hasChangedClientSide=false;
         }
-        // Confirm cached contents with the owning server, including empty slots.
-        // Visible box comes first; the bounded queue drains the rest without dropping them.
-        int visible=current.getLastBox();
-        if(visible>=0&&visible<size)StoragePacketGuard.recover(current.uuid,new StoragePosition(visible,0));
-        for(int i=0;i<size;i++)if(i!=visible)StoragePacketGuard.recover(current.uuid,new StoragePosition(i,0));
         return current;
+    }
+    /** Run only after the native handler installs the storage into the map. */
+    public static void initialized(PCStorage storage){
+        int size=storage.getBoxCount(),visible=storage.getLastBox();
+        if(visible>=0&&visible<size)StoragePacketGuard.recover(storage.uuid,new StoragePosition(visible,0));
+        for(int i=0;i<size;i++)if(i!=visible)StoragePacketGuard.recover(storage.uuid,new StoragePosition(i,0));
     }
 }

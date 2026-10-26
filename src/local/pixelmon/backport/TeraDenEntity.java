@@ -23,6 +23,7 @@ public final class TeraDenEntity extends DenEntity {
     @Override public void func_213352_e(Vector3d travel){func_213317_d(Vector3d.field_186680_a);}
     public TeraDenEntity(World world){this(Backport.TERA_DEN.get(),world);}
     @Override public boolean isBaseHidden(){return true;}
+    @Override public net.minecraft.item.ItemStack getPickedResult(net.minecraft.util.math.RayTraceResult hit){return new net.minecraft.item.ItemStack(Backport.REGISTERED.get("tera_den_spawner").get());}
     @Override public boolean func_70097_a(net.minecraft.util.DamageSource source,float amount){
         if(source.func_76364_f() instanceof PlayerEntity){
             PlayerEntity player=(PlayerEntity)source.func_76364_f();

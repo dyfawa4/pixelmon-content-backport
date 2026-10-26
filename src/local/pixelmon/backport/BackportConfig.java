@@ -12,6 +12,7 @@ public final class BackportConfig {
     public static final class Values {
         @com.pixelmonmod.pixelmon.api.config.api.ui.ConfigSetting(minValue=1,maxValue=10) public double ashWaterMultiplier=1.5;
         @com.pixelmonmod.pixelmon.api.config.api.ui.ConfigSetting(minValue=1,maxValue=20) public int ashWaterTurns=5;
+        @com.pixelmonmod.pixelmon.api.config.api.ui.ConfigSetting(minValue=1,maxValue=100) public int calamityReduction=20;
         public boolean erosionEnabled=true;
         @com.pixelmonmod.pixelmon.api.config.api.ui.ConfigSetting(minValue=1,maxValue=100) public int erosionReduction=20;
         @com.pixelmonmod.pixelmon.api.config.api.ui.ConfigSetting(minValue=1,maxValue=20) public int erosionTurns=5;
@@ -23,7 +24,7 @@ public final class BackportConfig {
         Path FILE=file();
         if(!Files.exists(FILE))return;
         try(var reader=Files.newBufferedReader(FILE,StandardCharsets.UTF_8)){
-            Values next=JSON.fromJson(reader,Values.class);if(next==null)throw new IllegalArgumentException("Empty configuration");
+            JsonObject raw=JSON.fromJson(reader,JsonObject.class);Values next=JSON.fromJson(raw,Values.class);if(next!=null&&!raw.has("calamityReduction")&&raw.has("erosionReduction"))next.calamityReduction=next.erosionReduction;if(next==null)throw new IllegalArgumentException("Empty configuration");
             ConfigEditor.validateObject(next);values=next;
         }catch(Exception e){org.apache.logging.log4j.LogManager.getLogger("pixelmon_backport").error("Cannot load {}; using last valid settings",FILE,e);}
     }
@@ -38,5 +39,6 @@ public final class BackportConfig {
     public static int ashWaterTurns(){return values.ashWaterTurns;}
     public static boolean erosionEnabled(){return values.erosionEnabled;}
     public static int erosionReduction(){return values.erosionReduction;}
+    public static int calamityReduction(){return values.calamityReduction;}
     public static int erosionTurns(){return values.erosionTurns;}
 }

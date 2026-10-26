@@ -34,6 +34,7 @@ public final class NpcMoveIntent {
             if(effect instanceof StatsEffect){var stats=(StatsEffect)effect;if(stats.isUser&&stats.amount>0)intent.traits.add(Trait.BOOSTS_SELF);}
             if(effect instanceof Recover)intent.traits.add(Trait.HEALS_SELF);
         }
+        if(attack.getAttackCategory()==AttackCategory.STATUS&&AuthorChallenge.selfBuff(attack.getMove()))intent.traits.add(Trait.BOOSTS_SELF);
         return intent;
     }
 }

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 /** A separate, versioned channel: no modification to native packet layouts. */
 public final class TeraNetwork {
-    public static final SimpleChannel CHANNEL=NetworkRegistry.newSimpleChannel(new ResourceLocation(Content.NS,"tera"),()->"16","16"::equals,"16"::equals);
+    public static final SimpleChannel CHANNEL=NetworkRegistry.newSimpleChannel(new ResourceLocation(Content.NS,"tera"),()->"19","19"::equals,"19"::equals);
     private TeraNetwork(){}
     public static void raidStatus(TeraRaidParticipant raid){if(raid.bc.simulateMode)return;for(ServerPlayerEntity player:raid.bc.getPlayerEntities())CHANNEL.send(PacketDistributor.PLAYER.with(()->player),new RaidStatus(raid.bc.battleIndex,(int)Math.max(0,300-raid.rules.elapsed/20),raid.charge(raid.bc.getParticipantForEntity(player)),raid.rules.segments(),raid.stars));}
     private static final Map<BattleController,Snapshot> LAST=Collections.synchronizedMap(new WeakHashMap<>());
@@ -32,7 +32,8 @@ public final class TeraNetwork {
         CHANNEL.registerMessage(6,ConfigNetwork.Request.class,ConfigNetwork.Request::encode,ConfigNetwork.Request::decode,ConfigNetwork.Request::handle,Optional.of(NetworkDirection.PLAY_TO_SERVER));
         CHANNEL.registerMessage(7,ConfigNetwork.Reply.class,ConfigNetwork.Reply::encode,ConfigNetwork.Reply::decode,ConfigNetwork.Reply::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(8,StorageSnapshot.Request.class,StorageSnapshot.Request::encode,StorageSnapshot.Request::decode,StorageSnapshot.Request::handle,Optional.of(NetworkDirection.PLAY_TO_SERVER));
-        CHANNEL.registerMessage(9,ErosionPartySync.State.class,ErosionPartySync.State::encode,ErosionPartySync.State::decode,ErosionPartySync.State::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(10,CalamityNetwork.State.class,CalamityNetwork.State::encode,CalamityNetwork.State::decode,CalamityNetwork.State::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(9,CalamityPartySync.State.class,CalamityPartySync.State::encode,CalamityPartySync.State::decode,CalamityPartySync.State::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
     public static class Request {
         public final int battle,operation,type;public final UUID pokemon;

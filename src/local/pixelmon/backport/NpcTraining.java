@@ -11,6 +11,7 @@ import com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem;
 public final class NpcTraining {
     private NpcTraining(){}
     private static final BattleStatsType[] STATS={BattleStatsType.HP,BattleStatsType.ATTACK,BattleStatsType.DEFENSE,BattleStatsType.SPECIAL_ATTACK,BattleStatsType.SPECIAL_DEFENSE,BattleStatsType.SPEED};
+    public static void maximize(Pokemon pokemon){prepare(pokemon);for(var stat:STATS){pokemon.getIVs().setHyperTrained(stat,false);pokemon.getIVs().setStat(stat,31);}pokemon.getEVs().fillFromArray(252,252,252,252,252,252);pokemon.getStats().recalculateStats();}
     public static void prepare(Pokemon pokemon){
         Stats form=pokemon.getForm(),trainedForm=form;
         if(pokemon.getHeldItem().func_77973_b() instanceof MegaStoneItem){

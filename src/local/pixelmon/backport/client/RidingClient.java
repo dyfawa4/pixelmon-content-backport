@@ -21,11 +21,15 @@ public final class RidingClient {
         RidingSeat.tickAll();
         if(p==null||!RidingMotion.active(p.func_184187_bx())){lastMount=null;lastMask=-1;return;}
         PixelmonEntity e=(PixelmonEntity)p.func_184187_bx();var keys=mc.field_71474_y;int mask=0;
-        if(mc.field_71462_r==null&&org.lwjgl.glfw.GLFW.glfwGetWindowAttrib(mc.func_228018_at_().func_198092_i(),org.lwjgl.glfw.GLFW.GLFW_FOCUSED)==org.lwjgl.glfw.GLFW.GLFW_TRUE){
+        if(mc.field_71462_r==null&&!mc.func_147113_T()){
+            // Touch/controller clients update MovementInput without desktop key states or a reliable GLFW focus flag.
+            var movement=p.field_71158_b;
+            if(movement!=null){if(movement.field_192832_b>.01)mask|=RidingMotion.FORWARD;if(movement.field_192832_b<-.01)mask|=RidingMotion.BACK;
+                if(movement.field_78902_a>.01)mask|=RidingMotion.LEFT;if(movement.field_78902_a<-.01)mask|=RidingMotion.RIGHT;if(movement.field_78901_c)mask|=RidingMotion.UP;}
             if(keys.field_74351_w.func_151470_d())mask|=RidingMotion.FORWARD;if(keys.field_74368_y.func_151470_d())mask|=RidingMotion.BACK;
             if(keys.field_74370_x.func_151470_d())mask|=RidingMotion.LEFT;if(keys.field_74366_z.func_151470_d())mask|=RidingMotion.RIGHT;
             if(keys.field_74314_A.func_151470_d())mask|=RidingMotion.UP;if(DescendKey.Instance.func_151470_d())mask|=RidingMotion.DOWN;
-            if(keys.field_151444_V.func_151470_d())mask|=RidingMotion.SPRINT;
+            if(keys.field_151444_V.func_151470_d()||p.func_70051_ag())mask|=RidingMotion.SPRINT;
         }
         RidingMotion.localInput(e,mask);
         if(!e.func_110124_au().equals(lastMount)||mask!=lastMask||tick%5==0||Math.abs(net.minecraft.util.math.MathHelper.func_76142_g(p.field_70177_z-lastYaw))>.5f||Math.abs(p.field_70125_A-lastPitch)>.5f)sendInput(e,mask);

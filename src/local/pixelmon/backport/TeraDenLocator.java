@@ -18,6 +18,26 @@ import net.minecraftforge.registries.*;
 public final class TeraDenLocator {
     private TeraDenLocator(){}
     public static final String[] BIOMES={"badlands","beach","desert","end","forest","ice","jungle","mountain","mushroom","nether","plains","snow","taiga","water","swamp","ultra_deep_sea","ultra_desert","ultra_forest","ultra_jungle","ultra_plant"};
+    private static final Map<ServerWorld,Map<UUID,Map<String,Set<Long>>>> FOUND=new WeakHashMap<>();
+    public static boolean handles(Structure<?> structure){
+        if(structure==null)return false;
+        if(structure instanceof TypedDen)return true;
+        ResourceLocation id=ForgeRegistries.STRUCTURE_FEATURES.getKey(structure);
+        if(id==null||!id.func_110624_b().equals("pixelmon"))return false;
+        for(String biome:BIOMES)if(id.func_110623_a().equals(biome+"_den"))return true;
+        return false;
+    }
+    public static Structure<?> source(Structure<?> structure){return structure instanceof TypedDen?((TypedDen)structure).nativeDen():structure;}
+    public static boolean matches(com.pixelmonmod.pixelmon.entities.DenEntity den,boolean tera){
+        return Candidate.matches(den,tera);
+    }
+    private static Set<Long> visited(ServerWorld world,UUID player,String kind){return FOUND.computeIfAbsent(world,k->new HashMap<>()).computeIfAbsent(player,k->new HashMap<>()).computeIfAbsent(kind,k->new HashSet<>());}
+    public static boolean eligible(ServerWorld world,net.minecraft.entity.player.PlayerEntity player,String kind,BlockPos pos){
+        BlockPos here=player.func_233580_cy_();
+        return (Math.abs((long)here.func_177958_n()-pos.func_177958_n())>32||Math.abs((long)here.func_177952_p()-pos.func_177952_p())>32)&&!visited(world,player.func_110124_au(),kind).contains(pos.func_218275_a());
+    }
+    public static void found(ServerWorld world,UUID player,String kind,BlockPos pos){visited(world,player,kind).add(pos.func_218275_a());}
+    public static void forget(ServerWorld world,UUID player,String kind){visited(world,player,kind).clear();}
     public static void registerAliases(DeferredRegister<Structure<?>> registry){
         for(String biome:BIOMES)registry.register(biome+"_tera_den",()->new TypedDen(biome));
     }
@@ -34,6 +54,9 @@ public final class TeraDenLocator {
         return settings(world,alias)!=null && world.func_72863_F().func_201711_g().func_202090_b().func_205004_a(alias.nativeDen());
     }
     public static final class Candidate {
+        public static boolean matches(com.pixelmonmod.pixelmon.entities.DenEntity den,boolean tera){
+            return den!=null&&!den.field_70128_L&&!den.isDecoration()&&(tera?den instanceof TeraDenEntity:!(den instanceof TeraDenEntity)&&den.getPersistentData().func_74762_e("BackportDenKind")!=1);
+        }
         private static final TicketType<Long> TICKET=TicketType.func_223183_a("backport_tera_search",Long::compare,400);
         private static final java.util.concurrent.atomic.AtomicLong IDS=new java.util.concurrent.atomic.AtomicLong();
         private final long id=IDS.incrementAndGet();
@@ -74,8 +97,12 @@ public final class TeraDenLocator {
             tickets.clear();
         }
         public BlockPos find(ServerWorld world){
-            return world.func_175647_a(TeraDenEntity.class,box,den->!den.field_70128_L && !den.isDecoration()).stream()
-                .map(TeraDenEntity::func_233580_cy_).min(Comparator.comparingInt(BlockPos::func_177958_n).thenComparingInt(BlockPos::func_177952_p)).orElse(null);
+            return find(world,true,p->true);
+        }
+        public BlockPos find(ServerWorld world,boolean tera,java.util.function.Predicate<BlockPos> eligible){return find(world,box,tera,eligible);}
+        public static BlockPos find(ServerWorld world,AxisAlignedBB box,boolean tera,java.util.function.Predicate<BlockPos> eligible){
+            return world.func_175647_a(com.pixelmonmod.pixelmon.entities.DenEntity.class,box,den->matches(den,tera)&&eligible.test(den.func_233580_cy_())).stream()
+                .map(com.pixelmonmod.pixelmon.entities.DenEntity::func_233580_cy_).min(Comparator.comparingInt(BlockPos::func_177958_n).thenComparingInt(BlockPos::func_177952_p)).orElse(null);
         }
     }
 }

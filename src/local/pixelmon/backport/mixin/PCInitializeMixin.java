@@ -10,4 +10,7 @@ public abstract class PCInitializeMixin {
     @Shadow private PCStorage storage;
     @Inject(method="handlePacket",at=@At("HEAD"))
     private void backport$reuse(NetworkEvent.Context context,CallbackInfo ci){storage=PCStorageSync.initialize(storage);}
+    @Inject(method="handlePacket",at=@At("TAIL"))
+    private void backport$refresh(NetworkEvent.Context context,CallbackInfo ci){PCStorageSync.initialized(storage);}
 }
+

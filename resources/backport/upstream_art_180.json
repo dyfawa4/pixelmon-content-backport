@@ -1,0 +1,212 @@
+{
+  "source": "【像素宝可梦 重铸】Pixelmon-1.21.1-9.4.2-universal.jar",
+  "items": [
+    {
+      "id": "pixelmon:blue_juice",
+      "model": "pixelmon_backport:item/upstream942/blue_juice",
+      "source": "assets/pixelmon/textures/item/evivitems/blue_juice.png",
+      "sha256": "2c3fb016026d03341b0e0e25c2141c9a32c9e022e034e1d17def2b2426813c93"
+    },
+    {
+      "id": "pixelmon:red_juice",
+      "model": "pixelmon_backport:item/upstream942/red_juice",
+      "source": "assets/pixelmon/textures/item/evivitems/red_juice.png",
+      "sha256": "796123d4450b2b6e94de2f74f503ec4999a827a80bddcf772822084455a1d518"
+    },
+    {
+      "id": "pixelmon:pink_juice",
+      "model": "pixelmon_backport:item/upstream942/pink_juice",
+      "source": "assets/pixelmon/textures/item/evivitems/pink_juice.png",
+      "sha256": "76b4d385d64143213c139dc3b12435072654d7fe6b7ccb1d5d86ab7ea11f1f16"
+    },
+    {
+      "id": "pixelmon:purple_juice",
+      "model": "pixelmon_backport:item/upstream942/purple_juice",
+      "source": "assets/pixelmon/textures/item/evivitems/purple_juice.png",
+      "sha256": "e5d7859fcfffd38a0976bbe06fb5c2913da7c49354812c329e998319f2938e36"
+    },
+    {
+      "id": "pixelmon:yellow_juice",
+      "model": "pixelmon_backport:item/upstream942/yellow_juice",
+      "source": "assets/pixelmon/textures/item/evivitems/yellow_juice.png",
+      "sha256": "f9c12f581ae9e66296e1810764664c494064ed2ff47373941a007cca356227a8"
+    },
+    {
+      "id": "pixelmon:green_juice",
+      "model": "pixelmon_backport:item/upstream942/green_juice",
+      "source": "assets/pixelmon/textures/item/evivitems/green_juice.png",
+      "sha256": "936db6d74878c7734da8bf7691aa95bae2a235ed690b737faa009080be663723"
+    },
+    {
+      "id": "pixelmon:colorful_shake",
+      "model": "pixelmon_backport:item/upstream942/colorful_shake",
+      "source": "assets/pixelmon/textures/item/evivitems/colorful_shake.png",
+      "sha256": "b1b42b2b832e057277e261fe7624cffc994904c603c81209997ff9788f06547d"
+    },
+    {
+      "id": "pixelmon_backport:teal_mask",
+      "model": "pixelmon_backport:item/upstream942/teal_mask",
+      "source": "assets/pixelmon/textures/item/helditems/teal_mask.png",
+      "sha256": "a0df07f0784023786029b90334b47398d4232b94f45a1a4a5f4328cd56770e1f"
+    },
+    {
+      "id": "pixelmon_backport:wellspring_mask",
+      "model": "pixelmon_backport:item/upstream942/wellspring_mask",
+      "source": "assets/pixelmon/textures/item/helditems/wellspring_mask.png",
+      "sha256": "0f1e192c8753d6dbd7f45577ccf4224195baf28479ae23adda9b1b251d80ed4c"
+    },
+    {
+      "id": "pixelmon_backport:hearthflame_mask",
+      "model": "pixelmon_backport:item/upstream942/hearthflame_mask",
+      "source": "assets/pixelmon/textures/item/helditems/hearthflame_mask.png",
+      "sha256": "3b68396477bdc952092c908856a9d534e3666b9311686128edb9bcac9a2bb001"
+    },
+    {
+      "id": "pixelmon_backport:cornerstone_mask",
+      "model": "pixelmon_backport:item/upstream942/cornerstone_mask",
+      "source": "assets/pixelmon/textures/item/helditems/cornerstone_mask.png",
+      "sha256": "81039295c1a53374849123133af3382c9e6e71c7501abcac02da22735d4b0f47"
+    },
+    {
+      "id": "pixelmon_backport:utility_umbrella",
+      "model": "pixelmon_backport:item/upstream942/utility_umbrella",
+      "source": "assets/pixelmon/textures/item/helditems/utility_umbrella.png",
+      "sha256": "276686b9a16d6fc2738b6abe470bba05a240ec03120e3ad5bffeaa27e142f079"
+    },
+    {
+      "id": "pixelmon_backport:eject_pack",
+      "model": "pixelmon_backport:item/upstream942/eject_pack",
+      "source": "assets/pixelmon/textures/item/helditems/ejectpack.png",
+      "sha256": "8e1f32ccc9c1cbaa05030945a63bab23de390f75b1e8a1ca420926fedb8f20f5"
+    },
+    {
+      "id": "pixelmon_backport:ability_shield",
+      "model": "pixelmon_backport:item/upstream942/ability_shield",
+      "source": "assets/pixelmon/textures/item/helditems/ability_shield.png",
+      "sha256": "e953565331992a4449825d2af957a22326c51bdf535b0b7c2bf4d27756213947"
+    },
+    {
+      "id": "pixelmon:blank_plate",
+      "model": "pixelmon_backport:item/upstream942/blank_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/blankplate.png",
+      "sha256": "fe08fbf8420b045f3ea321b8baa3af182e6f9b1d3d8e58a7b38cd5043cec851b"
+    },
+    {
+      "id": "pixelmon:draco_plate",
+      "model": "pixelmon_backport:item/upstream942/draco_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/dracoplate.png",
+      "sha256": "97a58994856361587f2c29e7d0a89355c211ae7c7ec18a59188d0dbdac2b1426"
+    },
+    {
+      "id": "pixelmon:dread_plate",
+      "model": "pixelmon_backport:item/upstream942/dread_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/dreadplate.png",
+      "sha256": "8ebc0c03d077cdb57a5fffafdcded51435283af19a4c66f42cfa6d22079e4c1b"
+    },
+    {
+      "id": "pixelmon:earth_plate",
+      "model": "pixelmon_backport:item/upstream942/earth_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/earthplate.png",
+      "sha256": "133b2ddb378d769e9b72e8cb8a4fe5ab149e388d0d674f384d8f746f32bf14e7"
+    },
+    {
+      "id": "pixelmon:fist_plate",
+      "model": "pixelmon_backport:item/upstream942/fist_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/fistplate.png",
+      "sha256": "397df1f99ccbce98a8611e44ebea26a6e4722c151ffb7448d4324c14309a6d14"
+    },
+    {
+      "id": "pixelmon:flame_plate",
+      "model": "pixelmon_backport:item/upstream942/flame_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/flameplate.png",
+      "sha256": "ce57168af5a1f8f628971cf7dab71f43a5f52f8051313f7fd908b597acba5926"
+    },
+    {
+      "id": "pixelmon:icicle_plate",
+      "model": "pixelmon_backport:item/upstream942/icicle_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/icicleplate.png",
+      "sha256": "b5469a8af09f8ab342f4235e95b558111118812dffd6595e5d14261ea953e646"
+    },
+    {
+      "id": "pixelmon:insect_plate",
+      "model": "pixelmon_backport:item/upstream942/insect_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/insectplate.png",
+      "sha256": "b62ac85ab88c0c5e074abded40f23e9a4b4a32caa4ae1babad232623b06d4069"
+    },
+    {
+      "id": "pixelmon:iron_plate",
+      "model": "pixelmon_backport:item/upstream942/iron_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/ironplate.png",
+      "sha256": "6676b32fe66b0d294f1cdf514230720516177cee20411cc1cc458b67c9c83598"
+    },
+    {
+      "id": "pixelmon:legend_plate",
+      "model": "pixelmon_backport:item/upstream942/legend_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/legendplate.png",
+      "sha256": "f7397e53c184f3c08d104de31bdb70ef20c846104d62b01736412bc7de6e158d"
+    },
+    {
+      "id": "pixelmon:meadow_plate",
+      "model": "pixelmon_backport:item/upstream942/meadow_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/meadowplate.png",
+      "sha256": "5185a35cfb79cfed74aa8397596000de7301aa0fdc7cac041bac785dae2cc5fe"
+    },
+    {
+      "id": "pixelmon:mind_plate",
+      "model": "pixelmon_backport:item/upstream942/mind_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/mindplate.png",
+      "sha256": "ed04865e9c006b25104a3a00b26fde8e0f7e23e83dae99b98a0909bc3cd436cc"
+    },
+    {
+      "id": "pixelmon:pixie_plate",
+      "model": "pixelmon_backport:item/upstream942/pixie_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/pixieplate.png",
+      "sha256": "e6b978acf875da749f0b2e2a566bb4812693d497f4d5719d6b2fc7bca9e07c7f"
+    },
+    {
+      "id": "pixelmon:sky_plate",
+      "model": "pixelmon_backport:item/upstream942/sky_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/skyplate.png",
+      "sha256": "6f24683900f27d69db7b7d5b158c2428883d5e56c0abfb5c28ce94cc09901b8d"
+    },
+    {
+      "id": "pixelmon:splash_plate",
+      "model": "pixelmon_backport:item/upstream942/splash_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/splashplate.png",
+      "sha256": "8ae272d35308839b4f5ed047fb2e3d821a851cd51f1562ddeb77597dc41b5657"
+    },
+    {
+      "id": "pixelmon:spooky_plate",
+      "model": "pixelmon_backport:item/upstream942/spooky_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/spookyplate.png",
+      "sha256": "d34b376785977bae59745afadcce44394610be6e4d3c6cc61f2c141fa03d9b49"
+    },
+    {
+      "id": "pixelmon:stone_plate",
+      "model": "pixelmon_backport:item/upstream942/stone_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/stoneplate.png",
+      "sha256": "d1e90254611f8f320564069d858e62256f9f6aabbfde0eff099c4379acf3d9d7"
+    },
+    {
+      "id": "pixelmon:toxic_plate",
+      "model": "pixelmon_backport:item/upstream942/toxic_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/toxicplate.png",
+      "sha256": "f2976885d30044e1718b97b555c0d0823116e7a0596ff812bc02cf43c94923a3"
+    },
+    {
+      "id": "pixelmon:zap_plate",
+      "model": "pixelmon_backport:item/upstream942/zap_plate",
+      "source": "assets/pixelmon/textures/item/helditems/plates/zapplate.png",
+      "sha256": "298cf1ba31d048e5bfa26cbcbdab6a19457ed5d70c2f18da05cfd05b0d275023"
+    },
+    {
+      "id": "pixelmon:max_mushroom",
+      "model": "pixelmon_backport:item/upstream942/max_mushroom",
+      "source": "assets/pixelmon/models/block/max_mushroom.json",
+      "sha256": "26e1bae13b39756884aa90d79a480f80f4652ed9433acf8ae444237cc5756732",
+      "texture_sha256": "0ebfb9fe72f12cef081371d19bc59835f00972066433e40f823bcb48b4c37015",
+      "elements": 4
+    }
+  ],
+  "scope": "Only explicitly listed item art and placed Max Mushroom; no warp plates, mechanics, recipes or unrelated blocks."
+}

@@ -1,5 +1,20 @@
 # 从完整源码构建
 
+## 当前正式版：1.8.0
+
+源码归档来自v1.8.0标签对应的完整Git提交，包含生产源码、资源、测试源码及工具。普通构建直接使用resources，不需重新转换上游资源。
+
+构建示例（按实际位置填写依赖路径）：
+
+```powershell
+./build.ps1 -LibrariesDirectory D:/游戏/宝可梦/.minecraft/libraries -PixelmonJar /path/to/Pixelmon-legacy.jar -JdkDirectory "C:/Program Files/Java/jdk-11"
+```
+
+输出为dist/pixelmon-content-backport-1.16.5-1.8.0.jar。需要JDK 11、Forge 36.2.42及Pixelmon 9.1.12～9.1.13依赖。生产包不包含测试助手。正式封包脚本为tools/package_release_180.py，使用--source-ref指定已提交源码；该脚本要求已核对的r15核心及可选忍蛙1.0.1，执行资源、归档和校验值检查。重新构建产生的ZIP时间戳可能不同，不能据此保证JAR文件哈希相同。
+
+当前安装与更新见docs/RELEASE_1.8.0.md。以下保留旧版构建背景与示例，版本号以本节为准。
+
+
 1.6.1 发布源码包含全部附加模组 Java 源码、运行资源、测试源码、转换工具，以及仓库中已有测试地图的干净初始文件。`resources/` 已是转换后的可构建资源，普通构建不必重新下载或转换上游模组。
 
 ## 环境与外部依赖

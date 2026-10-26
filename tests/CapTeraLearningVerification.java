@@ -19,16 +19,16 @@ public final class CapTeraLearningVerification {
         check(has(moves,"tmMoves9","Tera Blast"),"Cap still cannot learn TM9-171");
         boolean level50=false;Set<Integer> levels=new HashSet<>();
         for(var row:moves.getAsJsonArray("levelUpMoves")){var r=row.getAsJsonObject();int level=r.get("level").getAsInt();check(levels.add(level),"Duplicate level replaced native moves");if(level==50&&r.getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")))level50=true;}
-        check(level50,"Shared level-50/relearner acquisition missing");
+        check(!level50,"Tera Blast must not be a level-up/reminder move");
         for(var entry:oldMoves.entrySet()){
             if(entry.getKey().equals("levelUpMoves")){
-                for(var row:entry.getValue().getAsJsonArray()){var r=row.getAsJsonObject();JsonArray retained=null;for(var next:moves.getAsJsonArray("levelUpMoves"))if(next.getAsJsonObject().get("level").equals(r.get("level")))retained=next.getAsJsonObject().getAsJsonArray("attacks");for(var attack:r.getAsJsonArray("attacks"))check(retained!=null&&retained.contains(attack),"Lost native level move");}
+                for(var row:entry.getValue().getAsJsonArray()){var r=row.getAsJsonObject();JsonArray retained=null;for(var next:moves.getAsJsonArray("levelUpMoves"))if(next.getAsJsonObject().get("level").equals(r.get("level")))retained=next.getAsJsonObject().getAsJsonArray("attacks");for(var attack:r.getAsJsonArray("attacks"))if(!attack.getAsString().equals("Tera Blast"))check(retained!=null&&retained.contains(attack),"Lost native level move");}
             }else for(var attack:entry.getValue().getAsJsonArray())check(moves.getAsJsonArray(entry.getKey()).contains(attack),"Lost native/signature compatibility: "+attack);
         }
         JsonObject metadata=new JsonParser().parse(cap.toString()).getAsJsonObject(),oldMetadata=new JsonParser().parse(before.toString()).getAsJsonObject();metadata.getAsJsonArray("forms").get(0).getAsJsonObject().remove("moves");oldMetadata.getAsJsonArray("forms").get(0).getAsJsonObject().remove("moves");check(metadata.equals(oldMetadata),"Stats, traits, forms or signature rules changed");
         String once=cap.toString();Content.applyTeraLearning(cap);check(once.equals(cap.toString()),"Reload duplicates eligibility");check(nativeBefore.equals(pikachu.toString()),"Creating/updating Cap mutated ordinary Pikachu");
-        Content.applyTeraLearning(pikachu);check(nativeBefore.equals(pikachu.toString()),"Existing ordinary Pikachu eligibility changed");
+        Content.applyTeraLearning(pikachu);for(var form:pikachu.getAsJsonArray("forms"))if(form.getAsJsonObject().has("moves"))for(var level:form.getAsJsonObject().getAsJsonObject("moves").getAsJsonArray("levelUpMoves"))check(!level.getAsJsonObject().getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")),"Ordinary Pikachu still learns Tera Blast by level");
         int created=-1,learning=-1,index=0;for(var method:Version13StaticVerification.node("local/pixelmon/backport/Content").methods)if(method.name.equals("apply"))for(var instruction:method.instructions){if(instruction instanceof MethodInsnNode){var call=(MethodInsnNode)instruction;if(call.owner.endsWith("/CapSpecies")&&call.name.equals("add"))created=index;if(call.name.equals("applyTeraLearning"))learning=index;}index++;}check(created>=0&&learning>created,"Shared eligibility must run after independent Cap creation");
-        System.out.println("PASS reported Cap omission reproduced; production post-creation pass adds TM9 Tera Blast and level-50 recall once, retains all native/extra/signature moves and stats, preserves ordinary Pikachu and loader order. No game initialized.");
+        System.out.println("PASS reported Cap omission reproduced; production post-creation pass adds TM9 Tera Blast without level-up/recall, retains all native/extra/signature moves and stats, preserves ordinary Pikachu and loader order. No game initialized.");
     }
 }

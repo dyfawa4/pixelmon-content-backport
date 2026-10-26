@@ -24,9 +24,14 @@ public final class Content {
     }
     public static void apply(String context, String type, Map<ResourceLocation, JsonElement> data) {
         if (!"pixelmon".equals(context)) return;
+        if("species".equals(type)){GymCounterTeam.clearCache();MysteriousPotion.clear();}
         if("quests".equals(type))DrownedQuestSeason.apply(data);
         if("drops".equals(type))MaxRaidRewards.apply(data);
-        if("bosstiers".equals(type))DrownedBosses.configure(data);
+        if("bosstiers".equals(type)){AuthorBossRewards.captureTierPools(data);DrownedBosses.configure(data);}
+        GrowthLampLoot.apply(type,data);
+        UtilityItemLoot.apply(type,data);
+        MysteriousPotionLoot.apply(type,data);
+        if("spawning".equals(type))LegendWeightPairs.apply(data);
         if("spawning".equals(type))MagearnaSpawns.merge(data);
         if("npcs".equals(type))NpcLocalization.merge(data);
         if(DATA.has("referenceExtras"))for(Map.Entry<ResourceLocation,JsonElement> entry:data.entrySet()){
@@ -206,6 +211,13 @@ public final class Content {
     }
     /** Apply the shared Tera Blast eligibility after custom species are created. */
     public static void applyTeraLearning(JsonObject species){
+        // This runs for every species, including forms outside the TM whitelist.
+        // Strip legacy/custom free acquisition before materializing inheritance.
+        for(JsonElement row:species.getAsJsonArray("forms")){
+            JsonObject form=row.getAsJsonObject();if(!form.has("moves"))continue;
+            for(Map.Entry<String,JsonElement> pool:form.getAsJsonObject("moves").entrySet())
+                if(!pool.getKey().startsWith("tmMoves")&&!pool.getKey().equals("trMoves")&&!pool.getKey().equals("hmMoves"))TeraMachineLearning.remove(pool.getValue());
+        }
         String dex=species.get("dex").getAsString();if(!TERA_LEARNING.has(dex))return;
         JsonArray source=TERA_LEARNING.getAsJsonArray(dex);
         for(JsonElement valueForm:species.getAsJsonArray("forms")){
@@ -225,9 +237,6 @@ public final class Content {
                 form.add("moves",moves);
             }
             JsonArray machines=moves.has("tmMoves9")?moves.getAsJsonArray("tmMoves9"):new JsonArray();moves.add("tmMoves9",machines);if(!machines.contains(new JsonPrimitive("Tera Blast")))machines.add("Tera Blast");
-            JsonArray levels=moves.has("levelUpMoves")?moves.getAsJsonArray("levelUpMoves"):new JsonArray();moves.add("levelUpMoves",levels);
-            boolean learned=false;for(JsonElement level:levels)if(level.getAsJsonObject().getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")))learned=true;
-            if(!learned){JsonObject target=null;for(JsonElement level:levels)if(level.getAsJsonObject().get("level").getAsInt()==50)target=level.getAsJsonObject();if(target==null){target=new JsonObject();target.addProperty("level",50);target.add("attacks",new JsonArray());levels.add(target);}target.getAsJsonArray("attacks").add("Tera Blast");}
         }
     }
     private static void mergeMegaPairs(JsonObject target,JsonObject source){

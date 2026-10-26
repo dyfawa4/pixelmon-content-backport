@@ -1,0 +1,47 @@
+{
+  "type": "minecraft:chest",
+  "pools": [
+    {
+      "name": "original_shop_loot",
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:loot_table",
+          "name": "minecraft:chests/village/village_plains_house"
+        }
+      ]
+    },
+    {
+      "name": "moving_agreement_five_percent",
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.05
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pixelmon_backport:moving_agreement"
+        }
+      ]
+    },
+    {
+      "name": "gender_potion_five_percent",
+      "rolls": 1,
+      "conditions": [
+        {
+          "condition": "minecraft:random_chance",
+          "chance": 0.05
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "pixelmon_backport:gender_potion"
+        }
+      ]
+    }
+  ]
+}

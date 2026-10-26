@@ -8,19 +8,16 @@ import com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper;
 /** Independent volatile debuff: survives switching, expires on the battle clock, never edits stored stats. */
 public final class Erosion {
     private static final class State {
-        int until,reduction;boolean permanent;
-        State(int until,int reduction){this(until,reduction,false);}
-        State(int until,int reduction,boolean permanent){this.until=until;this.reduction=reduction;this.permanent=permanent;}
+        int until,reduction;
+        State(int until,int reduction){this.until=until;this.reduction=reduction;}
     }
     private static final Map<PixelmonWrapper,State> STATES=new WeakHashMap<>();
     private static final Set<PixelmonWrapper> COPIES=Collections.newSetFromMap(new WeakHashMap<>());
     private Erosion(){}
-    public static int remaining(PixelmonWrapper p){State s=STATES.get(p);return s==null||p.bc==null?0:s.permanent?255:Math.max(0,s.until-p.bc.battleTurn);}
-    public static boolean permanent(PixelmonWrapper p){State s=STATES.get(p);return s!=null&&s.permanent;}
-    public static void persistent(PixelmonWrapper p,int old,int hp,int reduction){
-        if(p.bc==null||p.bc.simulateMode||COPIES.contains(p))return;
-        STATES.put(p,new State(Integer.MAX_VALUE,reduction,true));resize(p,old,hp);
-    }
+    public static int remaining(PixelmonWrapper p){State s=STATES.get(p);return s==null||p.bc==null?0:Math.max(0,s.until-p.bc.battleTurn);}
+    public static int temporaryRemaining(PixelmonWrapper p){return remaining(p);}
+    public static int reduction(PixelmonWrapper p){State s=STATES.get(p);return s==null?0:s.reduction;}
+    public static int layers(PixelmonWrapper p){return active(p)?1:0;}
     // Keep an effect applied through the end-of-turn boundary until explicit expiry,
     // so HP restoration observes the debuffed old maximum, including on the bench.
     public static boolean active(PixelmonWrapper p){return STATES.containsKey(p);}
@@ -29,8 +26,8 @@ public final class Erosion {
         for(PixelmonWrapper p:new ArrayList<>(STATES.keySet()))if(p.pokemon==pokemon&&!COPIES.contains(p)&&p.bc!=null&&!p.bc.simulateMode){int old=p.getMaxHealth(),hp=p.getHealth();STATES.remove(p);resize(p,old,hp);}
     }
     public static void extraTurn(PixelmonWrapper p){
-        State state=STATES.get(p);if(state==null||state.permanent||p.bc.simulateMode||COPIES.contains(p))return;
-        if(--state.until<=p.bc.battleTurn){int old=p.getMaxHealth(),hp=p.getHealth();STATES.remove(p);resize(p,old,hp);if(!p.bc.battleEnded)p.bc.sendToAll("pixelmon_backport.battle.erosion_end",p.getNickname());}
+        State state=STATES.get(p);if(state==null||state.reduction==0||p.bc.simulateMode||COPIES.contains(p))return;
+        if(--state.until<=p.bc.battleTurn){int old=p.getMaxHealth(),hp=p.getHealth();clearTemporary(p);resize(p,old,hp);if(!p.bc.battleEnded)p.bc.sendToAll("pixelmon_backport.battle.erosion_end",p.getNickname());}
     }
     public static int stat(PixelmonWrapper p,BattleStatsType stat,int original){
         State s=STATES.get(p);if(s==null)return original;
@@ -54,9 +51,8 @@ public final class Erosion {
         if(p.bc==null || p.bc.simulateMode || COPIES.contains(p))return;
         int old=p.getMaxHealth(),hp=p.getHealth();
         State s=STATES.get(p);
-        if(s!=null&&s.permanent)return;
         if(s==null)STATES.put(p,new State(p.bc.battleTurn+BackportConfig.erosionTurns(),BackportConfig.erosionReduction()));
-        else s.until=p.bc.battleTurn+BackportConfig.erosionTurns();
+        else {s.until=p.bc.battleTurn+BackportConfig.erosionTurns();s.reduction=BackportConfig.erosionReduction();}
         resize(p,old,hp);
         p.bc.sendToAll("pixelmon_backport.battle.erosion",p.getNickname());
     }
@@ -71,10 +67,15 @@ public final class Erosion {
     public static void expire(BattleController b){
         if(b.simulateMode)return;
         List<PixelmonWrapper> expired=new ArrayList<>();
-        for(var row:STATES.entrySet())if(row.getKey().bc==b&&!row.getValue().permanent&&!COPIES.contains(row.getKey())&&b.battleTurn>=row.getValue().until)expired.add(row.getKey());
-        for(PixelmonWrapper p:expired){int old=p.getMaxHealth(),hp=p.getHealth();STATES.remove(p);resize(p,old,hp);if(!b.battleEnded)b.sendToAll("pixelmon_backport.battle.erosion_end",p.getNickname());}
+        for(var row:STATES.entrySet())if(row.getKey().bc==b&&row.getValue().reduction>0&&!COPIES.contains(row.getKey())&&b.battleTurn>=row.getValue().until)expired.add(row.getKey());
+        for(PixelmonWrapper p:expired){int old=p.getMaxHealth(),hp=p.getHealth();clearTemporary(p);resize(p,old,hp);if(!b.battleEnded)b.sendToAll("pixelmon_backport.battle.erosion_end",p.getNickname());}
     }
-    public static void copy(PixelmonWrapper from,PixelmonWrapper to){COPIES.add(to);State s=STATES.get(from);if(s!=null)STATES.put(to,new State(s.until,s.reduction,s.permanent));}
+    private static void clearTemporary(PixelmonWrapper p){STATES.remove(p);}
+    public static void copy(PixelmonWrapper from,PixelmonWrapper to){COPIES.add(to);State s=STATES.get(from);if(s!=null)STATES.put(to,new State(s.until,s.reduction));}
+    public static PixelmonWrapper preview(PixelmonWrapper target){
+        PixelmonWrapper copy=NpcSimulationCopy.of(target);State s=STATES.computeIfAbsent(copy,k->new State(0,0));s.reduction=BackportConfig.erosionReduction();s.until=target.bc.battleTurn+BackportConfig.erosionTurns();
+        copy.recalculateMaxHP();return copy;
+    }
     public static void end(BattleController b){
         if(b.simulateMode)return;
         for(PixelmonWrapper p:new ArrayList<>(STATES.keySet()))if(p.bc==b&&!COPIES.contains(p)){

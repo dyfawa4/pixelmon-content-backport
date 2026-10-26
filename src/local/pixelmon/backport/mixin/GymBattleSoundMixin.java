@@ -4,9 +4,24 @@ import com.pixelmonmod.pixelmon.sounds.BattleMusicType;
 import net.minecraft.util.SoundEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 /** Apply after PixelTweaks' priority-1000 overwrite, with or without that optional mod. */
 @Mixin(value=BattleMusic.class,remap=false,priority=1100)
 public abstract class GymBattleSoundMixin {
+ @Shadow private static net.minecraft.client.audio.LocatableSound song;
+ @Inject(method="startBattleMusic",at=@At("HEAD"))
+ private static void backport$replacePending(BattleMusicType type,int track,long length,boolean loop,CallbackInfo ci){
+  if(length!=-1){local.pixelmon.backport.IndependentBattleSound.stopAll();if(song instanceof local.pixelmon.backport.IndependentBattleSound)song=null;}
+ }
+ @Inject(method="endBattleMusic",at=@At("HEAD"),cancellable=true)
+ private static void backport$stopPending(CallbackInfo ci){
+  // A queued/muted stream can be alive before native isPlaying becomes true.
+  if(song instanceof local.pixelmon.backport.IndependentBattleSound){
+   ((local.pixelmon.backport.IndependentBattleSound)song).stop(2000,()->{if(!local.pixelmon.backport.IndependentBattleSound.active())com.pixelmonmod.pixelmon.client.music.VoidMusicTicker.restoreMusicTicker();});song=null;ci.cancel();
+  }
+  else if(song==null&&local.pixelmon.backport.IndependentBattleSound.active())ci.cancel();
+ }
  @Redirect(method="startBattleMusic",at=@At(value="NEW",target="com/pixelmonmod/pixelmon/client/music/BattleMusic$FixedTrackSound"),require=1)
  private static BattleMusic.FixedTrackSound backport$independent(SoundEvent sound,int track,net.minecraft.util.SoundCategory category,float volume,float pitch,boolean loop,int delay,net.minecraft.client.audio.ISound.AttenuationType attenuation,float x,float y,float z){
   return new local.pixelmon.backport.IndependentBattleSound(sound,track,category,volume,pitch,loop,delay,attenuation,x,y,z);

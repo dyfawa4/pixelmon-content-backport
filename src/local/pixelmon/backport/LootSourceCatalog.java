@@ -21,12 +21,28 @@ public final class LootSourceCatalog {
  }
  public static final class Source {
   public final String group,id,title,detail;public final List<Entry> entries;
-  public Source(String group,String id,String title,String detail,List<Entry> entries){this.group=group;this.id=id;this.title=title;this.detail=detail;this.entries=List.copyOf(entries);}
+  public Source(String group,String id,String title,String detail,List<Entry> entries){this.group=group;this.id=id;this.title=group.equals("structures")?localizedTitle(id,title):title;this.detail=detail;this.entries=List.copyOf(entries);}
  }
  private static final JsonObject NAMES=Content.read("backport/loot_source_names.json");
  private LootSourceCatalog(){}
  private static String type(Element type){String name=type==null?"Any":type.toString();var value=NAMES.getAsJsonObject("types").get(name.toLowerCase(Locale.ROOT));return value==null?name:value.getAsString();}
- private static String title(ResourceLocation id){var name=NAMES.getAsJsonObject("tables").get(id.toString());return name==null?id.func_110624_b()+" · "+id.func_110623_a().replace("chests/","").replace('_',' '):name.getAsString();}
+ private static String translatedTitle(ResourceLocation id){
+  var tables=NAMES.getAsJsonObject("tables");var name=tables.get(id.toString());if(name!=null)return name.getAsString();
+  // Shop wrappers retain their base loot table path: resolve it rather than exposing the wrapper ID.
+  String prefix="chests/pokemart/",path=id.func_110623_a();
+  if(id.func_110624_b().equals(Content.NS)&&path.startsWith(prefix)){
+   String base=path.substring(prefix.length());int slash=base.indexOf('/');
+   if(slash>0){var value=tables.get(base.substring(0,slash)+":"+base.substring(slash+1));
+    if(value!=null){String label=value.getAsString();return "村庄道具商店·"+(label.startsWith("村庄·")?label.substring(3):label);}
+   }
+  }
+  return null;
+ }
+ private static String localizedTitle(String id,String fallback){
+  var key=ResourceLocation.func_208304_a(id);String translated=key==null?null:translatedTitle(key);return translated==null?fallback:translated;
+ }
+ private static String title(ResourceLocation id){String name=translatedTitle(id);return name==null?id.func_110624_b()+" · "+id.func_110623_a().replace("chests/","").replace('_',' '):name;}
+
  private static ItemStack item(String id){var key=ResourceLocation.func_208304_a(id);var item=key==null?null:ForgeRegistries.ITEMS.getValue(key);return item==null||item==Items.field_190931_a?ItemStack.field_190927_a:new ItemStack(item);}
  private static void add(List<Entry> output,ItemStack stack,String note){if(stack!=null&&!stack.func_190926_b())output.add(new Entry(stack,note));}
  private static List<Entry> distinct(List<Entry> entries){var seen=new LinkedHashMap<String,Entry>();for(var e:entries)seen.putIfAbsent(e.stack.func_77973_b().getRegistryName()+":"+e.stack.func_77978_p()+":"+e.note,e);return new ArrayList<>(seen.values());}

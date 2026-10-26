@@ -43,6 +43,12 @@ public final class Backport {
         for(int i=0;i<TeraItems.NAMES.length;i++){final int index=i;String name=TeraItems.NAMES[i]+"_tera_shard";REGISTERED.put(name,ITEMS.register(name,()->new TeraItems.Shard(index)));}
         REGISTERED.put("tera_den_spawner",ITEMS.register("tera_den_spawner",TeraDenItem::new));
         REGISTERED.put("ash_greninjite",ITEMS.register("ash_greninjite",()->new MegaStoneItem(PermanentAsh.MEGA)));
+        REGISTERED.put("ability_shield",ITEMS.register("ability_shield",AbilityShield::new));
+        REGISTERED.put("shrinking_lamp",ITEMS.register("shrinking_lamp",()->new GrowthLamp(-1)));
+        REGISTERED.put("enlarging_lamp",ITEMS.register("enlarging_lamp",()->new GrowthLamp(1)));
+        REGISTERED.put("moving_agreement",ITEMS.register("moving_agreement",MovingAgreement::new));
+        REGISTERED.put("gender_potion",ITEMS.register("gender_potion",GenderPotion::new));
+        REGISTERED.put("mysterious_potion",ITEMS.register("mysterious_potion",MysteriousPotion::new));
         REGISTERED.put("tera_raid_music_disc",ITEMS.register("tera_raid_music_disc",()->new net.minecraft.item.MusicDiscItem(14,BackportSounds.TERA_RAID,new Item.Properties().func_200917_a(1).func_208103_a(net.minecraft.item.Rarity.RARE).func_200916_a(CREATIVE_TAB))));
         REGISTERED.put("wild_music_disc_two",ITEMS.register("wild_music_disc_two",()->new net.minecraft.item.MusicDiscItem(15,BackportSounds.WILD_TWO,new Item.Properties().func_200917_a(1).func_208103_a(net.minecraft.item.Rarity.RARE).func_200916_a(CREATIVE_TAB))));
         REGISTERED.put("legendary_spawn_checker",ITEMS.register("legendary_spawn_checker",()->new SpawnCheckItem(true)));
@@ -69,12 +75,20 @@ public final class Backport {
         @Override public void func_150895_a(net.minecraft.item.ItemGroup group,net.minecraft.util.NonNullList<net.minecraft.item.ItemStack> stacks){if(item("dragoninite")==this)super.func_150895_a(group,stacks);}
     }
     public Backport() {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(GogglesCurios::enqueue);
         BackportSounds.SOUNDS.register(FMLJavaModLoadingContext.get().getModEventBus());
         BackportConfig.load();
         NinjaLearning learning=new NinjaLearning();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(learning);Pixelmon.EVENT_BUS.register(learning);
         net.minecraftforge.common.crafting.CraftingHelper.register(MasterBallIngredient.ID,MasterBallIngredient.SERIALIZER);
         net.minecraftforge.common.crafting.CraftingHelper.register(PokeBallIngredient.ID,PokeBallIngredient.SERIALIZER);
+        net.minecraftforge.common.crafting.CraftingHelper.register(BeastBallIngredient.ID,BeastBallIngredient.SERIALIZER);
+        net.minecraftforge.common.crafting.CraftingHelper.register(BallLidIngredient.ID,BallLidIngredient.SERIALIZER);
+        Pixelmon.EVENT_BUS.register(new MysteriousPotion.Events());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TumblestoneFootprint.UPPER.getId();
+        DayCareFootprint.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new TumblestoneFootprint.Events());
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new DayCareFootprint.Events());
         ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         AuthorBossFeature.FEATURES.register(FMLJavaModLoadingContext.get().getModEventBus());
         AuthorBossArenas authorArenas=new AuthorBossArenas();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(authorArenas);Pixelmon.EVENT_BUS.register(authorArenas);
@@ -82,6 +96,7 @@ public final class Backport {
         GymLocator.ALIASES.register(FMLJavaModLoadingContext.get().getModEventBus());
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new GymLocator());
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new BattleMotion());
+        CaptureStorageSync captureSync=new CaptureStorageSync();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(captureSync);Pixelmon.EVENT_BUS.register(captureSync);
         AcquisitionQueue acquisitions=new AcquisitionQueue();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(acquisitions);Pixelmon.EVENT_BUS.register(acquisitions);
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.event.entity.EntityAttributeCreationEvent event)->event.put(TERA_DEN.get(),net.minecraft.entity.LivingEntity.func_233639_cI_().func_233813_a_()));
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new TeraRaids.Events());
@@ -92,14 +107,18 @@ public final class Backport {
         Pixelmon.EVENT_BUS.register(new TeraRaids.Events());
         BackportEffects.register();
         TeraNetwork.register();
+        MovingAgreement.register();
         LightningOathNetwork.register();
         RidingNetwork.register();
+        Pixelmon.EVENT_BUS.register(new FishingEnchantments());
         LootSourceNetwork.register();
         QuestSyncRecovery.register();
         FieldMega.register();
         Pixelmon.EVENT_BUS.register(new CapPikachu());
-        Pixelmon.EVENT_BUS.register(new DrownedErosion());
+        Pixelmon.EVENT_BUS.register(new Calamity());
         Pixelmon.EVENT_BUS.register(new BossDefeatAdvancements());
+        Pixelmon.EVENT_BUS.register(new BattleVictorySound());
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new AuthorNameTag());
         Pixelmon.EVENT_BUS.register(new CapSpawns());
         Pixelmon.EVENT_BUS.register(new BurstRaidCapture());
         Pixelmon.EVENT_BUS.register(new BurstCapture());
@@ -111,6 +130,7 @@ public final class Backport {
         Pixelmon.EVENT_BUS.register(new AuthorChallenge());
         Pixelmon.EVENT_BUS.register(new AppearanceAdvancements());
         Pixelmon.EVENT_BUS.register(new TeraItems.Charging());
+        Pixelmon.EVENT_BUS.register(new TeraMachineLearning());
         LegendAdvancements achievements=new LegendAdvancements();
         Pixelmon.EVENT_BUS.register(achievements);net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(achievements);
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent event)->event.enqueueWork(()->{

@@ -18,6 +18,7 @@ import net.minecraft.world.server.ServerWorld;
 /** Only a challenged arena is protected. State lives on its boss and survives world saves. */
 public final class AuthorBossArenas {
     private static final Map<ServerWorld,List<WeakReference<Entity>>> WATCHED=new WeakHashMap<>();
+    private static final Map<ServerWorld,List<WeakReference<Entity>>> UPGRADES=new WeakHashMap<>();
     private static final String HOME="AuthorArenaHome",ACTIVE="AuthorArenaActive",OWNER="AuthorArenaOwner";
     public static void tag(Entity entity,BlockPos center){entity.getPersistentData().func_74772_a(HOME,center.func_218275_a());}
     public static BlockPos center(Entity entity){return entity.getPersistentData().func_74764_b(HOME)?BlockPos.func_218283_e(entity.getPersistentData().func_74763_f(HOME)):entity.func_233580_cy_();}
@@ -51,45 +52,59 @@ public final class AuthorBossArenas {
     @SubscribeEvent public void join(EntityJoinWorldEvent event){
         Entity e=event.getEntity();if(event.getWorld().field_72995_K||!authored(e))return;
         if(e instanceof AuthorCombatBoss){((AuthorCombatBoss)e).reset();return;}
+        AuthorRoster.upgrade((NPCTrainer)e);
+        ((NPCTrainer)e).setEncounterMode(com.pixelmonmod.pixelmon.enums.EnumEncounterMode.OncePerPlayer);
         if(e.getPersistentData().func_74764_b(HOME)){
             var world=(ServerWorld)event.getWorld();AuthorRoomIndex.get(world).record(center(e),e instanceof AuthorCombatBoss);
+            // Never read blocks while an entity is still joining its loading chunk.
+            UPGRADES.computeIfAbsent(world,w->new ArrayList<>()).add(new WeakReference<>(e));
+        }
+        watch(e);open(e);if(e instanceof NPCTrainer)((NPCTrainer)e).healAllPokemon();
+    }
+    private static void upgrade(Entity e,ServerWorld world){
             String material=e.getPersistentData().func_74779_i(AuthorRoomPalette.TAG);
             if(!AuthorRoomPalette.wall(material)){material=AuthorBossFeature.material(world,center(e),e.getPersistentData().func_74779_i("AuthorBossTheme"));e.getPersistentData().func_74778_a(AuthorRoomPalette.TAG,material);}
             AuthorBossFeature.upgrade(world,center(e),false,material);
             if(!e.getPersistentData().func_74767_n(AuthorRoomFurnishings.TAG)){
+                if(e.getPersistentData().func_74767_n("AuthorArenaFurnished1")||e.getPersistentData().func_74767_n("AuthorArenaFurnished2"))AuthorRoomFurnishings.upgrade(world,center(e));
                 AuthorRoomFurnishings.place(world,center(e));
                 e.getPersistentData().func_74757_a(AuthorRoomFurnishings.TAG,true);
             }
-        }
-        watch(e);open(e);if(e instanceof NPCTrainer)((NPCTrainer)e).healAllPokemon();
     }
     @SubscribeEvent public void leave(EntityLeaveWorldEvent event){
         Entity e=event.getEntity();if(e.field_70170_p.field_72995_K||!authored(e))return;
         open(e);
-        if(e instanceof NPCTrainer){NPCTrainer npc=(NPCTrainer)e;if(!npc.getPersistentData().func_74767_n("AuthorBossRewarded")&&npc.battleController!=null&&!npc.battleController.battleEnded)npc.battleController.endBattleWithoutXP();}
+        if(e instanceof NPCTrainer){NPCTrainer npc=(NPCTrainer)e;if(npc.battleController!=null&&!npc.battleController.battleEnded)npc.battleController.endBattleWithoutXP();}
     }
     @SubscribeEvent(priority=EventPriority.LOWEST) public void start(NPCEvent.StartBattle event){
         var participant=event.getNPCParticipant();if(event.isCanceled()||participant==null||!AuthorBossTeams.is(participant.trainer)||!(event.player instanceof ServerPlayerEntity))return;
         NPCTrainer npc=participant.trainer;
+        if(won(npc,event.player.func_110124_au())){
+            event.setCanceled(true);event.player.func_146105_b(new net.minecraft.util.text.TranslationTextComponent("pixelmon.backport.author.already_won"),false);return;
+        }
         String owner=npc.getPersistentData().func_74779_i(OWNER);
         if(npc.getPersistentData().func_74767_n(ACTIVE)&&!owner.isEmpty()&&!owner.equals(event.player.func_110124_au().toString())){event.setCanceled(true);return;}
         active(npc,(ServerPlayerEntity)event.player);
     }
     @SubscribeEvent(priority=EventPriority.LOWEST) public void beat(BeatTrainerEvent event){
-        NPCTrainer npc=event.trainer;if(!AuthorBossTeams.is(npc)||npc.field_70128_L||npc.getPersistentData().func_74767_n("AuthorBossRewarded"))return;
-        if(!npc.getPersistentData().func_74779_i(OWNER).equals(event.player.func_110124_au().toString()))return;
-        npc.getPersistentData().func_74757_a("AuthorBossRewarded",true);open(npc);
-        npc.setEncounterMode(com.pixelmonmod.pixelmon.enums.EnumEncounterMode.Once);
+        NPCTrainer npc=event.trainer;if(!AuthorBossTeams.is(npc)||npc.field_70128_L||won(npc,event.player.func_110124_au()))return;
+        // The native victory event, not a transient arena owner, proves the win.
+        AuthorSettlement.queue(event.player,npc);
+        npc.setEncounterMode(com.pixelmonmod.pixelmon.enums.EnumEncounterMode.OncePerPlayer);
         npc.winMoney=0;npc.updateDrops(new net.minecraft.item.ItemStack[0]);
-        AuthorBossRewards.trainer(event.player,npc);
-        AuthorVictory.earned(event.player);
-        // Native Once encounter processing removes this same trainer after the event.
+        // Native OncePerPlayer heals the trainer and records this player after the event.
+    }
+    public static boolean won(NPCTrainer npc,UUID player){return npc.getPersistentData().func_74775_l("BackportAuthorWinners").func_74767_n(player.toString());}
+    @SubscribeEvent(priority=EventPriority.HIGHEST) public void attack(net.minecraftforge.event.entity.player.AttackEntityEvent event){
+        if(event.getTarget() instanceof NPCTrainer&&AuthorBossTeams.is((NPCTrainer)event.getTarget()))event.setCanceled(true);
     }
     @SubscribeEvent(priority=EventPriority.LOWEST) public void end(NPCEvent.EndBattle event){
-        var participant=event.getNPCParticipant();if(participant==null||!AuthorBossTeams.is(participant.trainer))return;
+        var participant=event.getNPCParticipant();if(participant==null||participant.bc==null||participant.bc.simulateMode||!AuthorBossTeams.is(participant.trainer))return;
         // This event precedes TrainerParticipant.endBattle -> NPCTrainer.loseBattle.
         // Healing here changes the native win/loss decision; clearing OWNER drops the victory reward.
         NPCTrainer npc=participant.trainer;npc.getPersistentData().func_74757_a(ACTIVE,false);gate(npc,false);
+        if(event.getPlayerParticipant()!=null&&event.getPlayerResults()==com.pixelmonmod.pixelmon.api.battles.BattleResults.VICTORY)
+            AuthorSettlement.queue(event.getPlayerParticipant().player,npc);
     }
     @SubscribeEvent public void breakBlock(BlockEvent.BreakEvent event){if(protectedAt(event.getWorld() instanceof net.minecraft.world.World?(net.minecraft.world.World)event.getWorld():null,event.getPos()))event.setCanceled(true);}
     @SubscribeEvent public void place(BlockEvent.EntityPlaceEvent event){if(protectedAt(event.getWorld() instanceof net.minecraft.world.World?(net.minecraft.world.World)event.getWorld():null,event.getPos()))event.setCanceled(true);}
@@ -107,7 +122,14 @@ public final class AuthorBossArenas {
     }
     @SubscribeEvent public void tick(TickEvent.WorldTickEvent event){
         if(event.phase!=TickEvent.Phase.END||!(event.world instanceof ServerWorld)||event.world.func_82737_E()%20!=0)return;
-        ServerWorld world=(ServerWorld)event.world;var list=WATCHED.get(world);if(list==null)return;
+        ServerWorld world=(ServerWorld)event.world;
+        var pending=UPGRADES.get(world);
+        if(pending!=null)pending.removeIf(ref->{
+            Entity e=ref.get();if(e==null||e.field_70128_L)return true;BlockPos home=center(e);
+            for(int x:new int[]{-6,6})for(int z:new int[]{-6,6})if(!world.func_175667_e(home.func_177982_a(x,0,z)))return false;
+            upgrade(e,world);return true;
+        });
+        var list=WATCHED.get(world);if(list==null)return;
         list.removeIf(r->r.get()==null||r.get().field_70128_L);
         for(var ref:list){Entity e=ref.get();if(!(e instanceof NPCTrainer)||!e.getPersistentData().func_74767_n(ACTIVE))continue;
             NPCTrainer npc=(NPCTrainer)e;ServerPlayerEntity player=null;
@@ -118,5 +140,5 @@ public final class AuthorBossArenas {
             }
         }
     }
-    @SubscribeEvent public void unload(WorldEvent.Unload event){if(event.getWorld() instanceof ServerWorld)WATCHED.remove(event.getWorld());}
+    @SubscribeEvent public void unload(WorldEvent.Unload event){if(event.getWorld() instanceof ServerWorld){WATCHED.remove(event.getWorld());UPGRADES.remove(event.getWorld());}}
 }

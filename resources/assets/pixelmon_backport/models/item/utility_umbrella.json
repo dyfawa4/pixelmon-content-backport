@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "pixelmon_backport:item/utility_umbrella"
-  }
-}
+{"parent": "pixelmon_backport:item/upstream942/utility_umbrella"}

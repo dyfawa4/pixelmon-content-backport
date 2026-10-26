@@ -19,7 +19,7 @@ public final class RidingMotion {
     private static final Map<PixelmonEntity,State> STATES=Collections.synchronizedMap(new WeakHashMap<>());
     private RidingMotion(){}
     private static final class State {
-        UUID rider;String dimension;int mask,inputTick,sequence;boolean sequenced,jumpHeld,gravity;float yaw,pitch,heading;
+        UUID rider;String dimension;int mask,inputTick,sequence,standardMask,standardTick=-100;boolean sequenced,jumpHeld,gravity;float yaw,pitch,heading;
         State(PixelmonEntity e,PlayerEntity p){rider=p.func_110124_au();dimension=e.field_70170_p.func_234923_W_().func_240901_a_().toString();gravity=e.func_189652_ae();heading=yaw=p.field_70177_z;pitch=p.field_70125_A;}
     }
     public static boolean active(Entity entity){
@@ -41,6 +41,12 @@ public final class RidingMotion {
         if(s==null||!s.rider.equals(p.func_110124_au())||!s.dimension.equals(dimension)){clear(e);s=new State(e,p);STATES.put(e,s);}return s;
     }
     public static void localInput(PixelmonEntity e,int mask){if(active(e)){State s=state(e);s.mask=mask&127;s.inputTick=e.field_70173_aa;}}
+    public static void standardInput(ServerPlayerEntity p,float strafe,float forward,boolean jump){
+        if(p==null||!active(p.func_184187_bx())||!Float.isFinite(strafe)||!Float.isFinite(forward))return;
+        var e=(PixelmonEntity)p.func_184187_bx();var s=state(e);int mask=0;
+        if(forward>.01)mask|=FORWARD;if(forward<-.01)mask|=BACK;if(strafe>.01)mask|=LEFT;if(strafe<-.01)mask|=RIGHT;if(jump)mask|=UP;
+        s.standardMask=mask;s.standardTick=e.field_70173_aa;s.yaw=p.field_70177_z;s.pitch=p.field_70125_A;
+    }
     public static void input(ServerPlayerEntity p,RidingNetwork.Input input){
         if(p==null||!active(p.func_184187_bx()))return;
         PixelmonEntity e=(PixelmonEntity)p.func_184187_bx();
@@ -59,6 +65,7 @@ public final class RidingMotion {
         if(e.field_70170_p.field_72995_K)return true;
         PlayerEntity rider=(PlayerEntity)e.func_184179_bs();State s=state(e);
         int mask=e.field_70173_aa-s.inputTick<=10?s.mask:0;
+        if(e.field_70173_aa-s.standardTick<=2)mask|=s.standardMask;
         if(BattleRegistry.getBattle(rider)!=null||BattleMotion.frozen(rider)){e.func_213293_j(0,0,0);s.jumpHeld=false;sync(e,s);return true;}
         boolean up=(mask&UP)!=0,down=(mask&DOWN)!=0,pressed=up&&!s.jumpHeld;s.jumpHeld=up;
         boolean flying=e.isFlying()&&canFly(e),surf=e.func_70090_H()&&e.canSurf();

@@ -41,6 +41,9 @@ public final class BackportJeiPlugin implements IModPlugin {
     }
     @Override public void onRuntimeAvailable(mezz.jei.api.runtime.IJeiRuntime runtime){
         LootSourceJei.attach(runtime);
+        var cards=new java.util.ArrayList<ItemStack>();
+        for(ItemStack stack:runtime.getIngredientManager().getAllIngredients(VanillaTypes.ITEM))if(TcgRemoval.item(stack))cards.add(stack);
+        if(!cards.isEmpty())runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM,cards);
         if(Backport.item("dragoninite")!=Backport.REGISTERED.get("dragoninite").get())runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM,java.util.Collections.singletonList(new ItemStack(Backport.REGISTERED.get("dragoninite").get())));
     }
 }

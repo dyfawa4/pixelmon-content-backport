@@ -13,7 +13,7 @@ public final class NpcMoves {
     public static final String ACE="BackportNpcAce";
     private static final String VERSION="BackportNpcMovesVersion";
     private static final Set<String> RECOVERY=new HashSet<>(Arrays.asList("Recover","Roost","Slack Off","Soft-Boiled","Milk Drink","Shore Up","Synthesis","Moonlight","Morning Sun"));
-    private static final Set<String> RISKY=new HashSet<>(Arrays.asList("Explosion","Self-Destruct","Final Gambit","Hyper Beam","Giga Impact","Eternabeam","Solar Beam","Solar Blade","Fly","Dig","Dive","Phantom Force","Shadow Force","Focus Punch","Dream Eater","Snore","Belch","Last Resort","Future Sight","Doom Desire","Fling","Natural Gift","Synchronoise"));
+    private static final Set<String> RISKY=new HashSet<>(Arrays.asList("Explosion","Self-Destruct","Final Gambit","Hyper Beam","Giga Impact","Roar of Time","Blast Burn","Hydro Cannon","Frenzy Plant","Rock Wrecker","Prismatic Laser","Meteor Assault","Eternabeam","Solar Beam","Solar Blade","Fly","Dig","Dive","Phantom Force","Shadow Force","Focus Punch","Dream Eater","Snore","Belch","Last Resort","Future Sight","Doom Desire","Fling","Natural Gift","Synchronoise"));
     public static boolean recovery(Attack attack){return attack!=null && RECOVERY.contains(attack.getMove().getAttackName());}
     /** Keep the existing ace/utility/STAB plan. Replace at most one redundant attack. */
     public static void coverage(Pokemon p){

@@ -1,0 +1,45 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LWA",
+    "JGC",
+    "SPF"
+  ],
+  "key": {
+    "L": {
+      "item": "minecraft:lily_pad"
+    },
+    "W": {
+      "item": "minecraft:weeping_vines"
+    },
+    "A": {
+      "item": "minecraft:acacia_sapling"
+    },
+    "J": {
+      "item": "pixelmon:ultra_jungle_sapling"
+    },
+    "G": {
+      "item": "minecraft:golden_apple"
+    },
+    "C": {
+      "item": "minecraft:cactus"
+    },
+    "S": {
+      "item": "minecraft:grass"
+    },
+    "P": {
+      "type": "forge:nbt",
+      "item": "minecraft:potion",
+      "nbt": {
+        "Potion": "minecraft:water"
+      }
+    },
+    "F": {
+      "item": "minecraft:warped_fungus"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:mysterious_potion",
+    "count": 1
+  }
+}

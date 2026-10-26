@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EFJ",
+    "SBS",
+    "DCD"
+  ],
+  "key": {
+    "E": {
+      "item": "pixelmon:ultra_elm_sapling"
+    },
+    "C": {
+      "item": "pixelmon:ultra_desert_cactus"
+    },
+    "J": {
+      "item": "pixelmon:ultra_jungle_sapling"
+    },
+    "S": {
+      "item": "pixelmon:ultra_space_stone"
+    },
+    "D": {
+      "item": "pixelmon:ultra_deep_stone"
+    },
+    "B": {
+      "type": "pixelmon_backport:beast_ball"
+    },
+    "F": {
+      "item": "pixelmon:ultra_forest_flower"
+    }
+  },
+  "result": {
+    "item": "pixelmon:ultra_space_teleporter",
+    "count": 1
+  }
+}

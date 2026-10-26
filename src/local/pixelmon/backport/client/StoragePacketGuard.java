@@ -19,12 +19,16 @@ public final class StoragePacketGuard {
     @net.minecraftforge.eventbus.api.SubscribeEvent public static void tick(net.minecraftforge.event.TickEvent.ClientTickEvent event){
         if(event.phase==net.minecraftforge.event.TickEvent.Phase.END)pump();
     }
-    public static void recover(UUID id,StoragePosition pos){
+    public static void recover(UUID id,StoragePosition pos){recover(id,pos,false);}
+    public static void recover(UUID id,StoragePosition pos,boolean initialize){
         var world=Minecraft.func_71410_x().field_71441_e;
         if(world!=session)reset(world);
         if(world==null||id==null||pos==null||pos.box < -1||pos.order<0||pos.order>=(pos.box==-1?6:30))return;
         String key=id+":"+pos.box;
-        if(pending.size()<256||pending.containsKey(key))pending.putIfAbsent(key,new StorageSnapshot.Request(id,pos.box,0));
+        if(pending.size()<256||pending.containsKey(key)){
+            var old=pending.get(key);
+            if(old==null||initialize&&!old.initialize)pending.put(key,new StorageSnapshot.Request(id,pos.box,0,initialize));
+        }
         pump();
     }
     private static void pump(){
@@ -36,9 +40,10 @@ public final class StoragePacketGuard {
         last=now;TeraNetwork.CHANNEL.sendToServer(request);
     }
     public static boolean guard(UUID id,StoragePosition pos,PacketBuffer data,EnumUpdateType[] types){
-        if(data==null)return false; // A real server deletion remains a deletion.
+        if(id==null||pos==null||pos.box< -1||pos.order<0||pos.order>=(pos.box==-1?6:30))return true;
         var storage=com.pixelmonmod.pixelmon.client.storage.ClientStorageManager.getStorage(id,pos);
-        if(storage==null){recover(id,pos);return true;}
+        if(storage==null||(storage instanceof PCStorage&&pos.box>=((PCStorage)storage).getBoxCount())){recover(id,pos,pos.box>=0);return true;}
+        if(data==null)return false; // A real server deletion remains a deletion.
         if(data.readableBytes()<16){recover(id,pos);return true;}
         int index=data.readerIndex();UUID incoming=new UUID(data.getLong(index),data.getLong(index+8));
         Pokemon existing=storage.get(pos);

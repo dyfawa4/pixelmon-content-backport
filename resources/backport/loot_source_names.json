@@ -80,6 +80,16 @@
     "pixelmon:chests/haunted_tower": "幽灵塔",
     "pixelmon:chests/dark_tower": "恶之塔",
     "pixelmon:chests/christmas": "圣诞建筑",
-    "pixelmon:chests/ultra_ruin": "究极废墟"
+    "pixelmon:chests/ultra_ruin": "究极废墟",
+    "pixelmon_backport:chests/pokemart/minecraft/chests/village/village_cartographer": "村庄道具商店·制图师",
+    "pixelmon_backport:chests/pokemart/minecraft/chests/village/village_plains_house": "村庄道具商店·平原房屋",
+    "pixelmon_backport:chests/pokemart/minecraft/chests/village/village_savanna_house": "村庄道具商店·热带草原房屋",
+    "pixelmon_backport:chests/pokemart/minecraft/chests/village/village_shepherd": "村庄道具商店·牧羊人",
+    "pixelmon_backport:chests/pokemart/minecraft/chests/village/village_snowy_house": "村庄道具商店·雪原房屋",
+    "pixelmon_backport:chests/pokemart/minecraft/chests/village/village_tannery": "村庄道具商店·皮匠",
+    "pixelmon_backport:chests/pokemart/minecraft/chests/village/village_temple": "村庄道具商店·教堂",
+    "pixelmon_backport:chests/pokemart/minecraft/chests/village/village_toolsmith": "村庄道具商店·工具匠",
+    "pixelmon_backport:chests/pokemart/pixelmon/chests/arena": "村庄道具商店·宝可梦竞技场",
+    "pixelmon_backport:chests/pokemart/pixelmon/chests/waypoint": "村庄道具商店·宝可梦路标"
   }
 }

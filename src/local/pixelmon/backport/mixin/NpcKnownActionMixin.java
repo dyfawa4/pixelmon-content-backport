@@ -10,5 +10,5 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(value=BattleAIBase.class,remap=false)
 public abstract class NpcKnownActionMixin {
     @Inject(method="getMoveset",at=@At("HEAD"),cancellable=true)
-    private void backport$submittedMoves(PixelmonWrapper enemy,CallbackInfoReturnable<List<Attack>> cir){List<Attack> moves=NpcTurnKnowledge.moves(enemy);if(moves!=null)cir.setReturnValue(moves);}
+    private void backport$submittedMoves(PixelmonWrapper enemy,CallbackInfoReturnable<List<Attack>> cir){List<Attack> moves=NpcTurnKnowledge.moves(enemy);if(moves==null)moves=local.pixelmon.backport.NpcTeamKnowledge.known(enemy);if(moves!=null)cir.setReturnValue(moves);}
 }

@@ -32,8 +32,8 @@ public final class BattleMechanics {
         Confusion.confuse(source,target);
     }
     public static AttackCategory adaptiveCategory(PixelmonWrapper user){
-        return staged(Erosion.stat(user,BattleStatsType.ATTACK,user.getStats().getAttack()),user.getBattleStats().getStage(BattleStatsType.ATTACK))
-            >staged(Erosion.stat(user,BattleStatsType.SPECIAL_ATTACK,user.getStats().getSpecialAttack()),user.getBattleStats().getStage(BattleStatsType.SPECIAL_ATTACK))
+        return staged(BattleStatModifiers.stat(user,BattleStatsType.ATTACK,user.getStats().getAttack()),user.getBattleStats().getStage(BattleStatsType.ATTACK))
+            >staged(BattleStatModifiers.stat(user,BattleStatsType.SPECIAL_ATTACK,user.getStats().getSpecialAttack()),user.getBattleStats().getStage(BattleStatsType.SPECIAL_ATTACK))
             ?AttackCategory.PHYSICAL:AttackCategory.SPECIAL;
     }
     public static int staged(int stat,int stage){stage=Math.max(-6,Math.min(6,stage));return Math.max(1,stage>=0?stat*(2+stage)/2:stat*2/(2-stage));}

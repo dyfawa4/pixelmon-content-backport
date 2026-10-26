@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(targets="pokelucky.Process",remap=false)
 public abstract class LuckyPhoneHealMixin {
     @Redirect(method="heal",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/storage/PlayerPartyStorage;heal()V"))
-    private static void backport$curePhone(com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage party){for(var p:party.getAll())if(p!=null)local.pixelmon.backport.DrownedErosion.cured(p);party.heal();}
+    private static void backport$curePhone(com.pixelmonmod.pixelmon.api.storage.PlayerPartyStorage party){for(var p:party.getAll())if(p!=null){local.pixelmon.backport.Erosion.cured(p);local.pixelmon.backport.Calamity.cured(p);}party.heal();for(var p:party.getAll())if(p!=null)local.pixelmon.backport.CalamityPartySync.correct(p);}
     @Inject(method="heal",at=@At("RETURN"))
     private static void backport$chargeAfterHeal(ServerPlayerEntity player,CallbackInfo ci){TeraItems.recharge(player);}
 }

@@ -1,0 +1,29 @@
+package qa;
+import java.util.*;
+import java.nio.file.*;
+import java.io.*;
+import local.pixelmon.backport.*;
+import net.minecraft.nbt.*;
+import net.minecraft.util.*;
+import net.minecraft.util.math.*;
+import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.*;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraftforge.registries.ForgeRegistries;
+public final class Update180R11AltarCases {
+ static void check(boolean ok,String why){if(!ok)throw new AssertionError(why);}
+ static Path legacy()throws Exception{Path dir=Files.createTempDirectory(Path.of("."),"qa-altar-index-");var root=new CompoundNBT();var level=new CompoundNBT();var structures=new CompoundNBT();var starts=new CompoundNBT();var shrine=new CompoundNBT();shrine.func_74778_a("id","pixelmon:uno_shrine");shrine.func_74783_a("BB",new int[]{-10,70,-10,10,95,10});starts.func_218657_a("pixelmon:uno_shrine",shrine);structures.func_218657_a("Starts",starts);level.func_218657_a("Structures",structures);root.func_218657_a("Level",level);var data=new ByteArrayOutputStream();try(var compressed=new java.util.zip.DeflaterOutputStream(data);var out=new DataOutputStream(compressed)){CompressedStreamTools.func_74800_a(root,out);}try(var out=new RandomAccessFile(dir.resolve("r.0.0.mca").toFile(),"rw")){out.setLength(12288);out.writeInt((2<<8)|1);out.seek(8192);out.writeInt(data.size()+1);out.writeByte(2);out.write(data.toByteArray());}return dir;}
+ @SuppressWarnings({"unchecked","rawtypes"}) public static void run(ServerPlayerEntity player)throws Exception{
+  var world=player.func_71121_q();var generator=world.func_72863_F().func_201711_g();var settings=generator.func_235957_b_();var spear=com.pixelmonmod.pixelmon.world.structure.PixelmonStructures.SPEAR_PILLAR.get();var spacing=settings.func_236197_a_(spear);check(spacing.func_236668_a_()==15&&spacing.func_236671_b_()==12,"Native pillar15/12 candidate cells");check(!SpearPillarFrequency.apply(settings),"Pillar settings idempotent");int gates=0;for(int i=0;i<100000;i++)if(AltarSpacing.pillarGate(123,i,-i))gates++;check(gates>89500&&gates<90500,"Pillar90% gate "+gates);check(Math.abs(2500d/225*.9-10)<1e-10,"Exactly10 expected candidate density before spacing");check(Math.abs(AltarSpacing.chance(.03333)-.3333)<1e-10&&AltarSpacing.chance(0)==0&&AltarSpacing.chance(.5)==1,"Tenfold rate and disabled/saturated boundaries");
+  Path old=legacy();var points=AltarRegionIndex.read(old.resolve("r.0.0.mca"),0,0);check(points.size()==1&&points.get(0).x==0&&points.get(0).type.equals("pixelmon:uno_shrine"),"Selective native region NBT reads old unloaded altar");var index=new AltarSpacing.Index(old);check(!index.reserve("pixelmon:uno_shrine",1999,0),"Old unloaded altar prevents nearby new altar");check(!index.reserve("pixelmon:uno_shrine",-1999,0),"Negative coordinate region boundary");check(index.reserve("pixelmon:uno_shrine",2000,0),"Exactly2000 allowed");check(index.reserve("pixelmon:dos_shrine",1,0),"Different altar kinds independent");var again=new AltarSpacing.Index(old);check(!again.reserve("pixelmon:uno_shrine",1,1),"Index rebuild after restart preserves legacy restriction");
+  var concurrent=new AltarSpacing.Index(old.resolve("empty"));var pool=java.util.concurrent.Executors.newFixedThreadPool(4);try{var jobs=new ArrayList<java.util.concurrent.Future<Boolean>>();for(int i=0;i<20;i++){final int x=10000+i;jobs.add(pool.submit(()->concurrent.reserve("pixelmon:ilex_shrine",x,10000)));}int accepted=0;for(var job:jobs)if(job.get())accepted++;check(accepted==1,"Parallel worldgen reservations atomic "+accepted);}finally{pool.shutdownNow();}
+  var shrineType=com.pixelmonmod.pixelmon.world.structure.type.ShrineStructure.class;var feature=shrineType.getDeclaredMethod("isFeatureChunk",net.minecraft.world.gen.ChunkGenerator.class,net.minecraft.world.biome.provider.BiomeProvider.class,long.class,net.minecraft.util.SharedSeedRandom.class,int.class,int.class,net.minecraft.world.biome.Biome.class,ChunkPos.class,NoFeatureConfig.class);feature.setAccessible(true);
+  int serial=0;for(String id:new TreeSet<>(AltarSpacing.TYPES)){
+   Structure nativeType=ForgeRegistries.STRUCTURE_FEATURES.getValue(new ResourceLocation(id));check(nativeType!=null,"Native altar registry "+id);
+   if(nativeType instanceof com.pixelmonmod.pixelmon.world.structure.type.ShrineStructure){net.minecraft.world.biome.Biome.Category category=BossLootCatalog.field(nativeType,"category");var biome=ForgeRegistries.BIOMES.getValues().stream().filter(b->b.func_201856_r()==category).findFirst().orElseThrow();int hits=0;for(int i=0;i<10000;i++)if((boolean)feature.invoke(nativeType,generator,generator.func_202090_b(),42L,new SharedSeedRandom(42),0,0,biome,new ChunkPos(0,0),NoFeatureConfig.field_236559_b_))hits++;check(hits>3100&&hits<3600,"Real native shrine10x chance "+id+" "+hits);}
+   int x=62500+serial++*300,z=62500;var first=nativeType.func_214557_a().create(nativeType,x,z,new MutableBoundingBox(),0,123L);first.func_230364_a_(world.func_241828_r(),generator,world.func_184163_y(),x,z,world.func_226691_t_(new BlockPos(0,70,0)),NoFeatureConfig.field_236559_b_);check(first.func_75069_d(),"Actual native first altar generation accepted "+id);var second=nativeType.func_214557_a().create(nativeType,x+1,z,new MutableBoundingBox(),0,124L);second.func_230364_a_(world.func_241828_r(),generator,world.func_184163_y(),x+1,z,world.func_226691_t_(new BlockPos(0,70,0)),NoFeatureConfig.field_236559_b_);check(!second.func_75069_d(),"Actual native second nearby altar rejected before block placement "+id);
+  }
+  System.out.println("R11_ALTAR_PASS five native altar generators first accepted/near second rejected; shrine actual10000 rolls each tenfold; pillar expected10x; old unloaded MCA, negative/exact2000 boundaries, type separation, rebuilt index and20 parallel reservations");
+ }
+}
+

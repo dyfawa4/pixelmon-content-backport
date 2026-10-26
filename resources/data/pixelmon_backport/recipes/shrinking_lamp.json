@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "pixelmon_backport_growth_lamps",
+  "pattern": [
+    "ITI",
+    "ICI",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "item": "pixelmon:aluminium_ingot"
+    },
+    "T": {
+      "item": "minecraft:sea_lantern"
+    },
+    "C": {
+      "item": "minecraft:crimson_fungus"
+    },
+    "B": {
+      "item": "minecraft:repeater"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:shrinking_lamp",
+    "count": 1
+  }
+}

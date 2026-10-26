@@ -23,6 +23,12 @@ public final class NpcTactics {
             List<MoveChoice> response=NpcTurnKnowledge.active(own.bc)?threats(own,choice):threats;
             double incoming=incoming(own,response);
             String name=choice.attack.getMove().getAttackName();
+            if(choice.isOffensiveMove()&&choice.result!=null&&choice.targets.size()==1){
+                var target=choice.targets.get(0);double health=NpcTurnKnowledge.health(target);
+                if(!own.isAlly(target)&&choice.tier>=3&&!NpcSurvival.reliable(choice,target,health)){
+                    choice.lowerTier(2);choice.weight*=Math.max(.5,NpcSurvival.chance(choice,target,health));
+                }
+            }
             if(LightningOath.signature(own,choice.attack)&&choice.targets.size()==1&&LightningOath.remaining(choice.targets.get(0))<2&&incoming<own.getHealth()*.65&&choice.result!=null&&choice.result.damage<choice.targets.get(0).getHealth())choice.weight+=25;
             if(NpcTurnKnowledge.active(own.bc)&&choice.isOffensiveMove()&&choice.targets.size()==1&&choice.result!=null){
                 var target=choice.targets.get(0);double hp=NpcTurnKnowledge.health(target);
@@ -57,8 +63,13 @@ public final class NpcTactics {
                 choice.weight*=.75f;
             }
         }
+        NpcMomentum.weight(own,choices);
+        NpcMatchupAdvice.weight(own,choices);
+        NpcSetupControl.weight(own,choices);
+        NpcStrategicControl.weight(own,choices);
     }
     public static MoveChoice refine(PixelmonWrapper own,MoveChoice original){
+        MoveChoice rescue=NpcEmergencySwitch.refine(own,original);if(rescue!=original)return rescue;
         if(original==null || !original.isAttack() || own.bc.simulateMode || !own.isAlive() || !own.onBattlefield
             || own.choiceLocked!=null || own.getHealthPercent()>35
             || own.getStatus(com.pixelmonmod.pixelmon.battles.status.StatusType.Sleep)!=null
@@ -75,7 +86,7 @@ public final class NpcTactics {
         return original;
     }
     public static List<Attack> knownMoves(PixelmonWrapper own,PixelmonWrapper enemy){
-        if(NpcTurnKnowledge.enabled(own)){List<Attack> submitted=NpcTurnKnowledge.moves(enemy);if(submitted!=null)return submitted;}
+        if(NpcTurnKnowledge.enabled(own)){List<Attack> submitted=NpcTurnKnowledge.moves(enemy);if(submitted!=null)return submitted;List<Attack> known=NpcTeamKnowledge.known(enemy);if(known!=null)return known;}
         BattleAIBase ai=own.getBattleAI();
         return ai instanceof TacticalAI?ai.getMoveset(enemy):new OpponentMemory(enemy).getAttacks();
     }
@@ -115,7 +126,7 @@ public final class NpcTactics {
     public static double incoming(PixelmonWrapper own,List<MoveChoice> threats){
         Map<UUID,Double> damage=new HashMap<>();
         for(MoveChoice choice:threats)if(choice.isOffensiveMove() && choice.result!=null && choice.result.result!=com.pixelmonmod.pixelmon.battles.controller.log.AttackResult.failed && choice.targets.contains(own))
-            damage.merge(choice.user.getPokemonUUID(),(double)Math.max(choice.result.damage,choice.result.fullDamage),Math::max);
+            damage.merge(choice.user.getPokemonUUID(),NpcSurvival.incoming(choice,own,Math.max(choice.result.damage,choice.result.fullDamage)),Math::max);
         return damage.values().stream().mapToDouble(Double::doubleValue).sum();
     }
     /** Spending a finite item needs an upper estimate, not the native average roll. */
@@ -156,6 +167,7 @@ public final class NpcTactics {
         // Damage is capped at remaining HP. Applying a safety margin to that cap
         // made every submitted-action KO fail this check, even a massive overkill.
         if(choice.result.damage<health)return false;
+        if(!NpcSurvival.reliable(choice,target,health))return false;
         if(NpcTurnKnowledge.active(own.bc)&&(NpcTurnKnowledge.arrival(target)!=target
             ||Math.max(choice.result.damage,choice.result.fullDamage)*.9<health))return false;
         return true;
@@ -170,6 +182,7 @@ public final class NpcTactics {
             // Emergency last-survivor medicine still requires a first-strike KO.
             if(MoveChoice.canOutspeed(response,own,choice.createList())&&incoming(own,response)*1.1>=own.getHealth())continue;
             int hit=choice.result.accuracy<0?100:choice.result.accuracy;
+            if(choice.targets.get(0).getBattleStats().getEvasionStage()>0&&choices.stream().anyMatch(c->c.tier>=3&&c.attack!=null&&c.attack.getMove().getAttackName().equals("Haze"))&&!NpcSetupControl.reliableHit(own,choice,choice.targets.get(0)))continue;
             if(hit>0&&(best==null||hit>accuracy||hit==accuracy&&choice.weight>best.weight)){best=choice;accuracy=hit;}
         }
         return best;

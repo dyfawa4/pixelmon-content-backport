@@ -7,5 +7,5 @@ import org.spongepowered.asm.mixin.injection.*;
 @Mixin(value=ProtectVariation.class,remap=false)
 public abstract class AuthorProtectMixin {
  @Redirect(method="applyEffect",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/util/helpers/RandomHelper;getRandomChance(F)Z"))
- private boolean backport$protect(float chance,PixelmonWrapper user,PixelmonWrapper target){return com.pixelmonmod.pixelmon.api.util.helpers.RandomHelper.getRandomChance(AuthorChallenge.affected(user)?chance*.8f:chance);}
+ private boolean backport$protect(float chance,PixelmonWrapper user,PixelmonWrapper target){return local.pixelmon.backport.AuthorForesight.forecast(user)?local.pixelmon.backport.AuthorForesight.chance(user,"protect",chance*100):com.pixelmonmod.pixelmon.api.util.helpers.RandomHelper.getRandomChance(chance);}
 }

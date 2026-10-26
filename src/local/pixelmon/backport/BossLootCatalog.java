@@ -28,7 +28,7 @@ public final class BossLootCatalog {
    if(tier.getID().equals("drowned"))DrownedBosses.catalogue(entries);
    result.add(new LootSourceCatalog.Source("bosses","boss/"+tier.getID(),NAMES.getOrDefault(tier.getID(),tier.getID())+"Boss","基础掉落随宝可梦种类变化；此页为当前加载的等级额外奖池与Mega石条件",entries));
   }
-  List<LootSourceCatalog.Entry> author=new ArrayList<>();author.add(new LootSourceCatalog.Entry(new ItemStack(Backport.item("ash_greninjite")),"每位玩家首次击败作者必定额外获得1颗，此后独立1%；不占五份随机战利品，不可从溺水Boss获得"));result.add(new LootSourceCatalog.Source("bosses","boss/author_exclusive","作者道馆·专属奖励","击败作者后在胜利领奖界面领取",author));
+  List<LootSourceCatalog.Entry> author=new ArrayList<>();for(var row:AuthorBossRewards.randomPool())author.add(new LootSourceCatalog.Entry(AuthorBossRewards.stack(row),"七份随机战利品之一；按物品及NBT去重，不重复抽取"));author.add(new LootSourceCatalog.Entry(com.pixelmonmod.pixelmon.items.PokeBallItem.of(com.pixelmonmod.pixelmon.api.pokemon.item.pokeball.PokeBallRegistry.getPokeBall("master_ball").getValueUnsafe(),1),"独立50%获得1个；不进入七份随机奖池"));author.add(new LootSourceCatalog.Entry(new ItemStack(Backport.item("ash_greninjite")),"每位玩家首次击败作者必定额外获得1颗，此后独立1%；不占七份随机战利品，不可从溺水Boss获得"));result.add(new LootSourceCatalog.Source("bosses","boss/author_exclusive","作者道馆·专属奖励","击败作者后在胜利领奖界面领取",author));
   return result;
  }
 }

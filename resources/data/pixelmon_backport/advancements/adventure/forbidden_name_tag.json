@@ -1,0 +1,23 @@
+{
+  "parent": "minecraft:adventure/root",
+  "display": {
+    "icon": {
+      "item": "minecraft:name_tag"
+    },
+    "title": {
+      "translate": "advancement.pixelmon_backport.forbidden_name_tag"
+    },
+    "description": {
+      "translate": "advancement.pixelmon_backport.forbidden_name_tag.desc"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

@@ -1153,9 +1153,7 @@
         774
       ],
       "biomes": [
-        "minecraft:mountain_edge",
-        "minecraft:stone_shore",
-        "minecraft:desert_lakes"
+        "pixelmon:ultra_desert"
       ],
       "architectureRevision": 9
     }

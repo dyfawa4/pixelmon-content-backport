@@ -1,8 +1,8 @@
 {
-  "fixed_master_balls": 1,
+  "master_ball_percent": 50,
   "money_min": 500000,
   "money_max": 1000000,
-  "extra_draws": 5,
+  "extra_draws": 7,
   "replacement": false,
   "entries": [
     {
@@ -632,6 +632,21 @@
       "item": "pixelmon:reins_of_unity",
       "count": 1,
       "display_zh": "牵绊缰绳"
+    },
+    {
+      "item": "pixelmon:red_chain",
+      "count": 1,
+      "display_zh": "红色锁链"
+    },
+    {
+      "item": "sophisticatedbackpacks:netherite_backpack",
+      "count": 1,
+      "display_zh": "下界合金背包"
+    },
+    {
+      "item": "pixelmon:soul_dew",
+      "count": 1,
+      "display_zh": "心之水滴"
     }
   ]
 }

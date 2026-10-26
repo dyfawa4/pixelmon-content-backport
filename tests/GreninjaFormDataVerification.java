@@ -52,7 +52,7 @@ public final class GreninjaFormDataVerification {
             require(moves.getAsJsonArray("tutorMoves").contains(new JsonPrimitive("Ninja Training")),"Ash signature tutor missing");
             require(moves.getAsJsonArray("tmMoves9").contains(new JsonPrimitive("Tera Blast")),"Ash Tera Blast TM missing");
             boolean reminder=false;for(var level:moves.getAsJsonArray("levelUpMoves"))if(level.getAsJsonObject().getAsJsonArray("attacks").contains(new JsonPrimitive("Tera Blast")))reminder=true;
-            require(reminder,"Ash cannot relearn Tera Blast");
+            require(!reminder,"Ash must use a machine for Tera Blast");
         }
         // Retain the actual native appearance adapters. Remove unrelated fields
         // that require a running sound/particle/item registry, not appearance data.

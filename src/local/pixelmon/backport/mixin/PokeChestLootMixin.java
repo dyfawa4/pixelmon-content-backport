@@ -7,6 +7,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.*;
 @Mixin(value=PokeChestBlock.class,remap=false)
 public abstract class PokeChestLootMixin {
+    @Redirect(method={"getChestDrop","getHiddenDrop"},at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/entities/npcs/registry/DropItemRegistry;getTier3Drop()Lnet/minecraft/item/ItemStack;"))
+    private ItemStack backport$onePercentMaster(){return PokeChestLoot.tier3Drop(com.pixelmonmod.pixelmon.api.util.helpers.RandomHelper.rand);}
     @Redirect(method="func_225533_a_",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/events/PokeLootEvent$GetDrops;getDrops()[Lnet/minecraft/item/ItemStack;"))
     private ItemStack[] backport$validDrops(PokeLootEvent.GetDrops event){return PokeChestLoot.drops(event);}
     @Redirect(method="func_225533_a_",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/events/PokeLootEvent$Drop;getDrop()Lnet/minecraft/item/ItemStack;"))

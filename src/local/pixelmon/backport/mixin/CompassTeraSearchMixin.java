@@ -29,22 +29,28 @@ public abstract class CompassTeraSearchMixin {
     @Unique private TeraDenLocator.Candidate backport$pendingDen;
     @Unique private final java.util.Set<Long> backport$checkedDens=new java.util.HashSet<>();
     @Unique private void backport$releaseDen(){if(backport$pendingDen!=null){backport$pendingDen.close(world);backport$pendingDen=null;}}
-    @Unique private boolean backport$staleDen(){return structure instanceof TeraDenLocator.TypedDen && (player.field_70128_L || player.field_70170_p!=world || stack.func_77978_p()==null || !structureKey.toString().equals(stack.func_77978_p().func_74779_i("StructureKey")));}
+    @Unique private boolean backport$staleDen(){return TeraDenLocator.handles(structure) && (player.field_70128_L || player.field_70170_p!=world || stack.func_77978_p()==null || !structureKey.toString().equals(stack.func_77978_p().func_74779_i("StructureKey")));}
     @Inject(method="<init>",at=@At("RETURN"))
     private void backport$denSettings(CallbackInfo ci){if(structure instanceof TeraDenLocator.TypedDen){var alias=(TeraDenLocator.TypedDen)structure;separationSettings=TeraDenLocator.settings(world,alias);finished=!TeraDenLocator.available(world,alias);}}
     @Inject(method="hasWork",at=@At("HEAD"),cancellable=true)
     private void backport$cancelDen(CallbackInfoReturnable<Boolean> ci){if(backport$staleDen()){backport$releaseDen();finished=true;ci.setReturnValue(false);}else if(!finished && backport$pendingDen!=null)ci.setReturnValue(true);}
     @Inject(method="finish",at=@At("HEAD"),cancellable=true)
-    private void backport$keepDenTarget(boolean found,CallbackInfo ci){backport$releaseDen();if(backport$staleDen()){finished=true;ci.cancel();}}
+    private void backport$keepDenTarget(boolean found,CallbackInfo ci){
+        backport$releaseDen();if(backport$staleDen()){finished=true;ci.cancel();return;}
+        if(!found&&TeraDenLocator.handles(structure))try{
+            Object config=Class.forName("com.chaosthedude.explorerscompass.config.ConfigHandler").getField("GENERAL").get(null);
+            if(((net.minecraftforge.common.ForgeConfigSpec.BooleanValue)config.getClass().getField("cleanCache").get(config)).get())TeraDenLocator.forget(world,player.func_110124_au(),structureKey.toString());
+        }catch(ReflectiveOperationException failure){org.apache.logging.log4j.LogManager.getLogger("pixelmon_backport").warn("Den compass cache setting unavailable",failure);}
+    }
     @Inject(method="doWork",at=@At("HEAD"),cancellable=true)
     private void backport$waitForDen(CallbackInfoReturnable<Boolean> ci){
-        if(!(structure instanceof TeraDenLocator.TypedDen))return;
+        if(!TeraDenLocator.handles(structure))return;
         if(finished || backport$staleDen()){backport$releaseDen();finished=true;ci.setReturnValue(false);return;}
         if(backport$pendingDen==null)return;
         try{
             if(backport$pendingDen.ready(world)){
-                BlockPos found=backport$pendingDen.find(world);backport$releaseDen();
-                if(found!=null){x=found.func_177958_n();z=found.func_177952_p();finish(true);ci.setReturnValue(false);return;}
+                BlockPos found=backport$pendingDen.find(world,structure instanceof TeraDenLocator.TypedDen,p->TeraDenLocator.eligible(world,player,structureKey.toString(),p));backport$releaseDen();
+                if(found!=null){TeraDenLocator.found(world,player.func_110124_au(),structureKey.toString(),found);x=found.func_177958_n();z=found.func_177952_p();finish(true);ci.setReturnValue(false);return;}
             }
         }catch(RuntimeException failure){org.apache.logging.log4j.LogManager.getLogger("pixelmon_backport").warn("Tera den compass candidate failed: {}",failure.toString());backport$releaseDen();finish(false);ci.setReturnValue(false);return;}
         // false yields this tick; hasWork keeps the worker registered while waiting.
@@ -56,12 +62,12 @@ public abstract class CompassTeraSearchMixin {
     }
     @Redirect(method="doWork",at=@At(value="INVOKE",target="Lnet/minecraft/world/gen/feature/structure/StructureManager;func_235013_a_(Lnet/minecraft/util/math/SectionPos;Lnet/minecraft/world/gen/feature/structure/Structure;Lnet/minecraft/world/IStructureReader;)Lnet/minecraft/world/gen/feature/structure/StructureStart;"))
     private StructureStart<?> backport$verifyRealDen(StructureManager manager,SectionPos pos,Structure<?> requested,IStructureReader chunk){
-        if(!(requested instanceof TeraDenLocator.TypedDen))return local.pixelmon.backport.GymLocator.filteredStart(manager,pos,requested,chunk);
-        StructureStart<?> start=manager.func_235013_a_(pos,((TeraDenLocator.TypedDen)requested).nativeDen(),chunk);
+        if(!TeraDenLocator.handles(requested))return local.pixelmon.backport.GymLocator.filteredStart(manager,pos,requested,chunk);
+        StructureStart<?> start=manager.func_235013_a_(pos,TeraDenLocator.source(requested),chunk);
         if(start!=null && start.func_75069_d()){
             var b=start.func_75071_a();long key=new ChunkPos(b.field_78897_a>>4,b.field_78896_c>>4).func_201841_a();
             if(backport$checkedDens.add(key))backport$pendingDen=new TeraDenLocator.Candidate(world,start);
         }
-        return null; // A native Max den start alone is never a successful Tera result.
+        return null; // Both kinds require a matching live entity after natural conversion.
     }
 }

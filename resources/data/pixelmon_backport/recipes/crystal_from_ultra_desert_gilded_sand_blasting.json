@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:blasting",
+  "ingredient": {
+    "item": "pixelmon:ultra_desert_gilded_sand"
+  },
+  "result": "pixelmon:crystal",
+  "experience": 0.7,
+  "cookingtime": 100
+}

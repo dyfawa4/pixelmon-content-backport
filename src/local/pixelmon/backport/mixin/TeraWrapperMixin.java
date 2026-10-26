@@ -35,7 +35,7 @@ public abstract class TeraWrapperMixin {
     @Inject(method="isItemRemovable",at=@At("HEAD"),cancellable=true)
     private void backport$keepMask(PixelmonWrapper user,CallbackInfoReturnable<Boolean> cir){if(self().getSpecies().getDex()==1017 && self().getHeldItem() instanceof Backport.Mask)cir.setReturnValue(false);}
     @Inject(method="<init>(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;)V",at=@At("RETURN"))
-    private void backport$copy(PixelmonWrapper original,CallbackInfo ci){Tera.copy(original,self());local.pixelmon.backport.AshWaterBoost.copy(original,self());local.pixelmon.backport.NinjaNextPriority.copy(original,self());local.pixelmon.backport.Erosion.copy(original,self());local.pixelmon.backport.LightningOath.copy(original,self());}
+    private void backport$copy(PixelmonWrapper original,CallbackInfo ci){Tera.copy(original,self());local.pixelmon.backport.AshWaterBoost.copy(original,self());local.pixelmon.backport.NinjaNextPriority.copy(original,self());local.pixelmon.backport.Erosion.copy(original,self());local.pixelmon.backport.CalamityBattle.copy(original,self());local.pixelmon.backport.LightningOath.copy(original,self());}
     @Inject(method="megaEvolve",at=@At("HEAD"),cancellable=true)
     private void backport$tera(CallbackInfoReturnable<Boolean> cir){if(Tera.selected(self()))cir.setReturnValue(Tera.activate(self()));}
     @Inject(method="setAttack(Lcom/pixelmonmod/pixelmon/battles/attacks/Attack;Ljava/util/List;Z)V",at=@At("RETURN"))
@@ -55,7 +55,7 @@ public abstract class TeraWrapperMixin {
     @Inject(method="getMaxHealth(Z)I",at=@At("RETURN"),cancellable=true)
     private void backport$raidHP(boolean ignoreDynamax,CallbackInfoReturnable<Integer> cir){if(!ignoreDynamax && self().getParticipant() instanceof TeraRaidParticipant)cir.setReturnValue(cir.getReturnValue()*TeraRaids.HP[((TeraRaidParticipant)self().getParticipant()).stars]);}
     @Inject(method="useAttack(Z)V",at=@At("RETURN"))
-    private void backport$spent(boolean affectPP,CallbackInfo ci){Tera.consumeBoost(self());Tera.enforceType(self());}
+    private void backport$spent(boolean affectPP,CallbackInfo ci){local.pixelmon.backport.AuthorForesight.finished(self());Tera.consumeBoost(self());Tera.enforceType(self());}
     @Inject(method="useAttack(Z)V",at=@At("HEAD"))
     private void backport$beginMove(boolean affectPP,CallbackInfo ci){backport$usedKey=null;backport$usedArgs=null;Tera.beginMove(self());local.pixelmon.backport.AuthorChallenge.begin(self());local.pixelmon.backport.BattleMechanics.beginMove(self());}
     @Inject(method="useAttack(Z)V",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/pokemon/ability/Ability;startMove(Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;)V"))

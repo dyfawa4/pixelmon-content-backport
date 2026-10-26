@@ -26,13 +26,14 @@ public final class NpcGimmicks {
     public static void prepare(TrainerParticipant participant){
         if(!enabled(participant.trainer) || participant.bc==null || participant.bc.simulateMode || participant.bc.isRaid())return;
         augment(participant);
+        NpcTeamKnowledge.capture(participant);
         armTeam(participant);
         NpcMedicine.prepare(participant);
         participant.trainer.setMegaItem(EnumMegaItemsUnlocked.Both);
         participant.trainer.setBattleAIMode(BattleAIMode.ADVANCED);
         List<Pokemon> threats=new ArrayList<>();
         for(BattleParticipant other:participant.bc.participants)if(other.team!=participant.team){
-            for(PixelmonWrapper p:other.allPokemon)if(p.onBattlefield && p.isAlive())threats.add(p.pokemon);
+            for(PixelmonWrapper p:other.allPokemon)if(p.isAlive())threats.add(p.pokemon);
             if(threats.isEmpty() && other.allPokemon.length>0)threats.add(other.allPokemon[0].pokemon);
         }
         for(PixelmonWrapper wrapper:participant.allPokemon){
@@ -49,68 +50,28 @@ public final class NpcGimmicks {
             NpcMoves.configure(wrapper.pokemon,participant.trainer.func_110124_au());
             if(GymCities.isLeader(participant.trainer))NpcMoves.tune(wrapper.pokemon,participant.trainer.func_110124_au());
             NpcMoves.coverage(wrapper.pokemon);
+            NpcBuildRoles.configure(wrapper.pokemon);
             profile(wrapper.pokemon,participant.trainer.func_110124_au(),threats);
             // Native battle cleanup restores this snapshot, including its held item.
             wrapper.initialCopyOfPokemon.setHeldItem(wrapper.pokemon.getHeldItem().func_77946_l());
         }
+        if(AuthorBossTeams.is(participant.trainer))AuthorRoster.support(Arrays.stream(participant.allPokemon).map(w->w.pokemon).collect(java.util.stream.Collectors.toList()));
+        else if(GymCities.isLeader(participant.trainer))GymCounterTeam.configure(Arrays.stream(participant.allPokemon).map(w->w.pokemon).collect(java.util.stream.Collectors.toList()));
+        NpcTeamKnowledge.configure(participant);
         armTeam(participant); // Recheck compatibility after moves and persistent profiles are finalized.
         for(PixelmonWrapper wrapper:participant.allPokemon){
             if(GymCities.isLeader(participant.trainer)){
-                NpcTraining.prepare(wrapper.pokemon);NpcTraining.copy(wrapper.pokemon,wrapper.initialCopyOfPokemon);
+                if(AuthorBossTeams.is(participant.trainer))AuthorRoster.train(wrapper.pokemon);else NpcTraining.maximize(wrapper.pokemon);NpcTraining.copy(wrapper.pokemon,wrapper.initialCopyOfPokemon);
             }
+            NpcHeldItems.equip(wrapper.pokemon);
             wrapper.initialCopyOfPokemon.setHeldItem(wrapper.pokemon.getHeldItem().func_77946_l());
         }
         GymChallenge.prepare(participant);
     }
     public static void augment(TrainerParticipant participant){
-        NPCTrainer npc=participant.trainer;
-        if(npc.getPersistentData().func_74767_n("BackportAuthorTrainer"))return;
-        if(!enabled(npc) || !GymCities.isLeader(npc))return;
-        Element theme=GymCities.theme(npc);
-        if(participant.allPokemon.length==0)return;
-        Pokemon last=participant.allPokemon[participant.allPokemon.length-1].pokemon;
-        boolean replaceLegacyCrossTheme=participant.allPokemon.length>1 && npc.getPersistentData().func_74767_n("BackportNpcRoster")
-            && last.getPersistentData().func_74767_n(PROFILE) && (last.getSpecies().getDefaultForm().getTags().isLegendary() || last.getSpecies().getDefaultForm().getTags().isMythical())
-            && !last.getForm().getTypes().contains(theme);
-        // Re-evaluate old saves too: BackportNpcRoster was only a presence flag,
-        // and could lock in an immature or unrelated legendary forever.
-        for(PixelmonWrapper member:participant.allPokemon)if(!replaceLegacyCrossTheme && aceEligible(member.pokemon,theme)){
-            for(var other:participant.allPokemon)other.pokemon.getPersistentData().func_74757_a(GymAcePolicy.MARKER,false);
-            member.pokemon.getPersistentData().func_74757_a(GymAcePolicy.MARKER,true);
-            member.pokemon.getPersistentData().func_74757_a(NpcMoves.ACE,true);
-            npc.getPersistentData().func_74768_a("BackportNpcRosterVersion",2);return;
-        }
-        List<com.mojang.datafixers.util.Pair<com.pixelmonmod.pixelmon.api.pokemon.species.Species,com.pixelmonmod.pixelmon.api.pokemon.species.Stats>> candidates=new ArrayList<>();
-        JsonArray rows=GymAcePolicy.DATA.getAsJsonArray(theme.name().toLowerCase(Locale.ROOT));
-        if(rows==null)throw new IllegalStateException("No mature ace plan for "+theme);
-        for(var value:rows){var row=value.getAsJsonObject();var species=com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies.fromNationalDex(row.get("dex").getAsInt());
-            if(species==null)continue;var form=row.has("form")?species.getForm(row.get("form").getAsString()):species.getDefaultForm();
-            if(form!=null && aceEligible(species,form,theme))candidates.add(com.mojang.datafixers.util.Pair.of(species,form));
-        }
-        if(candidates.isEmpty())throw new IllegalStateException("No registered legal mature ace for "+theme);
-        var selected=candidates.get(new Random(npc.func_110124_au().getLeastSignificantBits()).nextInt(candidates.size()));
-        if(theme==Element.POISON){
-            boolean special=GymAcePolicy.specialPoisonAce(npc.func_110124_au());
-            var preferred=new ArrayList<com.mojang.datafixers.util.Pair<com.pixelmonmod.pixelmon.api.pokemon.species.Species,com.pixelmonmod.pixelmon.api.pokemon.species.Stats>>();
-            for(var candidate:candidates)if((candidate.getFirst().getDex()==890)==special)preferred.add(candidate);
-            if(!preferred.isEmpty())selected=preferred.get(new Random(npc.func_110124_au().getLeastSignificantBits()).nextInt(preferred.size()));
-        }
-        int index=replaceLegacyCrossTheme?participant.allPokemon.length-1:participant.allPokemon.length<6?participant.allPokemon.length:participant.allPokemon.length-1;
-        Pokemon source=participant.allPokemon[Math.min(index,participant.allPokemon.length-1)].pokemon;
-        Pokemon ace=PokemonFactory.create(selected.getFirst());ace.setForm(selected.getSecond());ace.setLevelNum(source.getPokemonLevel());ace.initialize();ace.rerollMoveset();
-        net.minecraft.nbt.CompoundNBT training=new net.minecraft.nbt.CompoundNBT();source.getIVs().writeToNBT(training);source.getEVs().writeToNBT(training);
-        ace.getIVs().readFromNBT(training);ace.getEVs().readFromNBT(training);ace.getStats().recalculateStats();ace.heal();
-        for(var member:participant.allPokemon)member.pokemon.getPersistentData().func_74757_a(GymAcePolicy.MARKER,false);
-        ace.getPersistentData().func_74757_a(GymAcePolicy.MARKER,true);ace.getPersistentData().func_74757_a(NpcMoves.ACE,true);
-        if(theme==Element.POISON && ace.getSpecies().getDex()==890)ace.setHeldItem(new ItemStack(Backport.REGISTERED.get("eternatus_meteorite").get()));
-        NpcMoves.configure(ace,npc.func_110124_au());npc.getPokemonStorage().set(index,ace);
-        participant.allPokemon=Arrays.copyOf(participant.allPokemon,Math.max(participant.allPokemon.length,index+1));
-        PixelmonWrapper added=new PixelmonWrapper(participant,ace,index);
-        // Native constructors only attach the participant. Preparation can also
-        // run after native startBattle has attached the original roster.
-        added.bc=participant.bc;participant.allPokemon[index]=added;
-        npc.getPersistentData().func_74757_a("BackportNpcRoster",true);npc.getPersistentData().func_74768_a("BackportNpcRosterVersion",2);
+        GymLegendaryPair.ensure(participant);
     }
+
     private static boolean aceEligible(Pokemon pokemon,Element theme){return aceEligible(pokemon.getSpecies(),pokemon.getForm(),theme);}
     private static boolean aceEligible(com.pixelmonmod.pixelmon.api.pokemon.species.Species species,com.pixelmonmod.pixelmon.api.pokemon.species.Stats form,Element theme){
         int total=0;for(var stat:new com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType[]{com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.HP,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.ATTACK,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.DEFENSE,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.SPECIAL_ATTACK,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.SPECIAL_DEFENSE,com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.SPEED})total+=form.getBattleStats().getStat(stat);
@@ -134,7 +95,7 @@ public final class NpcGimmicks {
                 if(PixelmonWrapper.canMegaEvolve(new ItemStack(item),pokemon.getSpecies(),pokemon.getForm().getName()))mega.add(item);
             }
             if(!mega.isEmpty() && random.nextInt(3)!=0)pokemon.setHeldItem(new ItemStack(mega.get(random.nextInt(mega.size()))));
-            else if(random.nextBoolean()){
+            else if(pokemon.getSpecies().getDex()!=493&&random.nextBoolean()){
                 List<Item> crystals=new ArrayList<>();
                 for(Item item:net.minecraftforge.registries.ForgeRegistries.ITEMS)if(item instanceof ZCrystalItem){
                     pokemon.setHeldItem(new ItemStack(item));
@@ -156,7 +117,8 @@ public final class NpcGimmicks {
         Item item=pokemon.getHeldItem().func_77973_b();
         if(item instanceof ReferenceItems.Meteorite || item instanceof Backport.Mask)return true;
         String name=item.getRegistryName()==null?"":item.getRegistryName().func_110623_a();
-        return Arrays.asList("red_orb","blue_orb","rusted_sword","rusted_shield","griseous_orb").contains(name);
+        return Arrays.asList("red_orb","blue_orb","rusted_sword","rusted_shield","griseous_orb","griseous_core","adamant_crystal","lustrous_globe","legend_plate").contains(name)
+            ||pokemon.getSpecies().getDex()==493&&name.endsWith("_plate")||pokemon.getSpecies().getDex()==773&&name.endsWith("_memory")||pokemon.getSpecies().getDex()==649&&name.endsWith("_drive");
     }
     /** A legal Mega user and a distinct Z user provide options; native rules decide which can be spent. */
     public static void armTeam(TrainerParticipant participant){
@@ -167,7 +129,7 @@ public final class NpcGimmicks {
             int dex=GymCities.DATA.getAsJsonObject("megaAnchors").get(GymCities.theme(participant.trainer).name().toLowerCase(Locale.ROOT)).getAsInt();
             int index=participant.allPokemon.length;
             if(index>=6){
-                index=-1;for(int i=participant.allPokemon.length-1;i>=0;i--)if(!com.pixelmonmod.pixelmon.api.registries.PixelmonSpecies.isLegendary(participant.allPokemon[i].getSpecies()) && !(participant.allPokemon[i].pokemon.getHeldItem().func_77973_b() instanceof ZCrystalItem)){index=i;break;}
+                index=-1;for(int i=participant.allPokemon.length-1;i>=0;i--)if(!AuthorBossTeams.legendary(participant.allPokemon[i].getSpecies()) && !(participant.allPokemon[i].pokemon.getHeldItem().func_77973_b() instanceof ZCrystalItem)){index=i;break;}
             }
             if(index>=0 && participant.allPokemon.length>0){
                 Pokemon source=participant.allPokemon[Math.min(index,participant.allPokemon.length-1)].pokemon;
@@ -198,7 +160,7 @@ public final class NpcGimmicks {
         boolean hasZ=Arrays.stream(participant.allPokemon).anyMatch(p->p.pokemon.getHeldItem().func_77973_b() instanceof ZCrystalItem && p.getMoveset().stream().anyMatch(a->a.getAttackCategory()!=AttackCategory.STATUS && a.getMove().hasZMove(p.pokemon)));
         if(!hasZ)for(PixelmonWrapper member:participant.allPokemon){
             Pokemon pokemon=member.pokemon;
-            if(member==mega || formItem(pokemon) || !megaItems(pokemon).isEmpty() && !pokemon.getHeldItem().func_190926_b() && PixelmonWrapper.canMegaEvolve(pokemon.getHeldItem(),pokemon.getSpecies(),pokemon.getForm().getName()))continue;
+            if(member==mega || formItem(pokemon) || pokemon.getSpecies().getDex()==493 || !megaItems(pokemon).isEmpty() && !pokemon.getHeldItem().func_190926_b() && PixelmonWrapper.canMegaEvolve(pokemon.getHeldItem(),pokemon.getSpecies(),pokemon.getForm().getName()))continue;
             ItemStack original=pokemon.getHeldItem().func_77946_l();List<Item> crystals=new ArrayList<>();
             for(Item item:net.minecraftforge.registries.ForgeRegistries.ITEMS)if(item instanceof ZCrystalItem){
                 pokemon.setHeldItem(new ItemStack(item));
@@ -246,6 +208,7 @@ public final class NpcGimmicks {
             immediate=NpcTactics.incoming(p,NpcTactics.threats(p));defended=NpcTactics.defensiveRisk(p,tera);
         }
         if((!status && pressure<=0) || (!author && incoming<80 && enemies.stream().allMatch(e->e.getHealthPercent()<25)))return Choice.NONE;
+        boolean priorityNeeded=attack.getMove().getPriority(p)>0&&immediate>=p.getHealth();
         Choice best=Choice.NONE;double score=30;
         double teraScore=(incoming-after)*.65+(!status && attack.getType()==tera?40:0);
         if(immediate>0)teraScore+=Math.max(-80,Math.min(150,(immediate-defended)/Math.max(1,p.getMaxHealth())*150));
@@ -255,10 +218,11 @@ public final class NpcGimmicks {
         if(!queuedTera && !queuedNative && (!status || incoming>=80) && p.bc.oldGen.isYes() && p.getParticipant().evolution==null && p.getParticipant().ultraBurst==null && p.getParticipant().canMegaEvolve() && (p.canMegaEvolve() || p.canUltraBurst()) && megaScore>score){best=Choice.MEGA;score=megaScore;}
         // Respect native generation rules and Mega's precedence over Dynamax with a compatible stone.
         double maxScore=incoming*.3+(p.getHealthPercent()>40 && p.getHealthPercent()<85?25:0)+(immediate>=p.getHealth()&&immediate<p.getHealth()*1.5?100:0);
-        if(!authorMega && !status && !queuedTera && !queuedNative && p.getParticipant().dynamax==null && p.getParticipant().canDynamax() && (p.canDynamax() || p.canGigantamax())
+        if(!priorityNeeded && !authorMega && !status && !queuedTera && !queuedNative && p.getParticipant().dynamax==null && p.getParticipant().canDynamax() && (p.canDynamax() || p.canGigantamax())
             && !(p.bc.oldGen.isYes() && (p.canMegaEvolve() || p.canUltraBurst())) && maxScore>score){best=Choice.DYNAMAX;score=maxScore;}
-        if(!status && !queuedTera && !queuedNative && !queuedZ && !p.getParticipant().usedZ && p.bc.oldGen.isYes() && p.getParticipant().canMegaEvolve() && attack.getMove().hasZMove(p.pokemon)){
+        if(!priorityNeeded && !status && !queuedTera && !queuedNative && !queuedZ && !p.getParticipant().usedZ && p.bc.oldGen.isYes() && p.getParticipant().canMegaEvolve() && attack.getMove().hasZMove(p.pokemon)){
             var z=attack.getMove().getZMove(p.pokemon,false);double zScore=pressure*.45;
+            if(LightningOath.signature(p,attack)&&enemies.stream().anyMatch(e->LightningOath.remaining(e)<2))zScore=-Double.MAX_VALUE;
             if(z!=null){
                 double ratio=Math.max(1,z.basePower/(double)Math.max(1,attack.getMove().getBasePower()));
                 for(var enemy:enemies){

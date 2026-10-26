@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "pixelmon_backport:item/upstream942/ability_shield"
+  }
+}

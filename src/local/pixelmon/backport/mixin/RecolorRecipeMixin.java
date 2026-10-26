@@ -13,6 +13,8 @@ public abstract class RecolorRecipeMixin {
  @Inject(method="func_212853_a_(Ljava/util/Map;Lnet/minecraft/resources/IResourceManager;Lnet/minecraft/profiler/IProfiler;)V",at=@At("HEAD"),require=1)
  private void backport$removeRecolors(Map<ResourceLocation,JsonElement> recipes,IResourceManager resources,IProfiler profiler,CallbackInfo ci){
   local.pixelmon.backport.RecolorRecipes.remove(recipes);
+  local.pixelmon.backport.TcgRemoval.recipes(recipes);
+  local.pixelmon.backport.UltraMaterialRecipes.apply(recipes);
   recipes.remove(new ResourceLocation("pixelmon:pokeball/ball/park_ball"));
   recipes.remove(new ResourceLocation("pixelmon:machines/computer/pc"));
  }

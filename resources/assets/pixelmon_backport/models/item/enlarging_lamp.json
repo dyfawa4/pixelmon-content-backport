@@ -1,0 +1,15 @@
+{
+  "loader": "forge:separate-perspective",
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "pixelmon_backport:item/enlarging_lamp"
+  },
+  "base": {
+    "parent": "pixelmon_backport:item/enlarging_lamp_handheld"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "pixelmon_backport:item/enlarging_lamp_icon"
+    }
+  }
+}

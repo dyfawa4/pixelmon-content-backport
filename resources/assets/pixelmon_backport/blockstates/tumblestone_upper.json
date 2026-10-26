@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "pixelmon_backport:block/day_care_upper"
+    }
+  }
+}

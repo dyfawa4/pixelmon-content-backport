@@ -74,7 +74,12 @@ public final class FieldMega {
         return base.getMegaForm(p.getHeldItem().func_77973_b()).filter(f->f!=null).orElse(null);
     }
     public static boolean active(Pokemon p){return p!=null && p.getPersistentData().func_74764_b(MARKER);}
-    private static boolean querying(Pokemon p){synchronized(EvolutionQueryList.queryList){return EvolutionQueryList.queryList.stream().anyMatch(q->q.pokemonUUID.equals(p.getUUID()));}}
+    private static boolean querying(Pokemon p){synchronized(EvolutionQueryList.queryList){return EvolutionQueryList.queryList.stream().anyMatch(q->q.pokemonUUID.equals(p.getUUID())&&!q.isEnded());}}
+    public static boolean busy(PixelmonEntity entity){
+        var battle=entity.battleController;
+        if(battle!=null&&(battle.battleEnded||BattleRegistry.getBattle(battle.battleIndex)!=battle))entity.battleController=null;
+        return entity.battleController!=null||querying(entity.getPokemon());
+    }
     public static String start(ServerPlayerEntity player,UUID id){
         if(BattleRegistry.getBattle(player)!=null)return "battle";
         if(!PixelmonConfigProxy.getExternalMoves().isAllowExternalMoves())return "disabled";
@@ -84,7 +89,7 @@ public final class FieldMega {
         if(p.isEgg() || p.getHealth()<=0 || p.hasFlag("unmegaevo"))return "unavailable";
         PixelmonEntity entity=p.getPixelmonEntity().orElse(null);
         if(entity==null || !entity.func_70089_S() || entity.field_70170_p!=player.field_70170_p || entity.getOwner()!=player || entity.func_70068_e(player)>1024)return "sendout";
-        if(entity.battleController!=null || querying(p))return "busy";
+        if(busy(entity))return "busy";
         boolean chaining=terapagos(p)&&active(p)||FieldSequencePolicy.chain(active(p),constructSpecies(p),p.getForm().getName(),p.getPersistentData().func_74775_l(MARKER).func_74779_i("Target"),p.getHeldItemAsItemHeld() instanceof MegaStoneItem);
         if(active(p) && !chaining){restore(p);return "reverted";}
         if(transformed(p))return "already";

@@ -15,9 +15,11 @@ public abstract class NpcAdvancedMixin {
     @Unique private int backport$slot;
     @Unique private final Map<UUID,Double> backport$health=new HashMap<>();
     @Unique private final Map<UUID,Float> backport$benefits=new HashMap<>();
+    @Unique private final Map<UUID,Float> backport$momentum=new HashMap<>();
+    @Unique private MoveChoice backport$reply;
     @Inject(method="getNextMove",at=@At("HEAD"))
     private void backport$start(PixelmonWrapper own,CallbackInfoReturnable<MoveChoice> cir){
-        backport$anchor=null;backport$benefits.clear();backport$health.clear();backport$before=0;
+        backport$anchor=null;backport$benefits.clear();backport$health.clear();backport$momentum.clear();backport$reply=null;backport$before=0;
         if(own!=null && own.bc!=null && !own.bc.simulateMode && !own.bc.isRaid()
             && own.getParticipant() instanceof TrainerParticipant && NpcGimmicks.enabled(((TrainerParticipant)own.getParticipant()).trainer)){
             backport$anchor=own;backport$slot=own.getParticipant().controlledPokemon.indexOf(own);
@@ -43,13 +45,24 @@ public abstract class NpcAdvancedMixin {
             double entry=Math.max(0,backport$health.getOrDefault(target.getPokemonUUID(),(double)target.getHealth())-target.getHealth());
             backport$benefits.put(target.getPokemonUUID(),NpcSwitchPolicy.adjustment(own.getHealth(),backport$before,target.getHealth(),incoming,
                 own.getBattleStats().getSumIncreases(),target.getMaxHealth(),entry,NpcMedicine.value(own,own),NpcMedicine.value(target,own)));
+            backport$momentum.put(target.getPokemonUUID(),NpcMomentum.switchBonus(own,target,backport$before,incoming,backport$reply,choices));
         }
+    }
+    @Inject(method="getNextMoveAttackOnly",at=@At("RETURN"))
+    private void backport$reply(PixelmonWrapper mon,CallbackInfoReturnable<MoveChoice> cir){backport$reply=cir.getReturnValue();}
+    @Redirect(method="getNextMove",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice;canOutspeedAnd2HKO(Ljava/util/List;Lcom/pixelmonmod/pixelmon/battles/controller/participants/PixelmonWrapper;)Z"),require=1)
+    private boolean backport$entryTurn(List<MoveChoice> threats,PixelmonWrapper reserve){
+        if(backport$anchor!=null&&backport$momentum.getOrDefault(reserve.getPokemonUUID(),0f)>0)
+            return !NpcMomentum.safeEntry(reserve,NpcTactics.incoming(reserve,threats),backport$reply,threats);
+        return MoveChoice.canOutspeedAnd2HKO(threats,reserve);
     }
     @Redirect(method="getNextMove",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/controller/ai/MoveChoice;raiseWeight(F)V"))
     private void backport$rewardSafeSwitch(MoveChoice choice,float weight){
         Float benefit=backport$benefits.remove(choice.switchPokemon);
-        choice.raiseWeight(weight+(benefit==null?0:benefit));
+        float momentum=backport$momentum.getOrDefault(choice.switchPokemon,0f);
+        choice.raiseWeight(weight+(benefit==null?0:benefit)+momentum);
+        if(momentum>0)choice.raiseTier(2);
     }
     @Inject(method="getNextMove",at=@At("RETURN"))
-    private void backport$end(PixelmonWrapper own,CallbackInfoReturnable<MoveChoice> cir){backport$anchor=null;backport$benefits.clear();backport$health.clear();}
+    private void backport$end(PixelmonWrapper own,CallbackInfoReturnable<MoveChoice> cir){backport$anchor=null;backport$benefits.clear();backport$health.clear();backport$momentum.clear();backport$reply=null;}
 }

@@ -10,7 +10,7 @@ import com.pixelmonmod.pixelmon.blocks.MultiBlock;
 import com.pixelmonmod.pixelmon.blocks.enums.MultiBlockPosition;
 /** A compact preparation corner against the back wall, clear of the author and doorway. */
 public final class AuthorRoomFurnishings {
-    public static final String TAG="AuthorArenaFurnished1";
+    public static final String TAG="AuthorArenaFurnished3";
     private AuthorRoomFurnishings(){}
     private static BlockState state(String id,Direction facing){
         Block block=ForgeRegistries.BLOCKS.getValue(new ResourceLocation(id));
@@ -31,8 +31,8 @@ public final class AuthorRoomFurnishings {
             var tile=world.func_175625_s(chest);
             if(tile instanceof ChestTileEntity)((ChestTileEntity)tile).func_189404_a(new ResourceLocation("minecraft:chests/woodland_mansion"),world.func_201674_k().nextLong());
         }
-        place(world,home.func_177982_a(-4,1,-5),state("pixelmon:red_healer",front));
-        BlockPos pc=home.func_177982_a(-3,1,-5);BlockState pcState=state("pixelmon:red_pc",front);
+        place(world,home.func_177982_a(-4,1,-5),state("pixelmon:red_healer",Direction.NORTH));
+        BlockPos pc=home.func_177982_a(-3,1,-5);BlockState pcState=state("pixelmon:red_pc",Direction.NORTH);
         if(world.func_175623_d(pc)&&world.func_175623_d(pc.func_177982_a(0,1,0))){
             place(world,pc,pcState);place(world,pc.func_177982_a(0,1,0),pcState.func_206870_a(MultiBlock.MULTIPOS,MultiBlockPosition.TOP));
         }
@@ -43,7 +43,23 @@ public final class AuthorRoomFurnishings {
             place(world,foot,bed.func_206870_a(BedBlock.field_176472_a,BedPart.FOOT));
         }
         place(world,home.func_177982_a(-1,1,-5),state("pixelmon:end_table",front));
-        place(world,home.func_177982_a(-1,1,-4),state("pixelmon:orange_chair",Direction.NORTH));
+        place(world,home.func_177982_a(-1,1,-4),state("pixelmon:orange_chair",Direction.SOUTH));
         place(world,home.func_177982_a(-5,1,-4),state("minecraft:crafting_table",front));
+    }
+    /** Only rotate exact legacy machines; same-block state updates retain their tile data. */
+    public static void upgrade(IWorld world,BlockPos home){
+        turn(world,home.func_177982_a(-4,1,-5),"pixelmon:red_healer");
+        turn(world,home.func_177982_a(-3,1,-5),"pixelmon:red_pc");
+        turn(world,home.func_177982_a(-3,2,-5),"pixelmon:red_pc");
+        BlockPos chair=home.func_177982_a(-1,1,-4);BlockState old=world.func_180495_p(chair);
+        if(old.func_177230_c()==ForgeRegistries.BLOCKS.getValue(new ResourceLocation("pixelmon:orange_chair"))
+            &&old.func_235903_d_(HorizontalBlock.field_185512_D).orElse(null)==Direction.NORTH)
+            world.func_180501_a(chair,old.func_206870_a(HorizontalBlock.field_185512_D,Direction.SOUTH),2);
+    }
+    private static void turn(IWorld world,BlockPos pos,String id){
+        BlockState current=world.func_180495_p(pos);
+        if(current.func_177230_c()==ForgeRegistries.BLOCKS.getValue(new ResourceLocation(id))
+            &&current.func_235903_d_(HorizontalBlock.field_185512_D).orElse(null)==Direction.SOUTH)
+            world.func_180501_a(pos,current.func_206870_a(HorizontalBlock.field_185512_D,Direction.NORTH),2);
     }
 }

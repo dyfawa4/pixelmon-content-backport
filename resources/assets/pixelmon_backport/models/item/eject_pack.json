@@ -1,6 +1,1 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "pixelmon_backport:item/eject_pack"
-  }
-}
+{"parent": "pixelmon_backport:item/upstream942/eject_pack"}

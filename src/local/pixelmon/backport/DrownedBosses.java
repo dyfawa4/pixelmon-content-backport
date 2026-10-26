@@ -29,11 +29,15 @@ public final class DrownedBosses {
  public static Set<DropSet.Drop> rewards(ServerPlayerEntity player,AbstractHoldsItemsEntity entity){
   var random=player==null?entity.func_70681_au():player.func_70681_au();Set<DropSet.Drop> result=new LinkedHashSet<>();var stones=stones();
   if(!stones.isEmpty())result.add(new DropSet.Drop(1,"",new ItemStack(stones.get(random.nextInt(stones.size()))),false));
-  var pool=AuthorBossRewards.available();for(int index:AuthorBossPolicy.draw(pool.size(),3,random))result.add(new DropSet.Drop(1,"",AuthorBossRewards.stack(pool.get(index)),false));
+    var pool=potionPool();for(int index:AuthorBossPolicy.draw(pool.size(),3,random))result.add(new DropSet.Drop(1,"",AuthorBossRewards.stack(pool.get(index)),false));
   return result;
  }
  public static void catalogue(List<LootSourceCatalog.Entry> entries){
   for(var stone:stones())entries.add(new LootSourceCatalog.Entry(new ItemStack(stone),"额外随机获得1颗Mega石；全部已注册石头等权重"));
-  for(var entry:AuthorBossRewards.available())entries.add(new LootSourceCatalog.Entry(AuthorBossRewards.stack(entry),"溺水额外从作者物品池抽3份、不重复；不附送作者的固定大师球/金钱"));
+    for(var entry:potionPool())entries.add(new LootSourceCatalog.Entry(AuthorBossRewards.stack(entry),"溺水额外从专属物品池抽3份、不重复；不附送作者的固定大师球/金钱"));
  }
+  private static java.util.List<com.google.gson.JsonObject> potionPool(){
+    var pool=new java.util.ArrayList<com.google.gson.JsonObject>(AuthorBossRewards.available());
+    var potion=new com.google.gson.JsonObject();potion.addProperty("item",MysteriousPotionLoot.ITEM);potion.addProperty("count",1);pool.add(potion);return pool;
+  }
 }

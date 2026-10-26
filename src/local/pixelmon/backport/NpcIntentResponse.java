@@ -18,7 +18,35 @@ public final class NpcIntentResponse {
         List<Attack> moves=NpcTurnKnowledge.moves(target);return moves!=null&&moves.size()==1?moves.get(0):null;
     }
     private static final Set<String> NO_COPY=new HashSet<>(Arrays.asList("Focus Punch","Beak Blast","Belch","Counter","Covet","Metal Burst","Mirror Coat","Shell Trap","Struggle","Chatter","Thief"));
-    private static boolean first(PixelmonWrapper a,Attack aa,PixelmonWrapper b,Attack ba){
+    private static String charge(Attack attack){
+        if(attack==null)return null;
+        for(var effect:attack.getMove().effects)switch(effect.getClass().getSimpleName()){
+            case "Dig":return "UnderGround";case "Dive":return "UnderWater";case "Fly":case "Bounce":return "Flying";
+            case "ShadowForce":case "PhantomForce":return "Vanish";default:break;
+        }return null;
+    }
+    public static boolean unreachable(PixelmonWrapper user,Attack attack,PixelmonWrapper target,Attack response){
+        String state=null;
+        for(var status:target.getStatuses())if(Set.of("UnderGround","UnderWater","Flying","Vanish").contains(status.type.name())){state=status.type.name();break;}
+        String charging=charge(response);
+        if(response!=null&&first(target,response,user,attack)){
+            if(state!=null&&state.equals(charging))state=null;
+            else if(state==null&&charging!=null){
+                var item=target.getUsableHeldItem();
+                boolean herb=item instanceof com.pixelmonmod.pixelmon.items.heldItems.PowerHerbItem&&!AuthorHeldItems.blocked(target,item,"affectMultiturnMove");
+                if(!herb)state=charging;
+            }
+        }
+        if(state==null||attack.moveAccuracy==-2||user.getBattleAbility().getClass().getSimpleName().equals("NoGuard")||target.getBattleAbility().getClass().getSimpleName().equals("NoGuard"))return false;
+        String name=attack.getMove().getAttackName();
+        switch(state){
+            case "UnderGround":return !Set.of("Earthquake","Magnitude","Fissure").contains(name);
+            case "UnderWater":return !Set.of("Surf","Whirlpool").contains(name);
+            case "Flying":return !Set.of("Gust","Twister","Hurricane","Sky Uppercut","Smack Down","Thousand Arrows","Thunder","Whirlwind").contains(name);
+            default:return true;
+        }
+    }
+    public static boolean first(PixelmonWrapper a,Attack aa,PixelmonWrapper b,Attack ba){
         if(aa==null)return false;if(ba==null)return true;
         boolean simulation=a.bc.simulateMode;a.bc.simulateMode=true;
         try(var x=NpcTurnKnowledge.preview(a,aa);var y=NpcTurnKnowledge.preview(b,ba)){
@@ -78,11 +106,12 @@ public final class NpcIntentResponse {
     /** Forecast fast self-defence on detached targets; never execute a global effect or send packets. */
     private static PixelmonWrapper defended(PixelmonWrapper target,Attack defence,PixelmonWrapper user,Attack attack){
         if(defence==null||!first(target,defence,user,attack))return target;
+        if(AuthorForesight.visible(target)&&defence.getMove().effects.stream().anyMatch(e->e instanceof ProtectVariation)&&!AuthorForesight.protect(target))return target;
         List<StatusBase> states=new ArrayList<>();
         for(var effect:defence.getMove().effects)if(effect instanceof ProtectVariation||effect instanceof ProtectVariationTeam||effect instanceof MagicCoat||effect instanceof Snatch)
             states.add(((StatusBase)effect).copy());
         if(states.isEmpty())return target;
-        PixelmonWrapper copy=new PixelmonWrapper(target);copy.pokemon=PokemonFactory.copy(target.pokemon);copy.entity=null;
+        PixelmonWrapper copy=NpcSimulationCopy.of(target);
         for(var state:states){copy.getStatuses().removeIf(old->old.type==state.type);copy.getStatuses().add(state);}
         return copy;
     }
@@ -95,6 +124,8 @@ public final class NpcIntentResponse {
                 if(choice.targets.size()==1){
                     var target=choice.targets.get(0);Attack response=submitted(target);
                     if(!own.isAlly(target)){
+                        if(!AuthorForesight.succeeds(own,target,choice.attack)){failed(choice);continue;}
+                        if(unreachable(own,choice.attack,target,response)){failed(choice);continue;}
                         var departing=NpcTurnKnowledge.departure(target);
                         if(departing!=null&&choice.attack.getMove().effects.stream().anyMatch(e->e instanceof Pursuit)){
                             MoveChoice intercept=raw(ai,own,choice.attack,departing);choice.result=intercept.result;choice.tier=intercept.tier;choice.weight=intercept.weight;choice.targets=Collections.singletonList(departing);target=departing;response=submitted(target);
@@ -106,7 +137,7 @@ public final class NpcIntentResponse {
                             // Native result owns the projected target; keep the actual slot for execution.
                         }
                         conditional(ai,choice);
-                        if(response!=null&&first(target,response,own,choice.attack)){
+                        if(response!=null&&AuthorForesight.succeeds(target,own,response)&&first(target,response,own,choice.attack)){
                             var intent=NpcMoveIntent.read(response);
                             // The actual native status decides legality. This is a
                             // risk penalty, not an unconditional immunity bypass.
@@ -116,7 +147,7 @@ public final class NpcIntentResponse {
                 }
                 for(var enemy:own.getOpponentPokemon()){
                     Attack response=submitted(enemy);
-                    if(response==null||!NpcTurnKnowledge.targets(enemy,own)||!first(enemy,response,own,choice.attack))continue;
+                    if(response==null||!NpcTurnKnowledge.targets(enemy,own)||!AuthorForesight.succeeds(enemy,own,response)||!first(enemy,response,own,choice.attack))continue;
                     var intent=NpcMoveIntent.read(response);
                     if(intent.has(NpcMoveIntent.Trait.BLOCKS_STATUS)&&choice.attack.getAttackCategory()==AttackCategory.STATUS)choice.weight*=.1f;
                     if(own.lastAttack!=null){boolean same=own.lastAttack.getMove().equals(choice.attack.getMove());if(intent.has(NpcMoveIntent.Trait.FORCES_LAST_MOVE)&&!same||intent.has(NpcMoveIntent.Trait.DISABLES_LAST_MOVE)&&same)choice.weight*=.15f;}

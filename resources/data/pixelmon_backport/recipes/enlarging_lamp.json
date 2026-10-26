@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "group": "pixelmon_backport_growth_lamps",
+  "pattern": [
+    "ITI",
+    "ICI",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "T": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "C": {
+      "item": "pixelmon:max_mushroom"
+    },
+    "B": {
+      "item": "minecraft:comparator"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:enlarging_lamp",
+    "count": 1
+  }
+}

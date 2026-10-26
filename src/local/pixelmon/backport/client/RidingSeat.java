@@ -17,7 +17,7 @@ public final class RidingSeat {
     private static class Turn {float yaw;long frame=-1,nanos;}
     private static Context context;
     private static class Context {Context parent;PixelmonEntity entity;Matrix4f inverse;boolean captured;float yaw,bodyYaw,previousBodyYaw;}
-    private static class Anchor {UUID rider;Vector3d target=Vector3d.field_186680_a,previous=target,current=target;int seen;double cameraTop,previousTop;}
+    private static class Anchor {UUID rider;Vector3d target=Vector3d.field_186680_a,previous=target,current=target;int seen;double cameraTop,previousTop,extent,scale;}
     public static void begin(AbstractClientEntity entity,MatrixStack matrix,float partial){
         Context c=new Context();c.parent=context;context=c;if(!RidingMotion.active(entity))return;c.entity=(PixelmonEntity)entity;
         c.inverse=new Matrix4f(matrix.func_227866_c_().func_227870_a_());if(!c.inverse.func_226600_c_()){c.entity=null;return;}
@@ -73,12 +73,17 @@ public final class RidingSeat {
         // The seated body stays on the torso. A first-person camera may need
         // clearance above a long neck/horn; inspect the real animated mesh in
         // the center corridor instead of cutting away visible triangles.
-        double corridor=Math.max(.45,(maxX-minX)*.32),safeTop=top;List<Double> centerHeights=new ArrayList<>();
+        double corridor=Math.max(.45,(maxX-minX)*.32),safeTop=top,globalTop=top,extent=0;List<Double> centerHeights=new ArrayList<>();
         for(DeformVertex vertex:model.body.verts){Vector3d p=framePoint(vertex,transform,c.yaw);double side=p.field_72450_a-x,front=p.field_72449_c-z;
+            globalTop=Math.max(globalTop,p.field_72448_b);extent=Math.max(extent,Math.sqrt(side*side+front*front));
             if(Math.abs(side)<corridor&&Math.abs(front)<Math.max(4,(maxZ-minZ)*1.5))centerHeights.add(p.field_72448_b);}
         if(!centerHeights.isEmpty()){Collections.sort(centerHeights);safeTop=Math.max(safeTop,centerHeights.get((int)((centerHeights.size()-1)*.95)));}
-        Anchor a=ANCHORS.computeIfAbsent(e,key->new Anchor());if(!rider.func_110124_au().equals(a.rider)){a.previous=a.current=desired;a.previousTop=a.cameraTop=safeTop;a.rider=rider.func_110124_au();}
-        a.target=desired;a.seen=e.field_70173_aa;a.cameraTop=Math.max(safeTop,a.cameraTop-.015);
+        // Eternatus/Eternamax spikes surround the entire seat; the center percentile leaves the camera inside them.
+        // Keep the visible rider on its seat, but give first person clearance above the complete animated mesh.
+        if(e.getSpecies().getDex()==890)safeTop=globalTop+.3;
+        Anchor a=ANCHORS.computeIfAbsent(e,key->new Anchor());double scale=e.getPixelmonScale()*e.getScaleFactor();
+        if(!rider.func_110124_au().equals(a.rider)||Math.abs(scale-a.scale)>.001){a.previous=a.current=desired;a.previousTop=a.cameraTop=safeTop;a.rider=rider.func_110124_au();a.scale=scale;}
+        a.target=desired;a.seen=e.field_70173_aa;a.cameraTop=Math.max(safeTop,a.cameraTop-.015);a.extent=extent;
     }
     private static double surface(double x,double z,Vector3d a,Vector3d b,Vector3d c){
         double det=(b.field_72449_c-c.field_72449_c)*(a.field_72450_a-c.field_72450_a)+(c.field_72450_a-b.field_72450_a)*(a.field_72449_c-c.field_72449_c);if(Math.abs(det)<1e-9)return Double.NaN;
@@ -118,6 +123,11 @@ public final class RidingSeat {
         Anchor a=ANCHORS.get((PixelmonEntity)rider.func_184187_bx());if(a==null)return offset;
         double seatY=lerp(a.previous.field_72448_b,a.current.field_72448_b,partial),eye=rider.func_70047_e();
         return offset.func_72441_c(0,Math.max(0,a.cameraTop+.18-seatY-eye),0);
+    }
+    public static double cameraDistance(Entity rider,double original){
+        if(rider==null||!RidingMotion.active(rider.func_184187_bx()))return original;
+        var mount=(PixelmonEntity)rider.func_184187_bx();if(mount.getSpecies().getDex()!=890)return original;
+        Anchor a=ANCHORS.get(mount);return a==null?original:Math.max(original,Math.min(64,a.extent*1.5));
     }
     public static void clear(){ANCHORS.clear();BODIES.clear();TURNS.clear();context=null;}
 }

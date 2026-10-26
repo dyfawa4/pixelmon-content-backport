@@ -12,6 +12,7 @@ public abstract class NinjaReminderMixin {
     private void backport$ashMovePP(CallbackInfoReturnable<com.pixelmonmod.pixelmon.api.pokemon.stats.Moveset> cir){local.pixelmon.backport.AshShurikenPP.apply(cir.getReturnValue(),(Pokemon)(Object)this);}
     @Inject(method="getRelearnableMoves",at=@At("RETURN"),cancellable=true)
     private void backport$trainingReminder(CallbackInfoReturnable<java.util.List<ImmutableAttack>> cir){
+        cir.setReturnValue(local.pixelmon.backport.TeraMachineLearning.reminders(cir.getReturnValue()));
         if(!NinjaTraining.eligible((Pokemon)(Object)this))return;
         AttackRegistry.getAttackBase(NinjaTraining.MOVE).ifPresent(move->{var rows=new java.util.ArrayList<>(cir.getReturnValue());if(!rows.contains(move))rows.add(move);cir.setReturnValue(rows);});
     }

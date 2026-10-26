@@ -10,8 +10,11 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value=ActiveRenderInfo.class,remap=false)
 public abstract class RidingCameraMixin {
+    @Shadow private Entity field_216791_c;
     @Shadow public abstract Vector3d func_216785_c();
     @Shadow protected abstract void func_216774_a(Vector3d position);
+    @ModifyArg(method="func_216772_a",at=@At(value="INVOKE",target="Lnet/minecraft/client/renderer/ActiveRenderInfo;func_216779_a(D)D"),index=0)
+    private double backport$clearLargeMount(double distance){return RidingSeat.cameraDistance(field_216791_c,distance);}
     @Inject(method="func_216772_a",at=@At(value="INVOKE",target="Lnet/minecraft/client/renderer/ActiveRenderInfo;func_216775_b(DDD)V",shift=At.Shift.AFTER,ordinal=0))
     private void backport$visualPivot(IBlockReader world,Entity rider,boolean third,boolean reverse,float partial,CallbackInfo ci){
         Vector3d offset=RidingSeat.cameraOffset(rider,partial,third);if(offset.func_189985_c()<1e-7)return;

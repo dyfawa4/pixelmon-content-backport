@@ -1,20 +1,308 @@
 {
-  "normal": [{"dex":493}],
-  "fire": [{"dex":250},{"dex":643}],
-  "water": [{"dex":382},{"dex":484}],
-  "electric": [{"dex":644},{"dex":1008}],
-  "grass": [{"dex":492}],
-  "ice": [{"dex":646}],
-  "fighting": [{"dex":892,"form":"singlestrike"},{"dex":892,"form":"rapidstrike"}],
-  "poison": [{"dex":890},{"dex":1025}],
-  "ground": [{"dex":383},{"dex":645}],
-  "flying": [{"dex":384},{"dex":249},{"dex":717}],
-  "psychic": [{"dex":150},{"dex":791},{"dex":792}],
-  "bug": [{"dex":649}],
-  "rock": [{"dex":719},{"dex":639}],
-  "ghost": [{"dex":487},{"dex":792},{"dex":802}],
-  "dragon": [{"dex":384},{"dex":483},{"dex":484}],
-  "dark": [{"dex":717},{"dex":491}],
-  "steel": [{"dex":483},{"dex":791}],
-  "fairy": [{"dex":716},{"dex":888}]
+  "normal": [
+    {
+      "dex": 493
+    },
+    {
+      "dex": 1024,
+      "form": "terastal"
+    }
+  ],
+  "fire": [
+    {
+      "dex": 250
+    },
+    {
+      "dex": 643
+    },
+    {
+      "dex": 383,
+      "form": "primal",
+      "item": "pixelmon:red_orb"
+    },
+    {
+      "dex": 493,
+      "form": "fire",
+      "item": "pixelmon:flame_plate"
+    }
+  ],
+  "water": [
+    {
+      "dex": 382
+    },
+    {
+      "dex": 484
+    },
+    {
+      "dex": 382,
+      "form": "primal",
+      "item": "pixelmon:blue_orb"
+    },
+    {
+      "dex": 493,
+      "form": "water",
+      "item": "pixelmon:splash_plate"
+    }
+  ],
+  "electric": [
+    {
+      "dex": 644
+    },
+    {
+      "dex": 1008
+    },
+    {
+      "dex": 493,
+      "form": "electric",
+      "item": "pixelmon:zap_plate"
+    }
+  ],
+  "grass": [
+    {
+      "dex": 492
+    },
+    {
+      "dex": 492,
+      "form": "sky"
+    },
+    {
+      "dex": 493,
+      "form": "grass",
+      "item": "pixelmon:meadow_plate"
+    }
+  ],
+  "ice": [
+    {
+      "dex": 646
+    },
+    {
+      "dex": 646,
+      "form": "white"
+    },
+    {
+      "dex": 898,
+      "form": "icerider"
+    },
+    {
+      "dex": 493,
+      "form": "ice",
+      "item": "pixelmon:icicle_plate"
+    }
+  ],
+  "fighting": [
+    {
+      "dex": 892,
+      "form": "singlestrike"
+    },
+    {
+      "dex": 892,
+      "form": "rapidstrike"
+    },
+    {
+      "dex": 1007
+    },
+    {
+      "dex": 889,
+      "form": "crowned",
+      "item": "pixelmon:rusted_shield"
+    },
+    {
+      "dex": 493,
+      "form": "fighting",
+      "item": "pixelmon:fist_plate"
+    }
+  ],
+  "poison": [
+    {
+      "dex": 890
+    },
+    {
+      "dex": 1025
+    },
+    {
+      "dex": 493,
+      "form": "poison",
+      "item": "pixelmon:toxic_plate"
+    }
+  ],
+  "ground": [
+    {
+      "dex": 383
+    },
+    {
+      "dex": 645
+    },
+    {
+      "dex": 383,
+      "form": "primal",
+      "item": "pixelmon:red_orb"
+    },
+    {
+      "dex": 645,
+      "form": "therian"
+    },
+    {
+      "dex": 493,
+      "form": "ground",
+      "item": "pixelmon:earth_plate"
+    }
+  ],
+  "flying": [
+    {
+      "dex": 384
+    },
+    {
+      "dex": 249
+    },
+    {
+      "dex": 717
+    },
+    {
+      "dex": 493,
+      "form": "flying",
+      "item": "pixelmon:sky_plate"
+    }
+  ],
+  "psychic": [
+    {
+      "dex": 150
+    },
+    {
+      "dex": 791
+    },
+    {
+      "dex": 792
+    },
+    {
+      "dex": 898,
+      "form": "shadowrider"
+    },
+    {
+      "dex": 800,
+      "form": "dusk"
+    },
+    {
+      "dex": 493,
+      "form": "psychic",
+      "item": "pixelmon:mind_plate"
+    }
+  ],
+  "bug": [
+    {
+      "dex": 649
+    },
+    {
+      "dex": 493,
+      "form": "bug",
+      "item": "pixelmon:insect_plate"
+    }
+  ],
+  "rock": [
+    {
+      "dex": 719
+    },
+    {
+      "dex": 639
+    },
+    {
+      "dex": 493,
+      "form": "rock",
+      "item": "pixelmon:stone_plate"
+    }
+  ],
+  "ghost": [
+    {
+      "dex": 487
+    },
+    {
+      "dex": 792
+    },
+    {
+      "dex": 802
+    },
+    {
+      "dex": 898,
+      "form": "shadowrider"
+    },
+    {
+      "dex": 493,
+      "form": "ghost",
+      "item": "pixelmon:spooky_plate"
+    }
+  ],
+  "dragon": [
+    {
+      "dex": 384
+    },
+    {
+      "dex": 483
+    },
+    {
+      "dex": 484
+    },
+    {
+      "dex": 1007
+    },
+    {
+      "dex": 1008
+    },
+    {
+      "dex": 493,
+      "form": "dragon",
+      "item": "pixelmon:draco_plate"
+    }
+  ],
+  "dark": [
+    {
+      "dex": 717
+    },
+    {
+      "dex": 491
+    },
+    {
+      "dex": 493,
+      "form": "dark",
+      "item": "pixelmon:dread_plate"
+    }
+  ],
+  "steel": [
+    {
+      "dex": 483
+    },
+    {
+      "dex": 791
+    },
+    {
+      "dex": 888,
+      "form": "crowned",
+      "item": "pixelmon:rusted_sword"
+    },
+    {
+      "dex": 800,
+      "form": "dusk"
+    },
+    {
+      "dex": 493,
+      "form": "steel",
+      "item": "pixelmon:iron_plate"
+    }
+  ],
+  "fairy": [
+    {
+      "dex": 716
+    },
+    {
+      "dex": 888
+    },
+    {
+      "dex": 888,
+      "form": "crowned",
+      "item": "pixelmon:rusted_sword"
+    },
+    {
+      "dex": 493,
+      "form": "fairy",
+      "item": "pixelmon:pixie_plate"
+    }
+  ]
 }

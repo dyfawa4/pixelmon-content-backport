@@ -3034,5 +3034,14 @@
   "Goodbye": "再见",
   "Never mind.": "算了。",
   "Let's battle!": "来对战吧！",
-  "I'm ready!": "我准备好了！"
+  "I'm ready!": "我准备好了！",
+  "block.pixelmon.blue_tumblestone": "天蓝玉石原矿",
+  "block.pixelmon.red_tumblestone": "玉石原矿",
+  "block.pixelmon.black_tumblestone": "黑玉石原矿",
+  "item.pixelmon.black_tumblestone": "黑玉石",
+  "item.pixelmon.tumblestone": "玉石",
+  "item.pixelmon.sky_tumblestone": "天蓝玉石",
+  "item.pixelmon.raw_tumblestone": "未加工的玉石",
+  "item.pixelmon.raw_sky_tumblestone": "未加工的天蓝玉石",
+  "item.pixelmon.raw_black_tumblestone": "未加工的黑玉石"
 }

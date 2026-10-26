@@ -55,6 +55,7 @@ public final class NpcTurnKnowledge {
         try(NpcArrivalPreview preview=NpcArrivalPreview.open(battle)){for(PixelmonWrapper p:pending){p.wait=false;p.selectAIAction();}}
         finally{CURRENT.remove();}
     }
+    public static boolean present(BattleController b){return active(b)&&!CURRENT.get().future;}
     public static boolean active(BattleController b){Context c=CURRENT.get();return c!=null&&c.battle==b&&c.turn==b.battleTurn;}
     public static final class ActionPreview implements AutoCloseable {
         private final PixelmonWrapper mon;private final Attack attack,selected;private final Context context;private final Boolean previous;

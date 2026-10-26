@@ -43,24 +43,11 @@ public final class TeraRaidClient {
         mc.field_71466_p.func_238421_b_(event.getMatrixStack(),text,cx-w/2+6,top+4,0xd5f5ff);
     }
     public static final class CrystalRenderer extends DenRenderer {
-        private static final RenderType FACETS=new RenderType("backport_tera_facets",DefaultVertexFormats.field_181706_f,4,512,false,false,()->{
-            RenderSystem.enableBlend();RenderSystem.defaultBlendFunc();RenderSystem.disableTexture();RenderSystem.enableDepthTest();RenderSystem.disableCull();
-        },()->{RenderSystem.enableTexture();RenderSystem.enableCull();RenderSystem.disableBlend();}){};
         public CrystalRenderer(EntityRendererManager manager){super(manager);}
         @Override public void render(DenEntity raw,float yaw,float partial,MatrixStack matrix,IRenderTypeBuffer buffer,int light){
             TeraDenEntity den=(TeraDenEntity)raw;int color=TeraRaidClientColors.COLORS[den.teraType()];
-            matrix.func_227860_a_();Matrix4f transform=matrix.func_227866_c_().func_227870_a_();IVertexBuilder vertices=buffer.getBuffer(FACETS);
-            for(int i=0;i<6;i++){
-                double a=i*Math.PI/3,b=(i+1)*Math.PI/3;
-                float ax=(float)Math.cos(a)*.7f,az=(float)Math.sin(a)*.7f,bx=(float)Math.cos(b)*.7f,bz=(float)Math.sin(b)*.7f;
-                int r=(color>>16)&255,g=(color>>8)&255,bl=color&255;float shade=.65f+.06f*i;
-                triangle(vertices,transform,ax,.8f,az,bx,.8f,bz,0,2.1f,0,(int)(r*shade),(int)(g*shade),(int)(bl*shade));
-                triangle(vertices,transform,bx,.8f,bz,ax,.8f,az,0,.08f,0,(int)(r*.5),(int)(g*.5),(int)(bl*.5));
-            }
-            matrix.func_227865_b_();if(den.hasChallenge())super.render(raw,yaw,partial,matrix,buffer,light);
-        }
-        private static void triangle(IVertexBuilder v,Matrix4f m,float ax,float ay,float az,float bx,float by,float bz,float cx,float cy,float cz,int r,int g,int b){
-            v.func_227888_a_(m,ax,ay,az).func_225586_a_(r,g,b,230).func_181675_d();v.func_227888_a_(m,bx,by,bz).func_225586_a_(r,g,b,230).func_181675_d();v.func_227888_a_(m,cx,cy,cz).func_225586_a_(r,g,b,230).func_181675_d();
+            local.pixelmon.backport.client.TeraDenMesh.render(matrix,buffer,light,color);
+            if(den.hasChallenge())super.render(raw,yaw,partial,matrix,buffer,light);
         }
     }
 }

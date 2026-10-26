@@ -80,15 +80,6 @@
     {
       "weight": 1,
       "element": {
-        "location": "pixelmon_backport:gyms/rock/gym_rock_tcg_shop",
-        "processors": "minecraft:empty",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
         "location": "pixelmon_backport:gyms/rock/gym_rock_farm_a",
         "processors": "minecraft:empty",
         "projection": "rigid",
