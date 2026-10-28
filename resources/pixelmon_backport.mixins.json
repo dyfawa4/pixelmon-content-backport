@@ -6,6 +6,7 @@
   "plugin": "local.pixelmon.backport.mixin.BackportMixinPlugin",
   "mixins": [
     "StatusCommandHealMixin",
+    "CharmTogglePacketMixin",
     "AuthorProtectMixin",
     "AuthorBuffMixin",
     "AuthorBuffPostMixin",
@@ -122,6 +123,12 @@
     "FieldMegaBattleMixin",
     "DragonStoneStackMixin",
     "NpcTacticalMixin",
+    "NpcTacticalChoicesAccess",
+    "NpcSwitchPreviewMixin",
+    "ConfusionTurnsAccess",
+    "NpcStatusRollMixin",
+    "NpcConfusionRollMixin",
+    "NpcActionAttemptMixin",
     "NpcAdvancedMixin",
     "DrownedCaptureMixin",
     "DrownedDuskBonusMixin",
@@ -201,6 +208,7 @@
     "TcgEssenceMixin",
     "TcgCommandsMixin",
     "AuthorHitRollMixin",
+    "NpcOhkoRollMixin",
     "AuthorAccuracyAccess",
     "NpcLeadMixin",
     "AuthorItemAvailabilityMixin",
@@ -252,7 +260,10 @@
     "AltarChanceMixin",
     "AltarPillarGateMixin",
     "AltarSpacingMixin",
-    "PotionCandyMixin"
+    "PotionCandyMixin",
+    "UltraDenDensityMixin",
+    "LightBallCapMixin",
+    "DayCareRequirementTextMixin"
   ],
   "client": [
     "CenterMusicFadeMixin",
@@ -357,7 +368,9 @@
     "InventoryDrawerMixin",
     "BattleExitMusicMixin",
     "GogglesFogDensityMixin",
-    "GogglesFogDistanceMixin"
+    "GogglesFogDistanceMixin",
+    "RadiantTrailMixin",
+    "JadeDayCareAccessorMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -1,4 +1,4 @@
-[CmdletBinding()]
+﻿[CmdletBinding()]
 param([Parameter(Mandatory=$true)][string] $PixelmonJar,[Parameter(Mandatory=$true)][string] $LibrariesDirectory)
 $ErrorActionPreference='Stop'
 python -X utf8 (Join-Path $PSScriptRoot 'tools/audit_npc_quests.py') --pixelmon-jar $PixelmonJar --output (Join-Path $PSScriptRoot '.cache/npc-quests-145/quest-audit.json')
@@ -50,6 +50,8 @@ if($LASTEXITCODE -ne 0){throw 'Author victory settlement, native loot claims and
 if($LASTEXITCODE -ne 0){throw 'Legacy author PVP retirement failed'}
 & $taskBuild.java -ea -cp $taskCP AuthorLocatorVerification
 if($LASTEXITCODE -ne 0){throw 'Author room compass search, persistence and async cleanup failed'}
+& $taskBuild.java -ea -cp $taskCP AuthorGeneration190Verification
+if($LASTEXITCODE -ne 0){throw 'Author ocean/land density and legacy placement regression failed'}
 & $taskBuild.java -ea -cp $taskCP BattleMechanicsAudit $PixelmonJar
 if($LASTEXITCODE -ne 0){throw 'Battle rule regression failed'}
 & $taskBuild.java -ea -cp $taskCP Version160Verification

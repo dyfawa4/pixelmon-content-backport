@@ -33,7 +33,7 @@
   "pixelmon_backport.field_mega.form_started": "Changing form",
   "pixelmon.backport.author.protect_rate": "Success: %s%%",
   "pixelmon.backport.author.buff_rate": "Native success chance",
-  "pixelmon.backport.author.challenge.handicap": "Author challenge: sent-out Pokemon receive persistent Erosion.\nAccuracy, Protect, self buffs and recovery follow their native rules without extra success penalties.\nPlayer effect items are disabled for the first 3 global turns and work normally thereafter. Masks, Z-Crystals, Mega Stones, plates and form-mechanic items are exempt.\nPlayers cannot use Eternamax Eternatus.",
+  "pixelmon.backport.author.challenge.handicap": "Author challenge rules:\nPlayers cannot use medicine; the author can. Held items are returned after battle.\nPlayer effect items are disabled for the first 3 turns and resume on turn 4. Masks, Z-Crystals, Mega Stones, plates and form-mechanic items are exempt.\nPlayers cannot use Eternamax Eternatus.",
   "pixelmon_backport.options.battle_music": "Pokemon Music: %s%%",
   "item.pixelmon.ultraspace_music_disc.desc": "Zeecount - Ultra Space / Drowned World",
   "advancement.pixelmon_backport.zygarde_power_construct": "Power Construct",

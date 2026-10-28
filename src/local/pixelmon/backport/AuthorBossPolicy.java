@@ -37,13 +37,24 @@ public final class AuthorBossPolicy {
         return false;
     }
     public static int money(Random random){return 500000+random.nextInt(500001);}
-    /** The feature and compass share one seed/chunk predicate, independent of decoration RNG order. */
+    /** Biome-independent superset for cheap compass scans; final selection uses the theme overload. */
     public static boolean candidate(long seed,int x,int z,boolean physical){
-        if(physical)return false;
+        return !physical&&selected(seed,x,z,false);
+    }
+    /** All themes retain both existing candidate points; 3000-block spacing controls density. */
+    public static boolean candidate(long seed,int x,int z,boolean physical,String theme){
+        return !physical&&theme!=null&&selected(seed,x,z,false);
+    }
+    private static boolean selected(long seed,int x,int z,boolean ocean){
         int rx=Math.floorDiv(x,CITY_SPACING),rz=Math.floorDiv(z,CITY_SPACING);
         Random random=new Random(seed+(long)rx*341873128712L+(long)rz*132897987541L+198473905);
-        return x==rx*CITY_SPACING+random.nextInt(CITY_SPACING-CITY_SEPARATION)
-            &&z==rz*CITY_SPACING+random.nextInt(CITY_SPACING-CITY_SEPARATION);
+        int range=CITY_SPACING-CITY_SEPARATION;
+        int oldX=random.nextInt(range),oldZ=random.nextInt(range);
+        boolean legacy=x==rx*CITY_SPACING+oldX&&z==rz*CITY_SPACING+oldZ;
+        // Skip the legacy index so even a hash collision cannot lose the second land opportunity.
+        int extra=random.nextInt(range*range-1),old=oldX*range+oldZ;
+        if(extra>=old)extra++;
+        return legacy||x==rx*CITY_SPACING+extra/range&&z==rz*CITY_SPACING+extra%range;
     }
     public static float combatHealth(float health,float maximum,int players){
         float target=HEALTH*Math.max(1,players);

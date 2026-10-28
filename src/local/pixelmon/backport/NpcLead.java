@@ -15,7 +15,7 @@ public final class NpcLead {
             else if(side.allPokemon.length>0)enemies.add(side.allPokemon[0]);
         }
         if(enemies.isEmpty())return;
-        PixelmonWrapper best=null;double score=-Double.MAX_VALUE;
+        List<PixelmonWrapper> options=new ArrayList<>();List<Double> scores=new ArrayList<>();
         for(var candidate:trainer.allPokemon)if(candidate.isAlive()){
             double value=NpcTeamKnowledge.lead(candidate);
             for(var enemy:enemies){
@@ -31,8 +31,11 @@ public final class NpcLead {
                     if(candidate.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals("Haze")))value+=50;
                 }
             }
-            if(value>score){score=value;best=candidate;}
+            options.add(candidate);scores.add(value);
         }
+        double maximum=scores.stream().mapToDouble(Double::doubleValue).max().orElse(0);
+        int index=NearBest.choose(scores.stream().mapToDouble(Double::doubleValue).toArray(),Math.min(24,Math.max(8,Math.abs(maximum)*.08)),8,NpcChoiceVariation.random(trainer.allPokemon[0],191));
+        PixelmonWrapper best=index<0?null:options.get(index);
         if(best!=null){
             trainer.allPokemon=trainer.allPokemon.clone();
             for(int i=0;i<trainer.allPokemon.length;i++)if(trainer.allPokemon[i]==best){trainer.allPokemon[i]=trainer.allPokemon[0];trainer.allPokemon[0]=best;break;}

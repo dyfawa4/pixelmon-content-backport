@@ -1,0 +1,434 @@
+[
+  {
+    "name": "ohko-natural-0",
+    "preloaded_room": false,
+    "members": [
+      {
+        "dex": 488,
+        "moves": [
+          "Trick Room",
+          "Psychic",
+          "Moonlight",
+          "Lunar Dance"
+        ],
+        "item": "mental_herb",
+        "ability": "Levitate"
+      },
+      {
+        "dex": 131,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Horn Drill",
+          "Surf"
+        ],
+        "item": "focus_sash",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 365,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 87,
+        "moves": [
+          "Sheer Cold",
+          "Horn Drill",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 530,
+        "moves": [
+          "Fissure",
+          "Horn Drill",
+          "Earthquake",
+          "Iron Head"
+        ],
+        "item": "focus_sash",
+        "ability": "MoldBreaker"
+      },
+      {
+        "dex": 99,
+        "moves": [
+          "Guillotine",
+          "Crabhammer",
+          "X-Scissor",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "HyperCutter"
+      }
+    ]
+  },
+  {
+    "name": "ohko-natural-1",
+    "preloaded_room": false,
+    "members": [
+      {
+        "dex": 488,
+        "moves": [
+          "Trick Room",
+          "Psychic",
+          "Moonlight",
+          "Lunar Dance"
+        ],
+        "item": "mental_herb",
+        "ability": "Levitate"
+      },
+      {
+        "dex": 131,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Horn Drill",
+          "Surf"
+        ],
+        "item": "focus_sash",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 365,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 87,
+        "moves": [
+          "Sheer Cold",
+          "Horn Drill",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 530,
+        "moves": [
+          "Fissure",
+          "Horn Drill",
+          "Earthquake",
+          "Iron Head"
+        ],
+        "item": "focus_sash",
+        "ability": "MoldBreaker"
+      },
+      {
+        "dex": 99,
+        "moves": [
+          "Guillotine",
+          "Crabhammer",
+          "X-Scissor",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "HyperCutter"
+      }
+    ]
+  },
+  {
+    "name": "ohko-natural-2",
+    "preloaded_room": false,
+    "members": [
+      {
+        "dex": 488,
+        "moves": [
+          "Trick Room",
+          "Psychic",
+          "Moonlight",
+          "Lunar Dance"
+        ],
+        "item": "mental_herb",
+        "ability": "Levitate"
+      },
+      {
+        "dex": 131,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Horn Drill",
+          "Surf"
+        ],
+        "item": "focus_sash",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 365,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 87,
+        "moves": [
+          "Sheer Cold",
+          "Horn Drill",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 530,
+        "moves": [
+          "Fissure",
+          "Horn Drill",
+          "Earthquake",
+          "Iron Head"
+        ],
+        "item": "focus_sash",
+        "ability": "MoldBreaker"
+      },
+      {
+        "dex": 99,
+        "moves": [
+          "Guillotine",
+          "Crabhammer",
+          "X-Scissor",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "HyperCutter"
+      }
+    ]
+  },
+  {
+    "name": "ohko-room-0",
+    "preloaded_room": true,
+    "members": [
+      {
+        "dex": 488,
+        "moves": [
+          "Trick Room",
+          "Psychic",
+          "Moonlight",
+          "Lunar Dance"
+        ],
+        "item": "mental_herb",
+        "ability": "Levitate"
+      },
+      {
+        "dex": 131,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Horn Drill",
+          "Surf"
+        ],
+        "item": "focus_sash",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 365,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 87,
+        "moves": [
+          "Sheer Cold",
+          "Horn Drill",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 530,
+        "moves": [
+          "Fissure",
+          "Horn Drill",
+          "Earthquake",
+          "Iron Head"
+        ],
+        "item": "focus_sash",
+        "ability": "MoldBreaker"
+      },
+      {
+        "dex": 99,
+        "moves": [
+          "Guillotine",
+          "Crabhammer",
+          "X-Scissor",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "HyperCutter"
+      }
+    ]
+  },
+  {
+    "name": "ohko-room-1",
+    "preloaded_room": true,
+    "members": [
+      {
+        "dex": 488,
+        "moves": [
+          "Trick Room",
+          "Psychic",
+          "Moonlight",
+          "Lunar Dance"
+        ],
+        "item": "mental_herb",
+        "ability": "Levitate"
+      },
+      {
+        "dex": 131,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Horn Drill",
+          "Surf"
+        ],
+        "item": "focus_sash",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 365,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 87,
+        "moves": [
+          "Sheer Cold",
+          "Horn Drill",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 530,
+        "moves": [
+          "Fissure",
+          "Horn Drill",
+          "Earthquake",
+          "Iron Head"
+        ],
+        "item": "focus_sash",
+        "ability": "MoldBreaker"
+      },
+      {
+        "dex": 99,
+        "moves": [
+          "Guillotine",
+          "Crabhammer",
+          "X-Scissor",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "HyperCutter"
+      }
+    ]
+  },
+  {
+    "name": "ohko-room-2",
+    "preloaded_room": true,
+    "members": [
+      {
+        "dex": 488,
+        "moves": [
+          "Trick Room",
+          "Psychic",
+          "Moonlight",
+          "Lunar Dance"
+        ],
+        "item": "mental_herb",
+        "ability": "Levitate"
+      },
+      {
+        "dex": 131,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Horn Drill",
+          "Surf"
+        ],
+        "item": "focus_sash",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 365,
+        "moves": [
+          "Sheer Cold",
+          "Fissure",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 87,
+        "moves": [
+          "Sheer Cold",
+          "Horn Drill",
+          "Surf",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "ThickFat"
+      },
+      {
+        "dex": 530,
+        "moves": [
+          "Fissure",
+          "Horn Drill",
+          "Earthquake",
+          "Iron Head"
+        ],
+        "item": "focus_sash",
+        "ability": "MoldBreaker"
+      },
+      {
+        "dex": 99,
+        "moves": [
+          "Guillotine",
+          "Crabhammer",
+          "X-Scissor",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "HyperCutter"
+      }
+    ]
+  }
+]

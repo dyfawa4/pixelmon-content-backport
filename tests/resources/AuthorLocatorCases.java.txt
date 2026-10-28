@@ -72,7 +72,7 @@ public class AuthorLocatorCases {
  public static void run()throws Exception {
   var trainer=new AuthorBossLocator.RoomAlias(false);var pvp=new AuthorBossLocator.RoomAlias(true);ServerWorld w=new ServerWorld();var origin=new BlockPos(0,64,0);
   int a=0,b=0;for(int x=-256;x<256;x++)for(int z=-256;z<256;z++){if(AuthorBossPolicy.candidate(w.seed,x,z,true))a++;if(AuthorBossPolicy.candidate(w.seed,x,z,false))b++;}
-  check(a==0&&b==64,"no PVP and exactly one author candidate in each64x64 city region");
+  check(a==0&&b==128,"no PVP and two distinct possible author candidates in each64x64 city region");
   var scan=new AuthorBossLocator.Search(w,origin,trainer);var next=scan.getClass().getDeclaredMethod("next");next.setAccessible(true);java.util.Set<Long> seen=new java.util.HashSet<>();for(int i=0;i<81;i++)check(seen.add(((ChunkPos)next.invoke(scan)).func_201841_a()),"ring duplicates");check(seen.size()==81,"5x5 chunk ring coverage");scan.close();
   BlockPos home=new BlockPos(-184,64,264);room(w,home,false);room(w,new BlockPos(200,64,200),true);
   var saved=AuthorRoomIndex.get(w).func_189551_b(new net.minecraft.nbt.CompoundNBT());var bytes=new java.io.ByteArrayOutputStream();net.minecraft.nbt.CompressedStreamTools.func_74800_a(saved,new java.io.DataOutputStream(bytes));var data=new AuthorRoomIndex();data.func_76184_a(net.minecraft.nbt.CompressedStreamTools.func_74794_a(new java.io.DataInputStream(new java.io.ByteArrayInputStream(bytes.toByteArray()))));check(data.positions(false).get(0).equals(home)&&data.positions(true).size()==1,"binary NBT index roundtrip");
@@ -84,5 +84,15 @@ public class AuthorLocatorCases {
   fresh=new ServerWorld();room(fresh,home,false);fresh.loaded=false;scan=new AuthorBossLocator.Search(fresh,origin,trainer);scan.step();check(fresh.chunks.tickets==1,"unloaded known room ticket");scan.close();scan.close();check(fresh.chunks.tickets==0,"cancel releases once");
   scan=new AuthorBossLocator.Search(fresh,origin,trainer);scan.step();fresh.tick+=301;boolean timeout=false;try{scan.step();}catch(IllegalStateException e){timeout=true;}finally{scan.close();}check(timeout&&fresh.chunks.tickets==0,"game-time timeout works with frozen day and cleans up");
   fresh=new ServerWorld();fresh.dimension="pixelmon:drowned_world";check(!AuthorBossLocator.available(fresh,trainer)&&!AuthorBossLocator.available(fresh,pvp),"Drowned unavailable");fresh.dimension="minecraft:the_end";check(AuthorBossLocator.available(fresh,trainer)&&!AuthorBossLocator.available(fresh,pvp),"End trainer only");fresh.dimension="minecraft:overworld";check(!AuthorBossLocator.available(fresh,pvp),"no mushroom physical availability");fresh.chunks.generator.provider.biome=new net.minecraft.world.biome.Biome("minecraft:mushroom_fields",net.minecraft.world.biome.Biome.Category.MUSHROOM);check(!AuthorBossLocator.available(fresh,pvp)&&!AuthorBossLocator.available(fresh,trainer),"mushroom has neither retired PVP nor author trainer");
+  var ocean=new ServerWorld();ocean.chunks.generator.provider.biome=new net.minecraft.world.biome.Biome("minecraft:ocean",net.minecraft.world.biome.Biome.Category.OCEAN);
+  scan=new AuthorBossLocator.Search(ocean,origin,trainer);for(int i=0;i<1000&&!scan.finished()&&ocean.chunks.pending==null;i++)scan.step();
+  check(ocean.chunks.requests==1&&AuthorBossPolicy.candidate(ocean.seed,ocean.chunks.lastX,ocean.chunks.lastZ,false,"ocean"),"Ocean search requests only retained legacy sites");scan.close();
+  var oldOcean=new ServerWorld();oldOcean.chunks.generator.provider.biome=ocean.chunks.generator.provider.biome;
+  BlockPos legacyRoom=null;for(int rx=-2;rx<=2&&legacyRoom==null;rx++)for(int rz=-2;rz<=2&&legacyRoom==null;rz++){
+   var random=new java.util.Random(oldOcean.seed+(long)rx*341873128712L+(long)rz*132897987541L+198473905);int x=rx*64+random.nextInt(40),z=rz*64+random.nextInt(40);
+   if(!AuthorBossPolicy.candidate(oldOcean.seed,x,z,false,"ocean"))legacyRoom=new BlockPos(x*16+8,64,z*16+8);
+  }
+  check(legacyRoom!=null,"Fixture has an ocean room excluded by new generation gate");room(oldOcean,legacyRoom,false);scan=new AuthorBossLocator.Search(oldOcean,legacyRoom,trainer);
+  check(legacyRoom.equals(scan.step()),"Existing ocean room remains locatable despite new density gate");scan.close();
  }
 }

@@ -73,10 +73,15 @@ public final class AuthorBossLocator {
                 ChunkPos chunk=next();
                 if(!AuthorBossPolicy.candidate(world.func_72905_C(),chunk.field_77276_a,chunk.field_77275_b,physical))continue;
                 BlockPos center=new BlockPos(chunk.field_77276_a*16+8,64,chunk.field_77275_b*16+8);
+                if(!AltarSpacing.authorOutsideSpawn(world,center))continue;
                 if(StrongholdLocator.distance(center,origin)>(long)radius*radius||!checked.add(chunk.func_201841_a()))continue;
                 samples++;
                 Biome biome=world.func_72863_F().func_201711_g().func_202090_b().func_225526_b_(center.func_177958_n()>>2,16,center.func_177952_p()>>2);
                 if(!matches(world,biome,physical))continue;
+                String dim=world.func_234923_W_().func_240901_a_().toString();
+                var biomeId=world.func_241828_r().func_243612_b(net.minecraft.util.registry.Registry.field_239720_u_).func_177774_c(biome);
+                String theme=AuthorBossPolicy.theme(dim,biome.func_201856_r().name(),biomeId==null?"":biomeId.toString());
+                if(!AuthorBossPolicy.candidate(world.func_72905_C(),chunk.field_77276_a,chunk.field_77275_b,physical,theme))continue;
                 pending=new Candidate(world,chunk,null);return null;
             }
             return null;

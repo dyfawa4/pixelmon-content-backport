@@ -11,7 +11,7 @@ import com.pixelmonmod.pixelmon.battles.status.StatusType;
 /** Compare legal setup control with the actual action order and the following attacking turn. */
 public final class NpcSetupControl {
     private NpcSetupControl(){}
-    public static Attack submitted(PixelmonWrapper foe){var moves=NpcTurnKnowledge.moves(foe);return moves!=null&&moves.size()==1?moves.get(0):null;}
+    public static Attack submitted(PixelmonWrapper foe){var moves=NpcTurnKnowledge.moves(foe);return moves!=null&&moves.size()==1&&NpcActionAvailability.canAct(foe,moves.get(0))?moves.get(0):null;}
     public static boolean boost(Attack move){return move!=null&&move.getAttackCategory()==AttackCategory.STATUS&&AuthorChallenge.selfBuff(move.getMove());}
     public static boolean pass(Attack move){return move!=null&&move.getMove().getAttackName().equals("Baton Pass");}
     public static PixelmonWrapper projected(PixelmonWrapper foe,Attack move){
@@ -73,7 +73,12 @@ public final class NpcSetupControl {
             boolean first=action==null||NpcIntentResponse.first(own,choice.attack,foe,action);
             var threats=NpcTactics.threats(own,choice);double incoming=NpcTactics.incoming(own,threats);
             boolean survives=first||incoming*1.1<own.getHealth();
-            if(!survives)continue;
+            if(!survives){
+                if(status&&Set.of("Haze","Snatch","Taunt","Encore","Psych Up","Heart Swap","Topsy-Turvy","Roar","Whirlwind").contains(name)){
+                    choice.lowerTier(1);choice.weight*=.1f;
+                }
+                continue;
+            }
             if(name.equals("Haze")){
                 var after=setting&&!first?projected(foe,action):foe;
                 int gain=after.getBattleStats().getSumIncreases()-own.getBattleStats().getSumIncreases();

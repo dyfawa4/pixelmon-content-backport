@@ -44,7 +44,7 @@ public final class NpcTactics {
                 choice.weight+=(float)Math.min(90,(attackRisk-incoming)/Math.max(1,own.getMaxHealth())*100);
             }
             if(choice.attack.getAttackCategory()==com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS&&NpcMoveIntent.read(choice.attack).has(NpcMoveIntent.Trait.BOOSTS_SELF)){
-                boolean movesFirst=!MoveChoice.canOutspeed(response,own,choice.createList());
+                boolean movesFirst=!NpcIntentResponse.canOutspeed(response,own,choice.createList());
                 boolean payoff=own.getMoveset().stream().anyMatch(a->a.pp>0&&!a.getDisabled()&&a.getAttackCategory()!=com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS);
                 // A boost needs a following attacking turn. Avoid boosting into
                 // likely defeat, even when the native status simulation succeeds.
@@ -54,7 +54,7 @@ public final class NpcTactics {
                     choice.weight*=1.25f;
                 }
             }else if(NpcMoves.recovery(choice.attack)){
-                boolean movesFirst=!MoveChoice.canOutspeed(response,own,choice.createList());
+                boolean movesFirst=!NpcIntentResponse.canOutspeed(response,own,choice.createList());
                 double after=Math.min(own.getMaxHealth(),own.getHealth()+own.getMaxHealth()*.5);
                 if(own.getHealthPercent()>=85 || (!movesFirst && incoming>=own.getHealth()) || incoming>=after){
                     choice.lowerTier(1);choice.weight*=.1f;
@@ -67,8 +67,10 @@ public final class NpcTactics {
         NpcMatchupAdvice.weight(own,choices);
         NpcSetupControl.weight(own,choices);
         NpcStrategicControl.weight(own,choices);
+        NpcStallControl.weight(own,choices);
     }
     public static MoveChoice refine(PixelmonWrapper own,MoveChoice original){
+        original=NpcGuardControl.refine(own,original);
         MoveChoice rescue=NpcEmergencySwitch.refine(own,original);if(rescue!=original)return rescue;
         if(original==null || !original.isAttack() || own.bc.simulateMode || !own.isAlive() || !own.onBattlefield
             || own.choiceLocked!=null || own.getHealthPercent()>35
@@ -79,7 +81,7 @@ public final class NpcTactics {
         double incoming=incoming(own,threats);
         for(Attack attack:own.getMoveset())if(NpcMoves.recovery(attack) && attack.pp>0 && !attack.getDisabled()){
             MoveChoice recovery=new MoveChoice(own,attack,Collections.singletonList(own));
-            boolean hitFirst=MoveChoice.canOutspeed(threats,own,recovery.createList());
+            boolean hitFirst=NpcIntentResponse.canOutspeed(threats,own,recovery.createList());
             // Recover only when it can safely buy a turn; preserve profitable switches and finishing attacks.
             if((!hitFirst || own.getHealth()>incoming) && Math.min(own.getMaxHealth(),own.getHealth()+own.getMaxHealth()*.5)>incoming*1.1)return recovery;
         }
@@ -157,7 +159,7 @@ public final class NpcTactics {
         return damage.values().stream().mapToDouble(Double::doubleValue).sum()+residual;
     }
     public static boolean finishFirst(PixelmonWrapper own,MoveChoice choice,List<MoveChoice> threats){
-        return knocksOut(own,choice)&&!MoveChoice.canOutspeed(threats,own,choice.createList());
+        return knocksOut(own,choice)&&!NpcIntentResponse.canOutspeed(threats,own,choice.createList());
     }
     private static boolean knocksOut(PixelmonWrapper own,MoveChoice choice){
         if(choice==null || !choice.isOffensiveMove() || choice.tier<3 || choice.result==null || choice.targets.size()!=1)return false;
@@ -180,7 +182,7 @@ public final class NpcTactics {
             List<MoveChoice> response=NpcTurnKnowledge.active(own.bc)?threats(own,choice):threats;
             // A slower KO is useful only if the known reply cannot stop it.
             // Emergency last-survivor medicine still requires a first-strike KO.
-            if(MoveChoice.canOutspeed(response,own,choice.createList())&&incoming(own,response)*1.1>=own.getHealth())continue;
+            if(NpcIntentResponse.canOutspeed(response,own,choice.createList())&&incoming(own,response)*1.1>=own.getHealth())continue;
             int hit=choice.result.accuracy<0?100:choice.result.accuracy;
             if(choice.targets.get(0).getBattleStats().getEvasionStage()>0&&choices.stream().anyMatch(c->c.tier>=3&&c.attack!=null&&c.attack.getMove().getAttackName().equals("Haze"))&&!NpcSetupControl.reliableHit(own,choice,choice.targets.get(0)))continue;
             if(hit>0&&(best==null||hit>accuracy||hit==accuracy&&choice.weight>best.weight)){best=choice;accuracy=hit;}

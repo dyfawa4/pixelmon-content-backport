@@ -1,0 +1,416 @@
+[
+  {
+    "name": "offense",
+    "members": [
+      {
+        "dex": 445,
+        "moves": [
+          "Earthquake",
+          "Dragon Claw",
+          "Stone Edge",
+          "Swords Dance"
+        ],
+        "item": "life_orb"
+      },
+      {
+        "dex": 149,
+        "moves": [
+          "Dragon Dance",
+          "Extreme Speed",
+          "Earthquake",
+          "Roost"
+        ],
+        "item": "leftovers"
+      },
+      {
+        "dex": 658,
+        "moves": [
+          "Surf",
+          "Ice Beam",
+          "Dark Pulse",
+          "Grass Knot"
+        ],
+        "item": "life_orb"
+      },
+      {
+        "dex": 376,
+        "moves": [
+          "Meteor Mash",
+          "Zen Headbutt",
+          "Earthquake",
+          "Bullet Punch"
+        ],
+        "item": "assault_vest"
+      },
+      {
+        "dex": 637,
+        "moves": [
+          "Fiery Dance",
+          "Bug Buzz",
+          "Giga Drain",
+          "Quiver Dance"
+        ],
+        "item": "heavy_duty_boots"
+      },
+      {
+        "dex": 184,
+        "moves": [
+          "Aqua Jet",
+          "Play Rough",
+          "Waterfall",
+          "Belly Drum"
+        ],
+        "item": "sitrus_berry",
+        "ability": "HugePower"
+      }
+    ]
+  },
+  {
+    "name": "balance",
+    "members": [
+      {
+        "dex": 645,
+        "moves": [
+          "Earthquake",
+          "U-turn",
+          "Stone Edge",
+          "Stealth Rock"
+        ],
+        "item": "rocky_helmet",
+        "form": "therian"
+      },
+      {
+        "dex": 598,
+        "moves": [
+          "Power Whip",
+          "Gyro Ball",
+          "Leech Seed",
+          "Spikes"
+        ],
+        "item": "leftovers"
+      },
+      {
+        "dex": 80,
+        "moves": [
+          "Scald",
+          "Psychic",
+          "Slack Off",
+          "Teleport"
+        ],
+        "item": "heavy_duty_boots",
+        "ability": "Regenerator"
+      },
+      {
+        "dex": 823,
+        "moves": [
+          "Brave Bird",
+          "Body Press",
+          "Roost",
+          "Defog"
+        ],
+        "item": "heavy_duty_boots"
+      },
+      {
+        "dex": 36,
+        "moves": [
+          "Moonblast",
+          "Soft-Boiled",
+          "Calm Mind",
+          "Flamethrower"
+        ],
+        "item": "leftovers",
+        "ability": "MagicGuard"
+      },
+      {
+        "dex": 248,
+        "moves": [
+          "Stone Edge",
+          "Crunch",
+          "Earthquake",
+          "Fire Punch"
+        ],
+        "item": "assault_vest"
+      }
+    ]
+  },
+  {
+    "name": "rain",
+    "members": [
+      {
+        "dex": 279,
+        "moves": [
+          "Hurricane",
+          "Scald",
+          "U-turn",
+          "Roost"
+        ],
+        "item": "damp_rock",
+        "ability": "Drizzle"
+      },
+      {
+        "dex": 230,
+        "moves": [
+          "Hydro Pump",
+          "Draco Meteor",
+          "Ice Beam",
+          "Surf"
+        ],
+        "item": "life_orb",
+        "ability": "SwiftSwim"
+      },
+      {
+        "dex": 260,
+        "moves": [
+          "Earthquake",
+          "Waterfall",
+          "Ice Punch",
+          "Superpower"
+        ],
+        "item": "assault_vest"
+      },
+      {
+        "dex": 847,
+        "moves": [
+          "Liquidation",
+          "Close Combat",
+          "Psychic Fangs",
+          "Aqua Jet"
+        ],
+        "item": "life_orb",
+        "ability": "SwiftSwim"
+      },
+      {
+        "dex": 598,
+        "moves": [
+          "Power Whip",
+          "Gyro Ball",
+          "Leech Seed",
+          "Spikes"
+        ],
+        "item": "leftovers"
+      },
+      {
+        "dex": 641,
+        "moves": [
+          "Hurricane",
+          "Knock Off",
+          "U-turn",
+          "Taunt"
+        ],
+        "item": "heavy_duty_boots",
+        "form": "therian"
+      }
+    ]
+  },
+  {
+    "name": "trick-room",
+    "members": [
+      {
+        "dex": 858,
+        "moves": [
+          "Trick Room",
+          "Psychic",
+          "Dazzling Gleam",
+          "Mystical Fire"
+        ],
+        "item": "mental_herb",
+        "ability": "MagicBounce"
+      },
+      {
+        "dex": 233,
+        "moves": [
+          "Trick Room",
+          "Recover",
+          "Ice Beam",
+          "Thunderbolt"
+        ],
+        "item": "eviolite"
+      },
+      {
+        "dex": 464,
+        "moves": [
+          "Earthquake",
+          "Stone Edge",
+          "Hammer Arm",
+          "Ice Punch"
+        ],
+        "item": "life_orb",
+        "ability": "SolidRock"
+      },
+      {
+        "dex": 534,
+        "moves": [
+          "Drain Punch",
+          "Mach Punch",
+          "Facade",
+          "Knock Off"
+        ],
+        "item": "flame_orb",
+        "ability": "Guts"
+      },
+      {
+        "dex": 342,
+        "moves": [
+          "Crabhammer",
+          "Knock Off",
+          "Aqua Jet",
+          "Swords Dance"
+        ],
+        "item": "life_orb",
+        "ability": "Adaptability"
+      },
+      {
+        "dex": 437,
+        "moves": [
+          "Trick Room",
+          "Gyro Ball",
+          "Earthquake",
+          "Explosion"
+        ],
+        "item": "mental_herb",
+        "ability": "Levitate"
+      }
+    ]
+  },
+  {
+    "name": "setup-pass",
+    "members": [
+      {
+        "dex": 313,
+        "moves": [
+          "Tail Glow",
+          "Baton Pass",
+          "Bug Buzz",
+          "Protect"
+        ],
+        "item": "focus_sash",
+        "ability": "Prankster"
+      },
+      {
+        "dex": 196,
+        "moves": [
+          "Stored Power",
+          "Dazzling Gleam",
+          "Calm Mind",
+          "Morning Sun"
+        ],
+        "item": "leftovers",
+        "ability": "MagicBounce"
+      },
+      {
+        "dex": 134,
+        "moves": [
+          "Surf",
+          "Acid Armor",
+          "Baton Pass",
+          "Wish"
+        ],
+        "item": "leftovers",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 426,
+        "moves": [
+          "Minimize",
+          "Baton Pass",
+          "Shadow Ball",
+          "Substitute"
+        ],
+        "item": "sitrus_berry",
+        "ability": "Unburden"
+      },
+      {
+        "dex": 212,
+        "moves": [
+          "Bullet Punch",
+          "Bug Bite",
+          "Swords Dance",
+          "Roost"
+        ],
+        "item": "leftovers",
+        "ability": "Technician"
+      },
+      {
+        "dex": 445,
+        "moves": [
+          "Earthquake",
+          "Dragon Claw",
+          "Stone Edge",
+          "Swords Dance"
+        ],
+        "item": "life_orb"
+      }
+    ]
+  },
+  {
+    "name": "stall",
+    "members": [
+      {
+        "dex": 242,
+        "moves": [
+          "Soft-Boiled",
+          "Seismic Toss",
+          "Toxic",
+          "Protect"
+        ],
+        "item": "leftovers",
+        "ability": "NaturalCure"
+      },
+      {
+        "dex": 227,
+        "moves": [
+          "Roost",
+          "Spikes",
+          "Whirlwind",
+          "Brave Bird"
+        ],
+        "item": "rocky_helmet",
+        "ability": "Sturdy"
+      },
+      {
+        "dex": 748,
+        "moves": [
+          "Recover",
+          "Scald",
+          "Haze",
+          "Toxic"
+        ],
+        "item": "black_sludge",
+        "ability": "Regenerator"
+      },
+      {
+        "dex": 472,
+        "moves": [
+          "Earthquake",
+          "Roost",
+          "Toxic",
+          "Protect"
+        ],
+        "item": "toxic_orb",
+        "ability": "PoisonHeal"
+      },
+      {
+        "dex": 195,
+        "moves": [
+          "Recover",
+          "Scald",
+          "Earthquake",
+          "Toxic"
+        ],
+        "item": "leftovers",
+        "ability": "Unaware"
+      },
+      {
+        "dex": 302,
+        "moves": [
+          "Recover",
+          "Knock Off",
+          "Will-O-Wisp",
+          "Taunt"
+        ],
+        "item": "leftovers",
+        "ability": "Prankster"
+      }
+    ]
+  }
+]

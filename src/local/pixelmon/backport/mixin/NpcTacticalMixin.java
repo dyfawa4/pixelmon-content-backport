@@ -21,8 +21,8 @@ public abstract class NpcTacticalMixin {
         if(!local.pixelmon.backport.NpcGimmicks.enabled(trainer) || !(local.pixelmon.backport.GymCities.isLeader(trainer)||local.pixelmon.backport.AuthorBossTeams.is(trainer)))return;
         MoveChoice finisher=local.pixelmon.backport.NpcTactics.finisher(own,pool);
         if(finisher!=null){cir.setReturnValue(finisher);return;}
-        pool.stream().filter(c->c.tier>0 && Float.isFinite(c.weight))
-            .max(java.util.Comparator.comparingInt((MoveChoice c)->c.tier).thenComparingDouble(c->c.weight)).ifPresent(cir::setReturnValue);
+        MoveChoice selected=local.pixelmon.backport.NpcChoiceVariation.choose(own,pool);
+        if(selected!=null)cir.setReturnValue(selected);
     }
     @Inject(method="getWeightedAttackChoices",at=@At("RETURN"))
     private void backport$context(PixelmonWrapper own,CallbackInfoReturnable<List<MoveChoice>> cir){

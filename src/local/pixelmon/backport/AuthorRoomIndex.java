@@ -13,15 +13,15 @@ public final class AuthorRoomIndex extends WorldSavedData {
     private final Map<Long,Boolean> rooms=new LinkedHashMap<>();
     public AuthorRoomIndex(){super("backport_author_rooms");}
     public static AuthorRoomIndex get(ServerWorld world){return world.func_217481_x().func_215752_a(AuthorRoomIndex::new,"backport_author_rooms");}
-    public void record(BlockPos home,boolean physical){if(!Boolean.valueOf(physical).equals(rooms.put(home.func_218275_a(),physical)))func_76185_a();}
-    public List<BlockPos> positions(boolean physical){
+    public synchronized void record(BlockPos home,boolean physical){if(!Boolean.valueOf(physical).equals(rooms.put(home.func_218275_a(),physical)))func_76185_a();}
+    public synchronized List<BlockPos> positions(boolean physical){
         List<BlockPos> result=new ArrayList<>();rooms.forEach((p,type)->{if(type==physical)result.add(BlockPos.func_218283_e(p));});return result;
     }
-    @Override public void func_76184_a(CompoundNBT tag){
+    @Override public synchronized void func_76184_a(CompoundNBT tag){
         rooms.clear();ListNBT list=tag.func_150295_c("Rooms",10);
         for(int i=0;i<list.size();i++){CompoundNBT row=list.func_150305_b(i);if(row.func_74764_b("Home"))rooms.put(row.func_74763_f("Home"),row.func_74767_n("Physical"));}
     }
-    @Override public CompoundNBT func_189551_b(CompoundNBT tag){
+    @Override public synchronized CompoundNBT func_189551_b(CompoundNBT tag){
         ListNBT list=new ListNBT();rooms.forEach((p,type)->{CompoundNBT row=new CompoundNBT();row.func_74772_a("Home",p);row.func_74757_a("Physical",type);list.add(row);});tag.func_218657_a("Rooms",list);return tag;
     }
     public static boolean intact(ServerWorld world,BlockPos home,boolean physical){

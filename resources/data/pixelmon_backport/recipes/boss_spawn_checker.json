@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PNP",
+    "PGP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "pixelmon:platinum_ingot"
+    },
+    "N": {
+      "item": "pixelmon_backport:normal_spawn_checker"
+    },
+    "G": {
+      "type": "pixelmon_backport:gs_ball"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:boss_spawn_checker",
+    "count": 1
+  }
+}

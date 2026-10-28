@@ -12,9 +12,13 @@ import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value=com.pixelmonmod.pixelmon.api.spawning.archetypes.algorithms.checkspawns.LegendaryCheckSpawns.class,remap=false)
 public abstract class CapSpawnChanceDisplayMixin {
-    @ModifyArg(method="lambda$checkSpawns$0",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/util/helpers/TextHelper;translate(Lnet/minecraft/util/text/TextFormatting;Ljava/lang/String;)Lnet/minecraft/util/text/IFormattableTextComponent;"),index=1)
-    private String backport$chanceLabels(String key){
-        return key.equals("spawning.checkspawns.chanceofspawning")?"pixelmon_backport.spawns.global":key.equals("spawning.checkspawns.possiblespawns")?"pixelmon_backport.spawns.weights":key;
+    @Redirect(method="lambda$checkSpawns$0",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/util/helpers/TextHelper;translate(Lnet/minecraft/util/text/TextFormatting;Ljava/lang/String;)Lnet/minecraft/util/text/IFormattableTextComponent;"))
+    private net.minecraft.util.text.IFormattableTextComponent backport$chanceLabels(TextFormatting colour,String key,LegendarySpawner spawner,LegendaryCheckSpawnsEvent event,HashMap<String,Double> candidates,List<String> filters,CommandSource source){
+        boolean boss=spawner==PixelmonSpawning.megaBossSpawner;
+        if(key.equals("spawning.checkspawns.chanceofspawning"))key=boss?"pixelmon_backport.spawns.boss_global":"pixelmon_backport.spawns.global";
+        else if(key.equals("spawning.checkspawns.possiblespawns"))key=boss?"pixelmon_backport.spawns.boss_weights":"pixelmon_backport.spawns.weights";
+        else if(boss&&key.equals("spawning.checkspawns.timeuntilnextattempt1"))key="pixelmon_backport.spawns.boss_time";
+        return com.pixelmonmod.pixelmon.api.util.helpers.TextHelper.translate(colour,key);
     }
     @Inject(method="lambda$checkSpawns$0",at=@At("RETURN"))
     private void backport$capChance(LegendarySpawner spawner,LegendaryCheckSpawnsEvent event,HashMap<String,Double> candidates,List<String> filters,CommandSource source,CallbackInfo ci){

@@ -15,7 +15,7 @@ public abstract class NpcGimmickMixin {
         backport$previewFlags=null;
         if(participant.bc==null || participant.bc.simulateMode || !NpcGimmicks.enabled(participant.trainer))return;
         backport$previewFlags=new java.util.IdentityHashMap<>();
-        for(PixelmonWrapper member:participant.allPokemon)backport$previewFlags.put(member,new boolean[]{member.onBattlefield,member.switchedThisTurn,member.takenTurn,member.hasBeenInBattle});
+        for(var side:participant.bc.participants)for(PixelmonWrapper member:side.allPokemon)backport$previewFlags.put(member,new boolean[]{member.onBattlefield,member.switchedThisTurn,member.takenTurn,member.hasBeenInBattle,member.wait,member.canAttack});
     }
     @Inject(method="startBattle",at=@At("HEAD"))
     private void backport$prepare(CallbackInfo ci){NpcGimmicks.prepare((TrainerParticipant)(Object)this);}
@@ -23,13 +23,16 @@ public abstract class NpcGimmickMixin {
     private void backport$plan(PixelmonWrapper p,CallbackInfoReturnable<MoveChoice> cir){
         // Native switch previews restore the controlled list, but leave these flags changed.
         // Planning must not actually take a Pokemon off the field or spend its turn.
-        if(backport$previewFlags!=null){
-            backport$previewFlags.forEach((member,state)->{member.onBattlefield=state[0];member.switchedThisTurn=state[1];member.takenTurn=state[2];member.hasBeenInBattle=state[3];});
-            backport$previewFlags=null;
-        }
-        if(NpcGimmicks.enabled(((TrainerParticipant)(Object)this).trainer)){
+        var flags=backport$previewFlags;backport$previewFlags=null;
+        if(flags!=null)flags.forEach(NpcGimmickMixin::backport$restore);
+        try{if(NpcGimmicks.enabled(((TrainerParticipant)(Object)this).trainer)){
             MoveChoice choice=local.pixelmon.backport.NpcTactics.refine(p,cir.getReturnValue());
             cir.setReturnValue(choice);NpcGimmicks.plan(p,choice);
+        }}finally{
+            // Candidate refinement also uses native previews. Preserve both teams'
+            // real field/turn flags until the selected action is actually executed.
+            if(flags!=null)flags.forEach(NpcGimmickMixin::backport$restore);
         }
     }
+    @Unique private static void backport$restore(PixelmonWrapper member,boolean[] state){member.onBattlefield=state[0];member.switchedThisTurn=state[1];member.takenTurn=state[2];member.hasBeenInBattle=state[3];member.wait=state[4];member.canAttack=state[5];}
 }

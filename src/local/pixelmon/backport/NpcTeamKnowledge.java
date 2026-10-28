@@ -7,7 +7,7 @@ import com.pixelmonmod.pixelmon.battles.controller.participants.*;
 import net.minecraft.nbt.CompoundNBT;
 /** Read-only battle-lifetime scouting. The player's native complete data is copied, never edited. */
 public final class NpcTeamKnowledge {
-    public enum Plan {SETUP,PASS,EVASION,HAZARDS,SCREENS,ROOM,WEATHER,RECOVERY,PRIORITY,SASH,SNOWBALL}
+    public enum Plan {SETUP,PASS,EVASION,HAZARDS,SCREENS,ROOM,WEATHER,RECOVERY,PRIORITY,SASH,SNOWBALL,STALL}
     private static final Map<BattleController,Map<UUID,CompoundNBT>> DATA=new WeakHashMap<>();
     private static final Map<BattleController,EnumSet<Plan>> PLANS=new WeakHashMap<>();
     public static void capture(TrainerParticipant trainer){
@@ -19,7 +19,7 @@ public final class NpcTeamKnowledge {
                 if(Set.of("Reflect","Light Screen","Aurora Veil").contains(name))plans.add(Plan.SCREENS);if(name.equals("Trick Room"))plans.add(Plan.ROOM);if(Set.of("Rain Dance","Sunny Day","Sandstorm","Hail","Snowscape").contains(name))plans.add(Plan.WEATHER);
                 if(NpcMoves.recovery(move)||Set.of("Rest","Wish","Leech Seed").contains(name))plans.add(Plan.RECOVERY);if(wrapper.bc!=null&&move.getMove().getPriority(wrapper)>0&&move.getAttackCategory()!=com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS)plans.add(Plan.PRIORITY);}
             if(p.getHeldItem().func_77973_b() instanceof com.pixelmonmod.pixelmon.items.heldItems.FocusSashItem)plans.add(Plan.SASH);String ability=p.getAbility().getClass().getSimpleName();if(Set.of("Moxie","BeastBoost","GrimNeigh","ChillingNeigh","SoulHeart").contains(ability)||ability.contains("AsOne"))plans.add(Plan.SNOWBALL);
-        }DATA.put(battle,snapshots);PLANS.put(battle,plans);
+        }if(NpcStallControl.defensiveMembers(battle,trainer.team)>=2)plans.add(Plan.STALL);DATA.put(battle,snapshots);PLANS.put(battle,plans);
     }
     public static boolean has(BattleController battle){return DATA.containsKey(battle);}
     public static int size(BattleController battle){return DATA.getOrDefault(battle,Collections.emptyMap()).size();}
@@ -36,11 +36,29 @@ public final class NpcTeamKnowledge {
         if(plan(side.bc,Plan.HAZARDS))role(team,List.of("Rapid Spin","Defog","Court Change"));
         if(plan(side.bc,Plan.SCREENS))role(team,List.of("Psychic Fangs","Brick Break","Defog"));
         if(plan(side.bc,Plan.RECOVERY)||plan(side.bc,Plan.ROOM))role(team,List.of("Taunt","Encore","Knock Off"));
+        if(plan(side.bc,Plan.STALL)){
+            Set<String> protectedMoves=new HashSet<>();
+            for(var p:team)for(var attack:p.getMoveset())if(Set.of("Rapid Spin","Defog","Court Change","Psychic Fangs","Brick Break","Taunt","Encore").contains(attack.getMove().getAttackName()))protectedMoves.add(attack.getMove().getAttackName());
+            stallRole(team,List.of("Taunt","Encore"),protectedMoves);
+            stallRole(team,List.of("Knock Off"),protectedMoves);
+        }
         if(plan(side.bc,Plan.SETUP)||plan(side.bc,Plan.PASS)||plan(side.bc,Plan.EVASION)){
-            if(team.stream().noneMatch(p->p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals("Haze"))))role(team,List.of("Haze","Clear Smog","Roar","Whirlwind"));
+            // Haze is an accuracy-independent reset, unlike a forced switch.
+            // Prefer a legal Haze before accepting a phazing alternative.
+            if(team.stream().noneMatch(p->p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals("Haze"))))role(team,List.of("Haze"));
+            if(team.stream().noneMatch(p->p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals("Haze"))))role(team,List.of("Clear Smog","Roar","Whirlwind"));
             for(var p:team)for(var a:p.getForm().getAbilities().getAll())if(a!=null&&a.getClass().getSimpleName().equals("Unaware"))p.setAbility(a);
         }
     }
-    private static void role(List<Pokemon> team,List<String> moves){for(String name:moves){if(team.stream().anyMatch(p->p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals(name))))return;List<Pokemon> options=new ArrayList<>(team);options.sort(Comparator.comparingLong(p->p.getMoveset().stream().filter(a->a.getAttackCategory()==com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS).count()));for(var p:options)if(GymCounterTeam.ensure(p,name))return;}}
-    public static void end(BattleController battle){DATA.remove(battle);PLANS.remove(battle);}
+    private static void role(List<Pokemon> team,List<String> moves){
+        // Check all equivalent answers before installing a preferred alternative.
+        // Otherwise an existing Whirlwind can still cause Roar to overwrite Taunt.
+        for(String name:moves)if(team.stream().anyMatch(p->p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals(name))))return;
+        for(String name:moves){List<Pokemon> options=new ArrayList<>(team);options.sort(Comparator.comparingLong(p->p.getMoveset().stream().filter(a->a.getAttackCategory()==com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS).count()));for(var p:options)if(GymCounterTeam.ensure(p,name))return;}
+    }
+    private static void stallRole(List<Pokemon> team,List<String> moves,Set<String> protectedMoves){
+        for(String name:moves)if(team.stream().anyMatch(p->p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals(name)))){protectedMoves.add(name);return;}
+        for(String name:moves)for(var p:team)if(GymCounterTeam.ensure(p,name,protectedMoves)){protectedMoves.add(name);return;}
+    }
+    public static void end(BattleController battle){DATA.remove(battle);PLANS.remove(battle);NpcChoiceVariation.end(battle);}
 }

@@ -18,6 +18,9 @@ public final class MixinApplicationVerification {
         Constructor<?> ctor=Class.forName("org.spongepowered.asm.mixin.transformer.MixinTransformer").getDeclaredConstructor();ctor.setAccessible(true);
         IMixinTransformer transformer=(IMixinTransformer)ctor.newInstance();
         java.util.List<String> weatherTargets=new java.util.ArrayList<>();
+        for(String target:new String[]{"com.pixelmonmod.pixelmon.items.heldItems.StatEnhancingItems","com.pixelmonmod.pixelmon.api.daycare.impl.requirement.AbstractRequirement","com.pixelmonmod.pixelmon.world.structure.type.BiomeGenericStructure","com.pixelmonmod.pixelmon.items.PixelmonItem","com.pixelmonmod.pixelmon.items.PokeBallItem"})weatherTargets.add(target);
+        for(String target:new String[]{"com.pixelmonmod.pixelmon.entities.pokeballs.PokeBallEntity","com.pixelmonmod.pixelmon.world.structure.type.BasicStructure$Start"})weatherTargets.add(target);
+        weatherTargets.add("com.pixelmonmod.pixelmon.blocks.daycare.DayCareBlock");
         weatherTargets.add("com.pixelmonmod.pixelmon.api.pokemon.boss.BossTier");
         weatherTargets.add("com.pixelmonmod.pixelmon.blocks.tileentity.HealerTileEntity");
         weatherTargets.add("net.minecraft.loot.LootTableManager");
@@ -184,6 +187,7 @@ public final class MixinApplicationVerification {
             if(optional.getJarEntry("dev/ftb/mods/ftbquests/quest/task/StructureTask.class")!=null)verify(transformer,optional,"dev.ftb.mods.ftbquests.quest.task.StructureTask");
             if(optional.getJarEntry("com/chaosthedude/naturescompass/util/BiomeUtils.class")!=null)verify(transformer,optional,"com.chaosthedude.naturescompass.util.BiomeUtils");
             if(optional.getJarEntry("snownee/jade/addon/vanilla/HorseProvider.class")!=null){
+                verify(transformer,optional,"mcp.mobius.waila.api.impl.DataAccessor");
                 verify(transformer,optional,"snownee.jade.addon.vanilla.HorseProvider");
                 try(JarFile pixelmon=new JarFile(args[0])){
                     String base="com.pixelmonmod.pixelmon.entities.pixelmon.AbstractBaseEntity",horse="snownee.jade.addon.vanilla.HorseProvider";

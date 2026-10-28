@@ -12,4 +12,11 @@ public abstract class CapZTooltipMixin {
     private void backport$noObsoleteCapZDescription(CallbackInfoReturnable<String> cir){
         if((Object)this==PixelmonItems.pikashunium_z)cir.setReturnValue("");
     }
+    @Inject(method="getTooltipText()Ljava/lang/String;",at=@At("RETURN"),cancellable=true)
+    private void backport$lightBallDescription(CallbackInfoReturnable<String> cir){
+        if((Object)this==PixelmonItems.light_ball){
+            String extra=net.minecraft.client.resources.I18n.func_135052_a("pixelmon.backport.light_ball.cap_description");
+            String nativeText=cir.getReturnValue();cir.setReturnValue(nativeText==null||nativeText.isEmpty()?extra:nativeText+"\n"+extra);
+        }
+    }
 }

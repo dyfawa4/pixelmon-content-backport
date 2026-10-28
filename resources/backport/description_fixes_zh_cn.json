@@ -41,7 +41,7 @@
   "pixelmon_backport.field_mega.form_started": "开始变换形态",
   "pixelmon.backport.author.protect_rate": "成功率%s%%",
   "pixelmon.backport.author.buff_rate": "原生成功率",
-  "pixelmon.backport.author.challenge.handicap": "作者挑战：上场宝可梦附加常驻蚀。\n攻击命中、守住、自身强化与回复均沿用原生规则，不附加成功率惩罚。\n玩家效果型携带物在整场战斗前3回合禁用，第4回合起恢复正常触发；面具、Z纯晶、Mega石、石板及形态机制道具豁免。\n玩家不能使用无极巨化无极汰那。",
+  "pixelmon.backport.author.challenge.handicap": "作者挑战规则：\n玩家不能使用药品；作者可正常用药，战后归还携带物。\n前3回合玩家效果型携带物暂不生效，第4回合恢复；面具、Z纯晶、Mega石、石板及形态机制道具不受影响。\n玩家不能使用无极巨化无极汰那。",
   "pixelmon_backport.options.battle_music": "宝可梦音乐：%s%%",
   "item.pixelmon.ultraspace_music_disc.desc": "Zeecount - 究极空间/溺水世界",
   "advancement.pixelmon_backport.zygarde_power_construct": "群聚变形",

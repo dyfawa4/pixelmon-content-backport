@@ -16,6 +16,8 @@ public final class NpcSwitchPolicyVerification {
         assert NpcSwitchPolicy.adjustment(25,90,300,0,0,300,0,25,200)>60:"Safe immunity switch rejected";
         assert NpcSwitchPolicy.adjustment(25,90,200,0,0,300,100,25,200)<0:"Entry hazard sacrifice ignored";
         assert NpcSwitchPolicy.adjustment(25,90,60,200,0,300,0,25,200)<0:"Reserve thrown into lethal attack";
+        assert NpcSwitchPolicy.adjustment(200,0,200,0,0,300,75,100,100)<0:"Protect turn must still pay entry hazard cost";
+        assert NpcSwitchPolicy.adjustment(200,0,300,0,0,300,0,100,100)==0:"Safe no-hazard entry invented a cost";
         System.out.println("PASS native switch survival score boundaries; no battles initialized");
     }
 }

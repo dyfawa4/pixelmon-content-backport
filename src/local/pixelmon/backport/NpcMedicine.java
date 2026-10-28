@@ -51,7 +51,7 @@ public final class NpcMedicine {
         double future=NpcTurnKnowledge.active(p.bc)?NpcTactics.incoming(p,NpcTactics.threats(p,true)):incoming;
         PixelmonWrapper target=null;ItemStack medicine=null;
         boolean status=p.getStatuses().stream().anyMatch(s->Arrays.asList("Sleep","Freeze","Paralysis","Burn","Poison","PoisonBad").contains(s.type.toString()));
-        boolean canActFirst=choice!=null && choice.isAttack() && !MoveChoice.canOutspeed(threats,p,choice.createList());
+        boolean canActFirst=choice!=null && choice.isAttack() && !NpcIntentResponse.canOutspeed(threats,p,choice.createList());
         boolean window=NpcTurnKnowledge.active(p.bc)&&incoming<p.getHealth()*.15&&future>=p.getHealth()*.65&&p.getHealthPercent()<65;
         if(bag.heals>0 && ((p.getHealthPercent()<=35||window) && p.getHealthDeficit()>=50 || !bag.leader&&status && p.getHealthPercent()<=80)
             && !(choice!=null && NpcMoves.recovery(choice.attack)) && NpcSwitchPolicy.healingBuysAction(p.getMaxHealth(),incoming,canActFirst)){

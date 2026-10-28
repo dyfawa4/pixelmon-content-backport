@@ -16,7 +16,7 @@ public abstract class BallDescriptionMixin {
         if(stack.func_77942_o()&&stack.func_77978_p().func_74764_b("tooltip"))return;
         PokeBallPart.getPokeBall(stack).ifPresent(ball->{
             String name=ball.getName();
-            if(name.equals("origin_ball")||name.equals("park_ball"))
+            if(name.equals("origin_ball")||name.equals("park_ball")||name.equals(local.pixelmon.backport.RadiantBallLogic.NAME))
                 cir.setReturnValue(I18n.func_135052_a("pixelmon.backport.ball.description."+name));
         });
     }

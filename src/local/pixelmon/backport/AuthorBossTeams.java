@@ -62,7 +62,7 @@ public final class AuthorBossTeams {
         npc.setAIMode(EnumTrainerAI.StandStill);npc.updateDrops(new ItemStack[0]);
         Random random=new Random(world.func_72905_C()^center.func_218275_a());int slot=0;
         for(Pokemon p:roster(theme,random))npc.getPokemonStorage().set(slot++,p);
-        npc.getPersistentData().func_74768_a(AuthorRoster.VERSION,3);
+        npc.getPersistentData().func_74768_a(AuthorRoster.VERSION,AuthorRoster.CURRENT);
         npc.setBossTier(BossTierRegistry.getBossTierOrNotBoss("equal"));npc.updateTrainerLevel();
         npc.func_70012_b(center.func_177958_n()+.5,center.func_177956_o()+1,center.func_177952_p()-2.5,0,0);
         AuthorBossArenas.tag(npc,center);return npc;

@@ -40,7 +40,7 @@ public final class NpcMomentum {
             int gain=foe.getBattleStats().getSumIncreases()-(global?own.getBattleStats().getSumIncreases():0);
             if(gain<=0)continue;
             var threats=NpcTactics.threats(own,choice);
-            if(MoveChoice.canOutspeed(threats,own,choice.createList())&&NpcTactics.incoming(own,threats)>=own.getHealth())continue;
+            if(NpcIntentResponse.canOutspeed(threats,own,choice.createList())&&NpcTactics.incoming(own,threats)>=own.getHealth())continue;
             // A fast reset must actually reduce the next hit enough to survive it.
             var cleanFoe=NpcSimulationCopy.of(foe);cleanFoe.getBattleStats().clearBattleStats(true);
             PixelmonWrapper cleanOwn=own;
@@ -60,7 +60,7 @@ public final class NpcMomentum {
             ||reply.attack.pp<=0||reply.attack.getDisabled()||!Float.isFinite(reply.weight)||reply.weight<=0)return false;
         if(hit*1.1>=incoming.getHealth())return false;
         // Even a strong reserve is not a counter if it faints before its next move.
-        boolean actsFirst=!MoveChoice.canOutspeed(threats,incoming,reply.createList());
+        boolean actsFirst=!NpcIntentResponse.canOutspeed(threats,incoming,reply.createList());
         boolean stops=NpcTactics.finishFirst(incoming,reply,threats)
             ||reply.attack.getMove().effects.stream().anyMatch(e->e instanceof Haze&&!((Haze)e).onlyLowered);
         return actsFirst&&stops||hit*2.1<incoming.getHealth();

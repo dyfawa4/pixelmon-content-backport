@@ -13,6 +13,11 @@ public final class ZygardeAdvancements {
     private static void award(ServerPlayerEntity player,String id){
         if(player==null)return;LegendAdvancements.award(player,"root");LegendAdvancements.award(player,"forms");LegendAdvancements.award(player,id);
     }
+    /** The quest asks for ownership of this ability, separately from an actual Complete transformation. */
+    public static void acquired(Pokemon pokemon,ServerPlayerEntity player){
+        if(FieldMega.constructSpecies(pokemon)&&AcquisitionAdvancements.ownedStored(player,pokemon))
+            award(player,"zygarde_power_construct");
+    }
     public static void powerConstruct(PixelmonWrapper p){
         if(!p.getForm().isForm("complete"))return;
         ServerPlayerEntity player=owner(p);award(player,"zygarde_power_construct");award(player,"zygarde_complete");

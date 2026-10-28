@@ -1,0 +1,145 @@
+[
+  {
+    "name": "hazard-natural",
+    "members": [
+      {
+        "dex": 227,
+        "moves": [
+          "Spikes",
+          "Stealth Rock",
+          "Roost",
+          "Brave Bird"
+        ],
+        "item": "leftovers",
+        "ability": "Sturdy"
+      },
+      {
+        "dex": 748,
+        "moves": [
+          "Protect",
+          "Baneful Bunker",
+          "Wide Guard",
+          "Recover"
+        ],
+        "item": "black_sludge",
+        "ability": "Regenerator"
+      },
+      {
+        "dex": 113,
+        "moves": [
+          "Protect",
+          "Soft-Boiled",
+          "Seismic Toss",
+          "Toxic"
+        ],
+        "item": "eviolite",
+        "ability": "NaturalCure"
+      },
+      {
+        "dex": 226,
+        "moves": [
+          "Protect",
+          "Wide Guard",
+          "Roost",
+          "Scald"
+        ],
+        "item": "leftovers",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 242,
+        "moves": [
+          "Protect",
+          "Soft-Boiled",
+          "Seismic Toss",
+          "Toxic"
+        ],
+        "item": "leftovers",
+        "ability": "NaturalCure"
+      },
+      {
+        "dex": 195,
+        "moves": [
+          "Protect",
+          "Recover",
+          "Scald",
+          "Toxic"
+        ],
+        "item": "leftovers",
+        "ability": "Unaware"
+      }
+    ]
+  },
+  {
+    "name": "hazard-post-setup",
+    "preloaded": true,
+    "members": [
+      {
+        "dex": 227,
+        "moves": [
+          "Spikes",
+          "Stealth Rock",
+          "Roost",
+          "Brave Bird"
+        ],
+        "item": "leftovers",
+        "ability": "Sturdy"
+      },
+      {
+        "dex": 748,
+        "moves": [
+          "Protect",
+          "Baneful Bunker",
+          "Wide Guard",
+          "Recover"
+        ],
+        "item": "black_sludge",
+        "ability": "Regenerator"
+      },
+      {
+        "dex": 113,
+        "moves": [
+          "Protect",
+          "Soft-Boiled",
+          "Seismic Toss",
+          "Toxic"
+        ],
+        "item": "eviolite",
+        "ability": "NaturalCure"
+      },
+      {
+        "dex": 226,
+        "moves": [
+          "Protect",
+          "Wide Guard",
+          "Roost",
+          "Scald"
+        ],
+        "item": "leftovers",
+        "ability": "WaterAbsorb"
+      },
+      {
+        "dex": 242,
+        "moves": [
+          "Protect",
+          "Soft-Boiled",
+          "Seismic Toss",
+          "Toxic"
+        ],
+        "item": "leftovers",
+        "ability": "NaturalCure"
+      },
+      {
+        "dex": 195,
+        "moves": [
+          "Protect",
+          "Recover",
+          "Scald",
+          "Toxic"
+        ],
+        "item": "leftovers",
+        "ability": "Unaware"
+      }
+    ]
+  }
+]

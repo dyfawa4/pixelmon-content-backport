@@ -1,0 +1,17 @@
+{
+  "name": "radiant_ball",
+  "model": "pixelmon:models/pokeballs/masterball.pqc",
+  "texture": "pixelmon_backport:textures/pokeballs/radiant_ball.png",
+  "flashingTexture": "pixelmon_backport:textures/pokeballs/radiant_ball.png",
+  "ballSprite": "pixelmon_backport:items/pokeballs/radiant_ball",
+  "guiSprite": "pixelmon_backport:textures/gui/overlay/radiant_ball.png",
+  "logic": "local.pixelmon.backport.RadiantBallLogic",
+  "bases": [],
+  "captureMethod": "gen8",
+  "catchBonus": 255,
+  "breakChance": 0,
+  "velocityModifier": 1,
+  "gravityModifier": 1,
+  "particles": false,
+  "hasLid": false
+}

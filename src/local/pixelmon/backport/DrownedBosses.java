@@ -16,7 +16,7 @@ public final class DrownedBosses {
    var tier=row.getValue().getAsJsonObject();String id=tier.has("id")?tier.get("id").getAsString():row.getKey().func_110623_a();
    if(id.equals("legendary"))legendary=tier;
    if(id.equals("ultimate"))ultimate=tier;
-   if(id.equals("drowned")){tier.addProperty("canRandomlySpawn",true);tier.addProperty("weight",1);tier.addProperty("levelMultiplier",1);tier.addProperty("extraLevels",60);}
+   if(id.equals("drowned")){tier.addProperty("canRandomlySpawn",true);tier.addProperty("weight",2);tier.addProperty("levelMultiplier",1);tier.addProperty("extraLevels",60);}
   }
   if(ultimate!=null){ultimate.addProperty("levelMultiplier",1);ultimate.addProperty("extraLevels",50);
    // Same item pools and odds as Legendary, with twice the rolls in each group.

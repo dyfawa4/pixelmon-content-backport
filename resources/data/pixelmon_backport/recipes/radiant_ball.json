@@ -1,0 +1,44 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SDG",
+    "AMB",
+    "PCL"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:shroomlight"
+    },
+    "D": {
+      "item": "pixelmon_backport:glow_scale_dust"
+    },
+    "G": {
+      "item": "minecraft:glowstone"
+    },
+    "A": {
+      "item": "pixelmon:shiny_stone"
+    },
+    "M": {
+      "type": "pixelmon_backport:master_ball"
+    },
+    "B": {
+      "item": "pixelmon:luminous_moss"
+    },
+    "P": {
+      "item": "pixelmon:bright_powder"
+    },
+    "C": {
+      "item": "pixelmon:gold_bottle_cap"
+    },
+    "L": {
+      "item": "pixelmon:light_clay"
+    }
+  },
+  "result": {
+    "item": "pixelmon:poke_ball",
+    "count": 1,
+    "nbt": {
+      "PokeBallID": "radiant_ball"
+    }
+  }
+}

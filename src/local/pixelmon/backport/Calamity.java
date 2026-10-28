@@ -23,7 +23,6 @@ public final class Calamity {
  public static void enter(PixelmonWrapper pokemon){
   if(pokemon.bc==null||pokemon.bc.simulateMode||CalamityBattle.isCopy(pokemon)||!(pokemon.getParticipant() instanceof PlayerParticipant)||CalamityBattle.active(pokemon))return;
   boolean cursed=active(pokemon.pokemon);
-  if(GymChallenge.author(pokemon.bc))cursed=true;
   if(!cursed)for(var opponent:pokemon.getParticipant().getOpponents())if(opponent instanceof WildPixelmonParticipant)for(var target:opponent.controlledPokemon)if(target.entity!=null&&DrownedBosses.is(target.entity))cursed=true;
   if(!cursed)return;int old=pokemon.getMaxHealth(),hp=pokemon.getHealth();
   if(!active(pokemon.pokemon)){pokemon.pokemon.getPersistentData().func_74768_a(TAG,BackportConfig.calamityReduction());pokemon.bc.sendToAll("pixelmon_backport.battle.calamity",pokemon.getNickname());}

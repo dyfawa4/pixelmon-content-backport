@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " W ",
+    "WHW",
+    " R "
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:black_wool"
+    },
+    "H": {
+      "item": "pixelmon:rocky_helmet"
+    },
+    "R": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:utility_umbrella",
+    "count": 1
+  }
+}

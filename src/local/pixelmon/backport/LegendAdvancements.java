@@ -26,6 +26,7 @@ public final class LegendAdvancements {
         if(!AcquisitionAdvancements.ownedStored(player,pokemon))return;
         SpecialPaletteAdvancements.acquired(player,pokemon);
         int dex=pokemon.getSpecies().getDex();
+        if(dex==718)ZygardeAdvancements.acquired(pokemon,player);
         if(dex==658 && pokemon.getAbility() instanceof com.pixelmonmod.pixelmon.api.pokemon.ability.abilities.BattleBond){
             award(player,"root");award(player,"gen6");award(player,"capture_658_bond");
         }
@@ -133,7 +134,11 @@ public final class LegendAdvancements {
         if(!AcquisitionAdvancements.ownedStored(player,pokemon))return;
         award(player,"root");award(player,"primal");award(player,"form_"+pokemon.getSpecies().getDex()+"_primal");
     }
-    @SubscribeEvent public void playerTick(TickEvent.PlayerTickEvent event){if(event.phase==TickEvent.Phase.END && event.player instanceof ServerPlayerEntity && event.player.field_70173_aa%20==0)eternamax((ServerPlayerEntity)event.player);}
+    @SubscribeEvent public void playerTick(TickEvent.PlayerTickEvent event){if(event.phase==TickEvent.Phase.END && event.player instanceof ServerPlayerEntity && event.player.field_70173_aa%20==0){
+        ServerPlayerEntity player=(ServerPlayerEntity)event.player;eternamax(player);
+        for(Pokemon pokemon:com.pixelmonmod.pixelmon.api.storage.StorageProxy.getParty(player).getAll())
+            if(pokemon!=null)ZygardeAdvancements.acquired(pokemon,player);
+    }}
     private static int partnerFor(int dex,String form){
         if(dex==646)return form.equals("black")?644:643;
         if(dex==800)return form.equals("dusk")?791:792;

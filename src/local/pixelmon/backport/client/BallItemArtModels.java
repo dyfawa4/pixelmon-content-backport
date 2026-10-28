@@ -27,5 +27,6 @@ public final class BallItemArtModels {
     @SubscribeEvent public static void stitch(TextureStitchEvent.Pre event){
         if(!event.getMap().func_229223_g_().equals(net.minecraft.client.renderer.texture.AtlasTexture.field_110575_b))return;
         for(String name:BallItemArt.FILES)event.addSprite(new ResourceLocation(Content.NS,"items/pokeballs/"+name));
+        event.addSprite(new ResourceLocation(Content.NS,"items/pokeballs/"+RadiantBallLogic.NAME));
     }
 }

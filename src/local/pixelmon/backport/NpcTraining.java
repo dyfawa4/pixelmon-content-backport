@@ -11,7 +11,7 @@ import com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem;
 public final class NpcTraining {
     private NpcTraining(){}
     private static final BattleStatsType[] STATS={BattleStatsType.HP,BattleStatsType.ATTACK,BattleStatsType.DEFENSE,BattleStatsType.SPECIAL_ATTACK,BattleStatsType.SPECIAL_DEFENSE,BattleStatsType.SPEED};
-    public static void maximize(Pokemon pokemon){prepare(pokemon);for(var stat:STATS){pokemon.getIVs().setHyperTrained(stat,false);pokemon.getIVs().setStat(stat,31);}pokemon.getEVs().fillFromArray(252,252,252,252,252,252);pokemon.getStats().recalculateStats();}
+    public static void maximize(Pokemon pokemon){prepare(pokemon);for(var stat:STATS){pokemon.getIVs().setHyperTrained(stat,false);pokemon.getIVs().setStat(stat,31);}pokemon.getStats().recalculateStats();}
     public static void prepare(Pokemon pokemon){
         Stats form=pokemon.getForm(),trainedForm=form;
         if(pokemon.getHeldItem().func_77973_b() instanceof MegaStoneItem){
@@ -20,15 +20,19 @@ public final class NpcTraining {
         }
         int[] base=new int[6];for(int i=0;i<6;i++)base[i]=trainedForm.getBattleStats().getStat(STATS[i]);
         double physical=0,special=0;int utility=0;boolean recovery=false,room=false,boosting=false;
+        Set<String> moves=new HashSet<>();
         for(var attack:pokemon.getMoveset()){
             String name=attack.getMove().getAttackName();
+            moves.add(name);
             if(attack.getAttackCategory()==AttackCategory.STATUS){
                 utility++;recovery|=NpcMoves.recovery(attack) || name.equals("Rest");room|=name.equals("Trick Room");
                 boosting|=Arrays.asList("Swords Dance","Dragon Dance","Nasty Plot","Quiver Dance","Shell Smash","Agility","Rock Polish").contains(name);
-            }else if(attack.getAttackCategory()==AttackCategory.PHYSICAL)physical+=Math.max(0,attack.getMove().getBasePower())*base[1];
+            }else if(Set.of("Seismic Toss","Night Shade","Super Fang","Nature's Madness","Ruination","Endeavor","Counter","Mirror Coat","Metal Burst","Foul Play","Dragon Rage","Sonic Boom").contains(name)){
+                // Fixed damage and Foul Play do not benefit from the user's offensive EVs.
+            }else if(attack.getAttackCategory()==AttackCategory.PHYSICAL)physical+=Math.max(0,attack.getMove().getBasePower())*base[name.equals("Body Press")?2:1];
             else special+=Math.max(0,attack.getMove().getBasePower())*base[3];
         }
-        GymTrainingPlan plan=GymTrainingPlan.choose(base,physical,special,utility,recovery,room,boosting);
+        GymTrainingPlan plan=GymTrainingPlan.choose(base,physical,special,utility,recovery,room,boosting,moves,pokemon.getPokemonLevel());
         pokemon.getEVs().fillFromArray(0,0,0,0,0,0);
         for(int i=0;i<6;i++){
             pokemon.getIVs().setHyperTrained(STATS[i],false);pokemon.getIVs().setStat(STATS[i],plan.ivs[i]);

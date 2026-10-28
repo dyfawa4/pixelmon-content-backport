@@ -9,6 +9,7 @@ public final class AuthorForesight {
     private static final Map<BattleController,Frame> FRAMES=new WeakHashMap<>();
     private static final class Frame {
         final int turn;final Map<String,Integer> rolls=new HashMap<>();final Map<UUID,Integer> moves=new HashMap<>();final Set<UUID> executing=new HashSet<>();
+        final Map<UUID,Integer> attempts=new HashMap<>();final Set<UUID> checkingStatus=new HashSet<>();
         Frame(int turn){this.turn=turn;}
     }
     private AuthorForesight(){}
@@ -32,23 +33,49 @@ public final class AuthorForesight {
         return f.rolls.computeIfAbsent(id+":"+trigger,k->ThreadLocalRandom.current().nextInt(1000000));
     }
     public static boolean chance(PixelmonWrapper p,String trigger,double percent){return roll(p,trigger)<Math.max(0,Math.min(100,percent))*10000;}
+    public static void beginStatus(PixelmonWrapper p){if(!forecast(p)||p.bc.simulateMode||NpcTurnKnowledge.present(p.bc))return;var f=frame(p);var id=p.getPokemonUUID();f.attempts.merge(id,1,Integer::sum);f.checkingStatus.add(id);}
+    public static void endStatus(PixelmonWrapper p){if(forecast(p)&&!p.bc.simulateMode)frame(p).checkingStatus.remove(p.getPokemonUUID());}
+    public static boolean statusChance(PixelmonWrapper p,String trigger,double percent){
+        var f=frame(p);var id=p.getPokemonUUID();int attempt=f.attempts.getOrDefault(id,0)+(f.checkingStatus.contains(id)?0:1);
+        int value=f.rolls.computeIfAbsent(id+":status:"+trigger+":"+attempt,k->ThreadLocalRandom.current().nextInt(1000000));
+        return value<Math.max(0,Math.min(100,percent))*10000;
+    }
     public static String target(PixelmonWrapper p){
         var side=p.getParticipant();int slot=side.controlledPokemon.indexOf(p);
         if(slot<0)for(int i=0;i<side.controlledPokemon.size();i++)if(side.controlledPokemon.get(i).getPokemonUUID().equals(p.getPokemonUUID())){slot=i;break;}
         if(slot<0&&side.controlledPokemon.size()==1)slot=0;return side.team+":"+slot;
     }
     public static boolean accuracy(PixelmonWrapper user,PixelmonWrapper target,int percent){return chance(user,"accuracy:"+target(target),percent);}
+    public static boolean ohko(PixelmonWrapper user,PixelmonWrapper target,int percent){return chance(user,"ohko:"+target(target),percent);}
     public static boolean buff(PixelmonWrapper p){return true;}
-    public static boolean protect(PixelmonWrapper p){return chance(p,"protect",100/Math.pow(3,p.protectsInARow));}
+    public static boolean protect(PixelmonWrapper p){return protect(p,p.attack);}
+    public static boolean protect(PixelmonWrapper p,com.pixelmonmod.pixelmon.battles.attacks.Attack move){
+        // Native ProtectVariationTeam.canFail() is false: Wide/Quick/Crafty Guard
+        // do not use the ordinary consecutive-Protect chance. Their actual attack
+        // coverage is still decided by the native status on the detached target.
+        if(move!=null&&move.getMove().effects.stream().anyMatch(e->e instanceof com.pixelmonmod.pixelmon.battles.status.ProtectVariationTeam))return true;
+        return chance(p,"protect",100/Math.pow(3,p.protectsInARow));
+    }
     public static boolean succeeds(PixelmonWrapper p,PixelmonWrapper target,com.pixelmonmod.pixelmon.battles.attacks.Attack attack){
-        if(!visible(p)||p.usingZ||attack==null)return true;
-        if(AuthorChallenge.protect(attack.getMove()))return protect(p);
+        if(!visible(p)||attack==null)return true;
+        if(!NpcActionAvailability.canAct(p,attack))return false;
+        if(p.usingZ)return true;
+        if(AuthorChallenge.protect(attack.getMove()))return protect(p,attack);
         if(attack.getAttackCategory()==com.pixelmonmod.pixelmon.api.battles.AttackCategory.STATUS&&AuthorChallenge.selfEffect(attack.getMove()))return buff(p);
         var copy=attack.deepCopy();var access=(local.pixelmon.backport.mixin.AuthorAccuracyAccess)(Object)copy;
         try(var preview=NpcTurnKnowledge.preview(p,copy)){
             copy.moveAccuracy=access.backport$modifiedStats(p,target,p.getBattleAbility(),target.getBattleAbility(),copy.getMove().getBasePower())[1];
             double probability=copy.moveAccuracy<0||copy.cantMiss(p)?100:access.backport$liveAccuracy(p,target,p.getBattleAbility());
-            return accuracy(p,target,(int)Math.max(0,probability));
+            if(!accuracy(p,target,(int)Math.max(0,probability)))return false;
+            if(attack.getMove().effects.stream().anyMatch(e->e instanceof com.pixelmonmod.pixelmon.battles.attacks.specialAttacks.basic.OHKO)){
+                // Native OHKO performs another roll inside its effect; simulation
+                // skips that roll. Keep its level/Sheer Cold/No Guard order intact.
+                if(attack.getMove().getAttackName().equals("Sheer Cold")&&target.hasType(com.pixelmonmod.pixelmon.api.pokemon.Element.ICE))return false;
+                if(target.getPokemonLevelNum()>p.getPokemonLevelNum())return false;
+                if(copy.moveAccuracy==-2)return true;
+                return ohko(p,target,Math.min(100,30+p.getPokemonLevelNum()-target.getPokemonLevelNum()));
+            }
+            return true;
         }
     }
     public static void end(BattleController b){FRAMES.remove(b);}

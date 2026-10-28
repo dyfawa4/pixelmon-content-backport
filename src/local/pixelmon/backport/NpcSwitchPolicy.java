@@ -21,7 +21,8 @@ public final class NpcSwitchPolicy {
         double danger=currentHP<=0?1:Math.min(1,incoming/currentHP);
         // Saving a depleted low-value member is not worth handing the opponent
         // a free hit on the team's healthy win condition. No forced switch loop.
-        double cost=Math.min(150,125*exposure*danger*Math.max(20,reserveValue)/Math.max(40,currentValue));
+        double entryCost=100*Math.max(0,entryDamage)/reserveMaximum;
+        double cost=Math.min(150,(125*exposure*danger+entryCost)*Math.max(20,reserveValue)/Math.max(40,currentValue));
         return survival-(float)cost;
     }
 }

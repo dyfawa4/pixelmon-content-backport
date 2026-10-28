@@ -28,7 +28,7 @@ public final class NpcIntentResponse {
     public static boolean unreachable(PixelmonWrapper user,Attack attack,PixelmonWrapper target,Attack response){
         String state=null;
         for(var status:target.getStatuses())if(Set.of("UnderGround","UnderWater","Flying","Vanish").contains(status.type.name())){state=status.type.name();break;}
-        String charging=charge(response);
+        String charging=NpcActionAvailability.canAct(target,response)?charge(response):null;
         if(response!=null&&first(target,response,user,attack)){
             if(state!=null&&state.equals(charging))state=null;
             else if(state==null&&charging!=null){
@@ -50,11 +50,23 @@ public final class NpcIntentResponse {
         if(aa==null)return false;if(ba==null)return true;
         boolean simulation=a.bc.simulateMode;a.bc.simulateMode=true;
         try(var x=NpcTurnKnowledge.preview(a,aa);var y=NpcTurnKnowledge.preview(b,ba)){
-            MoveChoice ac=new MoveChoice(a,aa,Collections.singletonList(b)),bc=new MoveChoice(b,ba,Collections.singletonList(a));
-            ac.result=new MoveResults(b);ac.result.priority=BattlePriorityHelper.calculatePriority(a);
-            bc.result=new MoveResults(a);bc.result.priority=BattlePriorityHelper.calculatePriority(b);
-            return !MoveChoice.canOutspeed(Collections.singletonList(bc),a,ac.createList());
+            float ap=BattlePriorityHelper.calculatePriority(a),bp=BattlePriorityHelper.calculatePriority(b);
+            if(ap!=bp)return ap>bp;
+            int as=a.getBattleStats().getStatWithMod(com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.SPEED),bs=b.getBattleStats().getStatWithMod(com.pixelmonmod.pixelmon.api.pokemon.stats.BattleStatsType.SPEED);
+            boolean room=a.bc.globalStatusController.hasStatus(StatusType.TrickRoom);
+            // Native MoveChoice.canOutspeed reads the PREVIOUS turnList for equal priorities.
+            // Compare current effective speeds with the native comparator instead. A speed tie
+            // cannot certify a first strike; do not consume a fresh random tie roll in previews.
+            if((room?as%8192:as)==(room?bs%8192:bs))return false;
+            return BattlePriorityHelper.SPEED_COMPARATOR.compare(a,b)<0;
         }finally{a.bc.simulateMode=simulation;}
+    }
+    public static boolean canOutspeed(List<MoveChoice> threats,PixelmonWrapper own,List<MoveChoice> replies){
+        for(var threat:threats)if(threat.attack!=null&&threat.user!=own){
+            boolean beforeAll=true;
+            for(var reply:replies)if(reply.attack!=null&&first(own,reply.attack,threat.user,threat.attack)){beforeAll=false;break;}
+            if(beforeAll)return true;
+        }return false;
     }
     public static MoveChoice raw(BattleAIBase ai,PixelmonWrapper user,Attack attack,PixelmonWrapper target){
         boolean mode=user.bc.simulateMode;user.bc.simulateMode=true;
@@ -71,6 +83,7 @@ public final class NpcIntentResponse {
     /** Correct action-dependent damage that the native simulation intentionally approximates. */
     public static void conditional(BattleAIBase ai,MoveChoice hit){
         if(!NpcTurnKnowledge.active(hit.user.bc)||hit.targets.size()!=1||hit.attack==null)return;
+        if(!NpcActionAvailability.canAct(hit.user,hit.attack)){failed(hit);return;}
         var user=hit.user;var target=hit.targets.get(0);Attack response=submitted(target);
         if(response==null&&NpcTurnKnowledge.offensive(target)>=0)response=target.attack;
         int known=NpcTurnKnowledge.offensive(target);
@@ -105,8 +118,8 @@ public final class NpcIntentResponse {
     }
     /** Forecast fast self-defence on detached targets; never execute a global effect or send packets. */
     private static PixelmonWrapper defended(PixelmonWrapper target,Attack defence,PixelmonWrapper user,Attack attack){
-        if(defence==null||!first(target,defence,user,attack))return target;
-        if(AuthorForesight.visible(target)&&defence.getMove().effects.stream().anyMatch(e->e instanceof ProtectVariation)&&!AuthorForesight.protect(target))return target;
+        if(defence==null||!NpcActionAvailability.canAct(target,defence)||!first(target,defence,user,attack))return target;
+        if(AuthorForesight.visible(target)&&defence.getMove().effects.stream().anyMatch(e->e instanceof ProtectVariation)&&!AuthorForesight.protect(target,defence))return target;
         List<StatusBase> states=new ArrayList<>();
         for(var effect:defence.getMove().effects)if(effect instanceof ProtectVariation||effect instanceof ProtectVariationTeam||effect instanceof MagicCoat||effect instanceof Snatch)
             states.add(((StatusBase)effect).copy());
@@ -121,6 +134,7 @@ public final class NpcIntentResponse {
         for(var choice:choices){
             if(!choice.isAttack()||choice.tier<=0)continue;
             try(var action=NpcTurnKnowledge.preview(own,choice.attack)){
+                if(!NpcActionAvailability.canAct(own,choice.attack)){failed(choice);continue;}
                 if(choice.targets.size()==1){
                     var target=choice.targets.get(0);Attack response=submitted(target);
                     if(!own.isAlly(target)){

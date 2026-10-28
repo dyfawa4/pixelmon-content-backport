@@ -37,7 +37,7 @@ public final class AuthorBossArenas {
         if(boss.field_70170_p.field_72995_K||!boss.getPersistentData().func_74764_b(HOME))return;
         BlockPos c=center(boss);
         for(int x=-1;x<=1;x++)for(int y=1;y<=3;y++){
-            BlockPos p=c.func_177982_a(x,y,6);
+            BlockPos p=AuthorRoomRotation.pos(c,x,y,6,AuthorRoomRotation.get(boss));
             if(!boss.field_70170_p.func_175667_e(p))continue;
             var current=boss.field_70170_p.func_180495_p(p);
             if(close){if(current.func_196958_f()||current.func_177230_c()==Blocks.field_150411_aY)boss.field_70170_p.func_180501_a(p,Blocks.field_150411_aY.func_176223_P(),3);}
@@ -64,9 +64,9 @@ public final class AuthorBossArenas {
     private static void upgrade(Entity e,ServerWorld world){
             String material=e.getPersistentData().func_74779_i(AuthorRoomPalette.TAG);
             if(!AuthorRoomPalette.wall(material)){material=AuthorBossFeature.material(world,center(e),e.getPersistentData().func_74779_i("AuthorBossTheme"));e.getPersistentData().func_74778_a(AuthorRoomPalette.TAG,material);}
-            AuthorBossFeature.upgrade(world,center(e),false,material);
+            if(!e.getPersistentData().func_74764_b(AuthorRoomRotation.TAG))AuthorBossFeature.upgrade(world,center(e),false,material);
             if(!e.getPersistentData().func_74767_n(AuthorRoomFurnishings.TAG)){
-                if(e.getPersistentData().func_74767_n("AuthorArenaFurnished1")||e.getPersistentData().func_74767_n("AuthorArenaFurnished2"))AuthorRoomFurnishings.upgrade(world,center(e));
+                if(e.getPersistentData().func_74767_n("AuthorArenaFurnished1")||e.getPersistentData().func_74767_n("AuthorArenaFurnished2")||e.getPersistentData().func_74767_n("AuthorArenaFurnished3")||e.getPersistentData().func_74767_n("AuthorArenaFurnished4"))AuthorRoomFurnishings.upgrade(world,center(e));
                 AuthorRoomFurnishings.place(world,center(e));
                 e.getPersistentData().func_74757_a(AuthorRoomFurnishings.TAG,true);
             }

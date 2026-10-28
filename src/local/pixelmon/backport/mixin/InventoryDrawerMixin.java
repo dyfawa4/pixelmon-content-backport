@@ -14,10 +14,14 @@ public abstract class InventoryDrawerMixin {
     @Shadow private int drawerOffset;
     @Shadow private int partyWidth;
     @Shadow private DisplayEffectsScreen gui;
+    @Unique private long backport$nextCharmSync;
+    @Unique private int backport$charmRetries;
     @Inject(method={"initGui","render","drawGuiContainerBackgroundLayer"},at=@At("HEAD"))
-    private void backport$open(CallbackInfo ci){drawerOut=true;drawerOffset=42;}
+    private void backport$open(CallbackInfo ci){drawerOut=true;drawerOffset=42;if(backport$charmRetries>0&&System.nanoTime()>=backport$nextCharmSync){local.pixelmon.backport.CharmStateSync.request();backport$charmRetries--;backport$nextCharmSync=System.nanoTime()+500_000_000L;}}
     @Inject(method="<init>",at=@At("TAIL"))
     private void backport$initiallyOpen(CallbackInfo ci){drawerOut=true;drawerOffset=42;}
+    @Inject(method="initGui",at=@At("RETURN"))
+    private void backport$refreshCharms(CallbackInfo ci){local.pixelmon.backport.CharmStateSync.request();backport$charmRetries=3;backport$nextCharmSync=System.nanoTime()+500_000_000L;}
     @Inject(method="mouseClicked",at=@At("HEAD"),cancellable=true)
     private void backport$noArrow(double x,double y,int button,CallbackInfoReturnable<Boolean> ci){drawerOut=true;drawerOffset=42;int left=((InventoryPixelmonBase)gui).getGUILeft()-partyWidth,mid=gui.field_230709_l_/2;if(x>=left-38&&x<=left-28&&y>=mid-18&&y<=mid+18)ci.setReturnValue(false);}
     @Redirect(method="drawGuiContainerBackgroundLayer",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/client/gui/ScreenHelper;drawImageQuad(Lnet/minecraft/util/ResourceLocation;Lcom/mojang/blaze3d/matrix/MatrixStack;FFFFFFFFFFFFF)V"))

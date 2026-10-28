@@ -33,8 +33,11 @@ public final class DayCareFootprint {
         world.func_180501_a(base,world.func_204610_c(base).func_206883_i(),3);
     }finally{REMOVING.remove();}}}
     public static final class Upper extends Block {
-        Upper(){super(AbstractBlock.Properties.func_200945_a(Material.field_151573_f).func_200943_b(2f).func_200947_a(SoundType.field_185851_d));}
+        Upper(){super(AbstractBlock.Properties.func_200945_a(Material.field_151573_f).func_226896_b_().func_200943_b(2f).func_200947_a(SoundType.field_185851_d));}
         @Override public BlockRenderType func_149645_b(BlockState state){return BlockRenderType.INVISIBLE;}
+        @Override public boolean func_200123_i(BlockState state,IBlockReader world,BlockPos pos){return true;}
+        @Override public int func_200011_d(BlockState state,IBlockReader world,BlockPos pos){return 0;}
+        @Override public float func_220080_a(BlockState state,IBlockReader world,BlockPos pos){return 1f;}
         @Override public PushReaction func_149656_h(BlockState state){return PushReaction.BLOCK;}
         @Override public ActionResultType func_225533_a_(BlockState state,World world,BlockPos pos,PlayerEntity player,Hand hand,BlockRayTraceResult hit){BlockPos base=pos.func_177977_b();BlockState bottom=world.func_180495_p(base);return lower(bottom)?bottom.func_177230_c().func_225533_a_(bottom,world,base,player,hand,new BlockRayTraceResult(hit.func_216347_e(),hit.func_216354_b(),base,false)):ActionResultType.PASS;}
         @Override public ItemStack getPickBlock(BlockState state,RayTraceResult target,IBlockReader world,BlockPos pos,PlayerEntity player){BlockState base=world.func_180495_p(pos.func_177977_b());return lower(base)?new ItemStack(base.func_177230_c()):ItemStack.field_190927_a;}
@@ -52,6 +55,23 @@ public final class DayCareFootprint {
         @Override public BlockState func_196271_a(BlockState state,Direction side,BlockState neighbour,IWorld world,BlockPos pos,BlockPos other){return !REMOVING.get()&&side==Direction.DOWN&&!lower(neighbour)?Blocks.field_150350_a.func_176223_P():state;}
     }
     public static final class Events {
+        private final java.util.Queue<net.minecraft.world.chunk.Chunk> relight=new java.util.concurrent.ConcurrentLinkedQueue<>();
+        @SubscribeEvent public void load(net.minecraftforge.event.world.ChunkEvent.Load event){
+            if(event.getWorld() instanceof net.minecraft.world.server.ServerWorld&&event.getChunk() instanceof net.minecraft.world.chunk.Chunk)relight.add((net.minecraft.world.chunk.Chunk)event.getChunk());
+        }
+        @SubscribeEvent public void unload(net.minecraftforge.event.world.WorldEvent.Unload event){relight.removeIf(c->c.func_177412_p()==event.getWorld());}
+        @SubscribeEvent public void tick(net.minecraftforge.event.TickEvent.ServerTickEvent event){
+            if(event.phase!=net.minecraftforge.event.TickEvent.Phase.END)return;
+            // Existing chunk light arrays were saved with the former opaque selection volume.
+            // Invalidate only daycare cells, one loaded chunk per tick, without loading neighbours.
+            var chunk=relight.poll();if(chunk==null)return;var world=chunk.func_177412_p();
+            if(!world.func_175667_e(new BlockPos(chunk.func_76632_l().field_77276_a<<4,64,chunk.func_76632_l().field_77275_b<<4)))return;
+            for(var section:chunk.func_76587_i())if(section!=null&&section.func_235962_a_(s->lower(s)||upper(s)))
+                for(int y=0;y<16;y++)for(int x=0;x<16;x++)for(int z=0;z<16;z++){
+                    var state=section.func_177485_a(x,y,z);if(lower(state)||upper(state))
+                        world.func_72863_F().func_212863_j_().func_215568_a(new BlockPos((chunk.func_76632_l().field_77276_a<<4)+x,section.func_222632_g()+y,(chunk.func_76632_l().field_77275_b<<4)+z));
+                }
+        }
         @SubscribeEvent public void interact(PlayerInteractEvent.RightClickBlock event){World world=event.getWorld();if(world.field_72995_K)return;BlockPos base=event.getPos();if(lower(world.func_180495_p(base)))reserve(world,base);}
     }
 }

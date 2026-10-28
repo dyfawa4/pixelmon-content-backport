@@ -44,8 +44,8 @@ public final class Update180ShieldCases {
         int stones=0;for(var item:net.minecraftforge.registries.ForgeRegistries.ITEMS)if(item instanceof com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem){var stack=new ItemStack(item);check(item.func_77636_d(stack)&&item.func_77613_e(stack)==Rarity.EPIC,"Mega glint and purple "+item.getRegistryName());check(stack.func_77978_p()==null,"No enchantment NBT "+item.getRegistryName());stones++;}
         check(stones>50,"Native and backport Mega stones covered");check(!Update180Cases.stack("pixelmon:fire_stone").func_77973_b().func_77636_d(Update180Cases.stack("pixelmon:fire_stone")),"Unrequested ordinary evolution stones untouched");
         var world=player.func_71121_q();var home=new BlockPos(20,74,20);var chair=home.func_177982_a(-1,1,-4);
-        AuthorRoomFurnishings.upgrade(world,home);check(world.func_180495_p(chair).func_177229_b(HorizontalBlock.field_185512_D)==Direction.SOUTH,"Legacy chair faces room");
-        AuthorRoomFurnishings.place(world,home);check(world.func_180495_p(chair).func_177229_b(HorizontalBlock.field_185512_D)==Direction.SOUTH,"Repeated furnish does not reverse chair");
+        AuthorRoomFurnishings.upgrade(world,home);check(world.func_180495_p(chair).func_177229_b(HorizontalBlock.field_185512_D)==Direction.NORTH,"Legacy chair faces the workplace");
+        AuthorRoomFurnishings.place(world,home);check(world.func_180495_p(chair).func_177229_b(HorizontalBlock.field_185512_D)==Direction.NORTH,"Repeated furnish does not reverse chair");
         player.func_200619_a(world,home.func_177958_n()-2,home.func_177956_o()+1,home.func_177952_p()+1,180,10);
         System.out.println("SHIELD_ART_180_PASS native ability suppression/bypass/change, atomic swap, item disabled, Trace, Transform, removal; "+stones+" purple glint Mega stones without NBT; chair migration");
     }

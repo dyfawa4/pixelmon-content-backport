@@ -17,10 +17,13 @@ public final class GymCounterTeam {
     private static boolean legal(Pokemon p,String name){return p.getForm().getMoves().getAllMoves().stream().anyMatch(a->a.getAttackName().equals(name));}
     private static int offensive(Pokemon p){return (int)p.getMoveset().stream().filter(a->a.getAttackCategory()!=AttackCategory.STATUS).count();}
     public static boolean ensure(Pokemon p,String name){
+        return ensure(p,name,Collections.emptySet());
+    }
+    public static boolean ensure(Pokemon p,String name,Set<String> protectedMoves){
         if(p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals(name)))return true;
         if(!legal(p,name))return false;var attack=new Attack(name);int slot=-1;double weakest=Double.MAX_VALUE;
         for(int i=0;i<p.getMoveset().size();i++){
-            var old=p.getMoveset().get(i);if(KEEP.contains(old.getMove().getAttackName()))continue;
+            var old=p.getMoveset().get(i);if(KEEP.contains(old.getMove().getAttackName())||protectedMoves.contains(old.getMove().getAttackName()))continue;
             boolean status=old.getAttackCategory()==AttackCategory.STATUS;
             if(attack.getAttackCategory()==AttackCategory.STATUS&&!status&&offensive(p)<=2)continue;
             double value=status?-100:old.getMove().getBasePower()*(p.getForm().getTypes().contains(old.getType())?1.5:1);

@@ -25,7 +25,7 @@ public final class TumblestoneFootprint {
   }finally{BUSY.remove();}
  }
  public static final class Upper extends Block implements IWaterLoggable {
-  Upper(){super(AbstractBlock.Properties.func_200945_a(Material.field_151576_e).func_200943_b(5).func_200947_a(SoundType.field_185853_f));func_180632_j(func_176223_P().func_206870_a(net.minecraft.state.properties.BlockStateProperties.field_208198_y,false));}
+  Upper(){super(AbstractBlock.Properties.func_200945_a(Material.field_151576_e).func_226896_b_().func_200943_b(5).func_200947_a(SoundType.field_185853_f));func_180632_j(func_176223_P().func_206870_a(net.minecraft.state.properties.BlockStateProperties.field_208198_y,false));}
   @Override protected void func_206840_a(net.minecraft.state.StateContainer.Builder<Block,BlockState> b){b.func_206894_a(net.minecraft.state.properties.BlockStateProperties.field_208198_y);}
   @Override public net.minecraft.fluid.FluidState func_204507_t(BlockState s){return s.func_177229_b(net.minecraft.state.properties.BlockStateProperties.field_208198_y)?net.minecraft.fluid.Fluids.field_204546_a.func_207204_a(false):super.func_204507_t(s);}
   @Override public BlockRenderType func_149645_b(BlockState s){return BlockRenderType.INVISIBLE;}

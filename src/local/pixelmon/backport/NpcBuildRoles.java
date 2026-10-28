@@ -9,6 +9,7 @@ public final class NpcBuildRoles {
         String[] names=null;switch(p.getSpecies().getDex()){
             case 250:names=new String[]{"Sacred Fire","Brave Bird","Recover","Whirlwind"};break;
             case 249:names=new String[]{"Aeroblast","Psychic","Roost","Whirlwind"};break;
+            case 487:names=new String[]{"Dragon Tail","Hex","Will-O-Wisp","Rest"};break;
             case 384:names=new String[]{"Dragon Ascent","Extreme Speed","Earthquake","Dragon Dance"};break;
             case 493:names=p.getForm().getTypes().contains(com.pixelmonmod.pixelmon.api.pokemon.Element.NORMAL)&&!p.getHeldItem().func_77973_b().getRegistryName().func_110623_a().equals("legend_plate")?new String[]{"Extreme Speed","Earthquake","Swords Dance","Recover"}:new String[]{"Judgment","Ice Beam","Calm Mind","Recover"};break;
             case 716:names=new String[]{"Moonblast","Thunder","Focus Blast","Geomancy"};break;

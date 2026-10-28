@@ -41,8 +41,7 @@ public final class Content {
             if(type.equals("daycare")){
                 // Only localized requirement messages differ in the reference;
                 // preserve existing mechanics and costs.
-                JsonArray ours=merged.getAsJsonObject().getAsJsonArray("requirements"),source=extra.getAsJsonObject().getAsJsonArray("requirements");
-                for(int i=0;i<Math.min(ours.size(),source.size());i++)if(source.get(i).getAsJsonObject().has("error_message"))ours.get(i).getAsJsonObject().add("error_message",copy(source.get(i).getAsJsonObject().get("error_message")));
+                DayCareRequirementText.localize(merged.getAsJsonObject(),extra.getAsJsonObject());
             }else if(merged.isJsonArray()){
                 JsonArray rows=merged.getAsJsonArray();
                 for(JsonElement value:extra.getAsJsonArray()){

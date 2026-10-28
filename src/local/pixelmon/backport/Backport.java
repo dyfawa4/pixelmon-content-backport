@@ -49,9 +49,12 @@ public final class Backport {
         REGISTERED.put("moving_agreement",ITEMS.register("moving_agreement",MovingAgreement::new));
         REGISTERED.put("gender_potion",ITEMS.register("gender_potion",GenderPotion::new));
         REGISTERED.put("mysterious_potion",ITEMS.register("mysterious_potion",MysteriousPotion::new));
+        REGISTERED.put("divine_sword",ITEMS.register("divine_sword",DivineSword::new));
+        REGISTERED.put("glow_scale_dust",ITEMS.register("glow_scale_dust",GlowScaleDust::new));
         REGISTERED.put("tera_raid_music_disc",ITEMS.register("tera_raid_music_disc",()->new net.minecraft.item.MusicDiscItem(14,BackportSounds.TERA_RAID,new Item.Properties().func_200917_a(1).func_208103_a(net.minecraft.item.Rarity.RARE).func_200916_a(CREATIVE_TAB))));
         REGISTERED.put("wild_music_disc_two",ITEMS.register("wild_music_disc_two",()->new net.minecraft.item.MusicDiscItem(15,BackportSounds.WILD_TWO,new Item.Properties().func_200917_a(1).func_208103_a(net.minecraft.item.Rarity.RARE).func_200916_a(CREATIVE_TAB))));
         REGISTERED.put("legendary_spawn_checker",ITEMS.register("legendary_spawn_checker",()->new SpawnCheckItem(true)));
+        REGISTERED.put("boss_spawn_checker",ITEMS.register("boss_spawn_checker",BossSpawnCheckItem::new));
         REGISTERED.put("normal_spawn_checker",ITEMS.register("normal_spawn_checker",()->new SpawnCheckItem(false)));
         REGISTERED.put("tera_blast_disc_single_use",ITEMS.register("tera_blast_disc_single_use",DisposableTeraDisc::new));
         for(Map.Entry<String,JsonElement> definition:GymCities.DATA.getAsJsonObject("newThemes").entrySet()){
@@ -80,6 +83,7 @@ public final class Backport {
         BackportConfig.load();
         NinjaLearning learning=new NinjaLearning();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(learning);Pixelmon.EVENT_BUS.register(learning);
         net.minecraftforge.common.crafting.CraftingHelper.register(MasterBallIngredient.ID,MasterBallIngredient.SERIALIZER);
+        net.minecraftforge.common.crafting.CraftingHelper.register(GSBallIngredient.ID,GSBallIngredient.SERIALIZER);
         net.minecraftforge.common.crafting.CraftingHelper.register(PokeBallIngredient.ID,PokeBallIngredient.SERIALIZER);
         net.minecraftforge.common.crafting.CraftingHelper.register(BeastBallIngredient.ID,BeastBallIngredient.SERIALIZER);
         net.minecraftforge.common.crafting.CraftingHelper.register(BallLidIngredient.ID,BallLidIngredient.SERIALIZER);
@@ -96,6 +100,7 @@ public final class Backport {
         GymLocator.ALIASES.register(FMLJavaModLoadingContext.get().getModEventBus());
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new GymLocator());
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new BattleMotion());
+        CharmStateSync.register();
         CaptureStorageSync captureSync=new CaptureStorageSync();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(captureSync);Pixelmon.EVENT_BUS.register(captureSync);
         AcquisitionQueue acquisitions=new AcquisitionQueue();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(acquisitions);Pixelmon.EVENT_BUS.register(acquisitions);
         FMLJavaModLoadingContext.get().getModEventBus().addListener((net.minecraftforge.event.entity.EntityAttributeCreationEvent event)->event.put(TERA_DEN.get(),net.minecraft.entity.LivingEntity.func_233639_cI_().func_233813_a_()));
@@ -119,6 +124,7 @@ public final class Backport {
         Pixelmon.EVENT_BUS.register(new BossDefeatAdvancements());
         Pixelmon.EVENT_BUS.register(new BattleVictorySound());
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new AuthorNameTag());
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new DivineSword.Events());
         Pixelmon.EVENT_BUS.register(new CapSpawns());
         Pixelmon.EVENT_BUS.register(new BurstRaidCapture());
         Pixelmon.EVENT_BUS.register(new BurstCapture());
@@ -143,6 +149,7 @@ public final class Backport {
             }
         }));
         Pixelmon.EVENT_BUS.register(this);
+        Pixelmon.EVENT_BUS.register(new GlowScaleDust.Events());
     }
     @SubscribeEvent(priority=EventPriority.LOWEST)
     public void heldItem(HeldItemChangedEvent event) {

@@ -1,0 +1,208 @@
+[
+  {
+    "name": "reported-six-representative-legal",
+    "members": [
+      {
+        "dex": 547,
+        "moves": [
+          "Moonblast",
+          "Encore",
+          "Taunt",
+          "Tailwind"
+        ],
+        "item": "focus_sash",
+        "ability": "Prankster"
+      },
+      {
+        "dex": 658,
+        "moves": [
+          "Surf",
+          "Ice Beam",
+          "Dark Pulse",
+          "Water Shuriken"
+        ],
+        "item": "life_orb",
+        "ability": "Protean"
+      },
+      {
+        "dex": 94,
+        "moves": [
+          "Shadow Ball",
+          "Sludge Bomb",
+          "Focus Blast",
+          "Taunt"
+        ],
+        "item": "life_orb"
+      },
+      {
+        "dex": 6,
+        "moves": [
+          "Flamethrower",
+          "Air Slash",
+          "Solar Beam",
+          "Roost"
+        ],
+        "item": "charizardite_y"
+      },
+      {
+        "dex": 894,
+        "moves": [
+          "Thunderbolt",
+          "Volt Switch",
+          "Electro Ball",
+          "Reflect"
+        ],
+        "item": "light_clay"
+      },
+      {
+        "dex": 716,
+        "moves": [
+          "Moonblast",
+          "Thunder",
+          "Focus Blast",
+          "Geomancy"
+        ],
+        "item": "power_herb"
+      }
+    ]
+  },
+  {
+    "name": "balance",
+    "members": [
+      {
+        "dex": 645,
+        "moves": [
+          "Earthquake",
+          "U-turn",
+          "Stone Edge",
+          "Stealth Rock"
+        ],
+        "item": "rocky_helmet",
+        "form": "therian"
+      },
+      {
+        "dex": 598,
+        "moves": [
+          "Power Whip",
+          "Gyro Ball",
+          "Leech Seed",
+          "Spikes"
+        ],
+        "item": "leftovers"
+      },
+      {
+        "dex": 80,
+        "moves": [
+          "Scald",
+          "Psychic",
+          "Slack Off",
+          "Teleport"
+        ],
+        "item": "heavy_duty_boots",
+        "ability": "Regenerator"
+      },
+      {
+        "dex": 823,
+        "moves": [
+          "Brave Bird",
+          "Body Press",
+          "Roost",
+          "Defog"
+        ],
+        "item": "heavy_duty_boots"
+      },
+      {
+        "dex": 36,
+        "moves": [
+          "Moonblast",
+          "Soft-Boiled",
+          "Calm Mind",
+          "Flamethrower"
+        ],
+        "item": "leftovers",
+        "ability": "MagicGuard"
+      },
+      {
+        "dex": 248,
+        "moves": [
+          "Stone Edge",
+          "Crunch",
+          "Earthquake",
+          "Fire Punch"
+        ],
+        "item": "assault_vest"
+      }
+    ]
+  },
+  {
+    "name": "stall",
+    "members": [
+      {
+        "dex": 242,
+        "moves": [
+          "Soft-Boiled",
+          "Seismic Toss",
+          "Toxic",
+          "Protect"
+        ],
+        "item": "leftovers",
+        "ability": "NaturalCure"
+      },
+      {
+        "dex": 227,
+        "moves": [
+          "Roost",
+          "Spikes",
+          "Whirlwind",
+          "Brave Bird"
+        ],
+        "item": "rocky_helmet",
+        "ability": "Sturdy"
+      },
+      {
+        "dex": 748,
+        "moves": [
+          "Recover",
+          "Scald",
+          "Haze",
+          "Toxic"
+        ],
+        "item": "black_sludge",
+        "ability": "Regenerator"
+      },
+      {
+        "dex": 472,
+        "moves": [
+          "Earthquake",
+          "Roost",
+          "Toxic",
+          "Protect"
+        ],
+        "item": "toxic_orb",
+        "ability": "PoisonHeal"
+      },
+      {
+        "dex": 195,
+        "moves": [
+          "Recover",
+          "Scald",
+          "Earthquake",
+          "Toxic"
+        ],
+        "item": "leftovers",
+        "ability": "Unaware"
+      },
+      {
+        "dex": 302,
+        "moves": [
+          "Recover",
+          "Knock Off",
+          "Will-O-Wisp",
+          "Taunt"
+        ],
+        "item": "leftovers",
+        "ability": "Prankster"
+      }
+    ]
+  }
+]
