@@ -52,6 +52,11 @@ public final class FieldMega {
     public static boolean transformed(Pokemon p){return p!=null && (p.getForm().getName().startsWith("mega") || primalSpecies(p) && p.getForm().isForm("primal") || crownedSpecies(p) && p.getForm().isForm("crowned") || necrozmaSpecies(p) && p.getForm().isForm("ultra"));}
     private static Stats target(Pokemon p,Stats base){
         if(p.isEgg() || base==null || PermanentAsh.blockedOrdinaryStone(p))return null;
+        // Earned Ash forms deliberately have no native battle Mega routes.
+        // Resolve the dedicated field route without granting an ordinary stone
+        // or changing the native battle/Battle Bond eligibility tables.
+        if(p.getSpecies().getDex()==658&&PermanentAsh.isAsh(base)&&!base.getName().startsWith("mega")
+            &&p.getHeldItem().func_77973_b()==Backport.item("ash_greninjite"))return p.getSpecies().getForm(PermanentAsh.MEGA);
         if(terapagos(p))return p.getSpecies().getForm(base.isForm("normal")?"terastal":base.isForm("terastal")?"stellar":"normal");
         if(ogerpon(p))return p.getHeldItemAsItemHeld() instanceof Backport.Mask?p.getSpecies().getForm("tera"+((Backport.Mask)p.getHeldItemAsItemHeld()).form):null;
         if(necrozmaSpecies(p))return com.pixelmonmod.pixelmon.battles.controller.participants.PixelmonWrapper.canUltraBurst(p.getSpecies(),p.getHeldItemAsItemHeld(),base)?p.getSpecies().getForm("ultra"):null;

@@ -53,7 +53,7 @@ public final class DisposableTeraDisc extends TechnicalMoveItem {
         if(pokemon.getMoveset().hasAttack(attack)){player.func_146105_b(new TranslationTextComponent("pixelmon.interaction.tmknown",pokemon.getNickname(),attack.getTranslatedName()),false);return true;}
         UUID id=pokemon.getUUID();ItemStack cost=new ItemStack(stack.func_77973_b());
         if(pokemon.getMoveset().size()>=4){
-            LearnMoveController.sendLearnMove(player,id,attack,p->pay(p,id,cost));
+            TeraMachineLearning.sendMachine(player,id,attack,p->pay(p,id,cost),stack);
         }else if(pay(player,id,cost)){
             pokemon.getMoveset().add(new Attack(attack));entity.update(EnumUpdateType.Moveset);
             player.func_146105_b(new TranslationTextComponent("pixelmon.stats.learnedmove",pokemon.getNickname(),attack.getTranslatedName()),false);

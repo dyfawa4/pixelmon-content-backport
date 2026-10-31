@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "TBR",
+    " M "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:sugar"
+    },
+    "T": {
+      "item": "pixelmon:thick_club"
+    },
+    "B": {
+      "item": "minecraft:bone"
+    },
+    "R": {
+      "item": "pixelmon:rare_bone"
+    },
+    "M": {
+      "item": "pixelmon:mug_base"
+    }
+  },
+  "result": {
+    "item": "pixelmon:curry_rich",
+    "count": 1
+  }
+}

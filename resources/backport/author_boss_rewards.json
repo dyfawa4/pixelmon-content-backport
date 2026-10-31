@@ -647,6 +647,11 @@
       "item": "pixelmon:soul_dew",
       "count": 1,
       "display_zh": "心之水滴"
+    },
+    {
+      "item": "pixelmon_backport:fruit_collector",
+      "count": 1,
+      "display_zh": "果实收集器"
     }
   ]
 }

@@ -3043,5 +3043,10 @@
   "item.pixelmon.sky_tumblestone": "天蓝玉石",
   "item.pixelmon.raw_tumblestone": "未加工的玉石",
   "item.pixelmon.raw_sky_tumblestone": "未加工的天蓝玉石",
-  "item.pixelmon.raw_black_tumblestone": "未加工的黑玉石"
+  "item.pixelmon.raw_black_tumblestone": "未加工的黑玉石",
+  "item.pixelmon.repel.tooltip": "使用后，一段时间内周围不再生成宝可梦",
+  "item.pixelmon.super_repel.tooltip": "使用后，一段时间内周围不再生成宝可梦",
+  "item.pixelmon.max_repel.tooltip": "使用后，一段时间内周围不再生成宝可梦",
+  "item.pixelmon.repel.apply": "喷雾已生效！一段时间内周围不再生成宝可梦。",
+  "item.pixelmon.repel.applyextended": "喷雾时效已延长！一段时间内周围不再生成宝可梦。"
 }

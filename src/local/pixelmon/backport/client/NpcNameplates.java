@@ -13,6 +13,7 @@ public final class NpcNameplates {
         if(npc.func_200201_e()!=null)return npc.func_200201_e().getString();
         if(npc.getNickName()!=null&&!npc.getNickName().isBlank())return npc.getNickName();
         String name=npc.func_200200_C_().getString();
+        if(npc instanceof NPCFisherman&&(name.isBlank()||name.equals("Old Fisherman")))return I18n.func_135052_a("pixelmon.backport.npc.fisherman_name");
         if(npc instanceof NPCTrainer){
             NPCTrainer trainer=(NPCTrainer)npc;
             // Stock trainers store a name-list index (often "0"), not a label.
@@ -23,7 +24,7 @@ public final class NpcNameplates {
             }
             if(name.isBlank()||trainer.usingDefaultName&&index(name))return I18n.func_135052_a("pixelmon.backport.npc.trainer");
         }
-        if(!name.isBlank())return name;
+        if(!name.isBlank())return local.pixelmon.backport.NpcLocalization.translate(name,Minecraft.func_71410_x().field_71474_y.field_74363_ab);
         if(npc instanceof NPCNurseJoy)return I18n.func_135052_a(npc.getTextureIndex()==1?"pixelmon.backport.npc.joy":"pixelmon.backport.npc.doctor");
         return I18n.func_135052_a("pixelmon.backport.npc.villager");
     }

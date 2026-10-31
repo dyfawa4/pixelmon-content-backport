@@ -7,6 +7,7 @@ p=argparse.ArgumentParser();p.add_argument('--version-json',type=pathlib.Path,re
 p.add_argument('--minecraft-root',type=pathlib.Path,required=True)
 p.add_argument('--pixelmon',type=pathlib.Path,required=True)
 p.add_argument('--instance-name',help='Separate private instance folder name; letters, digits and hyphens only')
+p.add_argument('--qa-username',default='BackportVisualTest',help='Synthetic offline identity in a private QA instance')
 p.add_argument('--manual',action='store_true',help='Launch a separate normal menu for manual acceptance, with current helper and initial maps; no automatic QA')
 p.add_argument('--map-helper',type=pathlib.Path,help='Current compiled manual map helper JAR')
 p.add_argument('--addon-jar',type=pathlib.Path,help='Explicit local addon for comparing a saved baseline in a private instance')
@@ -18,6 +19,7 @@ p.add_argument('--full-pack',action='store_true',help='Copy enabled pack mods/co
 p.add_argument('--ui-preview',action='store_true',help='Run private Tera settings input and screenshot checks at the menu')
 p.add_argument('--gym-map',choices=['normal','fire','water','electric','grass','ice','fighting','poison','ground','flying','psychic','bug','rock','ghost','dragon','dark','steel','fairy'],help='Open one isolated gym inspection world with the feedback client test')
 a=p.parse_args()
+if not __import__('re').fullmatch(r'Backport[A-Za-z0-9_]{1,16}',a.qa_username):p.error('Only synthetic Backport-prefixed QA names are allowed')
 if a.manual and (not a.instance_name or not a.map_helper or a.ui_preview or a.field_wheel_preview or a.gym_map):
     p.error('--manual requires --instance-name and --map-helper, and cannot use automatic preview modes')
 a.version_json=a.version_json.resolve();a.minecraft_root=a.minecraft_root.resolve()
@@ -66,6 +68,12 @@ if a.full_pack:
     for name in ['config','defaultconfigs','kubejs','scripts','shaderpacks']:
         source=a.version_json.parent/name
         if source.is_dir():shutil.copytree(source,gamedir/name,dirs_exist_ok=True)
+    # Only the private QA copy: zero invisible FPS prevents hidden native GUI
+    # probes from completing their render callbacks. Keep the user's pack untouched.
+    dynamic=gamedir/'config/dynamic_fps.json'
+    if a.manual and dynamic.is_file():
+        settings=json.loads(dynamic.read_text('utf-8-sig'));settings['enabled']=False
+        dynamic.write_text(json.dumps(settings,indent=2)+'\n',encoding='utf-8')
     if not a.manual:shutil.copy2(root/'.cache/test-client/mods/backport-client-test.jar',gamedir/'mods/backport-client-test.jar')
 if a.manual:
     shutil.copy2(a.map_helper,gamedir/'mods'/a.map_helper.name)
@@ -165,9 +173,9 @@ args=[build['java'],'-XX:-OmitStackTraceInFastThrow','-Xms1G',f'-Xmx{a.memory_gb
       '-Dbackport.ui.preview='+str(a.ui_preview).lower(),
       '-Dbackport.gym.preview='+(a.gym_map or ''),
       '--add-exports=java.base/sun.security.util=ALL-UNNAMED','--add-opens=java.base/java.util.jar=ALL-UNNAMED',
-      '-cp',os.pathsep.join(cp),version['mainClass'],'--username','BackportVisualTest',
+      '-cp',os.pathsep.join(cp),version['mainClass'],'--username',a.qa_username,
       '--version','Backport-Java11-QA','--gameDir',str(gamedir),'--assetsDir',str(a.minecraft_root/'assets'),
-      '--assetIndex',version['assets'],'--uuid',uuid.uuid3(uuid.NAMESPACE_DNS,'BackportVisualTest').hex,
+      '--assetIndex',version['assets'],'--uuid',uuid.uuid3(uuid.NAMESPACE_DNS,a.qa_username).hex,
       '--accessToken','0','--userType','legacy','--versionType','release','--width','1280','--height','800',
       '--launchTarget','fmlclient','--fml.forgeVersion','36.2.42','--fml.mcVersion','1.16.5',
       '--fml.forgeGroup','net.minecraftforge','--fml.mcpVersion','20210115.111550']

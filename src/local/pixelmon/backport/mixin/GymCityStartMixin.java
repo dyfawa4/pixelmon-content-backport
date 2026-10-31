@@ -20,6 +20,8 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 public abstract class GymCityStartMixin {
     @Inject(method="generatePieces",at=@At("HEAD"),cancellable=true)
     private void backport$outerIslands(DynamicRegistries registries,ChunkGenerator generator,TemplateManager templates,int x,int z,net.minecraft.world.biome.Biome biome,GymConfig config,CallbackInfo ci){
+        var biomeId=registries.func_243612_b(net.minecraft.util.registry.Registry.field_239720_u_).func_177774_c(biome);
+        if(!GymCities.allowsBiome(biomeId,config)){ci.cancel();return;}
         if(EndGymCities.psychic(config)&&!EndGymCities.eligible(generator,biome,x,z))ci.cancel();
     }
     @Redirect(method="generatePieces",at=@At(value="INVOKE",target="Lnet/minecraft/world/gen/feature/jigsaw/JigsawManager;func_242837_a(Lnet/minecraft/util/registry/DynamicRegistries;Lnet/minecraft/world/gen/feature/structure/VillageConfig;Lnet/minecraft/world/gen/feature/jigsaw/JigsawManager$IPieceFactory;Lnet/minecraft/world/gen/ChunkGenerator;Lnet/minecraft/world/gen/feature/template/TemplateManager;Lnet/minecraft/util/math/BlockPos;Ljava/util/List;Ljava/util/Random;ZZ)V"))

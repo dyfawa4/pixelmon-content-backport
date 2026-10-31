@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "MMM",
+    "MCM",
+    " S "
+  ],
+  "key": {
+    "M": {
+      "item": "pixelmon:max_mushroom"
+    },
+    "C": {
+      "item": "pixelmon:dynamax_candy"
+    },
+    "S": {
+      "item": "pixelmon:max_soup"
+    }
+  },
+  "result": {
+    "item": "pixelmon:curry_gigantamix",
+    "count": 1
+  }
+}

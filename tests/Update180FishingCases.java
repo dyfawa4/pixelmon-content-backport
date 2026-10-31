@@ -24,7 +24,7 @@ public final class Update180FishingCases {
         var vanilla=new ItemStack(Items.field_151112_aM);int rods=0,table=0;
         for(var item:ForgeRegistries.ITEMS)if(item instanceof FishingRodItem){
             rods++;var rod=new ItemStack(item);check(rod.func_77956_u()&&item.func_77619_b()==vanilla.func_77973_b().func_77619_b(),"Vanilla enchanting value: "+item.getRegistryName());
-            for(var enchantment:ForgeRegistries.ENCHANTMENTS)check(enchantment.func_92089_a(rod)==enchantment.func_92089_a(vanilla),"Vanilla applicability "+enchantment.getRegistryName()+" / "+item.getRegistryName());
+            for(var enchantment:ForgeRegistries.ENCHANTMENTS)check(enchantment.func_92089_a(rod)==(enchantment.func_92089_a(vanilla)||(FishingEnchantments.supported(rod)&&FishingEnchantments.bookOnly(enchantment))),"Native applicability with 1.10 book-only rod exceptions "+enchantment.getRegistryName()+" / "+item.getRegistryName());
             for(int seed=0;seed<100;seed++){check(table(rod,seed).equals(table(vanilla,seed)),"Native enchanting table roll parity "+item.getRegistryName());table++;}
             for(String id:List.of("lure","luck_of_the_sea","unbreaking","mending","vanishing_curse")){
                 var container=new RepairContainer(31,p.field_71071_by);var book=new ItemStack(Items.field_151134_bR);EnchantedBookItem.func_92115_a(book,new EnchantmentData(ench(id),1));container.func_75139_a(0).func_75215_d(rod.func_77946_l());container.func_75139_a(1).func_75215_d(book);container.func_82848_d();var result=container.func_75139_a(2).func_75211_c();check(!result.func_190926_b()&&EnchantmentHelper.func_77506_a(ench(id),result)==1,"Native anvil book application "+id+" / "+item.getRegistryName());

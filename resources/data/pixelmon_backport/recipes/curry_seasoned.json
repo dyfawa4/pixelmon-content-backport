@@ -1,0 +1,29 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " O ",
+    "RPW",
+    " B "
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:orange_tulip"
+    },
+    "R": {
+      "item": "minecraft:red_tulip"
+    },
+    "P": {
+      "item": "minecraft:pink_tulip"
+    },
+    "W": {
+      "item": "minecraft:white_tulip"
+    },
+    "B": {
+      "item": "minecraft:glass_bottle"
+    }
+  },
+  "result": {
+    "item": "pixelmon:curry_seasoned",
+    "count": 1
+  }
+}

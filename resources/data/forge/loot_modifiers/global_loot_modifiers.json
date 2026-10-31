@@ -1,6 +1,7 @@
 {
   "replace": false,
   "entries": [
-    "pixelmon_backport:exploration_masks"
+    "pixelmon_backport:exploration_masks",
+    "pixelmon_backport:fruit_collector"
   ]
 }

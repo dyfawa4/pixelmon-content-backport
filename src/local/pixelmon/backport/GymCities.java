@@ -36,6 +36,11 @@ public final class GymCities {
         net.minecraft.world.gen.feature.jigsaw.JigsawPattern loaded=registries.func_243612_b(net.minecraft.util.registry.Registry.field_243555_ax).func_82594_a(start.func_214947_b());
         return loaded==null || loaded.func_214946_c()==0?original:new com.pixelmonmod.pixelmon.world.structure.type.GymConfig(()->loaded,original.func_236534_a_(),original.doesTransformSurroundingLand());
     }
+    /** Ultra Deep Sea uses MESA internally, but is not a ground-gym biome. */
+    public static boolean allowsBiome(net.minecraft.util.ResourceLocation biome,com.pixelmonmod.pixelmon.world.structure.type.GymConfig config){
+        return !new net.minecraft.util.ResourceLocation("pixelmon:ultra_deep_sea").equals(biome)
+            || !GymThemePaths.poolTypes(config.func_242810_c().get().func_214947_b().toString()).contains("ground");
+    }
     public static final JsonObject DATA;
     static {
         try(InputStream in=GymCities.class.getClassLoader().getResourceAsStream("backport/gym_cities.json")){
@@ -109,6 +114,12 @@ public final class GymCities {
         @SubscribeEvent(priority=net.minecraftforge.eventbus.api.EventPriority.LOWEST)
         public void biome(net.minecraftforge.event.world.BiomeLoadingEvent event){
             if(event.getName()==null)return;
+            event.getGeneration().getStructures().removeIf(s->{
+                var feature=s.get();
+                return feature.field_236268_b_==com.pixelmonmod.pixelmon.world.structure.PixelmonStructures.GYMS.get()
+                    && feature.field_236269_c_ instanceof com.pixelmonmod.pixelmon.world.structure.type.GymConfig
+                    && !allowsBiome(event.getName(),(com.pixelmonmod.pixelmon.world.structure.type.GymConfig)feature.field_236269_c_);
+            });
             for(Map.Entry<String,JsonElement> entry:DATA.getAsJsonObject("newThemes").entrySet()){
                 boolean matches=false;for(JsonElement biome:entry.getValue().getAsJsonObject().getAsJsonArray("biomes"))matches|=biome.getAsString().equals(event.getName().toString());
                 if(!matches)continue;
@@ -119,7 +130,11 @@ public final class GymCities {
             }
         }
         @SubscribeEvent public void join(EntityJoinWorldEvent event){
-            if(!event.getWorld().field_72995_K && event.getEntity() instanceof NPCTrainer)initialize((NPCTrainer)event.getEntity());
+            if(!event.getWorld().field_72995_K && event.getEntity() instanceof NPCTrainer){
+                NPCTrainer npc=(NPCTrainer)event.getEntity();initialize(npc);
+                if(!npc.getPersistentData().func_74767_n("BackportNpcDisable") && theme(npc)!=null)
+                    for(Pokemon pokemon:npc.getPokemonStorage().getAll())if(pokemon!=null)NpcTraining.optimizeNature(pokemon);
+            }
         }
     }
 }

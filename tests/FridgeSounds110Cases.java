@@ -1,0 +1,21 @@
+package qa;
+import java.util.*;import net.minecraft.entity.player.*;import net.minecraft.network.*;import net.minecraft.network.play.server.*;import net.minecraft.util.*;import net.minecraft.util.math.*;import net.minecraft.util.math.vector.Vector3d;
+public final class FridgeSounds110Cases {
+ static int checks;static void check(boolean b,String s){checks++;if(!b)throw new AssertionError(s);}
+ static class Capture extends net.minecraft.network.play.ServerPlayNetHandler {
+  List<SPlaySoundEffectPacket> sounds=new ArrayList<>();Capture(ServerPlayerEntity p){super(p.func_184102_h(),new NetworkManager(PacketDirection.SERVERBOUND),p);}
+  @Override public void func_147359_a(IPacket<?> packet){if(packet instanceof SPlaySoundEffectPacket)sounds.add((SPlaySoundEffectPacket)packet);}
+  @Override public void func_211148_a(IPacket<?> packet,io.netty.util.concurrent.GenericFutureListener<? extends io.netty.util.concurrent.Future<? super Void>> l){func_147359_a(packet);}
+ }
+ static long count(Capture c,String id){return c.sounds.stream().filter(s->s.func_186978_a().getRegistryName().toString().equals("minecraft:block.barrel."+id)).count();}
+ public static void run(ServerPlayerEntity p)throws Exception{
+  var w=p.func_71121_q();var base=new BlockPos(20,90,20);for(int x=16;x<=25;x++)for(int z=16;z<=25;z++)w.func_180501_a(new BlockPos(x,89,z),net.minecraft.block.Blocks.field_150348_b.func_176223_P(),3);w.func_180501_a(base,net.minecraftforge.registries.ForgeRegistries.BLOCKS.getValue(new ResourceLocation("pixelmon:fridge")).func_176223_P(),3);p.func_70634_a(20.5,90,18.5);var connection=p.field_71135_a;var capture=new Capture(p);p.field_71135_a=capture;
+  try{
+   var fridge=w.func_180495_p(base).func_177230_c();for(int height:new int[]{0,1}){capture.sounds.clear();p.func_226284_e_(false);var pos=base.func_177982_a(0,height,0);var state=w.func_180495_p(pos);var hit=new BlockRayTraceResult(new Vector3d(20.5,90.5+height,20),Direction.NORTH,pos,false);state.func_227031_a_(w,p,Hand.MAIN_HAND,hit);check(count(capture,"open")==1&&count(capture,"close")==0,"Native GUI opens once from height "+height);p.func_71128_l();check(count(capture,"close")==1,"Native GUI close once from height "+height);}
+   var inventory=(net.minecraft.inventory.IInventory)w.func_175625_s(base);var guest=new ServerPlayerEntity(p.func_184102_h(),w,new com.mojang.authlib.GameProfile(UUID.randomUUID(),"BackportGuest"),new net.minecraft.server.management.PlayerInteractionManager(w));guest.field_71135_a=new Capture(guest);capture.sounds.clear();var a=new net.minecraft.inventory.container.ChestContainer(net.minecraft.inventory.container.ContainerType.field_221509_c,81,p.field_71071_by,inventory,3);var b=new net.minecraft.inventory.container.ChestContainer(net.minecraft.inventory.container.ContainerType.field_221509_c,82,guest.field_71071_by,inventory,3);check(count(capture,"open")==1,"Second viewer no duplicate open");a.func_75134_a(p);check(count(capture,"close")==0,"First viewer close keeps fridge open");b.func_75134_a(guest);check(count(capture,"close")==1,"Last viewer closes once");b.func_75134_a(guest);check(count(capture,"close")==1,"Repeated close no duplicate sound");
+   capture.sounds.clear();p.func_226284_e_(true);p.func_213301_b(net.minecraft.entity.Pose.CROUCHING);for(int i=0;i<2;i++){var state=w.func_180495_p(base);state.func_227031_a_(w,p,Hand.MAIN_HAND,new BlockRayTraceResult(new Vector3d(20.5,90.5,20),Direction.NORTH,base,false));}p.func_226284_e_(false);p.func_213301_b(net.minecraft.entity.Pose.STANDING);check(count(capture,"open")==1&&count(capture,"close")==1,"Native physical door toggle uses barrel open/close");for(var sound:capture.sounds){check(sound.func_186977_b()==SoundCategory.BLOCKS,"Block category");check(Math.abs(sound.func_149207_d()-20.5)<.01&&Math.abs(sound.func_149211_e()-90.5)<.01,"Sound centered at fridge");}
+   CollectorRules110Cases.run(p,capture);
+  }finally{p.func_226284_e_(false);p.field_71135_a=connection;}
+  java.nio.file.Files.writeString(java.nio.file.Path.of("fridge-sounds110-pass.txt"),"PASS "+checks+"; actual native container opens/closes at both heights, two viewers first-open/last-close, repeated close idempotent, physical door toggle, vanilla barrel events, server block position/category");
+ }
+}

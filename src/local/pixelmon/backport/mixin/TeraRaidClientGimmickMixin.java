@@ -15,6 +15,8 @@ public abstract class TeraRaidClientGimmickMixin {
     @Inject(method={"canMegaEvolve()Z","canDynamax()Z","canUltraBurst()Z","canUseZMove()Z"},at=@At("HEAD"),cancellable=true)
     private void backport$onlyTera(CallbackInfoReturnable<Boolean> cir){
         ClientBattleManager manager=(ClientBattleManager)(Object)this;
-        if(TeraRaidGimmicks.restricted(manager)){TeraRaidGimmicks.clear(manager);cir.setReturnValue(false);}
+        if(TeraRaidGimmicks.blocked(manager,manager.getCurrentPokemon())){TeraRaidGimmicks.clear(manager);cir.setReturnValue(false);}
     }
+    @Inject(method={"canMegaEvolve(Lcom/pixelmonmod/pixelmon/client/gui/battles/PixelmonClientData;)Z","canDynamax(Lcom/pixelmonmod/pixelmon/client/gui/battles/PixelmonClientData;)Z","canUltraBurst(Lcom/pixelmonmod/pixelmon/client/gui/battles/PixelmonClientData;)Z","canUseZMove(Lcom/pixelmonmod/pixelmon/client/gui/battles/PixelmonClientData;)Z"},at=@At("HEAD"),cancellable=true)
+    private void backport$activePokemon(com.pixelmonmod.pixelmon.client.gui.battles.PixelmonClientData data,CallbackInfoReturnable<Boolean> cir){if(TeraRaidGimmicks.blocked((ClientBattleManager)(Object)this,data))cir.setReturnValue(false);}
 }

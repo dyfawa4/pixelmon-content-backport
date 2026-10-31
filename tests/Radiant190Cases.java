@@ -63,7 +63,7 @@ public final class Radiant190Cases {
         for(int i=0;i<36;i++)player.field_71071_by.func_70299_a(i,ItemStack.field_190927_a);
         recipe(player,ball);
         var karp=mon(129);for(var gender:com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender.values()){if(gender==com.pixelmonmod.pixelmon.api.pokemon.species.gender.Gender.NONE)continue;karp.setGender(gender);for(var palette:karp.getGenderProperties().getPalettes()){
-            karp.setPalette(palette);boolean expected=!karp.isDefaultPalette();
+            karp.setPalette(palette);boolean expected=palette.getName().equalsIgnoreCase("shiny");
             check(GlowScaleDust.qualifies(karp)==expected,"Magikarp palette eligibility "+palette.getName());
             loot(player,karp,expected);palettes++;
         }}
@@ -83,11 +83,11 @@ public final class Radiant190Cases {
             check(!MovingAgreement.change(player,p.getUUID(),"poke_ball","radiant_ball"),"Stale moving request cannot repeat costs");
         }
         capGuards(player,ball);
-        var boss=mon(129);boss.setShiny(true);var bossEntity=new PixelmonEntity(player.field_70170_p,boss);bossEntity.setBossTier(com.pixelmonmod.pixelmon.api.pokemon.boss.BossTierRegistry.getBossTierOrNotBoss("rare"));bossEntity.getPokemon().setShiny(true);check(bossEntity.getPokemon().isShiny(),"Boss fixture has actual shiny palette after native tier coloring");int beforeBoss=dust(player);DropItemQueryList.removeQuery(player);bossEntity.dropBossItems(player);DropItemQueryList.takeAllItems(player);check(dust(player)==beforeBoss+1,"Native boss reward claim includes one powder");bossEntity.func_70106_y();
+        var boss=mon(129);boss.setShiny(true);var bossEntity=new PixelmonEntity(player.field_70170_p,boss);bossEntity.setBossTier(com.pixelmonmod.pixelmon.api.pokemon.boss.BossTierRegistry.getBossTierOrNotBoss("rare"));bossEntity.getPokemon().setShiny(true);check(bossEntity.getPokemon().isShiny(),"Boss fixture has actual shiny palette after native tier coloring");int beforeBoss=dust(player);DropItemQueryList.removeQuery(player);bossEntity.dropBossItems(player);DropItemQueryList.takeAllItems(player);check(dust(player)==beforeBoss,"Native boss reward claim excludes powder");bossEntity.func_70106_y();
         var cap=mon(CapSpecies.DEX);check(CapBallPreference.forbidden(ball,cap)&&!CapBallPreference.forbidden(ball,mon(25)),"Cap forbidden; ordinary Pikachu unaffected");
         var raidMon=mon(129);raidMon.setShiny(true);var rp=new com.pixelmonmod.pixelmon.battles.raids.RaidData.RaidPlayer(0,player,mon(1));
-        var drops=new RaidDropsEvent(null,rp,null,raidMon,new ArrayList<>(),true);Pixelmon.EVENT_BUS.post(drops);new GlowScaleDust.Events().raid(drops);
-        check(drops.getDrops().stream().filter(s->s.func_77973_b() instanceof GlowScaleDust).mapToInt(ItemStack::func_190916_E).sum()==1,"Raid reward addition idempotent");
+        var drops=new RaidDropsEvent(null,rp,null,raidMon,new ArrayList<>(),true);Pixelmon.EVENT_BUS.post(drops);
+        check(drops.getDrops().stream().filter(s->s.func_77973_b() instanceof GlowScaleDust).mapToInt(ItemStack::func_190916_E).sum()==0,"Raid Boss reward excludes powder");
         for(int n=0;n<2;n++){var p=mon(129);p.setShiny(n==1);p.setBall(ball);party.set(n,p);}
         Files.writeString(Path.of("radiant190-relog-ready"),"native save/restart expected");
         String result="{\"assertions\":"+assertions+",\"magikarpPalettes\":"+palettes+",\"nativeCaptures\":"+captures+",\"pass\":true}";

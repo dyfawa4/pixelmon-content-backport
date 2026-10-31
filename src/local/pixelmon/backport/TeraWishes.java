@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.*;
-/** Reuse the native held/thrown-item paths, while selecting from the independent Tera habitat pool. */
+/** Reuse native held/thrown-item paths with the independent Tera encounter pool. */
 public final class TeraWishes {
  private TeraWishes(){}
  public static boolean item(Item item){return item==PixelmonItems.wishing_piece||item==PixelmonItems.waterdude_wishing_piece;}

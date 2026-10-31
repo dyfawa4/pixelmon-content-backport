@@ -7,13 +7,13 @@
   ],
   "key": {
     "S": {
-      "item": "minecraft:shroomlight"
+      "item": "pixelmon_backport:glow_scale_dust"
     },
     "D": {
       "item": "pixelmon_backport:glow_scale_dust"
     },
     "G": {
-      "item": "minecraft:glowstone"
+      "item": "pixelmon_backport:glow_scale_dust"
     },
     "A": {
       "item": "pixelmon:shiny_stone"

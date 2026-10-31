@@ -61,7 +61,13 @@ def main():
             if path.startswith('data/pixelmon/species/') and path.endswith('.json'):
                 species=json.loads(z.read(path));forms=[f['name'] for f in species['forms'] if 'Tera Blast' in f.get('moves',{}).get('tmMoves9',[])]
                 if forms and species['dex']<=1025:compat[str(species['dex'])]=forms
-        (ROOT/'resources/backport/tera_learning.json').write_text(json.dumps(compat,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+        # Modern JSON omits inherited TM entries on some species/forms. Preserve
+        # the separately audited legacy mappings when refreshing raid data.
+        learning=ROOT/'resources/backport/tera_learning.json'
+        if learning.exists():
+            for dex,forms in json.loads(learning.read_text('utf-8')).items():
+                compat[dex]=list(dict.fromkeys(compat.get(dex,[])+forms))
+        learning.write_text(json.dumps(compat,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
         manifest={'source':'Pixelmon 9.4.1 Tera encounters; independent legacy pack rewards',
                   'encounters':encounters,'rewards':rewards,'substitutions':substitutions}
         (ROOT/'resources/backport/tera_raids.json').write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')

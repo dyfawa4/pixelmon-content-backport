@@ -19,7 +19,7 @@ public final class NpcMedicine {
     public static void prepare(TrainerParticipant p){Bag bag=new Bag();bag.leader=GymCities.isLeader(p.trainer)||AuthorBossTeams.is(p.trainer);BAGS.put(p,bag);}
     public static double value(PixelmonWrapper member,PixelmonWrapper own){
         double score=0;for(var attack:member.getMoveset())if(attack.getAttackCategory()!=AttackCategory.STATUS)
-            for(PixelmonWrapper enemy:own.getOpponentPokemon())score=Math.max(score,attack.getMove().getBasePower()*Element.getTotalEffectiveness(enemy.type,attack.getType()));
+            for(PixelmonWrapper enemy:own.getOpponentPokemon())score=Math.max(score,attack.getMove().getBasePower()*AuthorPiercing.effectiveness(member,enemy,attack,Element.getTotalEffectiveness(enemy.type,attack.getType())));
         double bulk=member.getMaxHealth()/300.0;
         return score*(1+Math.min(1,bulk)*.2)+(member.pokemon.getPersistentData().func_74767_n(GymAcePolicy.MARKER)?45:0);
     }
@@ -70,10 +70,10 @@ public final class NpcMedicine {
             double best=-1,reserve=0;int alive=0;
             for(PixelmonWrapper member:p.getParticipant().allPokemon)if(member.isAlive()){alive++;reserve=Math.max(reserve,value(member,p));}
             for(PixelmonWrapper member:p.getParticipant().allPokemon)if(!member.isAlive() && !member.onBattlefield){
-                double value=value(member,p);
+                double value=AuthorPiercing.revivedValue(member,p);
                 if(value>best){best=value;target=member;}
             }
-            if(target!=null&&(!bag.leader||NpcRevivePolicy.worthwhile(p.getHealth(),Math.max(incoming,future*.35),alive,best,reserve)))medicine=new ItemStack(bag.leader?PixelmonItems.max_revive:PixelmonItems.revive);
+            if(target!=null&&(!bag.leader||NpcRevivePolicy.worthwhile(p.getHealth(),Math.max(incoming,future*.35),alive,best-AuthorPiercing.revivalCost(p),reserve)))medicine=new ItemStack(bag.leader?PixelmonItems.max_revive:PixelmonItems.revive);
             else target=null;
         }
         if(target==null)return false;

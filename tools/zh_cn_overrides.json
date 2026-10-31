@@ -106,5 +106,10 @@
   "pixelmon.backport.tera.ui.success": "更改成功",
   "pixelmon.backport.tera.ui.rejected": "更改未成功，请检查道具和队伍状态",
   "pixelmon.backport.tera.ui.terapagos": "太乐巴戈斯固定为星晶属性",
-  "itemGroup.pixelmon_backport": "重铸内容回迁"
+  "itemGroup.pixelmon_backport": "重铸内容回迁",
+  "item.pixelmon.repel.tooltip": "使用后，一段时间内周围不再生成宝可梦",
+  "item.pixelmon.super_repel.tooltip": "使用后，一段时间内周围不再生成宝可梦",
+  "item.pixelmon.max_repel.tooltip": "使用后，一段时间内周围不再生成宝可梦",
+  "item.pixelmon.repel.apply": "喷雾已生效！一段时间内周围不再生成宝可梦。",
+  "item.pixelmon.repel.applyextended": "喷雾时效已延长！一段时间内周围不再生成宝可梦。"
 }

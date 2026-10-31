@@ -22,13 +22,15 @@ import java.util.*;
 @Mixin(value=DenEntity.class,remap=false)
 public abstract class DenCapExclusionMixin {
     @Shadow private boolean lockout;
+    @Redirect(method="attemptWishingPiece",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/battles/raids/RaidRandomizer;getRandomRaid(Lcom/pixelmonmod/pixelmon/entities/DenEntity;Z)Ljava/util/Optional;"))
+    private Optional<RaidData> backport$manualPool(DenEntity den,boolean forced){return local.pixelmon.backport.ManualDenEncounters.choose(den,()->com.pixelmonmod.pixelmon.battles.raids.RaidRandomizer.getRandomRaid(den,forced));}
+    @Redirect(method="attemptWishingPiece",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/entities/DenEntity;setData(Lcom/pixelmonmod/pixelmon/battles/raids/RaidData;)V"))
+    private void backport$manualResult(DenEntity den,RaidData data){local.pixelmon.backport.ManualDenEncounters.set(den,data);}
     @Unique private List<Species> backport$wishingCandidates(Predicate<Species> nativeRule){
-        DenEntity den=(DenEntity)(Object)this;
-        TeraRaidHabitats.Context habitat=den instanceof TeraDenEntity?new TeraRaidHabitats.Context(den.field_70170_p,den.func_233580_cy_()):null;
         List<Species> choices=new ArrayList<>();
         for(int dex:PixelmonSpecies.getLegendaries(false)){
             Species species=PixelmonSpecies.fromNationalDex(dex);
-            if(species!=null&&RaidSpawnExclusions.allowed(dex)&&nativeRule.test(species)&&(habitat==null?TeraRaidHabitats.allowedNative(den.field_70170_p,den.func_233580_cy_(),dex,species.getDefaultForm().getName()):habitat.allowed(Integer.toString(dex))))choices.add(species);
+            if(species!=null&&RaidSpawnExclusions.allowed(dex)&&nativeRule.test(species))choices.add(species);
         }
         return choices;
     }
@@ -43,7 +45,7 @@ public abstract class DenCapExclusionMixin {
     @Redirect(method="attemptWishingPiece",at=@At(value="INVOKE",target="Lcom/pixelmonmod/pixelmon/api/registries/PixelmonSpecies;getRandomLegendary(Ljava/util/function/Predicate;)Lcom/pixelmonmod/pixelmon/api/pokemon/species/Species;"))
     private Species backport$noCapLegendary(Predicate<Species> nativeRule){
         DenEntity den=(DenEntity)(Object)this;
-        if(!(den instanceof TeraDenEntity))return PixelmonSpecies.getRandomLegendary(s->s!=null&&RaidSpawnExclusions.allowed(s.getDex())&&nativeRule.test(s)&&TeraRaidHabitats.allowedNative(den.field_70170_p,den.func_233580_cy_(),s.getDex(),s.getDefaultForm().getName()));
+        if(!(den instanceof TeraDenEntity))return PixelmonSpecies.getRandomLegendary(s->s!=null&&RaidSpawnExclusions.allowed(s.getDex())&&nativeRule.test(s));
         List<Species> choices=backport$wishingCandidates(nativeRule);
         return choices.get(den.func_70681_au().nextInt(choices.size()));
     }
@@ -51,7 +53,7 @@ public abstract class DenCapExclusionMixin {
     private RaidData backport$allowedData(RaidData data){
         if(data==null||data.getStars()<0)return data;
         DenEntity den=(DenEntity)(Object)this;
-        if(RaidSpawnExclusions.allowed(data.getSpecies().getDex())&&(den.field_70170_p.field_72995_K||(den instanceof TeraDenEntity?((TeraDenEntity)den).allowedEncounter(data):TeraRaidHabitats.allowedNative(den.field_70170_p,den.func_233580_cy_(),data.getSpecies().getDex(),data.getForm().getName()))))return data;
+        if(RaidSpawnExclusions.allowed(data.getSpecies().getDex())&&(den.field_70170_p.field_72995_K||local.pixelmon.backport.ManualDenEncounters.choosing(den)||local.pixelmon.backport.ManualDenEncounters.manual(den,data)||(den instanceof TeraDenEntity?((TeraDenEntity)den).allowedEncounter(data):TeraRaidHabitats.allowedNative(den.field_70170_p,den.func_233580_cy_(),data.getSpecies().getDex(),data.getForm().getName()))))return data;
         // The native empty-den sentinel remains safe for sync, lobby and saving.
         return new RaidData(((DenEntity)(Object)this).func_145782_y(),-1,1,"");
     }
@@ -59,7 +61,7 @@ public abstract class DenCapExclusionMixin {
     private void backport$excludeLoadedCap(CompoundNBT saved,CallbackInfo ci){
         DenEntity den=(DenEntity)(Object)this;
         if(!den.field_70170_p.field_72995_K&&den.getData().isPresent()){
-            var data=den.getServerData();if(!RaidSpawnExclusions.allowed(data.getSpecies().getDex())||!TeraRaidHabitats.allowedNative(den.field_70170_p,den.func_233580_cy_(),data.getSpecies().getDex(),data.getForm().getName()))den.clearData();
+            var data=den.getServerData();if(!RaidSpawnExclusions.allowed(data.getSpecies().getDex())||!local.pixelmon.backport.ManualDenEncounters.manual(den,data)&&!TeraRaidHabitats.allowedNative(den.field_70170_p,den.func_233580_cy_(),data.getSpecies().getDex(),data.getForm().getName()))den.clearData();
         }
     }
 }

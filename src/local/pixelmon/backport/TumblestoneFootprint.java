@@ -29,6 +29,7 @@ public final class TumblestoneFootprint {
   @Override protected void func_206840_a(net.minecraft.state.StateContainer.Builder<Block,BlockState> b){b.func_206894_a(net.minecraft.state.properties.BlockStateProperties.field_208198_y);}
   @Override public net.minecraft.fluid.FluidState func_204507_t(BlockState s){return s.func_177229_b(net.minecraft.state.properties.BlockStateProperties.field_208198_y)?net.minecraft.fluid.Fluids.field_204546_a.func_207204_a(false):super.func_204507_t(s);}
   @Override public BlockRenderType func_149645_b(BlockState s){return BlockRenderType.INVISIBLE;}
+  @Override public net.minecraft.util.math.shapes.VoxelShape func_220053_a(BlockState s,IBlockReader w,BlockPos pos,net.minecraft.util.math.shapes.ISelectionContext context){return tall(w.func_180495_p(pos.func_177977_b()))?net.minecraft.util.math.shapes.VoxelShapes.func_197868_b():net.minecraft.util.math.shapes.VoxelShapes.func_197880_a();}
   @Override public PushReaction func_149656_h(BlockState s){return PushReaction.BLOCK;}
   @Override public ItemStack getPickBlock(BlockState s,RayTraceResult hit,IBlockReader w,BlockPos pos,PlayerEntity p){BlockPos base=pos.func_177977_b();BlockState bottom=w.func_180495_p(base);return ore(bottom)?bottom.func_177230_c().getPickBlock(bottom,hit,w,base,p):ItemStack.field_190927_a;}
   @Override public float func_180647_a(BlockState s,PlayerEntity p,IBlockReader w,BlockPos pos){BlockPos base=pos.func_177977_b();BlockState bottom=w.func_180495_p(base);return ore(bottom)?bottom.func_177230_c().func_180647_a(bottom,p,w,base):0;}
@@ -41,7 +42,7 @@ public final class TumblestoneFootprint {
   }
   @Override public boolean addDestroyEffects(BlockState s,World w,BlockPos pos,net.minecraft.client.particle.ParticleManager particles){BlockState bottom=w.func_180495_p(pos.func_177977_b());if(ore(bottom))particles.func_180533_a(pos.func_177977_b(),bottom);return true;}
   // Removal is owned by changed(), without a second automatic destroy event.
-  @Override public BlockState func_196271_a(BlockState s,Direction side,BlockState neighbour,IWorld w,BlockPos pos,BlockPos other){return s;}
+  @Override public BlockState func_196271_a(BlockState s,Direction side,BlockState neighbour,IWorld w,BlockPos pos,BlockPos other){return side==Direction.DOWN&&!tall(neighbour)?w.func_204610_c(pos).func_206883_i():s;}
  }
  public static final class Events {
   private final java.util.Queue<Chunk> pending=new java.util.concurrent.ConcurrentLinkedQueue<>();

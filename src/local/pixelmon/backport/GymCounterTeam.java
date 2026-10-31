@@ -24,6 +24,8 @@ public final class GymCounterTeam {
         if(!legal(p,name))return false;var attack=new Attack(name);int slot=-1;double weakest=Double.MAX_VALUE;
         for(int i=0;i<p.getMoveset().size();i++){
             var old=p.getMoveset().get(i);if(KEEP.contains(old.getMove().getAttackName())||protectedMoves.contains(old.getMove().getAttackName()))continue;
+            if(AuthorSupportPlan.support(p)&&(NpcMoves.recovery(old)||old.getMove().getAttackName().equals("Rest"))
+                &&p.getMoveset().stream().filter(a->NpcMoves.recovery(a)||a.getMove().getAttackName().equals("Rest")).count()==1)continue;
             boolean status=old.getAttackCategory()==AttackCategory.STATUS;
             if(attack.getAttackCategory()==AttackCategory.STATUS&&!status&&offensive(p)<=2)continue;
             double value=status?-100:old.getMove().getBasePower()*(p.getForm().getTypes().contains(old.getType())?1.5:1);

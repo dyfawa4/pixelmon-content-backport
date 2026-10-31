@@ -27,5 +27,6 @@ public abstract class NpcTacticalMixin {
     @Inject(method="getWeightedAttackChoices",at=@At("RETURN"))
     private void backport$context(PixelmonWrapper own,CallbackInfoReturnable<List<MoveChoice>> cir){
         local.pixelmon.backport.NpcTactics.weight(own,cir.getReturnValue());
+        local.pixelmon.backport.NpcSignatureTactics.weight(own,cir.getReturnValue());
     }
 }

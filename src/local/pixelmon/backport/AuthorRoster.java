@@ -54,7 +54,7 @@ public final class AuthorRoster {
         int control=GymCounterTeam.capabilities(team);double[] scores=new double[options.size()];
         for(int i=0;i<options.size();i++){
             Species s=options.get(i);var form=s.getDefaultForm();
-            scores[i]=GymCounterTeam.coverage(control|GymCounterTeam.capabilities(form))+AuthorTeamBalance.score(team,form)+AuthorTeamBalance.role(team,form)+total(s)*.005;
+            scores[i]=GymCounterTeam.coverage(control|GymCounterTeam.capabilities(form))+AuthorTeamBalance.score(team,form)+AuthorTeamBalance.role(team,form)+total(s)*.005+AuthorSupportPlan.rank(s.getDex(),form)*.08;
         }
         int selected=NearBest.choose(scores,30,12,random);
         if(selected<0)throw new IllegalStateException("No author defensive member");
@@ -71,6 +71,7 @@ public final class AuthorRoster {
 
         }
         GymCounterTeam.configure(team);
+        AuthorSupportPlan.configure(team);
     }
     private static void ensure(Pokemon p,String name){
         if(p.getMoveset().stream().anyMatch(a->a.getMove().getAttackName().equals(name)))return;

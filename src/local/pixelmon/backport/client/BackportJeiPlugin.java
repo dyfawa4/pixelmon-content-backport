@@ -19,6 +19,7 @@ public final class BackportJeiPlugin implements IModPlugin {
     @Override public void registerCategories(mezz.jei.api.registration.IRecipeCategoryRegistration registry){LootSourceJei.categories(registry);}
     @Override public void registerRecipeCatalysts(mezz.jei.api.registration.IRecipeCatalystRegistration registry){LootSourceJei.catalysts(registry);}
     @Override public void registerRecipes(IRecipeRegistration registry){
+        acquisitionHints(registry);
         java.util.Set<net.minecraft.item.Item> seen=java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
         Backport.REGISTERED.forEach((name,item)->{
             ItemStack stack=new ItemStack(Backport.item(name));
@@ -37,6 +38,15 @@ public final class BackportJeiPlugin implements IModPlugin {
             if(item==null || item==net.minecraft.item.Items.field_190931_a || !seen.add(item))continue;
             ItemStack stack=new ItemStack(item);java.util.List<ITextComponent> details=information(stack);
             if(!details.isEmpty())registry.addIngredientInfo(stack,VanillaTypes.ITEM,details.toArray(new ITextComponent[0]));
+        }
+    }
+    private static void acquisitionHints(IRecipeRegistration registry){
+        for(var entry:Content.read("backport/acquisition_hints.json").entrySet()){
+            var item=net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation(entry.getKey()));
+            if(item==null||item==net.minecraft.item.Items.field_190931_a)continue;
+            var lines=new java.util.ArrayList<ITextComponent>();
+            for(var line:entry.getValue().getAsJsonArray())lines.add(new net.minecraft.util.text.StringTextComponent(line.getAsString()).func_240699_a_(TextFormatting.BLACK));
+            registry.addIngredientInfo(new ItemStack(item),VanillaTypes.ITEM,lines.toArray(new ITextComponent[0]));
         }
     }
     @Override public void onRuntimeAvailable(mezz.jei.api.runtime.IJeiRuntime runtime){

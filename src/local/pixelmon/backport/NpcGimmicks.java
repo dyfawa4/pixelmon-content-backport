@@ -24,7 +24,12 @@ public final class NpcGimmicks {
             && "equal".equalsIgnoreCase(npc.getBossTier().getID()) && GymCities.theme(npc)!=null;
     }
     public static void prepare(TrainerParticipant participant){
-        if(!enabled(participant.trainer) || participant.bc==null || participant.bc.simulateMode || participant.bc.isRaid())return;
+        if(participant.bc==null || participant.bc.simulateMode || participant.bc.isRaid())return;
+        if(!enabled(participant.trainer)){
+            if(!participant.trainer.getPersistentData().func_74767_n("BackportNpcDisable") && GymCities.theme(participant.trainer)!=null)
+                for(PixelmonWrapper wrapper:participant.allPokemon){NpcTraining.optimizeNature(wrapper.pokemon);NpcTraining.copyNature(wrapper.pokemon,wrapper.initialCopyOfPokemon);}
+            return;
+        }
         augment(participant);
         NpcTeamKnowledge.capture(participant);
         armTeam(participant);
@@ -58,11 +63,12 @@ public final class NpcGimmicks {
         if(AuthorBossTeams.is(participant.trainer))AuthorRoster.support(Arrays.stream(participant.allPokemon).map(w->w.pokemon).collect(java.util.stream.Collectors.toList()));
         else if(GymCities.isLeader(participant.trainer))GymCounterTeam.configure(Arrays.stream(participant.allPokemon).map(w->w.pokemon).collect(java.util.stream.Collectors.toList()));
         NpcTeamKnowledge.configure(participant);
+        if(AuthorBossTeams.is(participant.trainer))AuthorSupportPlan.configure(Arrays.stream(participant.allPokemon).map(w->w.pokemon).collect(java.util.stream.Collectors.toList()));
         armTeam(participant); // Recheck compatibility after moves and persistent profiles are finalized.
         for(PixelmonWrapper wrapper:participant.allPokemon){
             if(GymCities.isLeader(participant.trainer)){
                 if(AuthorBossTeams.is(participant.trainer))AuthorRoster.train(wrapper.pokemon);else NpcTraining.maximize(wrapper.pokemon);NpcTraining.copy(wrapper.pokemon,wrapper.initialCopyOfPokemon);
-            }
+            }else {NpcTraining.optimizeNature(wrapper.pokemon);NpcTraining.copyNature(wrapper.pokemon,wrapper.initialCopyOfPokemon);}
             NpcHeldItems.equip(wrapper.pokemon);
             wrapper.initialCopyOfPokemon.setHeldItem(wrapper.pokemon.getHeldItem().func_77946_l());
         }
@@ -184,6 +190,7 @@ public final class NpcGimmicks {
     }
     private static final ThreadLocal<MoveChoice> ACTIVE_MOVE=new ThreadLocal<>();
     public static boolean spent(BattleParticipant p){return Tera.used(p) || p.evolution!=null || p.dynamax!=null || p.ultraBurst!=null || p.usedZ;}
+    private static double estimateEffectiveness(PixelmonWrapper user,PixelmonWrapper target,Attack move,double value){return AuthorPiercing.affects(user,target,move)?AuthorPiercing.multiplier(value):LightningOath.effectiveness(user,target,move,value);}
     public static Choice decide(PixelmonWrapper p,Attack attack){
         if(!(p.getParticipant() instanceof TrainerParticipant) || !enabled(((TrainerParticipant)p.getParticipant()).trainer)
             || p.bc==null || p.bc.simulateMode || p.bc.isRaid() || !p.isAlive() || !p.onBattlefield || Tera.used(p.getParticipant())
@@ -197,10 +204,10 @@ public final class NpcGimmicks {
         for(PixelmonWrapper enemy:enemies){
             for(Attack a:NpcTactics.knownMoves(p,enemy))if(a.getAttackCategory()!=AttackCategory.STATUS){
                 double power=Math.max(40,a.getMove().getBasePower());
-                incoming=Math.max(incoming,power*LightningOath.effectiveness(enemy,p,a,Element.getTotalEffectiveness(p.type,a.getType())));
-                after=Math.max(after,power*LightningOath.effectiveness(enemy,p,a,Element.getTotalEffectiveness(tera==Element.MYSTERY?p.type:Collections.singletonList(tera),a.getType())));
+                incoming=Math.max(incoming,power*estimateEffectiveness(enemy,p,a,Element.getTotalEffectiveness(p.type,a.getType())));
+                after=Math.max(after,power*estimateEffectiveness(enemy,p,a,Element.getTotalEffectiveness(tera==Element.MYSTERY?p.type:Collections.singletonList(tera),a.getType())));
             }
-            pressure=Math.max(pressure,attack.getMove().getBasePower()*LightningOath.effectiveness(p,enemy,attack,Element.getTotalEffectiveness(enemy.type,attack.getType())));
+            pressure=Math.max(pressure,attack.getMove().getBasePower()*estimateEffectiveness(p,enemy,attack,Element.getTotalEffectiveness(enemy.type,attack.getType())));
         }
         boolean status=attack.getAttackCategory()==AttackCategory.STATUS;
         double immediate=0,defended=0;
@@ -218,11 +225,13 @@ public final class NpcGimmicks {
         if(!queuedTera && !queuedNative && (!status || incoming>=80) && p.bc.oldGen.isYes() && p.getParticipant().evolution==null && p.getParticipant().ultraBurst==null && p.getParticipant().canMegaEvolve() && (p.canMegaEvolve() || p.canUltraBurst()) && megaScore>score){best=Choice.MEGA;score=megaScore;}
         // Respect native generation rules and Mega's precedence over Dynamax with a compatible stone.
         double maxScore=incoming*.3+(p.getHealthPercent()>40 && p.getHealthPercent()<85?25:0)+(immediate>=p.getHealth()&&immediate<p.getHealth()*1.5?100:0);
+        double control=enemies.stream().mapToDouble(e->NpcSignatureTactics.benefit(p,attack,e)).max().orElse(0);
+        maxScore-=control*2; // A Max move replaces the signature and loses its control effect.
         if(!priorityNeeded && !authorMega && !status && !queuedTera && !queuedNative && p.getParticipant().dynamax==null && p.getParticipant().canDynamax() && (p.canDynamax() || p.canGigantamax())
             && !(p.bc.oldGen.isYes() && (p.canMegaEvolve() || p.canUltraBurst())) && maxScore>score){best=Choice.DYNAMAX;score=maxScore;}
         if(!priorityNeeded && !status && !queuedTera && !queuedNative && !queuedZ && !p.getParticipant().usedZ && p.bc.oldGen.isYes() && p.getParticipant().canMegaEvolve() && attack.getMove().hasZMove(p.pokemon)){
             var z=attack.getMove().getZMove(p.pokemon,false);double zScore=pressure*.45;
-            if(LightningOath.signature(p,attack)&&enemies.stream().anyMatch(e->LightningOath.remaining(e)<2))zScore=-Double.MAX_VALUE;
+            zScore-=control*2;
             if(z!=null){
                 double ratio=Math.max(1,z.basePower/(double)Math.max(1,attack.getMove().getBasePower()));
                 for(var enemy:enemies){

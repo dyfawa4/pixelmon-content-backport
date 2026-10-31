@@ -451,10 +451,18 @@
       "form": "mega",
       "palette": "none",
       "resource": "assets/pixelmon_backport/textures/reference/pokemon/718_zygarde/all/mega/none/sprite.png",
-      "source_path": "Gen 9/Legends Z-A/graphics/pokedex/pokeicon/0718_30.png",
-      "source_sha256": "96b03ed41831ccd0bae6ced8aa2f615a0129d0317be2efaaa32fddd48c0db212",
-      "resource_sha256": "eae1840d0e8227246dfadb9c3ddfb137d3a1ff915768ead29deb29e07efa5236",
-      "operation": "first 32x32 frame, exact RGBA pixels; no resizing, recoloring or AI generation"
+      "source_path": "assets/pixelmon_backport/textures/reference/pokemon/718_zygarde/all/mega/none/model.pqc",
+      "source_sha256": "1257328dfb1efa97db86ef683a7187f6a2b57e82cc0f504620cb57e4149c4942",
+      "resource_sha256": "20d9e1d71ea7cb746b9c8dd7d5d5323bf2190c1c24f9eefeaa2e98bbdae2bb0c",
+      "operation": "64x64 transparent GPU render of the installed Mega Zygarde model and matching palette; native InventoryScreen camera; measured framing; no invented artwork, recoloring, resize or sprite edit",
+      "previous_sprite": {
+        "source_path": "Gen 9/Legends Z-A/graphics/pokedex/pokeicon/0718_30.png",
+        "source_sha256": "96b03ed41831ccd0bae6ced8aa2f615a0129d0317be2efaaa32fddd48c0db212",
+        "resource_sha256": "eae1840d0e8227246dfadb9c3ddfb137d3a1ff915768ead29deb29e07efa5236",
+        "operation": "first 32x32 frame, exact RGBA pixels; no resizing, recoloring or AI generation"
+      },
+      "source_kind": "native_model_render",
+      "license_note": "Original model and texture rights remain with their upstream authors; see THIRD_PARTY.md."
     },
     {
       "dex": 718,
@@ -462,10 +470,18 @@
       "form": "mega",
       "palette": "shiny",
       "resource": "assets/pixelmon_backport/textures/reference/pokemon/718_zygarde/all/mega/shiny/sprite.png",
-      "source_path": "Gen 9/Legends Z-A/graphics/pokedex/pokeicon/0718s_30.png",
-      "source_sha256": "805d6164fb144b49a086e8e5568a1e63d568759f939ce03ade2f2d391a0eeb87",
-      "resource_sha256": "1b80638e6e07ed2953e5426d83c76735412832b0adeb7af7ede7704b18c8074b",
-      "operation": "first 32x32 frame, exact RGBA pixels; no resizing, recoloring or AI generation"
+      "source_path": "assets/pixelmon_backport/textures/reference/pokemon/718_zygarde/all/mega/none/model.pqc",
+      "source_sha256": "1257328dfb1efa97db86ef683a7187f6a2b57e82cc0f504620cb57e4149c4942",
+      "resource_sha256": "c866318d9bbd46c4953e23c79110445f2ead781664c0deb132c7a7b4fb493d24",
+      "operation": "64x64 transparent GPU render of the installed Mega Zygarde model and matching palette; native InventoryScreen camera; measured framing; no invented artwork, recoloring, resize or sprite edit",
+      "previous_sprite": {
+        "source_path": "Gen 9/Legends Z-A/graphics/pokedex/pokeicon/0718s_30.png",
+        "source_sha256": "805d6164fb144b49a086e8e5568a1e63d568759f939ce03ade2f2d391a0eeb87",
+        "resource_sha256": "1b80638e6e07ed2953e5426d83c76735412832b0adeb7af7ede7704b18c8074b",
+        "operation": "first 32x32 frame, exact RGBA pixels; no resizing, recoloring or AI generation"
+      },
+      "source_kind": "native_model_render",
+      "license_note": "Original model and texture rights remain with their upstream authors; see THIRD_PARTY.md."
     },
     {
       "dex": 780,

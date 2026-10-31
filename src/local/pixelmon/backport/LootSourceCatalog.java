@@ -88,6 +88,7 @@ public final class LootSourceCatalog {
   for(var id:new TreeSet<>(manager.func_215304_a()))if(id.func_110623_a().startsWith("chests/")){
    List<Entry> entries=new ArrayList<>();table(manager,id,entries,new HashSet<>(),"候选奖励");var mask=masks.getAsJsonObject("tables").get(id.toString());
    if(mask!=null){String item=mask.getAsString();double chance=masks.getAsJsonObject("chances").has(item)?masks.getAsJsonObject("chances").get(item).getAsDouble():masks.get("chance").getAsDouble();add(entries,item(item),"每箱额外独立"+Math.round(chance*100)+"%概率，1个");}
+   if(id.toString().equals("minecraft:chests/woodland_mansion"))add(entries,item("pixelmon_backport:fruit_collector"),"每箱额外独立15%概率，1个");
    if(!entries.isEmpty())sources.add(new Source("structures",id.toString(),title(id),"箱内可能获得；数量、条件见物品提示",distinct(entries)));
   }
   for(var star:DropItemRegistry.raidDrops.entrySet())for(var typed:star.getValue().entrySet()){
@@ -101,6 +102,8 @@ public final class LootSourceCatalog {
    var n=NAMES.getAsJsonObject("types").get(TeraItems.NAMES[type]);sources.add(new Source("tera_raids","tera/"+stars+"/"+type,stars+"星太晶巢穴 · "+(n==null?TeraItems.NAMES[type]:n.getAsString()),"固定奖励＋随机抽取"+(stars<4?"3～5":stars<6?"4～5":"5")+"次",distinct(entries)));
   }
   sources.addAll(BossLootCatalog.sources());
+  sources.addAll(AcquisitionSources.build());
+  sources.addAll(FishingSources.build());
   return List.copyOf(sources);
  }
 }

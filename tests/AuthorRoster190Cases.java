@@ -27,7 +27,7 @@ public final class AuthorRoster190Cases {
         for(int i=0;i<6;i++){
             var p=team.get(i);check(Arrays.stream(p.getEVs().getArray()).allMatch(v->v==252),"Author six EV252");check(Arrays.stream(p.getIVs().getArray()).allMatch(v->v==31),"Author IV31");
             check(p.getMoveset().size()==4,"Four moves "+p.getSpecies().getName());
-            check(p.getMoveset().stream().filter(a->a.getAttackCategory()!=AttackCategory.STATUS&&a.getMove().getBasePower()>0).count()>=2,"Two damaging moves "+p.getSpecies().getName()+p.getMoveset());
+            check(p.getMoveset().stream().filter(a->a.getAttackCategory()!=AttackCategory.STATUS&&a.getMove().getBasePower()>0).count()>=(AuthorSupportPlan.support(p)?1:2),"Role-appropriate damaging moves "+p.getSpecies().getName()+p.getMoveset());
             for(var a:p.getMoveset())check(p.getForm().getMoves().getAllMoves().stream().anyMatch(m->m.getAttackName().equals(a.getMove().getAttackName()))||p.getSpecies().getDex()==CapSpecies.DEX&&a.getMove().getAttackName().equals("Ten Million Volts"),"Legal author move "+p.getSpecies().getName()+" "+a);
             if(i<3){check(total(p)>=650,"Actual core BST650 "+p.getSpecies().getName());check(AuthorBossTeams.legendary(p.getSpecies()),"Legendary core");check(cores.add(p.getSpecies().getDex()),"Distinct core species");}
             if(i==3||i==4)check(Set.of(CapSpecies.DEX,493,658,890,898).contains(p.getSpecies().getDex()),"Two unchanged strong families");
@@ -39,7 +39,8 @@ public final class AuthorRoster190Cases {
         if(theme.equals("badlands"))check(team.get(5).getSpecies().getDex()==CapSpecies.DEX,"Fixed Cap sixth slot");
         else check((GymCounterTeam.capabilities(team)&31)==31,"Control pool coverage "+theme);
     }
-    public static void run(ServerPlayerEntity player)throws Exception{
+    public static void run(ServerPlayerEntity player)throws Exception{run(player,true);}
+    public static void run(ServerPlayerEntity player,boolean verifyLegacy)throws Exception{
         List<String> themes=new ArrayList<>(AuthorBossPolicy.TYPES.keySet());themes.addAll(List.of("ultra","paradox"));
         JsonArray rows=new JsonArray();Map<Integer,Integer> coreCounts=new TreeMap<>();Set<String> combinations=new HashSet<>();int recovery=0,physical=0,special=0,boost=0;
         for(String theme:themes)for(int seed=0;seed<16;seed++){
@@ -57,7 +58,7 @@ public final class AuthorRoster190Cases {
         check(recovery>rows.size()/2,"Cores participate in sustain");
         check(physical==rows.size()&&special==rows.size(),"Mixed offensive pressure physical="+physical+" special="+special);
         check(boost==rows.size(),"Breakthrough plans retained "+boost);
-        int migrations=migrations(player);int stats=stats(player);int scouting=scouting(player,themes);
+        int migrations=verifyLegacy?migrations(player):0;int stats=stats(player);int scouting=scouting(player,themes);
         JsonObject report=new JsonObject();report.addProperty("teams",rows.size());report.addProperty("core_combinations",combinations.size());report.add("core_counts",new Gson().toJsonTree(coreCounts));report.addProperty("core_recovery_teams",recovery);report.addProperty("physical_teams",physical);report.addProperty("special_teams",special);report.addProperty("breakthrough_teams",boost);report.addProperty("migrations",migrations);report.addProperty("stat_cases",stats);report.add("rows",rows);
         report.addProperty("scouting_cases",scouting);Files.writeString(Path.of("author-roster190-results.json"),new GsonBuilder().setPrettyPrinting().create().toJson(report));
         BossBalance190Probe.log("ROSTER190_PASS teams="+rows.size()+" combinations="+combinations.size()+" recovery="+recovery+" mixed="+physical+"/"+special+" breakthrough="+boost+" migrations="+migrations+" statCases="+stats+" scouting="+scouting);
@@ -80,7 +81,7 @@ public final class AuthorRoster190Cases {
                 JsonObject sample=new JsonObject();sample.addProperty("theme",theme);sample.addProperty("seed",seed);sample.addProperty("setup",setup);sample.addProperty("disruption",disruption);JsonArray inspected=new JsonArray();
                 for(var p:members){JsonObject row=Conventional190Matches.row(p);row.add("legal_support",new Gson().toJsonTree(p.getForm().getMoves().getAllMoves().stream().map(a->a.getAttackName()).filter(n->Set.of("Taunt","Encore","Haze","Snatch","Roar","Whirlwind","Defog","Knock Off").contains(n)).collect(java.util.stream.Collectors.toList())));inspected.add(row);}sample.add("members",inspected);audit.add(sample);
                 if(!setup||!disruption){failures++;BossBalance190Probe.log("ROSTER190_SCOUT_MISSING "+theme+"/"+seed+" setup="+setup+" disruption="+disruption);}
-                for(var p:members)check(p.getMoveset().stream().filter(a->a.getAttackCategory()!=AttackCategory.STATUS&&a.getMove().getBasePower()>0).count()>=2,"Scouting retains offensive pressure");
+                for(var p:members)check(p.getMoveset().stream().filter(a->a.getAttackCategory()!=AttackCategory.STATUS&&a.getMove().getBasePower()>0).count()>=(AuthorSupportPlan.support(p)?1:2),"Scouting retains role-appropriate offensive pressure "+p.getSpecies().getName()+" support="+AuthorSupportPlan.support(p)+" moves="+p.getMoveset().stream().map(a->a.getMove().getAttackName()).collect(java.util.stream.Collectors.toList()));
                 cases++;
             }finally{b.battleEnded=true;NpcTeamKnowledge.end(b);NpcTurnKnowledge.end(b);AuthorForesight.end(b);GymChallenge.end(b);Erosion.end(b);CalamityBattle.end(b);npc.func_70106_y();}
         }}finally{for(int i=0;i<6;i++)party.set(i,saved[i]);}

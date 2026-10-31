@@ -29,7 +29,6 @@ public final class NpcTactics {
                     choice.lowerTier(2);choice.weight*=Math.max(.5,NpcSurvival.chance(choice,target,health));
                 }
             }
-            if(LightningOath.signature(own,choice.attack)&&choice.targets.size()==1&&LightningOath.remaining(choice.targets.get(0))<2&&incoming<own.getHealth()*.65&&choice.result!=null&&choice.result.damage<choice.targets.get(0).getHealth())choice.weight+=25;
             if(NpcTurnKnowledge.active(own.bc)&&choice.isOffensiveMove()&&choice.targets.size()==1&&choice.result!=null){
                 var target=choice.targets.get(0);double hp=NpcTurnKnowledge.health(target);
                 // Items resolve before moves. A KO scored against pre-potion HP is no longer a KO.

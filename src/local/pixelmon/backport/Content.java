@@ -31,6 +31,7 @@ public final class Content {
         GrowthLampLoot.apply(type,data);
         UtilityItemLoot.apply(type,data);
         MysteriousPotionLoot.apply(type,data);
+        FruitCollectorLoot.apply(type,data);
         if("spawning".equals(type))LegendWeightPairs.apply(data);
         if("spawning".equals(type))MagearnaSpawns.merge(data);
         if("npcs".equals(type))NpcLocalization.merge(data);
@@ -210,33 +211,35 @@ public final class Content {
     }
     /** Apply the shared Tera Blast eligibility after custom species are created. */
     public static void applyTeraLearning(JsonObject species){
-        // This runs for every species, including forms outside the TM whitelist.
-        // Strip legacy/custom free acquisition before materializing inheritance.
-        for(JsonElement row:species.getAsJsonArray("forms")){
-            JsonObject form=row.getAsJsonObject();if(!form.has("moves"))continue;
-            for(Map.Entry<String,JsonElement> pool:form.getAsJsonObject("moves").entrySet())
-                if(!pool.getKey().startsWith("tmMoves")&&!pool.getKey().equals("trMoves")&&!pool.getKey().equals("hmMoves"))TeraMachineLearning.remove(pool.getValue());
-        }
-        String dex=species.get("dex").getAsString();if(!TERA_LEARNING.has(dex))return;
-        JsonArray source=TERA_LEARNING.getAsJsonArray(dex);
+        String dex=species.get("dex").getAsString();JsonArray source=TERA_LEARNING.has(dex)?TERA_LEARNING.getAsJsonArray(dex):new JsonArray();
+        // Resolve from an unmodified snapshot: form order must not grant a
+        // restricted event form its parent's newly inserted TM compatibility.
+        JsonArray original=copy(species.get("forms")).getAsJsonArray();
         for(JsonElement valueForm:species.getAsJsonArray("forms")){
             JsonObject form=valueForm.getAsJsonObject();String name=form.get("name").getAsString();
-            boolean base=name.isEmpty() || name.equals("base");boolean ash=species.get("dex").getAsInt()==658&&(name.equals("ash")||name.equals(PermanentAsh.FORM)||name.equals(PermanentAsh.MEGA));if(!source.contains(new JsonPrimitive(name)) && !((base||ash) && source.contains(new JsonPrimitive("base"))))continue;
-            // A missing move object inherits the base form in the native loader.
-            // Materialize that inheritance before adding a move; otherwise regional
-            // variants would lose their entire native learnset and retain only Tera Blast.
-            JsonObject moves;
-            if(form.has("moves"))moves=form.getAsJsonObject("moves");
-            else{
-                JsonObject baseForm=species.getAsJsonArray("forms").get(0).getAsJsonObject();
-                String baseName=form.has("defaultBaseForm")?form.get("defaultBaseForm").getAsString():"";
-                if(!baseName.isEmpty())for(JsonElement candidate:species.getAsJsonArray("forms"))
-                    if(baseName.equals(candidate.getAsJsonObject().get("name").getAsString()))baseForm=candidate.getAsJsonObject();
-                moves=baseForm.has("moves")?copy(baseForm.get("moves")).getAsJsonObject():new JsonObject();
-                form.add("moves",moves);
+            boolean allowed=teraAllowed(source,name);
+            if(!form.has("moves")){
+                JsonObject parent=teraParent(form,original);
+                // Keep native inheritance compact; copying every cosmetic form's
+                // full move table exceeds the native species sync string limit.
+                if(allowed==teraAllowed(source,parent.get("name").getAsString()))continue;
             }
+            JsonObject moves=teraInheritedMoves(form,original,new HashSet<>());form.add("moves",moves);
+            // The audited form table is authoritative only for this one move.
+            TeraMachineLearning.remove(moves);if(!allowed)continue;
             JsonArray machines=moves.has("tmMoves9")?moves.getAsJsonArray("tmMoves9"):new JsonArray();moves.add("tmMoves9",machines);if(!machines.contains(new JsonPrimitive("Tera Blast")))machines.add("Tera Blast");
         }
+    }
+    private static boolean teraAllowed(JsonArray source,String name){return source.contains(new JsonPrimitive(name))||((name.isEmpty()||name.equals("base"))&&source.contains(new JsonPrimitive("base")));}
+    private static JsonObject teraParent(JsonObject form,JsonArray originals){
+        String parent=form.has("defaultBaseForm")?form.get("defaultBaseForm").getAsString():"";
+        for(JsonElement candidate:originals)if(parent.equals(candidate.getAsJsonObject().get("name").getAsString()))return candidate.getAsJsonObject();
+        return originals.get(0).getAsJsonObject();
+    }
+    private static JsonObject teraInheritedMoves(JsonObject form,JsonArray originals,Set<String> seen){
+        if(form.has("moves"))return copy(form.get("moves")).getAsJsonObject();
+        if(!seen.add(form.get("name").getAsString()))return new JsonObject();
+        return teraInheritedMoves(teraParent(form,originals),originals,seen);
     }
     private static void mergeMegaPairs(JsonObject target,JsonObject source){
         if(!source.has("megaItems") || !source.has("megas"))return;

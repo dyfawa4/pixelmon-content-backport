@@ -39,14 +39,17 @@ public final class GymTrainingPlan {
             }
         }else if(mixed){
             boolean fast=!slow&&(base[5]>=85||boosting);
-            String nature=fast?(base[2]<=base[4]?"NAIVE":"HASTY"):(physicalFocus?"BRAVE":"QUIET");
+            // A bulky spread alone is not a reason to sacrifice speed. Only an
+            // actual Trick Room plan may use Brave/Quiet on a mixed attacker.
+            String nature=fast?(base[2]<=base[4]?"NAIVE":"HASTY"):slow?(physicalFocus?"BRAVE":"QUIET"):
+                physicalFocus?(base[2]<=base[4]?"NAUGHTY":"LONELY"):(base[2]<=base[4]?"RASH":"MILD");
             plan=new GymTrainingPlan(nature,fast?"fast-mixed":"bulky-mixed");
             plan.evs[fast?5:0]=252;plan.evs[fast?0:slow?2:5]=6;
             double best=-Double.MAX_VALUE;
             for(int attack=0;attack<=252;attack+=4){
                 int spa=252-attack;
-                double value=physical/Math.max(1,base[1])*Math.log(stat(base[1],attack,level,false,nature.equals("BRAVE")))
-                    +special/Math.max(1,base[3])*Math.log(stat(base[3],spa,level,false,nature.equals("QUIET")));
+                double value=physical/Math.max(1,base[1])*Math.log(stat(base[1],attack,level,false,Set.of("BRAVE","NAUGHTY","LONELY").contains(nature)))
+                    +special/Math.max(1,base[3])*Math.log(stat(base[3],spa,level,false,Set.of("QUIET","RASH","MILD").contains(nature)));
                 if(value>best){best=value;plan.evs[1]=attack;plan.evs[3]=spa;}
             }
         }else if(slow){

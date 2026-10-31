@@ -39,6 +39,40 @@ public final class NpcHeldItems {
         }
         if(best!=null&&(p.getHeldItem().func_190926_b()||p.getHeldItem().func_77973_b()!=best))p.setHeldItem(new ItemStack(best));
     }
+    /** Resolve duplicates only; keep the original on the member with the greatest need. */
+    public static void equipUnique(List<Pokemon> team){
+        Map<Item,List<Pokemon>> groups=new LinkedHashMap<>();
+        for(var p:team)if(!p.getHeldItem().func_190926_b())groups.computeIfAbsent(p.getHeldItem().func_77973_b(),k->new ArrayList<>()).add(p);
+        Set<Item> used=new HashSet<>(groups.keySet());
+        for(var entry:groups.entrySet())if(entry.getValue().size()>1){
+            List<Pokemon> members=new ArrayList<>(entry.getValue());
+            members.sort(Comparator.comparingDouble((Pokemon p)->retention(p,used)).reversed());
+            for(int i=1;i<members.size();i++){
+                Pokemon p=members.get(i);Item next=alternative(p,used);
+                p.setHeldItem(next==null?ItemStack.field_190927_a:new ItemStack(next));if(next!=null)used.add(next);
+            }
+        }
+    }
+    private static double retention(Pokemon p,Set<Item> used){
+        Profile profile=new Profile(p);Item next=alternative(p,used);
+        boolean supportCombo=AuthorSupportPlan.support(p)&&id(p.getHeldItem().func_77973_b()).equals("power_herb")&&profile.has("Sky Attack")&&profile.has("Snatch");
+        return (supportCombo?20000:reserved(p)?10000:profile.score(id(p.getHeldItem().func_77973_b())))-(next==null?-1:alternativeScore(profile,id(next)));
+    }
+    private static Item alternative(Pokemon p,Set<Item> used){
+        Profile profile=new Profile(p);Item best=null;double score=-1;
+        List<String> candidates=new ArrayList<>(CANDIDATES);candidates.add("sitrus_berry");
+        for(String name:candidates){
+            Item item=name.equals("ability_shield")?Backport.item(name):ForgeRegistries.ITEMS.getValue(new ResourceLocation("pixelmon",name));
+            if(item==null||item==Items.field_190931_a||used.contains(item))continue;
+            double value=alternativeScore(profile,name);if(value>score){score=value;best=item;}
+        }
+        return best;
+    }
+    private static double alternativeScore(Profile profile,String name){
+        if(name.equals("sitrus_berry"))return 40;
+        if(name.equals("lum_berry"))return Math.max(30,profile.score(name));
+        return profile.score(name);
+    }
     private static final class Profile {
         final Pokemon p;final Set<String> moves=new HashSet<>();final int dex,hp,def,spdef,speed,atk,spa;
         final String ability;final boolean poison,fire,steel,recovery;int physical,special,status;

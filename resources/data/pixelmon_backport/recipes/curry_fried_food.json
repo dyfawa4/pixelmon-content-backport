@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CLB",
+    " M "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:cooked_chicken"
+    },
+    "L": {
+      "item": "minecraft:cooked_mutton"
+    },
+    "B": {
+      "item": "minecraft:cooked_beef"
+    },
+    "M": {
+      "item": "pixelmon:mug_base"
+    }
+  },
+  "result": {
+    "item": "pixelmon:curry_fried_food",
+    "count": 1
+  }
+}

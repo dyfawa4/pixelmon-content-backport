@@ -44,3 +44,6 @@ Minecraft、Forge、Pixelmon 旧版本体及参考定制版完整 JAR 是用户�
 ## 1.7.0 补充素材
 
 新对战音乐来自用户提供的音频，游戏及曲目权利仍归相应权利人，本项目代码许可不覆盖这些音频。主页透明标题由用户提供，原图保存于 resources/assets/pixelmon_backport/textures/gui/journey_title.png。野生唱片其二参考原生唱片风格使用内置 image_gen 编辑生成，16像素导出和提示词记录见 docs/GENERATED_WILD_DISC_2026-10-23.md；未替换原生其一素材权属。
+
+
+1.10.0 r9 基格尔德Mega普通／异色头像改为对本项目已引入的实际三维模型与对应贴图进行原生GPU渲染，替换外观不一致的旧像素头像；未绘制或虚构新形态。64×64透明导出记录见 resources/backport/zygarde_avatar_render.json；原模型、材质及宝可梦角色权利保持上游归属，代码许可不覆盖这些素材。果实收集器的JSON几何与像素UV图集为本项目原创资产。

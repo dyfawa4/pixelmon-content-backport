@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "pixelmon:blue_orb"
+    }
+  ],
+  "result": {
+    "item": "pixelmon:alpha_shard",
+    "count": 9
+  }
+}

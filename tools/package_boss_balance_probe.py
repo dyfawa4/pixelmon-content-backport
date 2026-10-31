@@ -9,7 +9,7 @@ build=json.loads((ROOT/'.cache/last-build.json').read_text('utf-8-sig'))
 work=Path(tempfile.mkdtemp(prefix='probe-',dir=ROOT/'.cache/boss-natural-190'))
 work.mkdir(parents=True,exist_ok=True)
 subprocess.run([str(Path(build['java']).with_name('javac.exe')),'--release','11','-proc:none','-encoding','UTF-8',
-                '-cp',build['classes']+';'+build['classpath'],'-d',str(work)]+[str(ROOT/'tests'/name) for name in ['R8BossTimeCases.java','R7SpawnCases.java','Resume190SoundProbe.java','Resume190Cases.java','Trail190ParticleProbe.java','Trail190Cases.java','Final190Cases.java','DayCare190Cases.java','LightBall190Cases.java','Den190Cases.java','Zygarde190Cases.java','Radiant190Cases.java','Charm190Cases.java','Ohko190Cases.java','AuthorRoster190Cases.java','Author190Cases.java','Status190Cases.java','Match190Scripts.java','Guard190Cases.java','Conventional190Matches.java','AuthorTrial190Cases.java','Stall190Cases.java','Update180Cases.java','Update180R9TeamCases.java','Update180R6Cases.java','Update180MomentumCases.java','BossBalance190Probe.java']],check=True)
+                '-cp',build['classes']+';'+build['classpath'],'-d',str(work)]+[str(ROOT/'tests'/name) for name in ['Support110Cases.java','R8BossTimeCases.java','R7SpawnCases.java','Resume190SoundProbe.java','Resume190Cases.java','Trail190ParticleProbe.java','Trail190Cases.java','Final190Cases.java','DayCare190Cases.java','LightBall190Cases.java','Den190Cases.java','Zygarde190Cases.java','Radiant190Cases.java','Charm190Cases.java','Ohko190Cases.java','AuthorRoster190Cases.java','Author190Cases.java','Status190Cases.java','Match190Scripts.java','Guard190Cases.java','Conventional190Matches.java','AuthorTrial190Cases.java','Stall190Cases.java','Update180Cases.java','Update180R9TeamCases.java','Update180R6Cases.java','Update180MomentumCases.java','BossBalance190Probe.java']],check=True)
 target=ROOT/'.cache/boss-natural-190/bossbalance190-probe.jar'
 with ZipFile(target,'w',ZIP_DEFLATED) as jar:
     jar.writestr('META-INF/mods.toml','''modLoader="javafml"
@@ -21,7 +21,7 @@ version="1.0"
 [[dependencies.backport_bossbalance190_probe]]
 modId="pixelmon_backport"
 mandatory=true
-versionRange="[1.9.0,1.10.0)"
+versionRange="[1.9.0,1.11.0)"
 ordering="AFTER"
 side="BOTH"
 ''')

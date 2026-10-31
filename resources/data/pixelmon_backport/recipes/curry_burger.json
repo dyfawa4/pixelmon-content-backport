@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " P ",
+    "CRM"
+  ],
+  "key": {
+    "P": {
+      "item": "pixelmon:curry_pasta"
+    },
+    "C": {
+      "item": "minecraft:cooked_chicken"
+    },
+    "R": {
+      "item": "minecraft:cooked_rabbit"
+    },
+    "M": {
+      "item": "minecraft:cooked_mutton"
+    }
+  },
+  "result": {
+    "item": "pixelmon:curry_burger",
+    "count": 1
+  }
+}

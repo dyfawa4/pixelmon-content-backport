@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 public final class DayCareHighlight {
  public static final VoxelShape OUTLINE=VoxelShapes.func_197873_a(0,0,0,1,2,1);
  public static BlockPos base(IBlockReader world,BlockPos hit){
-  var state=world.func_180495_p(hit);if(DayCareFootprint.lower(state))return hit;
+  var state=world.func_180495_p(hit);if(DayCareFootprint.lower(state)||state.func_177230_c() instanceof com.pixelmonmod.pixelmon.blocks.multi.FridgeBlock)return hit;
   return DayCareFootprint.upper(state)&&DayCareFootprint.lower(world.func_180495_p(hit.func_177977_b()))?hit.func_177977_b():null;
  }
  @SubscribeEvent public static void draw(DrawHighlightEvent.HighlightBlock event){

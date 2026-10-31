@@ -25,6 +25,8 @@ public abstract class TeraControllerMixin {
     }
     @Inject(method="checkFaint",at=@At("RETURN"))
     private void backport$healthAfterFaint(CallbackInfo ci){local.pixelmon.backport.BattleHealthSync.publish((BattleController)(Object)this);}
+    @Inject(method="endBattle(Lcom/pixelmonmod/pixelmon/api/battles/BattleEndCause;Ljava/util/HashMap;)Ljava/util/HashMap;",at=@At("RETURN"))
+    private void backport$endPiercing(BattleEndCause cause,HashMap<BattleParticipant,BattleResults> result,CallbackInfoReturnable<HashMap<BattleParticipant,BattleResults>> cir){local.pixelmon.backport.AuthorPiercing.end((BattleController)(Object)this);}
     @Inject(method="endTurn",at=@At("RETURN"))
     private void backport$ashWaterExpires(CallbackInfo ci){local.pixelmon.backport.AshWaterBoost.expire((BattleController)(Object)this);local.pixelmon.backport.Erosion.expire((BattleController)(Object)this);local.pixelmon.backport.LightningOath.expire((BattleController)(Object)this);local.pixelmon.backport.ErosionNetwork.sync((BattleController)(Object)this,null);local.pixelmon.backport.CalamityNetwork.sync((BattleController)(Object)this,null);local.pixelmon.backport.LightningOathNetwork.sync((BattleController)(Object)this);}
     @Inject(method="endBattle(Lcom/pixelmonmod/pixelmon/api/battles/BattleEndCause;Ljava/util/HashMap;)Ljava/util/HashMap;",at=@At("HEAD"))

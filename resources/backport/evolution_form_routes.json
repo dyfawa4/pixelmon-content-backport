@@ -1,0 +1,756 @@
+{
+  "1017": [
+    {
+      "to": "teal",
+      "item": "pixelmon_backport:teal_mask",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "wellspring",
+      "item": "pixelmon_backport:wellspring_mask",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "hearthflame",
+      "item": "pixelmon_backport:hearthflame_mask",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "cornerstone",
+      "item": "pixelmon_backport:cornerstone_mask",
+      "held": true,
+      "conditions": []
+    }
+  ],
+  "741": [
+    {
+      "to": "baile",
+      "item": "pixelmon_backport:red_nectar",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_interact"
+        }
+      ]
+    },
+    {
+      "to": "pompom",
+      "item": "pixelmon_backport:yellow_nectar",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_interact"
+        }
+      ]
+    },
+    {
+      "to": "pau",
+      "item": "pixelmon_backport:pink_nectar",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_interact"
+        }
+      ]
+    },
+    {
+      "to": "sensu",
+      "item": "pixelmon_backport:purple_nectar",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_interact"
+        }
+      ]
+    }
+  ],
+  "641": [
+    {
+      "to": "therian",
+      "item": "pixelmon:reveal_glass",
+      "from": [
+        "incarnate"
+      ],
+      "conditions": []
+    },
+    {
+      "to": "incarnate",
+      "item": "pixelmon:reveal_glass",
+      "from": [
+        "therian"
+      ],
+      "conditions": []
+    }
+  ],
+  "642": [
+    {
+      "to": "therian",
+      "item": "pixelmon:reveal_glass",
+      "from": [
+        "incarnate"
+      ],
+      "conditions": []
+    },
+    {
+      "to": "incarnate",
+      "item": "pixelmon:reveal_glass",
+      "from": [
+        "therian"
+      ],
+      "conditions": []
+    }
+  ],
+  "645": [
+    {
+      "to": "therian",
+      "item": "pixelmon:reveal_glass",
+      "from": [
+        "incarnate"
+      ],
+      "conditions": []
+    },
+    {
+      "to": "incarnate",
+      "item": "pixelmon:reveal_glass",
+      "from": [
+        "therian"
+      ],
+      "conditions": []
+    }
+  ],
+  "905": [
+    {
+      "to": "therian",
+      "item": "pixelmon:reveal_glass",
+      "from": [
+        "incarnate"
+      ],
+      "conditions": []
+    },
+    {
+      "to": "incarnate",
+      "item": "pixelmon:reveal_glass",
+      "from": [
+        "therian"
+      ],
+      "conditions": []
+    }
+  ],
+  "492": [
+    {
+      "to": "sky",
+      "item": "pixelmon:gracidea",
+      "from": [
+        "land"
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "time",
+          "time": "DAY"
+        }
+      ]
+    }
+  ],
+  "720": [
+    {
+      "to": "unbound",
+      "item": "pixelmon:prison_bottle",
+      "from": [
+        "confined"
+      ],
+      "conditions": []
+    }
+  ],
+  "386": [
+    {
+      "from": [
+        ""
+      ],
+      "to": "attack",
+      "item": "pixelmon:meteorite",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_interact"
+        }
+      ]
+    },
+    {
+      "from": [
+        "attack"
+      ],
+      "to": "defense",
+      "item": "pixelmon:meteorite",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_interact"
+        }
+      ]
+    },
+    {
+      "from": [
+        "defense"
+      ],
+      "to": "speed",
+      "item": "pixelmon:meteorite",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_interact"
+        }
+      ]
+    },
+    {
+      "from": [
+        "speed"
+      ],
+      "to": "",
+      "item": "pixelmon:meteorite",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_interact"
+        }
+      ]
+    }
+  ],
+  "649": [
+    {
+      "to": "burn",
+      "item": "pixelmon:burn_drive",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "chill",
+      "item": "pixelmon:chill_drive",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "douse",
+      "item": "pixelmon:douse_drive",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "shock",
+      "item": "pixelmon:shock_drive",
+      "held": true,
+      "conditions": []
+    }
+  ],
+  "382": [
+    {
+      "to": "primal",
+      "item": "pixelmon:blue_orb",
+      "held": true,
+      "from": [
+        ""
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_field"
+        }
+      ]
+    }
+  ],
+  "383": [
+    {
+      "to": "primal",
+      "item": "pixelmon:red_orb",
+      "held": true,
+      "from": [
+        ""
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_field"
+        }
+      ]
+    }
+  ],
+  "487": [
+    {
+      "to": "origin",
+      "item": "pixelmon:griseous_orb",
+      "held": true,
+      "from": [
+        "altered"
+      ],
+      "conditions": []
+    }
+  ],
+  "888": [
+    {
+      "to": "crowned",
+      "item": "pixelmon:rusted_sword",
+      "held": true,
+      "from": [
+        "hero"
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_field"
+        }
+      ]
+    }
+  ],
+  "889": [
+    {
+      "to": "crowned",
+      "item": "pixelmon:rusted_shield",
+      "held": true,
+      "from": [
+        "hero"
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_field"
+        }
+      ]
+    }
+  ],
+  "646": [
+    {
+      "to": "black",
+      "item": "pixelmon:dna_splicers",
+      "from": [
+        ""
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "with_zekrom"
+        },
+        {
+          "evoConditionType": "text",
+          "key": "fusion_nearby"
+        }
+      ]
+    },
+    {
+      "to": "white",
+      "item": "pixelmon:dna_splicers",
+      "from": [
+        ""
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "with_reshiram"
+        },
+        {
+          "evoConditionType": "text",
+          "key": "fusion_nearby"
+        }
+      ]
+    },
+    {
+      "from": [
+        "black",
+        "white"
+      ],
+      "to": "",
+      "item": "pixelmon:dna_splicers",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "fusion_split"
+        }
+      ]
+    }
+  ],
+  "800": [
+    {
+      "to": "dusk",
+      "item": "pixelmon:n_solarizer",
+      "from": [
+        ""
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "with_solgaleo"
+        },
+        {
+          "evoConditionType": "text",
+          "key": "fusion_nearby"
+        }
+      ]
+    },
+    {
+      "to": "dawn",
+      "item": "pixelmon:n_lunarizer",
+      "from": [
+        ""
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "with_lunala"
+        },
+        {
+          "evoConditionType": "text",
+          "key": "fusion_nearby"
+        }
+      ]
+    },
+    {
+      "to": "ultra",
+      "item": "pixelmon:ultranecrozium_z",
+      "held": true,
+      "from": [
+        "dusk",
+        "dawn"
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_field"
+        }
+      ]
+    },
+    {
+      "from": [
+        "dusk"
+      ],
+      "to": "",
+      "item": "pixelmon:n_solarizer",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "fusion_split"
+        }
+      ]
+    },
+    {
+      "from": [
+        "dawn"
+      ],
+      "to": "",
+      "item": "pixelmon:n_lunarizer",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "fusion_split"
+        }
+      ]
+    }
+  ],
+  "898": [
+    {
+      "to": "icerider",
+      "item": "pixelmon:reins_of_unity",
+      "from": [
+        ""
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "with_glastrier"
+        },
+        {
+          "evoConditionType": "text",
+          "key": "fusion_nearby"
+        }
+      ]
+    },
+    {
+      "to": "shadowrider",
+      "item": "pixelmon:reins_of_unity",
+      "from": [
+        ""
+      ],
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "with_spectrier"
+        },
+        {
+          "evoConditionType": "text",
+          "key": "fusion_nearby"
+        }
+      ]
+    },
+    {
+      "from": [
+        "icerider",
+        "shadowrider"
+      ],
+      "to": "",
+      "item": "pixelmon:reins_of_unity",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "fusion_split"
+        }
+      ]
+    }
+  ],
+  "493": [
+    {
+      "to": "grass",
+      "item": "pixelmon:meadow_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "fire",
+      "item": "pixelmon:flame_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "water",
+      "item": "pixelmon:splash_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "flying",
+      "item": "pixelmon:sky_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "bug",
+      "item": "pixelmon:insect_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "poison",
+      "item": "pixelmon:toxic_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "electric",
+      "item": "pixelmon:zap_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "psychic",
+      "item": "pixelmon:mind_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "rock",
+      "item": "pixelmon:stone_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "ground",
+      "item": "pixelmon:earth_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "dark",
+      "item": "pixelmon:dread_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "ghost",
+      "item": "pixelmon:spooky_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "steel",
+      "item": "pixelmon:iron_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "fighting",
+      "item": "pixelmon:fist_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "ice",
+      "item": "pixelmon:icicle_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "dragon",
+      "item": "pixelmon:draco_plate",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "fairy",
+      "item": "pixelmon:pixie_plate",
+      "held": true,
+      "conditions": []
+    }
+  ],
+  "773": [
+    {
+      "to": "grass",
+      "item": "pixelmon:grass_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "fire",
+      "item": "pixelmon:fire_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "water",
+      "item": "pixelmon:water_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "flying",
+      "item": "pixelmon:flying_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "bug",
+      "item": "pixelmon:bug_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "poison",
+      "item": "pixelmon:poison_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "electric",
+      "item": "pixelmon:electric_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "psychic",
+      "item": "pixelmon:psychic_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "rock",
+      "item": "pixelmon:rock_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "ground",
+      "item": "pixelmon:ground_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "dark",
+      "item": "pixelmon:dark_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "ghost",
+      "item": "pixelmon:ghost_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "steel",
+      "item": "pixelmon:steel_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "fighting",
+      "item": "pixelmon:fighting_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "ice",
+      "item": "pixelmon:ice_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "dragon",
+      "item": "pixelmon:dragon_memory",
+      "held": true,
+      "conditions": []
+    },
+    {
+      "to": "fairy",
+      "item": "pixelmon:fairy_memory",
+      "held": true,
+      "conditions": []
+    }
+  ],
+  "890": [
+    {
+      "from": [
+        "ordinary"
+      ],
+      "to": "eternamax",
+      "item": "pixelmon_backport:eternatus_meteorite",
+      "held": true,
+      "conditions": []
+    }
+  ],
+  "1024": [
+    {
+      "from": [
+        "normal"
+      ],
+      "to": "terastal",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_field"
+        }
+      ]
+    },
+    {
+      "from": [
+        "terastal"
+      ],
+      "to": "stellar",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_field"
+        }
+      ]
+    },
+    {
+      "from": [
+        "stellar"
+      ],
+      "to": "normal",
+      "conditions": [
+        {
+          "evoConditionType": "text",
+          "key": "form_field"
+        }
+      ]
+    }
+  ]
+}

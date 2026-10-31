@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "C C",
+    " M "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:cocoa_beans"
+    },
+    "M": {
+      "item": "pixelmon:mug_base"
+    }
+  },
+  "result": {
+    "item": "pixelmon:curry_beans",
+    "count": 1
+  }
+}

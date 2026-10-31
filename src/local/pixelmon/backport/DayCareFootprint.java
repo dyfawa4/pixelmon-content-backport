@@ -17,7 +17,7 @@ public final class DayCareFootprint {
     public static final DeferredRegister<Block> BLOCKS=DeferredRegister.create(ForgeRegistries.BLOCKS,Content.NS);
     public static final RegistryObject<Block> UPPER=BLOCKS.register("day_care_upper",Upper::new);
     private static final ThreadLocal<Boolean> REMOVING=ThreadLocal.withInitial(()->false);
-    public static boolean lower(BlockState state){return state.func_177230_c() instanceof DayCareBlock;}
+    public static boolean lower(BlockState state){return state.func_177230_c() instanceof DayCareBlock||state.func_177230_c() instanceof com.pixelmonmod.pixelmon.blocks.multi.FridgeBlock;}
     public static boolean upper(BlockState state){return state.func_177230_c() instanceof Upper;}
     public static boolean reserve(World world,BlockPos base){
         if(world.field_72995_K||!lower(world.func_180495_p(base))||World.func_189509_E(base.func_177984_a()))return false;
@@ -68,8 +68,11 @@ public final class DayCareFootprint {
             if(!world.func_175667_e(new BlockPos(chunk.func_76632_l().field_77276_a<<4,64,chunk.func_76632_l().field_77275_b<<4)))return;
             for(var section:chunk.func_76587_i())if(section!=null&&section.func_235962_a_(s->lower(s)||upper(s)))
                 for(int y=0;y<16;y++)for(int x=0;x<16;x++)for(int z=0;z<16;z++){
-                    var state=section.func_177485_a(x,y,z);if(lower(state)||upper(state))
-                        world.func_72863_F().func_212863_j_().func_215568_a(new BlockPos((chunk.func_76632_l().field_77276_a<<4)+x,section.func_222632_g()+y,(chunk.func_76632_l().field_77275_b<<4)+z));
+                    var state=section.func_177485_a(x,y,z);if(lower(state)||upper(state)){
+                        BlockPos pos=new BlockPos((chunk.func_76632_l().field_77276_a<<4)+x,section.func_222632_g()+y,(chunk.func_76632_l().field_77275_b<<4)+z);
+                        if(state.func_177230_c() instanceof com.pixelmonmod.pixelmon.blocks.multi.FridgeBlock)reserve(world,pos);
+                        world.func_72863_F().func_212863_j_().func_215568_a(pos);
+                    }
                 }
         }
         @SubscribeEvent public void interact(PlayerInteractEvent.RightClickBlock event){World world=event.getWorld();if(world.field_72995_K)return;BlockPos base=event.getPos();if(lower(world.func_180495_p(base)))reserve(world,base);}

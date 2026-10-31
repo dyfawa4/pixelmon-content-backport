@@ -18,7 +18,14 @@ public abstract class NpcGimmickMixin {
         for(var side:participant.bc.participants)for(PixelmonWrapper member:side.allPokemon)backport$previewFlags.put(member,new boolean[]{member.onBattlefield,member.switchedThisTurn,member.takenTurn,member.hasBeenInBattle,member.wait,member.canAttack});
     }
     @Inject(method="startBattle",at=@At("HEAD"))
-    private void backport$prepare(CallbackInfo ci){NpcGimmicks.prepare((TrainerParticipant)(Object)this);}
+    private void backport$prepare(CallbackInfo ci){
+        TrainerParticipant side=(TrainerParticipant)(Object)this;
+        NpcGimmicks.prepare(side);
+        local.pixelmon.backport.AuthorPiercing.prepare(side);
+        // Nature recalculates stored-level stats. Finish equipment and nature
+        // before native startBattle installs its temporary battle level.
+        local.pixelmon.backport.TrainerItemClause.prepare(side);
+    }
     @Inject(method="getMove",at=@At("RETURN"),cancellable=true)
     private void backport$plan(PixelmonWrapper p,CallbackInfoReturnable<MoveChoice> cir){
         // Native switch previews restore the controlled list, but leave these flags changed.

@@ -11,7 +11,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 /** The server's loaded tables are authoritative, including world datapacks. */
 public final class LootSourceNetwork {
- public static final SimpleChannel CHANNEL=NetworkRegistry.newSimpleChannel(new net.minecraft.util.ResourceLocation(Content.NS,"loot_sources"),()->"1","1"::equals,"1"::equals);
+ public static final SimpleChannel CHANNEL=NetworkRegistry.newSimpleChannel(new net.minecraft.util.ResourceLocation(Content.NS,"loot_sources"),()->"3","3"::equals,"3"::equals);
  private static final Map<MinecraftServer,List<LootSourceCatalog.Source>> CACHE=new WeakHashMap<>();
  public static void register(){CHANNEL.registerMessage(0,Batch.class,Batch::encode,Batch::decode,Batch::handle,Optional.of(NetworkDirection.PLAY_TO_CLIENT));net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new LootSourceNetwork());}
  @SubscribeEvent public void sync(OnDatapackSyncEvent event){

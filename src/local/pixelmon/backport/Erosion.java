@@ -73,8 +73,8 @@ public final class Erosion {
     private static void clearTemporary(PixelmonWrapper p){STATES.remove(p);}
     public static void copy(PixelmonWrapper from,PixelmonWrapper to){COPIES.add(to);State s=STATES.get(from);if(s!=null)STATES.put(to,new State(s.until,s.reduction));}
     public static PixelmonWrapper preview(PixelmonWrapper target){
-        PixelmonWrapper copy=NpcSimulationCopy.of(target);State s=STATES.computeIfAbsent(copy,k->new State(0,0));s.reduction=BackportConfig.erosionReduction();s.until=target.bc.battleTurn+BackportConfig.erosionTurns();
-        copy.recalculateMaxHP();return copy;
+        PixelmonWrapper copy=NpcSimulationCopy.of(target);int hp=copy.getHealth(),old=copy.getMaxHealth();State s=STATES.computeIfAbsent(copy,k->new State(0,0));s.reduction=BackportConfig.erosionReduction();s.until=target.bc.battleTurn+BackportConfig.erosionTurns();
+        copy.recalculateMaxHP();copy.setHealth(ErosionMath.ratio(hp,old,copy.getMaxHealth()));copy.bc.modifyStats(copy);return copy;
     }
     public static void end(BattleController b){
         if(b.simulateMode)return;

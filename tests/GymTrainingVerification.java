@@ -23,6 +23,10 @@ public final class GymTrainingVerification {
         var press=GymTrainingPlan.choose(new int[]{92,120,145,80,145,128},10000,0,2,true,false,false,Set.of("Body Press","Iron Defense","Rest"),100);check(press);assert press.evs[2]==252&&press.evs[1]==0&&press.role.equals("body-press");
         var screens=GymTrainingPlan.choose(new int[]{80,80,80,80,80,120},0,0,4,false,false,false,Set.of("Reflect","Light Screen","Taunt"),100);check(screens);assert screens.evs[0]==252&&screens.evs[5]==252&&screens.role.equals("fast-support");
         var mixed=GymTrainingPlan.choose(new int[]{90,110,90,110,90,110},10000,10000,0,false,false,false,Collections.emptySet(),100);check(mixed);assert mixed.evs[5]==252&&mixed.evs[1]>0&&mixed.evs[3]>0&&Set.of("HASTY","NAIVE").contains(mixed.nature);
+        for(int speed=20;speed<85;speed+=5)for(boolean physical:new boolean[]{false,true})for(boolean trick:new boolean[]{false,true}){
+            var bulkyMixed=GymTrainingPlan.choose(new int[]{90,110,90,110,95,speed},physical?11000:10000,physical?10000:11000,1,false,trick,false);check(bulkyMixed);
+            assert trick?Set.of("BRAVE","QUIET").contains(bulkyMixed.nature):Set.of("NAUGHTY","LONELY","RASH","MILD").contains(bulkyMixed.nature):"Non-room mixed attacker lost speed";
+        }
         var calm=GymTrainingPlan.choose(new int[]{120,120,120,120,120,120},0,18000,2,true,false,false,Set.of("Calm Mind","Recover","Judgment","Ice Beam"),100);check(calm);assert calm.evs[0]==252&&calm.evs[5]==252&&calm.role.equals("fast-bulky-setup");
         var oneHp=GymTrainingPlan.choose(new int[]{1,90,45,30,30,40},10000,0,2,false,false,false);check(oneHp);assert oneHp.evs[0]==0&&oneHp.evs[1]==252&&oneHp.evs[5]==252;
         for(String[] pair:new String[][]{{"IVStore","MAX_IVS","31"},{"EVStore","MAX_EVS","252"},{"EVStore","MAX_TOTAL_EVS","510"}}){

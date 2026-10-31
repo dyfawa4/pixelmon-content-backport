@@ -15,8 +15,9 @@ public final class AuthorRoomPalette {
     }
     private AuthorRoomPalette(){}
     public static String choose(String theme,String biome,long salt){
+        if("pixelmon:ultra_plant".equals(biome))return "minecraft:sea_lantern";
         if("ultra".equals(theme))return biome.contains("desert")?"pixelmon:crystal_block":ULTRA.get(new Random(salt^0x47594d50414c4554L).nextInt(ULTRA.size()));
         return WALLS.getOrDefault(theme,"minecraft:stone_bricks");
     }
-    public static boolean wall(String material){return WALLS.containsValue(material)||ULTRA.contains(material)||material.equals("pixelmon:crystal_block");}
+    public static boolean wall(String material){return material.equals("minecraft:sea_lantern")||WALLS.containsValue(material)||ULTRA.contains(material)||material.equals("pixelmon:crystal_block");}
 }

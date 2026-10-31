@@ -12,7 +12,12 @@ public final class NpcTraining {
     private NpcTraining(){}
     private static final BattleStatsType[] STATS={BattleStatsType.HP,BattleStatsType.ATTACK,BattleStatsType.DEFENSE,BattleStatsType.SPECIAL_ATTACK,BattleStatsType.SPECIAL_DEFENSE,BattleStatsType.SPEED};
     public static void maximize(Pokemon pokemon){prepare(pokemon);for(var stat:STATS){pokemon.getIVs().setHyperTrained(stat,false);pokemon.getIVs().setStat(stat,31);}pokemon.getStats().recalculateStats();}
-    public static void prepare(Pokemon pokemon){
+    /** Final moves and the intended Mega form determine training, not random template nature. */
+    private static final class Training {
+        final GymTrainingPlan plan;final boolean physical;
+        Training(GymTrainingPlan plan,boolean physical){this.plan=plan;this.physical=physical;}
+    }
+    private static Training plan(Pokemon pokemon){
         Stats form=pokemon.getForm(),trainedForm=form;
         if(pokemon.getHeldItem().func_77973_b() instanceof MegaStoneItem){
             Stats mega=pokemon.getSpecies().getForm(((MegaStoneItem)pokemon.getHeldItem().func_77973_b()).getMegaForm());
@@ -32,14 +37,28 @@ public final class NpcTraining {
             }else if(attack.getAttackCategory()==AttackCategory.PHYSICAL)physical+=Math.max(0,attack.getMove().getBasePower())*base[name.equals("Body Press")?2:1];
             else special+=Math.max(0,attack.getMove().getBasePower())*base[3];
         }
-        GymTrainingPlan plan=GymTrainingPlan.choose(base,physical,special,utility,recovery,room,boosting,moves,pokemon.getPokemonLevel());
+        return new Training(GymTrainingPlan.choose(base,physical,special,utility,recovery,room,boosting,moves,pokemon.getPokemonLevel()),physical>=special);
+    }
+    public static void optimizeNature(Pokemon pokemon){applyNature(pokemon,plan(pokemon).plan);}
+    private static void applyNature(Pokemon pokemon,GymTrainingPlan plan){
+        // Native summary screens expose the base nature; a mint-only change left
+        // random template natures visible even when the effective stats differed.
+        Nature selected=Nature.valueOf(plan.nature);
+        if(pokemon.getMintNature()==null&&pokemon.getBaseNature()==selected)return;
+        pokemon.setMintNature(null);pokemon.setNature(selected);
+    }
+    public static void copyNature(Pokemon source,Pokemon snapshot){
+        snapshot.setMintNature(null);snapshot.setNature(source.getBaseNature());snapshot.setMintNature(source.getMintNature());
+    }
+    public static void prepare(Pokemon pokemon){
+        Training training=plan(pokemon);GymTrainingPlan plan=training.plan;
         pokemon.getEVs().fillFromArray(0,0,0,0,0,0);
         for(int i=0;i<6;i++){
             pokemon.getIVs().setHyperTrained(STATS[i],false);pokemon.getIVs().setStat(STATS[i],plan.ivs[i]);
             pokemon.getEVs().setStat(STATS[i],plan.evs[i]);
         }
-        pokemon.setMintNature(Nature.valueOf(plan.nature));
-        chooseAbility(pokemon,physical>=special);
+        applyNature(pokemon,plan);
+        chooseAbility(pokemon,training.physical);
         pokemon.getStats().recalculateStats();
         pokemon.getPersistentData().func_74768_a("BackportLeaderTraining",1);
         pokemon.getPersistentData().func_74778_a("BackportLeaderRole",plan.role);
@@ -57,7 +76,7 @@ public final class NpcTraining {
     public static void copy(Pokemon source,Pokemon snapshot){
         for(BattleStatsType stat:STATS){snapshot.getIVs().setStat(stat,source.getIVs().getStat(stat));snapshot.getIVs().setHyperTrained(stat,source.getIVs().isHyperTrained(stat));}
         snapshot.getEVs().fillFromArray(source.getEVs().getArray());
-        snapshot.setMintNature(source.getMintNature());snapshot.setAbility(source.getAbility());snapshot.getStats().recalculateStats();
+        copyNature(source,snapshot);snapshot.setAbility(source.getAbility());snapshot.getStats().recalculateStats();
         snapshot.getPersistentData().func_74768_a("BackportLeaderTraining",1);
         snapshot.getPersistentData().func_74778_a("BackportLeaderRole",source.getPersistentData().func_74779_i("BackportLeaderRole"));
     }

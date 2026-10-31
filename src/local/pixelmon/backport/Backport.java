@@ -50,6 +50,7 @@ public final class Backport {
         REGISTERED.put("gender_potion",ITEMS.register("gender_potion",GenderPotion::new));
         REGISTERED.put("mysterious_potion",ITEMS.register("mysterious_potion",MysteriousPotion::new));
         REGISTERED.put("divine_sword",ITEMS.register("divine_sword",DivineSword::new));
+        REGISTERED.put("fruit_collector",ITEMS.register("fruit_collector",FruitCollector::new));
         REGISTERED.put("glow_scale_dust",ITEMS.register("glow_scale_dust",GlowScaleDust::new));
         REGISTERED.put("tera_raid_music_disc",ITEMS.register("tera_raid_music_disc",()->new net.minecraft.item.MusicDiscItem(14,BackportSounds.TERA_RAID,new Item.Properties().func_200917_a(1).func_208103_a(net.minecraft.item.Rarity.RARE).func_200916_a(CREATIVE_TAB))));
         REGISTERED.put("wild_music_disc_two",ITEMS.register("wild_music_disc_two",()->new net.minecraft.item.MusicDiscItem(15,BackportSounds.WILD_TWO,new Item.Properties().func_200917_a(1).func_208103_a(net.minecraft.item.Rarity.RARE).func_200916_a(CREATIVE_TAB))));
@@ -118,7 +119,8 @@ public final class Backport {
         Pixelmon.EVENT_BUS.register(new FishingEnchantments());
         LootSourceNetwork.register();
         QuestSyncRecovery.register();
-        FieldMega.register();
+        PartyLoginSync.register();
+        FieldMega.register();EvolutionGuideNetwork.register();
         Pixelmon.EVENT_BUS.register(new CapPikachu());
         Pixelmon.EVENT_BUS.register(new Calamity());
         Pixelmon.EVENT_BUS.register(new BossDefeatAdvancements());
@@ -133,6 +135,7 @@ public final class Backport {
         Pixelmon.EVENT_BUS.register(new InvalidSpeciesSeal());
         CapBallPreference capBalls=new CapBallPreference();Pixelmon.EVENT_BUS.register(capBalls);net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(capBalls);
         Pixelmon.EVENT_BUS.register(new GymChallenge());
+        Pixelmon.EVENT_BUS.register(new TrainerItemClause());
         Pixelmon.EVENT_BUS.register(new AuthorChallenge());
         Pixelmon.EVENT_BUS.register(new AppearanceAdvancements());
         Pixelmon.EVENT_BUS.register(new TeraItems.Charging());

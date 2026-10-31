@@ -17,5 +17,7 @@ public abstract class RecolorRecipeMixin {
   local.pixelmon.backport.UltraMaterialRecipes.apply(recipes);
   recipes.remove(new ResourceLocation("pixelmon:pokeball/ball/park_ball"));
   recipes.remove(new ResourceLocation("pixelmon:machines/computer/pc"));
+  recipes.remove(new ResourceLocation("ironfurnaces:silver_furnace2"));
+  recipes.remove(new ResourceLocation("ironfurnaces:iron_furnace2"));
  }
 }

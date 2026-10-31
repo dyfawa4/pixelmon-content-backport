@@ -1,0 +1,34 @@
+{
+  "dex": 718,
+  "form": "mega",
+  "size": [
+    64,
+    64
+  ],
+  "camera": {
+    "measurement_size": 256,
+    "measurement_scale": 16,
+    "final_scale": 4,
+    "yaw_input": -25,
+    "pitch_input": 0
+  },
+  "validation": "Native model and icon comparison; full silhouette, transparent corners, separate ordinary and shiny palettes",
+  "renders": [
+    {
+      "palette": "none",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/718_zygarde/all/mega/none/sprite.png",
+      "resource_sha256": "20d9e1d71ea7cb746b9c8dd7d5d5323bf2190c1c24f9eefeaa2e98bbdae2bb0c",
+      "source_path": "assets/pixelmon_backport/textures/reference/pokemon/718_zygarde/all/mega/none/model.pqc",
+      "source_sha256": "1257328dfb1efa97db86ef683a7187f6a2b57e82cc0f504620cb57e4149c4942",
+      "operation": "64x64 transparent GPU render of the installed Mega Zygarde model and matching palette; native InventoryScreen camera; measured framing; no invented artwork, recoloring, resize or sprite edit"
+    },
+    {
+      "palette": "shiny",
+      "resource": "assets/pixelmon_backport/textures/reference/pokemon/718_zygarde/all/mega/shiny/sprite.png",
+      "resource_sha256": "c866318d9bbd46c4953e23c79110445f2ead781664c0deb132c7a7b4fb493d24",
+      "source_path": "assets/pixelmon_backport/textures/reference/pokemon/718_zygarde/all/mega/none/model.pqc",
+      "source_sha256": "1257328dfb1efa97db86ef683a7187f6a2b57e82cc0f504620cb57e4149c4942",
+      "operation": "64x64 transparent GPU render of the installed Mega Zygarde model and matching palette; native InventoryScreen camera; measured framing; no invented artwork, recoloring, resize or sprite edit"
+    }
+  ]
+}

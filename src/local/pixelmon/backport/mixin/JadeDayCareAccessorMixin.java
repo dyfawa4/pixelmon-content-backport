@@ -1,5 +1,6 @@
 package local.pixelmon.backport.mixin;
 import local.pixelmon.backport.DayCareFootprint;
+import local.pixelmon.backport.TumblestoneFootprint;
 import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,8 +26,8 @@ public abstract class JadeDayCareAccessorMixin {
  @Shadow public ItemStack stack;
  @Inject(method="set(Lnet/minecraft/world/World;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/math/RayTraceResult;Lnet/minecraft/entity/Entity;D)V",at=@At("RETURN"))
  private void backport$wholeDaycare(World w,PlayerEntity p,RayTraceResult hit,Entity entity,double partial,CallbackInfo ci){
-  if(!(hitResult instanceof BlockRayTraceResult)||!DayCareFootprint.upper(state))return;
-  BlockPos base=pos.func_177977_b();BlockState lower=world.func_180495_p(base);if(!DayCareFootprint.lower(lower))return;
+  if(!(hitResult instanceof BlockRayTraceResult)||!DayCareFootprint.upper(state)&&!(state.func_177230_c() instanceof TumblestoneFootprint.Upper))return;
+  BlockPos base=pos.func_177977_b();BlockState lower=world.func_180495_p(base);if(!DayCareFootprint.lower(lower)&&!TumblestoneFootprint.ore(lower))return;
   BlockRayTraceResult old=(BlockRayTraceResult)hitResult;
   pos=base;state=lower;block=lower.func_177230_c();blockRegistryName=block.getRegistryName();tileEntity=world.func_175625_s(base);
   hitResult=new BlockRayTraceResult(old.func_216347_e(),old.func_216354_b(),base,old.func_216353_d());

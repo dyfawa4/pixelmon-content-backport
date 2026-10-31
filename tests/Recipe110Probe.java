@@ -1,0 +1,25 @@
+package qa;
+import java.nio.file.*;import java.util.*;
+import net.minecraftforge.fml.common.Mod;import net.minecraftforge.eventbus.api.SubscribeEvent;import net.minecraftforge.event.TickEvent;import net.minecraftforge.fml.server.ServerLifecycleHooks;import net.minecraft.client.Minecraft;import net.minecraft.item.ItemStack;import net.minecraft.util.ResourceLocation;import local.pixelmon.backport.*;
+@Mod("backport_recipe110_probe") @Mod.EventBusSubscriber(modid="backport_recipe110_probe")
+public class Recipe110Probe {
+ static boolean opened,hidden,serverDone,done;static int ticks,checks;
+ static void check(boolean yes,String why){checks++;if(!yes)throw new AssertionError(why);}
+ static ItemStack stack(String name){return new ItemStack(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation(name)));}
+ static void fail(Throwable t){t.printStackTrace();try{Files.writeString(Path.of("recipe110-fail.txt"),t.toString());}catch(Exception ignored){}done=true;}
+ @SubscribeEvent public static void server(TickEvent.ServerTickEvent e){if(done||serverDone||e.phase!=TickEvent.Phase.END)return;var s=ServerLifecycleHooks.getCurrentServer();if(s==null||s.func_184103_al().func_181057_v().isEmpty()||++ticks<120)return;try{
+  var player=s.func_184103_al().func_181057_v().get(0);var recipe=(net.minecraft.item.crafting.ShapedRecipe)s.func_199529_aN().func_215367_a(new ResourceLocation(Content.NS,"radiant_ball")).orElseThrow();
+  var grid=new net.minecraft.inventory.CraftingInventory(new net.minecraft.inventory.container.Container(null,-1){public boolean func_75145_c(net.minecraft.entity.player.PlayerEntity p){return true;}},3,3);
+  String[] ingredients={Content.NS+":glow_scale_dust",Content.NS+":glow_scale_dust",Content.NS+":glow_scale_dust","pixelmon:shiny_stone","","pixelmon:luminous_moss","pixelmon:bright_powder","pixelmon:gold_bottle_cap","pixelmon:light_clay"};
+  for(int i=0;i<9;i++)grid.func_70299_a(i,i==4?MasterBallIngredient.modern():stack(ingredients[i]));
+  check(recipe.func_77569_a(grid,player.field_70170_p),"Actual native recipe matches three dusts and all original other ingredients");var output=recipe.func_77572_b(grid);check(output.func_190916_E()==1&&output.func_77973_b().getRegistryName().toString().equals("pixelmon:poke_ball")&&output.func_77978_p().func_74779_i("PokeBallID").equals("radiant_ball"),"Native recipe keeps shared-ball item, single output and exact radiant NBT");
+  for(int slot:new int[]{0,2}){var saved=grid.func_70301_a(slot);for(String wrong:List.of("minecraft:shroomlight","minecraft:glowstone")){grid.func_70299_a(slot,stack(wrong));check(!recipe.func_77569_a(grid,player.field_70170_p),"Old light blocks rejected at replaced slot "+slot);}grid.func_70299_a(slot,saved);}
+  for(int i=0;i<9;i++){var saved=grid.func_70301_a(i);grid.func_70299_a(i,ItemStack.field_190927_a);check(!recipe.func_77569_a(grid,player.field_70170_p),"Every original position remains required "+i);grid.func_70299_a(i,saved);}
+  grid.func_70299_a(4,PokeBallIngredient.modern());check(!recipe.func_77569_a(grid,player.field_70170_p),"Ordinary shared ball cannot replace Master Ball");serverDone=true;
+ }catch(Throwable t){fail(t);}}
+ @SubscribeEvent public static void client(TickEvent.ClientTickEvent e){if(e.phase!=TickEvent.Phase.END)return;var mc=Minecraft.func_71410_x();if(done){mc.func_71400_g();return;}mc.field_71474_y.field_82881_y=false;if(!hidden){org.lwjgl.glfw.GLFW.glfwHideWindow(mc.func_228018_at_().func_198092_i());hidden=true;}if(!opened&&mc.field_71462_r instanceof net.minecraft.client.gui.screen.MainMenuScreen){opened=true;mc.func_238191_a_("backport-qa-single");}if(mc.field_71439_g!=null){com.pixelmonmod.pixelmon.client.ServerStorageDisplay.showStarterScreen=false;mc.func_147108_a(null);}if(!serverDone)return;try{
+  for(String item:List.of("repel","super_repel","max_repel")){String value=net.minecraft.client.resources.I18n.func_135052_a("item.pixelmon."+item+".tooltip");check(value.equals("使用后，一段时间内周围不再生成宝可梦"),"Actual loaded Chinese tooltip "+item+" = "+value);var spray=stack("pixelmon:"+item);check(((com.pixelmonmod.pixelmon.items.PixelmonItem)spray.func_77973_b()).getTooltipText(spray).equals(value),"Native item description resolves updated exact sentence "+item);var tooltip=spray.func_82840_a(mc.field_71439_g,net.minecraft.client.util.ITooltipFlag.TooltipFlags.NORMAL);String folded=net.minecraft.client.resources.I18n.func_135052_a("gui.tooltip.collapsed");check(tooltip.stream().anyMatch(t->t.getString().contains(folded)),"Native Shift folding retained "+item);}
+  if(net.minecraftforge.fml.ModList.get().isLoaded("ohmygod_greninja")){check(GreninjaEnhancement.enabled(),"Optional companion detected by actual Forge ModList");check(net.minecraftforge.fml.ModList.get().getModContainerById("ohmygod_greninja").orElseThrow().getModInfo().getVersion().toString().equals("1.0.3"),"Actual compatible companion version 1.0.3");}
+  Files.writeString(Path.of("recipe110-pass.txt"),"PASS "+checks+" native Radiant crafting/NBT and all three actual Chinese spray tooltips; optional="+GreninjaEnhancement.enabled());done=true;
+ }catch(Throwable t){fail(t);}}
+}

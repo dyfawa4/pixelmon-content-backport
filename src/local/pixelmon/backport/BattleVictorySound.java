@@ -15,7 +15,7 @@ public final class BattleVictorySound {
     public static final ResourceLocation SOUND=new ResourceLocation("minecraft:ui.toast.challenge_complete");
     public static boolean eligible(PlayerParticipant player,BattleEndEvent event){
         var battle=event.getBattleController();
-        if(battle==null||battle.simulateMode||event.isAbnormal()||!battle.participants.contains(player)||event.getResults().get(player)!=BattleResults.VICTORY)return false;
+        if(battle==null||battle.simulateMode||event.isAbnormal()||event.getCause()!=com.pixelmonmod.pixelmon.api.battles.BattleEndCause.NORMAL||!battle.participants.contains(player)||event.getResults().get(player)!=BattleResults.VICTORY)return false;
         for(var opponent:player.getOpponents()){
             if(opponent instanceof TrainerParticipant){var npc=((TrainerParticipant)opponent).trainer;
                 if(npc!=null&&(npc.isGymLeader||AuthorBossTeams.is(npc)||GymCities.isLeader(npc)))return true;

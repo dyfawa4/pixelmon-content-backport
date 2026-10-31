@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSD",
+    "WFI",
+    "CRA"
+  ],
+  "key": {
+    "P": {
+      "item": "pixelmon:platinum_block"
+    },
+    "S": {
+      "item": "minecraft:sticky_piston"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    },
+    "W": {
+      "item": "pixelmon:silver_block"
+    },
+    "F": {
+      "item": "pixelmon:stick_plate"
+    },
+    "I": {
+      "item": "minecraft:iron_block"
+    },
+    "C": {
+      "item": "pixelmon:silicon_block"
+    },
+    "R": {
+      "item": "minecraft:repeater"
+    },
+    "A": {
+      "item": "pixelmon:aluminium_block"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:fruit_collector",
+    "count": 1
+  }
+}

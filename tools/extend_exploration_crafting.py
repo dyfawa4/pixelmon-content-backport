@@ -66,6 +66,11 @@ def apply(output=None):
  write(p,help)
  for lang,changes in {
   'zh_cn':{
+   'item.pixelmon.repel.apply':'喷雾已生效！一段时间内周围不再生成宝可梦。',
+   'item.pixelmon.repel.applyextended':'喷雾时效已延长！一段时间内周围不再生成宝可梦。',
+   'item.pixelmon.repel.tooltip':'使用后，一段时间内周围不再生成宝可梦',
+   'item.pixelmon.super_repel.tooltip':'使用后，一段时间内周围不再生成宝可梦',
+   'item.pixelmon.max_repel.tooltip':'使用后，一段时间内周围不再生成宝可梦',
    'attack.origin_of_thunder.description':'威力185的专属电系 Z 招式，展开爆裂场地。保留电气场地原有效果；展开方电属性宝可梦的电系招式非中性倍率增加25%，对方攻击本方电属性宝可梦的非中性倍率降低25%。中性与免疫不变，捕捉倍率额外加2；禁止捕捉仍无效。持续至被其他场地覆盖或本场对战结束。',
    'attack.ninja_training.description':'大幅提高自身特攻。',
    'item.pixelmon.legend_plate.tooltip':'一块灌注了万物本源之力的石板。对特定宝可梦使用后，可使其获得所有属性的力量。',
@@ -103,7 +108,7 @@ def apply(output=None):
  }.items():
   path=output/f'assets/{NS}/lang/{lang}.json';data=json.loads(path.read_text('utf-8'));data.update(changes)
   if lang=='zh_cn':data.update(json.loads((output/'assets/comforts/lang/zh_cn.json').read_text('utf-8')))
-  write(output/f'backport/description_fixes_{lang}.json',{key:value for key,value in changes.items() if key.endswith(('.tooltip','.desc','.description')) or key=='item.pixelmon_backport.tera_raid_music_disc'})
+  write(output/f'backport/description_fixes_{lang}.json',{key:value for key,value in changes.items() if key.endswith(('.tooltip','.desc','.description')) or key in ('item.pixelmon_backport.tera_raid_music_disc','item.pixelmon.repel.apply','item.pixelmon.repel.applyextended')})
   write(path,data)
  from extend_oath_mega import apply as apply_oath_mega
  apply_oath_mega()

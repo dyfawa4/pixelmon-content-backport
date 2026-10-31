@@ -1,0 +1,8 @@
+{
+  "type": "pixelmon_backport:exploration_masks",
+  "conditions": [],
+  "chance": 0.15,
+  "tables": {
+    "minecraft:chests/woodland_mansion": "pixelmon_backport:fruit_collector"
+  }
+}
