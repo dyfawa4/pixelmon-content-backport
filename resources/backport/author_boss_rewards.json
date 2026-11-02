@@ -1,5 +1,5 @@
 {
-  "master_ball_percent": 50,
+  "master_ball_percent": 30,
   "money_min": 500000,
   "money_max": 1000000,
   "extra_draws": 7,
@@ -653,5 +653,8 @@
       "count": 1,
       "display_zh": "果实收集器"
     }
-  ]
+  ],
+  "gs_ball_percent": 50,
+  "radiant_ball_percent": 5,
+  "spectral_ball_percent": 15
 }

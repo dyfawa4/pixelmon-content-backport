@@ -12,6 +12,7 @@ public final class ItemHelpTooltip {
         append(event.getItemStack(),event.getToolTip(),true);
     }
     public static void append(net.minecraft.item.ItemStack stack,List<ITextComponent> lines,boolean shift){
+        if(EndlessHeldItems.is(stack))return; // ItemDescriptionReview adds its dedicated craft-only help.
         if(ItemDescriptionReview.replaces(stack))return;
         List<ITextComponent> details=ItemHelp.details(stack);if(details.isEmpty())return;
         for(ITextComponent detail:details)lines.add(detail.func_230532_e_().func_240699_a_(TextFormatting.GRAY));

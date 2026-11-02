@@ -23,6 +23,14 @@ public final class FishingEnchantments {
         var type=((FishingRodItem)stack.func_77973_b()).getRodType();
         return type==EnumRodType.OldRod||type==EnumRodType.GoodRod||type==EnumRodType.SuperRod;
     }
+    public static boolean allowed(Enchantment enchantment){
+        var id=enchantment.getRegistryName();
+        return id!=null&&id.func_110624_b().equals("minecraft")&&Set.of("luck_of_the_sea","lure","unbreaking","mending","vanishing_curse","fortune","looting").contains(id.func_110623_a());
+    }
+    public static boolean rejectsBook(ItemStack rod,ItemStack book){
+        return supported(rod)&&book.func_77973_b()==net.minecraft.item.Items.field_151134_bR
+            &&EnchantmentHelper.func_82781_a(book).keySet().stream().anyMatch(e->!allowed(e));
+    }
     public static boolean bookOnly(Enchantment enchantment){
         var id=enchantment.getRegistryName();return new ResourceLocation("minecraft:fortune").equals(id)||new ResourceLocation("minecraft:looting").equals(id);
     }

@@ -17,6 +17,7 @@ public final class ItemDescriptionReview {
  public static void apply(ItemStack stack,List<ITextComponent> lines){
   var key=stack.func_77973_b().getRegistryName();if(key==null||lines.isEmpty())return;
   String id=key.toString();
+  if(local.pixelmon.backport.EndlessHeldItems.is(stack))lines.add(1,new TranslationTextComponent("pixelmon.backport.endless.description").func_240699_a_(TextFormatting.GRAY));
   if(replaces(stack)){
    String description=DATA.get(id).getAsString();
    // Remove native tooltip/hint output, but retain name, enchantments, lore and advanced metadata.

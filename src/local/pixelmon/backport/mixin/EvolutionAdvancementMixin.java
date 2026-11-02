@@ -11,11 +11,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value=EvolutionQuery.class,remap=false)
 public abstract class EvolutionAdvancementMixin {
     @Shadow Pokemon pokemon;
+    @Shadow com.pixelmonmod.pixelmon.api.pokemon.stats.evolution.Evolution evolution;
     @Shadow ServerPlayerEntity player;
     @Shadow boolean normalEvolution;
     @Unique private int backport$beforeDex;
     @Inject(method="doEvoSwitch",at=@At("HEAD"),cancellable=true)
     private void backport$beforeEvolution(CallbackInfo ci){
+        if(!local.pixelmon.backport.DeltaOrb.ready(evolution,pokemon)){((EvolutionQuery)(Object)this).abort();ci.cancel();return;}
         backport$beforeDex=pokemon==null?-1:pokemon.getSpecies().getDex();
         if(normalEvolution && backport$beforeDex==local.pixelmon.backport.CapSpecies.DEX){((EvolutionQuery)(Object)this).abort();ci.cancel();}
     }

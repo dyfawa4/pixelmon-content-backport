@@ -58,6 +58,7 @@ public final class Backport {
         REGISTERED.put("boss_spawn_checker",ITEMS.register("boss_spawn_checker",BossSpawnCheckItem::new));
         REGISTERED.put("normal_spawn_checker",ITEMS.register("normal_spawn_checker",()->new SpawnCheckItem(false)));
         REGISTERED.put("tera_blast_disc_single_use",ITEMS.register("tera_blast_disc_single_use",DisposableTeraDisc::new));
+        for(String id:EndlessHeldItems.IDS){String name=EndlessHeldItems.name(id);String original=id.substring(id.indexOf(':')+1);REGISTERED.put(name,ITEMS.register(name,()->EndlessRegisteredItems.create(original)));}
         for(Map.Entry<String,JsonElement> definition:GymCities.DATA.getAsJsonObject("newThemes").entrySet()){
             String name=definition.getKey()+"_gym_badge";
             REGISTERED.put(name,ITEMS.register(name,com.pixelmonmod.pixelmon.items.BadgeItem::new));
@@ -88,6 +89,10 @@ public final class Backport {
         net.minecraftforge.common.crafting.CraftingHelper.register(PokeBallIngredient.ID,PokeBallIngredient.SERIALIZER);
         net.minecraftforge.common.crafting.CraftingHelper.register(BeastBallIngredient.ID,BeastBallIngredient.SERIALIZER);
         net.minecraftforge.common.crafting.CraftingHelper.register(BallLidIngredient.ID,BallLidIngredient.SERIALIZER);
+        net.minecraftforge.common.crafting.CraftingHelper.register(PlainHeldIngredient.ID,PlainHeldIngredient.SERIALIZER);
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(new EndlessHeldItems.Migration());
+        DeltaOrb delta=new DeltaOrb();net.minecraftforge.common.MinecraftForge.EVENT_BUS.register(delta);Pixelmon.EVENT_BUS.register(delta);
+        Pixelmon.EVENT_BUS.register(new ShrineOrbCharging());
         Pixelmon.EVENT_BUS.register(new MysteriousPotion.Events());
         ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TumblestoneFootprint.UPPER.getId();

@@ -14,7 +14,6 @@ import com.pixelmonmod.pixelmon.entities.projectiles.HookEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.util.text.*;
 import java.util.List;
 /** Same enchanting value/vanishing eligibility as the vanilla rod; durability/mending/grindstone stay native. */
@@ -23,23 +22,12 @@ public abstract class FishingRodEnchantabilityMixin extends PixelmonItem impleme
     protected FishingRodEnchantabilityMixin(Item.Properties properties){super(properties);}
     @Override public int func_77619_b(){return 1;}
     @Override public boolean func_77616_k(ItemStack stack){return stack.func_77976_d()==1&&stack.func_77984_f();}
-    @Override public boolean isBookEnchantable(ItemStack stack,ItemStack book){return true;}
+    @Override public boolean isBookEnchantable(ItemStack stack,ItemStack book){return !FishingEnchantments.rejectsBook(stack,book);}
     @Override public boolean canApplyAtEnchantingTable(ItemStack stack,Enchantment enchantment){
-        return !(FishingEnchantments.supported(stack)&&FishingEnchantments.bookOnly(enchantment))&&super.canApplyAtEnchantingTable(stack,enchantment);
+        return FishingEnchantments.supported(stack)?FishingEnchantments.allowed(enchantment)&&!FishingEnchantments.bookOnly(enchantment):super.canApplyAtEnchantingTable(stack,enchantment);
     }
     @Inject(method="func_77659_a",at=@At("RETURN"))
     private void backport$castingHand(World world,PlayerEntity player,Hand hand,CallbackInfoReturnable<ActionResult<ItemStack>> ci){
         if(!world.field_72995_K&&player.field_71104_cf instanceof HookEntity)FishingEnchantments.bind((HookEntity)player.field_71104_cf,player.func_184586_b(hand));
-    }
-    @Inject(method="func_77624_a",at=@At("TAIL"))
-    private void backport$fishingRules(ItemStack stack,World world,List<ITextComponent> tooltip,ITooltipFlag flag,CallbackInfo ci){
-        if(!FishingEnchantments.supported(stack))return;
-        tooltip.add(new TranslationTextComponent("tooltip.pixelmon_backport.fishing.books"));
-        int total=FishingEnchantments.total(stack);
-        if(total==0)tooltip.add(new TranslationTextComponent("tooltip.pixelmon_backport.fishing.zero"));
-        else{
-            tooltip.add(new TranslationTextComponent("tooltip.pixelmon_backport.fishing.bonus",total,total*10));
-            tooltip.add(new TranslationTextComponent("tooltip.pixelmon_backport.fishing.cost",FishingEnchantments.catchDamage(stack)));
-        }
     }
 }

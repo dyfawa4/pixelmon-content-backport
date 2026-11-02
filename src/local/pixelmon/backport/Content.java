@@ -25,7 +25,10 @@ public final class Content {
     public static void apply(String context, String type, Map<ResourceLocation, JsonElement> data) {
         if (!"pixelmon".equals(context)) return;
         if("species".equals(type)){GymCounterTeam.clearCache();MysteriousPotion.clear();}
-        if("quests".equals(type))DrownedQuestSeason.apply(data);
+        if("quests".equals(type)){
+            data.entrySet().removeIf(e->e.getKey().func_110624_b().equals("pixelmon")&&Set.of("magenta/dynamax","dynamax").contains(e.getKey().func_110623_a()));
+            DrownedQuestSeason.apply(data);
+        }
         if("drops".equals(type))MaxRaidRewards.apply(data);
         if("bosstiers".equals(type)){AuthorBossRewards.captureTierPools(data);DrownedBosses.configure(data);}
         GrowthLampLoot.apply(type,data);

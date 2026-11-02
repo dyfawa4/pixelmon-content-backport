@@ -13,8 +13,8 @@ import net.minecraft.util.text.*;
 
 /** Loaded only on a JEI client. All displayed outputs are copies of server data. */
 public final class LootSourceJei {
- public static final String[] GROUPS={"structures","max_raids","tera_raids","bosses","shops","pokemon_drops","cooking","fishing"};
- private static final String[] TITLES={"建筑与奖励箱","极巨巢穴掉落","太晶巢穴掉落","Boss等级掉落","店员与售货机购买","宝可梦掉落","料理锅制作","钓鱼产物与条件"};
+ public static final String[] GROUPS={"structures","max_raids","tera_raids","bosses","shops","cooking","fishing"};
+ private static final String[] TITLES={"建筑与奖励箱","极巨巢穴掉落","太晶巢穴掉落","Boss等级掉落","店员与售货机购买","料理锅制作","钓鱼产物与条件"};
  private static IJeiRuntime runtime;private static UUID generation;private static int expected;
  private static final Map<Integer,List<LootSourceCatalog.Source>> batches=new TreeMap<>();
  private static List<LootSourceCatalog.Source> current=List.of();private static final List<Page> installed=new ArrayList<>();
@@ -25,7 +25,7 @@ public final class LootSourceJei {
  public static void catalysts(IRecipeCatalystRegistration registry){for(String group:GROUPS)registry.addRecipeCatalyst(icon(group),uid(group));for(String rod:List.of("old_rod","good_rod"))registry.addRecipeCatalyst(new ItemStack(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation("pixelmon",rod))),uid("fishing"));}
  public static void attach(IJeiRuntime value){runtime=value;installed.clear();known.clear();apply();}
  public static void receive(LootSourceNetwork.Batch batch){if(!batch.generation.equals(generation)){generation=batch.generation;expected=batch.total;batches.clear();}if(batch.total!=expected)return;batches.put(batch.index,batch.sources);if(batches.size()!=expected)return;List<LootSourceCatalog.Source> all=new ArrayList<>();for(var values:batches.values())all.addAll(values);current=List.copyOf(all);batches.clear();apply();}
- private static void apply(){if(runtime==null)return;var manager=runtime.getRecipeManager();for(Page old:installed)manager.hideRecipe(old,uid(old.source.group));installed.clear();for(var source:current)for(int offset=0;offset<source.entries.size();offset+=28){Page candidate=new Page(source,offset);String key=candidate.key();Page page=known.get(key);if(page==null){page=candidate;known.put(key,page);manager.addRecipe(page,uid(source.group));}else manager.unhideRecipe(page,uid(source.group));installed.add(page);}}
+ private static void apply(){if(runtime==null)return;var manager=runtime.getRecipeManager();for(Page old:installed)manager.hideRecipe(old,uid(old.source.group));installed.clear();for(var original:current){if(!Arrays.asList(GROUPS).contains(original.group))continue;var entries=new ArrayList<LootSourceCatalog.Entry>();for(var entry:original.entries)if(!BackportJeiPlugin.secret(entry.stack))entries.add(entry);if(entries.isEmpty())continue;var source=new LootSourceCatalog.Source(original.group,original.id,original.title,original.detail,entries);for(int offset=0;offset<source.entries.size();offset+=28){Page candidate=new Page(source,offset);String key=candidate.key();Page page=known.get(key);if(page==null){page=candidate;known.put(key,page);manager.addRecipe(page,uid(source.group));}else manager.unhideRecipe(page,uid(source.group));installed.add(page);}}}
  public static void clear(){generation=null;expected=0;batches.clear();current=List.of();apply();}
  public static final class Disconnect {@net.minecraftforge.eventbus.api.SubscribeEvent public void logout(net.minecraftforge.client.event.ClientPlayerNetworkEvent.LoggedOutEvent event){clear();}}
  public static final class Page {

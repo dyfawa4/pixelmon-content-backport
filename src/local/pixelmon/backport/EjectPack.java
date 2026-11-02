@@ -12,7 +12,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 
 /** Deferred forced switching adapted to the legacy held-item callback contract. */
-public final class EjectPack extends HeldItem {
+public class EjectPack extends HeldItem {
     private static final Map<PixelmonWrapper,String> PENDING=new WeakHashMap<>();
     private static final Map<BattleController,String> SWITCHED=new WeakHashMap<>();
     public EjectPack(){super(EnumHeldItems.ejectPack,new Item.Properties());}

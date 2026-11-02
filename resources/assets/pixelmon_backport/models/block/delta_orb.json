@@ -1,0 +1,11 @@
+{
+  "loader": "forge:obj",
+  "model": "pixelmon_backport:models/block/delta_orb.obj",
+  "flip-v": true,
+  "detectCullableFaces": false,
+  "diffuseLighting": true,
+  "ambientToFullbright": false,
+  "textures": {
+    "particle": "pixelmon_backport:block/delta_orb"
+  }
+}

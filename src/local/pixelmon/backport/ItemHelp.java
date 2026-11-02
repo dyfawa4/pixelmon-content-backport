@@ -13,6 +13,7 @@ public final class ItemHelp {
     }catch(IOException e){throw new ExceptionInInitializerError(e);}}
     private ItemHelp(){}
     public static List<ITextComponent> details(ItemStack stack){
+        if(EndlessHeldItems.is(stack))return Collections.singletonList(new TranslationTextComponent("pixelmon.backport.endless.description").func_240699_a_(TextFormatting.GRAY));
         if(stack.func_77973_b() instanceof GrowthLamp)return Arrays.asList(new TranslationTextComponent(((GrowthLamp)stack.func_77973_b()).direction<0?"pixelmon.backport.growth_lamp.shrink":"pixelmon.backport.growth_lamp.enlarge"),new TranslationTextComponent("pixelmon.backport.growth_lamp.consume"),new TranslationTextComponent("pixelmon.backport.growth_lamp.scope"));
         if(stack.func_77973_b() instanceof com.pixelmonmod.pixelmon.items.heldItems.MegaStoneItem)return MegaStoneHelp.details(stack);
         if(stack.func_77973_b() instanceof com.pixelmonmod.pixelmon.items.SpawnDenItem||stack.func_77973_b() instanceof TeraDenItem)return java.util.Arrays.asList(new TranslationTextComponent("pixelmon.backport.den_spawner.use"),new TranslationTextComponent("pixelmon.backport.den_spawner.consume"));

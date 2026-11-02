@@ -10,6 +10,12 @@ import org.spongepowered.asm.mixin.injection.callback.*;
 /** The native equipment drawer stays open; all native equipment click paths remain. */
 @Mixin(value=InventoryPixelmon.class,remap=false)
 public abstract class InventoryDrawerMixin {
+    @Inject(method="heldItemQualifies",at=@At("RETURN"),cancellable=true,require=1)
+    private void backport$passiveOrb(com.pixelmonmod.pixelmon.api.pokemon.Pokemon pokemon,CallbackInfoReturnable<Boolean> ci){
+        if(ci.getReturnValue())return;
+        var player=net.minecraft.client.Minecraft.func_71410_x().field_71439_g;
+        if(player!=null&&player.field_71071_by.func_70445_o().func_77973_b()==com.pixelmonmod.pixelmon.api.registries.PixelmonItems.jade_orb)ci.setReturnValue(true);
+    }
     @Shadow private boolean drawerOut;
     @Shadow private int drawerOffset;
     @Shadow private int partyWidth;

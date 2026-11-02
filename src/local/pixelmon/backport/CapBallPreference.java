@@ -21,7 +21,7 @@ public final class CapBallPreference {
         data.func_74778_a(TAG,saved);return saved;
     }
     public static boolean forbidden(PokeBall ball,Pokemon pokemon){return cap(pokemon)&&ball!=null&&Set.of("master_ball","origin_ball","park_ball",RadiantBallLogic.NAME).contains(ball.getName());}
-    public static boolean preferred(PokeBall ball,Pokemon pokemon){return cap(pokemon)&&ball!=null&&ball.getName().equals(selected(pokemon));}
+    public static boolean preferred(PokeBall ball,Pokemon pokemon){return cap(pokemon)&&ball!=null&&BALLS.contains(ball.getName())&&ball.getName().equals(selected(pokemon));}
     public static double multiplier(PokeBall ball,Pokemon pokemon,double nativeBonus){return forbidden(ball,pokemon)?0:preferred(ball,pokemon)?2:nativeBonus*.5;}
     public static void announce(ServerPlayerEntity player,Pokemon pokemon){
         if(player==null||!cap(pokemon))return;

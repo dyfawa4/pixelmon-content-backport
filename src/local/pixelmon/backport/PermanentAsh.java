@@ -42,8 +42,10 @@ public final class PermanentAsh {
                 for(int i=0;i<oldTargets.size();i++)if(!oldTargets.get(i).getAsString().equals(MEGA)&&!(name.equals("battle_bond")&&oldItems.get(i).getAsString().equals(Content.NS+":greninjite"))){
                     items.add(oldItems.get(i));destinations.add(oldTargets.get(i));
                 }
-                items.add(Content.NS+":ash_greninjite");destinations.add(MEGA);
             }
+            // Ash forms accept only the Ash stone, but must still expose its
+            // native mapping to both the battle menu and the server executor.
+            items.add(Content.NS+":ash_greninjite");destinations.add(MEGA);
             f.add("megaItems",items);f.add("megas",destinations);
         }
         if(existing==null)species.getAsJsonArray("forms").add(ashMega);

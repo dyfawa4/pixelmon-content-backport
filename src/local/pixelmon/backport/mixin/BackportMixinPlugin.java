@@ -11,6 +11,8 @@ public final class BackportMixinPlugin implements IMixinConfigPlugin {
     private static final String HOOK="local/pixelmon/backport/UmbrellaHooks";
     public void onLoad(String p){} public String getRefMapperConfig(){return null;}
     public boolean shouldApplyMixin(String t,String m){
+        if(t.startsWith("me.shedaniel.architectury.event."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
+        if(t.startsWith("net.p3pp3rf1y.sophisticatedbackpacks."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
         if(m.endsWith("RaidCatchClockMixin") && getClass().getClassLoader().getResource("local/raidcatchfix/PixelmonRaidCatchFix.class")!=null)return false;
         if(t.startsWith("net.blay09.mods.trashslot."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
         if(t.startsWith("snownee.jade.")||t.startsWith("mcp.mobius.waila."))return getClass().getClassLoader().getResource(t.replace('.','/')+".class")!=null;
@@ -23,6 +25,13 @@ public final class BackportMixinPlugin implements IMixinConfigPlugin {
     public List<String> getMixins(){return null;}
     public void preApply(String t,ClassNode c,String m,IMixinInfo i){}
     public void postApply(String target,ClassNode c,String mixin,IMixinInfo info){
+        if(mixin.endsWith("ArchitecturyEventRegistrationMixin")){
+            int count=0;for(MethodNode method:c.methods)if(Set.of("register","unregister","isRegistered","clearListeners","update","invoker").contains(method.name)){
+                method.access|=Opcodes.ACC_SYNCHRONIZED;count++;
+            }
+            if(count!=6)throw new IllegalStateException("Unexpected Architectury event API: "+count);
+            return;
+        }
         if(mixin.endsWith("DayCareRayTraceMixin")){
             int patched=0;
             for(MethodNode method:c.methods)if(method.name.equals("func_217297_a")&&method.desc.equals("(Lnet/minecraft/util/math/RayTraceContext;Lnet/minecraft/util/math/BlockPos;)Lnet/minecraft/util/math/BlockRayTraceResult;")){

@@ -1,0 +1,17 @@
+{
+  "name": "spectral_ball",
+  "model": "pixelmon:models/pokeballs/base.pqc",
+  "texture": "pixelmon_backport:textures/pokeballs/spectral_ball.png",
+  "flashingTexture": "pixelmon:textures/pokeballs/poke_ball_flashing.png",
+  "ballSprite": "pixelmon_backport:items/pokeballs/spectral_ball",
+  "guiSprite": "pixelmon_backport:textures/gui/overlay/spectral_ball.png",
+  "logic": "local.pixelmon.backport.SpectralBallLogic",
+  "bases": [],
+  "captureMethod": "gen8",
+  "catchBonus": 1,
+  "breakChance": 0.25,
+  "velocityModifier": 1,
+  "gravityModifier": 1,
+  "particles": false,
+  "hasLid": false
+}

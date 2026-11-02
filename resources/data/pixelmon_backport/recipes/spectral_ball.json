@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "D",
+    "B"
+  ],
+  "key": {
+    "D": {
+      "item": "pixelmon_backport:glow_scale_dust"
+    },
+    "B": {
+      "type": "pixelmon_backport:poke_ball"
+    }
+  },
+  "result": {
+    "item": "pixelmon:poke_ball",
+    "count": 1,
+    "nbt": {
+      "PokeBallID": "spectral_ball"
+    }
+  }
+}

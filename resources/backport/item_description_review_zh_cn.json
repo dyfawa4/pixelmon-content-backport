@@ -51,5 +51,8 @@
   "pixelmon:curry_beans": "在露营营地制作料理时会使用的一种食材。放进料理里一起煮，豆子的那种香甜就会散发出来。",
   "pixelmon:curry_seasoned": "在露营营地制作料理时会使用的一种食材。加入了超过５０种香辛料调配而成，香辣十足。",
   "pixelmon:curry_gigantamix": "在露营营地制作料理时会使用的食材。只要把这种神奇的香辛料往咖喱上轻轻一撒，咖喱就会变得巨大无比。",
-  "pixelmon_backport:fruit_collector": "右键果实树叶，可以连锁20个树叶上的果实一起采摘，但是造价极高，容易损坏。"
+  "pixelmon_backport:fruit_collector": "右键果实树叶，可以连锁20个树叶上的果实一起采摘，但是造价极高，容易损坏。可以附魔耐久和时运",
+  "pixelmon:delta_shard": "貌似并没有什么作用，获得方式未知。",
+  "pixelmon:alpha_shard": "可以放在地上拼成完整的宝珠",
+  "pixelmon:omega_shard": "可以放在地上拼成完整的宝珠"
 }

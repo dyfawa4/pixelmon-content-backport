@@ -4,7 +4,8 @@ param(
     [Parameter(Mandatory=$true)][string] $PixelmonJar,
     [Parameter(Mandatory=$true)][string] $JdkDirectory,
     [string] $ForgeClientJar,
-    [string] $JeiJar
+    [string] $JeiJar,
+    [ValidateRange(1,64)][int] $ActiveProcessors=2
 )
 $ErrorActionPreference='Stop'
 $taskJava=Join-Path $JdkDirectory 'bin/java.exe'
@@ -42,7 +43,7 @@ $taskCompileArgs=Join-Path $taskBuild 'javac.args'
 $taskCompileLines=@('--release','11','-proc:none','-encoding','UTF-8','-cp',('"'+$taskClasspath.Replace('\','/')+'"'),'-d',('"'+$taskClasses.Replace('\','/')+'"'))
 $taskCompileLines+=@($taskSources | ForEach-Object {'"'+$_.Replace('\','/')+'"'})
 [IO.File]::WriteAllLines($taskCompileArgs,$taskCompileLines,[Text.UTF8Encoding]::new($false))
-& $taskJavac ('@'+$taskCompileArgs)
+& $taskJavac ('-J-XX:ActiveProcessorCount='+$ActiveProcessors) '-J-XX:CICompilerCount=2' ('@'+$taskCompileArgs)
 if($LASTEXITCODE -ne 0){throw 'Java 11 compilation failed'}
 $taskDist=(New-Item -ItemType Directory -Force -Path (Join-Path $PSScriptRoot 'dist')).FullName
 $taskMetadata=Get-Content -LiteralPath (Join-Path $PSScriptRoot 'resources/META-INF/mods.toml') -Raw

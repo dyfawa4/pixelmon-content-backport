@@ -1,0 +1,24 @@
+{
+  "parent": "pixelmon_backport:legends/root",
+  "display": {
+    "icon": {
+      "item": "pixelmon:pixelmon_sprite",
+      "nbt": "{ndex:10s,palette:\"none\",form:\"\",gender:0b}"
+    },
+    "title": {
+      "text": "飞跃龙门"
+    },
+    "description": {
+      "text": "？？？"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "earned": {
+      "trigger": "minecraft:impossible"
+    }
+  }
+}

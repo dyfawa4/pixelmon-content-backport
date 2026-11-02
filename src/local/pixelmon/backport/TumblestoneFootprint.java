@@ -14,12 +14,16 @@ public final class TumblestoneFootprint {
  public static final net.minecraftforge.fml.RegistryObject<Block> UPPER=DayCareFootprint.BLOCKS.register("tumblestone_upper",Upper::new);
  private static final ThreadLocal<Boolean> BUSY=ThreadLocal.withInitial(()->false);
  public static boolean ore(BlockState s){return s.func_177230_c() instanceof TumblestoneBlock;}
+ public static boolean snow(BlockState s){var id=s.func_177230_c().getRegistryName();return id!=null&&(id.toString().equals("minecraft:snow")||id.toString().equals("minecraft:snow_block"));}
+ public static boolean snowBlocked(World w,BlockPos pos,BlockState s){return snow(s)&&(ore(w.func_180495_p(pos.func_177977_b()))||w.func_180495_p(pos.func_177977_b()).func_177230_c() instanceof Upper);}
  public static boolean tall(BlockState s){return ore(s)&&s.func_177229_b(TumblestoneBlock.AGE)>3&&s.func_177229_b(TumblestoneBlock.DESTROYED)<3;}
  public static void changed(World w,BlockPos base){
   if(w.field_72995_K||BUSY.get()||World.func_189509_E(base.func_177984_a()))return;
   BlockPos top=base.func_177984_a();BlockState s=w.func_180495_p(base),old=w.func_180495_p(top);
   if(!ore(s)&&!(old.func_177230_c() instanceof Upper))return;
   BUSY.set(true);try{
+   if(ore(s)&&snow(old)){w.func_180501_a(top,Blocks.field_150350_a.func_176223_P(),3);old=w.func_180495_p(top);}
+   if(old.func_177230_c() instanceof Upper&&snow(w.func_180495_p(top.func_177984_a())))w.func_180501_a(top.func_177984_a(),Blocks.field_150350_a.func_176223_P(),3);
    if(tall(s)&&old.func_185904_a().func_76222_j()&&!(old.func_177230_c() instanceof Upper))w.func_180501_a(top,UPPER.get().func_176223_P().func_206870_a(net.minecraft.state.properties.BlockStateProperties.field_208198_y,w.func_204610_c(top).func_206886_c()==net.minecraft.fluid.Fluids.field_204546_a),3);
    else if(!tall(s)&&old.func_177230_c() instanceof Upper)w.func_180501_a(top,w.func_204610_c(top).func_206883_i(),3);
   }finally{BUSY.remove();}

@@ -58,7 +58,7 @@ public final class AuthorBossRewards {
         List<JsonObject> list=new ArrayList<>();for(var value:POOL){JsonObject entry=value.getAsJsonObject();if(!stack(entry).func_190926_b())list.add(entry);}return list;
     }
     private static void addUnique(List<JsonObject> pool,JsonObject entry){
-        var candidate=stack(entry);if(!PokeChestLoot.valid(candidate)||PokeChestLoot.masterBall(candidate)||DrownedBosses.exclusive(candidate.func_77973_b())||new ResourceLocation(MysteriousPotionLoot.ITEM).equals(candidate.func_77973_b().getRegistryName()))return;
+        var candidate=stack(entry);if(!PokeChestLoot.valid(candidate)||prizeBall(candidate)||DrownedBosses.exclusive(candidate.func_77973_b())||new ResourceLocation(MysteriousPotionLoot.ITEM).equals(candidate.func_77973_b().getRegistryName()))return;
         for(var row:pool){var previous=stack(row);if(previous.func_77973_b()==candidate.func_77973_b()&&Objects.equals(previous.func_77978_p(),candidate.func_77978_p()))return;}
         pool.add(entry);
     }
@@ -74,10 +74,14 @@ public final class AuthorBossRewards {
         }
         return pool;
     }
-    public static boolean masterBall(Random random){return random.nextInt(100)<DATA.get("master_ball_percent").getAsInt();}
+    public static String ballName(int roll){if(roll<0||roll>=100)throw new IllegalArgumentException("Percentage roll");return roll<15?SpectralBallLogic.NAME:roll<20?RadiantBallLogic.NAME:roll<50?"master_ball":"gs_ball";}
+    /** The JEI catalogue derives percentages from the actual roll, never a stale second table. */
+    public static Map<String,Integer> ballChances(){var chances=new LinkedHashMap<String,Integer>();for(int roll=0;roll<100;roll++)chances.merge(ballName(roll),1,Integer::sum);return chances;}
+    public static boolean prizeBall(ItemStack stack){return PokeChestLoot.masterBall(stack)||com.pixelmonmod.pixelmon.items.PokeBallPart.getPokeBall(stack).map(ball->Set.of("master_ball","gs_ball",RadiantBallLogic.NAME,SpectralBallLogic.NAME).contains(ball.getName())).orElse(false);}
+    public static boolean masterBall(Random random){return ballName(random.nextInt(100)).equals("master_ball");}
     public static List<ItemStack> randomPrizes(Random random){
         var pool=randomPool();var prizes=new ArrayList<ItemStack>();
-        if(masterBall(random))prizes.add(PokeBallItem.of(PokeBallRegistry.getPokeBall("master_ball").getValueUnsafe(),1));
+        prizes.add(PokeBallItem.of(PokeBallRegistry.getPokeBall(ballName(random.nextInt(100))).getValueUnsafe(),1));
         for(int i:AuthorBossPolicy.draw(pool.size(),DATA.get("extra_draws").getAsInt(),random))prizes.add(stack(pool.get(i)));
         return prizes;
     }

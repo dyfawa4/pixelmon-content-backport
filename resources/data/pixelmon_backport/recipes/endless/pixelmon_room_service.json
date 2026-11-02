@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "type": "pixelmon_backport:plain_held_item",
+      "item": "pixelmon:room_service"
+    }
+  },
+  "result": {
+    "item": "pixelmon_backport:endless_room_service",
+    "count": 1
+  }
+}

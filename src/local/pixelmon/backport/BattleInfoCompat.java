@@ -53,7 +53,11 @@ public final class BattleInfoCompat {
         return (flags&bit)!=0?AttackCategory.PHYSICAL:AttackCategory.SPECIAL;
     }
     public static double multiplier(Attack attack,PixelmonClientData user,PixelmonClientData target,boolean inverse){
-        if(target==null || attack==null || attack.getAttackCategory()==AttackCategory.STATUS)return 1;
+        // Max/G-Max definitions inherit physical/special from their source.
+        // A GUI preview may have no originalMove link; getAttackCategory()
+        // dereferences it in that case. Only the represented move's explicit
+        // STATUS category matters for effectiveness coloring.
+        if(target==null || attack==null || attack.getMove().getAttackCategory()==AttackCategory.STATUS)return 1;
         Element type=moveType(attack,user);TeraNetwork.Snapshot s=state();
         if(type==Element.MYSTERY)return s!=null && s.active.containsKey(target.pokemonUUID)?2:1;
         double value=Element.getTotalEffectiveness(defense(target),type,inverse);

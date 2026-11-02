@@ -1,0 +1,27 @@
+{
+  "items": [
+    "pixelmon:absorb_bulb",
+    "pixelmon:air_balloon",
+    "pixelmon:berry_juice",
+    "pixelmon:blunder_policy",
+    "pixelmon:booster_energy",
+    "pixelmon:cell_battery",
+    "pixelmon:eject_button",
+    "pixelmon:electric_seed",
+    "pixelmon:focus_sash",
+    "pixelmon:grassy_seed",
+    "pixelmon:luminous_moss",
+    "pixelmon:mental_herb",
+    "pixelmon:mirror_herb",
+    "pixelmon:misty_seed",
+    "pixelmon:power_herb",
+    "pixelmon:psychic_seed",
+    "pixelmon:red_card",
+    "pixelmon:room_service",
+    "pixelmon:snowball",
+    "pixelmon:throat_spray",
+    "pixelmon:weakness_policy",
+    "pixelmon:white_herb",
+    "pixelmon_backport:eject_pack"
+  ]
+}

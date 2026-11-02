@@ -12,6 +12,7 @@ import net.minecraft.util.text.TextFormatting;
 public final class BackportJeiPlugin implements IModPlugin {
     public static java.util.List<ITextComponent> information(ItemStack stack){
         java.util.List<ITextComponent> result=new java.util.ArrayList<>();
+        if(secret(stack))return result;
         for(ITextComponent line:ItemHelp.details(stack))result.add(line.func_230532_e_().func_240699_a_(TextFormatting.BLACK));
         return result;
     }
@@ -49,8 +50,23 @@ public final class BackportJeiPlugin implements IModPlugin {
             registry.addIngredientInfo(new ItemStack(item),VanillaTypes.ITEM,lines.toArray(new ITextComponent[0]));
         }
     }
+    public static boolean secret(ItemStack stack){return stack!=null&&SecretItems.hidden(stack.func_77973_b());}
+    @SuppressWarnings({"rawtypes","unchecked"})
+    private static void hideSecret(mezz.jei.api.runtime.IJeiRuntime runtime){
+        var manager=runtime.getRecipeManager();
+        var secrets=java.util.List.of(new ItemStack(com.pixelmonmod.pixelmon.api.registries.PixelmonItems.jade_orb),new ItemStack(com.pixelmonmod.pixelmon.api.registries.PixelmonItems.delta_shard));
+        for(var stack:secrets){
+        for(var mode:mezz.jei.api.recipe.IFocus.Mode.values()){
+            var focus=manager.createFocus(mode,stack);
+            for(var category:manager.getRecipeCategories(focus,true))for(Object recipe:manager.getRecipes((mezz.jei.api.recipe.category.IRecipeCategory)category,focus,true))manager.hideRecipe(recipe,category.getUid());
+        }
+        }
+        runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM,secrets);
+    }
     @Override public void onRuntimeAvailable(mezz.jei.api.runtime.IJeiRuntime runtime){
+        var endless=new java.util.ArrayList<ItemStack>();for(String id:EndlessHeldItems.IDS)endless.add(EndlessHeldItems.of(net.minecraftforge.registries.ForgeRegistries.ITEMS.getValue(new ResourceLocation(id))));runtime.getIngredientManager().addIngredientsAtRuntime(VanillaTypes.ITEM,endless);
         LootSourceJei.attach(runtime);
+        hideSecret(runtime);
         var cards=new java.util.ArrayList<ItemStack>();
         for(ItemStack stack:runtime.getIngredientManager().getAllIngredients(VanillaTypes.ITEM))if(TcgRemoval.item(stack))cards.add(stack);
         if(!cards.isEmpty())runtime.getIngredientManager().removeIngredientsAtRuntime(VanillaTypes.ITEM,cards);
